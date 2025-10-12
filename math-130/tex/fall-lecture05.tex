@@ -1,0 +1,216 @@
+%%
+%% fall-lecture05.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-09T07:51:58-0700
+%% Last update 2025-10-09T07:51:58-0700
+%% 
+
+\lecture{}
+
+\begin{lemma}[Invariance of dimension under integral extensions]% Gathmann, Commutative Algebra, Lemma 11.8
+Let $R\subset R'$ be an integral ring extension.
+Then they have the same Krull dimensions (\S\ref{defn:fall-lecture03:krull-dimension}) $\dim(R)=\dim(R')$.
+\end{lemma}
+
+\begin{proof}
+We will prove $\dim(R)\leq\dim(R')$ and $\dim(R')\leq\dim(R)$.
+
+\textsc{Claim 1} $\dim(R)\leq\dim(R')$: if we have some chain of prime
+ideals in $R$, $P_{0}\propersubset P_{1}\propersubset\cdots\propersubset P_{n}$.
+Then using Lying Over (\S\ref{prop:fall-lec04:lying-over}) and Going Up (\S\ref{prop:fall-lec04:going-up}) gives us a chain of prime
+ideals in $R'$, $P'_{0}\propersubset P'_{1}\propersubset\cdots\propersubset P'_{r}$
+which proves the claim.
+
+\textsc{Claim 2} $\dim(R')\leq\dim(R)$; if we have a chain of prime
+ideals in $R'$, $P'_{0}\propersubset P'_{1}\propersubset\cdots\propersubset P'_{r}$,
+then intersecting with $R$ gives us
+$P_{0}\propersubset P_{1}\propersubset\cdots\propersubset P_{r}$ (the
+proper inclusion is due to Incompatibility (\S\ref{prop:fall-lec04:incompatibility})) where $P_{j}=R\cap P'_{j}$.
+Hence the claim.
+\end{proof}
+
+\begin{proposition}[Dimension of polynomial rings]% Gathmann, Commutative Algebra, Proposition 11.9
+Let $\kk$ be a field, let $n\in\NN_{0}$ be a natural number.
+\begin{enumerate}
+\item $\dim(\kk[x_{1},\dots,x_{n}])=n$
+\item All maximal chains of prime ideals in $\kk[x_{1},\dots,x_{n}]$
+  have length $n$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+We will prove both statements by induction on $n$.
+
+\textsc{Base case} $(n=0)$: obvious.
+
+\textsc{Inductive case} $(n\geq1)$: let $P_{0}\propersubset\cdots\propersubset P_{m}$
+be a chain of prime ideal in $\kk[x_{1},\dots,x_{n}]$. We will show
+$m\leq n$, and $m=n$ always for maximal chains of prime ideals.
+
+We may assume without loss of generality that $P_{0}=0$, $P_{1}$ is a
+minimal non-zero prime ideal, and that $P_{m}$ is a maximal
+ideal. (This may require extending the chain of ideals.) Then $P_{1}=(f)$
+for some monic non-zero polynomial $f$, since $\kk[x_{1},\dots,x_{n}]$
+is a unique factorization domain.
+
+Then $\kk[x_{1},\dots,x_{n}]/P_{1}$ is integral over $\kk[x_{1},\dots,x_{n-1}]$.
+We have
+\begin{equation*}
+\begin{array}{lccccc}
+\kk[x_{1},\dots,x_{n}]\qquad      & P_{1} & \propersubset & \cdots & \propersubset & P_{m}\\
+                                 & \downarrow \hbox to0pt{extension} & &       &               & \downarrow \hbox to0pt{extension} \\
+\kk[x_{1},\dots,x_{n}]/P_{1}\qquad& P_{1}/P_{1} & \propersubset & \cdots & \propersubset & P_{m}/P_{1}\\
+                                 & \downarrow \hbox to0pt{contraction} & &       &               & \downarrow \hbox to0pt{contraction} \\
+\kk[x_{1},\dots,x_{n-1}]\qquad    & (P_{1}/P_{1})\cap\kk[x_{1},\dots,x_{n-1}]& \propersubset & \cdots & \propersubset & (P_{m}/P_{1})\cap\kk[x_{1},\dots,x_{n-1}]
+\end{array}
+\end{equation*}
+We claim both these steps preserve prime ideals and their strict
+inclusions, and transfer maximal chains to maximal chains.
+
+The claim ``the chain $Q_{1}\propersubset\cdots\propersubset Q_{m}$ where $Q_{j}=(P_{j}/P_{1})\cap\kk[x_{1},\dots,x_{n-1}]$
+is maximal'' will suffice for concluding the proof thanks to the
+inductive hypothesis.
+
+In the bottom row, if it were a maximal chain of ideals, then $Q_{1}=0$ and $Q_{m}$ is a maximal ideal, and if we
+could insert another prime ideal at any step then we could do so in
+the middle chain as well.
+
+Now by the induction hypothesis, the length $m-1$ of the bottom chain
+is at most $n-1$ and equal to $n-1$ if the chain is maximal. Hence we
+always have $m=n$ if the original chain was maximal.
+\end{proof}
+
+\begin{remark}
+More generally, if $R\subset R'$ is an integral extension and $R$ is a
+finitely-generated $\kk$-algebra, and we have a chain of prime ideals
+$P_{1}\propersubset P_{2}\propersubset P_{3}$ of $R$ and we have
+prime ideals of $R'$ 
+($P'_{1}$ lying over $P_{1}$ and $P'_{3}$ lying over $P_{3}$) then
+there exists some ideal $P'2$
+\begin{equation*}
+\begin{array}{lccccc}
+R'\qquad & P'_{1} & {\color{red}\propersubset} & {\color{red}P'_{2}} & {\color{red}\propersubset} & P'_{3}\\
+\;\rotatebox{90}{$\into$}\;\quad & \downarrow &   &   &   & \downarrow\\
+R\qquad & P_{1} & \propersubset & P_{2} & \propersubset & P_{3}
+\end{array}
+\end{equation*}
+Using Noether normalization (\S\ref{thm:fall-lec04:noether-normalization}) and Going Down (\S\ref{prop:fall-lec04:going-down}) gives us the
+situations thus.
+\end{remark}
+
+\begin{corollary}
+Let $R$ be any finitely-generated $\kk$-algebra. If $R$ is an integral
+domain, then every maximal chain of prime ideals have the same length
+(namely $\dim(R)$).
+\end{corollary}
+
+\begin{proposition}[Krull's Principal Ideal Theorem]
+Let $R$ be a Noetherian ring, let $a\in R$. Then every minimal prime
+ideal $P\ideal R$ containing $a\in P$ has $\codim(R)\leq 1$.
+\end{proposition}
+
+\noindent(Geometrically: every connected component of a hypersurface has
+codimension 1.)
+
+\begin{proposition}
+Let $X$ be a nonempty irreducible affine variety.
+Let $0\neq f\in A(X)$. Then every irreducible component of $V(f)$ has
+codimension 1.
+\end{proposition}
+
+\begin{definition} % Gathmann, Algebraic Geometry, 2.32
+A Noetherian topological space $X$ is said to have \define{Pure Dimension}
+$n$ if every irreducible component of $X$ is dimension $n$.
+\end{definition}
+
+\begin{question}
+Is every irreducible hypersurface of a given irreducible variety $X$
+the zero locus of a single polynomial?
+\end{question}
+
+\begin{proposition} % Gathmann, Algebraic Geometry, Prop 2.37
+Let $R$ be a Noetherian integral domain. Then the following are equivalent:
+\begin{enumerate}
+\item Every prime ideal of codimension 1 in $R$ is irreducible.
+\item $R$ is a unique factorization domain.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$(\Longrightarrow)$ $R$ is Noetherian implies nonzero non-unit $f$ may
+  be decomposed as the product of irreducible elements (otherwise we'd
+  get an infinite chain). Suffices to show every irreducible element
+  is prime. Let $f\in R$ be an irreducible element. Choose a minimal
+  prime ideal $P\ideal R$ containing $f\in P$. Then applying Krull's
+  principal ideal theorem, $P=(g)$ for some prime element $g$. Then
+  $g\divides f$ which implies $f$ is prime.
+  
+$(\Longleftarrow)$ Let $P\ideal R$ be a prime ideal of codimension 1.
+Then we can choose a nonzero $f\in P$. Since $R$ is a unique
+factorization domain, we can decompose $f$ into a product of prime elements
+$f=f_{1}(\cdots)f_{k}$ where $f_{j}$ are all prime. Then $f_{j}\in P$
+for some $j$, which implies $0\propersubset(f_{j})\subset P$, which
+implies $(f_{j})=P$.
+\end{proof}
+
+\begin{remark}
+Let $X$ be an irreducible hypersurface in $\AA^{n}$. Then
+$I(X)=\langle f\rangle$ for some irreducible $f\in\kk[x_{1},\dots,x_{n}]$.
+\end{remark}
+
+\begin{definition} % Gathmann, Algebraic Geometry, Definition 2.39
+The \define{Degree} of a hypersurface defined by $I(X)=\langle f\rangle$
+is defined to be the degree of $f$.
+\end{definition}
+
+\subsection{Sheaf of Regular Functions}
+
+What are the functions between affine varieties? We should aim for a
+definition which makes sense on the affine variety $X$ which is its
+domain, but also on open subsets $U\subset X$.
+
+What are the functions on an open subset of an affine variety? Trying
+to define functions on local covers won't work. We will instead have
+functions which are locally fractions of polynomials. This is more
+general than ``functions which are locally polynomials''.
+
+\begin{definition} % Gathmann, Algebraic Geometry, 3.1
+Let $X\subset\AA^{n}_{\kk}$ be an affine variety, let $U\subset X$ be an open subset.
+A \define{Regular Function} on an open subset $U$ is a map
+$\varphi\colon U\to\kk$ such that: For every $a\in U$ there are
+polynomial functions $f,g\in A(X)$ such that
+\begin{equation}
+\varphi(x)=\frac{g(x)}{f(x)}
+\end{equation}
+for all $x\in U_{a}$ with $f(x)\neq0$ and where $U_{a}\subset U$ is an open neighborhood of
+$a\in U_{a}$.
+
+The set of all such regular functions on $U$ will be denoted by
+$\RegularFuns_{X}(U)$. 
+\end{definition}
+
+\begin{example}\label{ex:fall-lecture05:non-extendible-fn}
+Let $X=V(xw-yz)\subset\AA^{4}$. Consider the open subset $U=X\setminus V(y,w)\subset X$.
+We define the function $\varphi\colon U\to\kk$ by
+\begin{equation}
+\varphi(x,y,z,w)=\begin{cases}\frac{x}{y} & \mbox{if }y\neq0\\
+\frac{z}{w} & \mbox{if }w\neq0.
+\end{cases}
+\end{equation}
+As Homework: prove there is no global expression as a quotient.
+\end{example}
+
+\begin{lemma}[Zero loci of regular functions are closed] % Gathmann, 3.4
+Let $\varphi\in\RegularFuns_{X}(U)$. Then $V(\varphi)=\{x\in U\mid\varphi(x)=0\}\subset U$
+is closed.
+\end{lemma}
+
+\begin{remark}[Identity theorem for regular functions]% Gathmann, 2.5
+If $U\propersubset V$ are both open, nonempty subsets of an
+irreducible affine variety $X$, and if
+$\varphi_{1},\varphi_{2}\in\RegularFuns_{X}(V)$, if
+$\varphi_{1}|_{U}=\varphi_{2}|_{U}$, then $\varphi_{1}=\varphi_{2}$.
+\end{remark}

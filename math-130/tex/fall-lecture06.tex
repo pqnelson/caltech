@@ -1,0 +1,208 @@
+%%
+%% fall-lecture06.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-11T11:55:08-0700
+%% Last update 2025-10-11T11:55:08-0700
+%% 
+
+\lecture{}
+
+\begin{definition}[Distinguished open sets]% Gathmann, 3.6
+Let $X$ be an affine variety, let $f\in A(X)$. We define
+the \define{Distinguished Open Set} of $f$ to be the subset
+$D(f)=X\setminus V(f)$. We see it is, in fact, an open subset of $X$
+in the Zariski topology (since $V(f)$ is a closed subset in that topology).
+
+Some references call these $D(f)$ ``Basic open subsets'' or
+``Principal open subsets''.
+\end{definition}
+
+\begin{remark}% Gathmann 3.7
+The distinguished open subsets behave as we expect under intersections
+and unions.
+\begin{enumerate}
+\item $D(f)\cap D(g)=D(fg)$ for any $f\in A(X)$ and $g\in A(X)$
+\item $D(f_{1})\cup\cdots\cup D(f_{n})=X\setminus\bigl(V(f_{1})\cap\cdots\cap V(f_{n})\bigr)=X\setminus V(f_{1},\dots,f_{n})$.
+\end{enumerate}
+Thus they form a basis for the Zariski topology.
+\end{remark}
+
+\begin{proposition}[Regular functions on distinguished open subsets]% Gathmann 3.8
+We find $\RegularFuns_{X}(D(f))\iso A(X)_{f}$. In particular, if
+$f=1$, then $\RegularFuns_{X}(X)=A(X)$.
+\end{proposition}
+
+\begin{proof}
+Let $D(h)$ be a principal open set. Take
+$f\in\RegularFuns_{V}(D(h))$. We know we can cover $D(h)=\bigcup V_{i}$
+such that $\exists g_{i},h_{i}\in A(V)$ such that $h_{i}$ is nowhere
+zero on $V_{i}$ and 
+\begin{equation}
+\left.f\right|_{V_{i}} = \frac{g_{i}}{h_{i}}.
+\end{equation}
+We may further assume $V_{i}$ are principal open (since they form a basis).
+Then $V_{i}=D(a_{i})\subset D(h_{i})$.
+We will see $D(a_{i})\supset D(h_{i})$.
+So $a_{i}\in I(V(a_{i}))\subset I(V(h_{i}))$.
+
+Then the Nullstellensatz implies $a_{i}\in\Radical{\langle h_{i}\rangle}$,
+so $a_{i}^{N} = h_{i}g'_{i}$ for some $N\in\NN$.
+\end{proof}
+
+\begin{remark}
+When the field $\kk$ is not algebraically closed, the previous
+proposition is false. For example
+\begin{equation}
+f = \frac{1}{x^{2}}
+\end{equation}
+on $\RR$ is defined, but $f\notin\RR[x]$.
+\end{remark}
+
+\begin{example}
+The affine line with coordinates $t$. Then we see
+$\frac{1}{t}\in\RegularFuns_{X}(D(t))$ is not extendible to all $\AA^{1}$.
+\end{example}
+
+\begin{example}
+The cusp $y^{2}=x^{3}$, we can look at the function
+\begin{equation}
+\varphi = \frac{y}{x}
+\end{equation}
+which is regular away from the origin, but it is not extendible to the origin.
+\end{example}
+
+\begin{example}
+From Example~\ref{ex:fall-lecture05:non-extendible-fn} last time, we had a function which is not a global fraction. Then
+$U$ is not a distinguished open set.
+\end{example}
+
+\begin{example}% 3.11
+On $\AA^{2}\setminus 0$, the affine plane without its origin, we find
+\begin{equation}
+\RegularFuns_{\AA^{2}}(\AA^{2}\setminus0)=\kk[x,y].
+\end{equation}
+Let $U:=\AA^{2}\setminus0$. Then
+\begin{equation}
+D(x)\cup D(y)=U.
+\end{equation}
+Let $\varphi\in\RegularFuns_{X}(U)$.
+Then there exists $f,g\in\kk[x,y]$ and $m,n\in\NN$ such that
+\begin{equation}
+\varphi=\frac{f}{x^{m}}\qquad\mbox{on }D(x),
+\end{equation}
+and
+\begin{equation}
+\varphi=\frac{g}{y^{n}}\qquad\mbox{on }D(y).
+\end{equation}
+Without loss of generality, $x$ does not divide $f$, and $y$ does not
+divide $g$.
+
+On $D(x)\cap D(y)$ we have $fy^{n}=gx^{m}$, hence
+\begin{equation}
+\overline{D(x)\cap D(y)}=\AA^{2}.
+\end{equation}
+This holds, so the equality holds everywhere, so $fy^{n}gx^{m}$ in $\kk[x,y]$.
+\end{example}
+
+\begin{definition}
+Let $X$ be a topological space.
+A \define{Presheaf} $\mathcal{F}$ (of rings) on $X$ consists of
+\begin{enumerate}
+\item for each open subset $U\subset X$, a ring $\mathcal{F}(U)$
+\item for each inclusion $U\subset V$ of open sets in $X$, a ring
+  morphism $\rho_{V,U}\colon\mathcal{F}(V)\to\mathcal{F}(U)$ called
+  the \define{Restriction Map}
+\end{enumerate}
+such that
+\begin{enumerate}
+\item $\mathcal{F}(\emptyset)=0$;
+\item for all open subsets $U\subset X$, we have $\rho_{U,U}$ is the
+  identity map on $\mathcal{F}(U)$;
+\item for any inclusions $U\subset V\subset W$ of open subsets of $X$
+  we have $\rho_{V,U}\circ\rho_{W,V}=\rho_{W,U}$.
+\end{enumerate}
+We call the elements of $\mathcal{F}(U)$ \define{Sections} of
+$\mathcal{F}$ over $U$. We often write the restriction
+$\rho_{V,U}(\varphi)$ as $\varphi|_{V}$.
+\end{definition}
+
+\begin{remark}
+Observe that a presheaf is a [contravariant] functor.
+When $X$ is a topological space, we form a category $\mathrm{Op}(X)$
+of its open sets and morphisms are inclusions. A presheaf is then a
+function $\mathcal{F}\colon\mathrm{Op}(X)^{\text{op}}\to\mathbf{C}$ to
+some category $\mathbf{C}$ (usually the category of rings or Abelian
+groups or $\kk$-algebras or\dots).
+\end{remark}
+
+\begin{definition}
+A presheaf $\mathcal{F}$ of rings on $X$ is called a \define{Sheaf}
+(of rings) if it satisfies:
+\begin{enumerate}
+\item \textsc{Gluing Property:} If $U\subset X$ is open, $\{U_{i}\mid i\in I\}$
+is an arbitrary open cover of $U$, and $\varphi_{i}\in\mathcal{F}(U_{i})$
+are sections for all $i$ such that
+$\varphi_{i}|_{U_{i}\cap U_{j}}=\varphi_{j}|_{U_{i}\cap U_{j}}$ for
+all $i,j\in I$, then there exists a unique $\varphi\in\mathcal{F}(U)$
+such that $\varphi|_{U_{i}}=\varphi_{i}$ for all $i\in I$.
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+If $X$ is an affine variety, then $\RegularFuns_{X}$ is a sheaf of
+$\kk$-algebras on $X$.
+\end{example}
+
+\begin{example}
+Let $X=\RR^{n}$ with the standard topology. Then
+\begin{equation}
+\mathcal{F}(U)=\{f\colon U\to\RR\mbox{ continuous}\}
+\end{equation}
+are the local sections of $\mathcal{F}$. This is a sheaf.
+\end{example}
+
+\begin{example}
+Let $X=\RR^{n}$. Suppose for any $U\subset X$ open we define
+\begin{equation}
+\mathcal{F}(U)=\{f\colon U\to\RR\mbox{ constant}\}
+\end{equation}
+is a presheaf but it is not a sheaf. It fails to satisfy the gluing property.
+\end{example}
+
+\begin{definition}[Restriction of presheaves]% Gathmann 3.16
+Let $\mathcal{F}$ be a presheaf on $X$. Let $U\subset X$ be open.
+Then we may define the \define{Restriction} of $\mathcal{F}$ to $U$ to
+be the presheaf $\mathcal{F}|_{U}$ given by $\mathcal{F}|_{U}(V)=\mathcal{F}(V)$
+for any $V\subset U$ open. The restriction map is induced from $\mathcal{F}$
+\end{definition}
+
+\begin{definition}[Germs of presheaves]
+Let $X$ be a topological space. Let $\mathcal{F}$ be a presheaf on
+$X$. Let $a\in X$ be a point. We define the \define{Stalk} of
+$\mathcal{F}$ at $a$ to be defined as
+\begin{equation}
+\mathcal{F}_{a}:=\{(U,\varphi)\mid U\subset X\mbox{ open with }a\in U,\varphi\in\mathcal{F}(U)\}/\sim
+\end{equation}
+where $(U,\varphi)\sim(U',\varphi')$ iff there exists an open subset
+$V$ with $a\in V\subset U\cap U'$ and
+$\varphi|_{V}=\varphi'|_{V}$. This is an equivalence relation, and
+$\mathcal{F}_{a}$ inherits the structure of a ring (or Abelian group
+or $\kk$-algebra or\dots).
+\end{definition}
+
+\begin{lemma}
+The stalk $\RegularFuns_{X,a}\iso A(X)_{I(a)}$ as $\kk$-algebras.
+\end{lemma}
+
+\begin{definition}% 3.17
+The stalk $\RegularFuns_{X,a}$ is a local ring, and its maximal ideal
+corresponds to the germs which vanish at
+\begin{equation}
+I_{a}:=\{\overline{(U,\varphi)}\in\RegularFuns_{X,a}\mid\varphi(a)=0\}\iso\{\frac{g}{f}\mid
+g,f\in A(x), g(a)=0, f(a)\neq0\}.
+\end{equation}
+This $A(X)_{I(a)}$ is called the \define{Local Ring of $X$ at $a$}.
+\end{definition}

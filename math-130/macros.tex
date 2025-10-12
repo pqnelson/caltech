@@ -1,0 +1,57 @@
+%%
+%% macros.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-09-30T07:50:53-0700
+%% Last update 2025-09-30T07:50:53-0700
+%% 
+
+\input{pmlmac}
+
+\font\twelvess=cmss12
+\font\titlefont=cmssbx10 scaled\magstep2
+
+\newcounter{lectureno}
+\def\lecture#1{\refstepcounter{lectureno}
+  \bigbreak\noindent{\titlefont Lecture \thelectureno. #1}\bigbreak}
+
+\newcounter{theorem}
+\def\theoremfont{\sl}
+\def\newtheorem#1#2{\expandafter\def\csname#1\endcsname{%
+    \medbreak%
+    \refstepcounter{theorem}\noindent{\bf \thetheorem.\ #2.}\theoremfont\quad\ignorespaces}%
+  \expandafter\def\csname end#1\endcsname{%
+    \medbreak\ignorespaces}}
+
+\def\definitionfont{\rm}
+\def\newdefinition#1#2{\expandafter\def\csname#1\endcsname{%
+    \medbreak%
+    \refstepcounter{theorem}\noindent{\bf \thetheorem.\ #2.}\definitionfont\quad\ignorespaces}%
+  \expandafter\def\csname end#1\endcsname{%
+    \medbreak\ignorespaces}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newdefinition{convention}{Convention}
+\newdefinition{definition}{Definition}
+
+
+\let\document\relax
+\let\enddocument\bye
+
+% Notation
+\def\mathbb#1{\hbox{{\bf #1}}}
+\def\kk{\mathbb{k}}
+\def\AA{\mathbb{A}}
+\def\NN{\mathbb{N}}
+
+\let\Radical\sqrt
+
+\def\ideal{\mathrel{\triangleleft}}
+
+
+
+
+\endinput

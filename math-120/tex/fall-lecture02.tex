@@ -1,0 +1,148 @@
+%%
+%% fall-lecture02.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-02T09:50:51-0700
+%% Last update 2025-10-02T09:50:51-0700
+%% 
+
+\lecture{}
+
+\begin{lemma}[Prime avoidance]
+Let $A$ be a ring, let $I$, $p_{1}$, \dots, $p_{r}$ be ideals of
+$A$. Suppose at most 2 of the ideals $p_{1}$, \dots, $p_{r}$ are not prime.
+Then if $I\nsubset p_{i}$ for all $i$, then $I\nsubset\bigcup p_{i}$.
+\end{lemma}
+
+\begin{proof}
+Assume $p_{i}\nsubset p_{j}$ for all $i\neq j$. Now we perform a
+proof by induction on $r$.
+
+\textsc{Base case} ($r=2$): Suppose for contradiction $I\subset p_{1}\cup p_{2}$.
+Take $x\in I\setminus p_{2}$ and $s\in I\setminus p_{1}$.
+Then take $x+s$. Either $x+s\in p_{1}$ or $x+s\in p_{2}$.
+If $x+s\in p_{1}$, then $x+s-x=s\in p_{1}$, which is a contradiction
+(hence the result).
+If $x+s\in p_{2}$, then $x+s-s=x\in p_{2}$, which is a contradiction
+(hence the result). This establishes the $r=2$ case.
+
+\textsc{Case $r>2$:} Assume $p_{r}$ is prime.
+Then $Ip_{1}\cdots p_{r}\nsubset p_{r}$ (otherwise one of $I$,
+$p_{1}$, \dots, $p_{r-1}$ would be contained in $p_{r}$). Set
+$S=I\setminus(p_{1}\cup\cdots\cup p_{r-1})$.
+By the inductive hypothesis, $S\neq\emptyset$.
+
+Now, suppose for contradiction that $I\subset p_{1}\cup\cdots\cup p_{r}$.
+Then $S\subset p_{r}$. If $s\in S$ and $x\in Ip_{1}\cdots p_{r-1}$,
+then $x+s\in S$. Then $s\in p_{r}$ and $x+s\in p_{r}$ (trick to see
+this is that $x+s\in I$), hence $x\in p_{r}$. This contradicts our
+assumption, hence the result.
+\end{proof}
+
+\begin{remark}
+If $A$ contains an infinite field $\kk$, then we do not need $p_{3}$,
+\dots, $p_{r}$ be prime ideals. We view $A$ as a vector space over
+$\kk$. Looking at $I\subset(p_{1}\cup\cdots p_{r})$, observe
+\begin{align*}
+(I\cap p_{1})\cup\cdots(I\cap p_{r}) &= I\cap(p_{1}\cup\cdots\cup p_{r})\\
+&= I.
+\end{align*}
+This critically depends on $\kk$ being infinite.
+\end{remark}
+
+\begin{lemma}
+Let $A$ be a ring, let $I_{1}$, \dots, $I_{r}$ be ideals of $A$ such
+that $I_{i}+I_{j}=A$ for $i\neq j$. Then $I_{1}\cap\cdots\cap I_{r}=I_{1}(\cdots)I_{r}$
+(their intersection is their product). In particular,
+\begin{equation}
+A/\left(\bigcap_{i}I_{i}\right)\iso (A/I_{1})\times\cdots\times(A/I_{r}).
+\end{equation}
+\end{lemma}
+
+\begin{example}
+Consider $(2)\ideal\ZZ$ and $(4)\ideal\ZZ$. Then $(2)(4)=(8)$ and
+$(2)+(4)=(2)$. This is because the hypothesis does not hold.
+But for $(3)\ideal\ZZ$ the hypothesis \emph{does} hold, and we see
+$(2)+(3)=(6)$ and $(2)(3)=(6)$.
+\end{example}
+
+\begin{proposition}
+Any ring $A\neq0$ has at least one maximal ideal.
+\end{proposition}
+
+\begin{proof}
+Let $\mathcal{M}=\{I\ideal A\mid I\neq A\}$. We see it is a nonempty
+set since $(0)\in\mathcal{M}$. Therefore by Zorn's lemma, any chain
+has a maximal element, which is a maximal ideal.
+\end{proof}
+
+\begin{proposition}
+Let $A\neq0$ be a ring. Then $\Spec(A)$ has a maximal element. For any
+prime $p$ there is a minimal prime contained in $p$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+By Zorn's lemma, using reverse inclusion.
+\end{proof}
+
+\begin{remark}
+Recall geometrically, maximal ideals correspond to points. We have
+$(x,y)\in\CC[x,y]$ or $(x-x_{0},y-y_{0})$ corresponds to the point
+$(x_{0},y_{0})\in\CC$. The minimal ideal of $\CC[x,y]$ corresponds to
+``chunks'' of $\CC$ (in this case, the entire plane).
+
+Then $\CC[x,y]/(xy)$ corresponds to the union of axes. The minimal
+prime ideals in this quotient ring would be $(x)$ and $(y)$, but not $(0)$.
+
+The minimal prime ideals correspond to ``components'' of varieties.
+
+Let $J\ideal A$ be a proper ideal of $A\neq J$. Then there exists a
+map $\Spec(A/J)\to\Spec(A)$. (Any ring morphism $\varphi\colon A\to B$
+such that any prime ideal $Q\ideal B$ has its preimage
+$\varphi^{-1}(Q)\ideal A$ be a prime ideal of $A$. This induces a
+contravariant functor on categories.) In particular, this induces
+$\preimage\varphi\colon\Spec(B)\to\Spec(A)$ where $\varphi\colon A\to B$ is
+a ring morphism.
+\end{remark}
+
+\begin{example}
+Consider $\varphi\colon\ZZ\to\ZZ[\sqrt{2}]$ given by the usual
+inclusion, then we have $\preimage\varphi\colon\Spec(\ZZ[\sqrt{2}])\to\Spec(\ZZ)$.
+If we want to find $(p)$ such that $\preimage\varphi(a+b\sqrt{2})=(p)$,
+then we need to solve
+\begin{equation}\label{eqn:fall-lecture02:pell}
+p = (a+b\sqrt{2})(a-b\sqrt{2})=a^{2}-2b^{2}.
+\end{equation}
+If there is a solution, then $\preimage\varphi(a+b\sqrt{2})=(p)$ and 
+$\preimage\varphi(a-b\sqrt{2})=(p)$ are the only possibilities.
+If there is no solution, then $\preimage\varphi(p)=(p)$ is the only possibility.
+Since there is no $a$, $b$ such that $3=a^{2}-2b^{2}$, this means only
+$\preimage\varphi(3)=(3)$.
+
+(We also see that $\preimage\varphi(\sqrt{2})=2$, since this
+corresponds to the $a=0$ and $b=1$ solution to Equation~\eqref{eqn:fall-lecture02:pell}.)
+
+Equation~\eqref{eqn:fall-lecture02:pell} is also known as the
+\emph{Generalized Pell's Equation}. A quick way to check if there is
+no solution is to rewrite it as
+\begin{equation}
+p + 2b^{2} = a^{2}.
+\end{equation}
+If $p+2b^{2}\equiv0\bmod{4}$ or $p+2b^{2}\equiv1\bmod{8}$, then there
+is possibly a solution. Otherwise, it is impossible. This is because a
+perfect square of an even number is $(2n)^{2}=4n^{2}\equiv0\bmod{4}$,
+and the perfect square of an odd number is $(2n+1)^{2}=4n(n+1)+1$ and
+$n(n+1)$ is always an even integer, so $(2n+1)^{2}\equiv1\bmod{8}$. We
+also see that if $a$ is even, then $a^{2}-2b^{2}$ is even (which can
+only possibly describe the $p=2$ case). Therefore we need $a$ to be odd.
+
+This means there are at most 1 solution to the generalized Pell's equation,
+and possibly zero solutions. When there is a solution, then we have
+two prime ideals of $\ZZ[\sqrt{2}]$ which map to $(p)$. When there is
+no solution, then $(p)$ is a prime ideal of $\ZZ[\sqrt{2}]$ and it's
+the only one which maps to its doppleganger in $\ZZ$.
+
+There was some mention that this has some connection to Galois theory.
+\end{example}

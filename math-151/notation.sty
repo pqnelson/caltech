@@ -1,0 +1,62 @@
+%%
+%% notation.sty
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-02T11:17:23-0700
+%% Last update 2025-10-02T11:17:23-0700
+%% 
+
+\def\define#1{\textbf{``#1''}}
+
+\def\I{\mathrm{i}}
+
+\let\ogIm\Im
+\let\Im\relax
+\DeclareMathOperator\Im{Im}
+\let\iso\cong
+
+% topological spaces
+\newcommand\disk[1]{D^{#1}}
+\newcommand\point[1]{\mathrm{pt}}
+\newcommand\sphere[1]{S^{#1}}
+\newcommand\torus[1]{T^{#1}}
+
+% topology
+\DeclareMathOperator\Maps{Maps}
+\newcommand\boundary{\partial}
+\newcommand\interior[1]{\overset{\circ}{#1}}
+
+\def\homotopic{\simeq}
+
+\newcommand\MappingCylinder[1]{\operatorname{MC}(f)}
+
+% for homotopy \rel{A}
+\newcommand\rel{\nonscript\mskip-\medmuskip\mkern5mu
+  \mathbin{\rm rel}\penalty900\mkern5mu\nonscript\mskip-\medmuskip}
+
+% Set theory
+\let\propersubset\subset
+\let\subset\subseteq
+\let\propersupset\supset
+\let\supset\supseteq
+\let\nsubset\nsubseteq
+\let\nsupset\nsupseteq
+
+\DeclareMathOperator\id{id}
+
+% sets
+\def\NN{\mathbb{N}}
+\def\CC{\mathbb{C}}
+\def\CP{\CC\PP}
+\def\PP{\mathbb{P}}
+\def\RR{\mathbb{R}}
+\def\RP{\RR\PP}
+\def\ZZ{\mathbb{Z}}
+
+% Group Theory
+\newcommand\TrivialGroup{\mathbf{1}}
+\let\subgroup\leq
+
+\endinput

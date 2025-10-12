@@ -1,0 +1,59 @@
+%%
+%% notation.sty
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-09-30T07:45:00-0700
+%% Last update 2025-09-30T07:45:00-0700
+%% 
+
+\RequirePackage{amssymb,amsmath}
+
+\def\define#1{\textbf{``#1''}}
+
+% rings and things
+\newcommand\ideal{\mathrel{\trianglelefteq}}
+\def\properideal{\mathrel{\triangleleft}}
+\let\Radical\sqrt
+\newcommand\AlgebraicClosure[1]{\overline{#1}}
+\DeclareMathOperator\Spec{Spec}
+
+\newcommand\divides{\mathrel{|}}
+
+\DeclareMathOperator\codim{codim}
+
+\RequirePackage{mathrsfs}
+
+\DeclareMathOperator\RegularFuns{\mathcal{O}}
+
+\let\iso\cong
+
+% Groups
+\DeclareMathOperator\GL{GL}
+
+% topology
+\newcommand\closure[1]{\overline{#1}}
+
+% Blackboard bold
+\def\kk{\Bbbk}
+\def\AA{\mathbb{A}}
+\def\CC{\mathbb{C}}
+\def\NN{\mathbb{N}}
+\def\QQ{\mathbb{Q}}
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+
+% set theory
+\let\propersubset\subset
+\let\subset\subseteq
+\let\propersupset\supset
+\let\supset\supseteq
+
+%% functions
+\DeclareMathOperator\id{id}
+\def\into{\hookrightarrow}
+\def\onto{\twoheadrightarrow}
+
+
+\endinput

@@ -1,0 +1,161 @@
+%%
+%% fall-lecture04.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-07T10:59:44-0700
+%% Last update 2025-10-07T10:59:44-0700
+%% 
+
+\lecture[More about integral ring extensions]{}
+
+\textsc{TODO:} There are a lot of examples in this lecture which I
+should type up, and draw diagrams for.
+
+\begin{example}
+Consider the variety
+\begin{equation}
+X = V(y^{2}-x^{2}-x^{3})\subset\AA^{2}_{\CC},
+\end{equation}
+with $R:=A(X)=\CC[x,y]/\langle y^{2}-x^{2}-x^{3}\rangle$.
+Is this ring normal?
+
+No, it is not normal. Let $\varphi=\frac{y}{x}\in R_{0}$ in the field
+of fractions. Then it satisfies the monic polynomial
+$\varphi^{2}-x^{2}-1$, but $\varphi\notin R$. So $R$ is not normal.
+\end{example}
+
+\begin{proposition}[Lying over]\label{prop:fall-lec04:lying-over}
+Let $R\subset R'$ be a ring extension, let $P\ideal R$ be a prime
+ideal. Is there a corresponding prime ideal $P'\ideal R'$ such that
+$P'\cap R=P$? This is true if and only if $(PR')\cap R\subset P$ which
+is always the case if $R\subset R'$ is an integral extension.
+\end{proposition}
+
+\begin{example}
+Let $R=\CC[x]$.
+\begin{enumerate}
+\item Let $R'=\CC[x,y]/\langle y^{2}-x^{2}\rangle$. This corresponds
+  to the lines $y=x$ and $y=-x$. For any $P'\ideal R'$ prime, we see
+  that $R\cap P'=P$ is a prime ideal.
+\item Let $R'=\CC[x,y]/\langle xy-1\rangle$ which corresponds to
+  hyperbolic curves. There is no $P'$ corresponding to $P$ because $y$
+  does not satisfy a monic polynomial in $x$.
+\end{enumerate}
+\end{example}
+
+\begin{proposition}[Incompatibility]\label{prop:fall-lec04:incompatibility}\index{Incompatibility}%
+Let $R\subset R'$ be an integral ring extension, let $P'\ideal R'$
+and $Q'\ideal R'$ be distinct prime ideals. Suppose they both lie over
+some prime ideal $P\ideal R$. Then $P'\nsubset Q'$ and $Q'\nsubset P'$. 
+\end{proposition}
+
+\begin{corollary}
+If $R\subset R'$ is an integral ring extension, then a prime ideal
+$P'\ideal R'$ is maximal if and only if $P'\cap R$ is maximal.
+\end{corollary}
+
+\begin{equation*}
+\xymatrix{
+R' \ar@{}[r]|-*[@]{\supset} & P' \ar@{<->}[r] & \mbox{irreducible
+  subvariety} & Y'\ar[d]^{f}\ar@{}[r]|-*[@]{\subset} & X'\ar[d]^{f}\\
+R\ar@{^{(}->}[u]\ar@{}[r]|-*[@]{\supset} & R\cap P \ar@{<->}[r] & \mbox{irreducible
+  subvariety} & f(Y')\ar@{}[r]|-*[@]{\subset} & f(X')
+}
+\end{equation*}
+
+\begin{remark}
+We will see ``relative versions'' of lying over. This looks like
+\begin{equation*}
+\begin{array}{lccc}
+R' \qquad & {P'}^{(?)} & \subset & {Q'}^{(?)}\\
+          & \downarrow &         & \downarrow^{(?)}\\
+R \qquad  & P         & \subset & Q
+\end{array}
+\end{equation*}
+where some of the quantities with superscript ${}^{(?)}$ are being sought.
+\end{remark}
+
+\begin{proposition}[Going up]\label{prop:fall-lec04:going-up} % Gathmann, Commutative Algebra, 9.24
+Let $R\subset R'$ be an integral ring extension.
+Given $P\subset Q$ prime ideals in $R$, and $P'\ideal R$' lying over
+$P$, then you can always find $Q'\ideal R'$ lying over $Q$.
+\end{proposition}
+
+In pictures,
+\begin{equation}
+\begin{array}{ccc}
+P' & {\color{red}\subset} & {\color{red}Q'}\\
+\downarrow &   & {\color{red}\downarrow}\\
+P & \subset & Q
+\end{array}
+\end{equation}
+where the red font are asserted to exist.
+
+\begin{proposition}[Going down]\label{prop:fall-lec04:going-down} % Gathmann, Commutative Algebra, 9.27
+Let $R\subset R'$ be an integral ring extension.
+Assume $R$ is normal and $R'$ is an integral domain. Let $P\subset Q$
+be prime ideals of $R$, let $Q'\ideal R'$ be a prime ideal with
+$Q'\cap R=Q$.
+Then there exists a prime ideal $P'\ideal R'$ with $P'\subset Q'$
+and $P'\cap R=P$.
+\begin{equation}
+\begin{array}{lccc}
+R'\qquad & {\color{red} P'}  & {\color{red}\subset} & Q'\\
+         & {\color{red}\downarrow} &                & \downarrow\\
+R\qquad  & P                & \subset & Q
+\end{array}
+\end{equation}
+\end{proposition}
+
+\begin{theorem}[Noether Normalization]\label{thm:fall-lec04:noether-normalization}\index{Noether normalization}% Gathmann, Comm. Alg., 10.5
+Let $R$ be a finitely generated algebra over $\kk$ with generators
+$x_{1}$, \dots, $x_{n}$. Then there is an injective $\kk$-algebra morphism
+$\kk[z_{1},\dots,z_{n}]\into R$ that is a finite extension. Moreover,
+if $\kk$ is infinite, then the images of $z_{i}$ may be chosen to be
+$\kk$-linear combinations of $x_{1}$, \dots, $x_{n}$.
+\end{theorem}
+
+We need a lemma before we can prove Noether normalization.
+
+\begin{lemma}
+Let $f\in\kk[x_{1},\dots,x_{n}]$ be a nonzero polynomial and $\kk$ is
+infinite, then there exists a $\lambda\in\kk$ and $a_{1}$, \dots,
+$a_{n-1}\in\kk$ such that
+\begin{equation*}
+\lambda f(y_{1}+a_{1}y_{n}, y_{2}+a_{2}y_{n},\dots, y_{n-1}+a_{n-1}y_{n})\in\kk[y_{1},\dots,y_{n}]
+\end{equation*}
+is monic in $y_{n}$ (i.e., as an element of $R[y_{n}]$ with $R=\kk[y_{1},\dots,y_{n-1}]$).
+\end{lemma}
+
+\begin{proof}[Proof (of Noether Normalization)]
+Proof by induction on $n$.
+
+\textsc{Base case} ($n=0$): trivial, since $r=0$ works.
+
+\textsc{Inductive case} ($n>0$): there is a ``per cases'' argument
+here.
+
+\textsc{Subcase 1:} There is no algebraic relation among the $x_{1}$,
+\dots, $x_{n}\in R$ (i.e., there is no non-zero polynomial $f$ over
+$\kk$ such that $f(x_{1},\dots,x_{n})=0$ in $R$). Then we can choose
+$r=n$ and the map $\kk[z_{1},\dots,z_{n}]\to R$ sending $z_{i}\mapsto x_{i}$
+for all $i$, which is even an isomorphism in this situation. The
+result follows for this subcase.
+
+\textsc{Subcase 2:} There is a non-zero polynomial $f$ over $\kk$ such
+that $f(x_{1},\dots,x_{n})=0$ in $R$. Then we choose $\lambda$ and
+$a_{1}$, \dots, $a_{n-1}$ as we did in our Lemma and set
+\begin{equation}
+y_{1}:=x_{1}-a_{1}x_{n},\quad\dots\quad,y_{n-1}:=x_{n-1}-a_{n-1}x_{n},\quad y_{n}:=x_{n}.
+\end{equation}
+Then by our Lemma, $\lambda f(y_{1}+a_{1}y_{n},\dots,y_{n-1}+a_{n-1}y_{n},y_{n})$
+is monic in $y_{n}$ so $\lambda f(x_{1},\dots,x_{n})=0$.
+
+(``Projection $\AA^{n}\to\AA^{n-1}$'') Then $R=\kk[y_{1},\dots,y_{n}]$
+is finite over $\kk[y_{1},\dots,y_{n-1}]$.
+
+The inductive hypothesis: $\kk[y_{1},\dots,y_{n-1}]$ is finite over
+$\kk[z_{1},\dots,z_{r}]$ so $R$ is finite over $\kk[z_{1},\dots,z_{r}]$.
+\end{proof}

@@ -1,0 +1,282 @@
+%%
+%% fall-lecture04.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-07T09:20:02-0700
+%% Last update 2025-10-07T09:20:02-0700
+%%
+
+\lecture{}
+
+\begin{theorem}[Lifting criterion]
+Let $p\colon\widetilde{X}\to X$ be a covering map, let
+$\widetilde{x}_{0}\in\widetilde{X}$ and $x_{0}=p(\widetilde{x}_{0})$.
+Let $Y$ be a path-connected, locally path-connected space. Let $f\colon(Y,y_{0})\to(X,x_{0})$.
+A \define{Lift} $\widetilde{f}\colon(Y,y_{0})\to(\widetilde{X},\widetilde{x}_{0})$
+exists iff $f_{*}\bigl(\pi_{1}(Y,y_{0}))\subgroup p_{*}\bigl(\pi_{1}(\widetilde{X},\widetilde{x}_{0})\bigr)$,
+where $p_{*}\colon\pi_{1}(\widetilde{X},\widetilde{x}_{0})\to\pi_{1}(X,x_{0})$
+is the induced group morphism from the projection.
+\end{theorem}
+
+This means we have the following commutative diagram for the universal
+property of lifts:
+\begin{equation}
+\xymatrix{ & (\widetilde{X},\widetilde{x}_{0})\ar[d]^{p}\\
+(Y,y_{0})\ar@{-->}[ur]^{\widetilde{f}} \ar[r]_{f} &(X,x_{0})}
+\end{equation}
+Observe, in particular, if $Y$ is simply-connected, then $f$ can
+always be lifted.
+
+\subsection{Homology Theory}
+
+There are many different homology theories. Historically the first was
+simplicial homology. It is still used today, since it is very easy to
+compute (in the sense that: a computer can efficiently compute it).
+
+\begin{definition}
+We define an \define{$n$-Simplex} to be the convex hull of $n+1$
+points $v_{0}$, $v_{1}$, \dots, $v_{n}\in\RR^{n+1}$ which are not
+contained in any $(n-1)$-dimensional hyperplane. The simplex is
+denoted by $[v_{0},v_{1},\dots,v_{n}]$ and defined as:
+\begin{equation}
+[v_{0},v_{1},\dots,v_{n}] :=
+\{t_{0}v_{0}+\cdots+t_{n}v_{n}\mid(\forall
+j\ldotp t_{j}\geq0),\;\sum^{n}_{j=0}t_{j}=1\}.
+\end{equation}
+These coefficients $t_{j}$ are called the \define{Barycentric Coordinates}.
+\end{definition}
+
+\begin{remark}
+The criterion is that the $n+1$ vectors $v_{j}$ are ``affinely independent'',
+meaning that the $n$ vectors $v_{1}-v_{0}$, \dots, $v_{n}-v_{0}$ are
+linearly independent.
+\end{remark}
+
+\begin{definition}[Subsimplices and faces of a simplex]
+In general, any subset of the vertices $\{v_{0},\dots,v_{n}\}$ span a
+\define{Subsimplex} of $[v_{0},\dots,v_{n}]$, and the vertices are
+ordered according to their order in the larger simplex.
+
+The $(n-1)$ subsimplices of the $n$-simplex are called the
+\define{Faces} of the simplex.
+\end{definition}
+
+\begin{definition}
+If $\Delta^{n}$ is a simplex, then its interior
+$\interior\Delta^{n}=\Delta^{n}\setminus\boundary\Delta^{n}$ is called
+an \define{Open $n$-Simplex}.
+\end{definition}
+
+\begin{example}
+When $n=0$, then a 0-simplex is simply a point $\bullet$.
+
+When $n=1$, then a 1-simplex is simply a line segment.
+
+When $n=2$, then a 2-simplex is just a triangle:
+\begin{equation*}
+\includegraphics{img/img.13}
+\end{equation*}
+When $n=3$, then a 3-simplex is a tetrahedron:
+\begin{equation*}
+\includegraphics{img/img.14}
+\end{equation*}
+For $n>3$, we cannot easily draw $n$-simplices.
+\end{example}
+
+\begin{definition}
+A \define{$\Delta$-Complex Structure} is a CW complex such that
+\begin{enumerate}
+\item every cell is an open simplex, and
+\item the interior of each face of this simplex is also a cell.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+Hatcher (Chapter 2, Section 1) says that a $\Delta$-complex structure
+on a space $X$ is a
+collection of maps $\sigma_{\alpha}\colon\Delta^{n}\to X$ with $n$
+depending on the index $\alpha$ such that
+\begin{enumerate}
+\item The restriction $\sigma_{\alpha}|_{\interior\Delta^{n}}$ is
+  injective and each point of $X$ is in the image of exactly one such
+  restriction;
+\item Each restriction of $\sigma_{\alpha}$ to a face of $\Delta^{n}$
+  is one of the maps $\sigma_{\beta}\colon\Delta^{n-1}\to X$. Here we
+  are identifying the faces of $\Delta^{n}$ with $\Delta^{n-1}$ by the
+  canonical linear homeomorphism between them that preserves the
+  ordering of the vertices; and
+\item A set $A\subset X$ is open iff $\sigma^{-1}_{\alpha}(A)$ is open
+  in $\Delta^{n}$ for each $\sigma_{\alpha}$.
+\end{enumerate}
+The conditions (2) and (3) are necessary when $X$ is the quotient
+space $Y/\sim$ and we have a $\Delta$-complex for $Y$ (and we wish to
+use it to construct a $\Delta$-complex for $X$).
+\end{remark}
+
+\begin{example}
+For $\sphere{1}$, what kind of $\Delta$-complex structure can we impose?
+We see the following CW complex for $\sphere{1}$,
+\begin{equation*}
+\includegraphics{img/img.15}
+\end{equation*}
+consists of a 0-simplex and a 1-simplex. So this is a valid
+$\Delta$-complex for the circle.
+
+The CW complex,
+\begin{equation*}
+\includegraphics{img/img.16}
+\end{equation*}
+consists of two 0-simplices and two 1-simplices. This is another valid
+$\Delta$-complex for the circle.
+
+We also see the CW complex,
+\begin{equation*}
+\includegraphics{img/img.17}
+\end{equation*}
+consists of three 0-simplices and three 1-simplics. It's another valid
+$\Delta$-complex for the circle.
+\end{example}
+
+\begin{example}
+For the sphere $\sphere{2}$, we can draw a CW complex
+\begin{equation*}
+\includegraphics{img/img.18}
+\end{equation*}
+We place three vertices on the equator. The upper hemisphere is one
+triangle, and the lower hemisphere is another triangle. So we glue two
+tetrahedra together.
+\end{example}
+
+\begin{example}
+Consider the torus $T^{2}$. We can form it by gluing the sides of the
+unit square together as in the following diagram:
+\begin{equation*}
+\includegraphics{img/img.19}
+\end{equation*}
+This is a CW complex, but not a $\Delta$-complex. (There is no
+consistent ordering of 1-cells which preserves the ordering of the
+faces of the 2-simplex.) We can turn it into
+a $\Delta$ complex by adding a diagonal edge
+\begin{equation*}
+\includegraphics{img/img.20}
+\end{equation*}
+This gives us a $\Delta$-complex consisting of one 0-simplex, three
+1-simplices, and two 2-simplices.
+\end{example}
+
+\begin{example}
+More generally, the regular $4g$-gon may be given a $\Delta$-complex
+using the following triangulation:
+\begin{equation*}
+\includegraphics{img/img.21}
+\end{equation*}
+(Observe this will require $4g-2$ 2-simplices.)
+This will be useful for constructing the $\Delta$-complex of an
+orientable surface of genus $g$.
+\end{example}
+
+\begin{definition}[Simplicial complex]
+A \define{Simplicial Complex} is a $\Delta$-complex such that every
+cell is determined by its set of vertices. (This means any two distinct cells
+cannot have the same set of vertices.)
+\end{definition}
+
+\begin{example}
+The following is \textbf{NOT} a simplicial complex of $\sphere{1}$:
+\begin{equation*}
+\includegraphics{img/img.15}
+\end{equation*}
+The vertices for the zero-cell = the vertices for the 1-cell. But we
+can form a simplicial complex with the following CW complex:
+\begin{equation*}
+\includegraphics{img/img.22}
+\end{equation*}
+We see each 1-simplex is written $e^{1}_{i,j}$ is determined as $[v_{i},v_{j}]$.
+This is uniquely determined from the set of vertices $\{v_{i},v_{j}\}$.
+\end{example}
+
+\begin{example}
+For the sphere $\sphere{n}$, we may form a simplicial complex using
+$\boundary\Delta^{n+1}$. 
+\end{example}
+
+\begin{example}
+For the torus $T^{2}$, the $\Delta$-complex fails to be a simplicial
+structure. We need to subdivide it further (into a 3-by-3 subsquares,
+each subdivided into two 2-simplices, for a total of eighteen 2-simplices).
+\end{example}
+
+\subsection{Barycentric Subdivisions}
+
+\begin{node}
+Suppose $\Gamma$ is a $\Delta$-complex structure. Then we may obtain
+$\Gamma^{(1)}$ whose vertices are the baricenters [centers of mass] of each simplex in $\Gamma$
+adjoined to the vertices of $\Gamma$.
+\end{node}
+
+\begin{example}
+The barycenters of the 2-simplex may be drawn as follows:
+\begin{equation*}
+\includegraphics{img/img.23}
+\end{equation*}
+Here we have drawn the ``old'' 2-simplex using dashed lines and open
+circles for the vertices. The baricenters for each 1-simplex (and the
+entire 2-simplex) are drawn as black dots, and the new edges we would
+add are drawn as solid lines. We would need six 2-simplices to
+describe this new complex (whereas initially we had one 2-simplex).
+\end{example}
+
+\begin{remark}
+More generally, each $n$-simplex is subdivided into $(n+1)!$ $n$-simplices,
+so this grows hyperexponentially.
+\end{remark}
+
+\begin{remark}[Obtaining a $\Delta$-complex]
+The point is that applying the barycentric subdivision \underline{\textbf{\emph{twice}}}
+will give us a simplicial complex from a $\Delta$-complex. But this is
+a bit of a distraction, let us not fixate on the details.
+\end{remark}
+
+\begin{remark}
+The simplicial complex is a bit too restrictive, the $\Delta$-complex
+is more relaxed. However, we specify a simplicial complex by the set
+of vertices $V^{(0)}$, say $N=|V^{(0)}|$. [Then we need $N$-bits to
+  specify an $n$-simplex --- it's a $k$-simplex if there are exactly
+  $k$ ones in the $N$-bit object\dots I think?]
+\end{remark}
+
+\begin{definition}
+A simplicial structure on a space $X$ is called a
+\define{Triangulation} of $X$.
+\end{definition}
+
+\begin{theorem}[Manolescu, 2013]
+For each $n\geq5$, there exists $n$-manifolds without any triangulations.
+\end{theorem}
+
+The proof may be found in \arXiv{1303.2354}.
+
+\begin{theorem}
+Every topological space $X$ is weakly homotopically equivalent to a CW complex.
+\end{theorem}
+
+\begin{remark}
+We often put an orientation on $n$-simplices. Here an ``orientation''
+means an ordering on the vertices modulo even permutations.
+\end{remark}
+
+\begin{example}
+For $n=1$, $[a,b]=-[b,a]$.
+
+For $n=2$, we have
+\begin{equation}
+\begin{split}
+[a,b,c] &= -[b,a,c] = +[b,c,a]\\
+&= -[a,c,b] = +[c,a,b] = -[c,b,a]
+\end{split}
+\end{equation}
+For $n=0$, we just artificially impose some order in a purely formal
+way, writing $+a$ or $-a$.
+\end{example}

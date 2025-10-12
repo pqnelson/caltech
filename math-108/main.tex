@@ -1,0 +1,77 @@
+%%
+%% main.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-12T10:03:27-0700
+%% Last update 2025-10-12T10:03:27-0700
+%% 
+
+\documentclass{article}
+
+\usepackage{macros,notation}
+
+\title{Classical Analysis}
+\author{Alex Nelson}
+\date{October 10, 2025}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+These are my notes from auditing Caltech's Mathematics 108 course
+series on classical analysis, Fall 2025.
+\end{abstract}
+
+\noindent\textsc{Note:} I only started auditing the Fall course at lecture 6.
+So let me review a few important definitions.
+
+\begin{definition}
+Let $X$ be a vector space over $\FF$. We define a \define{Norm} on $X$
+to be a function $\|\cdot\|\colon X\to\RR$ such that
+\begin{enumerate}
+\item\textsc{Triangle inequality:} $\|x+y\|=\|x\|+\|y\|$ for any $x$,
+  $y\in X$
+\item\textsc{Homogeneity:} $\|sx\|=|s|\cdot\|x\|$ for any $s\in\FF$
+  and $x\in X$
+\item\textsc{Positive-definiteness:} For any $x\in X$, if $\|x\|=0$,
+  then $x=0$.
+\item\textsc{Non-negative:} For any $x\in X$, $\|x\|\geq0$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Let $X$ be a set, We define a \define{Metric} on $X$ to be a function $d\colon X\times X\to\RR$
+such that
+\begin{enumerate}
+\item for any $x\in X$, $d(x,x)=0$
+\item\textsc{Positivity:} for any $x$, $y\in X$, $d(x,y)\geq0$ and
+  $d(x,y)$ iff $x=y$.
+\item\textsc{Symmetry:} for any $x$, $y\in X$, $d(x,y)=d(y,x)$
+\item\textsc{Triangle inequality:} for any $x$, $y$, $z\in X$, $d(x,y)+d(y,z)\geq d(x,z)$
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+On $\RR$, $d(x,y)=|x-y|$ is a metric.
+\end{example}
+
+\begin{example}
+More generally, if $(X,\|\cdot\|)$ is a normed space over a field
+$\FF$, then $d(x,y)=\|x-y\|$ is a metric.
+\end{example}
+
+\begin{example}[Discrete metric]
+Let $X$ be any set. We define the \define{Discrete Metric} to be the function
+\begin{equation}
+d(x,y) = \begin{cases}1 &\mbox{if }x\neq y\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+Then this is an actual metric.
+\end{example}
+
+\setcounter{section}{5}
+\input{tex/fall-lecture06}
+
+\end{document}

@@ -1,0 +1,226 @@
+%%
+%% fall-lecture04.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-07T07:51:53-0700
+%% Last update 2025-10-07T07:51:53-0700
+%% 
+
+\lecture{}
+
+\begin{example}
+Suppose we are given this identity:
+\begin{equation}
+\frac{1}{(1-t)(1-tq)(1-tq^{2})(\cdots)}=\sum^{\infty}_{n=0}\frac{t^{n}}{(1-q)(\cdots)(1-q^{n})}.
+\end{equation}
+We may look at this from the perspective of a 19th century
+Mathematician (or early 20th century, like Ramanujan) and just
+``accept it'' as true because it works. Or we may ask, ``What ring are
+we working in?'' We may say something like $\QQ(q)[[t]]$. Is that the
+``smallest" ring where such an identity holds?
+
+Well, we can look at the denominator of the right-hand side
+\begin{equation}
+\varphi=(1-t)(1-tq)(1-tq^{2})(\cdots)
+\end{equation}
+and we see the coefficients are integers, so we see $\varphi\in\ZZ[q][[t]]$.
+Perhaps we could use a smaller ring (ahem, like the
+\emph{localization} of some multiplicative subset of $\ZZ[q][[t]]$?).
+The professor got this example from Peter Scholze's lecture notes (on $q$-series?).
+\end{example}
+
+\begin{proposition}[{Matsumara~\cite[1.H]{matsumura1970commutative}}]
+Let $P\in\Spec(A)$, take $S:=A\setminus P$ as a multiplicative set. We
+have the following notation for localization of $A$ with respect to $S$:
+\begin{equation}
+A_{P} := S^{-1}A,
+\end{equation}
+and for $A$-modules $M$ we have the following notation for the
+localization of $M$ with respect to $S$:
+\begin{equation}
+M_{P}:=S^{-1}M.
+\end{equation}
+\end{proposition}
+
+\begin{lemma}[{Matsumara~\cite[1.1]{matsumura1970commutative}}]
+If $x\in M$ is mapped to $0\in M_{P}$ for all $P\in\MSpec(A)$, then
+$x=0$. In other words, the natural map
+$M\into\prod_{P\in\MSpec(A)}M_{P}$
+is injective.
+\end{lemma}
+
+\begin{proof}
+We have $x=0$ in $M_{P}$ iff $s\in A\setminus P$ such that $sx=0$ in $M$
+iff the annihiliator of $x=m/s$ (where $s\in A\setminus P$) is not
+contained in $P$  
+\begin{equation}
+\Annihilator(x):=\{a\in A\mid ax=0\}\nsubset P.
+\end{equation}
+But if $x=0$ in all $M_{P}$ for each maximal ideal $P\ideal A$, then
+$\Annihilator(x)=A$ which implies $1\cdot x=0$ which implies $x=0$.
+\end{proof}
+
+\begin{lemma}[{Matsumara~\cite[1.2]{matsumura1970commutative}}]
+Let $A$ be an integral domain with field of fractions $\kk$. Then all
+localizations of $A$ may be viewed as subrings of $\kk$, i.e., we have
+\begin{equation}
+A = \bigcap_{P\in\MSpec(A)}A_{P}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Let $x\in\kk$. Then
+\begin{equation}
+D=\{a\in A\mid ax\in A\}\ideal A
+\end{equation}
+is the ideal of denominators of $x$. (Ex: $\frac{1}{6}\in\QQ$, $D(1/6)=(6)\ideal\ZZ$.)
+Then $x\in A$ iff $D=A$, and $x\in A_{P}$ iff $D\nsubset P$ (i.e., $D$
+is not contained in any maximal ideal) which is a contradiction. Hence
+the result.
+\end{proof}
+
+\begin{remark}[Big picture: why are we doing this?]
+So why are we doing this? The idea is that localization removes a lot
+of stuff. The Ring is usually too big to solve a problem we're facing.
+So we solve our Problem in some localization (this is a common trick
+in number theory). If we can solve it in \emph{every} localization,
+then we can solve it in the Ring.
+\end{remark}
+
+\begin{proposition}[{Matsumara~\cite[1.I]{matsumura1970commutative}}]
+Let $f\colon A\to B$ be a ring morphism. Let $S\subset A$ be a
+multiplicative set. Let $S'=f(S)$ be the image of $S$ under $f$. Let
+$S^{-1}B$ be the localization of $B$ \emph{as an $A$-module} (since
+$f$ gives us an $A$-action on $B$, we can view $B$ as an
+$A$-module). Consider $S'^{-1}B$ the localization of $B$ \emph{as a $B$-module}.
+Then $S'^{-1}B=S^{-1}B=S^{-1}A\otimes_{A}B$ as sets and as $A$-modules.
+
+In particular, if $I\ideal A$ is an ideal, and $S'$ is the image of
+$S$ in $A/I$, we obtain
+\begin{equation}
+S'^{-1}(A/I) = S^{-1}A/I(S^{-1}A).
+\end{equation}
+We should think of this as ``dividing by $I$ commutes with localization''.
+\end{proposition}
+
+\begin{definition}[Local rings and residue fields (1.K)]
+Let $A$ be a ring. We call $A$ \define{Local} if it has only one
+maximal ideal. Observe every field is local.
+
+If $A$ is local and $M\ideal A$ is maximal, then we define the
+\define{Residue Field} of $A$ to be the field $\kk:=A/M$.
+
+We will write $(A,M)$ or $(A,M,\kk)$ for local rings, their maximal
+ideals, and optionally their residue fields.
+\end{definition}
+
+\begin{example}
+Let $\ZZ_{(7)}=\{\frac{a}{b}\mid a\in\ZZ, 1\leq b\leq 6\}$.
+There is an ideal $(7)\ZZ_{(7)}\ideal\ZZ_{(7)}$ and it is the only
+maximal ideal. Then
+\begin{equation}
+\ZZ_{(7)}/((7)\ZZ_{(7)})\iso\ZZ/7\ZZ.
+\end{equation}
+\end{example}
+
+\begin{proposition}
+Let $A$ be any ring, let $P\in\Spec(A)$ be a prime ideal, then $A_{P}$
+is local, and we write the residue field for it as $\kk(P)=A_{P}/(PA_{P})$
+which is the ring of fractions of $A/P$.
+\end{proposition}
+
+\begin{proposition}[{Matsumara~\cite[1.J]{matsumura1970commutative}}]
+Let $S\subset A$ be a multiplicative set. Suppose
+\begin{equation}
+A\xrightarrow{f}B\xrightarrow{g}S^{-1}A
+\end{equation}
+be morphisms such that $g\circ f\colon A\to S^{-1}A$ is the natural map.
+Suppose for any $b\in B$ there exists an $s\in S$ with $f(s)b\in f(A)$.
+Then $S^{-1}B=f(S)^{-1}B=S^{-1}A$.
+
+If $A$ is a domain, $P\in\Spec(A)$, $A\subset B\subset A_{P}$,
+then $A_{P}=B_{\mathfrak{p}}\iso B_{P}$ where $\mathfrak{p}=PA_{P}\cap B$
+and $B_{P}=B\otimes A_{P}$.
+\end{proposition}
+
+\begin{proof}
+Assume $\forall b\in B\ldotp\exists s\in S\ldotp f(s)b\in f(A)$.
+Then $S^{-1}B=f(S)^{-1}B\iso S^{-1}A$.
+
+We see that using the universal property of localization (\S\ref{node:fall:lecture3:universal-property-of-localization}),
+the following diagram commutes:
+\begin{equation}
+\xymatrix{
+A\ar[r]^{f} & B\ar[r]^{g}\ar[d] & \ar@{-->}[dl]^{!} S^{-1}A\\
+            & S^{-1}B           &}
+\end{equation}
+Viewed as $A$-modules, we could describe localization as a
+functor. Then functoriality gives us
+\begin{equation}
+\xymatrix{B\ar[rr]^{g}& & S^{-1}A\ar@{=}[d]\\
+S^{-1}B\ar[r]^{S^{-1}g} & S^{-1}S^{-1}A \ar@{=}[r] & S^{-1}A}
+\end{equation}
+Functoriality means
+\begin{equation}
+  \begin{split}
+    g\colon &M\to N\\
+    & m\mapsto n=g(m)
+  \end{split}
+\end{equation}
+maps to
+\begin{equation}
+\begin{split}
+  S^{-1}g\colon&S^{-1}M\to S^{-1}N\\
+&  \frac{m}{s}\mapsto\frac{g(m)}{s}
+\end{split}
+\end{equation}
+The universal property can be used again
+\begin{equation}
+\xymatrix{M \ar[d]\ar[r]^{g}\ar[dr] & N\ar[d]\\
+S^{-1}M\ar@{-->}[r]^{!} & S^{-1}N}
+\end{equation}
+Hence the result.
+\end{proof}
+
+\begin{example}
+An example where the hypotheses do not hold:
+\begin{equation*}
+\begin{split}
+ZZ\to &\;\ZZ[x]\to\ZZ_{(7)}\\
+n\mapsto&\; n\\
+&n_{0}+n_{1}x+\cdots \mapsto\frac{n_{0}}{1}
+\end{split}
+\end{equation*}
+But $(\ZZ\setminus(7))^{-1}\ZZ[x]\not\iso\ZZ_{(7)}$.
+
+On the other hand, $\ZZ\subset 3^{-1}\ZZ\subset\ZZ_{(7)}$.
+\end{example}
+
+\begin{definition}[Local ring morphisms (1.K)]
+Let $(A,\mathfrak{m},\kk)$ and $(B,\mathfrak{m}',\kk')$ be local rings.
+If $\psi\colon(A,\mathfrak{m},\kk)\to(B,\mathfrak{m}',\kk')$ is a ring
+morphism, then we call $\psi$ \define{Local} if
+$\psi(\mathfrak{m})\subset\mathfrak{m}'$. This means it induces a
+morphism of fields $\kk\to\kk'$.
+\end{definition}
+
+\begin{proposition}[(1.K)]
+Let $\psi\colon A\to B$ be a ring morphism.
+Then this induces a morphism $\preimage\psi\colon\Spec(B)\to\Spec(A)$
+mapping $P\in\Spec(B)$ to $\preimage\psi(P)=\mathfrak{p}=\{a\in A\mid \psi(a)\in P\}$.
+But now we see $A\setminus\mathfrak{p}$ is a multiplicative set of
+$A$, so $\psi(A\setminus\mathfrak{p})\subset B\setminus P$, and it
+induces a mapping
+\begin{equation}
+\psi_{P}\colon A_{\mathfrak{p}}\to B_{P},
+\end{equation}
+which \emph{is} a local morphism,
+where $\psi_{P}(\mathfrak{p}A_{\mathfrak{p}})\subset\psi_{P}(\mathfrak{p})B_{P}\subset PB_{P}$.
+We can factor it as follows:
+\begin{equation}
+A_{\mathfrak{p}}\to B_{\mathfrak{p}} = A_{\mathfrak{p}}\otimes_{A}B\to B_{P}
+\end{equation}
+where $B_{\mathfrak{p}}$ is not necessarily a local ring.
+\end{proposition}

@@ -1,0 +1,272 @@
+%%
+%% fall-lecture02.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-02T13:55:44-0700
+%% Last update 2025-10-02T13:55:44-0700
+%% 
+
+\lecture{}
+
+\begin{node}[Recap]
+We had an interplay between subsets of $\AA^{n}$ and ideals of $\kk[x_{1},\dots,x_{n}]$
+from (1) the ideal of subsets $X\mapsto I(X)$, and (2) the zero set of
+an ideal $V(I)\mapsfrom I$.
+Furthermore, we introduced
+\begin{enumerate}
+\item Weak Nullstellensatz: if $\kk=\AlgebraicClosure\kk$ is
+  algebraically closed, then $I\bigl(V(I)\bigr)=\Radical{I}$
+\item String Nullstellensatz: if $\kk=\AlgebraicClosure\kk$ is
+  algebraically closed, then all maximal ideals of $\kk[x_{1},\dots,x_{n}]$
+  are of the form $(x_{1}-a_{1},\dots,x_{n}-a_{n})$; this means there
+  is a bijection between points in $\AA^{n}$ and maximal ideals in the
+  polynomial ring.
+\end{enumerate}
+\end{node}
+
+\begin{proposition}
+The Weak Nullstellensatz in $\AA^{n+1}$ implies the Strong
+Nullstellensatz in $\AA^{n}$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Let $I\ideal\kk[x_{1},\dots,x_{n}]$.
+
+\textsc{Claim 1:} $\Radical{I}\subset I\bigl(V(I)\bigr)$.
+
+\textsc{Claim 2:} $\Radical{I}\supset I\bigl(V(I)\bigr)$.
+We will prove $\forall f,f\in\Radical{I}\implies f\in I\bigl(V(I)\bigr)$.
+Let $f$ be such that $f\in\Radical{I}$. We know
+\begin{equation}
+I\bigl(V(I)\bigr)=\langle f_{1},\dots,f_{m}\rangle
+\end{equation}
+so $f$ vanishes if $f_{1}$, \dots, $f_{m}$ vanish.
+
+Then Rbinovitch's trick: $f_{1}$, \dots, $f_{m}$, $1-x_{0}f$ have no
+common zeroes in $\AA^{n+1}$.
+
+Then using the Weak Nullstellensatz, they generrate the unit ideal. So
+\begin{equation}\label{eq:math130a:fall-lecture02:weak-implies-strong:eq2}
+1 = g_{0}\cdot(1-x_{0}f) + g_{1}\cdot f_{1} + \cdots+g_{m}\cdot f_{m}
+\end{equation}
+for some $g_{i}\in\kk[x_{0},\dots,x_{n}]$. Let
+\begin{equation}
+x_{0} = \frac{1}{f},\quad\mbox{so}\quad 1-x_{0}f=0.
+\end{equation}
+This is completely formal. Then we see this makes the first term on
+the right-hand side of Equation~\eqref{eq:math130a:fall-lecture02:weak-implies-strong:eq2}
+vanish, giving us:
+\begin{equation}
+1 = g_{1}\cdot f_{1} + \cdots+g_{m}\cdot f_{m}
+\end{equation}
+with $g_{1}$, \dots, $g_{m}\in\kk[\frac{1}{f},x_{1},\dots,x_{n}]$.
+
+We ``clear the denominators'', so
+\begin{equation}
+f^{N} = h_{1}f_{1} + \cdots + h_{m}f_{m}
+\end{equation}
+with $N\in\NN$, $f^{N}\in I$, and $h_{i}\in\kk[x_{1},\dots,x_{n}]$ for
+each $i=1,\dots,n$. This means $f\in\Radical{I}$.
+\end{proof}
+
+% 1.12
+\begin{lemma}
+Let $X_{1}$, $X_{2}$ be affine varieties in $\AA^{n}$.
+\begin{enumerate}
+\item $I(X_{1}\cup X_{2})=I(X_{1})\cap I(X_{2})$, and
+\item $I(X_{1}\cap X_{2})=\Radical{I(X_{1})+I(X_{2})}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We will prove the second claim. We see
+\begin{subequations}
+\begin{align}
+I(X_{1}\cap X_{2}) &= I\left(V\bigl(I(X_{1})\bigr)\cap V\bigl(I(X_{2})\bigr)\right)\quad\mbox{since $X_{1}$, $X_{2}$ are closed}\\
+&= I\left(V\bigl(I(X_{1})+I(X_{2})\bigr)\right)\\
+&= \Radical{I(X_{1})+I(X_{2})}
+\end{align}
+\end{subequations}
+by the Strong Nullstellensatz.
+\end{proof}
+
+\begin{remark}
+We see there are bijections:
+\begin{equation*}
+\mbox{Affine Varieties}\longleftrightarrow\mbox{Radical ideals in }\kk[x_{1},\dots,x_{n}].
+\end{equation*}
+\begin{equation*}
+\mbox{Affine Schemes}\longleftrightarrow\mbox{All ideals in }\kk[x_{1},\dots,x_{n}].
+\end{equation*}
+Don't worry too much about that second bijection, it's just a
+``roadmap'' to where we're going.
+\end{remark}
+
+\begin{example} % 1.13
+Consider $I(X_{1})=\langle y-x^{2}\rangle$ and $I(X_{2})=\langle y\rangle$
+where $X_{1},X_{2}\subset\AA^{2}$. We see
+\begin{equation}
+I(X_{1}\cap X_{2})=\Radical{I(X_{1})+I(X_{2})}=\langle x,y\rangle.
+\end{equation}
+The ``Scheme-theoretic intersection'' is
+\begin{equation}
+I(X_{1})+I(X_{2})=\langle y,x^{2}\rangle,
+\end{equation}
+and that ``$x^{2}$'' component (instead of $x$) encodes $X_{2}$ is
+tangent to $X_{1}$.
+
+We should observe that $I(X_{1})+I(X_{2})$ is not a radical ideal in
+$\CC[x,y]$. 
+\end{example}
+
+\begin{remark} % 1.14
+Polynomials in $\kk[x_{1},\dots,x_{n}]$ can be viewed as functions on
+$\AA^{n}$. They are polynomial functions. If $f,g\in\kk[x_{1},\dots,x_{n}]$
+define the same functions on $\AA^{n}$, then their difference
+\begin{equation}
+f-g\in I(\AA^{n})=I(V(0))\iso\Radical{0}=0.
+\end{equation}
+Then $f=g$. So if they define the same function, then they must be the
+same formal polynomial.
+
+We can generalize this to any affine variety
+$X\subset\AA^{n}$. Specifically, the claim is
+\begin{equation}
+\biggl(f,g\in\kk[x_{1},\dots,x_{n}]\implies\forall x\in X,f(x)=g(x)\biggr)\iff f-g\in I(X)
+\end{equation}
+Then the quotient set $\kk[x_{1},\dots,x_{n}]/I(X)$ is the ring of
+polynomial functions on $X$. It is called the \define{Coordinate Ring}
+of $X$ and various denoted either $\kk[X]$ or $A(X)$.
+\end{remark}
+
+\begin{definition}
+Let $Y$ be an affine variety, consider zero loci of ideals in $\AA(Y)$.
+\begin{enumerate}
+\item Let $S\subset A(Y)$. We define an \define{Affine Subvariety} of
+  $Y$ to be $V(S):=V_{Y}(S)=\{x\in Y\mid f(y)=0\forall f\in S\}$
+\item Let $X\subset Y$ be a subset. We define the \define{Ideal of $X$
+  in $Y$} $I(X):=I_{Y}(X)=\{f\in A(Y)\mid f(x)=0\forall x\in X\}$,
+which is an ideal in $A(Y)$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark} % 1.18
+\begin{enumerate}
+\item $A(X)\iso A(Y)/I(X)$
+\item \textsc{Relative Nullstellensatz:} $I_{Y}(V_{Y}(J))=\Radical{J}$
+  for any $J\ideal A(Y)$, which gives us a bijection
+\begin{equation*}
+\{\mbox{Affine Subvarieties of }Y\}\longleftrightarrow\{\mbox{Radical Ideals in }A(Y)\}
+\end{equation*}
+\end{enumerate}
+\end{remark}
+
+\subsection{Zariski Topology}
+
+\begin{definition}
+Let $X$ be an affine variety.
+The \define{Zariski Topology} on $X$ is the topology whose closed sets
+are the affine subvarieties of $X$.
+\end{definition}
+
+\begin{definition}
+Let $X$ be a topological space. We say $X$ is \define{Reducible} if
+$X=X_{1}\cup X_{2}$ wherre $X_{1}$ and $X_{2}$ are proper closed
+subsets of $X$. Otherwise, $X$ is called \define{Irreducible}.
+
+(Almost nothing is irreducible in classical topology!)
+
+Every disconnected topological space is reducible.
+\end{definition}
+
+\begin{proposition} % 2.7
+Let $X$ be a disconnected Affine variety, $X=X_{1}\cup X_{2}$ where
+$X_{1}\cap X_{2}=\emptyset$ are closed subsets of $X$.
+Then $A(X)\iso A(X_{1})\times A(X_{2})$.
+\end{proposition}
+
+\begin{proof}
+We know
+\begin{equation}
+I(X_{1})\cap I(X_{2})=I(X_{1}\cup X_{2})=I(X)=0\ideal A(X).
+\end{equation}
+On the other hand,
+\begin{equation}
+\begin{split}
+I(X_{1}\cap X_{2}) &= I(\emptyset) = \Radical{I(X_{1})+I(X_{2})}\\
+&= \langle1\rangle
+\end{split}
+\end{equation}
+where $\langle1\rangle$ is the unit ideal. Then
+\begin{equation}
+I(X_{1})+I(X_{2})=\langle1\rangle
+\end{equation}
+where $I(X_{i})\ideal A(X)$ are ideals. Then by the Chinese Remainder
+Theorem, $A(X)\iso(A(X)/I(X_{1}))\times(A(X)/I(X_{2}))$.
+\end{proof}
+
+\begin{proposition} % 2.8
+A non-empty affine variety $X$ which is irreducible if and only if
+$A(X)$ is an integral domain.
+\end{proposition}
+
+\begin{proof}
+$(\Longrightarrow)$ We will prove the forward direction by contrapositive.
+Assume $A(X)$ is not an integral domain. Then there are zero divisors
+$f_{1},f_{2}\in A(X)$ which are nonzero such that $f_{1}f_{2}=0$.
+Then $X_{1}=V(f_{1})$ and $X_{2}=V(f_{2})$. Then
+\begin{subequations}
+  \begin{align}
+X_{1}\cup X_{2} &= V(f_{1})\cup V(f_{2})\\
+&= V(f_{1}f_{2})\\
+&= V(0) = X.
+  \end{align}
+\end{subequations}
+Hence $X$ is reducible.
+
+$(\Longleftarrow)$ Again, we will prove the backwards claim by contrapositive.
+Assume $X$ is reducible. Then consider $X_{1}$, $X_{2}$ being closed
+subsets of $X$ such that $X=X_{1}\cup X_{2}$. Then $I(X_{i})\neq0$.
+We can choose $f_{i}\in I(X_{i})$. We see $f_{1}f_{2}$ vanishes on
+$X_{1}\cup X_{2}=X$ which implies $f_{1}f_{2}=0$, which then implies
+$A(X)$ has a nonzero zero-divisor. Hence $A(X)$ is not an integral domain.
+\end{proof}
+
+\begin{remark} % 2.9
+We see there is a bijection
+\begin{equation*}
+\{\mbox{non-empty irreducible affine subvarieties of }Y\}\longleftrightarrow%
+\{\mbox{prime ideals in }A(Y)\},
+\end{equation*}
+where $Y$ is irreducible. This is from restricting the bijection from
+the Relative Nullstellensatz.
+\end{remark}
+
+\begin{definition} % 2.11
+A topological space $X$ is \define{Noetherian} if every chain
+$X_{0}\propersupset X_{1}\propersupset X_{2}\propersupset \dots$
+of closed subsets stabilizes.
+\end{definition}
+
+\begin{lemma} % 2.12
+Any affine variety $X$ is Noetherian.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+The trick is to see $A(X)\iso\kk[x_{1},\dots,x_{n}]/I$ which is Noetherian.
+The relative Nullstellensatz translates the chain of closed subsets
+[subvarieties of $X$] into a chain of ideals.
+\end{proof}
+
+\begin{proposition}[Irreducible decomposition of Noetherian spaces] %2.14
+Every Noetherian topological space can be written as a finite union of
+non-empty irreducible closed subsets
+\begin{equation}
+X = X_{1}\cup\cdots\cup X_{r}.
+\end{equation}
+If further the $X_{i}$ are maximal (so $X_{i}\nsubset X_{j}$ for
+$i\neq j$), then the $X_{1}$, \dots, $X_{r}$ are unique up to
+permutation. We call the $X_{i}$ \define{Irreducible Components} of $X$.
+\end{proposition}

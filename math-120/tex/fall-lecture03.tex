@@ -1,0 +1,250 @@
+%%
+%% fall-lecture03.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-05T09:30:30-0700
+%% Last update 2025-10-05T09:30:30-0700
+%% 
+
+\lecture[Localization, Ring of Fractions]
+
+\begin{node}
+For any ideal $J\neq A$, we have this induce a map $\Spec(A/J)\into\Spec(A)$
+which is an injective map. The image is just the primes $P\ideal A$
+containing $J\subset P$. We should intuitively think $\Spec(A/J)\sim V(J)$
+where $V(J)=\{P\in\Spec(A)\mid J\subset P\}$ is a closed set in the
+Zariski topology.
+\end{node}
+
+\begin{example}
+For $A=\CC[x,y]$, $J=\langle x^{2}-y^{3}\rangle$, $\Spec(A/J)$ is the
+curve doodled in my notes.
+\end{example}
+
+\begin{definition}[Multiplicative set]
+Let $A$ be a [commutative] ring.
+We call the subset $S\subset A$ a \define{Multiplicative Set}
+if
+\begin{enumerate}
+\item $1\in S$ (which means that multiplicative sets are always nonempty), and
+\item $\forall x,y\in S\ldotp xy\in S$.
+\end{enumerate}
+(This could be defined for any unital nonempty magma $A$.)
+\end{definition}
+
+\begin{example}
+Let $R$ be any ring. Let $x\in R$ be any element of the ring.
+Then the set $\{x^{n}\in R\mid n\in\NN_{0}\}$ is a multiplicative set.
+\end{example}
+
+\begin{proposition}
+Let $S$ be a multiplicative set of $A$, let $0\notin S$.
+Let $\mathcal{M}$ be the set of all prime ideals of $A$ disjoint from $S$.
+Then $(0)\in\mathcal{M}$. By Zorn's lemma, we get a maximal element
+$P$ [a chain] of $\mathcal{M}$. Then $P$ is a prime ideal.
+\end{proposition}
+
+\begin{definition}[Nilradical]
+Let $A$ be a commutative ring.
+We define the \define{Nilradical} of $A$ to be the ideal
+$\nilradical{A}$ consisting of all nilpotent elements of $A$.
+\end{definition}
+
+\begin{proposition}\label{fall:lec3:prop-ii}
+The nilradical of $A$ is the intersection of all prime ideals,
+\begin{equation*}
+\nilradical{A}=\bigcap\Spec(A).
+\end{equation*}
+\end{proposition}
+
+\begin{proof}
+Every prime ideal $P$ contains $0$, so $a\cdot a^{n-1}=0$ is in the
+prime ideal $P$. This proves $\nilradical{A}\subset\bigcap\Spec(A)$.
+
+Proving $\nilradical{A}\supset\bigcap\Spec(A)$: let $b\in\bigcap\Spec(A)$,
+then form $\{b^{n}\mid n\in\NN_{0}\}=S$ which is a multiplicative set
+and does not contain zero. Then there is a prime ideal not containing
+$S$ which is a contradiction.
+\end{proof}
+
+\begin{proposition}
+If $J\ideal A$, then
+\begin{equation*}
+\Radical{J}=\bigcap\{P\in\Spec(A)\mid J\subset P\}.
+\end{equation*}
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+This followed from Proposition~\ref{fall:lec3:prop-ii} applied to the
+quotient ring $A/J$.
+\end{proof}
+
+\begin{definition}
+We say $A$ is \define{Reduced} if $\nilradical{A}=0$. We can always form
+\begin{equation}
+A_{\text{red}} := A/\bigcap\Spec(A),
+\end{equation}
+which is reduced.
+\end{definition}
+
+\begin{example}
+Consider $\kk[x]/(x^{2})$. We see its nilradical is
+$\nilradical{\kk[x]/(x)^{2}}=(x)$, so
+\begin{equation*}
+\bigl(\kk[x]/(x^{2})\bigr)/(x)\iso\kk.
+\end{equation*}
+\end{example}
+
+\begin{definition}
+Let $S\subset A$ be a multiplicative set.
+We define the \define{Localization} (or \emph{Ring of Fractions}) of
+$A$ with respect to $S$ as
+\begin{equation}
+S^{-1}A = \{{\textstyle\frac{a}{s}}\mid a\in A, s\in S\}/\sim
+\end{equation}
+where $\sim$ is the equivalence relation
+\begin{equation}
+\frac{a}{s}\sim\frac{b}{s'}\iff\exists s''\in S\ldotp s''(s'a-sb)=0,
+\end{equation}
+where the $s''$ factor is needed (if we omit it, we would not have an
+equivalence relation, because we can have zero divisors). Addition and
+multiplication are both defined in the usual way.
+\end{definition}
+
+\begin{proposition}
+$S^{-1}A=0\iff 0\in S$ because we can divide by zero.
+\end{proposition}
+\begin{proof}
+\begin{equation*}
+\frac{1}{0}=\frac{a}{s}\iff s'(s-0\cdot a)=0,
+\end{equation*}
+since $s'=0$.
+\end{proof}
+
+\begin{definition}[Natural map]
+Let $S\subset A$ be a multiplicative set.
+We define the \define{Natural Map} to be the morphism $A\to S^{-1}A$
+sending $a\mapsto \frac{a}{1}$.
+\end{definition}
+
+\begin{proposition}[Existence of injective natural map]
+We have a map $A\to S^{-1}A$, $a\mapsto\frac{a}{1}$.
+(This is analogous to the inclusion $\ZZ\to\QQ$.)
+Its kernel is zero and all zero-divisors.
+\end{proposition}
+
+\begin{example}
+For $\ZZ$, there are a lot of multiplicative subsets. For example,
+$(p)$ is a multiplicative set for each prime $p\in\ZZ$.
+
+For $S=\ZZ\setminus\{0\}$, which is a multiplicative subset of $\ZZ$,
+we see $S^{-1}\ZZ=\QQ$.
+\end{example}
+
+\begin{definition}
+Let $A$ be an integral domain. We define the \define{Field of Fractions}
+to be the ring $\Frac(A)$ equal to the localization of $A$ with
+respect to the nonzero elements $(A\setminus\{0\})^{-1}A$.
+\end{definition}
+
+\begin{example}
+Let $S\subset\ZZ$ consist of all odd integers. Then
+\begin{equation*}
+S^{-1}\ZZ=\left\{\frac{a}{b}\mid\mbox{$b$ is odd}\right\}.
+\end{equation*}
+\end{example}
+
+\begin{proposition}
+Let $P\in\Spec(A)$, $S:=A\setminus P$. Then $S^{-1}A=AP$.
+\end{proposition}
+
+\begin{node}[Universal property of localization]\label{node:fall:lecture3:universal-property-of-localization}
+For any construction of gadgets, we can do it explicitly (as we have
+done) or we can use a universal property. For localizations, we have
+for any ring $B$ and ring morphism $f\colon A\to B$, the following
+diagram commutes:
+\begin{equation}
+\xymatrix{
+A\ar[dr]_{f}\ar[rr] & & \ar@{-->}[dl] S^{-1}A\\
+& B & }
+\end{equation}
+The map $A\to S^{-1}A$ is the ``canonical injection'' sending
+$a\mapsto\frac{a}{1}$. The dashed arrow is unique. After a bit of
+tinkering, we see it sends
+\begin{equation}
+\frac{a}{s}\mapsto\frac{f(a)}{f(s)}.
+\end{equation}
+When we have ``another'' ring $B$ proposed as the localization, the
+universal property says there exists a unique morphism $S^{-1}A\to B$
+and another unique morphism $B\to S^{-1}A$ such that the compositions
+are identity morphisms.
+
+This means that the localization of $A$ with respect to $S$ is unique
+up to unique isomorphism (i.e., if two distinct localizations exist,
+then there is a unique isomorphism from one to the other). However,
+universal properties never assert the existence of the construction, only
+the (comparative) uniqueness of the construction.
+\end{node}
+
+\begin{node}
+Let $S$ be a multiplicative set of $A$.
+Let $P$ be a prime (resp., primary) ideal of $A$ such that it is
+disjoint from $S$, i.e., $P\cap S=\emptyset$.
+Then we can form $P(S^{-1}A)=i(P)(S^{-1}A)$ --- where $i\colon A\into S^{-1}A$
+is the canonical injection --- is a prime (resp., primary) ideal of $S^{-1}A$.
+
+This means there exists a canonical mapping $\Spec(S^{-1}A)\to\Spec(A)$
+which is a bijection to
+\begin{equation}
+\Spec(S^{-1}A)\iso\{P\in\Spec(A)\mid P\cap S=\emptyset\}.
+\end{equation}
+\end{node}
+
+\begin{example}
+For $i\colon\ZZ\into\QQ$, we see $i(2)$ is not an ideal in $\QQ$, but
+$i(2)\QQ$ \emph{is} the smallest ideal of $\QQ$ containing
+\begin{equation*}
+\{aq\mid a\in i(2), q\in\QQ\}.
+\end{equation*}
+\end{example}
+
+\begin{example}
+  Let $A_{P}=(A\setminus P)^{-1}A$, then
+  \begin{equation}
+\Spec(A_{P}) = \{Q\in\Spec(A)\mid Q\subset P\}.
+  \end{equation}
+\end{example}
+
+\begin{example}
+Roughly, the localization $\CC[x,y]_{(x,y)}$ describes geometrically
+all curves passing through $(x,y)$.
+\end{example}
+
+\subsection{Tensor Product}
+
+\begin{node}
+The basic example of tensor products of vector spaces $A$ and $B$ over
+the same field $\kk$ is a vector space $A\otimes B$. We define it
+roughly as follows: let $\{e_{1},\dots, e_{m}\}$ be a basis of $A$,
+let $\{f_{1},\dots,f_{n}\}$ be a basis of $B$. Then
+$\{e_{i}\otimes b_{j}\mid i=1,\dots,m; j=1,\dots,n\}$ is a basis of $A\otimes B$.
+
+More generally, for modules $A$ and $B$ over a commutative ring $R$,
+we form their tensor product $A\otimes_{R}B$ which is a module over
+$R$ as consisting of vectors $m\otimes n\in A\otimes_{R}B$ (where
+$m\in A$, $n\in B$) such that
+\begin{subequations}
+\begin{align}
+m\otimes(n+n')&=(m\otimes n)+(m\otimes n')\\
+(rm)\otimes n&=m\otimes(rn)=r(m\otimes n),
+\end{align}
+\end{subequations}
+for any $r\in R$, $m\in A$, $n,n'\in B$ --- there are more equations,
+but you get the idea.
+
+We can also form the localization for a module $S^{-1}M$ as we did for
+the ring, which can be viewed as $M\otimes_{A}S^{-1}A$ since $S^{-1}A$
+is a module over $A$.
+\end{node}

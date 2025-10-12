@@ -1,0 +1,179 @@
+%%
+%% fall-lecture05.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-09T10:13:21-0700
+%% Last update 2025-10-09T10:13:21-0700
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $A\neq0$ be a ring. Then the \define{Jacobson Radical} of $A$
+is the ideal $\JacobsonRadical(A)=\bigcap\MSpec(A)$ obtained by taking
+the intersection of all maximal ideals of $A$.
+\end{definition}
+
+\begin{remark}
+The previous definition works for commutative rings $A$. If we wanted
+to consider a general unital ing, we would define
+$\JacobsonRadical(A)$ as the ideal consisting of all elements $a\in A$
+such that $aM=0$ whenever $M$ is a simple $A$-module. When $A$ is
+commutative, we recover the usual Jacobson radical.
+\end{remark}
+
+\begin{definition}
+A \define{Semi-Local Ring} is a ring $A$ with finitely many maximal
+ideals $M_{1}$, \dots, $M_{r}$.
+\end{definition}
+
+\begin{proposition}
+For a semilocal ring $A$, we see
+$\JacobsonRadical(A)=M_{1}\cap\cdots\cap M_{r}=M_{1}(\cdots)M_{r}$
+(by the Chinese remainder theorem, $I\cap J=A$ and $IJ=I\cap J$).
+\end{proposition}
+
+\begin{proposition}
+Let $x\in\JacobsonRadical(A)$. Then $1+x$ is a unit in  $A$.
+\end{proposition}
+
+\begin{proof}
+Consider the maximal ideal $M$ such that $x\in M$. Then $1+x\in M$,
+which implies $1\in M$, which is a contradiction. Hence the result.
+\end{proof}
+
+\begin{proposition}
+If $I\ideal A$ is an ideal, and if $1+x$ is a unit for all $x\in I$,
+then $I\subset\JacobsonRadical(A)$.
+\end{proposition}
+
+\begin{lemma}[NAK (1.M)]
+Let $A$ be a ring, let $M$ be a finitely-generated $A$ module. Suppose
+$IM=M$ where $I\ideal A$ is an ideal.
+Then there exists some $a\in A$ of the form $a=1+x$ where $x\in I$ and $aM=0$.
+
+Moreover, if $I\subset\JacobsonRadical(A)$, then $M=0$.
+\end{lemma}
+
+\begin{proof}
+Let $M=Aw_{1}+\cdots+Aw_{s}$ where the $w_{j}$ are generators of $M$
+(since $M$ is finitely-generated, by hypothesis). Write $M'=M/A$.
+Now by induction on $s$ (the number of generators).
+
+By induction, $\exists x\in I\ldotp(1+x)M'=0\iff(1+x)M\subset Aw_{s}$.
+Since $IM=M$, we have
+\begin{subequations}
+\begin{align}
+(1+x)M &= (1+x)(IM)\\
+  &=(1+x)IM\\
+  &=I(1+x)M\\
+  &\subset I(Aw_{s})=Iw_{s}
+\end{align}
+\end{subequations}
+Now $(1+x)w_{s}=yw_{s}$ for some $y\in I$.
+Then $(1+x-y)(1+x)M=0$ so $(1+x-y)(1+x)\equiv1\pmod{I}$.
+\end{proof}
+
+\begin{remark}
+\begin{enumerate}
+\item You'd use this when $A$ is local and $I$ is the maximal ideal of
+  $A$.
+\item There are other formulations of the NAK lemma.
+\item The NAK lemma is due to Nakayama, Azumaya, and Krull. It is
+  usually just referred to as ``the Nakayama lemma'', although
+  Nakayama did not like the name.
+\end{enumerate}
+\end{remark}
+
+\begin{corollary}
+Let $A$ be a ring, let $M$ be an $A$-module, let $I\ideal A$ be an ideal of $A$,
+let $N,N'\subset M$ be submodules.
+Suppose that $M=N+IN'$ and either
+\begin{enumerate}
+\item $I$ is nilpotent, or
+\item $I\subset\JacobsonRadical(A)$ and $N'$ is a finitely-generated module.
+\end{enumerate}
+Then $M=N$.
+\end{corollary}
+
+\begin{proof}
+Per cases.
+\begin{enumerate}
+\item Assume $I$ is nilpotent. Then $M/N=I(M/N)=I^{2}(M/N)=\cdots=0$
+  and eventually $I^{n}=0$. Hence the result.
+\item Assume $I\subset\JacobsonRadical(A)$ and $N'$ is a finitely-generated module.
+  Then use NAK for $M/N$.
+\end{enumerate}
+Hence the result.
+\end{proof}
+
+\begin{proposition}[1.N]
+Let $(A,\mathfrak{m},\kk)$ be a local ring. Let $M$ be an $A$-module.
+Suppose either $\mathfrak{m}$ is nilpotent or $M$ is finitely-generated.
+Let $G\subset M$ be a subset. Then $G$ generates $M$ iff its image
+$\overline{G}$ in $M/\mathfrak{m}M$ generates $M\otimes\kk$.
+\end{proposition}
+
+The trick is to realize $M/\mathfrak{m}M=M\otimes_{A}\kk$ which is a
+vector space over $\kk$.
+
+(When is a local ring's maximal ideal nilpotent? One example,
+$\CC[x]/(x^{2})$ has $(x)$ be maximal and nilpotent.)
+
+\begin{remark}
+NAK is analogous to the implicit function theorem from Analysis. We
+can take generators of the vector space $M/\mathfrak{m}M$ and lift
+them. This then corresponds to extending $M/(x)M$ to an infinitesimal
+neighborhood. We are taking $A=\CC[x]$, $M=A^{n}$ free module,
+$S=A\setminus(x)$, and $S^{-1}M$ the localization. Elements of
+$S^{-1}M$ are like $M$ when we can divide by $x$. Then
+$M/\mathfrak{m}M=\CC^{n}$ and we can pick the usual canonical basis
+$e_{1}$, \dots, $e_{n}$ and lift this basis.
+\end{remark}
+
+
+\begin{definition}[1.O]
+Let $A$ be a ring, let $M$ be an $A$-module. An element $a\in A$ is
+called \define{$M$-Regular} if it is not a zero-divisor on $M$; i.e.,
+if $M\to aM$ defined by $m\mapsto am$ is injective.
+
+The set of $M$-regular elements is a multiplicative subset of $A$.
+
+Let $S_{0}$ be the set of $A$-regular elements (= the set of nonzero
+divisors), then $S_{0}^{-1}A$ is called the \define{Total Ring of Fractions} of $A$,
+which Matsumara denoted by $\Phi(A)$.
+\end{definition}
+
+\begin{definition}[1.P]
+Let $A$ be a ring, let $\alpha\colon\ZZ\to A$ be the canonical ring morphism
+sending $1\mapsto 1$. Then $\ker(\alpha)=n\ZZ$ for some $n\geq0$.
+We call this $n\geq0$ the \define{Characteristic} of $A$ and denote it
+by $\Char(A)$.
+
+Observe: if $A$ is local, then $\Char(A)$ is either 0 or a power of a
+prime number.
+\end{definition}
+
+\subsection{Noetherian and Artinian Rings}
+
+\begin{definition}
+We call a ring $A$ \define{Noetherian} (resp., \define{Artinian}) if
+the ascending chain condition (resp., descending chain condition)
+holds in it:
+if we have a chain of ideals of $A$, $I_{1}\subset I_{2}\subset\cdots$,
+then there exists an $n\in\NN$ such that $I_{n}=I_{n+k}$ for all $k\in\NN$.
+
+(The descending chain condition is the same, but with $I_{1}\supset I_{2}\supset\cdots$.)
+\end{definition}
+
+\begin{remark}
+This is a finiteness condition on rings. The Noetherian property turns
+out to be ``the right one''.
+\end{remark}
+
+\begin{example}
+Is $\ZZ$ Noetherian? Take $I_{n}=(k_{n})$ for $k_{n}>0$ and
+$k_{n+1}\leq k_{n}$. It is Noetherian. But it is not Artinian.
+\end{example}

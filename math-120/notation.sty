@@ -1,0 +1,58 @@
+%%
+%% notation.sty
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-09-30T09:50:53-0700
+%% Last update 2025-09-30T09:50:53-0700
+%% 
+
+\def\define#1{\textbf{``#1''}}
+
+% image of a morphism/function/etc.
+\let\ogim\Im
+\let\Im\relax
+\DeclareMathOperator\Im{Im}
+
+% constants
+\def\I{\mathrm{i}} % = \sqrt{-1}
+
+% sets
+\let\kk\Bbbk
+\def\CC{\mathbb{C}}
+\def\NN{\mathbb{N}}
+\def\QQ{\mathbb{Q}}
+\def\ZZ{\mathbb{Z}}
+
+% set theory
+\let\propersubset\subset
+\let\subset\subseteq
+\let\propersupset\supset
+\let\supset\supseteq
+\let\nsubset\nsubseteq
+\let\nsupset\nsupseteq
+
+%% functions
+\DeclareMathOperator\id{id}
+\def\into{\hookrightarrow}
+\def\onto{\twoheadrightarrow}
+
+\def\preimage#1{#1^{*}}
+
+% ideal related
+\let\Radical\sqrt
+\newcommand\ideal{\mathrel{\trianglelefteq}}
+\def\properideal{\mathrel{\triangleleft}}
+\let\iso\cong
+
+% ring related
+\DeclareMathOperator\Spec{Spec}
+\DeclareMathOperator\MSpec{MSpec}
+\newcommand\nilradical[1]{\operatorname{nil}(#1)}
+\DeclareMathOperator\Frac{Frac}
+\DeclareMathOperator\Annihilator{Ann}
+\DeclareMathOperator\JacobsonRadical{rad}
+\DeclareMathOperator\Char{ch}
+
+\endinput

@@ -1,0 +1,161 @@
+%%
+%% fall-lecture01.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-02T11:14:33-0700
+%% Last update 2025-10-02T11:14:33-0700
+%%
+
+\lecture[Review of homotopy]
+
+The emphasis of this course will be on homology theory.
+
+\begin{node}[Review of homotopy]
+Many invariants are homotopy invariants, so let us review the notion
+of homotopy. If we have two continuous maps between topological spaces,
+\begin{equation}
+f_{0},f_{1}\colon X\to Y,
+\end{equation}
+we say $f_{0}$ and $f_{1}$ are \define{Homotopic} if there exists a
+map
+\begin{equation}
+F\colon X\times[0,1]\to Y
+\end{equation}
+such that $F(\cdot,1)=f_{1}(\cdot)$ and $F(\cdot,0)=f_{0}(\cdot)$. The
+map $F$ is called a \define{Homotopy}. We may also view $F(\cdot,t)=f_{t}$
+as a family of maps where $t\in[0,1]$. More abstractly, if we consider
+\begin{equation}
+\begin{split}
+  [0,1]&\to\Maps(X,Y)\\
+  t&\mapsto f_{t}
+\end{split}
+\end{equation}
+then this gives us a path $\{f_{t}\}_{t\in[0,1]}$ in the space
+$\Maps(X,Y)$ from $f_{0}$ to $f_{1}$. Here $\Maps(X,Y)$ is the set of
+continuous functions from $X$ to $Y$, equipped with the compact-open topology.
+
+We will write $f_{0}\homotopic f_{1}$ to indicate $f_{0}$ and $f_{1}$
+are homotopic.
+\end{node}
+
+\begin{node}[Relative homotopy]
+If $A\subset X$ is a subspace, and you have $\{f_{t}\}$ is a homotopy
+between $f_{0}$ and $f_{1}$, then we say $f_{t}$ is a
+\define{Relative Homotopy $\rel{A}$} if $f_{t}|_{A}$ does not depend
+on $t$. In this case, we say $f_{0}$ and $f_{1}$ \define{are Homotopic $\rel{A}$},
+and we write $f_{0}\homotopic f_{1}\rel{A}$.
+\end{node}
+
+\begin{definition}
+A map $f\colon X\to Y$ is called a \define{Homotopy Equivalence}
+if there exists a map $g\colon Y\to X$ such that $f\circ g\homotopic\id_{Y}$
+and $g\circ f\homotopic\id_{X}$.
+(This is similar to a homeomorphism, but we just replace equality with homotopy.)
+In this case, we call $g$ a \define{Homotopy Inverse} of $f$, and we
+say the spaces $X$ and $Y$ are \define{Homotopy Equivalent} (or they
+have the same \emph{Homotopy Type}) and write this as $X\homotopic Y$.
+\end{definition}
+
+\begin{example}
+The disk $\disk{n}$ is homotopic to a point $\point{x}$,
+\begin{equation}
+\disk{n}\homotopic\point{x}.
+\end{equation}
+You can pinch the disc to a point, and that's the homotopy.
+\end{example}
+
+\begin{example}
+The graph $\infty$ is homotopy equivalent to $\theta$, which is
+homotopy equivalent to a pair of glasses.
+\end{example}
+
+\begin{definition}[Retraction]
+Let $A\subset X$ be a subspace. We call a map $r\colon X\to A$ a
+\define{Retraction} if $r|_{A}=\id_{A}$. If we view $r\colon X\to X$,
+then $r\circ r=r$.
+\end{definition}
+
+\begin{definition}[Deformation retraction]
+Let $A\subset X$ be a subspace. We define a \define{Deformation Retraction}
+of $X$ onto $A$ to be a family of maps $f_{t}\colon X\to X$ for $t\in[0,1]$
+such that
+\begin{enumerate}
+\item $f_{0}=\id_{X}$
+\item $f_{1}(X)=A$, and
+\item $f_{t}|_{A}=\id_{A}$.
+\end{enumerate}
+In other words, it is a relative homotopy $\rel{A}$ connecting
+$\id_{X}$ and a retraction.
+\end{definition}
+
+\begin{example}
+Let $X=A\times[0,1]\supset A\times\{0\}$ and suppose we identify $A$
+with $A\times\{0\}$. We define a family of maps (which we claim is a
+deformation retraction)
+\begin{equation}
+f_{t}\colon X\to A,
+\end{equation}
+where we just collapse everything to $A$. We have
+\begin{equation}
+f_{t}(a,s) = (a, (1-t)s)
+\end{equation}
+where $(a,s)\in A\times[0,1]$.
+\end{example}
+
+\begin{example}
+Consider $X$ being a ``pair of pants''. We can draw a figure 8 on our
+pair of pants. We map $[0,1]$ to $X$, sending $0$ to the figure 8. We
+have $f_{t}(s)=(1-t)s$ treating each of the red lines as an interval.
+
+(A similar argument could be made for the theta graph as a subspace of
+our pair of pants $X$.)
+\end{example}
+
+\begin{theorem}
+If $f_{t}\colon X\to A$ is a deformation retraction, then $f_{1}$ is a
+homotopy equivalence.
+\end{theorem}
+
+\begin{definition}[Mapping cylinder]
+Let $f\colon X\to Y$ be a continuous map. We define the
+\define{Mapping Cylinder} $\MappingCylinder{f}$ to be the space
+$(Y\sqcup(X\times[0,1]))/\sim$ where the equivalence relation
+identifies $(x,1)\sim f(x)$.
+
+The complement of $Y$ may be decomposed as the (disjoint) union of intervals, if
+we identify $f(X)\subset Y$ as a subset of $\MappingCylinder{f}$. So 
+$\MappingCylinder{f}\setminus Y$ is a disjoint union of intervals such
+that the endpoint of each interval is in $Y$.
+\end{definition}
+
+\begin{proposition}
+The mapping cylinder of $f\colon X\to Y$ deformation retracts onto
+$Y$. Hence $\MappingCylinder{f}\homotopic Y$.
+\end{proposition}
+
+\begin{remark}
+The pair of pants $X$ with the pince-nez glasses graph $G$ turns out to be a mapping
+cylinder of $f\colon S^{1}\sqcup S^{1}\sqcup S^{1}\to G$. The three
+circles are just the boundary of the pair of pants.
+\end{remark}
+
+\begin{definition}[Null-homotopic]
+A map $f\colon X\to Y$ is \define{Null-Homotopic} if it is homotopic
+to a constant map.
+\end{definition}
+
+\begin{example}
+Any map $f\colon X\to\RR^{n}$ is null homotopic. Just take $f_{t}(x)=(1-t)f(x)$.
+When $t=1$, we map everything to the origin.
+\end{example}
+
+\begin{definition}[Contractible space]
+A topological space is \define{Contractible} if its identity map is
+null-homotopic.
+\end{definition}
+
+\begin{example}
+We see $\disk{n}$, $\RR^{n}$, and any tree are all contractible.
+\end{example}

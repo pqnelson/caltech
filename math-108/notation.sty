@@ -1,0 +1,29 @@
+%%
+%% notation.sty
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-12T10:08:42-0700
+%% Last update 2025-10-12T10:08:42-0700
+%% 
+
+\def\define#1{\textbf{``#1''}}
+
+\let\propersubset\subset
+\let\subset\subseteq
+\let\propersupset\supset
+\let\supset\supseteq
+
+% Some standard sets
+\def\CC{\mathbb{C}}
+\def\FF{\mathbb{F}}
+\def\NN{\mathbb{N}}
+\def\QQ{\mathbb{Q}}
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+
+% topological stuff
+\newcommand\closure[1]{\overline{#1}}
+
+\endinput

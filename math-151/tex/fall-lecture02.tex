@@ -1,0 +1,215 @@
+%%
+%% fall-lecture02.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-02T11:47:57-0700
+%% Last update 2025-10-02T11:47:57-0700
+%% 
+
+\lecture[CW Complexes]
+
+\begin{definition}[$n$-Cell]
+Let $n\in\NN_{0}$ be a natural number. We define an \define{$n$-Cell}
+to be an \emph{open} $n$-dimensional disc when $n\neq0$, and when
+$n=0$ it is just a point.
+\end{definition}
+
+\begin{definition}[CW Complex]
+A \define{CW Complex} is a topological space
+\begin{equation}
+X = \bigcup^{\infty}_{n=0}X^{n}
+\end{equation}
+where $X^{0}$ consists of 0-cells with discrete topology.
+
+When $n>0$, $X^{n}$ is obtained from $X^{n-1}$ by attaching $n$-cells,
+so
+\begin{equation}
+X^{n}=X^{n-1}\cup_{f}\left(\bigsqcup\disk{n}\right)
+\end{equation}
+where $f\colon\boundary(\bigsqcup\disk{n})\to X^{n-1}$ is used to
+attach the $n$-cells to $X^{n-1}$. Some authors write
+$f^{n}_{\alpha}\colon\disk{n}_{\alpha}\to X$ and call it ``the
+characteristic map of the cell $\disk{n}_{\alpha}$''.
+\end{definition}
+
+\begin{example}
+Consider $X=S^{1}$ the circle, and $X^{0}=\point{x}$. Then
+$X^{1}=S^{1}$ is obtained by mapping the boundary of $\disk{1}$ to $X^{0}$.
+\end{example}
+
+\begin{example}
+Let $X=S^{n}$ be the $n$-sphere. We have $X^{0}=\point{x}$, and
+$X^{k}=X^{0}$ for all $k<n$. Then $X^{n}=S^{n}$ using $f\colon\boundary\disk{n}\to\point{x}$.
+This is what Albert Schwarz called ``spheroids''!
+\end{example}
+
+\begin{example}
+Let $X=T^{2}$ be the torus. Then $X^{0}=\point{x}$, $X^{1}$ is drawn
+thus:
+
+Then $f\colon\boundary\disk{2}\to X^{1}$ sends $\boundary\disk{2}$ to
+$ab\bar{a}\bar{b}$ where $\bar{a}$ is the $a$ in the opposite
+orientation.
+
+We can obtain a CW complex for the torus $T^{2}$ by gluing the
+opposite edges of the unit square together, the interior of the square
+is the 2-cell.
+\end{example}
+
+\begin{remark}
+The $n$-cell is not necessarily an open subset in $X$, the use of the word
+``open'' is confusing. We're referring to the interior of the closed
+disk, i.e., $\interior{\disk{n}}$.
+\end{remark}
+
+\begin{theorem}
+If $X_{1}$ and $X_{2}$ are CW complexes, then $X_{1}\times X_{2}$ is a
+CW complex.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+If $e_{1}$ is a $k$-cell in $X_{1}$, and if $e_{2}$ is an $m$-cell in
+$X_{2}$, then $e_{1}\times e_{2}$ is an $(k+n)$-cell in $X_{1}\times X_{2}$.
+This gives us the method for constructing all the cells in
+$X_{1}\times X_{2}$.
+\end{proof}
+
+\begin{node}[Two conditions]
+\begin{enumerate}
+\item \textsc{Closure finiteness:} the closure of each cell meets only
+  finitely many other cells.
+\item \textsc{Weak topology:} A set $W\subset X$ is closed iff its
+  preimage $(f^{n}_{\alpha})^{*}W$ is closed in $\disk{n}_{\alpha}$
+  for all $n$, $\alpha$. (This tells us how to put a topology on the space.)
+\end{enumerate}
+(These two conditions are why it's called a CW complex --- it
+satisfies the ``\underline{\textbf{C}}losure finiteness'' and
+``\underline{\textbf{W}}eak topology'' conditions.)
+
+Observe these conditions are satisfied automatically for finite CW
+complexes.
+\end{node}
+
+\begin{example}
+We can pick for $S^{1}$ the CW complex where $X^{0}$ consists of two
+distinct points, and $X^{1}$ is obtained by attaching one interval for
+``the Northern hemisphere'' and another interval for ``the Southern hemisphere''.
+This construction can be iterated by treating $S^{1}$ as the equator,
+then attach a disk $\disk{2}$ as its ``Northern hemisphere'', and
+another $\disk{2}$ as its ``Southern hemisphere''.
+
+We can continue iterating this by attaching two $\disk{n}$ to
+$S^{n-1}$ to obtain the CW complex for $S^{n}$. We see that
+$S^{0}\subset S^{1}\subset S^{2}\subset\dots$. Then we could define
+\begin{equation}
+S^{\infty} := \bigcup^{\infty}_{n=0}S^{n}.
+\end{equation}
+This differs from, e.g., defining the unit sphere in a Banach space as
+consisting of all points which are a distance 1 from the origin.
+
+What good is this construction? Well, it is invariant under
+the antipodal map, which sends one $k$-cell to the other $k$-cell, for
+each $k=0,\dots,n$.
+\end{example}
+
+\begin{example}[Real projective spaces]
+Now, we see that 
+\begin{equation}
+S^{n}/(\mbox{antipodal map})=\RP^{n}.
+\end{equation}
+We thus get a CW complex describing $\RP^{n}$, with one $k$-cell for
+each $k=0,1,\dots,n$. This also gives us a way to define
+\begin{equation}
+\RP^{\infty}:=S^{\infty}/(\mbox{antipodal map}).
+\end{equation}
+\end{example}
+
+\begin{example}[Complex projective spaces]
+Consider
+\begin{equation}
+\CP^{n}=\bigl(\CC^{n+1}\setminus\{0\}\bigr)/\sim
+\end{equation}
+where $z\sim\lambda z$ for any $z\in\CC^{n+1}\setminus\{0\}$ and
+$\lambda\in\CC\setminus\{0\}$. We can use homogeneous coordinates to
+write the underlying set as
+\begin{equation}
+\CP^{n}=\{[x_{0}:x_{1}:\cdots:x_{n}]\in\CC^{n+1}\mid\exists i\ldotp x_{i}\neq0\}.
+\end{equation}
+Now, suppose we set $x_{n}=0$, which lets us see that $\CP^{n-1}\propersubset\CP^{n}$
+by the identification. We see
+\begin{subequations}
+\begin{align}
+\CP^{n}\setminus\CP^{n-1}&=\{[x_{0}:x_{1}:\cdots:x_{n}]\in\CC^{n+1}\mid x_{n}\neq0\}\\
+&=\{[\widetilde{x}_{0}:\widetilde{x}_{1}:\cdots:1]\in\CC^{n+1}\}
+\end{align}
+\end{subequations}
+where $\widetilde{x}_{i}=x_{i}/x_{n}$ and $\widetilde{x}_{n}=1$. We
+see then that there are $n$ complex variables $\widetilde{x}_{i}$ for
+$i=0,1,\dots,n-1$, which means we have a copy of $\CC^{n}$. In symbols,
+\begin{equation}
+\CP^{n}\setminus\CP^{n-1}=\CC^{n}.
+\end{equation}
+We can describe $\CC^{n}$ using a $2n$-cell. This gives us a CW
+complex for $\CP^{n}$ by adding a $2n$-cell to a CW complex for
+$\CP^{n-1}$. Then by induction, $\CP^{n}$ has a CW complex consisting
+of a single $2k$-cell for each $k=0,1,\dots,n$.
+\end{example}
+
+\begin{definition}[CW Subcomplex]
+Let $X$ be a CW complex, we call $A\subset X$ a \define{Subcomplex} of $X$
+if $A$ is closed and $A$ is the union of cells in $X$. In this way, we
+find $(X,A)$ sometimes called a \define{CW Pair} in the literature.
+\end{definition}
+
+\begin{example}
+$S^{1}\subset S^{2}\subset\dots\subset S^{\infty}$ gives us many subcomplexes.
+\end{example}
+
+\begin{example}
+$\CP^{1}\subset\CP^{2}\subset\dots\subset\CP^{\infty}$ where
+  $\CP^{\infty}=\bigcup^{\infty}_{n=0}\CP^{n}$, is another way to
+  obtain many subcomplexes.
+\end{example}
+
+\begin{theorem}[Morse]
+Every smooth manifold is homotopy equivalent to a CW complex.
+\end{theorem}
+
+(So if you want to construct something which is not a CW complex, then
+you have to try very hard.)
+
+\subsection{Fundamental Groups}
+
+\begin{definition}[Fundamental group at a basepoint]
+If you have a space $X$ and a base point $x_{0}\in X$,
+then the \define{Fundamental Group at $x_{0}$} is defined to be:
+\begin{equation}
+\pi_{1}(X,x_{0}) = \{f\colon[0,1]\to X\mid f(0)=f(1)=x_{0}\}/\sim,
+\end{equation}
+where $f\sim g$ if $f\homotopic g\rel\boundary[0,1]$.
+
+The group structure on $\pi_{1}(X,x_{0})$ is given by the binary
+operator $[f]\cdot[g]$ represented by the path
+\begin{equation}
+(f\cdot g)(t) = \begin{cases}f(2t) & \mbox{if }t\leq 1/2\\
+g(2t-1) & \mbox{if }t>1/2.
+  \end{cases}
+\end{equation}
+Then $[f]^{-1}$ is represented by $\bar{f}(t)=f(1-t)$, and the
+identity element $[e]$ corresponds to the path $e(t)=x_{0}$ for all $t\in[0,1]$.
+\end{definition}
+
+\begin{node}[Relating fundamental group at different base points]
+Suppose we have a path $h\colon[0,1]\to X$ where $h(0)=x_{0}$ and $h(1)=x_{1}$.
+Then we obtain a map
+\begin{equation}
+\beta_{h}\colon\pi_{1}(X,x_{0})\to\pi_{1}(X,x_{1})
+\end{equation}
+sending $[f]\mapsto[h]\cdot[f]\cdot[h]^{-1}$ (topologically: travel
+along $h$, then $f$, then backwards along $h$). This $\beta_{h}$ is a
+group isomorphism. In particular, if $X$ is path connected, then
+$\pi_{1}(X)$ is the isomorphism type of $\pi_{1}(X,x_{0})$ for any
+base point $x_{0}\in X$. Often we just omit the $x_{0}$.
+\end{node}

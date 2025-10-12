@@ -1,0 +1,268 @@
+%%
+%% fall-lecture03.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-04T10:35:10-0700
+%% Last update 2025-10-04T10:35:10-0700
+%% 
+
+\lecture{}
+
+\begin{example}[Noetherian topological space without Noetherian ring of functions]
+Is there an example of a Noetherian topological space whose ring of
+functions is not Noetherian?
+
+We need affine schemes! An affine scheme $X=\Spec(A)$ where $A$ is any
+commutative ring (consisting of prime ideals of $A$). We can view $A$
+as the ring of functions on $X$. For $f\in A$, we have a morphism $A\to(A/P)_{0}$
+the the residue field $f\mapsto f(P)$. Now consider $\kk[x_{1},x_{2},\dots]/m^{2}$
+where the unknowns are indexed by $\NN$ and $m=\langle x_{1},x_{2},x_{3},\dots\rangle$.
+Then $\kk[x_{1},\dots]/m^{2}$ is not Noetherian.
+
+But let $\mathfrak{a}_{i}=\langle x_{1},\dots,x_{i}\rangle$. Then
+\begin{equation}
+\mathfrak{a}_{1}\propersubset\mathfrak{a}_{2}\propersubset\mathfrak{a}_{3}\propersubset\cdots,
+\end{equation}
+so $X$ is Noetherian. Note: $m/m^{2}\ideal A$ hence $m/m^{2}$ is
+prime, so
+\begin{equation}
+\Spec(A)=\{m/m^{2}\}.
+\end{equation}
+If $P\ideal A$ is prime, then $0=x_{i}^{2}\in P$ implies $x_{i}\in P$.
+
+This is a one-point topological space with a non-Noetherian ring of
+functions. 
+\end{example}
+
+\begin{proposition} % 2.14
+Every Noetherian topological space $X$ may be written as a finite union
+\begin{equation}
+X = X_{1}\cup\cdots\cup X_{r}
+\end{equation}
+where each $X_{i}$ is non-empty, irreducible, and closed.
+
+If further $X_{i}\nsubset X_{j}$ for $i\neq j$, then the $X_{1}$,
+\dots, $X_{r}$ are unique up to permutation. In this case, we call the
+$X_{i}$ the \define{Irreducible Components} of $X$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The $X=\emptyset$ case is obvious ($r=0$).
+
+\textsc{Existence:} Assume for contradiction $X$ cannot be written as a union
+$X_{1}\cup\cdots\cup X_{r}$. Then $X$ cannot be irreducible. So
+$X=X_{1}\cup X_{1}'$ and we say the statement is false for some
+$i$. Then we get a non-terminating chain of closed subsets
+\begin{equation}
+X\propersupset X_{1}\propersupset X_{2}\propersupset\cdots.
+\end{equation}
+This contradicts $X$ being Noetherian, hence establishes existence.
+
+\textsc{Uniqueness:} Suppose we have two decompositions
+\begin{equation}
+X = X_{1}\cup\cdots\cup X_{r}=X'_{1}\cup\cdots\cup X'_{s}.
+\end{equation}
+Then
+\begin{equation}
+X_{i}\propersubset\bigcup_{j=1}^{s}X'_{j}
+\end{equation}
+which implies $X_{i}\propersubset X'_{j}$ for some $X'_{j}$. Similarly
+we find $X'_{j}\propersubset X_{k}$ for some $X_{k}$. Then $X_{i}=X'_{j}=X_{k}$
+(i.e., $i=k$ and $X_{i}=X'_{j}$). Hence every set appearing in one
+decomposition appears in the other decomposition, so the two
+decompositions agree.
+\end{proof}
+
+\begin{remark} % 2.15
+There is a trick to compute the irreducible decomposition of an affine
+variety $X\subset\AA^{n}$ from its ``primary decomposition''. The
+primary decomposition of $I(X)$ is given by
+\begin{equation}
+I(X) = Q_{1}\cap\cdots\cap Q_{r}\ideal\kk[x_{1},\dots,x_{n}]
+\end{equation}
+where $Q_{1}$, \dots, $Q_{r}$ are primary ideals. Then we have by
+Hilbert's Nullstellensatz
+\begin{equation}
+X = V(I(X)) = V(Q_{1})\cup\cdots\cup V(Q_{r})=V(P_{1}\cup\cdots\cup V(P_{r})
+\end{equation}
+for the prime ideals $P_{i}=\Radical{Q_{i}}$. The $V(P_{i})$ are
+irreducible varieties, so we can keep only the minimal prime ideals.
+This means there is a bijection
+\begin{equation*}
+\{\mbox{Irreducible components of }X\}\longleftrightarrow\{\mbox{Minimal prime ideals in }A(X)\}
+\end{equation*}
+\end{remark}
+
+\begin{remark}[Open subsets are ``big'' in irreducible varieties] % 2.16
+Let $X$ be irreducible. 
+\begin{enumerate}
+\item If $X$ is irreducible, then for any nonempty open subsets $U$, $U'$ of
+$X$ we have their intersection is never empty $U\cap U'\neq\emptyset$. (Recall if $A\subset C$ and
+$B\subset C$, then $C\setminus(A\cap B)=(C\setminus A)\cup(C\setminus B)$.)
+Then we have $(X\setminus U)\cup(X\setminus U')\neq X$ which is the
+definition of irreducibility.
+\item Any nonempty open subset $U\subset X$ of an irreducible $X$ is dense
+in $X$. This means its topological closure $\closure{U}=X$.
+\end{enumerate}
+\end{remark}
+
+\begin{definition}[Dimension] % 2.25
+Let $X$ be a non-Noetherian topological space. Then the
+\define{Dimension} of $X$ is the number $\dim(X)\in\NN\cup\{\infty\}$
+is the supremum over all $n\in\NN$ such that there is a chain of
+length $n$,
+\begin{equation*}
+\emptyset\neq Y_{0}\propersubset Y_{1}\propersubset\cdots\propersubset Y_{n}\subset X,
+\end{equation*}
+of irreducible closed subsets $Y_{i}$ of $X$.
+\end{definition}
+
+\begin{definition}[Codimension] % 2.25
+If $Y\subset X$ is a nonempty irreducible subset of a non-Noetherian
+topological space $X$, we can define the \define{Codimension} of $Y$ 
+is the number $\codim_{X}(Y)$ is the supremum of all natural numbers
+$n$ such that there exists a chain
+$Y\propersubset Y_{0}\propersubset Y_{1}\propersubset\cdots\propersubset Y_{n}\subset X$
+of length $n$ of irreducible closed subsets $Y_{i}\subset X$.
+\end{definition}
+
+\begin{example} % 2.26
+\begin{enumerate}
+\item $\dim(\AA^{1})=1$
+\item Let $X=\NN_{0}$ with the only closed subsets are either $X$, $\empty$, or
+  are of the form $Y_{n}=\{0,1,\dots,n\}$.
+  Then $X$ is Noetherian, $Y_{0}\propersubset Y_{1}\propersubset\cdots$.
+\end{enumerate}
+\end{example}
+
+\begin{definition}\label{defn:fall-lecture03:krull-dimension}
+\begin{enumerate}
+\item The \define{Krull Dimension} of (commutative) ring $R$ is the
+  maximal number $n\in\NN$ such that there exists a chain of prime
+  ideals $P_{0}\propersubset P_{1}\propersubset\cdots\propersubset P_{n}$
+  of length $n$.
+\item The \define{Codimension} (or \define{Height}) of a prime ideal
+  $P\ideal R$ is the maximal number $n\in\NN$ such that there is a
+  chain as above with $P_{n}\subset P$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[Dimension and codimension ``are coherent'']
+Let $Y\neq\emptyset$ be a non-empty irreducible subvariety of an
+affine variety $X$.
+\begin{enumerate}
+\item The dimension $\dim(X)$ of $X$ is the same as the Krull
+  dimension of the coordinate ring $A(X)$.
+\item The codimension $\codim_{X}(Y)$ of $Y$ in $X$ is equal to the
+  codimension of the prime ideal $I(Y)$ in $A(X)$.
+\end{enumerate}
+\end{lemma}
+
+\subsection{Digression: Review of some Commutative Algebra}
+
+We will need to review some concepts of commutative algebra (this time
+and next time).
+
+\begin{definition}
+\begin{enumerate}
+\item Let $R\subset R'$ be rings. We call $R'$ an \define{Extension}
+  of $R$. We say $a\in R'$ is \define{Integral} over $R$ if there
+  exists a monic polynomial $f\in R[x]$ such that $f(a)=0$.
+  We call $R'$ \define{Integral} over $R$ if every $a\in R'$ is
+  integral over $R$.
+\item The extension $R\subset R'$ is called \define{Finite} if $R'$ is
+  a finitely-generated $R$-module.
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+If $R$ is a UFD, $a\in R_{0}$ is integral (where $R_{0}$ is the field
+of fractions localized at the zero ideal) iff $a\in R$.
+We have $a=p/q$ where $p$, $q$ are coprime, there is a monic polynomial
+\begin{equation}
+\left(\frac{p}{q}\right)^{n} + c_{n-1}\left(\frac{p}{q}\right)^{n-1}+\cdots+c_{0}=0.
+\end{equation}
+We clear the denominators to get
+\begin{equation}
+p^{n}=-q(c_{n-1}p^{n-1}+\cdots+c_{0}q^{n-1}).
+\end{equation}
+Hence $q$ divides $p^{n}$, which means $q$ is a unit, so $a\in R$.
+\end{example}
+
+\begin{proposition}[Finite extensions are integral]
+The extension $R'$ is finite over $R$ if and only if $R'=R[a_{1},\dots,a_{n}]$
+with $a_{i}\in R'$ are integral over $R$ for each $i=1,\dots,n$.
+\end{proposition}
+
+\begin{proof}
+$(\Longrightarrow)$ Assume $R'$ is a finitely-generated $R$-module, so
+we have $R=\langle a_{1},\dots, a_{n}\rangle$. Then
+\begin{equation}
+R' = R[a_{1},\dots, a_{n}],
+\end{equation}
+since $R'$ is a ring. We need to prove the $a_{i}\in R'$ are integral
+over $R$. Consider the map $\varphi_{i}\colon R'\to R'$ sending
+$x\mapsto a_{i}x$, which is $R$-linear. It satisfies a monic equation
+\begin{equation}
+\varphi^{k}+c_{k-1}\varphi^{k-1}+\cdots+c_{0}=0
+\end{equation}
+in $\hom_{R}(R',R')$ for some $c_{0}$, \dots, $c_{k-1}\in R$. This is
+essentially the Cayley--Hamilton theorem. Then applying it to $1\in R'$
+gives $a_{1}^{k}+c_{k-1}a_{1}^{k-1}+\cdots+c_{0}=0$. This proves that
+$a_{i}$ is integral over $R$, which holds for each $i=1,\dots,n$.
+
+$(\Longleftarrow)$ Let $R'=R[a_{1},\dots,a_{n}]$, and assume each
+$a_{i}$ is integral over $R$. Then the $a_{i}$ satisfies a monic
+polynomial in $R$ of degree $r_{i}$. Use these to reduce the exponents
+to $k_{i}<r_{i}$ for all $i$. Then
+\begin{equation}
+R' = \langle a_{1}^{k_{1}}(\cdots)a_{n}^{k_{n}}\mid \forall i\ldotp k_{i}<r_{i}\rangle,
+\end{equation}
+which proves the claim.
+\end{proof}
+
+\begin{lemma}
+Let $R'$ be an integral domain over $R$.
+\begin{enumerate}
+\item (Integral extensions are compatible with quotient) If $I\ideal R'$, then $R'/I$ is an integral extension of
+  $R/(I\cap R)$
+\item (Integral extensions are compatible with localization) If $S$ is a multiplicatively closed subset of $R$, then
+  $S^{-1}R'$ is an integral extension of $S^{-1}R$
+\item $R'[x]$ is an integral extension of $R[x]$.
+\end{enumerate}
+\end{lemma}
+
+\begin{corollary}[Integral closure]
+\begin{enumerate}
+\item The set $\closure{R}$ of all integral elements of $R'$ over $R$
+  is a ring $R\propersubset\closure{R}\propersubset R'$. This
+  $\closure{R}$ is called the \define{Integral Closure} of $R$ in $R'$.
+  We say $R$ is \define{Integrally Closed} in $R'$ if $R=\closure{R}$.
+\item An integral domain $R$ is \define{Integrally Closed} (or \define{Normal})
+  if it is integrally closed in its field of fractions $R_{0}$.
+\end{enumerate}
+\end{corollary}
+
+\begin{example}
+If $R$ is a Unique Factorization Domain, then $R$ is normal.
+
+We see $a\in R_{0}$ is integral over $R$ if and only if $a\in R$. So
+$R$'s integral closure is $R$ itself.
+
+Geometrically: if $R=A(X)$ for some irreducible affine variety $X$,
+then
+\begin{equation}
+\varphi=\frac{f}{g}\in R_{0}
+\end{equation}
+is a rational function on $X$, it is well-defined except at the
+finitely-many zeroes of $g$.
+
+But $R$ is normal means $\varphi$ is well-defined everywhere since 
+\begin{equation}
+\varphi^{n}+c_{n-1}\varphi^{n-1}+\cdots+c_{0}=0,
+\end{equation}
+then $\varphi\in R$. (Integral extensions geometrically correspond to
+normalization as a kind of mapping.)
+\end{example}

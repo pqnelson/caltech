@@ -1,0 +1,175 @@
+%%
+%% fall-lecture06.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-12T10:04:46-0700
+%% Last update 2025-10-12T10:04:46-0700
+%% 
+
+\lecture{}
+
+\begin{node}[Review from last time]
+Let $E\subset X$, let $d$ be a metric on $X$. Some definitions introduced:
+\begin{enumerate}
+\item Open ball $B_{r}(x)=\{y\in X\mid d(x,y)<r\}$.
+\item $E$ is \define{Open} if $\forall x\in E\ldotp\exists r>0\ldotp B_{r}(x)\subset E$
+\item A \define{Neighborhood} of $x\in X$ is an open set containing $x$
+\item We say $x$ is a \define{Limit Point} of $E$ if every
+  neighborhood of $x\in N_{x}$ intersects $N_{x}\cap E\ni y\neq x$
+  (the neighborhood intersects $E$ in a distinct point)
+\item $E$ is called \define{Closed} if it contains all its limit points.
+\end{enumerate}
+\end{node}
+
+\begin{example}
+Let $(\RR,|\cdot|)$ be the real numbers equipped with the absolute
+value norm. Let $E=\{1/n\mid n\in\NN\}$ has 1 limit point at zero, but
+no $x\in E$ is a limit point. Then $E$ is not closed since $0\notin E$.
+But $E$ is not open either. Look at $B_{r}(1/2)=(\frac{1}{2}-r,\frac{1}{2}+r)$
+which is not contained in $E$ for any $r>0$.
+\end{example}
+
+\begin{example}
+Any finite subset of $X$ is closed. Let $E=\{x_{1},\dots,x_{n}\}$. We
+will show $X\setminus E$ is open. So for any $x\in X\setminus E$ we
+find $r>0$, and $r<\max\{d(x,x_{i})\mid x_{i}\in E\}$. So
+$B_{r}(x)\subset E^{\complement}=X\setminus E$. This means
+$E^{\complement}$ is open. Hence $E$ is closed.
+\end{example}
+
+\begin{remark}
+Singleton sets $\{x_{i}\}$ are always closed.
+\end{remark}
+
+\begin{puzzle}
+Is any countable set of points closed in $X$?
+\end{puzzle}
+
+The first example suggests no; the argument breaks down because $r$ is
+no longer positive.
+
+\begin{example}
+The rational numbers $\QQ$ is neither open nor closed.
+\end{example}
+
+\begin{example}
+In a discrete metric space $(X,d)$ where
+\begin{equation}
+d(x,y)=\begin{cases}1 & \mbox{if }x\neq y\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+Then every singleton is both open and closed. Let $x\in X$, pick
+$0<r<1$, then $B_{r}(x)=\{x\}$.
+\end{example}
+
+\begin{proposition}
+The following are all true:
+\begin{enumerate}
+\item $X$ and $\emptyset$ are both open and closed
+\item $\bigcap^{n}_{i=0}\mathcal{O}_{i}$ the intersection of
+  finitely-many open sets is open
+\item $\bigcup_{\alpha\in A}\mathcal{O}_{\alpha}$ the union of an
+  arbitrary family of open sets is open
+\item $\bigcup^{n}_{i=1}C_{i}$ the union of finitely-many closed
+  subsets is closed
+\item $\bigcap_{\alpha\in A}C_{\alpha}$ the intersection of an
+  arbitrary-family of closed sets is closed.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}
+Let $E\subset X$. We define the \define{Closure} of $E$ to be the set
+\begin{equation}
+\closure{E}:=E\cup\{x\in X\mid x\mbox{ is a limit point of }E\}.
+\end{equation}  
+\end{definition}
+
+\begin{proposition}
+\begin{enumerate}
+\item $\closure{E}$ is closed
+\item $\closure{E}$ is the smallest closed subset of $X$ containing
+  $E$ (i.e., if $F$ is closed and $E\subset F$, then
+  $\closure{E}\subset F$).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item By definition. We do not know \emph{a priori} if the limit
+  points of $\closure{E}$ coincides with limit points of $E$. We will
+  prove every limit point of $\closure{E}$ is a limit point of $E$.
+
+  Let $x$ be a limit point of $\closure{E}$. Then let $N_{x}$ be a neighborhood
+  of $x\in N_{x}\subset X$. Then there exists a $x'\in N_{x}\cap E$
+  such that $x'\neq x$ by definition of a limit point. Then either
+  $x'$ is in $E$ or $x'$ is a limit point of $E$ --- we will prove
+  either way, $N_{x}$ contains an element of $E$.
+  (Case 1: $x'$ is a point of $E$, so $N_{x}$ contains an element of $E$.
+  Case 2: if $x'$ is a limit point of $E$, then $x'\in N_{x}$, so
+  there is a point $x''\in N_{x}\cap E$ and $x''\neq x'$. In this
+  situation, $N_{x}$ contains an element of $E$.)
+  Hence any limit point $x$ of $\closure{E}$ is a limit point of
+  $E$. Hence $x\in\closure{E}$.
+\item If $A\subset B$, then $\closure{A}\subset\closure{B}$.
+  If $E\subset F$, then $\closure{E}\subset\closure{F}$. But
+  $F=\closure{F}$ since $F$ is closed. So $\closure{E}\subset F$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+We say $E$ is \define{Dense} in $X$ if every point of $X$ is either
+(1) a limit point of $E$ or (2) a point of $E$.
+\end{definition}
+
+\begin{proposition}
+We see $E$ is dense in $X$ if and only if $\closure{E}=X$.
+\end{proposition}
+
+\begin{example}
+Every metric space is dense in itself.
+\end{example}
+
+\begin{example}
+We see $\QQ$ is dense in $(\RR,|\cdot|)$.
+\end{example}
+
+\begin{example}
+Consider the metric space $([0,1], |\cdot|)$ as a metric subspace of
+$(\RR,|\cdot|)$. Then $[0,\frac{1}{2})$ is open in $([0,1],|\cdot|)$
+but not in $(\RR,|\cdot|)$.
+
+So when do we know a set $U$ being open in one space implies $U$ is
+open its parent space?
+\end{example}
+
+\begin{proposition}
+Let $E\subset Y\subset X$. Then $E$ is open in $(Y,d_{Y})$ iff there
+exists an open subset $\mathcal{O}\subset X$ such that $E=Y\cap\mathcal{O}$.
+\end{proposition}
+
+\begin{proof}
+$(\Longrightarrow)$ Assume $E$ is open in $(Y,d_{Y})$. Then for each
+$x\in E$, there exists a positive $r_{x}>0$ radius depending on $x$
+such that $B_{r_{x}}(x)\subset E\cap Y$ an open ball in $Y$. Then let
+$V_{x}$ be the set of all $y\in X$ such that $d(x,y)<r_{x}$, so
+$V_{x}$ is the $r_{x}$-ball of $x$ in $X$. We define
+\begin{equation}
+\mathcal{O}=\bigcup_{x\in E}V_{x}
+\end{equation}
+which is open in $X$. We want to show $E=Y\cap\mathcal{O}$.
+For $x\in E$, we see $x\in V_{x}$, so $E\subset\mathcal{O}$.
+Then $E\cap Y\subset\mathcal{O}\cap Y$.
+On the other hand, $V_{x}\cap Y=B_{r_{x}}(x)\subset E$ for each $x$.
+Taking their union, $\mathcal{O}\cap Y\subset E$.
+Hence $\mathcal{O}\cap Y=E$.
+  
+$(\Longleftarrow)$ Given an open subset $\mathcal{O}\subset X$ such
+that $E=Y\cap\mathcal{O}$.
+For any $x\in E$, there exists a neighborhood $N_{x}\subset\mathcal{O}$.
+($N_{x}$ was called $V_{x}$ in the first half of this proof.)
+Then $N_{x}\cap Y\subset\mathcal{O}\cap Y\subset E$.
+This gives us the neighborhood desired. Hence $E$ is open in $Y$.
+\end{proof}
