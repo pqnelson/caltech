@@ -648,4 +648,203 @@ beginfig(28)
   label.ulft(btex $b$ etex, z3);
 endfig;
 
+% lecture 7
+beginfig(29)
+  path p[];
+  z0 = (0,0);
+  z1 = (2u,-u);
+  z2 = (u,2u);
+  z3 = z0 + (4u,0);
+  z4 = z1 + (4u,0);
+  z5 = z2 + (4u,0);
+  draw z0--z1--z2--cycle;
+  draw z2--z5;
+  draw z1--z4;
+  draw z0--z3 dashed evenly;
+  draw z3--z4 dashed evenly;
+  draw z3--z5 dashed evenly;
+  draw z4--z5;
+endfig;
+
+beginfig(30)
+  path p[]; numeric i;
+  z0 = (0,0);           % v_{1}
+  z1 = (2u,-u);         % v_{n}
+  z2 = (2u,3u);         % v_{0} 
+  z3 = z0 + 1.5*(4u,0); % w_{1}
+  z4 = z1 + 1.5*(4u,0); % w_{n}
+  z5 = z2 + 1.5*(4u,0); % w_{0}
+  draw z0--z1--z2--cycle;
+  draw z2--z5;
+  draw z1--z4;
+  draw z0--z3 dashed evenly;
+  draw z3--z4 dashed evenly;
+  draw z3--z5 dashed evenly;
+  draw z4--z5;
+
+  for i=0 upto 5:
+    label(btex $\bullet$ etex, z[i]);
+  endfor;
+  label.top(btex $v_{0}$ etex, z2);
+  label.lft(btex $v_{1}$ etex, z0);
+  label.lrt(btex $v_{n}$ etex, z1);
+  label.llft(btex $\dots$ etex, 0.5[z0,z1]);
+
+  label.ulft(btex $w_{1}$ etex, z3);
+  label.top(btex $w_{0}$ etex, z5);
+  label.rt(btex $w_{n}$ etex, z4);
+endfig;
+
+beginfig(31)
+  path p[]; numeric i;
+  z0 = 0.5*(0,0);        % v_{1}
+  z1 = 0.5*(2u,-u);         % v_{n}
+  z2 = 0.5*(2u,3u);         % v_{0} 
+  z3 = z0 + 0.5*(4u,0);
+  z4 = z1 + 0.5*(4u,0);
+  z5 = z2 + 0.5*(4u,0);
+  draw z0--z1--z2--cycle;
+  draw z2--z5;
+  draw z1--z4;
+  draw z0--z3 dashed evenly;
+  draw z3--z4 dashed evenly;
+  draw z3--z5 dashed evenly;
+  draw z4--z5;
+
+  for i=0 upto 1:
+    label(btex $\bullet$ etex, z[i]);
+  endfor;
+
+  for i=2 upto 5:
+    label(btex $\bullet$ etex, z[i]) withcolor red;
+  endfor;
+  % label.top(btex $v_{0}$ etex, z2);
+  % label.lft(btex $v_{1}$ etex, z0);
+  % label.lrt(btex $v_{n}$ etex, z1);
+  % label.llft(btex $\dots$ etex, 0.5[z0,z1]);
+
+  % label.ulft(btex $w_{1}$ etex, z3);
+  % label.top(btex $w_{0}$ etex, z5);
+  % label.rt(btex $w_{n}$ etex, z4);
+endfig;
+
+beginfig(32)
+  path p[]; numeric i; color c[];
+  z0 = 0.5*(0,0);        % v_{1}
+  z1 = 0.5*(2u,-u);         % v_{n}
+  z2 = 0.5*(2u,3u);         % v_{0} 
+  z3 = z0 + 0.5*(4u,0);
+  z4 = z1 + 0.5*(4u,0);
+  z5 = z2 + 0.5*(4u,0);
+  draw z0--z1--z2--cycle;
+  draw z2--z5;
+  draw z1--z4;
+  draw z0--z3 dashed evenly;
+  draw z3--z4 dashed evenly;
+  draw z3--z5 dashed evenly;
+  draw z4--z5;
+  c0 = red; %v_{1}
+  c1 = black; %v_{n}
+  c2 = red; %v_{0}
+  c3 = red; % w_{1}
+  c4 = red; % w_{n}
+  c5 = black; % w_{0}
+
+  for i=0 upto 5:
+    label(btex $\bullet$ etex, z[i]) withcolor c[i];
+  endfor;
+  % label.top(btex $v_{0}$ etex, z2);
+  % label.lft(btex $v_{1}$ etex, z0);
+  % label.lrt(btex $v_{n}$ etex, z1);
+  % label.llft(btex $\dots$ etex, 0.5[z0,z1]);
+
+  % label.ulft(btex $w_{1}$ etex, z3);
+  % label.top(btex $w_{0}$ etex, z5);
+  % label.rt(btex $w_{n}$ etex, z4);
+endfig;
+
+
+beginfig(33)
+  path p[]; numeric i; color c[];
+  z0 = 0.5*(0,0);        % v_{1}
+  z1 = 0.5*(2u,-u);         % v_{n}
+  z2 = 0.5*(2u,3u);         % v_{0} 
+  z3 = z0 + 0.5*(4u,0);
+  z4 = z1 + 0.5*(4u,0);
+  z5 = z2 + 0.5*(4u,0);
+  draw z0--z1--z2--cycle;
+  draw z2--z5;
+  draw z1--z4;
+  draw z0--z3 dashed evenly;
+  draw z3--z4 dashed evenly;
+  draw z3--z5 dashed evenly;
+  draw z4--z5;
+  c0 = red; %v_{1}
+  c1 = red; %v_{n}
+  c2 = red; %v_{0}
+  c3 = black; % w_{1}
+  c4 = red; % w_{n}
+  c5 = black; % w_{0}
+
+  for i=0 upto 5:
+    label(btex $\bullet$ etex, z[i]) withcolor c[i];
+  endfor;
+endfig;
+
+beginfig(34)
+  path p[]; numeric i; pair v[];
+  z0 = 0.5*(0,0u);        % v_{1}
+  z1 = 0.5*(2u,-u);         % v_{n}
+  z2 = 0.5*(2u,3u);         % v_{0} 
+  z3 = z0 + 0.5*(4u,0); % w_1
+  z4 = z1 + 0.5*(4u,0); % w_n
+  z5 = z2 + 0.5*(4u,0); % w_0
+  v0 = z2; % v_0
+  v1 = z5; % w_0
+  v2 = z3; % w_1
+  v3 = z4; % w_n
+  draw v0--v1; draw v1--v3;
+  draw v0--v2; draw v0--v3;
+  draw v2--v1 dashed evenly;
+  draw v2--v3;
+endfig;
+
+beginfig(35)
+  path p[]; numeric i; pair v[];
+  z0 = 0.5*(0,0u);        % v_{1}
+  z1 = 0.5*(2u,-u);         % v_{n}
+  z2 = 0.5*(2u,3u);         % v_{0} 
+  z3 = z0 + 0.5*(4u,0); % w_1
+  z4 = z1 + 0.5*(4u,0); % w_n
+  z5 = z2 + 0.5*(4u,0); % w_0
+  v0 = z2; % v_0
+  v1 = z0; % v_1
+  v2 = z3; % w_1
+  v3 = z4; % w_n
+  draw v0--v1; % v_0 -- v_1
+  draw v1--v3; % v_1 -- w_n
+  draw v0--v3; % v_0 -- w_n
+  draw v0--v2 dashed evenly; % v_0 -- w_1
+  draw v2--v1 dashed evenly; % w_1 -- v_1
+  draw v2--v3 dashed evenly; % w_1 -- w_n
+endfig;
+
+beginfig(36)
+  path p[]; numeric i; pair v[];
+  z0 = 0.5*(0,0u);        % v_{1}
+  z1 = 0.5*(2u,-u);         % v_{n}
+  z2 = 0.5*(2u,3u);         % v_{0} 
+  z3 = z0 + 0.5*(4u,0); % w_1
+  z4 = z1 + 0.5*(4u,0); % w_n
+  z5 = z2 + 0.5*(4u,0); % w_0
+  v0 = z2; % v_0
+  v1 = z0; % v_1
+  v2 = z1; % v_n
+  v3 = z4; % w_n
+  draw v0--v1; draw v1--v3 dashed evenly;
+  draw v0--v2; draw v0--v3;
+  draw v2--v1;
+  draw v2--v3;
+endfig;
+
 end;
