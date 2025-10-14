@@ -26,11 +26,14 @@
 \RequirePackage{mathrsfs}
 
 \DeclareMathOperator\RegularFuns{\mathcal{O}}
-
+\let\StructureSheaf\RegularFuns
 \let\iso\cong
 
 % Groups
 \DeclareMathOperator\GL{GL}
+
+% category theory
+\newcommand\cat[1]{\mathbf{#1}}
 
 % topology
 \newcommand\closure[1]{\overline{#1}}

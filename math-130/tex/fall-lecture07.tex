@@ -1,0 +1,174 @@
+%%
+%% fall-lecture07.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-14T10:37:35-0700
+%% Last update 2025-10-14T10:37:35-0700
+%% 
+
+\lecture{}
+
+\subsection{Morphisms}
+
+We can think of regularr functions we previously introduced as a
+special case of the more general ``morphism'', specifically as a
+morphism from an open subset $U\subset X$ of an affine variety $X$ to
+the affine line $\AA^{1}=\kk$.
+
+\begin{definition}[Ringed spaces]
+A \define{Ringed Space} consists of a topological space $X$ equipped
+with a \define{Structure Sheaf} $\StructureSheaf_{X}$ which is a sheaf
+of rings.
+\end{definition}
+
+\begin{example}
+Let $X$ be an affine variety, let $\RegularFuns_{X}$ be the sheaf of
+regular functions. If $X$ is a ringed space, then any open subset
+$U\subset X$ is a ringed space (where we restrict $\RegularFuns_{X}|_{U}=\RegularFuns_{U}$).
+\end{example}
+
+\begin{remark}
+For varieties, and only for varieties, is a sheaf of rings is a sheaf
+of functions to $\kk$. Affine schemes do not enjoy this property (nor,
+do I think, schemes in general).
+\end{remark}
+
+\begin{definition}
+\begin{enumerate}
+\item Let $f\colon X\to Y$ be a function of ringed spaces. If $U\subset Y$
+is an open subset and $\varphi\colon U\to\kk$ is any function, we denote
+by $f^{*}\varphi=\varphi\circ f\colon f^{-1}(U)\to\kk$ the usual pullback.
+\item We say $f$ is a \define{Morphism} of ringed spaces if
+  \begin{enumerate}[label=(\roman*)]
+  \item $f$ is continuous, and
+  \item for all open subsets $U\subset Y$ and any
+    $\varphi\in\StructureSheaf_{Y}(U)$, we have $f^{*}\varphi\in\StructureSheaf_{X}(f^{-1}(U))$.
+  \end{enumerate}
+\item Furthermore, a morphism $f$ is called an \define{Isomorphism}
+  (of ringed spaces) if it has a two-sided inverse.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+Composition of morphisms (of ringed spaces) are morphisms (of ringed spaces).
+Restrictions of morphisms (of ringed spaces) are morphisms (of ringed spaces).
+\end{remark}
+
+\begin{lemma}[Gluing]% Gathmann 4.6
+Let $f\colon X\to Y$ be a map of ringed spaces, let $\{U_{i}\}_{i\in I}$
+be an open cover of $X$.
+If $f|_{U_{i}}\colon U_{i}\to Y$ is a morphism (of ringed spaces) for
+each $i\in I$, then $f$ is a morphism.
+\end{lemma}
+
+This lemma tells us that ``morphism of ringed spaces'' is a local
+thing.
+
+\begin{proof}[Proof outline]
+Step 1: Continuity is a local property.
+
+Step 2: use gluing property for sheaves.
+\end{proof}
+
+\begin{proposition}[Morphisms between affine varieties]% Gathmann 4.7
+Let $U\subset X$ be an open subset of an affine variety $X$,
+let $Y\subset\AA^{n}$ be another affine variety.
+Then the morphisms $f\colon U\to Y$ are maps of the form
+$f=(\varphi_{1},\dots,\varphi_{n})$ --- i.e., $n$-tuples of $n$
+regular functions over $U$ which are each of the $\varphi_{i}\in\RegularFuns_{X}(U)$ for $i=1,\dots,n$.
+\end{proposition}
+
+\begin{node}
+We have an equivalence of categories, namely (1) the category of
+affine varieties over $\kk$, and (2) reduced finitely-generated
+$\kk$-algebras (recall: ``reduced'' means there are no nilpotent elements).
+
+Recall we say categories $\cat{C}$ and $\cat{D}$ are equivalent if
+there are functors $F\colon\cat{C}\to\cat{D}$ and $G\colon\cat{D}\to\cat{C}$
+such that there are natural isomorphisms with the identity functors $\cat{G}\circ\cat{F}\iso\id_{\cat{C}}$
+and $\cat{F}\circ\cat{G}\iso\id_{\cat{D}}$.
+\end{node}
+
+\begin{example}[Bijective morphism which is not an isomorphism]% Gathmann, 4.9 
+Let $X=V(x^{2}-y^{3})\subset\AA^{2}$ be an affine variety.
+Consider the morphism
+\begin{equation}
+f\colon\AA^{1}\to X
+\end{equation}
+defined by $f(t)=(t^{3},t^{2})$. Then $f$ is bijective, but its
+inverse is not a morphism since
+\begin{equation}
+f^{-1}\colon X\to\AA^{1}
+\end{equation}
+is defined by
+\begin{equation}
+f^{-1}(x,y) = \begin{cases}\frac{x}{y} & \mbox{if }y\neq0\\
+0 &\mbox{otherwise}
+\end{cases}
+\end{equation}
+This is not a morphism because $X\not\iso\AA^{1}$, $\CC[x,y]/\langle x^{2}-y^{3}\rangle\not\iso\CC[t]$.
+\end{example}
+
+\begin{proposition}[Universal property of product of affine varieties]% Gathmann, 4.10
+Let $X$ and $Y$ be affine varieties.
+Then for any affine variety $Z$ and morphisms $f\colon Z\to X$ and
+$g\colon Z\to Y$, then there exists a unique morphism $Z\to X\times Y$
+such that the following diagram commutes:
+\begin{equation}
+\xymatrix{Z\ar@{-->}[dr]\ar@/^/[drr]^{g}\ar@/_/[ddr]_{f} & &\\
+  & X\times Y\ar[r]^{\pi_{2}}\ar[d]^{\pi_{1}} & Y\\
+  & X & }
+\end{equation}
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+We see
+\begin{equation*}
+  \xymatrix{
+ A(X\times Y)\ar[r]^{\iso} & A(X)\otimes_{\kk}A(Y) & \ar[l]A(Y)\\
+ & A(X)\ar[u] & \kk\ar[l]\ar[u]}
+\end{equation*}
+which gives the result as a consequence of the equivalence of
+categories.
+\end{proof}
+
+\begin{proposition}% Gathmann, 4.17
+Let $X$ ba an affine variety, let $f\in A(X)$.
+Then $D(f)$ is an affine variety and $A(D(f))\iso A(X)_{f}$.
+\end{proposition}
+
+\subsection{Varieties}
+
+\begin{definition}% Gathmann, 5.1
+A \define{Prevariety} is a ringed space $X$ that has a finite open
+cover by affine varieties.
+\end{definition}
+
+\begin{remark}
+Brian Osserman points out, in Chapter 5 of his book on varieties~\cite{osserman2021concise}, that
+a prevariety is a ringed space equipped with an atlas whose charts are
+locally affine varieties.
+\end{remark}
+
+\begin{example}% Gathmann, 5.3
+Let $X$ be an affine variety, let $U\subset X$ be an open set. Then
+$U$ is a prevariety.
+\end{example}
+
+\begin{construction}[Gluing]% Gathmann, 5.4
+Let $X_{1}$, $X_{2}$ be prevarieties.
+Let $U_{1,2}\subset X_{1}$ and $U_{2,1}\subset X_{2}$ be open subsets.
+Let $f\colon U_{1,2}\to U_{2,1}$ be an isomorphism. Schematically, we
+have the following diagram:
+\begin{equation*}
+\includegraphics{img/img.0}
+\end{equation*}
+Then we can glue them together and $U\subset X$ is open if
+$i_{1}^{-1}(U)\subset X_{1}$ and $i_{2}^{-1}(U)\subset X_{2}$ are both open.
+We have
+\begin{equation}
+\RegularFuns_{X}(U)=\{\varphi\colon U\to\kk\mid i_{1}^{*}\varphi\in\RegularFuns_{X}(i_{1}^{-1}(U)),i_{2}^{*}\varphi\in\RegularFuns_{X}(i_{2}^{-1}(U))\}
+\end{equation}
+\end{construction}
