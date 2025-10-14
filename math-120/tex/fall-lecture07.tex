@@ -1,0 +1,161 @@
+%%
+%% fall-lecture07.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-14T11:53:54-0700
+%% Last update 2025-10-14T11:53:54-0700
+%% 
+
+\lecture{}
+
+\begin{theorem}[Lasker--Noether]
+Let $R$ be a Noetherian ring. Let $I\ideal R$ be an ideal.
+Then there exists a primary decomposition of $I=Q_{1}\cap\cdots\cap Q_{n}$
+where $Q_{i}\ideal R$ are primary ideals for all $i=1,\dots,n$.
+\end{theorem}
+
+\begin{example}
+We see $(x^{2},xy)=(x)\cap(x^{2},xy,y^{n})$ for any $n\in\NN$ nonzero.
+It is useful to think of ideals as systems of equations.
+For us, the system of equations are $x^{2}=0$ and $xy=0$.
+This has the family of solutions $\{(0,y)\in\CC^{2}\}$. We can look at
+$\CC[x,y]/(x^{2},xy)$ as a $\CC[x,y]$-module, then look at
+annihilators of elements of the module. Looking at $\bar{x}$, what
+$q\in\CC[x,y]$ satisfies $q\bar{x}=0$? Well, $q=x$ and $q=y$.
+So $(x,y)\bar{x}=0$ and similarly we find $(x)\bar{y}=0$.
+
+We have 2 prime ideals which arise as annihilators of some elements in
+$M=\CC[x,y]/(x^{2},xy)$. These are called \define{Associated Primes}
+of $M$ and by abuse of language we call them \define{Associated Primes}
+of the ideal $(x^{2},xy)$.
+
+How are these primes associated to this decomposition? We see $(x,y)$
+is the radical of $(x^{2},xy,y^{n})$. We call $(x,y)$ an
+\define{Embedded Ring}.
+\end{example}
+
+\begin{remark}
+The previous example shows us, and this cannot be stressed enough,
+\emph{The primary decomposition is highly non-unique}.
+\end{remark}
+
+\begin{example}
+Looking at $\CC[x,y]/(x^{2},xy,y^{n})$ which is a ring, but it's also
+a vector space over $\CC$. It has a basis spanned by the vectors $1$,
+$x$, $y$, \dots, $y^{n-1}$, so $\dim(M)=n+1$. We want to be more
+general than linear algebra, because we are doing \emph{commutative algebra}.
+This motivates us to introduce the next definition.
+\end{example}
+
+\begin{definition}
+We define the \define{Length} of a module $M$ over ring $A$ to be the
+maximal $n$ among the chains of proper submodules such that
+\begin{equation}
+0=M_{0}\propersubset M_{1}\propersubset\cdots\propersubset M_{n}=M.
+\end{equation}
+If all such chains have their length be bounded by an $n\in\NN$, then
+the least such $n$ is the length of $M$. Otherwise, if there is no
+such bound, we say the module is of \define{Infinite Length}.
+\end{definition}
+
+\begin{example}
+Returning to the example with $M=\CC[x,y]/(x^{2},xy,y^{n})$, we see
+submodules are ideals containing $(x^{2},xy,y^{n})$. So we have the
+endpoints of the chain be $(1)\propersupset\cdots\propersupset(x^{2},xy,y^{n})$.
+Then we fill in the ``$\cdots$'' bit,
+\begin{equation}
+(x^{2},xy,y^{n}\propersubset(x^{2},xy,y^{n-1})\propersubset\cdots\propersubset(x^{2},xy,y)=(x^{2},y)\propersubset(1).
+\end{equation}
+This is of length $n+1$, so it coincides with dimension of $M$ as a vector
+space over $\CC$, cool beans.
+\end{example}
+
+\begin{example}
+We see $\RR[x]/(x^{2}+1)\iso\CC$. Observe that $\RR[x]/(x^{2}+1)$ has
+length 1 over itself, but it has dimension 2 over $\RR$, so be careful
+when thinking about \emph{length} and \emph{dimension}.
+\end{example}
+
+\begin{proposition}[2.C]
+A ring $A$ is Artinian if and only if the length of $A$ as an
+$A$-module is finite: $\length_{A}(A)<\infty$.
+\end{proposition}
+
+\begin{proof}
+$(\Longleftarrow)$ We see $\length_{A}(A)<\infty$ implies $A$ is
+  Noetherian and $A$ is Artinian.
+
+$(\Longrightarrow)$ This is more involved. Assume $A$ is Artinian.
+There are three central claims:
+
+\textsc{Claim 1:} $A$ has finitely many maximal ideals.
+If there were infinitely many prime and maximal ideals $(P_{1},P_{2},\dots)$,
+then we could form the chain $P_{1}\supset P_{1}P_{2}\supset P_{1}P_{2}P_{3}\supset\dots$,
+which contradicts $P_{i}$ being prime and maximal.
+
+\medbreak
+\textsc{Claim 2:} Let $P_{1}$, \dots, $P_{r}$ be maximal ideals from
+claim 1. Then form their Jacobson radical $I=\JacobsonRadical(A)=P_{1}(\cdots)P_{r}$.
+We claim there exists an $s\in\NN$ such that $I^{s}=0$.
+
+We form a chain $I\supset I^{2}\supset I^{3}\supset\dots$. Eventually
+this stabilizes so $I^{s}=I^{s+1}$. We write
+\begin{equation}
+(I:J)=\{x\in A\mid xJ\subset I\}
+\end{equation}
+(e.g., $((4):(2))=(2)$ but $((5):(2))=(5)$ since $2x=5n$ has solutions
+$x\in(5)$).
+Now consider $J:=((0):I^{s})=\{x\in A\mid xI^{s}=0\}$. We want to show
+$J=A$, this is our goal.
+
+Assume for contradiction $J\neq A$. Then take $J'$ the minimal member
+of this set of ideals strictly containing $J$. (Can we do this? We
+know there is some ideal containing $J$, since $A$ is Artinian there
+is some $J_{1}\supset J$. If $J_{1}$ is not minimal, we can form a
+chain $J_{1}\propersupset J_{2}\propersupset\dots\propersupset J$
+which must be of finite length by $A$ being Artinian. Hence there is a
+minimal ideal containing $J$.)
+
+Let $J'=Ax+J$ for some $x\in J'\setminus J$. We want to say
+$Ix+J\subset J'$. We use the Nakayama Lemma: for any $N,N'\subset M$
+if $M=N+IN'$, then $M=N$ where $I$ sits inside the radical and $N'$ is
+finite.
+Then $J=J'$ which contradicts $J'$ being a minimal proper ideal
+containing $J\neq J'$. Then $Ix+J=J$ which implies $Jx\subset J$ which
+implies $x\in(J:I)$. We see
+\begin{subequations}
+\begin{align}
+  (J:I) &= \bigl(((0) : I^{s}) : I\bigr) = ((0) : I^{s+1})\\
+  &= ((0) : I^{s})\\
+  &= J.
+\end{align}
+\end{subequations}
+Hence $x\in J$.
+
+\medbreak
+\textsc{Claim 3:} Using $I^{s}=0$, we form the longest possible chain
+of subideals involving the $P_{i}$, and we see that this is an upper
+bound on $\length_{A}(A)$. But it's finite, and that concludes the proof.
+
+Take the following chain:
+\begin{equation}
+A\supset P_{1}\supset P_{1}P_{2}\supset\dots\supset
+P_{1}P_{2}(\cdots)P_{r-1}\supset I\supset IP_{1}\supset\cdots\supset
+I^{2}\supset\cdots\supset I^{s}=0.
+\end{equation}
+We claim there is no possible longer chain. We could look at the
+quotients (e.g., $IP_{1}P_{2}/IP_{1}$) which are vector spaces over
+$A/P_{i}$ (which is a field since $P_{i}$ is a maximal ideal in $A$)
+since $M/PM$ is an $A/PA$-vector space, and $IP_{1}P_{2}/IP_{1}$ is a
+finite-dimensional vector space, which means there are only
+finitely-many ideals between $IP_{1}P_{2}$ and $IP_{1}$. The length of
+this chain $IP_{1}\supset\cdots\supset IP_{1}P_{2}$ is at most
+$\dim_{A/P_{i}}(IP_{1}P_{2}/IP_{1})$. Then we have
+\begin{equation}
+\length_{A}(A)=\sum\mbox{length of factor modules},
+\end{equation}
+we know each summand is a finite number, and there are only finitely
+many summands. Hence $\length_{A}(A)$ is finite.
+\end{proof}
