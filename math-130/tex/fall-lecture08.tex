@@ -1,0 +1,193 @@
+%%
+%% fall-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-16T09:35:38-0700
+%% Last update 2025-10-16T09:35:38-0700
+%% 
+
+\lecture{}
+
+\begin{construction}[General gluing of prevarieties]% 5.6 of Gathmann
+Suppose $I$ is a finite indexing set and we want to glue previarieties
+$\{X_{i}\}_{i\in I}$. We want to glue them along the open subsets $U_{i,j}\subset X_{i}$ 
+for all $i\neq j$ (and $j\in I$) with isomorphisms $f_{i,j}\colon U_{i,j}\to U_{j,i}$.
+We need to check for all distinct $i$, $j$, $k\in I$:
+\begin{enumerate}
+\item $f_{i,j}^{-1}=f_{j,i}$, and
+\item $f_{i,j}^{-1}(U_{j,k})\subset U_{i,k}$, and
+\item $f_{j,k}\circ f_{i,j}=f_{i,k}$ on $f^{-1}_{i,j}(U_{j,k})$.
+\end{enumerate}
+\begin{center}
+\includegraphics{img/img.1}
+\end{center}
+Note that we see if $X$ is a prevariety and $U\subset X$ is open, then
+the restriction of the structure sheaf of $X$ to $U$ gives a
+prevariety structure on $(U,\RegularFuns_{X}|_{U})$. If $Y\subset X$
+is closed, then we define
+\begin{equation}
+\RegularFuns_{Y}(U_{Y})=\{\varphi\colon U_{Y}\to\kk\mid\forall a\in U_{Y},\exists
+V\subset X\mbox{ open}, a\in
+V,\exists\psi\in\RegularFuns_{X}(V)\ldotp\varphi=\psi\mbox{ on }U_{Y}\cap V\}
+\end{equation}
+where $U_{Y}\subset Y$ is an open subset. We can check this is a
+prevariety (and it's a homework problem).
+\end{construction}
+
+\begin{remark}
+The inclusion $Y\into X$ is a morphism of prevarieties.
+If $f\colon Z\to X$ is a morphism of prevarieties and $f(Z)\subset Y$,
+then we may view it as a morphism $f\colon Z\to Y$.
+\end{remark}
+
+\begin{definition}[Product of prevarieties]% 5.14 of Gathmann
+Let $X$ and $Y$ be prevarieties.
+We define their \define{Product} $X\times Y$ to be the prevariety
+equipped with morphisms $\pi_{1}\colon X\times Y\to X$ and
+$\pi_{2}\colon X\times Y\to Y$
+such that for any prevariety $Z$ and morphisms $f\colon Z\to X$ and
+$g\colon Z\to X$, the following diagram commutes:
+\begin{equation}
+\vcenter{
+\xymatrix{ & \ar[dl]_{f}Z\ar@{-->}[d]\ar[dr]^{g}& \\
+X & \ar[l]^{\pi_{1}}X\times Y\ar[r]_{\pi_{2}}& Y}}
+\end{equation}
+\textbf{Caution:} the topology on $X\times Y$ is not the product topology.
+\end{definition}
+
+\begin{proposition}[Existence of product prevarieties]% 5.15, Gathmann
+For any two prevarieties $X$ and $Y$, their product prevariety
+$X\times Y$ exists.
+\end{proposition}
+
+\begin{proof}
+Cover $X$ and $Y$ by affine varieties: let $U_{1}$, \dots, $U_{n}$
+cover $X$; let $V_{1}$, \dots, $V_{m}$ cover $Y$. We glue $U_{i}\times V_{j}$
+and $U_{i'}\times V_{j'}$ along $(U_{i}\cap U_{i'})\times(V_{j}\cap V_{j'})$
+using the identity isomorphism. We can check they satisfy the
+properties of gluing finitely many varieties together. This also gives
+us the projection morphisms locally
+\begin{equation}
+U_{i}\xleftarrow{\pi_{1}}U_{i}\times V_{j}\xrightarrow{\pi_{2}} V_{j}.
+\end{equation}
+We can check locally on the affine covers that the universal property holds:
+for any prevariety $Z$, we cover it by the preimages
+$f^{-1}(U_{i})\cap g^{-1}(V_{j})$, then cover these by affine open
+varieties $W_{k}$, so $W_{k}\to U_{i}\times V_{j}$.
+\end{proof}
+
+\begin{definition}[Variety]
+A \define{Variety} consists of a prevariety $X$ such that
+\begin{itemize}
+\item\textsc{Separated:} the diagonal $\Delta_{X}:=\{(x,x)\mid x\in X\}\subset X\times X$
+is closed.
+\end{itemize}
+\end{definition}
+
+\begin{lemma}% Gathmann 5.18
+\begin{enumerate}
+\item Affine varieties are, in fact, varieties.
+\item Open and closed subsets of varieties are varieties.
+\end{enumerate}
+\end{lemma}
+
+\begin{proposition}% Gathmann, 5.20
+Let $f,g\colon X\to Y$ be prevarieties. Assume $Y$ is separated (i.e.,
+it's a variety).
+\begin{enumerate}
+\item The graph $\Gamma_{f}=\{(x,f(x))\mid x\in X\}\subset X\times Y$ is closed.
+\item $\{x\in X\mid f(x)=g(x)\}\subset X$ is closed. 
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item We see, using the universal property of products,
+\begin{equation}
+\vcenter{\xymatrix{X\times Y\ar[r]^{\pi_{2}}\ar[d]_{\pi_{1}}\ar@{-->}[dr] & Y\ar[dr]^{\id}\\
+X\ar[dr]_{f} & Y\times Y\ar[d]_{\pi_{1}}\ar[r]^{\pi_{2}} & Y\\
+& Y & }}
+\end{equation}
+Then $\Gamma_{f}=(f,\id)^{-1}(\Delta_{Y})$.
+\item We have a map $X\to Y\times Y$ sending $x\mapsto(f(x),g(x))$.
+Then the pullback of $\Delta_{Y}$ along this map gives the result.\qedhere
+\end{enumerate}
+\end{proof}
+
+\subsection{Projective Varieties, Part I: Topology}
+
+\begin{definition}[Projective space]% Gathmann, 6.1
+Let $n\in\NN$. We define the \define{Projective Space} over $\kk$
+to be $\PP^{n}$ consisting of all 1-dimensional subspaces of the
+vector space $\kk^{n+1}$.
+\end{definition}
+
+\begin{definition}[Homogeneous coordinates]% Gathmann, 6.2
+We see that $\PP^{n}=(\kk^{n+1}\setminus\{0\})/\sim$ where
+\begin{equation}
+(x_{0},x_{1},\dots,x_{n})\sim(\lambda x_{0},\lambda x_{1},\dots,\lambda x_{n})
+\end{equation}
+for any $\lambda\in\kk\setminus\{0\}$. An equivalence class is written
+down using \define{Homogeneous Coordinates} as $[x_{0}:x_{1}:\dots:x_{n}]$
+or $(x_{0}:x_{1}:\dots:x_{n})$.
+\end{definition}
+
+\begin{node}
+We can see that if $x_{0}\neq0$, then
+\begin{equation}
+(x_{0}:x_{1}:\dots:x_{n})=\left(1:\frac{x_{1}}{x_{0}}:\dots:\frac{x_{n}}{x_{0}}\right),
+\end{equation}
+and this gives us a copy of the space $\AA^{n}\subset\PP^{n}$. When
+$x_{0}=0$, we end up with a copy of $\PP^{n-1}\subset\PP^{n}$. These
+two subsets are disjoint and describe all possible elements of
+$\PP^{n}$, so we have
+\begin{equation}
+\PP^{n}=\AA^{n}\cup\PP^{n-1}.
+\end{equation}
+Geometrically, the copy of $\AA^{n}$ refers to a hyperplane in
+$\kk^{n+1}$ located at the $x_{0}=1$ plane. A one-dimensional subspace
+of $\kk^{n+1}$ intersects this plane at $(1:x_{1}:\dots:x_{n})$.
+
+The $\PP^{n-1}$ subspace refers to lines in the $x_{0}=0$ hyperplane.
+\end{node}
+
+\begin{definition}
+We have a \define{Projectivization} map $\pi\colon\AA^{n+1}\setminus\{0\}\to\PP^{n}$.
+\end{definition}
+
+\begin{node}
+The projectivization gives us a bijection between $\kk$-invariant
+closed subsets of $\AA^{n+1}$ and closed subsets of $\PP^{n+1}$.
+\end{node}
+
+\begin{definition}
+Recall, we call a polynomial $f\in\kk[x_{0},\dots,x_{n}]$
+\define{Homogeneous} if there exists some $m\in\NN$ such that for all
+$\lambda\in\kk$ we have $f(\lambda x_{0},\dots,\lambda x_{n})=\lambda^{m}f(x_{0},\dots,x_{n})$.
+\end{definition}
+
+\begin{definition}
+We call an ideal $I\ideal\kk[x_{0},\dots,x_{n}]$ \define{Homogeneous}
+if it can be generated by homogeneous elements.
+\end{definition}
+
+\begin{definition}[Projective zero loci and projective ideals]
+\begin{enumerate}
+\item Let $S\subset\kk[x_{0},\dots,x_{n}]$ be a set of homogeneous
+  polynomials. Then the \define{Projective Zero Locus} of $S$ is
+  defined as $V_{p}(S) := \{x\in\PP^{n}\mid f(x)=0\mbox{ for all }f\in S\}$.
+\item Let $X\subset\PP^{n}$ be any subset. We define its
+  \define{Projective Ideal} to be $I(X):=\langle f\in\kk[x_{0},\dots,x_{n}]\mbox{ homogeneous}\mid f(x)=0\mbox{ for all }x\in X\rangle$
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}[Projective Nullstellensatz]
+\begin{enumerate}
+\item For any closed $X\subset\PP^{n}$, we have $V_{p}(I_{p}(X))=X$
+\item For any homogeneous ideal $J\ideal\kk[x_{0},\dots,x_{n}]$ whose
+  $\Radical{J}$ is not the irrelevant ideal $\langle x_{0},x_{1},\dots,x_{n}\rangle$,
+  we have $I_{p}(V_{p}(J))=\Radical{J}$.
+\end{enumerate}
+\end{proposition}

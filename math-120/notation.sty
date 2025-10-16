@@ -56,4 +56,17 @@
 \DeclareMathOperator\JacobsonRadical{rad}
 \DeclareMathOperator\Char{ch}
 \DeclareMathOperator\length{length}
+
+% category theory related
+\newcommand\cat[1]{\mathbf{#1}}
+\newcommand\Ab{\cat{Ab}}
+\newcommand\@Right@Mod[1][\relax]{\ifx\relax#1\relax\cat{Mod}\else\cat{Mod}_{#1}\fi}
+\newcommand\Mod[1][\relax]{\ifx\relax#1\relax\@RightMod\else{}_{#1}\@Right@Mod}
+
+\let\hom\relax
+\DeclareMathOperator\hom{Hom}
+
+% Homological Algebra
+\DeclareMathOperator\Tor{Tor}
+
 \endinput

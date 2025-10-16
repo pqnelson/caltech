@@ -1,0 +1,230 @@
+%%
+%% fall-lecture07.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-14T14:16:26-0700
+%% Last update 2025-10-14T14:16:26-0700
+%% 
+
+\lecture[Convergence of sequences]{}
+
+\begin{definition}
+A sequence $\{x_{n}\}$ in a metric space $(X,d)$ \define{Converges} to
+$x$ if for each $\varepsilon>0$ there is an $N\in\NN$ such that
+$d(x,x_{n})<\varepsilon$ for all $n\geq N$. We write $x_{n}\to x$ or
+$\lim_{n\to\infty}x_{n}=x$ and we call $x$ the \define{Limit} of $x$.
+\end{definition}
+
+\begin{remark}
+Check this against the familiar notion of convergence of sequences of
+real numbers. When we take $(X,d)=(\RR,|\cdot|)$ we find this recovers
+what we learned in calculus.
+\end{remark}
+
+\begin{question}
+What happens if a sequence converges to, say, 2 points --- is it even possible?
+\end{question}
+
+\begin{definition}[Solution]
+If $x_{n}\to u$ and $x_{n}\to v$, then $d(u,v)>0$ if $u\neq v$.
+Set $r=\frac{1}{2}d(u,v)$. Then every $\{x_{n}\mid n\geq N\}\subset B_{r}(u)$
+--- which we know to be true by the definition of convergence.
+
+Similarly, we would find $\{x_{n}\mid n\geq N\}\subset B_{r}(v)$. This means
+\begin{equation}
+\{x_{n}\mid n\geq N\}\subset B_{r}(u)\cap B_{r}(v)=\emptyset,
+\end{equation}
+which means we arrive a contradiction. Hence if a sequence converges
+at all, then it converges to at most 1 value.
+\end{definition}
+
+\begin{definition}[Cartesian product of metric spaces]
+Let $(X_{1},d_{1})$ and $(X_{2},d_{2})$ be two metric spaces.
+We define the \define{Product metric space} $(X,d)$ to consist of
+$X=X_{1}\times X_{2}$, with
+\begin{equation}
+d\bigl((x_{1},x_{2}),(y_{1},y_{2})\bigr)=d_{1}(x_{1},y_{1})+d_{2}(x_{2},y_{2}).
+\end{equation}
+It's trivial to check $d$ is, in fact, a metric.
+\end{definition}
+
+\begin{remark}
+If $(x^{(1)}_{n})$ is a sequence in $(X_{1},d_{1})$ which converges to
+$x^{(1)}_{n}\to x^{(1)}$, and if 
+$(x^{(2)}_{n})$ is a sequence in $(X_{2},d_{2})$ which converges to
+$x^{(2)}_{n}\to x^{(2)}$, then
+$(x^{(1)}_{n},x^{(2)}_{n})\to(x^{(1)},x^{(2)})$ converges in the
+product metric space $(X_{1}\times X_{2},d)$.
+\end{remark}
+
+\begin{proposition}\label{prop:fall-lec07:subset-closed-iff-contains-all-its-limit-points}
+A subset $E$ is closed in $X$ iff for any sequence $\{x_{n}\}\subset E$
+and $x_{n}\to x$ in $X$ we see that the limit $x\in E$.
+\end{proposition}
+
+\begin{proof}
+Recall, $E$ is closed if and only if it contains all its limit points.
+It suffices to show that a point $x\in X\setminus E$ is a limit point of $E$ iff
+it is the limit of a sequence in $E$.
+
+$(\Longrightarrow)$ Assume $x\in X$ is a limit point of $E$.
+Then every neighborhood of $x\in N_{x}$ intersects $E$
+nontrivially. We can take a sequence of neighborhoods. For each $n$,
+we take $B_{1/n}(x)\cap E$ at a point $x_{n}\neq x$ (by definition of
+a limit point). Then $x_{n}\to x$ in $E$, since
+\begin{equation}
+d(x,x_{n})<\frac{1}{n},
+\end{equation}
+so then we pick $N\geq1/\varepsilon$.
+
+$(\Longleftarrow)$ Given a sequence $\{x_{n}\}\subset E$ which
+converges to $x_{n}\to x\in E$, then the sequence eventually enters an
+$\varepsilon$-ball of $x$ for any $\varepsilon>0$. Then $B_{\varepsilon}(x)$
+contains infinitely many terms of $\{x_{n}\}$ and so
+$B_{\varepsilon}(x)\cap E$ is nontrivial. Hence $x$ is a limit point
+of $E$.
+\end{proof}
+
+\begin{remark}
+If we had instead said, ``It suffices to show that a point $x\in X$ is a limit point of $E$ iff it is the limit of a sequence in $E$'',
+then the $(\Longleftarrow)$ direction proof may be ``buggy'': if $x_{n}=x$
+for all $n$ (i.e., we have ``the constant sequence''), then the
+argument breaks down.
+
+It seems the remedy is to prove that $B_{\varepsilon}(x)$ contains
+infinitely many points of $E$, but it suffices to prove
+$B_{\varepsilon}(x)\cap E$ contains at least two distinct points. This
+is a fact topologically for $T_{1}$ spaces (like metric spaces).
+\end{remark}
+
+\begin{definition}
+We call a sequence $(x_{n})$ in $(X,d)$ a \define{Cauchy} sequence if
+for each $\varepsilon>0$ there exists an $N\in\NN$ such that for all
+$m\geq N$ and $n\geq N$ we have $d(x_{m},x_{n})<\varepsilon$.
+\end{definition}
+
+\begin{proposition}
+Any convergent sequence is Cauchy.
+\end{proposition}
+
+\begin{proof}
+Let $x_{n}\to x$ be a convergent sequence in $(X,d)$.
+Then for $\varepsilon>0$ there exists a $N\in\NN$ such that 
+(1) for all $n\geq N$ we have $d(x,x_{n})<\varepsilon/2$ and
+(2) for all $m\geq N$ we have $d(x,x_{m})<\varepsilon/2$.
+Then by the triangle inequality,
+\begin{equation}
+d(x_{m},x_{n})\leq d(x_{m},x)+d(x,x_{n})<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon,
+\end{equation}
+hence the result.
+\end{proof}
+
+\begin{example}
+Consider $\bigl((0,1], |\cdot|\bigr)$. The sequence $x_{n}=1/n$ is a
+Cauchy sequence in $(0,1]$ but it does not converge to any element
+of $(0,1]$.
+\end{example}
+
+\begin{example}
+Consider $(\QQ,|\cdot|)$. The sequence $x_{n}$ given by the decimal
+expansion of $\sqrt{2}$ (truncated to $n+1$ digits) converges to
+$x_{n}\to\sqrt{2}$ but famously $\sqrt{2}\notin\QQ$.
+\end{example}
+
+\begin{remark}
+These examples show there are some ``gaps'' in these metric spaces.
+When ``there are no gaps'', Cauchy sequences are convergent. Let us
+make this vague intuition more precise.
+\end{remark}
+
+\begin{definition}
+We call a metric space $(X,d)$ \define{Complete} if every Cauchy
+sequence in $X$ converges (in $X$).
+\end{definition}
+
+\begin{example}
+We see $(\RR^{n}, \|\cdot\|)$ is a complete metric space.
+\end{example}
+
+\begin{proposition}\label{prop:fall-lec07:subspace-complete-iff-closed}
+Let $(X,d)$ be complete, and $E\subset X$.
+Then the subspace $(E,d)$ is complete if and only if $E$ is closed in $X$.
+\end{proposition}
+
+\begin{proof}
+$(\Longrightarrow)$ Assume $(E,d)$ is complete.
+We claim: every convergent sequence $(x_{n})\subset E$ converges to
+$x_{n}\to x\in E$.
+\begin{proof}[Subproof]
+Let $(x_{n})\subset E$ be a convergent sequence of terms in $E$.
+Then $x_{n}\to x$ converges to a value $x\in X$.
+But $(x_{n})$ is Cauchy (as a sequence in $E$) and $(E,d)$ is complete
+by assumption. Hence $x\in E$ by definition of ``complete'' metric spaces.
+\end{proof}
+Then $E$ contains all its limit points. Hence $E$ is a closed subset
+of $X$.
+
+$(\Longleftarrow)$ Assume $E$ is closed in $X$. Let $(x_{n})$ be a
+Cauchy sequence in $E$. Then $(x_{n})$ is a Cauchy sequence in $X$.
+Then $x_{n}\to x$ where $x\in X$ since $(X,d)$ is complete (and
+definition of ``complete'' metric spaces). Then, since $E$ is closed
+in $X$ by assumption, we see every convergent sequence's limit is in
+$E$. So then we see $x\in E$ by Proposition~\ref{prop:fall-lec07:subset-closed-iff-contains-all-its-limit-points}.
+Then every Cauchy sequence converges in $E$. Hence $E$ is complete by
+definition of ``complete'' metric spaces.
+\end{proof}
+
+\begin{definition}
+Let $E\subset X$. We define the \define{Diameter} of $E$ to be the number
+\begin{equation}
+\diam(E):=\sup\{d(x,y)\mid x,y\in E\}.
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Let $\{E_{n}\}$ be a descending sequence of nonempty subsets of
+$(X,d)$ --- so $E_{m}\subset E_{n}$ if $m\geq n$. We say $\{E_{n}\}$
+is a \define{Contracting Sequence} if $\diam(E_{n})\to 0$ as $n\to\infty$.
+\end{definition}
+
+\begin{theorem}[Cantor's Intersection Theorem]
+Let $(X,d)$ be a metric space.
+Then $(X,d)$ is complete iff for any contracting sequence $\{E_{n}\}$
+of nonempty closed subsets of $X$, there exists a point $x\in X$ such
+that
+\begin{equation*}
+\bigcap^{\infty}_{n=0}E_{n}=\{x\}.
+\end{equation*}
+\end{theorem}
+We see that there cannot be two points in the intersection, because
+$\diam(E_{n})\to 0$ means these two points must be the same.
+
+\begin{proof}
+$(\Longrightarrow)$ Assume $(X,d)$ is complete. (We should immediately
+think of ``Cauchy sequences''.)
+We want to show every contracting sequence $\{E_{n}\}$ has a singleton
+be its intersection.
+Let $\{E_{n}\}$ be a contracting sequence of closed nonempty subsets
+of $X$.
+For each $n$, take $x_{n}\in E_{n}$. We claim $x_{n}$ is Cauchy (which
+implies $x_{n}\to x$ by completeness).
+Let $\varepsilon>0$, there exists an $N\in\NN$ such that
+$d(\diam(E_{n}),0)<\varepsilon$ for all $n\geq N$. Since $E_{n}$ is
+descending, we see $x_{m}\in E_{N}$ and $x_{n}\in E_{N}$ so
+$d(x_{m},x_{n})\leq\diam(E_{N})<\varepsilon$. Then $x_{n}$ is Cauchy,
+hence $x_{n}\to x$ by completeness.
+
+Since each $E_{n}$ is closed and the sequence we have selected has
+$x_{k}\in E_{n}$ for all $k\geq n$, so $\{x_{k}\mid k\geq n\}\subset E_{n}$.
+Then by Proposition~\ref{prop:fall-lec07:subspace-complete-iff-closed}, we have $x\in E_{n}$. Therefore
+\begin{equation}
+x\in\bigcap^{\infty}_{n=0}E_{n},
+\end{equation}
+and it is the only point there. Hence
+\begin{equation}
+\bigcap^{\infty}_{n=0}E_{n}=\{x\}.
+\end{equation}
+This is the forward direction.
+\end{proof}

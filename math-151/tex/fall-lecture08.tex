@@ -1,0 +1,204 @@
+%%
+%% fall-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-16T07:49:51-0700
+%% Last update 2025-10-16T07:49:51-0700
+%% 
+
+\lecture[Exact Sequences]
+
+\begin{definition}
+Let $A$, $B$, $C$ be Abelian groups. Let $f\colon A\to B$
+and $g\colon B\to C$ be morphisms. We will often abbreviate this
+information using the notation $A\xrightarrow{f}B\xrightarrow{g}c$.
+We call this sequence \define{Exact at $B$} if $\ker(g)=\Im(f)$.
+\end{definition}
+
+\begin{definition}
+When we have many Abelian groups forming the sequence $A_{1}\xrightarrow{f_{1}}A_{2}\xrightarrow{f_{2}}A_{2}\xrightarrow{f_{3}}\cdots$,
+we call it \define{Exact} when it is exact everywhere.
+\end{definition}
+
+\begin{example}
+We see $0\to A\xrightarrow{f}B$ is exact at $A$ if $\ker(f)=0$. This
+is equivalent to stating $f$ is an injective morphism.
+\end{example}
+
+\begin{example}
+We see $B\xrightarrow{g}C\to0$ is exact at $C$ if $\Im(g)=\ker(0)=C$.
+This is equivalent to stating $g$ is a surjective morphism.
+\end{example}
+
+\begin{remark}
+Observe these two examples are ``dual'' to each other, in the sense
+that if we reverse the arrows in one example, then we obtain the other
+example. In this sense, ``injective'' is dual to ``surjective''.
+\end{remark}
+
+\begin{definition}[Short exact sequence of Abelian groups]
+We call an exact sequence $0\to A\xrightarrow{f}B\xrightarrow{g}C\to0$
+a \define{Short Exact Sequence}.
+
+In this case, $A$ is isomorphic to the (normal) subgroup
+$f(A)\normalsubgroup B$, and also that $C\iso B/f(A)$.
+\end{definition}
+
+\begin{definition}
+If $A$, $B$, $C$ are chain complexes (\S\ref{defn:fall-lec06:chain-complex}),
+and $f$ and $g$ are chain maps (\S\ref{defn:fall-lec06:chain-map}),
+then we call $0\to A\xrightarrow{f}B\xrightarrow{g}C\to0$ a
+\define{Short Exact Sequence of Chain Complexes}. What does this mean?
+At each grading $n$, we have a short exact sequence
+\begin{equation}
+\xymatrix{
+0\ar[r] & A\ar[r]^{f_{n}}\ar[d]^{\boundary^{(A)}_{n}}& B_{n}\ar[r]^{g_{n}}\ar[d]^{\boundary^{(B)}_{n}}&C\ar[d]^{\boundary^{(C)}_{n}}\ar[r]&0\\
+0\ar[r] & A_{n-1}\ar[r]^{f_{n-1}} & B_{n-1}\ar[r]^{g_{n-1}} & C_{n-1}\ar[r] & 0}
+\end{equation}
+which commutes every which way, for every possible $n$.
+\end{definition}
+
+\begin{lemma}\label{lem:fall-lec08}
+A short exact sequence of chain complexes,
+\begin{equation}
+0\to A_{*}\xrightarrow{i}B_{*}\xrightarrow{j}C_{*}\to0,
+\end{equation}
+induces a long exact sequence
+\begin{equation}
+\xymatrix{H_{n}(A)\ar[r]^{i_{*}} & H_{n}(B)\ar[r]^{j*} & H_{n}(C)\ar@/_/[dll]^{\boundary}\\
+H_{n-1}(A)\ar[r]^{i_{*}} & H_{n-1}(B)\ar[r]^{j*} & H_{n-1}(C)\ar@/_/[dll]^{\boundary}\\
+\dots& &}
+\end{equation}
+The $\boundary$ morphisms here are called the \define{Connecting Morphisms}.
+\end{lemma}
+
+(A lot of times, short exact sequences give rise to a long exact
+sequence of homology groups.)
+
+\begin{proof}
+How do we define the connecting morphisms? Well, consider $c$ being a
+cycle in $C_{n}$, 
+\begin{equation}
+\xymatrix{0\ar[r] & A_{n}\ar[d]^{\boundary}\ar[r]^{i} & \in B_{n}\ar[d]^{\boundary}\ar[r]^{j} & {\color{red}c}\in C_{n}\ar[r]\ar[d]^{\boundary}&0\\
+0\ar[r]& \in A_{n-1}\ar[d]\ar[r]^{i}&\in B_{n-1}\ar[r]^{j}\ar[d]&C_{n-1}\ar[d]\ar[r]&0\\
+&\dots&\dots&\dots&}
+\end{equation}
+Then $c$ has a preimage under $j$,
+\begin{equation}
+\exists b\in B_{n}\ldotp j(b)=c.
+\end{equation}
+So we have
+\begin{equation}
+\xymatrix{0\ar[r] & A_{n}\ar[d]^{\boundary}\ar[r]^{i} & {\color{red}b}\in B_{n}\ar[d]^{\boundary}\ar[r]^{j} & {\color{red}c}\in C_{n}\ar[r]\ar[d]^{\boundary}&0\\
+0\ar[r]&  A_{n-1}\ar[d]\ar[r]^{i}& B_{n-1}\ar[r]^{j}\ar[d]&C_{n-1}\ar[d]\ar[r]&0\\
+&\dots&\dots&\dots&}
+\end{equation}
+We claim $j(\boundary b)=0$. This is by invoking the commutative
+diagram
+\begin{subequations}
+\begin{align}
+  j(\boundary b)&=\boundary(j(b))\\
+  &=\boundary c\\
+  &=0
+\end{align}
+\end{subequations}
+since $c\in\ker(\boundary)$ is a cycle.
+
+Then there exists an $a\in A_{n-1}$ such that $i(a)=\boundary b$. That
+is to say, we have constructed the red objects in the diagram:
+\begin{equation}
+\xymatrix{0\ar[r] & A_{n}\ar[d]^{\boundary}\ar[r]^{i} & {\color{red}b}\in B_{n}\ar[d]^{\boundary}\ar[r]^{j} & {\color{red}c}\in C_{n}\ar[r]\ar[d]^{\boundary}&0\\
+0\ar[r]& {\color{red}a}\in A_{n-1}\ar[d]\ar[r]^{i}&{\color{red}\boundary b}\in B_{n-1}\ar[r]^{j}\ar[d]&C_{n-1}\ar[d]\ar[r]&0\\
+&\dots&\dots&\dots&}
+\end{equation}
+
+We now claim $a$ is a cycle, i.e., $\boundary a=0$. Again, applying
+commutativity, we see
+\begin{subequations}
+\begin{align}
+  i(\boundary a) &= \boundary(i(a))\\
+  &=\boundary(\boundary b)\\
+  &=0
+\end{align}
+\end{subequations}
+But since $i$ is injective, we find $\boundary a=0$ as desired. Thus
+we obtain some $a\in A_{n-1}$ from $c\in C_{n}$.
+
+We define the connecting morphism $\boundary_{\text{connecting}}[c]=[a]$.
+
+Does this construction depends on the particular choice of $b\in j^{-1}(\{c\})\subset B_{n}$?
+Or the choice of $a\in A_{n-1}$? We should prove that the connecting
+morphism \emph{does not} depend on these choices.
+
+Let us begin by proving the construction does not depend on the choice
+of $b\in B_{n}$. If we instead choose $b'\in j^{-1}(\{c\})\subset B_{n}$,
+then we observe $b-b'\in\ker(j)$. Then by exactness, there exists an
+element $e\in A_{n}$ such that
+\begin{equation}
+i(e)=b-b'.
+\end{equation}
+Then
+\begin{subequations}
+\begin{align}
+i(\boundary e) &= \boundary(i(e))\\
+&=\boundary(b-b'),
+\end{align}
+\end{subequations}
+so then
+\begin{subequations}
+\begin{align}
+i(a - \boundary e) &= \boundary b - \boundary(b - b')\\
+&=\boundary b.
+\end{align}
+\end{subequations}
+That is to say, if we picked $b'$ instead of $b$, the construction
+yields the homology class $[a-\boundary e]$ instead of $[a]$, but
+these two are homologous $[a-\boundary e]=[a]$. So it does not depend
+on the choice of $b$!
+
+The argument for independence of choice of $a$ is similarly, but
+rather long and exhausting.
+\end{proof}
+
+\begin{definition}[Quotient chain complexes]
+Let $X$ be a topological space, let $A\subset X$ be a subspace.
+Then $C_{*}(A)\subset C_{*}(X)$ is a chain subcomplex since $C_{*}(A)$
+is generated by singular simplices of $A$ (but singular simplices of
+$A$ are also singular simplices of $X$). We then define the
+\define{Relative Chain Complex} or \define{Quotient Chain Complex}
+$C_{*}(X,A)=C_{*}(X)/C_{*}(A)$.
+\end{definition}
+
+\begin{definition}[Relative homology groups]
+Let $X$ be a topological space, let $A\subset X$ be a subspace.
+We define the \define{Relative Homology Groups} $H_{*}(X,A)$ to be the
+homology groups of $C_{*}(X,A)$.
+\end{definition}
+
+\begin{remark}
+We have a short exact sequence of chain complexes
+\begin{equation}
+0\to C_{*}(A)\xrightarrow{i_{*}}C_{*}(X)\xrightarrow{j_{*}}C(X,A)\to0.
+\end{equation}
+Then by Lemma~\ref{lem:fall-lec08}, we have a long exact sequence of
+homology groups
+\begin{equation}
+\xymatrix{& &\dots\ar[dll]_{\boundary}\\
+H_{n}(A)\ar[r]^{i_{*}}&H_{n}(X)\ar[r]^{j_{*}}&H_{n}(X,A)\ar[dll]_{\boundary}\\
+H_{n-1}(A)\ar[r]^{i_{*}}&H_{n-1}(X)\ar[r]^{j_{*}}&H_{n-1}(X,A)\ar[dll]_{\boundary}\\
+\dots}
+\end{equation}
+There is a geometric meaning to this connecting morphism
+$\boundary$. Given a cycle $\alpha\in C_{n}(X,A)$, we see
+\begin{equation}
+\boundary\alpha=[0]\in C_{*}(X,A)=C_{*}(X)/C_{*}(A),
+\end{equation}
+so $\boundary\alpha\in C_{*}(A)$ is a singular chain in $A$, and since
+$\boundary(\boundary\alpha)=0$, we see $\boundary\alpha$ is a
+cycle. We see we have:
+\begin{equation}
+\vcenter{\hbox{\includegraphics{img/img.37}}}
+\end{equation}
+\end{remark}

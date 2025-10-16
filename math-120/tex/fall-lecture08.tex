@@ -1,0 +1,173 @@
+%%
+%% fall-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-16T07:06:20-0700
+%% Last update 2025-10-16T07:06:20-0700
+%% 
+
+\lecture{}
+
+\begin{corollary}
+A ring $R\neq0$ is Artinian if and only if $R$ is Noetherian and $R$
+is of dimension zero.
+\end{corollary}
+
+\begin{definition}
+We say a ring $A$ \define{has Dimension Zero} (or ``is of dimension zero'')
+if all its prime ideals are maximal ideals.
+\end{definition}
+
+\begin{remark}
+There is a more general notion of a ``dimension of a ring'' (the Krull
+dimension). The preceding definition is logically equivalent to when
+the Krull dimension is zero.
+\end{remark}
+
+\begin{proof}[Proof (of Corollary)]
+\forwardproof{} Assume $R$ is Artinian. Let $P$ be a prime ideal of $R$.
+We want to prove $P$ is among the finitely-many maximal ideals
+$P_{1}$, \dots, $P_{r}$ of $R$. We form from the proof of the previous
+proposition from last lecture
+$I^{s}=(P_{1}(\cdots)P_{r})^{s}=(0)\subset P$, so therefore there
+exists an $i$ such that $P_{i}\subset P$ which implies $P_{i}=P$.
+
+\backwardproof{} Assume $R$ is Noetherian and zero-dimensional. Then
+we can take its primary decomposition
+\begin{equation}
+(0) = (q_{1})\cap\cdots\cap(q_{r})
+\end{equation}
+where the $(q_{i})$ are primary ideals of $R$. Take $P_{i}=\Radical{(q_{i})}$
+for each $i=1,\dots,r$. Then each $P_{i}$ is finitely generated. Then
+there exists $n\in\NN$ such that $P_{i}^{n}\subset Q_{i}=(q_{i})$
+since $P_{i}$ are finitely-generated. Then take
+\begin{equation}
+\bigl(P_{1}(\cdots)P_{r}\bigr)^{n}\subset Q_{1}(\cdots)Q_{r}\subset Q_{1}\cap\cdots\cap Q_{r}=(0).
+\end{equation}
+Recall from last time, when we get to this point, we got
+$\length_{R}(R)<\infty$ is finite, which implies $R$ is Artinian.
+\end{proof}
+
+\begin{remark}
+\begin{enumerate}
+\item A ring is Noetherian iff every prime ideal is finitely-generated.
+\item ``Recently'' (1968) it has been shown if $R\subset R'$ and $R'$
+  is a finitely-generated module over $R$, if $R'$ is Noetherian then
+  $R$ is Noetherian.
+\end{enumerate}
+\end{remark}
+
+\subsection{Flat Modules}
+
+\begin{definition}[Tensoring a sequence by a module]
+Let $A$ be a ring. Let $M$ be a module over $A$.
+When we have any sequence of the form
+\begin{equation}
+S\colon\quad\cdots\to N\to N'\to N''\to\cdots
+\end{equation}
+we denote $S\otimes M$ the sequence
+\begin{equation}
+S\otimes M\colon\quad \cdots\to N\otimes M\to N'\otimes M\to
+N''\otimes M\to\cdots.
+\end{equation}
+\end{definition}
+
+\begin{definition}[Flat and faithfully flat modules]
+Let $A$ be a ring. Let $M$ be a module over $A$.
+We call $M$ \define{Flat} if $S\otimes M$ is an exact sequence
+whenever $S$ is an exact sequence.
+
+We call $M$ \define{Faithfully Flat} (or ``f.f.'') if $S\otimes M$ is exact
+iff $S$ is exact.
+\end{definition}
+
+\begin{remark}
+We have a hierarchy of attributes for modules. Let us review them here:
+\begin{enumerate}
+\item Free modules (nicest) are of the form $A^{n}$ or
+  $\bigoplus_{i\in I}A$
+\item Projective modules $P$ are defined by the property
+  \begin{equation}
+\xymatrix{P\ar@{-->}[r]\ar[dr] & M\ar@{->>}[d]\\
+& N}
+  \end{equation}
+  which lifts along surjective maps. There are many ways to
+  characterize projective modules.
+
+  We see for any sequence
+  \begin{equation}
+S\colon\quad \cdots\to N\to N'\to N''\to\cdots
+  \end{equation}
+  thaat the sequence
+  \begin{equation}
+\cdots\to\hom(P,N)\to\hom(P,N')\to\hom(P,N'')\to\cdots
+  \end{equation}
+  Recall $\hom(M,-)\colon\Mod[A]\to\Ab$ is a functor and it is
+  \textbf{\emph{always}} left exact (for every module $M$), meaning if
+  $0\to N\to N'\to N''\to\cdots$ is exact, then
+  \begin{equation}
+0\to\hom(M,N)\to\hom(M,N')\to\hom(M,N'')\to\cdots
+  \end{equation}
+  is exact. So $P$ is projective if $\hom(P,-)$ is exact (on left and right).
+\item Flat modules $M$ means $M\otimes-$ is an exact functor.
+\end{enumerate}
+\medbreak
+We have in summary
+\begin{equation}
+\mbox{Free}\subset\mbox{Projective}\subset\mbox{Flat}.
+\end{equation}
+\end{remark}
+
+\begin{proposition}
+Let $A$ be a ring, let $P$ be a module over $A$.
+The module $P$ is projective iff there exists a module $Q$ over $A$
+such that $P\oplus Q$ is a free module.
+\end{proposition}
+
+\begin{question}
+What is an example of a projective module which is not free?
+\end{question}
+
+\begin{proof}[Answer]
+Take $R=\ZZ/6\ZZ$. We see that $M=\ZZ/2\ZZ$ is a module over $R$.
+We see that $(\ZZ/2\ZZ)\oplus(\ZZ/3\ZZ)=\ZZ/6\ZZ$. But $M$ is not free.
+
+More generally, if $A=B\times C$ as rings, then $B$ is a module over
+$A$ and $B$ is flat over $A$ (but $B$ is not faithfully flat).
+\end{proof}
+
+\begin{node}
+If we have a functor $\hom(M,-)$ for $M$ being a flat module, or
+$M\otimes-\colon\Mod[A]\to\Ab$ but it is not left exact in general. We
+can write a short exact sequence
+\begin{equation}
+0\to N\to N'\to N''\to 0
+\end{equation}
+the wish is to find a module $M$ such that
+\begin{equation}
+0\to M\otimes N\to M\otimes N'\to M\otimes N''\to0
+\end{equation}
+to preserve the injective map.
+
+Recall the projective resolution of $N$,
+\begin{equation}
+\cdots\to P_{2}\to P_{1}\to P_{0}\to N,
+\end{equation}
+the idea is to apply the functor $M\otimes-$ to the projective
+resolution
+\begin{equation}
+\cdots M\otimes P_{2}\xrightarrow{f_{2}} M\otimes P_{1}\xrightarrow{f_{1}} M\otimes P_{0}\xrightarrow{f_{0}} M\otimes N.
+\end{equation}
+Then we can look at the homology of $C=\mbox{(projective resolution)}\otimes M$
+which measures th failure of exactness. We call the $i^{\text{th}}$
+homology group $H^{i}(C)=\Tor^{i}(N,M)$.
+
+The point: even if $M$ is not flat, there is a way to obtain flat
+stuff by tensoring with the projective resolution.
+\end{node}
+
+\begin{xca}
+Compute $\Tor(\ZZ/2\ZZ,\ZZ)$.
+\end{xca}

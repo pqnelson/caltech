@@ -847,4 +847,23 @@ beginfig(36)
   draw v2--v3;
 endfig;
 
+% lecture 8
+beginfig(37)
+  numeric w; w := 2u;
+  z0 = (0,0);
+  z1 = (3u,0);
+  label(btex $\partial$ etex, z0);
+  label.rt(btex $[\alpha] = $ etex, z0);
+  label(btex $[\partial\alpha]$ etex, z1);
+
+  z2 = (z0 + (0,-w));
+  drawarrow (z2--(z0 + (0,-6)));
+  label.bot(btex Connecting morphism etex,z2);
+  
+  w := 1.5u;
+  z3 = (z1 + (-3,-w));
+  z4 = (z3 + (2u,0));
+  drawarrow (z4--z3--(z1 + (-3,-6)));
+  label.rt(btex Boundary morphism etex, z4);
+endfig;
 end;

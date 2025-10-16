@@ -1,0 +1,243 @@
+%%
+%% fall-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-16T08:44:16-0700
+%% Last update 2025-10-16T08:44:16-0700
+%% 
+
+\lecture{}
+
+We were in the middle of proving Cantor's intersection theorem. We
+just need to prove the backwords direction.
+
+\begin{proof}[Proof (Cantor intersection theorem)]
+\backwardproof{} Assume every such sequence $\{E_{n}\}$ there is a
+unique $x\in X$ such that $\{x\}=\bigcap^{\infty}_{n=0}E_{n}$. We want
+to prove that $X$ is complete.
+
+Let $(x_{n})$ be a Cauchy sequence in $X$. We will prove $(x_{n})$
+converges. For each $n$, define
+\begin{equation}
+E_{n}=\closure{\{x_{k}\mid k\geq n\}},
+\end{equation}
+which is the closure of the tail of the sequence. We see that
+$E_{n}\neq\emptyset$ and $E_{n+1}\subset E_{n}$ and $E_{n}$ is closed for each $n$.
+What happens to $\diam(E_{n})$? We see that for each $\varepsilon>0$
+there is a corresponding $N\in\NN$ such that
+\begin{subequations}
+\begin{align}
+\diam(E_{N}) &= \sup\{d(x,y)\mid x,y\in E_{N}\}\\
+&\leq\sup\{d(x_{m},x_{n})\mid m,n\geq N\}\\
+&<\varepsilon.
+\end{align}
+\end{subequations}
+Then we see $E_{n}$ is indeed a contracting sequence. Now we can use
+the assumption: there exists an $x\in X$ such that
+\begin{equation}
+\{x\} = \bigcap^{\infty}_{n=0}E_{n}.
+\end{equation}
+For each $n$, $x\in\closure{\{x_{k}\mid k\geq n\}}$ is an element of
+the closure of the tail of the sequence. So $x$ is a limit point of
+the tails $\{x_{k}\mid k\geq n\}$. Then we inductively select a
+subsequence $\{n_{k}\}$ such that for all $k\in\NN$,
+\begin{equation}
+d(x,x_{n_{k}})<\frac{1}{k}.
+\end{equation}
+This subsequence converges to $x$. But what we want to show is that
+$x_{n}\to x$, i.e., the \emph{whole sequence} converges to $x$. We see
+that the triangle inequality gives us
+\begin{equation}
+  \begin{split}
+    d(x,x_{m})&\leq d(x,x_{n_{k}}) + d(x_{n_{k}},x_{m})\\
+    &<\frac{\varepsilon}{2} + \frac{\varepsilon}{2},
+  \end{split}
+\end{equation}
+by picking sufficiently large $m$. Then $x_{n}\to x$ converges.
+
+Since we begin with an arbitrary Cauchy sequence, this proves $(X,d)$
+is complete.
+\end{proof}
+
+\begin{definition}[Continuous at a point]
+Let $(X,d)$ and $(Y,\rho)$ be metric spaces. Let $x\in X$.
+We call a function $f\colon X\to Y$ \define{Continuous at $x$} if for
+each $\varepsilon>0$ there exists a $\delta>0$ such that for all $a\in X$,
+$d(x,a)<\delta$ implies $\rho(f(x),f(a))<\varepsilon$.
+
+We can think of this in terms of open balls, we would have
+\begin{equation}
+f\bigl(B_{\delta}(x)\bigr)\subset B_{\varepsilon}\bigl(f(x)\bigr).
+\end{equation}
+This will be more useful when generalizing the notion in topology.
+\end{definition}
+
+\begin{definition}[Continuous function]
+Let $(X,d)$ and $(Y,\rho)$ be metric spaces. 
+We call a function $f\colon X\to Y$ \define{Continuous}
+if $f$ is continuous at every point of $X$.
+\end{definition}
+
+\begin{remark}
+We can also define a notion of ``continuous on a subset $U\subset X$''
+by saying the function is continuous at each point of $U$.
+\end{remark}
+
+\begin{proposition}
+Let $f\colon X\to Y$, $x\in X$, $(X,d)$ and $(Y,\rho)$ be metric spaces.
+Then $f$ is continuous at $x$ if and only if for every sequence $x_{n}\to x$
+in $X$ we have $f(x_{n})\to f(x)$ in $Y$.
+\end{proposition}
+
+\begin{proof}
+\forwardproof\ Assume $f$ is continuous at $x\in X$.
+Let $(x_{n})$ be a sequence in $X$. Assume $x_{n}\to x$ converges in $X$.
+Let $\varepsilon>0$, consider $\delta>0$ such that for all $a\in X$ we have
+\begin{equation}
+d(x,a)<\delta\implies\rho\bigl(f(x),f(a)\bigr)<\varepsilon.
+\end{equation}
+Since $x_{n}\to x$ converges, there exists an $N_{\delta}\in\NN$ such that
+\begin{equation}
+d(x,x_{n})<\varepsilon
+\end{equation}
+for all $n\geq N_{\delta}$. When we substitute this into continuity,
+we have
+\begin{equation}
+\rho\bigl(f(x),f(x_{n})\bigr)<\varepsilon
+\end{equation}
+for all $n\geq N_{\delta}$. So $f(x_{n})\to f(x)$ converges in $Y$.
+
+\backwardproof\ We will do a proof by contradiction. Let $x_{n}\to x$
+converges in $X$, and we have $f(x_{n})\to f(x)$ in $Y$. Assume for
+contradiction that $f$ is not continuous at $x$.
+
+We see this means
+\begin{multline}
+\neg\Bigl(\forall\varepsilon>0\ldotp\exists\delta>0\ldotp\forall
+a\in X\ldotp \bigl(d(x,a)<\delta\implies\rho(f(x),f(a))<\varepsilon\bigr)\Bigr)\iff\\
+\exists\varepsilon>0\ldotp\forall\delta>0\ldotp\exists a\in X\ldotp
+d(x,a)<\delta\land\rho(f(x),f(a))\geq\varepsilon.
+\end{multline}
+Given such an $\varepsilon_{0}>0$, for each $n\in\NN$, there exists
+$x_{n}\in B_{1/n}(x)$ such that $\rho(f(x),f(x_{n}))\geq\varepsilon_{0}$.
+This means we have $x_{n}\to x$ converges in $X$, but
+$f(x_{n})$ does not converge to $f(x)$ in $Y$. This contradicts our
+hypothesis that $f(x_{n})\to f(x)$ converges in $Y$. Hence we reject
+our assumption (that $f$ is not continuous at $x$) and conclude that
+$f$ is continuous at $x$.
+\end{proof}
+
+\begin{remark}
+If we want to prove $A\implies B$, then what's the difference between
+``proof by contrapositive'' and ``proof by contradiction''?
+
+Proof by contrapositive uses the fact that $A\implies B$ is logically
+equivalent to $\neg B\implies\neg A$ and proves that statement.
+
+Proof by contradiction uses the fact that $\neg\neg P$ is logically
+equivalent to $P$ (and that $\neg Q$ is logically equivalent to
+$Q\implies\falsum$ where $\falsum$ is the canonical contradiction), so
+we have $\neg P\implies\falsum$. In our case, since $A\implies B$ is
+$(\neg A)\lor B$ --- i.e., $\neg(A\land\neg B)$ --- a proof by
+contradiction would prove $(A\land\neg B)\implies\falsum$.
+
+Some useful facts in logic:
+\begin{subequations}
+\begin{equation}
+\neg(\forall x\ldotp P[x]\implies Q[x])\iff\exists x\ldotp P[x]\land\neg Q[x]
+\end{equation}
+and
+\begin{equation}
+\neg(\exists x\ldotp P[x]\land Q[x])\iff\forall x\ldotp P[x]\implies\neg Q[x].
+\end{equation}
+\end{subequations}
+Also recall that bounded quantifiers like $\forall x\in X\ldotp P[x]$
+(respectively, $\exists y>0\ldotp Q[y]$) are shorthand for $\forall x\ldotp x\in X\implies P[x]$
+(resp., $\exists y\ldotp y>0\land Q[y]$).
+\end{remark}
+
+\begin{proposition}
+Let $f\colon X\to Y$. Then $f$ is continuous if and only if every open
+subset $\mathcal{O}\subset Y$ we have the preimage under $f$ of
+$\mathcal{O}$, $f^{-1}(\mathcal{O})$, is open in $X$.
+\end{proposition}
+
+Remember: $f^{-1}(\mathcal{O})=\{x\in X\mid f(x)\in\mathcal{O}\}$.
+This horrible notation is grandfathered-in, and there's nothing we can
+do about it. Very old texts on set theory use worse notation, which we
+will only mention to give thanks for the alternative we use.
+
+\begin{proof}
+\forwardproof\ Assume $f$ is continuous. Let $\mathcal{O}\subset Y$ be
+an open subset. (Recall, $\mathcal{O}$ is open if for all
+$y\in\mathcal{O}$ there exists an open ball $B_{\varepsilon}(y)\subset\mathcal{O}$.)
+Let $x\in f^{-1}(\mathcal{O})$. Then $f(x)\in\mathcal{O}$.
+Since $f$ is continuous, for all $r>0$ there exists $\delta>0$ such
+that every $a\in B_{\delta}(x)$ implies $f(a)\in B_{r}\bigl(f(x)\bigr)$.
+This means $f\bigl(B_{\delta}(x)\bigr)\subset B_{r}\bigl(f(x)\bigr)\subset\mathcal{O}$.
+Hence $B_{\delta}(x)\subset f^{-1}(\mathcal{O})$. Since this was for
+arbitrary $x$, it implies $f^{-1}(\mathcal{O})$ is open.
+
+\backwardproof\ Assume every open set $\mathcal{O}\subset Y$ has its
+preimage $f^{-1}(\mathcal{O})\subset X$ be an open subset.
+Let $x\in X$. Let $\varepsilon.0$. We see
+$B_{\varepsilon}\bigl(f(x)\bigr)$ is open in $Y$. Then by assumption,
+$f^{-1}\bigl(B_{\varepsilon}(f(x))\bigr)$ is open in $X$. We see
+$x\in f^{-1}\bigl(B_{\varepsilon}(f(x))\bigr)$. There exists a
+$\delta>0$ such that $B_{\delta}(x)\subset f^{-1}\bigl(B_{\varepsilon}(f(x))\bigr)$
+by definition of open sets. In other words,
+\begin{equation}
+f\bigl(B_{\delta}(x)\bigr)\subset B_{\varepsilon}\bigl(f(x)\bigr),
+\end{equation}
+which is the definition of $f$ being continuous at $x$. Since we let
+$x\in X$ be arbitrary, this means $f$ is continuous.
+\end{proof}
+
+\begin{corollary}
+We see $f\colon X\to Y$ is continuous if and only if the inverse image
+of a closed subset of $Y$ is closed in $X$.
+\end{corollary}
+
+\begin{example}
+The mapping $\RR^{n}\times\RR^{n}\to\RR^{n}$ sending $(x,y)\mapsto x+y$
+is continuous.
+\end{example}
+
+\begin{example}
+Let $(X,d)$ be a metric space.
+Let $x_{0}\in X$, define $f\colon X\to\RR$ by $f(x)=d(x,x_{0})$.
+Then this $f$ is continuous. Look at the pre-image of the open
+interval $(a,b)$ under $f$:
+\begin{equation}
+f^{-1}\bigl((a,b)\bigr)=\{x\in X\mid a<d(x,x_{0})<b\},
+\end{equation}
+then $x'\in f^{-1}\bigl((a,b)\bigr)$ when there is an open ball around
+$x'$ containing (etc.\ etc.\ etc.). Take
+\begin{equation}
+r=\frac{1}{2}\min\{|d(x',x_{0})-a|,|d(x',x_{0})-b|\}.
+\end{equation}
+Then $B_{r}(x')\subset f^{-1}\bigl((a,b)\bigr)$, as desired.
+\end{example}
+
+\begin{example}
+Let $(X,d)$ be a discrete metric space. Then the singleton sets $\{x\}\subset X$
+are both open and closed. The only continuous function
+\begin{equation}
+f\colon[0,1]\to(X,d)
+\end{equation}
+is the constant function $r\mapsto x$. If we tried a piecewise
+function like
+\begin{equation}
+f(a) = \begin{cases}x_{1} & \mbox{if }0\leq a\leq\frac{1}{2}\\
+x_{2} & \mbox{if }\frac{1}{2}<a\leq 1,
+\end{cases}
+\end{equation}
+well, we recall that $(1/2, 1]$ is an open subset of $[0,1]$, and it
+is not a closed subset of $(1/2,1]$. This
+cannot be a continuous function. Then $\{x_{2}\}$ is closed. 
+But the only subsets of $[0,1]$ which are both open and closed are the
+empty set $\emptyset$ and the entire unit interval itself
+$[0,1]$. THIS IS IMPOSSIBLE, I TELL YOU: IMPOSSIBLE!
+\end{example}
