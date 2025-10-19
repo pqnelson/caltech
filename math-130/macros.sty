@@ -10,7 +10,12 @@
 \RequirePackage{xcolor}
 \RequirePackage{titlesec}
 \RequirePackage{amsthm,amsmath,amssymb}
+\newdimen\tmpdimen
+\tmpdimen=8.5in
+%\tmpdimen=
+\divide\tmpdimen by7
 \RequirePackage[left=1in,textwidth=29pc,bottom=1in,top=5pc]{geometry}
+%\RequirePackage[left=\tmpdimen,right=2\tmpdimen,bottom=1in,top=5pc]{geometry}
 
 \RequirePackage{graphicx}
 
@@ -89,6 +94,9 @@
 \def\mapsfrom{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
 \let\nsubset\nsubseteq
 \let\nsupset\nsupseteq
+
+\def\into{\hookrightarrow}
+\def\onto{\twoheadrightarrow}
 
 % for proving iff statements
 \newcommand\forwardproof{$(\Longrightarrow)$}

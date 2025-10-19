@@ -167,4 +167,20 @@ beginfig(1)
 
   label.rt(btex $X$ etex, point 0 of X4);
 endfig;
+
+% lecture 9
+beginfig(2)
+  path p[]; numeric i,r;
+  r = 4u;
+  p0 = fullcircle scaled 1.5r;
+  p1 = p0 shifted (r,0);
+  p2 = p0 shifted (r*(cosd(-45),sind(-45)));
+  z0 = point 0.25length(p0) of p0;
+  z1 = point 0 of p1;
+  z2 = point 0.75length(p2) of p2;
+  draw p0; draw p1; draw p2;
+  label.top(btex ${\bf A}^{2}_{x},\;x\neq0,\;(1:y/x:z/x)$ etex, z0);
+  label.rt(btex ${\bf A}^{2}_{y},\;y\neq0,\;(x/y:1:z/y)$ etex, z1);
+  label.bot(btex ${\bf A}^{2}_{z},\;z\neq0,\;(x/z:y/z;1)$ etex, z2);
+endfig;
 end;

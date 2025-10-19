@@ -1,0 +1,245 @@
+%%
+%% fall-lecture09.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-19T11:01:49-0700
+%% Last update 2025-10-19T11:01:49-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+Recall, a function $f\colon X\to Y$ is \emph{continuous} at $x\in X$ if
+\begin{equation*}
+\forall\varepsilon>0\ldotp\exists\delta>0\ldotp\forall a\in X\ldotp
+d(x,a)<\delta\implies\rho\bigl(f(x),f(a)\bigr)<\varepsilon.
+\end{equation*}
+We stress that $\delta$ depends on the choice of $x$ and $\varepsilon$.
+\end{node}
+
+\begin{definition}
+We call $f\colon X\to Y$ \define{Uniformly Continuous} if
+\begin{equation}
+\forall\varepsilon>0\ldotp\exists\delta>0\ldotp\forall u,v\in X\ldotp
+d(u,v)<\delta\implies\rho\bigl(f(u),f(v)\bigr)<\varepsilon.
+\end{equation}
+\end{definition}
+
+\begin{example}
+A function $f\colon X\to Y$ is called \define{Lipschitz} if there is a
+constant $c\geq0$ such that
+\begin{equation}
+\forall u,v\in X\ldotp\rho\bigl(f(u),f(v)\bigr)\leq cd(u,v).
+\end{equation}
+We claim that a Lipschitz function is uniformly continuous. Let
+$\varepsilon>0$ be arbitrary, then pick $\delta=\varepsilon/c$ when $c\neq0$.
+When $c=0$, then we have the constant function, which is uniformly continuous.
+\end{example}
+
+\begin{example}
+Consider $f\colon\RR\to\RR$, $f(x)=x^{2}$. This is continuous on
+$\RR$, but not uniformly continuous.
+
+Let $x\in\RR$ be arbitrary. Let us look at
+\begin{subequations}
+\begin{align}
+|f(x)-f(x+\delta)| &=(x+\delta)^{2}-x^{2}\\
+&= \delta^{2}+2x\delta > 2x\delta.
+\end{align}
+\end{subequations}
+But there is no way to pick $\varepsilon>0$ which does not depend on
+$x$ in this situation, so it cannot be uniformly continuous.
+\end{example}
+
+\subsection{Compactness}
+
+\begin{definition}
+Let $E\subset X$. Let $\{U_{\alpha}\}_{\alpha\in A}$ be a collection
+of subsets. We call $\{U_{\alpha}\}_{\alpha\in A}$ a \define{Cover} of
+$E$ if
+\begin{equation}
+E\subset\bigcup_{\alpha\in A}U_{\alpha}.
+\end{equation}
+\end{definition}
+
+\begin{definition}
+We define a \define{Subcover} of $E$ to be a subset $S$ of a cover $C$ such
+that the subset $S$ is also a cover of $E$.
+\end{definition}
+
+\begin{definition}
+We call the cover $\{U_{\alpha}\}$ of $E$ \define{Open} if each
+$U_{\alpha}$ is an open set.
+\end{definition}
+
+\begin{definition}
+Let $K\subset X$. We call $K$ \define{Compact} if every open cover of
+$K$ has a finite subcover.
+\end{definition}
+
+\begin{example}
+Any finite set is compact. Why? Well, pick any open cover, then only
+finitely many open subsets are needed (at most one for each of the
+finitely many points, which would yield a finite subcover).
+\end{example}
+
+\begin{example}
+The open interval $(0,1)\subset\RR$ is not compact. We take $U_{n}=(1/n,1)$,
+and these form an open cover of $(0,1)$. But this particular covering
+has no finite subcover.
+\end{example}
+
+\begin{example}
+We see $\RR\subset\RR$ is not compact. Observe $\{(-n,n)\mid n\in\NN\}$
+is an open cover. But again, it has no finite subcover.
+\end{example}
+
+\begin{definition}
+Let $E\subset X$. We call $E$ \define{Bounded} if there exists an
+$x\in X$ and $r.0$ such that $E\subset B_{r}(x)$.
+\end{definition}
+
+\begin{theorem}
+\begin{enumerate}
+\item Compact subset of metric spaces are closed and bounded.
+\item Closed subsets of compact sets are compact.
+\item The continuous image of a compact set is compact (i.e., if
+  $f\colon X\to Y$ is continuous and $K\subset X$ is compact, then
+  $f(K)$ is compact).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $K$ be a compact subset of $X$. Let $x\in X\setminus K$.
+  Then for each $z\in K$, let $r_{z}>0$ and $s_{z}>0$ be such that
+\begin{equation}
+B_{r_{z}}(z)\cap B_{s_{z}}(x)=\emptyset.
+\end{equation}
+We can do this for every $z\in K$. Then $\{B_{r_{z}}(z)\}$ forms an
+open cover of $K$. Since $K$ is compact, it has a finite subcover:
+$B_{r_{1}}(z_{1})$, \dots, $B_{r_{k}}(z_{k})$ which covers $K$. Let
+\begin{equation}
+s = \min\{s_{z_{j}}\mid j=1,\dots,k\}.
+\end{equation}
+Then $B_{s}(x)\cap B_{z_{j}}(z_{j})=\emptyset$ for each $j=1,\dots,k$.
+Then
+\begin{equation}
+B_{s}(x)\cap\bigl(B_{z_{1}}(z_{1})\cup\cdots\cup B_{z_{k}}(z_{k})\bigr)=\emptyset,
+\end{equation}
+so we must have
+\begin{equation}
+B_{s}(x)\subset X\setminus K.
+\end{equation}
+Then $X\setminus K$ is open if and only if $K$ is closed.
+
+To prove boundedness: For any $x_{0}\in K$, pick
+$\{B_{n}(x_{0})\mid n\in\NN\}$ as an open cover of $K$. Then there
+exists a finite subcover. Since $B_{m}(x_{0})\subset B_{n}(x_{0})$ for
+any $m\leq n$, this means there exists an $N\in\NN$ such that
+$K\subset B_{N}(x_{0})$. This implies $K$ is bounded.
+\item Let $F$ be a closed subset of a compact set $K$. Let
+  $\{U_{\alpha}\}$ be an open cover of $F$. Since $F$ is closed,
+  $K\setminus F$ is open, so $\{K\setminus F\}\cup\{U_{\alpha}\}$ is
+  an open cover of $K$. Then there exists a finite subcover of $K$ ---
+  there are finitely many $U_{\alpha_{1}}$, \dots, $U_{\alpha_{n}}$
+  such that $U_{\alpha_{1}}\cup\cdots\cup U_{\alpha_{n}}=F$.
+\item Let $f\colon X\to Y$ be a continuous map of metric spaces. Let
+  $K\subset X$ be compact. We want to show $f(K)\subset Y$ is compact.
+  Let $\{U_{\alpha}\}$ be an arbitrary open cover of $f(K)$ in
+  $Y$. For each $x\in K$, there is an $\alpha$ such that $f(x)\in U_{\alpha}$.
+  So $x\in f^{-1}(U_{\alpha})$. This means $\{f^{-1}(U_{\alpha})\}$ is
+  an open cover of $K$ --- $f^{-1}(U_{\alpha})$ is open since $f$ is continuous.
+  This means since $K$ is compact, there exists a finite subcover
+  $\{f^{-1}(U_{\alpha_{i}})\mid i=1,\dots,n\}$ of $K$. So
+  \begin{equation}
+K\subset\bigcup^{n}_{i=1}f^{-1}(U_{\alpha_{i}}).
+  \end{equation}
+  Then $f(K)\subset\bigcup^{n}_{i=1}f(f^{-1}(U_{\alpha_{i}}))\subset\bigcup^{n}_{i=1}U_{\alpha_{i}}$.
+  Hence $f(K)$ is compact.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Extreme value]
+If $(X,d)$ is a compact metric space, and $f\colon X\to\RR$ is
+continuous, then there are points $a\in X$ and $b\in X$ such that for
+all $x\in X$ we have $f(a)\leq f(x)\leq f(b)$.
+\end{theorem}
+
+\begin{proof}
+By (3) of the previous theorem, $f(X)$ is compact in $\RR$, and by (1)
+of the same theorem, $f(X)$ is closed and bounded in $\RR$. Let
+\begin{equation}
+\alpha=\inf(f(X)),
+\end{equation}
+and
+\begin{equation}
+\beta=\sup(f(X)),
+\end{equation}
+by the least-upper bound property of $\RR$. Since $f(X)$ is closed,
+the limit points of $f(X)$ are elements of $f(X)$. The result follows
+immediately. 
+\end{proof}
+
+\begin{theorem}
+Let $E\subset\RR^{n}$. The following are equivalent:
+\begin{enumerate}
+\item $E$ is closed and bounded;
+\item $E$ is compact;
+\item Every infinite subset of $E$ has a limit point in $E$.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+We won't prove it, but some remarks.
+\begin{enumerate}
+  \item We have shown $(1)\implies(2)$ already.
+  \item The equivalence $(1)\iff(2)$ is the Heine--Borel Theorem.
+  \item The equivalence $(1)\iff(3)$ is the Bolzano--Weierstrass Theorem.
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+Consider $(\QQ,|\cdot|)$. The set $E=\{q\in\QQ\mid\sqrt{2}<q<\pi\}$,
+we see $E=\QQ\cap(\sqrt{2},\pi)$ is closed and bouunded in $\QQ$, but
+it is not compact.
+\end{example}
+
+\begin{definition}
+Let $E\subset X$. We call $E$ \define{Totally Bounded} if for each
+$\varepsilon>0$, $E$ can be covered by a finite number of open balls
+of radius $\varepsilon$.
+
+Observe: totally bounded sets are bounded (but the converse is not true).
+\end{definition}
+
+\begin{example}
+Consider $(\ell^{2},\|\cdot\|)$, which consists of the set of
+sequences $(x_{n})$ such that $x_{n}^{2}$ is summable:
+\begin{equation}
+\sum^{\infty}_{n=0}x_{n}^{2}<\infty.
+\end{equation}
+Then the closed unit ball,
+\begin{equation}
+B=\{(x_{n})\in\ell^{2}\mid\|(x_{n})\|\leq1\},
+\end{equation}
+is bounded. But it is not totally bounded. For each $n\in\NN$, look at
+the sequence
+\begin{equation}
+e_{(n),k} = \begin{cases}1 & \mbox{if }k=n\\
+0 & \mbox{otherwise},
+\end{cases}
+\end{equation}
+where $(n)$ is notation tracking which entry is 1, and $k$ is the
+index for the entry in the sequence.Then the distance
+\begin{equation}
+\|e_{(n)}-e_{(m)}\|=\sqrt{2}.
+\end{equation}
+If $\varepsilon<1$, then each ball of radius $\varepsilon$ would
+contain only 1 of the $e_{(n)}$. But there are infinitely many
+$e_{(n)}$ (one for each natural number) which live in the unit
+ball. So there is no finite number of $\varepsilon$-balls which could
+even cover the unit ball of $\ell^{2}$.
+\end{example}
