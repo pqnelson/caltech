@@ -1,0 +1,218 @@
+%%
+%% fall-lecture10.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-21T12:36:54-0700
+%% Last update 2025-10-21T12:36:54-0700
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $(x_{n})$ be a sequence, let $(n_{k})$ be a sequence of positive
+integers such that $n_{1}<n_{2}<\cdots$ (it is strictly
+increasing). Then $(x_{n_{k}})$ is a \define{Subsequence} of $(x_{n})$.
+
+If $(x_{n_{k}})$ converges, then its limit is called a
+\define{Subsequential Limit} of $(x_{n})$.
+\end{definition}
+
+\begin{definition}
+We call $E\subset X$ \define{Subsequentially Compact} if every
+sequence in $E$ has a subsequence that converges to a point in $E$.
+\end{definition}
+
+\begin{theorem}
+Let $(X,d)$ be a metric space. Then the following are equivalent:
+\begin{enumerate}
+\item $X$ is complete and totally bounded;
+\item $X$ is compact;
+\item $X$ is sequentially compact.
+\end{enumerate}
+\end{theorem}
+
+We'll prove $(1)\implies(2)\implies(3)\implies(1)$. These are three
+proofs, so we will present them separately.
+
+\begin{proof}
+$(1)\implies(2)$. Assume for contradiction that $X$ is not compact.
+Then consider $\{U_{\alpha}\}$ an open cover of $X$ such that it has
+no finite subcover. We will repeatedly use the following construction
+(described in the next paragraph).
+
+(i) Since $X$ is totally bounded, we can consider a finite collection
+of open balls of radius $r<1/2$ which cover $X$. Then at least one of
+these open balls $B_{1}$ that can not be covered by finitely many
+$U_{\alpha}$. We call its closure $A_{1}=\closure{B_{1}}$. Then
+$A_{1}$ is closed and $\diam(A_{1})\leq1$.
+
+Using totally boundedness again, repeating $(i)$ but with balls of
+radius $r<1/4$, we find another open ball $B_{2}$ whose intersection
+with $A_{1}$ cannot be covered by finitely many $U_{\alpha}$. We call
+the closure of this open ball intersected with $A_{1}$,
+\begin{equation*}
+A_{2} =\closure{A_{1}\cap B_{2}}.
+\end{equation*}
+We have $B_{2}\cap A_{1}$ cannot be covered by finitely many
+$U_{\alpha}$. Then $A_{2}$ is closed and $A_{2}\subset A_{1}$ and
+$\diam(A_{2})\leq1/2$.
+
+We repeat this process inductively and obtain a contracting sequence
+of nonempty closed subsets $(A_{n})$. We see that
+$\diam(A_{n})\leq2^{-n}$ and $A_{n+1}\subset A_{n}$. Since $X$ is
+complete, we use Cantor's intersection Theorem. (Each $A_{n}$ cannot
+be covered by finitely many $U_{\alpha}$.) There exists a point
+$x_{0}\in X$ which is the unique intersection point
+\begin{equation}
+\{x_{0}\}=\bigcap^{\infty}_{n=1}A_{n}.
+\end{equation}
+There exists a particular $U_{\alpha_{0}}$ in our open cover such that
+$x_{0}\in U_{\alpha_{0}}$. (There may be several, but we only need one.)
+Since $U_{\alpha_{0}}$ is open, there exists an $r_{0}>0$ such that
+$B_{r_{0}}(x_{0})\subset U_{\alpha_{0}}$. We know $\diam(A_{n})\to0$,
+so there exists some index $N\in\NN$ such that for all $n\geq N$ we
+have
+\begin{equation}
+A_{n}\subset B_{r_{0}}(x_{0})\subset U_{\alpha_{0}}.
+\end{equation}
+This is a contradiction, because we chose these $A_{n}$ to be
+impossible to cover by finitely many $U_{\alpha}$ (and we just covered
+them with a single one). Hence the contradiction. Hence $X$ is compact.
+\end{proof}
+
+\begin{proof}
+$(2)\implies(3)$ Assume $X$ is compact. Let $(x_{n})$ be a sequence in
+$X$. We want to show $(x_{n})$ has a convergent subsequence in $X$.
+Define the set
+\begin{equation}
+E=\{x_{n}\in X\mid n\in\NN\}
+\end{equation}
+to be the set of terms appearing in the sequence. Then either $E$ is a
+finite set or not. So we have a proof by cases.
+
+\textsc{Suppose} $E$ is a finite set. Then we can use the pidgeonhole
+principle: there exists an $x\in E$ repeated infinitely many times,
+and a sequence $(n_{k})$ where $n_{1}<n_{2}<\dots$ of positive
+integers such that the subsequence $(x_{n_{k}})$ is identically
+$x$. Then $x_{n_{k}}\to x$ converges.
+
+\textsc{Suppose} $E$ is an infinite set. There are infinitely many
+distinct terms in $(x_{n})$. We assume for contradiction no point in
+$X$ is a limit point of $E$. Then for each $z\in X$, there is a
+neighborhood $z\in U_{z}$ which intersects $E\cap U_{z}\subset\{z\}$
+at most trivially.
+Then $\{U_{z}\}_{z\in X}$ is an open cover of $X$ and an open cover of
+$E$ and has no finite subcover. (Since $E$ has infinitely many points
+and intersects $U_{z}$ in at most 1 point.) Then $\{U_{z}\}$ has no
+finite subcover of $X$. This contradicts the hypothesis that $X$ is
+compact. So we reject the assumption that $E$ has no limit point. Let
+us call that limit point $x\in X$. Then we can choose the smallest $n$
+such that $x_{n_{1}}\in B_{1}(x)$. We can choose $n_{k}$ to be the
+smallest integer such that $n_{k}>n_{k-1}$ such that $x_{n_{k}}\in B_{1/k}(x)$.
+We have then constructed a subsequence $(x_{n_{k}})\to x$. This proves
+the claim.
+\end{proof}
+
+\begin{proof}
+$(3)\implies(1)$ Assume $X$ is sequentially compact. Assume for
+contradiction $X$ is not totally bounded. Then there exists some
+$\varepsilon>0$ such that we cannot cover $X$ with finitely many
+open balls of radius $\varepsilon$.
+
+We select a point $x_{1}\in X$. Then $X$ cannot be covered by
+$B_{\varepsilon}(x_{1})$. Then consider $x_{2}\in X$ such that
+$d(x_{1},x_{2})\geq2\varepsilon$. Then $B_{\varepsilon}(x_{1})\cap B_{\varepsilon}(x_{2})=\emptyset$
+are disjoint, and $B_{\varepsilon}(x_{1})\cup B_{\varepsilon}(x_{2})$
+does not cover $X$.
+
+Inductively, we select $x_{3}\in X$ such that
+$\diam(x_{3},x_{i})\geq2\varepsilon$ for $i=1,2$, so we can continue
+in this manner to get $(x_{n})$ a sequence with no convergent
+subsequence (because any two terms are at least $\varepsilon$
+apart). This means $X$ is not sequentially compact. This is a
+contradiction. Hence $X$ is totally bounded.
+
+But we are not finished, we need to prove $X$ is complete. Let
+$(x_{n})$ be an arbitrary Cauchy sequence. Then $(x_{n})$ has a
+convergent subsequence $(x_{n_{k}})\to x$ by sequential
+completeness. Then $(x_{n})\to x$ since it is a Cauchy sequence, we
+have (using the triangle inequality):
+\begin{equation}
+d(x,x_{m})\leq d(x,x_{n_{k}})+d(x_{n_{k}},x_{m}),
+\end{equation}
+where for sufficiently big $n_{k}\geq N$ we have $d(x,x_{n_{k}})<\varepsilon/2$
+and similarly for sufficiently big $m\geq N$ we have $d(x_{n_{k}},x_{m})<\varepsilon/2$
+which taken together implies
+\begin{equation}
+d(x,x_{m})<\varepsilon
+\end{equation}
+for $m\geq N$. Hence $x_{n}\to x$ as desired.
+\end{proof}
+
+\begin{remark}
+If $E\subset\RR^{n}$, then the following are equivalent:
+\begin{enumerate}
+\item $E$ is closed and bounded;
+\item $E$ is compact;
+\item Every subset of $E$ has a limit point of $E$.
+\end{enumerate}
+\end{remark}
+
+\begin{proposition}
+Let $E\subset\RR^{n}$. Then $E$ is bounded iff $E$ is totally bounded.
+\end{proposition}
+
+\begin{proof}
+\backwardproof\ Obvious, discussed last time.
+
+\forwardproof\ For simplicity, suppose $n=2$ (the argument generalizes
+to other $n$). Let $\varepsilon>0$. Since $E$ is bounded, there is an
+open ball which totally contains $E$; there is an $a>0$ sufficiently
+large such that $E\subset[-a,a]^{2}$. Then we take a partition $P_{k}$
+of $[-a,a]$ such that each interval has length \emph{less than}
+$1/k$. Then $P_{k}\times P_{k}$ is a partition of $[-a,a]^{2}$ and
+each square has a diameter bounded by $\sqrt{2}/k$. We can choose $k$
+sufficiently large such that $\sqrt{2}/k<\varepsilon$. There are
+finitely many such open squares which cover $E$. This implies there
+are finitely many open balls of radius $\varepsilon$ covering
+$E$. Hence the result.
+\end{proof}
+
+\begin{theorem}[Heine--Cantor]
+Let $f\colon(X,d)\to(Y,\rho)$ be a continuous function, where $(X,d)$ is a
+compact metric space and $(Y,\rho)$ is an arbitrary metric space.
+Then $f$ is uniformly continuous.
+\end{theorem}
+
+\begin{proof}
+By contradiction. Assume for contradiction $f$ is not uniformly
+continuous. Then there exists an $\varepsilon>0$ such that for every
+$\delta>0$ and for every $a,b\in X$ we have
+\begin{equation}
+d(a,b)<\delta\quad\mbox{and}\quad\rho\bigl(f(a),f(b)\bigr)\geq\varepsilon.
+\end{equation}
+Since $(X,d)$ is compact, it is sequentially compact.
+Then for each $n$, there exists $x_{n}\in X$ and $y_{n}\in X$ such
+that
+\begin{equation}
+d(x_{n},y_{n})<\frac{1}{n}\quad\mbox{and}\quad\rho\bigl(f(x_{n}),f(y_{n})\bigr)\geq\varepsilon.
+\end{equation}
+Then there exists an $x\in X$ and subsequence $(x_{n_{k}})$ such that
+$x_{n_{k}}\to x$ converges.
+Then using the triangle inequality, we have
+\begin{align}
+d(y_{n_{k}},x) &\leq d(y_{n_{k}},x_{n_{k}})+d(x_{n_{k}},x)\\
+&\leq\frac{1}{n_{k}}+d(x,x_{n_{k}}),
+\end{align}
+which goes to zero for sufficiently large $n_{k}$.
+Then $(y_{n_{k}})\to x$.
+Then by continuity of $f$, their images (using the triangle inequality):
+\begin{equation}
+\rho\bigl(f(x_{n_{k}}),f(y_{n_{k}})\bigr)\leq
+\rho\bigl(f(x_{n_{k}}),f(x)\bigr)+\rho\bigl(f(x),f(y_{n_{k}})\bigr),
+\end{equation}
+which goes to zero by continuity. But this contradicts
+$\rho(f(x_{n_{k}}),f(x))\geq\varepsilon$. hence $f$ must be uniformly continuous.
+\end{proof}

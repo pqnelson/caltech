@@ -24,15 +24,15 @@
 \setlist{nosep}
 \setlist[enumerate]{label=(\arabic*),listparindent=\parindent}
 %\renewcommand\theenumi{(\arabic{enumi})}
-
-\RequirePackage[all]{xy}
+\RequirePackage{color}
+\RequirePackage[all,color]{xy}
 \SelectTips{cm}{}
 
 \RequirePackage[dvipdfmx]{hyperref}
 
 % add a period to the name of the lecture, if any
 \newif\ifsectionnonempty\sectionnonemptyfalse
-\newcommand\@add@period[1]{#1\@addpunct{.}}
+\newcommand\add@period[1]{#1\@addpunct{.}}
 \newcommand{\sectiontitleformat}[1]{#1\ifsectionnonempty\@addpunct{.}\fi}
 
 \titleformat{\section}% command
@@ -45,7 +45,7 @@
 {\bigbreak\sffamily\bfseries}% format
 {\thesubsection.}% label
 {\smallskipamount}% sep
-{\@add@period}% beforecode
+{\add@period}% beforecode
 
 
 %% Examples:

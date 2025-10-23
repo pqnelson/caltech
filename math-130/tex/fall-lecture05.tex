@@ -189,8 +189,15 @@ for all $x\in U_{a}$ with $f(x)\neq0$ and where $U_{a}\subset U$ is an open neig
 $a\in U_{a}$.
 
 The set of all such regular functions on $U$ will be denoted by
-$\RegularFuns_{X}(U)$. 
+$\RegularFuns_{X}(U)$. They form a ring.
 \end{definition}
+
+\begin{remark}
+Why are these functions called ``regular''? Well, it's because there
+are no singularities or singular behaviour: the function $\varphi$ is
+regular if it is locally described in an open subset $U$ as a rational
+function $g/f$ where $f(x)\neq0$ on $U$.
+\end{remark}
 
 \begin{example}\label{ex:fall-lecture05:non-extendible-fn}
 Let $X=V(xw-yz)\subset\AA^{4}$. Consider the open subset $U=X\setminus V(y,w)\subset X$.
@@ -201,6 +208,12 @@ We define the function $\varphi\colon U\to\kk$ by
 \end{cases}
 \end{equation}
 As Homework: prove there is no global expression as a quotient.
+\end{example}
+
+\begin{example}[{Osserman~\cite[3.1.2]{osserman2021concise}}]
+If $f\in\kk[x_{1},\dots,x_{n}]$, then $f$ is a regular function on $Y$
+for any algebraic set $Y=V(I)$. This example suggests we can inject
+$A(Y)$ into $\RegularFuns(Y)$.
 \end{example}
 
 \begin{lemma}[Zero loci of regular functions are closed] % Gathmann, 3.4
@@ -214,3 +227,20 @@ irreducible affine variety $X$, and if
 $\varphi_{1},\varphi_{2}\in\RegularFuns_{X}(V)$, if
 $\varphi_{1}|_{U}=\varphi_{2}|_{U}$, then $\varphi_{1}=\varphi_{2}$.
 \end{remark}
+
+\begin{lemma}[{Osserman~\cite[3.1.4]{osserman2021concise}}]
+A regular function $\varphi\colon U\to\kk$ defines a continuous function $U\to\AA^{1}$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+It suffices to show that the preimage of a point in $\AA^{1}$ is
+closed. Check $\varphi^{-1}(c)$ is closed using a cover of $P\in U$, let
+$V\subset U$, and so $\varphi=g/f$ on $V$. Then on $V$, we see that
+$\varphi^{-1}(c)$ is the zero set of
+\begin{equation}
+\frac{g}{f}-c=\frac{g-cf}{f}
+\end{equation}
+which is just $Z(g-cf)$ since $f$ is nonvanishing on $V$. Then
+$\varphi^{-1}(c)$ is closed by the Zariski topology. Since the $V$
+cover $U$, we conclude that the preimage of a point is closed.
+\end{proof}

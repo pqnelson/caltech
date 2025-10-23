@@ -21,13 +21,41 @@
 
 \newcommand\divides{\mathrel{|}}
 
+% linear algebra
+\DeclareMathOperator\rank{rank}
+\DeclareMathOperator\Sym{Sym}
+\DeclareMathOperator\Mat{Mat}
+
+% Exterior power
+% Thanks to egreg, https://tex.stackexchange.com/a/108974/14751
+
+\NewDocumentCommand{\extp}{e{^}}{%
+  \mathop{\mathpalette\extp@{#1}}\nolimits
+}
+\NewDocumentCommand{\extp@}{mm}{%
+  \bigwedge\nolimits\IfValueT{#2}{^{\extp@@{#1}#2}}%
+  \IfValueT{#1}{\kern-2\scriptspace\nonscript\kern2\scriptspace}%
+}
+\newcommand{\extp@@}[1]{%
+  \mkern
+    \ifx#1\displaystyle-1.8\else
+    \ifx#1\textstyle-1\else
+    \ifx#1\scriptstyle-1\else
+    -0.5\fi\fi\fi
+  \thinmuskip
+}
+
+% algebraic geometry
 \DeclareMathOperator\codim{codim}
+\DeclareMathOperator\Gr{Gr}
 
 \RequirePackage{mathrsfs}
 
 \DeclareMathOperator\RegularFuns{\mathcal{O}}
 \let\StructureSheaf\RegularFuns
 \let\iso\cong
+
+\newcommand\TautologicalBundle{\mathcal{S}}
 
 % Groups
 \DeclareMathOperator\GL{GL}

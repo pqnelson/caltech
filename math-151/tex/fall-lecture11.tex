@@ -1,0 +1,273 @@
+%%
+%% fall-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-23T11:38:04-0700
+%% Last update 2025-10-23T11:38:04-0700
+%% 
+
+\lecture{}
+
+Recall last time, we ended by stating the excision theorem. An
+equivalent statement: Let $B=X\setminus Z$, then
+\begin{equation}
+(X\setminus Z, A\setminus Z)=(B,A\cap B).
+\end{equation}
+
+\begin{proof}
+Notice
+\begin{subequations}
+\begin{align}
+\bigl(C_{*}(A)+C_{*}(B)\bigr)/C_{*}(A)&=C_{*}(B)/\bigl(C_{*}(A)\cap C_{*}(B)\bigr)\\
+&=C_{*}(B)/C_{*}(A\cap B).
+\end{align}
+\end{subequations}
+We have a commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{
+\dots\ar[r]&H_{n}(A)\ar[d]_{\id}\ar[r]&H_{n}\bigl(C_{*}(A)+C_{*}(B)\bigr)\ar@{^{(}->}[d]^{\text{inclusion}}\ar[r]&H_{n}(B,A\cap B)\ar@{^{(}->}[d]^{\mathrm{inc}^{*}}\ar[r] & H_{n-1}(A)\ar[d]_{\id}\ar[r] & \dots\\
+\dots\ar[r]&H_{n}(A)\ar[r]&H_{n}(X)\ar[r]&H_{n}(X,A)\ar[r]&H_{n-1}(A)\ar[r]&\dots}}
+\end{equation}
+where $\mathrm{inc}^{*}$ is the morphism induced by the inclusion of
+topological spaces.
+The first row is obtained using the short exact sequence 
+\begin{equation}
+0\to C_{*}(A)\to C_{*}(A)+C_{*}(B)\to\underbrace{\bigl(C_{*}(A)+C_{*}(B)\bigr)/C_{*}(A)}_{C_{*}(B,A\cap B)}\to0.
+\end{equation}
+This forms a commutative diagram. Since $(A,B)$ is an M-V pair, we see
+\begin{equation}
+H_{n}\bigl(C_{*}(A)+C_{*}(B)\bigr)\iso H_{n}(X).
+\end{equation}
+Now we have a very useful lemma.
+
+\begin{lemma}[Five-Lemma]
+If in the commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{
+A_{1}\ar[r]\ar[d]_{f_{1}} &
+A_{2}\ar[r]\ar[d]_{f_{2}} &
+A_{3}\ar[r]\ar[d]_{f_{3}} &
+A_{4}\ar[r]\ar[d]_{f_{4}} &
+A_{5}\ar[d]_{f_{5}}\\
+B_{1}\ar[r] & B_{2}\ar[r] & B_{3}\ar[r] & B_{4}\ar[r] & B_{5}}}
+\end{equation}
+the rows are exact and if $f_{1}$, $f_{2}$, $f_{4}$, $f_{5}$ are all
+isomorphisms, then $f_{3}$ is also an isomorphism.
+\end{lemma}
+
+\noindent\textit{Resuming Proof of Excision Theorem:} Then by the Five-Lemma, we see that
+\begin{equation}
+H_{n}(B,A\cap B)\iso H_{n}(X,A).
+\end{equation}
+This concludes the proof of the Excision Theorem.
+\end{proof}
+
+\begin{remark}[Typical use of the 5-Lemma]
+The typical use for the Five-Lemma, if we have 2 exact triangles and
+we can relate them by morphisms as doodled thus:
+\begin{equation}
+\vcenter{\xymatrix{
+ & \Sigma_{1}\ar'[d][dd]^{f_{1}}\ar[dr] &\\
+\Sigma_{3}\ar[ur]\ar[dd]^{f_{3}} & & \Sigma_{2}\ar[ll]\ar[dd]^{f_{2}}\\
+ & \Gamma_{1}\ar[dr] &\\
+\Gamma_{3}\ar[ur] & & \Gamma_{2}\ar[ll]}}
+\end{equation}
+If we know 2 of the $f_{i}$'s are isomorphisms, then the Five-Lemma
+tells us the remaining $f_{i}$ is an isomorphism too. This is the
+typical use-case for it.
+\end{remark}
+
+
+\begin{lemma}[Five-Lemma]
+If in the commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{
+A_{1}\ar[r]\ar[d]_{f_{1}} &
+A_{2}\ar[r]\ar[d]_{f_{2}} &
+A_{3}\ar[r]\ar[d]_{f_{3}} &
+A_{4}\ar[r]\ar[d]_{f_{4}} &
+A_{5}\ar[d]_{f_{5}}\\
+B_{1}\ar[r] & B_{2}\ar[r] & B_{3}\ar[r] & B_{4}\ar[r] & B_{5}}}
+\end{equation}
+the rows are exact and if $f_{1}$, $f_{2}$, $f_{4}$, $f_{5}$ are all
+isomorphisms, then $f_{3}$ is also an isomorphism.
+\end{lemma}
+
+\begin{proof}
+What $a_{3}\in A_{3}$ is mapped to 0? Well, since we have
+\begin{subequations}  
+\begin{equation}
+\vcenter{\xymatrix{a_{3}\ar@{|->}[d]^{f_{3}} & \\
+0\ar@{|->}[r]&0}}
+\end{equation}
+it then follows that $a_{3}\mapsto0$ in the first row. So we have
+determined
+\begin{equation}
+\vcenter{\xymatrix{a_{3}\ar@{|->}[d]^{f_{3}}\ar@{|->}[r] & 0\ar@{|->}[d]^{f_{4}}\\
+0\ar@{|->}[r]&0}}
+\end{equation}
+Then using
+exactness, $a_{3}$ is in the image of something $a_{2}\in A_{2}$ such
+that $a_{2}\mapsto a_{3}$. This is isomorphic to something $b_{2}\in B_{2}$
+using $b_{2}=f_{2}(a_{2})$ and $f_{2}$ is an isomorphism by
+hypothesis. So we have
+\begin{equation}
+\vcenter{\xymatrix{a_{2}\ar@{|->}[r]\ar@{|->}[d]^{f_{2}}&a_{3}\ar@{|->}[d]^{f_{3}}\ar@{|->}[r] & 0\ar@{|->}[d]^{f_{4}}\\
+b_{2}\ar@{|->}[r]&0\ar@{|->}[r]&0}}
+\end{equation}
+But using exactness on the bottom row implies there exists some
+$b_{1}\in B_{1}$ which is mapped to $b_{2}$
+\begin{equation}
+\vcenter{\xymatrix{& a_{2}\ar@{|->}[r]\ar@{|->}[d]^{f_{2}}&a_{3}\ar@{|->}[d]^{f_{3}}\ar@{|->}[r] & 0\ar@{|->}[d]^{f_{4}}\\
+b_{1}\ar@{|->}[r]&b_{2}\ar@{|->}[r]&0\ar@{|->}[r]&0}}
+\end{equation}
+Then we use $f_{1}$ is an isomorphism to find an $a_{1}\in A_{1}$ such
+that $b_{1}=f_{1}(a_{1})$, giving us
+\begin{equation}
+\vcenter{\xymatrix{a_{1}\ar@{|->}[r]\ar@{|->}[d]^{f_{1}}& a_{2}\ar@{|->}[r]\ar@{|->}[d]^{f_{2}}&a_{3}\ar@{|->}[d]^{f_{3}}\ar@{|->}[r] & 0\ar@{|->}[d]^{f_{4}}\\
+b_{1}\ar@{|->}[r]&b_{2}\ar@{|->}[r]&0\ar@{|->}[r]&0}}
+\end{equation}
+This implies that $a_{3}\in\ker(f_{3})$ and that
+$\ker(f_{3})=0$. Hence we have determined that $f_{3}$ is injective
+just from the information to the left of it.
+
+We can offer a similar argument that $f_{3}$ is surjective using the
+information to its right, but it is rather tedious.
+\end{subequations}
+\end{proof}
+%@{|->}
+
+\begin{example}
+If $\{x_{0}\}$ is closed in $X$, then for any open neighborhood $U$ of
+$x_{0}$ we see
+\begin{equation}
+H_{*}(X,X\setminus\{x_{0}\})\iso H_{*}(U,U\setminus\{x_{0}\}).
+\end{equation}
+Since this does not depend on the choice of $U$, we can pick $U$ as
+small as possible. This homology group tells us local information. For
+this reason, the group $H_{*}(X,X\setminus\{x_{0}\})$ is called the
+\define{Local Homology} of $X$ at $x_{0}$.
+
+Now, to prove this works, let $A=X\setminus\{x_{0}\}$ and
+$Z=X\setminus U$. Since $\cl(Z)\subset\Interior(A)$, then we may apply
+the Excision Theorem and the result follows immediately.
+\end{example}
+
+\begin{example}
+Let $X$ be an $n$-dimensional manifold.
+Then we see that
+\begin{equation}
+H_{*}(X,X\setminus\{x_{0}\})\iso H_{*}(\RR^{n},\RR^{n}\setminus\{0\}).
+\end{equation}
+So how do we compute this? We can use the reduced homology to compute
+\begin{equation}
+\vcenter{\xymatrix{
+\widetilde{H}_{*}(\RR^{n}\setminus\{0\})\ar[rr] & &\widetilde{H}_{*}(\RR^{n})=0\ar[dl]\\
+&\ar[ul]H_{*}(\RR^{n},\RR^{n}\setminus\{0\})&}}
+\end{equation}
+So we know there is an isomorphism relating the other two homology
+groups. We know $\RR^{n}\setminus\{0\}\homotopic\sphere{n-1}$ homotopic,
+so
+\begin{equation}
+H_{k}(\RR^{n},\RR^{n}\setminus\{0\})\iso\begin{cases}\ZZ&\mbox{if }k=n\\
+0&\mbox{otherwise}
+\end{cases}
+\end{equation}
+At the end of the day, the local homology for a manifold is just $\ZZ$.
+\end{example}
+
+\begin{definition}
+A \define{Local Orientation} of $X$ at $x\in X$ is a choice of
+generator for $H_{n}(X,X\setminus\{x_{0}\})$.
+\end{definition}
+
+\begin{definition}
+Let $e^{n}$ be a cell (in a CW Complex). Then we define the
+\define{Orientation} of $e^{n}$ is a generrator of
+$H_{*}(e^{n},e^{n}\setminus\{x_{0}\})$ where $x_{0}\in e^{n}$ is some point.
+\end{definition}
+
+\begin{corollary}[Invariance of dimension]
+If $U\subset\RR^{m}$ and $V\subset\RR^{n}$ are homotopic open subsets,
+then $m=n$.
+\end{corollary}
+
+\begin{remark}
+\begin{enumerate}
+\item Note: historically, this result has been called ``invariance of
+domain'' for rather obscure and archaic reasons.
+\item Importantly, if $M$ is an $m$-dimensional manifold, and if $N$ is an
+$n$-dimensional manifold, and if $M$ is homotopic to $N$, then
+$m=n$. Historically this was highly nontrivial. For example, there is
+a continuous surjective map from the line interval to the unit square.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Well-definedness of orientation]
+We can prove that for any point $x\in e^{n}$, there is an open ball
+$D\subset e^{n}$ containing $x\in D$. This gives us an isomorphism
+\begin{equation}
+H_{*}(e^{n},e^{n}\setminus D)\xrightarrow{\iso}H_{*}(e^{n},e^{n}\setminus\{x\}).
+\end{equation}
+If we have two points $x,y\in e^{n}$, we can find an open ball
+$D\subset e^{n}$ containing both these points $x\in D$ and $y\in D$.
+Then we have
+\begin{equation}
+H_{*}(e^{n},e^{n}\setminus\{x\})\xrightarrow{\iso}H_{*}(e^{n},e^{n}\setminus\{y\}),
+\end{equation}
+which induces an isomorphism
+\begin{equation}
+H_{*}(e^{n},e^{n}\setminus D)\xrightarrow{\iso}H_{*}(e^{n},e^{n}\setminus\{y\}).
+\end{equation}
+Moreover, this does not depend on the choice of $D$. This means the
+isomorphism is canonical.
+\end{remark}
+
+\begin{remark}[Non-canonical isomorphism]
+For an example of a ``non-canonical isomorphism'', if $X$ is
+path-connected, then we have
+\begin{equation}
+\pi_{1}(X,a)\iso\pi_{1}(X,b),
+\end{equation}
+where $\pi_{1}(X,*)$ is not Abelian. (If it is an Abelian group, then
+this isomorphism is canonical.) The isomorphism depends on the path
+connecting $a$ and $b$.
+\end{remark}
+
+\begin{theorem}
+Let $A\subset B$ be a closed subset with an open neighborhood $V$
+which deformation retracts onto $A$. Then the quotient map
+\begin{equation}
+q\colon(X,A)\to(X/A,A/A)
+\end{equation}
+pinching $A$ to a point induces an isomorphism
+\begin{equation}
+H_{*}(X,A)\to H_{*}(X/A,A/A)\iso\widetilde{H}_{*}(X/A).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+We have the following commutative diagram, where the vertical maps are
+induced from the quotient map $q$,
+\begin{equation}
+\vcenter{\xymatrix{
+H_{*}(X,A)\ar[r]^{f_{1}}\ar[d]^{q_{*}} & H_{*}(X,V)\ar[d]^{q_{*}} &
+H_{*}(X\setminus A,V\setminus A)\ar[d]^{q_{*}}\ar[l]^{g_{1}}\\
+H_{*}(X/A,A/A)\ar[r]^{f_{2}} & H_{*}(X/A,V/A) & \ar[l]^-{g_{2}}H_{*}((X/A)\setminus(A/A),(V/A)\setminus(A/A))
+}}
+\end{equation}
+The Five-Lemma tells us the $f_{i}$'s are isomorphisms, the Excision
+Theorem tells us the $g_{i}$'s are isomorphisms.
+
+We see $X\setminus A$ is homotopic to $(X/A)\setminus(A/A)$. This
+induces an isomorphism
+\begin{equation}
+H_{*}(X\setminus A,V\setminus A)\iso H_{*}((X/A)\setminus(A/A),(V/A)\setminus(A/A)).
+\end{equation}
+Everything follows from this.
+\end{proof}
+
+
+% \bigl(\bigr)

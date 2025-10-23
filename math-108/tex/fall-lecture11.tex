@@ -1,0 +1,274 @@
+%%
+%% fall-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-23T12:39:18-0700
+%% Last update 2025-10-23T12:39:18-0700
+%% 
+
+\lecture{}
+
+\begin{theorem}[Baire Category]
+Let $(X,d)$ be a complete metric space.
+Let $\{\mathcal{O}_{n}\}$ be a sequence of dense open subsets of $X$.
+Then $\bigcap_{n}\mathcal{O}_{n}$ is dense in $X$.
+\end{theorem}
+
+\begin{proof}
+Let $x_{0}\in X$ and $r_{0}>0$. We want to show $x_{0}$ is a limit
+point of $\bigcap_{n}\mathcal{O}_{n}$, i.e., 
+\begin{equation}
+B_{r_{0}}(x_{0})\cap\left(\bigcap_{n}\mathcal{O}_{n}\right)\neq\emptyset.
+\end{equation}
+Since $\mathcal{O}_{1}$ is dense in $X$, we know
+$B_{r_{0}}(x_{0})\cap\mathcal{O}_{1}$ is nonempty. Take $x_{1}\in B_{r_{0}}(x_{0})\cap\mathcal{O}_{1}$
+and since this intersection is an open set, we know there exists an
+$0<r_{1}<1$ such that $B_{1}=B_{r_{1}}(x_{1})$ satisfying
+$\closure{B_{1}}\subset B_{r_{0}}(x_{0})\cap\mathcal{O}_{1}$.
+
+Inductively, we have chosen this, we have a sequence of open balls
+$B_{1}$, $B_{2}$, \dots, where $B_{k}$ has radius $r_{k}<1/k$ and each
+$\closure{B_{k}}\subset B_{k-1}\cap\mathcal{O}_{k}$. This makes
+$(B_{k})$ a contracting sequence of nonempty sets, so
+$(\closure{B_{k}})$ is a contracting sequence of closed nonempty
+sets. Since $X$ is complete, we can use the Cantor intersection
+Theorem, then there exists an $x^{*}\in X$ such that
+\begin{equation}
+\{x^{*}\}=\bigcap^{\infty}_{k}\closure{B_{k}}.
+\end{equation}
+Then
+\begin{equation}
+x^{*}\in\bigcap^{\infty}_{k}\mathcal{O}_{k}
+\end{equation}
+since $B_{k}\subset\mathcal{O}_{k}$.
+
+On the other hand, $x^{*}\in B_{0}=B_{r_{0}}(x_{0})$. This implies
+\begin{equation}
+B_{0}\cap\left(\bigcap^{\infty}_{k=0}\mathcal{O}_{k}\right)\neq\emptyset.
+\end{equation}
+Hence the result.
+\end{proof}
+
+\subsection{Topology}
+
+\begin{definition}
+Let $X$ be a set. A \define{Topology} of $X$ is a collection
+$\mathcal{T}$ of subsets of $X$ such that
+\begin{enumerate}
+\item $\emptyset\in\mathcal{T}$ and $X\in\mathcal{T}$
+\item Closed under finite intersections: if $U_{1}$, \dots, $U_{n}\in\mathcal{T}$
+for any $n\in\NN$, then $U_{1}\cap\cdots\cap U_{n}\in\mathcal{T}$.
+\item Closed under arbitrary unions: if
+  $\{U_{\alpha}\in\mathcal{T}\mid\alpha\in I\}$ where $I$ is an
+  arbitrary indexing set (possibly infinite), then $\bigcup_{\alpha\in I}U_{\alpha}\in\mathcal{T}$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+A set equipped with a topology is called a \define{Topological Space}.
+The elements of the topology are called \define{Open Sets}.
+\end{definition}
+
+\begin{definition}
+Let $(X,\mathcal{T})$ be a topological space.
+Let $x\in X$.
+A \define{Neighborhood} of $x$ is an open set $U$ of $X$ which
+contains $x\in U$.
+\end{definition}
+
+\begin{example}
+Let $(X,d)$ be a metric space.
+We can define the \define{Metric Topology} for $X$ consisting of all
+open subsets (defined using the metric) which are the only open sets
+of the topology.
+\end{example}
+
+\begin{example}
+The \define{Discrete Topology} of $X$ is the powerset of $X$. It's
+also induced by the metric topology using the discrete metric on $X$.
+\end{example}
+
+\begin{example}
+The \define{Trivial Topology} for $X$ is just $\mathcal{T}=\{\emptyset,X\}$.
+\end{example}
+
+\begin{example}
+The \define{Subspace Topology}: if $(X,\mathcal{T})$ is a topological
+space and $E\subset X$ is a nonempty subset $E\neq\emptyset$, then the
+\define{Inherited Topology} on $E$ is given by the set
+\begin{equation}
+\mathcal{S}=\{U\cap E\mid U\in\mathcal{T}\}.
+\end{equation}
+We call $(E,\mathcal{S})$ a \define{Subspace} of $(X,\mathcal{T})$.
+\end{example}
+
+\begin{definition}
+Let $(X,\mathcal{T})$ be a topological space.
+A \define{Base} for $\mathcal{T}$ is a collection $\mathcal{B}$ of
+open sets such that:
+\begin{itemize}
+\item For every $G\in\mathcal{T}$, there is a collection of elements
+  $B_{\alpha}\in\mathcal{B}$ such that $\bigcup_{\alpha}B_{\alpha}=G$.
+\end{itemize}
+\end{definition}
+
+\begin{example}
+The base for a metric topology is the set of open balls.
+\end{example}
+
+\begin{example}
+The base for the discrete topology is the set of all singleton sets.
+\end{example}
+
+\begin{example}
+The base for the trivial topology on a set $X$ is just $\{X\}$.
+\end{example}
+
+\begin{example}
+The base for the subspace topology on $E$: if $\mathcal{B}$ is a base
+for $(X,\mathcal{T})$, then
+\begin{equation}
+\mathcal{B}'=\{E\cap B\mid B\in\mathcal{B}\}
+\end{equation}
+is a base for the subspace topology.
+\end{example}
+
+\begin{remark}
+Observe if $(X,\mathcal{T})$ is a topological space, then
+$\mathcal{T}$ is a base for itself. So there always exists at least
+one base for a given topology (so this is a well-defined notion).
+\end{remark}
+
+\begin{definition}
+Let $X$ be a set, let $\mathcal{B}$ be an arbitrary family of subsets
+of $X$ such that $\bigcup\mathcal{B}=X$ (they cover $X$). Then we may
+define the \define{Topology Generated} by $\mathcal{B}$ to be the
+collection $\mathcal{T}$ of subsets of $X$ such that:
+\begin{itemize}
+\item A subset $U\subset X$ is an element of $\mathcal{T}$ if for each
+  $x\in U$ there exists a $B\in\mathcal{B}$ such that $x\in B$ and
+  $B\subset U$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+Let $(X,\mathcal{T})$ be a topological space.
+Let $\mathcal{B}$ be a collection of subsets for $X$.
+Then $\mathcal{B}$ is a base for $\mathcal{T}$ iff 
+\begin{enumerate}
+\item $\mathcal{B}$ covers $X$: $X=\bigcup\mathcal{B}$, and also
+\item for all $B_{1},B_{2}\in\mathcal{B}$, for all $x\in X$,
+  if $x\in B_{1}\cap B_{2}$, then there exists a $B\in\mathcal{B}$
+  such that $x\in B\subset B_{1}\cap B_{2}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\forwardproof\ Assume $\mathcal{B}$ is a base. Then $X\in\mathcal{T}$,
+so $X$ must be the union of elements of $\mathcal{B}$ by definition of
+the base. So (1) is satisfied.
+
+(2) $\mathcal{B}\subset\mathcal{T}$, so when $B_{1}\in\mathcal{B}$ and
+$B_{2}\in\mathcal{B}$, then they are elements of the topology. So
+$B_{1}\cap B_{2}\in\mathcal{T}$. By Definition of a base, $B_{1}\cap B_{2}\in\mathcal{T}$
+is the union of a family of elements $\{B_{k}\}\subset\mathcal{B}$. In
+particular, any $x\in B_{1}\cap B_{2}$ must belong to one of the
+$B_{k}\subset B_{1}\cap B_{2}$, which proves (2).
+
+\backwardproof\ Assume $\mathcal{B}$ satisfies the two conditions. We
+will build a topology $\mathcal{T}$ from $\mathcal{B}$, prove
+$\mathcal{T}$ is a topology, and $\mathcal{B}$ is a base for that
+topology. We define $\mathcal{T}$ to be the family of unions of
+subcollections of $\mathcal{B}$ adjoined with $\emptyset$.
+
+We claim $\mathcal{T}$ is a topology, let us verify the condition:
+\begin{enumerate}
+\item $\emptyset\in\mathcal{T}$ since we adjoined $\emptyset$ to
+  $\mathcal{T}$ explicitly; and $X=\bigcup\mathcal{B}$, so $X\in\mathcal{T}$.
+\item Finite intersections: Let $U_{1}$, \dots,
+  $U_{n}\in\mathcal{T}$. Then $U_{1}\cap\cdots\cap
+  U_{n}\in\mathcal{T}$.
+  This follows from property (ii). Let $U_{1}=\bigcup\mathcal{B}_{1}$
+  and $U_{2}=\bigcup\mathcal{B}_{2}$ for some
+  $\mathcal{B}_{i}\subset\mathcal{B}$ and $i=1,2$. Then
+  \begin{equation}
+U_{1}\cap U_{2}=\bigcup\{B_{1}\cap B_{2}\mid B_{i}\in\mathcal{B}_{i},i=1,2\},
+  \end{equation}
+  but this is just the union of
+  \begin{equation}
+\mathcal{B}_{12}=\{B_{12}\subset B_{1}\cap B_{2}\mid
+B_{12}\in\mathcal{B}, B_{1}\in\mathcal{B}_{1}, B_{2}\in\mathcal{B}_{2}\},
+  \end{equation}
+  which proves the closure under finite intersections.
+\item Closure under arbitrary unions: Any $\{G_{\alpha}\mid\exists\mathcal{S}_{\alpha}\subset\mathcal{B},G_{\alpha}=\bigcup\mathcal{S}_{\alpha}\}$
+  has
+  \begin{equation}
+\bigcup_{\alpha}G_{\alpha}=\bigcup_{\alpha}\left(\bigcup\mathcal{S}_{\alpha}\right)
+=\bigcup\left(\bigcup_{\alpha}\mathcal{S}_{\alpha}\right)
+  \end{equation}
+  and $\bigcup_{\alpha}\mathcal{S}_{\alpha}\subset\mathcal{B}$. Hence
+  (3) holds.
+\end{enumerate}
+Hence $\mathcal{T}$ is a topology.
+\end{proof}
+
+% \mathcal{T}
+
+\begin{remark}
+A topology may be generated by many distinct bases. So the base is not
+unique. 
+\end{remark}
+
+\begin{example}
+Let $(X,d)$ be a metric space.
+\begin{enumerate}
+\item $\mathcal{B}=\{B_{r}(x)\mid x\in X,r>0\}$ is a basis for the
+  metric topology.
+\item $\mathcal{B}=\{B_{r}(x)\mid x\in X,r>0,r\in\QQ\}$ is another basis for the
+  metric topology.
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+Let $(X,\mathcal{T})$ be a topological space.
+A \define{Sub-base} of $\mathcal{T}$ is a subcollection
+$\mathcal{S}\subset\mathcal{T}$ such that
+\begin{equation}
+\mathcal{B}=\{\bigcap\mathcal{C}\mid\mathcal{C}\in\Fin(\mathcal{S})\},
+\end{equation}
+where $\Fin(X)$ is the subset of the power set of $X$ consisting of
+finite subsets of $X$ only. We call $\mathcal{B}$ the \define{Base
+  Generated by} $\mathcal{S}$.
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}
+\item The topology generated by $\mathcal{S}$ is unique
+\item A set which covers $X$ is a sub-base for some topology. In
+  particular, this means an open cover of $X$ gives us a sub-base for
+  some topology (the smallest topology where those sets are open).
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+Every base is also a sub-base.
+\end{example}
+
+\begin{example}
+For $X=\RR$, $\mathcal{S}=\{(-\infty,a)\mid a\in\RR\}\cup\{(a,\infty)\mid a\in\RR\}$
+is a sub-base but not a base for the standard topology on $\RR$.
+\end{example}
+
+\begin{example}
+Let $\mathcal{S}=\{\emptyset,(-\infty,1),(-1,\infty)\}$. This generates the base
+\begin{equation}
+\mathcal{B}=\{\emptyset,(-\infty,1),(-1,1),(-1,\infty)\}
+\end{equation}
+and
+\begin{equation}
+\mathcal{T}=\{\emptyset,(-\infty,1),(-1,\infty),(-1,1),\RR\}.
+\end{equation}
+It is a topology, but is obviously not the standard topology.
+\end{example}

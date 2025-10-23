@@ -1,0 +1,249 @@
+%%
+%% fall-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-23T10:05:11-0700
+%% Last update 2025-10-23T10:05:11-0700
+%% 
+
+\lecture{}
+
+\begin{node}[Recap]
+Last time, we induced a topology and structure sheaf using the
+projection map $\pi\colon Fr(n,r)\to\Gr(r,n)$. We also saw $\Gr(r,n)$
+can be covered using an open cover $\{U_{\Gamma}\}$ of affine
+spaces. So in other words, we have proven it is a prevariety.
+
+We see that any two $U_{\Gamma}$ have a nonempty intersection, each
+$U_{\Gamma}$ is irreducible. This implies
+$\closure{U_{\Gamma}}=\Gr(r,n)$ is irreducible.
+
+Observe: $Gr(1,n)\iso\PP^{n}$ and $Gr(1,V)\iso\PP(V)$ as prevarieties.
+
+Today we will prove $\Gr(r,n)$ is a variety.
+\end{node}
+
+\begin{definition}[Pl\"{u}cker coordinates]
+We call the injective mapping
+\begin{equation}
+\begin{split}
+f\colon&\Gr(r,V)\into\PP(\extp^{r}\Sigma)\\
+&\Sigma\mapsto\extp^{r}\Sigma
+\end{split}
+\end{equation}
+the \define{Pl\"{u}cker Embedding}.
+\end{definition}
+
+\begin{proposition}
+The Pl\"{u}cker embedding is a morphism of prevarieties.
+\end{proposition}
+
+\begin{proof}
+We can see this by precomposing it with $\pi$ to get a morphism. In
+other words, the following diagram
+\begin{equation}
+\vcenter{\xymatrix{
+FR(r,n)\ar[d]^{\pi}\ar[r]^{\det_{r\times r}} & \AA^{\binom{n}{r}}\setminus0\ar[d]\\
+\Gr(r,V)\ar[r]^{f}&\PP(\extp^{r}V)}}
+\end{equation}
+commutes. Hence $f$ is a morphism.
+\end{proof}
+
+\begin{node}[Image of Pl\"{u}cker embedding]% Gathmann, 8.14
+So what's the image of the Pl\"{u}cker embedding?
+
+Let $w\in\extp^{r}V$. Suppose $\dim(V)=n$ (if it comes up).
+Then let us consider the mapping
+\begin{equation}
+\begin{split}
+f_{w}\colon &V\to\extp^{r+1}V\\
+&v\mapsto v\wedge w.
+\end{split}
+\end{equation}
+We claim if $w\neq0$, then $\rank(f_{w})\geq n-r$ and moreover we have
+$\rank(f_{w})=n-r$ iff $w=v_{1}\wedge\cdots\wedge v_{r}$ for $r$
+linearly independent nonzero vectors $v_{1}$, \dots, $v_{r}$.
+\end{node}
+
+
+\begin{proof}
+Let $\ker(f_{w})=\langle v_{1},\dots,v_{s}\rangle$. We can extend this
+to a basis $v_{1}$, \dots, $v_{n}$ of $V$. Then we can write
+\begin{equation}
+w = \sum_{|J|=r}a_{J}\,\extp^{r}\langle v_{j}\mid j\in J\rangle,
+\end{equation}
+then we see
+\begin{subequations}
+\begin{align}
+v_{i}\wedge w &= \sum_{J}a_{J}v_{i}\wedge\left(\langle v_{j}\mid j\in J\rangle\right)\\
+&= \sum_{\stackrel{J}{i\notin J}}a_{J}v_{i}\wedge\left(\langle v_{j}\mid j\in J\rangle\right),
+\end{align}
+\end{subequations}
+then
+\begin{equation}
+v_{i}\wedge(\langle v_{j}\mid j\in J\rangle)=0\iff i\in J.
+\end{equation}
+We see $v_{i}\wedge w=0$ iff $i\in\{1,\dots,s\}$ by definition of the
+kernel for $f_{w}$.
+
+If $\{1,\dots,s\}\nsubset J$, then $a_{J}=0$. The $a_{J}$ are not all
+zero. Then $s\leq|J|=r$ and so $s=r$ iff exactrly one $a_{J}\neq0$.
+\end{proof}
+
+\begin{corollary}
+The image of the Pl\"{u}cker embedding is $\{\langle w\rangle\mid\rank(f_{w})=n-r\}$,
+obtained by the vanishing of minors.
+\end{corollary}
+
+\subsection{Detour on Fiber Bundles}
+
+\begin{node}
+Let $E$, $B$, and $F$ be spaces.
+A fiber bundle over $B$ is given by a surjection $\pi\colon E\to B$
+such that for every $U\subset B$ open, $\pi^{-1}(U)\iso U\times F$.
+We call $F$ the \emph{fiber}.
+\end{node}
+
+\begin{example}
+Affine budnles: $E$ and $B$ are varieties over $\kk$ and
+$F\iso\AA^{n}$ is the fiber.
+\end{example}
+
+\begin{example}
+Vector bundles = Affine bundles + the transition functions are $\kk$-linear.
+\end{example}
+
+\begin{example}
+The \define{Tautological Bundle} over the Grassmannian space
+$\pi\colon\TautologicalBundle\to\Gr(r,n)$ where
+$\TautologicalBundle\into\Gr(r,n)\times\AA^{n}$ may be given as the
+set
+\begin{equation}
+\TautologicalBundle=\{(\Sigma,v)\mid v\in\Sigma,\Sigma\in\Gr(r,n)\}.
+\end{equation}
+We can check it hasa local trivialization. Let 
+\begin{equation}
+\pi^{-1}(U_{\Gamma})=\{(\Sigma,v)\mid\Sigma\cap\Gamma=\emptyset,v\in\Sigma\}.
+\end{equation}
+Now we want to check if this is isomorphic to $U_{\Gamma}\times\Omega$
+where $\Omega\oplus U_{\Gamma}=V$ defines $\Omega$. Observe
+\begin{equation}
+\Sigma\into V\to V/\Gamma\iso\Omega,
+\end{equation}
+so this composition is an isomorphism since $\Sigma\cap\Gamma=\emptyset$.
+Let us call this isomorphism $\varphi$. Then
+\begin{equation}
+(\Sigma,v)\mapsto(\Sigma,\varphi(v))
+\end{equation}
+is an isomorphism. So we have proven it is a fiber bndle. We just need
+to prove its transition functions are linear, but it's easy. We can
+get a short exact sequence
+\begin{equation}
+0\to\TautologicalBundle\to\Gr(r,n)\times\AA^{n}\to Q\to 0.
+\end{equation}
+We can embed
+\begin{equation}
+\TautologicalBundle\into\Gr(r,n)\times\AA^{n}\into\PP(\extp^{r}\kk^{n})\times\AA^{n}
+\end{equation}
+using Pl\"{u}cker embedding, which will produce a pair $(\omega,v)$
+such that $\omega\wedge v=0$.
+\end{example}
+
+\begin{node}[Constructing morphisms from tautological bundle]
+Let $Y$ be any variety and suppose we have a rank $m$ subbundle of the
+trivial bundle $\mathcal{A}\subset Y\times V$. To give a morphism
+$f\colon Y\to\Gr(m,n)$ is equivalent to give a rank $m$ sub-bundle
+$\mathcal{A}$ of the trivial bundle $Y\times V$ given by
+$f^{*}(\TautologicalBundle)$ (the preimage of the tautological
+bundle).
+
+Conversely, given any $\mathcal{A}\subset Y\times V$, we obtain a morphism
+\begin{equation}
+Y\to\Gr(m,n)
+\end{equation}
+given by $y\mapsto \mathcal{A}_{y}$. We see
+\begin{equation}
+f^{*}(\TautologicalBundle) = \{(x,s)\in X\times\TautologicalBundle\mid f(x)=\pi(s)\}
+\end{equation}
+gives the preimage (as the pullback, in the category theoretic sense).
+\end{node}
+
+\begin{remark}
+We can upgrade the previous construction to produce an isomorphism of
+functors, since we are looking at the functors
+\begin{enumerate}
+\item $\hom(-,\Gr(m,n))$ in the category of prevarieties, and
+\item $X\mapsto\{\mbox{rank $m$ sub-bundles of }X\times\AA^{n}\}$.
+\end{enumerate}
+We say the second functor is ``represented by $\Gr(m,n)$''. This is
+related to the so-called \define{Fine Moduli Space}.
+\end{remark}
+
+\begin{lemma}[Yoneda]
+$\hom(-,A)$ determines $A$ up to unique isomorphism.
+\end{lemma}
+
+We won't prove this, we just remind the reader of the Yoneda lemma. We
+should understand it more as a ``change of viewpoint'' (i.e., the
+morphisms are the important thing, not the object).
+
+\begin{definition}[Projective bundles]
+Let $\pi\colon E\to X$ be a vector bundle. We can take  the complement
+of the zero section $E_{0}\into E\to X$ which is a subset of $E$, then
+we can quotient out by nonzero scalars $E_{0}/\kk^{\times}$ and this
+is precisely a \define{Projective Bundle}.
+\end{definition}
+
+\begin{example}
+Consider $\PP(\TautologicalBundle)=\{(\Sigma,\ell)\in\Gr(r,V)\times\PP(V)\mid\ell\subset\Sigma\}$
+and we can map it onto $\Gr(r,V)$. This is an example of a projective bundle.
+\end{example}
+
+\begin{node}
+Observe that $\GL(V)\times\Gr(r,V)\to\Gr(r,V)$ gives us a transitive
+action in the obvious way. Then by the orbit--stabilizer Theorem, we
+see
+\begin{equation}
+\GL(V)/P\iso\Gr(r,V)
+\end{equation}
+where $P$ looks like a block upper-triangular matrix in $\GL(V)$. This
+can be viewed as a group scheme, and can be generalized to other group
+schemes of Lie type.
+\end{node}
+
+\subsection{Birational Maps and Blowing Up}
+
+\begin{example}
+\begin{enumerate}
+\item $\AA^{n}$ and $\PP^{n}$ share the same open subset $\AA^{n}$ and
+  that $\PP^{n}\times\PP^{m}$ and $\PP^{m+n}$ share the same open
+  subsets $\AA^{m}\times\AA^{n}\iso\AA^{m+n}$ (even though
+  $\PP^{m}\times\PP^{n}$ is \underline{\emph{\textbf{not}}} isomorphic
+  to $\PP^{m+n}$).
+\item $\Gr(k,n)\supset\AA^{k(n-k)}$
+\item The nodal curve and the affine line share the same open subset,
+  which looks like $\AA\setminus\mbox{pt}$.
+\end{enumerate}
+In each example, we consider several \emph{different} varieties which
+share \emph{the same} open subset which is dense in the varieties
+presented in each example.
+These all share the same function field.
+\end{example}
+
+\begin{definition}
+Let $X$, $Y$ be irreducible varieties. A \define{Rational Map}
+$f\colon X\dashrightarrow Y$ (the dashed arrow is the notation
+indicating we have a rational map) is a morphism $f\colon U\to Y$ for some
+nonempty open subset $U\subset X$.
+
+We say rational maps $f_{1},f_{2}\colon X\dashrightarrow Y$ (defined
+on $U_{1}$, resp. $U_{2}$) are the same $f_{1}\sim f_{2}$ if $U_{1}\cap U_{2}\neq\emptyset$
+and for some open subset $V\subset U_{1}\cap U_{2}$ the two functions agree $f_{1}|_{V}=f_{2}|_{V}$.
+It's not hard to prove that $f_{1}\sim f_{2}$ is an equivalence relation.
+\end{definition}
+
+\begin{remark}
+See the discussion in the Stacks Project \href{https://stacks.math.columbia.edu/tag/01RR}{\texttt{[01RR]}}.
+\end{remark}

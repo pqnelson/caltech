@@ -1,0 +1,189 @@
+%%
+%% fall-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-23T11:08:02-0700
+%% Last update 2025-10-23T11:08:02-0700
+%% 
+
+\lecture{}
+
+\begin{remark}
+The $\Tor$ functor is a ``higher tensor product'' measuring failure of flatness.
+\end{remark}
+
+\begin{remark}
+If we have an extension of an $A$ module $M$ by $N$, then
+\begin{equation}
+0\to N\to\widehat{M}\to M\to 0
+\end{equation}
+is a short exact sequence, and then $\Ext^{1}(M,N)$ classifies the
+possible extensions of $M$ by $N$.
+\end{remark}
+
+\begin{proposition}[3E]
+Let $\varphi\colon A\to B$ be flat, let $M$ and $N$ be modules over
+$A$. We write $M_{(B)}=M\otimes_{A}B$. Then
+\begin{enumerate}
+\item $\Tor^{A}_{i}(M,N)\otimes_{A}B=\Tor^{B}_{i}(M_{(B)},N_{(B)})$
+\item If $A$ is Noetherian and $M$ is finitely-generated over $A$,
+  then we also have $\Ext^{i}_{A}(M,N)\otimes_{A}B=\Ext^{i}_{B}(M_{(B)},N_{(B)})$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof (of (1))]
+If we want to compute $\Tor$ functors, we need to take some
+resolution. We take a projective resolution of $M$,
+\begin{equation}
+X_{*}\colon\quad\dots\to X_{1}\to X_{0}\to M\to 0,
+\end{equation}
+and then we tensor it with $B$:
+\begin{equation}
+X_{*}\otimes_{A} B\colon\quad\dots\to X_{1(B)}\to X_{0(B)}\to M_{(B)}\to 0.
+\end{equation}
+Is this a projective resolution? Recall, $P$ is projective means there is
+another module $Q$ such that their direct sum is free $P\oplus Q = F$.
+But then base change gives us $P_{(B)}\oplus Q_{(B)}=F_{(B)}$. So all
+the modules in the tensor product $X_{i(B)}$ are projective. Then by
+flatness, the sequence,
+\begin{equation}
+X_{*}\colon\quad\dots\to X_{1(B)}\to X_{0(B)}\to M_{(B)}\to 0,
+\end{equation}
+is exact. Now we have $\Tor^{A}_{i}(M,N)=H_{i}(X_{*}\otimes N)$ by definition.
+Then
+\begin{equation}
+\Tor^{B}_{i}(M_{(B)},N_{(B)})=H_{i}(X_{*}\otimes_{A}\underbrace{N\otimes B}_{=N_{(B)}}).
+\end{equation}
+So $M_{(B)}$ has a projective resolution (where we go from the first
+line to the second line by an exercise):
+\begin{subequations}
+\begin{align}
+X_{*(B)} &= (X_{*}\otimes_{A}B)\otimes_{B}(N\otimes_{A}B)\\
+&= X_{*}\otimes_{A}N\otimes_{A}B.
+\end{align}
+\end{subequations}
+Now we use $B$ is a flat module over $A$. We then have
+\begin{subequations}
+\begin{align}
+\Tor^{B}_{i}(M_{(B)},N_{(B)}) &= H_{i}(X_{*}\otimes_{A}N\otimes_{A}B)\\
+&= H_{i}(X_{*}\otimes_{A}N)\otimes_{A}B\\
+\intertext{and by flatness}
+&= \Tor^{A}_{i}(M,N)\otimes_{A}B.
+\end{align}
+\end{subequations}
+For a generic complex of modules over $A$,
+\begin{equation}
+M'\xrightarrow{f}M\xrightarrow{g}M'',
+\end{equation}
+we see the homology of $M$ is defined to be
+$H_{1}=\ker(g)/\Im(f)$. Now tensoring the generic complex by $B$,
+\begin{equation}
+M'_{(B)}\xrightarrow{f\otimes_{A}B}M_{(B)}\xrightarrow{g\otimes_{A}B}M''_{(B)},
+\end{equation}
+and the homology group is then
+\begin{equation}
+H^{(B)}_{1}=\ker(g\otimes_{A}B)/\Im(f\otimes_{A}B)=\bigl(\ker(g)/\Im(f)\bigr)\otimes_{A}B
+\end{equation}
+where flatness justifies the second equality. Hence the result.
+\end{proof}
+
+\begin{proof}[Proof sketch (of (2))]
+Take $\hom_{B}(X_{i}\otimes_{A}B,N\otimes_{A}B)\stackrel{?}{=}\hom_{A}(X_{i},N)\otimes_{A}B$?
+There is some slightly nonobvious map we need to find. We need all the
+$X_{i}$ free (we have a free resolution this time). Recall if $A$ is
+Noetherian and $M$ is finite, then we can cook up a free and
+finitely-generated resolution
+\begin{equation}
+\dots\to A^{n_{2}}\to A^{n_{1}}\to A^{n_{0}}\to M\to 0.
+\end{equation}
+For this situation, we have the identities
+\begin{equation}
+\Tor^{A_{\mathfrak{p}}}_{i}(M_{\mathfrak{p}},N_{\mathfrak{p}})=\bigl(\Tor^{A}_{i}(M,N)\bigr)_{\mathfrak{p}}
+\end{equation}
+and similarly for $\Ext$ under the assumptions of the claim.
+\end{proof}
+
+\begin{slogan}
+Exact functors (like tensoring with flat modules) preserves kernels,
+images, and homologies.
+\end{slogan}
+
+\subsection{Faithful Flatness}
+
+\begin{theorem}[Matsumara (4A)]
+Let $A$ be a ring, let $M$ be a module over $A$. Then the following
+are equivalent:
+\begin{enumerate}
+\item $M$ is faithfully flat over $A$
+\item $M$ is flat and for any nonzero $N\neq0$ module over $A$,
+  $M\otimes N\neq0$,
+\item $M$ is flat over $A$ and for any maximal ideal
+  $\mathfrak{m}\ideal A$, we have $\mathfrak{m}M\neq M$.
+\end{enumerate}
+So, the intuition is: $M$ is flat iff it is not a zero-divisor using
+the tensor product.
+\end{theorem}
+
+\begin{proof}
+$(1)\implies(2)$ Suppose $N\otimes M=0$. Then take the sequence $0\to N\to0$
+and tensor it with $M$:
+\begin{equation}
+0\to \underbrace{N\otimes M}_{=0}\to 0.
+\end{equation}
+But this means, since $M$ is faitfully flat, that $N=0$.
+
+$(2)\implies(3)$ Obvious. Eh, we'll skip the rest of the proof.
+\end{proof}
+
+\begin{example}
+Consider $\CC[x]$ and $\CC[[x]]$. Is $\CC[[x]]$ a faithfully flat
+$\CC[x]$ module?
+
+Consider the module $\CC[x]/(x-1)\iso\CC$. What happens if we tensor
+it with
+\begin{equation}
+\CC[[x]]\otimes_{\CC[x]}\bigl(\CC[x]/(x-1)\bigr)=?
+\end{equation}
+Well, consider the element $x\otimes1=1\otimes x=1\otimes 1$ in this
+module. This feels bad, since we can then convert every term in the
+formal power series into a constant term, but we cannot evaluate an
+arbitrary power series. So this suggests we should think of zeroes,
+divide by zeroes, and zero modules.
+
+Let us try to prove
+\begin{equation}
+\CC[[x]]\otimes_{\CC[x]}\bigl(\CC[x]/(x-1)\bigr)=0.
+\end{equation}
+Consider the fact that $(1-x)$ has an inverse in $\CC[[x]]$, namely
+$\sum_{n=0}^{\infty}x^{n}$. Then we see
+\begin{subequations}
+\begin{align}
+1\otimes1 &= \left[(1-x)\left(\sum_{n=0}^{\infty}x^{n}\right)\right]\otimes1\\
+&=\left(\sum_{n=0}^{\infty}x^{n}\right)\otimes(1-x)\\
+&=\left(\sum_{n=0}^{\infty}x^{n}\right)\otimes0\\
+&=1\otimes0=0.
+\end{align}
+\end{subequations}
+The intuition: although $\CC[x]$ corresponds to a line, $\CC[[x]]$ is
+an infinitesimal neighborhood of $0\in\CC$ distinct from $\CC[x]/(x-1)$
+(which is ``some other'' neighborhood of $0\in\CC$).
+\end{example}
+
+\begin{remark}
+There is a map
+\begin{equation}
+\CC[x]_{(x)}\to\CC[[x]],
+\end{equation}
+which is just a power series expansion.
+
+J.P.~Serre investigates these examples. He showed that
+\begin{equation*}
+\xymatrix{
+& \CC[[x]] &\\
+\CC[x]_{(x)}\ar[ur]^{\text{f.f.}}\ar@{-->}[rr]^{\text{f.f.}}& &\ar[ul]_{\text{f.f.}}\CC(x)}
+\end{equation*}
+then we can relate algebraic geometry to complex geometry, which
+revolutionized things.
+\end{remark}

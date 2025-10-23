@@ -1,0 +1,345 @@
+%%
+%% fall-lecture10.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-23T08:36:48-0700
+%% Last update 2025-10-23T08:36:48-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+The image of a projective variety under morphisms is always
+closed. This is always true, but we have a stronger statement.
+\end{node}
+
+\begin{proposition}
+Let $X$ be a projective variety. Let $Y$ be a variety. Then the
+projection $X\times Y\to Y$ is closed.
+\end{proposition}
+
+(The slogan is either ``$X$ is complete" or ``The morphism $X\to\mathrm{pt}$
+is proper''.)
+
+\begin{remark}
+Recall from topology, we call a map $f\colon X\to Y$ between
+topological spaces \define{Closed} if $f(A)\subset Y$ is closed for
+every closed subset $A\subset X$.
+\end{remark}
+
+\begin{proposition}
+Let $f\colon X\to Y$ be any morphism. We know its graph $\Gamma_{f}$
+is closed. We have
+\begin{equation}
+X\xrightarrow{(\id,f)}X\times Y\xrightarrow{\pi}Y
+\end{equation}
+and so we see
+\begin{equation}
+f(X) = \pi(\Gamma_{f}).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Suffices to check this for $X=\PP^{n}$ since
+\begin{equation}
+\vcenter{\xymatrix{%
+\raisebox{0pt}[0.9\height][0.3\height]{$X\times Y$}\ar@{^{(}->}[d]\ar[dr] & \\
+\PP^{n}\times Y\ar[r] & Y}}
+\end{equation}
+commutes.
+\end{proof}
+
+\begin{example}
+This is not true for $\AA^{1}$ --- the projection
+$\AA^{1}\times\AA^{1}\to\AA^{1}$ is not closed. Take the parbola
+$xy-1$ as $\AA^{1}$, then we see its projection morphism maps this to
+$\AA^{1}\setminus\{0\}\neq\AA^{1}$. 
+\end{example}
+
+\begin{proposition}% Gathmann, 7.17
+The projection morphism $\pi\colon\PP^{n}\times\PP^{m}\to\PP^{m}$ is closed.
+\end{proposition}
+
+\begin{proof}
+Let $Z\subset\PP^{n}\times\PP^{m}$ be a closed subset. Then using
+Segre embedding, we can write
+\begin{equation}
+Z = V(f_{1},\dots,f_{r}),
+\end{equation}
+for homogeneous polynomials $f_{1}$, \dots, $f_{r}$. Without loss of
+generality, we may assume $f_{1}$, \dots, $f_{r}$ are of the same
+degree --- i.e., $\deg(f_{i})=d$ for each $i=1,\dots,r$. Then $f_{i}$
+is a degree $d$ bi-homogeneous polynomial in $x_{0}$, \dots, $x_{n}$ and
+$y_{0}$, \dots, $y_{m}$.
+
+Let $a\in\PP^{m}$. Define $g_{i}(\cdot)=f_{i}(\cdot, a)$ which is a
+homogeneous in the $x$ variables. Then we see
+\begin{subequations}
+\begin{align}
+a\notin\pi(Z) &\iff \neg(\exists x\in\PP^{n}\ldotp (x,a)\in Z)\\
+&\iff V_{p}(g_{1},\dots,g_{r})=\emptyset\\
+&\iff \Radical{\langle g_{1},\dots, g_{r}\rangle}\mbox{ is irrelevant
+  by Projective Nullstellensatz}\\
+&\iff\exists i\ldotp\exists k_{i}\in\NN\ldotp x_{i}^{k_{i}}\in\langle g_{1},\dots,g_{r}\rangle\\
+&\iff\exists k\in\NN\ldotp\kk[x_{0},\dots,x_{n}]_{k}\subset\langle g_{1},\dots, g_{r}\rangle\\
+\intertext{which implies $k\geq d$ and}
+&\iff K[x_{0},\dots,x_{n}]_{k}=\langle g_{1},\dots,g_{r}\rangle_{k}.
+\end{align}
+\end{subequations}
+If we look at the $\kk$-linear map:
+\begin{equation}
+\begin{split}
+  \varphi_{k}\colon&(\kk[x_{0},\dots,x_{n}]_{k-d})^{r}\to \kk[x_{0},\dots,x_{n}]_{k}\\
+  &(h_{1},\dots,h_{r})\mapsto h_{1}g_{1}+\cdots+h_{r}g_{r},
+\end{split}
+\end{equation}
+then it must be surjective. Therefore we have
+\begin{subequations}
+\begin{align}
+  \rank_{\kk}(\varphi_{k}) &= \dim(\kk[x_{0},\dots,x_{r}]_{k})\\
+  &=\binom{n+k}{k}.
+\end{align}
+\end{subequations}
+In other words, at least one minor of this size is nonzero. The
+entries of the minors are coefficients of the $g_{i}$ and therefore in
+the coordinates of $a$. Then $\{a\in\PP^{m}\mid a\notin\pi(Z)\}$ is open.
+Hence its complement is closed.
+\end{proof}
+
+\begin{corollary}% Gathmann, 7.19
+For any variety $Y$, $\pi\colon\PP^{n}\times Y\to Y$ is closed.
+\end{corollary}
+
+\begin{proof}
+Suffices to prove the claim for any affine variety
+$Y\subset\AA^{m}$. Let $Z\subset\PP^{n}\times Y$ be a closed
+subset. Then we can take its closure $\closure{Z}\subset\PP^{n}\times\PP^{m}$
+(since $\AA^{m}\subset\PP^{m}$), then we know $\pi(\closure{Z})\subset\PP^{m}$
+is closed. But
+\begin{equation}
+\pi(Z) = \pi(\closure{Z}\cap(\PP^{n}\times Y))=\pi(\closure{Z})\cap Y,
+\end{equation}
+which is closed in $Y$.
+\end{proof}
+
+\begin{definition}[Complete varieties]% Gathmann 7.20
+Let $X$ be a variety. We call $X$ \define{Complete} if for any variety
+$Y$ the projection $\pi\colon X\times Y\to Y$ is closed. (This is
+well-defined: $\PP^{n}$ is complete.)
+\end{definition}
+
+\begin{corollary} % Gathmann, 7.23
+Let $f\colon X\to Y$ be any morphism of varieties.
+If $X$ is complete, then its image $f(X)$ is a complete and closed
+subvariety in $Y$.
+\end{corollary}
+
+\begin{proof}
+We know $f(X)$ is closed. We need to prove completeness.
+Let $Y'$ be an arbitrary variety. Consider the projection morphism
+\begin{equation}
+\pi'\colon f(X)\times Y'\to Y',
+\end{equation}
+and we want to show that it is closed. Let
+\begin{equation}
+\begin{split}
+\psi\colon& X\times Y'\to f(X)\times Y'\\
+&(x,y) \mapsto (f(x),y)
+\end{split}
+\end{equation}
+Then
+\begin{subequations}
+\begin{align}
+\pi'(Z) &= \pi'\bigl(\psi(\psi^{-1}(Z))\bigr)\\
+&=\pi(\psi^{-1}(Z))\subset Y,
+\end{align}
+\end{subequations}
+which is closed since $\psi^{-1}(Z)$ is closed and $\pi$ is closed.
+\end{proof}
+
+\begin{corollary}[Liouville's theorem for varieties]% Gathmann, 7.24
+Let $X$ be a connected, complete variety.
+Then $\RegularFuns_{X}(X)=\kk$, i.e., the global regular functions are
+just constants. 
+\end{corollary}
+
+\begin{proof}
+Let $\varphi\in\RegularFuns_{X}(X)$. Now think of it as a morphism
+\begin{equation}
+\varphi\colon X\to\AA^{1}.
+\end{equation}
+We know $\varphi(X)$ is closed, connected, complete. The only
+possibility is $\varphi$ is a constant function.
+\end{proof}
+
+\begin{remark}
+This should remind the reader of Liouville's theorem, which says a
+bounded holomorphic function on $\CC$ is constant. We should also
+recall that functions on the compact space $\CC\PP^{1}$ must be bounded.
+\end{remark}
+
+\begin{definition}[Veronese embedding]
+Let $V$ be a vector space. Consider $V\to\Sym(V^{\otimes d})$ the
+symmetric part of a $d$-fold tensor product. This acts by sending
+$v\in V$ to $v^{\otimes d}$.
+
+For $V\iso\kk^{2}$, if $e_{1}$ and $e_{2}$ are a basis for $V$, then
+\begin{equation}
+\{e_{1}\otimes e_{1},e_{1}\otimes e_{2}+e_{2}\otimes e_{1},
+e_{2}\otimes e_{2}\}
+\end{equation}
+is a basis for $V\otimes V$, and we send $e_{1}\mapsto e_{1}\otimes e_{1}$
+and $e_{2}\mapsto e_{2}\otimes e_{2}$.
+
+Then this gives us a mapping $\PP(V)\to\PP(\Sym(V^{\otimes d}))$ sending
+$[x_{0}:\dots:x_{n}]$ to degre $d$ monomials.
+
+For $d=2$, this sends
+\begin{equation}
+\begin{split}
+  [x:y]\mapsto&[x^{2}:xy:y^{2}]\\
+  &[a:b:c],
+\end{split}
+\end{equation}
+where we demand
+\begin{equation}
+\det\begin{bmatrix}a & b\\b & c
+\end{bmatrix}=0.
+\end{equation}
+This is an embedding, so it is an isomorphism onto its image. It's
+usually reserved for projective varieties.
+
+We call this the \define{Veronese Embedding}. The good thing about
+this is it turns degree $d$ equations into degree one equations.
+\end{definition}
+
+\begin{remark}
+I actually have not seen the Veronese embedding presented at this
+level of generality. Usually, the presentation is restricted to the
+$d=2$ case.
+\end{remark}
+
+\begin{example}
+Consider $\AA^{1}\to\AA^{3}$ sending $t\mapsto(t,t^{2},t^{3})$. Let
+$C$ be its image. We know $I(C)=\langle y-x^{2},z-x^{3}\rangle$.
+What is $\closure{C}\subset\PP^{3}$?
+
+If we na\"{\i}vely homogenize the generators for the ideal, we would
+end up with
+\begin{subequations}
+\begin{equation}
+\frac{y}{w}-\left(\frac{x}{w}\right)^{2},
+\frac{z}{w}-\left(\frac{x}{w}\right)^{3},
+\end{equation}
+but that would not quite be right, we would need to clear the
+denominators and obtain:
+\begin{equation}
+wy-x^{2}, w^{2}z-x^{3},
+\end{equation}
+\end{subequations}
+which is still not quite right. We'd need to do quite a bit more work.
+
+On the other hand, we can extend the morphism to
+\begin{equation}
+\begin{split}
+  \PP^{1}\to\PP^{3}\\
+  [s:t]\mapsto[s^{2}t:st^{2}:t^{3}:s^{3}].
+\end{split}
+\end{equation}
+If we identify $[x:y:z:w]=[s^{2}t:st^{2}:t^{3}:s^{3}]$, then this is
+the Veronese embedding. Then requiring
+\begin{equation}
+\rank\begin{bmatrix}x & y\\y & z\\w & x
+\end{bmatrix}=1,
+\end{equation}
+we obtain the generators for the ideal.
+\end{example}
+
+\begin{corollary}% Gathmann, 7.29
+Let $X\subset\PP^{n}$ be a projective variety. Let $f\in S(X)$ be a
+homogeneous and non-constant function. Then $X\setminus V(f)$ is an
+affine variety.
+\end{corollary}
+
+\begin{proof}
+  Obvious if $f$ is linear.
+
+  If $\deg(f)>1$, then apply the Veronese embedding and this
+  transforms us into the $\deg(f)=1$ situation.
+\end{proof}
+
+\subsection{Grassmannians}
+
+\begin{definition}
+Let $V$ be a [finite-dimensional] vector space over $\kk$. We define
+the \define{Grassmannian} to consist of the set,
+\begin{subequations}
+\begin{align}
+\Gr(r,V) &= \{r-\mbox{dimensional subspaces of }V\}\\
+&=FR(n,r)/\GL(\kk^{r})
+\end{align}
+\end{subequations}
+where $FR(n,R)$ is the set of full rank $n\times r$ matrices, and we
+mod out by $\GL(\kk^{r})$ to forget about the choice of basis. We
+equip this quotient with the quotient topology.
+
+\textbf{Sheaf:} $f$ is a regular function on $U\subset\Gr(r,V)$, then
+$\pi\colon FR(n,r)\to\Gr(r,V)$ precomposes $f\circ\pi$ is regular on
+$\pi^{-1}(U)$.
+
+\textbf{Observe:}
+\begin{enumerate}
+\item $\pi$ is a morphism of ringed spaces
+\item Let $X$ be a ringed space and $\phi\colon\Gr(r,V)\to X$ be a
+  map. Then $\phi$ is a morphism iff $\phi\circ\pi$ is a morphism.
+\end{enumerate}
+
+\textbf{Charts:}
+We see that elements of $\GL(\kk^{r})$ sends a nonzero $r\times r$
+minor to a reduced canonical echelon form matrix with free variables
+ranging over $\AA^{(n-r)r}$.
+
+We can think of it in a coordinate-free way: Fix $\Omega\in\Gr(r,V)$
+and $\Gamma\in\Gr(n-r,V)$ such that $\Omega\oplus\Gamma=V$. Then the
+charts
+\begin{equation}
+U_{\Gamma}=\{\Sigma\in\Gr(r,V)\mid \Sigma\cap\Gamma=\emptyset\}\iso\hom_{\kk}(\Omega,\Gamma)\iso\AA^{(n-r)r}.
+\end{equation}
+To see the isomorphisms, let $\Sigma\subset V$, then
+\begin{equation}
+\vcenter{\xymatrix{
+                     & \Sigma\oplus\Gamma\ar@{=}[d] &   &       \\
+{\color{red}\ar@[red][d]_{\iso}}
+\Sigma\ar@{^{(}->}[r] & V\ar[d]\ar[r] & V/\Omega\ar[r]^{\iso} & \Gamma\\
+\Omega\ar[r]^{\iso}\ar@/_4pc/[urrr]^{\iso}   & V/\Gamma      &                      &\\
+& & &}}
+\end{equation}
+If we start on the right with a morphism $\Omega\to\Gamma$, we can
+look at its graph as a subset of $\Omega\oplus\Gamma=V$ which is a
+subspace of $\Sigma\in\Gr(r,V)$ such that $\Sigma\cap\Gamma=\emptyset$.
+This establishes a bijection. We can check
+$U_{\Gamma}\iso\AA^{(n-r)r}$ using observation (2).
+
+Without loss of generality, we can assume first $r\times r$ minor is
+nonzero (i.e., $\Gamma$ is spanned by the last $(n-r)$ vectors), then
+we have the morphism
+\begin{equation}
+\begin{split}
+\Mat(n-r,r)&\to U_{\Gamma}\\
+B&\mapsto\pi\left(\begin{bmatrix}I_{r}\\B
+\end{bmatrix}\right)
+\end{split}
+\end{equation}
+This gives us a morphism in one direction. The other direction
+\begin{equation}
+\begin{split}
+U_{\Gamma}&\to\Mat(n-r,r)\\
+\pi\left(\begin{bmatrix}A\\B
+\end{bmatrix}\right)&\mapsto BA^{-1}
+\end{split}
+\end{equation}
+where $A$ is an invertible $r\times r$ matrix. This is well-defined
+and gives us our isomorphism.
+\end{definition}
