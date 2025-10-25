@@ -1,0 +1,206 @@
+%%
+%% fall-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-25T10:23:41-0700
+%% Last update 2025-10-25T10:23:41-0700
+%% 
+
+\lecture{}
+
+\begin{corollary}[Matsumara 4.1]
+Let $A$, $B$ be local rings. Let $\psi\colon A\to B$ be a local
+map. (Recall, ``local map'' means the maximal ideal of $A$ is mapped
+into the maximal ideal of $B$ --- so
+$\psi\colon(A,\mathfrak{m})\to(B,\mathfrak{n})$ is local means $\psi(\mathfrak{m})\subset\mathfrak{n}$.)
+Let $M\neq0$ be a finite module over $B$.
+Then $M$ is flat over $A$ if and only if $M$ is faithfully flat over $A$.
+
+In particular, $B$ is flat over $A$ if and only if $B$ is faithfully
+flat over $A$.
+\end{corollary}
+
+\noindent(Moral: over local rings, it doesn't matter if a module is flat or
+faithfully flat.)
+
+\begin{proof}
+Let $\psi\colon(A,\mathfrak{m})\to(B,\mathfrak{n})$ be a local map.
+We can take $\mathfrak{m}M\subset\mathfrak{n}M$ using $\psi$ (i.e., we
+have abused notation writing $\mathfrak{m}M$ abbreviating $\psi(\mathfrak{m})M$)
+and $\psi$ is a local morphism. We also have $\mathfrak{n}M\neq M$ by
+NAK Lemma~\ref{lemma:NAK}. (N.B., we will write $a\cdot v=\psi(a)\cdot v$ for any $a\in A$
+and $v\in M$.)
+We see $\mathfrak{m}M=\psi(\mathfrak{m})M\neq M$, which implies $M$ is
+faithfully flat over $A$ by Theorem~\ref{thm:fall-lec11:equivalent-criteria-for-ff}.
+\end{proof}
+
+\begin{proposition}[Matsumara 4B]
+Let $A$ and $B$ be rings.
+\begin{enumerate}
+\item\textsc{Faithful flatness is transitive:} If $B$ is faithfully flat over
+  $A$ and $M$ is a faithfully flat module over $B$,
+  then $M$ is faithfully flat module over $A$.
+\item\textsc{Faithful flatness is preserved by base change:}
+  If $A\to B$ is any ring morphism and $M$ is a fiathfully flat module
+  over $A$, then $M\otimes_{A}B$ is faithfully flat.
+\item\textsc{Descent property (of faithfully flat stuff):}
+  If $\psi\colon A\to B$ is a ring morphism, $M$ is a faithhfully flat
+  $B$ module, and if $M$ is faithfully flat over $A$ (induced by
+  $\psi$), then $B$ is faithfully flat over $A$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+For descent: for any $S_{*}$ sequence of $A$-modules, we see
+\begin{subequations}
+\begin{equation}
+S_{*}\otimes_{A}B\mbox{ is exact}\iff \otimes_{A}\underbrace{B\otimes_{B}M}_{=M} \mbox{ is exact}
+\end{equation}
+\begin{equation}
+S_{*}\otimes_{A}\underbrace{B\otimes_{B}M}_{=M} \mbox{ is exact}\iff S_{*}\otimes_{A}M\mbox{ exact}
+\end{equation}
+\begin{equation}
+S_{*}\otimes_{A}M\mbox{ exact}\iff S_{*}\mbox{ exact},
+\end{equation}
+\end{subequations}
+which proves the claim.
+\end{proof}
+
+\begin{remark}[Adjoint functors]
+Let $\psi\colon A\to B$ be a ring morphism.
+Let $M$ be an $A$-module. 
+Let us introduce \emph{for the discussion within this remark} the
+following two notation:
+\begin{subequations}
+\begin{equation}
+F(M) := M\otimes_{A}B = M_{(B)}
+\end{equation}
+And, if $N$ is a $B$-module, let us call
+\begin{equation}
+G(N) := N^{A}
+\end{equation}
+\end{subequations}
+to stress we are viewing $N$ as an $A$-module.
+
+In math, we descrime constructions like these as functors.
+So we have
+\begin{equation}
+F\colon\Mod[A]\to\Mod[B],\quad\mbox{and}\quad G\colon\Mod[B]\to\Mod[A]
+\end{equation}
+are both functors. Moreover, these are \emph{adjoint} functors. 
+Look at
+\begin{equation}
+\underbrace{\hom_{A}(M,N^{A})}_{=\hom_{A}(M,GN)}\iso\underbrace{\hom_{B}(M\otimes_{A}B,N)}_{\hom_{B}(FM,N)}.
+\end{equation}
+We call $F$ the \define{Left Adjoint} of $G$, and $G$ is the
+\define{Right Adjoint} of $F$.
+Observe, under this isomorphism, $\id\in\hom_{B}(FM,FM)$ is mapped to
+$\eta\in\hom_{A}(M,GFM)$. We call $\eta$ the \define{Adjunction Unit},
+and it sends
+\begin{equation}
+x\mapsto x\otimes1.
+\end{equation}
+There is also a co-iunit to this adjunction. As an exercise we should
+try to determine what it is.
+\end{remark}
+
+\begin{node}
+If we have any ring morphism $\psi\colon A\to B$, then we should think
+of it as $\psi^{*}\colon\Spec(B)\to\Spec(A)$ which is a mapping of
+geometric spaces. But if we introduce a ring $C$ and a morphism $A\to
+C$, we have the following diagram commute:
+\begin{equation}
+\vcenter{\xymatrix{A\ar[d]\ar[r] & B\ar[d]\\
+C\ar[r] & C\otimes_{A}B}}
+\end{equation}
+This geometrically corresponds to the diagram:
+\begin{equation}
+\vcenter{\xymatrix{
+\Spec(A) & \ar[l]\Spec(B)\\
+\Spec(C)\ar[u] & \ar[l]\ar[u]\Spec(C\otimes_{A}B)}}
+\end{equation}
+
+So $\AA^{n}=\Spec(\CC[x_{1},\dots,x_{n}])$. We see that
+$\AA^{1}\times\AA^{1}=\Spec(\CC[x])\times\Spec(\CC[x])$
+\underline{\emph{as sets}}, but they are not the same as $\AA^{2}=\Spec(\CC[x,y])$.
+However, $\CC[x]\otimes_{\CC}\CC[y]\iso\CC[x,y]$ which gives the
+correct geometric results when we apply $\Spec(-)$ to both sides.
+\end{node}
+
+\begin{node}
+Let $A\to B$ be a ring morphism.
+Then this induces a map $\Spec(B)\to\Spec(A)$.
+Let $\mathfrak{m}\ideal A$ be an ideal. 
+Although $\mathfrak{m}$ is generally not a ring, it gives us a natural
+ring by $A/\mathfrak{m}$.
+So we have the diagram
+\begin{equation}
+\vcenter{\xymatrix{A\ar[r]\ar[d]&B\ar[d]\\
+A/\mathfrak{m}\ar[r]&(A/\mathfrak{m})\otimes B\ar@{=}[r]& B/\mathfrak{m}B}}
+\end{equation}
+Which then induces the following commutative diagram:
+\begin{equation}
+\vcenter{\xymatrix{\Spec(A/\mathfrak{m})&\ar[l]\Spec\bigl((A/\mathfrak{m})\otimes B\bigr)\ar@{=}[r]& \Spec(B/\mathfrak{m}B)\\
+\Spec(A)\ar[u]&\Spec(B)\ar[l]\ar[u]}}
+\end{equation}
+\end{node}
+
+\begin{proposition}[Matsumara 4C]
+Let $\psi\colon A\to B$ be faithfully flat map of rings. Then:
+\begin{enumerate}
+\item For any $A$-module $N$, them ap $N\to N\otimes B$, $x\mapsto x\otimes1$
+(which is a map of $A$-modules) is injective (in particular, $A\to B$
+  is injective);
+\item If $I\ideal A$ is an ideal, then $IB\cap A=\psi^{-1}(IB)=I$
+\item $\psi^{*}\colon\Spec(B)\to\Spec(A)$ is injective.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $x\in N$ be a nonzero element $x\neq0$.
+Take the module $Ax$ generated by $x$.
+We see $0\neq Ax$ and also $Ax\subset N$.
+We also see
+$0\neq Ax\otimes B=(x\otimes1)B$ which implies $x\otimes1\neq0$.
+\item We see $B\otimes_{A}(A/I)=B/IB$ is faithfully flat over $A/I$ by
+  base change. Then
+\begin{equation}
+\vcenter{\xymatrix{A/I\ar@{^{(}->}[rr]&& B/IB\\
+&A\ar[ur]\ar[ul]&}}
+\end{equation}
+Looking at its kernel, which is trivial since it is an injective map,
+which means its image is $I$.
+\item Let $P\in\Spec(A)$ be a prime ideal.
+Then $B_{P}=B\otimes A_{P}$ is faithfully flat over $A_{P}$ by base change.
+Then $PB_{P}\neq B_{P}$ (otherwise $B_{P}=0$ as a ring, but
+$A_{P}/PA_{P}\into B_{P}/PB_{P}$ and $A_{P}/PA_{P}\neq0$ and we
+definitively have an injective mapping).
+We have an intuition that the preimage of $P$ in $B$ is nonzero.
+Take $\mathfrak{m}\ideal B_{P}$ maximal (which we can do for nonzero
+rings thanks to Krull's Theorem) such that $\mathfrak{m}\supset PB_{P}$,
+then $\mathfrak{m}\cap A_{P}=PA_{P}$ because $PA_{P}$ is maximal.
+We can now take $\mathfrak{m}\cap B=Q$, we get
+\begin{subequations}
+  \begin{align}
+    Q\cap A &= (\mathfrak{m}\cap B)\cap A\\
+    &= \mathfrak{m}\cap A\\
+    &= (\mathfrak{m}\cap A_{P})\cap A\\
+    &= PA_{P}\cap A\\
+    &= P,
+  \end{align}
+\end{subequations}
+as desired. To be clear, we have a sequence of maps
+\begin{subequations}
+\begin{align}
+A&\to B\\
+A_{P}&\to B_{P}\\
+A_{P}/PA_{P}&\to \underbrace{B_{P}/PB_{P}}_{=B_{P}\otimes(A/A_{P})},
+\end{align}
+\end{subequations}
+which is used throughout this part of the proof.
+\qedhere
+\end{enumerate}
+\end{proof}

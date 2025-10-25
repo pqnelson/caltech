@@ -1,0 +1,274 @@
+%%
+%% fall-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-25T12:19:03-0700
+%% Last update 2025-10-25T12:19:03-0700
+%% 
+
+\lecture{}
+
+We will reserve $X$ and $Y$ for irreducible varieties in this lecture
+(unless we state otherwise).
+
+\begin{node}
+Recall, a rational map is an equivalence class of $(U,f\colon U\to Y)$
+where $f$ is a morphism and $U\subset X$ is open. We usually denote
+such a rational map by $f\colon X\dashrightarrow Y$.
+\end{node}
+
+\begin{example}% Gathmann, 9.7
+Let $Y=\AA^{1}$. Then $f\colon X\dashrightarrow\AA^{1}$ is just a
+rational function.
+\end{example}
+
+\begin{example}
+We see $f\colon\AA^{1}\setminus0\to\AA^{1}$, $x\mapsto 1/x$ gives a
+rational map $\AA^{1}\dashrightarrow\AA^{1}$.
+\end{example}
+
+\begin{definition}[Dominant rational map]% Gathmann, 9.5
+We say $f\colon X\dashrightarrow Y$ is \define{Dominant} if
+$f(X)\supset U$ for some nonempty open $\emptyset\neq U\subset Y$,
+--- in particular, this means that its image is dense.
+\end{definition}
+
+\begin{definition}% Gathmann, 9.5
+We say $f\colon X\dashrightarrow Y$ is \define{Birational} if it is
+dominant and there is some dominant $g\colon Y\dashrightarrow X$ such
+that $g\circ f\sim\id_{X}$ and $f\circ g\sim\id_{Y}$.
+\end{definition}
+
+\begin{definition}% Gathmann, 9.5
+We say the varieties $X$ and $Y$ are \define{Birational} if there
+exists some birational map $f\colon X\dashrightarrow Y$.
+\end{definition}
+
+\begin{definition}[Function field]
+We define the \define{Function Field} of $X$ to be the set $\FunField{X}$ of
+all rational functions on $X$.
+
+We can see that if $U\subset X$ is a nonempty open affine subset, then $\FunField{X}\iso\FunField{U}$.
+We also can see the function field is the localization of the
+coordinate ring at the ideal $I(X)=\langle0\rangle$, i.e., $\FunField{X}=\CoordRing{\kk}{X}_{0}$.
+\end{definition}
+
+\begin{remark}[Function field really is a field]% Gathmann, 9.6
+We see that $\FunField{X}$ is a field: for every
+$\varphi_{1}\in\RegularFuns_{X}(U_{1})$ and
+$\varphi_{2}\in\RegularFuns_{X}(U_{2})$, we can define
+$\varphi_{1}+\varphi_{2}$ and $\varphi_{1}\varphi_{2}$ on $U_{1}\cap U_{2}\neq\emptyset$,
+as well as the additive inverse $-\varphi_{1}$ on $U_{1}$, and also
+for $\varphi_{1}\neq0$ the multiplicative inverse $\varphi_{1}^{-1}$
+on $U_{1}\setminus V(\varphi_{1})$. This gives $\FunField{X}$ the obvious
+field structure.
+\end{remark}
+
+\begin{proposition}
+The set $\{f\colon X\dashrightarrow Y\mbox{ dominant}\}$ is bijective
+with the set $\{\mbox{field extensions }\kk[X]\into\kk[Y]\mbox{ preserving the base field }\kk\}$,
+sending $\varphi\mapsto\varphi^{*}$.
+\end{proposition}
+
+\begin{proof}
+Without loss of generality, $X$ and $Y$ are affine irreducible varieties.
+
+\textsc{Claim 1:} This mapping is injective. Suppose we have another
+dominant $\psi\colon X\dashrightarrow Y$ with
+$\varphi^{*}=\psi^{*}$. Take a principal open $D(h)\subset X$ such
+that $\varphi$ and $\psi$ are both defined on $D(h)$. We have
+\begin{equation}
+\vcenter{\xymatrix{
+    K(Y)\ar[r]^-{\varphi^{*}=\psi^{*}} & K(X)\\
+    \ar@{^{(}->}[u]^{\subset}\CoordRing{\kk}{Y}\ar@{.>}[r] & \CoordRing{\kk}{X}_{h}\ar@{^{(}->}[u]^{\subset}}}
+\end{equation}
+Then $\varphi=\psi$ on $D(h)$. This establishes injectiveness.
+
+\textsc{Claim 2:} This mapping is surjective. Let
+$\alpha\colon\CoordRing{\kk}{Y}\to\CoordRing{\kk}{X}$ preserve $\kk$. Then $\CoordRing{\kk}{Y}$ generated
+by $f_{1}$, \dots, $f_{n}$. We see $\alpha(f_{i})=g_{i}/h_{i}$ where $g_{i},h_{i}\in\CoordRing{\kk}{X}$.
+Let
+\begin{equation}
+h := \prod^{n}_{i=1}h_{i},
+\end{equation}
+then $\alpha(f_{i})\in\CoordRing{\kk}{X}_{h}$ for all $i$. Then
+$\alpha\colon\CoordRing{\kk}{Y}\to\CoordRing{\kk}{X}_{h}$ translates
+to $\varphi\colon D(h)\to Y$ with $\varphi^{*}=\alpha$. 
+\end{proof}
+
+\begin{theorem}
+The following are equivalent:
+\begin{enumerate}
+\item $X\sim Y$ (i.e., $X$ and $Y$ are birational)
+\item $\FunField{X}\iso\FunField{Y}$ as $\kk$-algebras
+\item There exists open nonempty subsets $U\subset X$ and $V\subset Y$
+  such that $U\iso V$ as varieties.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+$(3)\implies(2)$ is obvious, and $(2)\implies(1)$ follows from the
+previous proposition.
+
+$(1)\implies(3)$ Assume $f(,U)\colon X\dashrightarrow Y$ is
+birational with $(g,V)\colon Y\dashrightarrow X$ its inverse. Then
+$U\cap f^{-1}(V)\iso V\cap g^{-1}(U)$ must be isomorphic.
+\end{proof}
+
+\begin{definition}
+We call $X$ \define{Rational} if it is birational to some
+$\AA^{n}$. (We can parametrize some dense open subset of $X$.)
+\end{definition}
+
+\begin{example}
+Suppose $\Char(\kk)\neq2$. Then any plane curve $C\subset\PP^{2}$ of
+degree 2 is rational.
+\end{example}
+
+\begin{example}
+The nodal curve $y^{2}-x^{3}-x^{2}$. Let
+\begin{equation}
+y = tx,
+\end{equation}
+then we have
+\begin{equation}
+(tx)^{2}-x^{3}-x^{2}=x^{2}(t^{2}-x-1)
+\end{equation}
+vanish when
+\begin{equation}
+(x,y) = (t^{2}-1,t^{3}-t).
+\end{equation}
+Observe if $t\in\QQ$, then both $x\in\QQ$ and $y\in\QQ$, and these
+give us the rational points over $\QQ$. This also gives a birational
+map with $\AA^{1}$.
+\end{example}
+
+\begin{example}
+Let $E=V(y^{2}-x^{3}+x)\subset\AA^{2}$. Then $E$ is not rational. But
+$E$ is an example of an elliptic curve.
+\end{example}
+
+\begin{node}
+One thing we want to do: given a variety $X$, we want to finda
+``nicer'' or ``simpler'' $Y$ birational with $X$.
+\end{node}
+
+\subsection{Blowing Up}
+
+\begin{node}
+Consider the set
+\begin{equation}
+\operatorname{Bl}_{0}(\AA^{2})=\{\bigl((x,y), (X:Y)\bigr)\in\AA^{2}\times\PP^{1}\mid
+xY=yX\}\subset\AA^{2}\times\PP^{1}
+\end{equation}
+as a closed subset. We can project $\operatorname{Bl}_{0}(\AA^{2})\to\AA^{2}$
+and pretend this is a fiber bundle. What are the fibers? Well, over
+$(x,y)=(0,0)$, it's an entire copy of $\PP^{1}$. But over other
+points of $\AA^{2}$, it's just a single point of $\PP^{1}$.
+\end{node}
+
+\begin{example}
+Consider the nodal curve $y^{2}-x^{3}-x^{2}$. For $X\neq0$, we set
+$t:=Y/X$. From $xt=y$, we find
+\begin{equation}
+y^{2}-x^{3}-x^{2}=(xt)^{2}-x^{3}-x^{2}=x^{2}(t^{2}-x-1).
+\end{equation}
+The ``strict transform'' of the nodal curve is precisely the variety
+$V(t^{2}-x-1)$, which is just a gentle quadratic. Its complement is
+called the ``exceptional set'', and it consists of just the single
+line $x=0$. 
+\end{example}
+
+\begin{example}
+For $V(y^{2}-x^{3})$, we see $(xt)^{2}-x^{3}=x^{2}(t^{2}-x)$. The
+``strict transform'' is then $V(t^{2}-x)$ and the ``exception set'' is $x=0$.
+\end{example}
+
+\begin{example}
+For $V(x^{2}+y^{2}-z^{2})$, we introduce for $Z\neq0$
+\begin{equation}
+s:=\frac{X}{Z},\quad\mbox{and}\quad t:=\frac{Y}{Z}.
+\end{equation}
+Then we see $x=sz$ and $y=tz$, so we end up with 
+\begin{equation}
+x^{2}+y^{2}-z^{2}=z^{2}(s^{2}+t^{2}-1),
+\end{equation}
+which gives us the ``strict transform'' $V(s^{2}+t^{2}-1)$ (which is a cylinder),
+and the ``exception set'' is the $V(z)$ plane.
+\end{example}
+
+\begin{example}
+Sometimes we need to perform multiple blow-ups. Consider $V(x^{8}-y^{5})$.
+Let $y=sx$, then
+\begin{equation}
+x^{8}-y^{5}=x^{8}-(sx)^{5}=x^{5}(x^{3}-s^{5}).
+\end{equation}
+Then let $x=st$, so we have
+\begin{equation}
+x^{3}-s^{5}=(st)^{3}-s^{5}=s^{3}(t^{3}-s^{2})
+\end{equation}
+and letting $s=ut$,
+\begin{equation}
+t^{3}-s^{2}=t^{3}-(ut)^{2}=t^{2}(t-u^{2}),
+\end{equation}
+so we end up with the strict transform $V(t-u^{2})$.
+\end{example}
+
+\begin{example}
+Sometimes the choice of blow-up produces no change. For example,
+$V(xy^{2}-z^{2})$, if we have $y=sx$ and $z=tx$, then
+\begin{equation}
+xy^{2}-z^{2}=x(sx)^{2}-(tx)^{2}=s^{2}x^{3}-t^{2}x^{2}=x^{2}(s^{2}x-t^{2}),
+\end{equation}
+and $V(s^{2}x-t^{2})$ is the same variety as we started with.
+
+We can instead consider the blow-up at $y=z=0$ in
+$\AA^{3}\times\PP^{1}$, which will consist of the points $(x,y,z)$ and $(Y:Z)$
+such that for $Y\neq0$ we have $t=Z/Y$ so $z=ty$, and then
+\begin{equation}
+xy^{2}-z^{2}=Y^{2}(x-t^{2}).
+\end{equation}
+Then the strict transform gives us $V(x-t^{2})$, which is simpler.
+\end{example}
+
+\begin{construction}
+Let $X\subset\AA^{n}$ be an affine vareity. Let $f_{1}$, \dots,
+$f_{r}\in\CoordRing{\kk}{X}$. Let $U:=X\setminus V(f_{1},\dots,f_{r})$.
+We will look at $f\colon U\to\PP^{r-1}$ defined by sending
+\begin{equation}
+x\mapsto(f_{1}(x):\dots:f_{r}(x))
+\end{equation}
+which is a morphism. Looking at its graph
+\begin{equation}
+\Gamma_{f}=\{(x,f(x))\mid x\in U\}\subset U\times\PP^{r-1}
+\end{equation}
+which is a closed subset of $X\times\PP^{r-1}$.
+The the \define{Blow-Up} of $X$ at $f_{1}$, \dots, $f_{r}$ is defined
+to be $\widetilde{X}:=\closure{\Gamma_{f}}\subset X\times\PP^{r-1}\xrightarrow{\pi}X$
+where $\pi$ is the restriction of the projection to $U\times\PP^{r-1}$.
+\end{construction}
+
+\begin{definition}
+The complement of a blow-up $\widetilde{X}\setminus U=\pi^{-1}\bigl(V(f_{1},\dots,f_{r})\bigr)$
+is defined to be the \define{Exceptional Set} of the blow-up.
+\end{definition}
+
+\begin{definition}
+If $Y\subset X$ is a closed subvariety, then we can blow-up $Y$ at
+$f_{1}$, \dots, $f_{r}$. This gives us the \define{Strict Transform}
+of $Y$, denoted $\widetilde{Y}$, which is a subset of the blow-up $\widetilde{X}$
+equal to $\widetilde{Y} = \closure{Y\cap U}$.
+\end{definition}
+
+\begin{remark}
+If $X$ is not irreducible, then $X=X_{1}\cup\cdots\cup X_{m}$ are the
+irreducible components. We can still blow up $\widetilde{X}=\widetilde{X}_{1}\cup\cdots\cup\widetilde{X}_{m}$
+by blowing-up each component $\widetilde{X}_{i}$ of $X$.
+\end{remark}
+
+\begin{lemma}% Gathmann, 9.14
+Let $\widetilde{X}$ be the blow-up of an affine variety $X$ at
+$f_{1}$, \dots, $f_{r}$. Then $\widetilde{X}\subset\{(x,y)\in X\times P^{r-1}\mid y_{i}f_{j}(x)=y_{j}f_{i}(x)\;\forall i,j=1,\dots,r\}$.
+\end{lemma}

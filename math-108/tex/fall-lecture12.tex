@@ -1,0 +1,226 @@
+%%
+%% fall-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-25T11:48:53-0700
+%% Last update 2025-10-25T11:48:53-0700
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $(X,\mathcal{T})$ be a topological space. Let $E\subset X$.
+We call $E$ \define{Closed} if $E^{\complement}=X\setminus E$ is open.
+
+We will generically write $\mathcal{F}$ for the set of all closed
+subsets of $(X,\mathcal{T})$.
+\end{definition}
+
+\begin{proposition}\label{prop:lec12:properties-of-closed-sets}
+Let $(X,\mathcal{T})$ be a topological space. If $\mathcal{F}$ is the
+collection of closed subsets of $X$, then:
+\begin{enumerate}
+\item $X\in\mathcal{F}$ and $\emptyset\in\mathcal{F}$
+\item $\bigcap\{F_{\alpha}\in\mathcal{F}\mid \alpha\in I\}\in\mathcal{F}$
+for any arbitrary indexing set $I$
+\item $F_{1}\cup\cdots\cup F_{n}\in\mathcal{F}$ for $F_{i}\in\mathcal{F}$
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}
+Let $(X,\mathcal{T})$ be a topological space.
+Let $E\subset X$ be a subset.
+We define the \define{Closure} of $E$ to be the subset $\closure{E}$
+of $X$ equal to
+\begin{equation}
+\closure{E}=\bigcap\{F\in\mathcal{F}\mid E\subset F\},
+\end{equation}
+the intersection of all closed sets containing $E$.
+\end{definition}
+
+\begin{proposition}
+The closure of $E$ is a closed subset of $(X,\mathcal{T})$.
+\end{proposition}
+
+\begin{proposition}
+$E$ is closed if and only if $E=\closure{E}$.
+\end{proposition}
+
+\begin{proof}
+Observe $E\subset\closure{E}$ always. So we only need to check if
+$\closure{E}\subset E$ or not.
+
+\forwardproof\ Assume $E$ is closed. Then there is an $F\in\mathcal{F}$,
+$F=E$, so
+\begin{subequations}
+\begin{align}
+\closure{E} &= \bigcap\{F\subset X\mid F\mbox{ is closed}, E\subset F\}\\
+&= E\cap\left(\bigcap\{F\subset X\mid F\mbox{ is closed}, E\subset F\}\right)\\
+&= E.
+\end{align}
+\end{subequations}
+
+\backwardproof\ If $\closure{E}\subset E$, then $\closure{E}=E$ and
+$\closure{E}$ is the intersection of closed sets. Therefore
+$\closure{E}$ is closed by Definition of closure and Proposition~\ref{prop:lec12:properties-of-closed-sets}.
+\end{proof}
+
+\begin{proposition}
+\begin{enumerate}
+\item $\closure{E}$ is closed
+\item $\closure{E}$ is the smallest closed subset of $X$ containing
+  $E\subset\closure{E}$ (in the sense that: for any $F\subset X$
+  closed, if $E\subset F$, then $\closure{E}\subset F$).
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}
+Let $(X,\mathcal{T})$ be a topological space.
+Let $E\subset X$.
+Let $x\in X$. We call $x$ a \define{Limit Point} of $E$ if every
+neighborhood $N_{x}\in\mathcal{T}$ of $x\in N_{x}$ contains a $y\in E$ such that $x\neq y$.
+\end{definition}
+
+\begin{definition}
+We call $E\subset X$ \define{Dense} if $\closure{E}=X$. 
+\end{definition}
+
+\begin{definition}
+We call $(X,\mathcal{T})$ \define{Separable} if it has a countable
+dense subset.
+\end{definition}
+
+\begin{example}[Compact metric spaces are separable]
+Let $(X,d)$ be a compact metric space.
+We claim $X$ is totally bounded: For each $n\in\NN$, we can cover $X$
+by a finite collection of $(1/n)$-balls. We take the centerpoints for
+all such balls for all $n\in\NN$. This defines the subset
+\begin{equation}
+D=\{\mbox{centerpoints of }(1/n)\mbox{-balls covering }X\mid n\in\NN\}.
+\end{equation}
+Then $D$ is countable and dense.
+\end{example}
+
+\begin{proposition}
+Let $E\subset X$.
+\begin{enumerate}
+\item $\closure{E}=E\subset\{x\in X\mid x\mbox{ is a limit point of }E\}$
+\item $E$ is closed if and only if it contains all its limit points.
+\item $E$ is dense if and only if every point $x\in X$ is a limit
+  point of $E$.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}
+Let $(x_{n})$ be a sequence in a topological space $(X,\mathcal{T})$.
+We say $(x_{n})$ \define{Converges} to $x\in X$ if for every
+neighborhood $U$ of $x$, there exists an $N\in\NN$ such that $x_{n}\in U$ for every $n\geq N$.
+\end{definition}
+
+\begin{definition}
+Let $(X,\mathcal{T}_{1})$ and $(Y,\mathcal{T}_{2})$ be topological spaces.
+Let $x\in X$.
+Let $f\colon X\to Y$ be a function.
+We say $f$ is \define{Continuous} at $x$ if for each $V\in\mathcal{T}_{2}$
+containing $f(x)\in V$, there exists a $U\in\mathcal{T}_{1}$ such that
+$x\in U$ and $f(U)\subset V$.
+
+We say $f$ is \define{Continuous} if it is continuous at every point
+of $X$.
+\end{definition}
+
+\begin{proposition}
+The function $f\colon(X,\mathcal{T}_{1})\to(Y,\mathcal{T}_{2})$.
+is continuous if and only if every open subset $V\subset Y$ has an
+open preimage $f^{-1}(V)\in\mathcal{T}_{1}$.
+\end{proposition}
+
+\begin{proposition}
+Let $f\colon(X,\mathcal{T}_{1})\to(Y,\mathcal{T}_{2})$, $g\colon(Y,\mathcal{T}_{2})\to(Z,\mathcal{T}_{3})$
+be continuous functions.
+Then $g\circ f\colon(X,\mathcal{T}_{1})\to(Z,\mathcal{T}_{3})$ is continuous.
+\end{proposition}
+
+\begin{definition}
+Let $U_{}$ and $U_{2}$ be proper open subsets of $(X,\mathcal{T})$.
+We say $U_{1}$, $U_{2}$ \define{Separate} $X$ if they're disjoint
+$U_{1}\cap U_{2}=\emptyset$, and they cover $X=U_{1}\cup U_{2}$.
+\end{definition}
+
+\begin{definition}
+We call the topological space $(X,\mathcal{T})$ \define{Connected} if
+there is no $U_{1}$, $U_{2}\propersubset X$ which separate $X$.
+\end{definition}
+
+\begin{remark}
+We can also define connected by: for any clopen subsets $U_{1}$, $U_{2}\subset X$
+[i.e., subsets which are both open and closed] such that $U_{1}$ and $U_{2}$
+are disjoint and cover $X$,
+we have $\{\emptyset,X\}=\{U_{1},U_{2}\}$ iff $X$ is connected.
+\end{remark}
+
+\begin{proposition}\label{prop:fall-lec12:continuous-image-of-connected-set-is-connected}
+The continuous image of a connected set is connected.
+\end{proposition}
+
+\begin{definition}
+Let $(X,\mathcal{T})$ be a topological space.
+We say $(X,\mathcal{T})$ has the \define{Intermediate Value Property} (IVP)
+if the image of any continuous real-valued function is an interval:
+for all $f\colon X\to\RR$ continuous, $f(X)$ is an interval.
+\end{definition}
+
+\begin{proposition}
+The topological space $(X,\mathcal{T})$ has IVP if and only if it is connected.
+\end{proposition}
+
+\begin{proof}
+[Exercise: a subset of $\RR$ is connected iff it is an interval.]
+
+\backwardproof\ Obvious by Proposition~\ref{prop:fall-lec12:continuous-image-of-connected-set-is-connected}.
+
+\forwardproof\ Need to show if $X$ has IVP, then $X$ is connected. We
+will prove the contrapositive: if $X$ is not connected, then $X$ does
+not have IVP. Assume there exists a separating pair $U_{1}$,
+$U_{2}\subset X$. We need to construct $f\colon X\to\RR$ which is not
+an interval. Take $f|_{U_{1}}\colon U_{1}\to\{0\}$ and
+$f|_{U_{2}}\colon U_{2}\to\{1\}$. We claim $f$ is continuous.
+
+Let $A$ be an open subset in $\RR$. Then $f^{-1}(A)$ is open in $(X,\mathcal{T})$,
+which can be verified by examining the four cases:
+\begin{enumerate}
+\item If $0\in A$ and $1\in A$, then $f^{-1}(A)=X$
+\item If $0\in A$ and $1\notin A$, then $f^{-1}(A)=U_{1}$
+\item If $0\notin A$ and $1\in A$, then $f^{-1}(A)=U_{2}$
+\item If $0\notin A$ and $1\notin A$, then $f^{-1}(A)=\emptyset$.
+\end{enumerate}
+But $f(X)=\{0,1\}$ is not connected in $\RR$. Hence $X$ does not have
+the IVP.
+\end{proof}
+
+\begin{definition}
+Let $(X,\mathcal{T})$ be a topological space.
+We call $(X,\mathcal{T})$ \define{Hausdorff} if for any distinct
+points $x\in X$ and $y\in X$ (where $x\neq y$) there exists disjoint
+open subsets $U,V\subset X$ with $x\in U$ and $y\in V$ and $U\cap V=\emptyset$.
+
+We will call such an $(X,\mathcal{T})$ a \emph{Hausdorff Space}.
+\end{definition}
+
+\begin{example}[Trivial topology is not Hausdorff]
+The trivial topological space --- the trivial topology on $X$ --- is
+not Hausdorff. The only open sets containing any two distinct points
+$x\in X$, $y\in X$ is the entire set $X$ itself.
+\end{example}
+
+\begin{example}[Metric spaces generally Hausdorff]
+Metric spaces induce a topology which is generally Hausdorff.
+Take $0<r<d(x,y)/2$ and then we see $B_{r}(x)$ and $B_{r}(y)$ are
+disjoint open sets containing $x$ and $y$, respectively.
+\end{example}
+
+
+
+% \mathcal{T}
