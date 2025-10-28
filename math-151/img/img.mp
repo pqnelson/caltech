@@ -866,4 +866,319 @@ beginfig(37)
   drawarrow (z4--z3--(z1 + (-3,-6)));
   label.rt(btex Boundary morphism etex, z4);
 endfig;
+
+% lecture 13
+% torus T^2
+beginfig(38)
+  numeric w,i; w := 4u;
+  z0 = (w,0); % se
+  z1 = (w,w); % ne
+  z2 = (0,w); % nw
+  z3 = (0,0); % sw
+  draw z0--z1--z2--z3--cycle;
+  drawarrow (0.5[z0,z1] - (0,ahlength))--(0.5[z0,z1]); 
+  drawarrow (0.5[z3,z2] - (0,ahlength))--(0.5[z3,z2]);
+  drawarrow (0.5[z2,z1] - (ahlength,0))--(0.5[z2,z1]);
+  drawarrow (0.5[z2,z1])--(0.5[z2,z1] + (ahlength,0));
+  drawarrow (0.5[z3,z0] - (ahlength,0))--(0.5[z3,z0]);
+  drawarrow (0.5[z3,z0])--(0.5[z3,z0] + (ahlength,0));
+  for i=0 upto 3:
+    label(btex $\bullet$ etex, z[i]);
+  endfor;
+
+  label.rt(btex $a$ etex, 0.5[z0,z1]);
+  label.lft(btex $a$ etex, 0.5[z3,z2]);
+  label.bot(btex $b$ etex, 0.5[z3,z0]);
+  label.top(btex $b$ etex, 0.5[z2,z1]);
+  label.lrt(btex $p$ etex, z0);
+  label.urt(btex $p$ etex, z1);
+  label.ulft(btex $p$ etex, z2);
+  label.llft(btex $p$ etex, z3);
+endfig;
+
+% torus T^2
+beginfig(39)
+  numeric w,i,ell; w := 4u;
+  path p[];
+  z0 = (w,0); % se
+  z1 = (w,w); % ne
+  z2 = (0,w); % nw
+  z3 = (0,0); % sw
+  draw z0--z1--z2--z3--cycle;
+  drawarrow (0.5[z0,z1] - (0,ahlength))--(0.5[z0,z1]); 
+  drawarrow (0.5[z3,z2] - (0,ahlength))--(0.5[z3,z2]);
+  drawarrow (0.5[z2,z1] - (ahlength,0))--(0.5[z2,z1]);
+  drawarrow (0.5[z2,z1])--(0.5[z2,z1] + (ahlength,0));
+  drawarrow (0.5[z3,z0] - (ahlength,0))--(0.5[z3,z0]);
+  drawarrow (0.5[z3,z0])--(0.5[z3,z0] + (ahlength,0));
+  for i=0 upto 3:
+    label(btex $\bullet$ etex, z[i]);
+  endfor;
+  p0 = fullcircle rotated (90+45) scaled 0.85w shifted 0.5[z1,z3];
+  ell = length(p0);
+  drawarrow (subpath (0.025ell,0.975ell) of p0) withcolor red;
+
+  label.rt(btex $a$ etex, 0.5[z0,z1]);
+  label.lft(btex $a$ etex, 0.5[z3,z2]);
+  label.bot(btex $b$ etex, 0.5[z3,z0]);
+  label.top(btex $b$ etex, 0.5[z2,z1]);
+  label.lrt(btex $p$ etex, z0);
+  label.urt(btex $p$ etex, z1);
+  label.ulft(btex $p$ etex, z2);
+  label.llft(btex $p$ etex, z3);
+endfig;
+
+% X^{1} of the torus
+beginfig(40)
+  path p[]; numeric i,ell;
+  p0 = fullcircle xscaled 4u yscaled 2u shifted (-2u,0);
+  p1 = fullcircle rotated 180 xscaled 4u yscaled 2u shifted (2u,0);
+  ell = length(p0);
+  for i=0 upto 1:
+    drawarrow subpath(0.025ell,0.95ell) of p[i];
+  endfor;
+  label(btex $\bullet$ etex, (0,0));
+  label.top(btex $a$ etex, point 0.25ell of p0);
+  label.bot(btex $b$ etex, point 0.25ell of p1);
+endfig;
+
+% X^{1}/(X^{1}\setminus\{b\}) of the torus
+beginfig(41)
+  path p[]; numeric i,ell;
+  p0 = fullcircle xscaled 4u yscaled 2u shifted (-2u,0);
+  %p1 = fullcircle rotated 180 xscaled 4u yscaled 2u shifted (2u,0);
+  ell = length(p0);
+  for i=0 upto 0:
+    drawarrow subpath(0.025ell,0.95ell) of p[i];
+  endfor;
+  label(btex $\bullet$ etex, (0,0));
+  label.top(btex $a$ etex, point 0.25ell of p0);
+  %label.bot(btex $b$ etex, point 0.25ell of p1);
+endfig;
+
+% torus T^2
+beginfig(42)
+  numeric w,i,ell; w := 4u;
+  path p[];
+  z0 = (w,0); % se
+  z1 = (w,w); % ne
+  z2 = (0,w); % nw
+  z3 = (0,0); % sw
+  z4 = (0,u); % y
+  z5 = (w,u); % y
+  draw z0--z1--z2--z3--cycle;
+  drawarrow (0.5[z0,z1] - (0,ahlength))--(0.5[z0,z1]); 
+  drawarrow (0.5[z3,z2] - (0,ahlength))--(0.5[z3,z2]);
+  drawarrow (0.5[z2,z1] - (ahlength,0))--(0.5[z2,z1]); % b
+  drawarrow (0.5[z2,z1])--(0.5[z2,z1] + (ahlength,0));
+  drawarrow (0.5[z3,z0] - (ahlength,0))--(0.5[z3,z0]);
+  drawarrow (0.5[z3,z0])--(0.5[z3,z0] + (ahlength,0));
+  for i=0 upto 3:
+    label(btex $\bullet$ etex, z[i]);
+  endfor;
+  p0 = fullcircle rotated (90+45) scaled 0.85w shifted 0.5[z1,z3];
+  ell = length(p0);
+  drawarrow (subpath (0.025ell,0.975ell) of p0) withcolor red;
+
+  label(btex $\circ$ etex, z4);
+  label(btex $\circ$ etex, z5);
+  label.lft(btex $y$ etex, z4);
+  label.rt(btex $y$  etex, z5);
+  label.rt(btex $a$ etex, 0.5[z0,z1]);
+  label.lft(btex $a$ etex, 0.5[z3,z2]);
+  label.bot(btex $b$ etex, 0.5[z3,z0]);
+  label.top(btex $b$ etex, 0.5[z2,z1]);
+  label.lrt(btex $p$ etex, z0);
+  label.urt(btex $p$ etex, z1);
+  label.ulft(btex $p$ etex, z2);
+  label.llft(btex $p$ etex, z3);
+endfig;
+
+% genus g-surface for g=2
+def midpoint(expr a) = if path a: (point .5*length a of a)
+  else: .5(llcorner a + urcorner a) fi
+enddef;
+
+marksize=4pt;
+
+% draw a single perpendicular mark on path `p`, arclength of `a`
+def draw_mark(expr p, a) =
+  begingroup
+    save t, dm; pair dm;
+    t = arctime a of p;
+    dm = marksize*unitvector direction t of p
+      rotated 90;
+    draw (-.5dm.. .5dm) shifted point t of p;
+  endgroup
+enddef;
+
+% draws BOTH `n` perpendicular lines centered around the midpoint of path `p`
+% AND the path `p` itself
+def draw_marked(expr p, n) =
+  begingroup
+    save amid;
+    amid = .5*arclength p;
+    for i=-(n-1)/2 upto (n-1)/2:
+      draw_mark(p, amid+.6marksize*i);
+    endfor
+    draw p;
+  endgroup
+enddef;
+
+% I wish I had a better way to draw arrows in the middle of paths,
+% similar to `draw_marked`, but I don't...alas...
+def draw_mid_dblarrow(expr p) =
+  begingroup;
+    path m_q, m_c, m_r;
+    draw (subpath (0.5length(p),length(p)) of p);
+    m_c = fullcircle scaled ahlength shifted point 1/2*length(p) of p;
+    m_q = p cutbefore m_c;
+    drawarrow cuttings;
+			
+    m_r = p cutafter m_c;
+    drawarrow subpath (0, xpart((reverse p) intersectiontimes m_c ) ) of p;
+  endgroup;
+enddef;
+
+def draw_mid_arrow(expr p) = 
+  draw subpath (0.5length(p), length(p)) of p;
+  drawarrow subpath (0, 0.5length(p)) of p;
+enddef;
+
+beginfig(43)
+  numeric i,r,theta,offset;
+  path p[];
+  theta = 360/8;
+  offset = theta/2;
+  r := 4u;
+
+  for i=0 upto 7:
+    z[i] = r*(cosd((i-1)*theta - offset),sind((i-1)*theta - offset));
+  endfor;
+  for i=0 upto 6:
+    p[i] = z[i]--z[i+1];
+  endfor;
+  p7 = z7--z0;
+
+  for i=0 upto 1:
+    draw_mid_arrow(p[4i]);
+    draw_mid_arrow(reverse(p[4i+2]));
+  endfor;
+  % now draw the b labeled edges
+  for i=0 upto 1:
+    draw_mid_dblarrow(p[4*i+1]);
+    draw_mid_dblarrow(reverse(p[4i+3]));
+  endfor;
+  label.urt(btex $a_{1}$ etex, midpoint(p2)); % good
+  label.lrt(btex $a_{1}$ etex, midpoint(p0)); % good
+  label.rt(btex $b_{1}$ etex, midpoint(p1));
+  label.top(btex $b_{1}$ etex, midpoint(p3));
+  label.ulft(btex $a_{2}$ etex, midpoint(p4));
+  label.llft(btex $a_{2}$ etex, midpoint(p6)); % good
+  label.lft(btex $b_{2}$ etex, midpoint(p5));
+  label.bot(btex $b_{2}$ etex, midpoint(p7));
+endfig;
+
+
+
+def midarrow_od (expr p, t) =
+  draw p;
+  filldraw arrowhead subpath(0,
+      arctime(t*(arclength(p)-ahlength)+ahlength) of p) of p;
+enddef;
+
+def midarrow (expr p, t) =
+  begingroup
+    filldraw arrowhead subpath(0,t) of p;
+  endgroup
+enddef;
+
+def draw_mid_arr(expr p, n) =
+  begingroup
+    save amid;
+    amid = 0.5*arclength(p);
+    for i=-(n-1)/2 upto (n-1)/2:
+      midarrow(p, arctime(amid+(i+1)*ahlength) of p);
+    endfor;
+    draw p;
+  endgroup
+enddef;
+
+beginfig(44)
+  path p[],e;
+  numeric i,r,theta,N,offset; r := 4pc;
+  N=6;
+  theta = 360/N;
+  offset=0; % usually theta/2
+  for i=0 upto N-1:
+    z[i] = r*(cosd((i-1)*theta - offset),sind((i-1)*theta - offset));
+  endfor;
+  for i=0 upto (N-2):
+    p[i] = z[i]--z[i+1];
+  endfor;
+  p[N-1] = z[N-1]--z0;
+  e = fullcircle rotated 2theta scaled r;
+  drawarrow (subpath (0.025length(e),0.975length(e)) of e) withcolor red;
+
+  draw_mid_arrow(p0);
+  draw_mid_arrow(p1);
+  draw_mid_dblarrow(p2);
+  draw_mid_dblarrow(p3);
+  draw_mid_arr(p4, 3);
+  draw_mid_arr(p5, 3);
+
+  label.lrt(btex $a_{1}$ etex, midpoint(p0));
+  label.urt(btex $a_{1}$ etex, midpoint(p1));
+  label.top(btex $a_{2}$ etex, midpoint(p2));
+  label.ulft(btex $a_{2}$ etex, midpoint(p3));
+  label.llft(btex $a_{3}$ etex, midpoint(p4));
+  label.bot(btex $a_{3}$ etex, midpoint(p5));
+endfig;
+
+beginfig(45)
+  path p[]; path e;
+  numeric i,r,theta,N,offset; r := 4pc;
+  N=6;
+  theta = 360/N;
+  offset=0; % usually theta/2
+  for i=0 upto N-1:
+    z[i] = r*(cosd((i-1)*theta - offset),sind((i-1)*theta - offset));
+  endfor;
+  for i=0 upto (N-2):
+    p[i] = z[i]--z[i+1];
+  endfor;
+  p[N-1] = z[N-1]--z0;
+
+  e = halfcircle rotated -90 scaled r shifted (0.5u,0);
+  drawarrow (subpath (0.05length(e),0.95length(e)) of e) withcolor red;
+
+  draw_mid_arrow(p0);
+  draw_mid_arrow(p1);
+
+  label.lrt(btex $a_{1}$ etex, midpoint(p0));
+  label.urt(btex $a_{1}$ etex, midpoint(p1));
+
+  label(btex $\circ$ etex, point 0.25length(p0) of p0);
+  label(btex $\circ$ etex, point 0.25length(p0) of p1);
+  label.rt(btex $y$ etex, point 0.25length(p0) of p0);
+  label.urt(btex $y$ etex, point 0.25length(p0) of p1);
+endfig;
+
+beginfig(46)
+  numeric r,dy; r := 5u; dy := 0.5u;
+  path p[];
+  p0 = fullcircle scaled 4u;
+  z0 = point 0 of p0;
+  z1 = point 0.5length(p0) of p0;
+  p1 = z0..(0.5[z0,z1] + (0,-dy))..z1;
+  p2 = z0..(0.5[z0,z1] + (0,dy))..z1;
+  draw p0;
+  draw p1;
+  draw p2 dashed evenly;
+  z2 = point (length(p0)/6) of p0;
+  z3 = point (5length(p0)/6) of p0;
+  label.rt(btex $S^{k-1}$ etex, z0);
+  label.urt(btex $e^{k}_{+}$ etex, z2);
+  label.lrt(btex $e^{k}_{-}$ etex, z3);
+endfig;
 end;

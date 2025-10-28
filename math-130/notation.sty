@@ -55,14 +55,22 @@
 \let\StructureSheaf\RegularFuns
 \let\iso\cong
 
+% \TangentCone{point}{variety}
+\newcommand\TangentCone[2]{C_{#1}(#2)}
+
 \newcommand\TautologicalBundle{\mathcal{S}}
 
 % Coordinate Ring
 % \CoordRing{\kk}{X}
 \newcommand\CoordRing[2]{A(#2)}
+\newcommand\HomogeneousCoordRing[2]{S(#2)}
 % Function Field
 \newcommand\FunField[1]{K(#1)}
 
+% rational function
+\let\RationalTo\dashrightarrow
+
+\DeclareMathOperator\Bl{Bl}
 
 \DeclareMathOperator\Char{char}
 
@@ -79,6 +87,7 @@
 \def\kk{\Bbbk}
 \def\AA{\mathbb{A}}
 \def\CC{\mathbb{C}}
+\def\FF{\mathbb{F}}
 \def\NN{\mathbb{N}}
 \def\PP{\mathbb{P}}
 \def\QQ{\mathbb{Q}}

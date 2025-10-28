@@ -35,13 +35,13 @@ characteristic map of the cell $\disk{n}_{\alpha}$''.
 \end{definition}
 
 \begin{example}
-Consider $X=S^{1}$ the circle, and $X^{0}=\point{x}$. Then
-$X^{1}=S^{1}$ is obtained by mapping the boundary of $\disk{1}$ to $X^{0}$.
+Consider $X=\sphere{1}$ the circle, and $X^{0}=\point{x}$. Then
+$X^{1}=\sphere{1}$ is obtained by mapping the boundary of $\disk{1}$ to $X^{0}$.
 \end{example}
 
 \begin{example}
-Let $X=S^{n}$ be the $n$-sphere. We have $X^{0}=\point{x}$, and
-$X^{k}=X^{0}$ for all $k<n$. Then $X^{n}=S^{n}$ using $f\colon\boundary\disk{n}\to\point{x}$.
+Let $X=\sphere{n}$ be the $n$-sphere. We have $X^{0}=\point{x}$, and
+$X^{k}=X^{0}$ for all $k<n$. Then $X^{n}=\sphere{n}$ using $f\colon\boundary\disk{n}\to\point{x}$.
 This is what Albert Schwarz called ``spheroids''!
 \end{example}
 
@@ -93,18 +93,18 @@ complexes.
 \end{node}
 
 \begin{example}
-We can pick for $S^{1}$ the CW complex where $X^{0}$ consists of two
+We can pick for $\sphere{1}$ the CW complex where $X^{0}$ consists of two
 distinct points, and $X^{1}$ is obtained by attaching one interval for
 ``the Northern hemisphere'' and another interval for ``the Southern hemisphere''.
-This construction can be iterated by treating $S^{1}$ as the equator,
+This construction can be iterated by treating $\sphere{1}$ as the equator,
 then attach a disk $\disk{2}$ as its ``Northern hemisphere'', and
 another $\disk{2}$ as its ``Southern hemisphere''.
 
 We can continue iterating this by attaching two $\disk{n}$ to
-$S^{n-1}$ to obtain the CW complex for $S^{n}$. We see that
-$S^{0}\subset S^{1}\subset S^{2}\subset\dots$. Then we could define
+$\sphere{n-1}$ to obtain the CW complex for $\sphere{n}$. We see that
+$\sphere{0}\subset\sphere{1}\subset\sphere{2}\subset\dots$. Then we could define
 \begin{equation}
-S^{\infty} := \bigcup^{\infty}_{n=0}S^{n}.
+\sphere{\infty} := \bigcup^{\infty}_{n=0}\sphere{n}.
 \end{equation}
 This differs from, e.g., defining the unit sphere in a Banach space as
 consisting of all points which are a distance 1 from the origin.
@@ -114,19 +114,19 @@ the antipodal map, which sends one $k$-cell to the other $k$-cell, for
 each $k=0,\dots,n$.
 \end{example}
 
-\begin{example}[Real projective spaces]
+\begin{example}[Real projective spaces]\label{ex:fall-lec02:real-projective-spaces}
 Now, we see that 
 \begin{equation}
-S^{n}/(\mbox{antipodal map})=\RP^{n}.
+\sphere{n}/(\mbox{antipodal map})=\RP^{n}.
 \end{equation}
 We thus get a CW complex describing $\RP^{n}$, with one $k$-cell for
 each $k=0,1,\dots,n$. This also gives us a way to define
 \begin{equation}
-\RP^{\infty}:=S^{\infty}/(\mbox{antipodal map}).
+\RP^{\infty}:=\sphere{\infty}/(\mbox{antipodal map}).
 \end{equation}
 \end{example}
 
-\begin{example}[Complex projective spaces]
+\begin{example}[Complex projective spaces]\label{ex:fall-lec02:complex-projective-spaces}%
 Consider
 \begin{equation}
 \CP^{n}=\bigl(\CC^{n+1}\setminus\{0\}\bigr)/\sim
@@ -164,7 +164,7 @@ find $(X,A)$ sometimes called a \define{CW Pair} in the literature.
 \end{definition}
 
 \begin{example}
-$S^{1}\subset S^{2}\subset\dots\subset S^{\infty}$ gives us many subcomplexes.
+$\sphere{1}\subset \sphere{2}\subset\dots\subset \sphere{\infty}$ gives us many subcomplexes.
 \end{example}
 
 \begin{example}

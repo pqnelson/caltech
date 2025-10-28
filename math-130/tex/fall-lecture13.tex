@@ -1,0 +1,195 @@
+%%
+%% fall-lecture13.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-28T10:53:36-0700
+%% Last update 2025-10-28T10:53:36-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+Recall the blow-up $\widetilde{X}$ of an affine variety $X$ at
+$f_{1}$, \dots, $f_{r}\in\CoordRing{\kk}{X}$ satisfies
+\begin{equation}
+\widetilde{X}\subset\{(x,y)\in X\times\PP^{r-1}\mid y_{i}f_{j}(x)=y_{j}f_{i}(x)\forall i,j\},
+\end{equation}
+with equality at coordinate functions.
+\end{node}
+
+\begin{example}
+Blow-up $X=\AA^{n}$, then
+\begin{equation}
+Y:=\widetilde{A}^{n}=\{(x,y)\in\AA^{n}\times\PP^{n-1}\mid x_{i}y_{j}=x_{j}y_{i}\forall i,j\},
+\end{equation}
+at $x_{1}$, \dots, $x_{n}$. We claim $\widetilde{A}^{n}\subset Y$.
+Note that $Y$ can be covered by $\AA^{n}$ and all charts meet at
+$((1,\dots,1),(1:\dots:1))$.
+This implies $Y$ is irreducible and of dimension $n$.
+Then $\widetilde{\AA}^{n}=Y$, since $\widetilde{\AA}^{n}$ cannot be a
+proper subset of $Y$.
+
+Also observe $\pi^{-1}(0)=\{(0,y)\in\AA^{n}\times\PP^{n-1}\}\iso\PP^{n-1}$.
+\end{example}
+
+\begin{lemma}% Gathmann, 9.16
+The blow-up $\widetilde{X}$ of an affine variety $X$ at $f_{1}$, \dots,
+$f_{r}\in\CoordRing{\kk}{X}$ depends only the ideal $\langle f_{1},\dots,f_{r}\rangle\ideal\CoordRing{\kk}{X}$.
+
+More precisely, if $f'_{1}$, \dots, $f'_{s}\in\CoordRing{\kk}{X}$
+generate the same ideal
+$\langle f_{1},\dots,f_{r}\rangle=\langle f'_{1},\dots,f'_{s}\rangle\ideal\CoordRing{\kk}{X}$,
+and $\pi\colon\widetilde{X}\to X$ and $\pi'\colon\widetilde{X}'\to X$
+are the corresponding blow-ups, there is an isomorphism
+$\colon\widetilde{X}\to\widetilde{X}'$ such that $\pi'\circ F=\pi$.
+\end{lemma}
+
+\begin{proof}
+We can write
+\begin{equation}
+f_{i}=\sum^{s}_{j=1}g_{ij}f'_{j},\quad\mbox{and}\quad f'_{j}=\sum^{r}_{k=1}h_{jk}f_{k}
+\end{equation}
+for some suitable $g_{ij}$, $h_{jk}\in\CoordRing{\kk}{X}$. We claim
+\begin{equation}
+F(x,y) = (x,y') = (x, (\sum^{r}_{k=1}h_{1k}(x)y_{k}:\dots:\sum^{r}_{k=1}h_{s,k}(x)y_{k}))
+\end{equation}
+is the desired isomorphism.
+
+\textsc{Claim 1:} The $y'$ components cannot all be zero simultaneously.
+By construction we have $(y_{1}:\dots:y_{r})=(f_{1}:\dots:f_{r})$ on
+$U=X\setminus V(f_{1},\dots,f_{r})\subset\widetilde{X}\subset X\times\PP^{r-1}$.
+That is to say, these two vectors are linearly dependent and non-zero
+at each point in this set. If for all $j$,
+\begin{equation}
+\sum_{k}h_{j,k}y_{k}=0,
+\end{equation}
+then for all $i$,
+\begin{equation}
+\underbrace{\sum_{j}\sum_{k}g_{i,j}h_{j,k}y_{k}}_{=y_{i}}=0.
+\end{equation}
+Hence $y_{i}=0$ for all $i$ on $U$ and hence on its closure $\closure{U}=\widetilde{X}$. 
+This means if $y'_{j}=\sum_{k}h_{j,k}y_{k}=0$ for all $j$, then
+$y_{i}=0$ for all $i$, which is a contradiction.
+
+\textsc{Claim 2:} The image of $F$ lies in $\widetilde{X}'$.
+
+\textsc{Claim 3:} $F$ is an isomorphism.
+
+\textsc{Claim 4:} Obviously $\pi'\circ F=\pi$.
+\end{proof}
+
+\begin{construction}% Gathmann, 9.17
+If we blow-up an arbitrary variety (not necessarily an affine variety)
+$X$ at $Y\subset X$ where $Y$ is a closed subvariety, we could pick an
+affine open cover $\{U_{i}\}_{i\in I}$. We blow-up $U_{i}$ at
+$U_{i}\cap Y$ to obtain $\widetilde{U}_{i}$. Then we glue the
+$\widetilde{U}_{i}$ together to form $\widetilde{X}$. We call this the
+\define{Blow-Up} of $X$ at $Y$.
+\end{construction}
+
+\begin{remark}% Gathmann, 9.17c
+We can blow-up along an ``ideal sheaf'' (which assigns ideals to open sets).
+This will turn out to be critical when we get to schemes next quarter.
+\end{remark}
+
+\begin{example}
+If $Y=\{a\}$ is some point, we can pick an open affine neighborhood
+$U\subset X$ containing $a\in U$, then glue $\widetilde{U}$ with
+$X\setminus\{a\}$.
+\end{example}
+
+\begin{example}
+If $X$ is a projective variety at $f_{1}$, \dots, $f_{r}\in\HomogeneousCoordRing{\kk}{X}$
+are homogeneous and of the same degree\footnote{If they are not of the
+same degree, we can transform them into homogeneous polynomials of the
+same degree.}. We can define the blow-up in the same way, taking the
+closure of the graph
+\begin{equation}
+\begin{split}
+\Gamma &=\{(x,(f_{1}(x):\dots:f_{r}(x)))\mid x\in X\setminus V_{p}(f_{1},\dots,f_{r})\}\\
+&\subset U\times\PP^{r-1}.
+\end{split}
+\end{equation}
+We obtain $\widetilde{X}=\closure{\Gamma}\subset X\times\PP^{r-1}$ is
+a projective variety.
+\end{example}
+
+\begin{remark}
+Intuitively, if we blow-up at a point, then the exceptional set
+parametrizes the tangent directions at that point.
+\end{remark}
+
+\begin{definition}% Gathmann, 9.20
+Let $a\in X$, $\pi\colon\widetilde{X}\to X$ where $\widetilde{X}$ is
+the blow-up of $X$ at $a$, its exceptional set $\pi^{-1}(\{a\})$ is a
+projective variety. The cone over this exceptional set is called the
+\define{Tangent Cone} of $X$ at $a$, denoted
+$\TangentCone{a}{X}$. It's defined as $\TangentCone{a}{X}:=\pi^{-1}(\{a\})\subset\{a\}\times\PP^{n-1}$
+where $n=\dim(X)$.
+\end{definition}
+
+\begin{remark}
+Why is this called a ``cone''? Well, in a vector space $V$, a cone $C$
+contains the origin $0\in C$ and $\lambda x$ for all $x\in C$ and
+$\lambda\in\FF$. This can be generalized to the settings of affine
+varieties $X$ instead of vector spaces, with exactly the same
+definition, and also to projective varieties.
+\end{remark}
+
+\begin{proposition}[Dimension of the exceptional set]% 9.23 of Gathmann
+Let $X$ be an irreducible variety. Then every irreducible component of
+the exceptional set in $\widetilde{X}$ has codimension 1 in $\widetilde{X}$.
+\end{proposition}
+
+\begin{proof}
+Since dimension is a local property, we take a nonempty open affine
+$U_{i}\subset\widetilde{X}$ where $y_{i}\neq0$. Then notice what are
+the conditions on the exceptional set. Supposing $\widetilde{X}$ is a
+blow-up at $f_{1}$, \dots, $f_{r}$. If $a\in U_{i}$, then $f_{i}(a)=0$
+which implies $f_{j}(a)=0$ for all $j=1,\dots,r$ because $y_{i}f_{j}=y_{j}f_{i}$.
+So we only need one equation on $U_{i}$.
+If $\widetilde{X}\neq\emptyset$, then $f_{i}\neq0$ on $U_{i}$, and
+moreover this implies the codimension of the exceptional set in
+$\widetilde{X}$ must be 1.
+\end{proof}
+
+\begin{corollary}[Dimension of tangent cones]% Gathmann, 9.24
+Let $a$ be a point in a variety $X$. Then the dimension of the tangent
+cone of $X$ at $a$ is the codimension of $\{a\}$ in $X$:
+\begin{equation}
+\dim\TangentCone{a}{X}=\codim_{X}(\{a\}).
+\end{equation}
+\end{corollary}
+
+\begin{remark}
+We can use blow-up to extend morphisms. If $X$ is some affine variety,
+and $f_{1}$, \dots, $f_{r}\in\CoordRing{\kk}{X}$, if we can define
+$X\dashrightarrow \PP^{r-1}$ by $x\mapsto(f_{1}(x):\dots:f_{r}(x))$.
+If we consider the blow-up $\widetilde{X}\subset X\times\PP^{r-1}\to\PP^{r-1}$.
+\end{remark}
+
+\begin{lemma}% 9.27 of Gathmann
+The $\PP^{1}\times\PP^{1}$ blow-up at one point is isomorphic to the
+blow-up of $\PP^{2}$ at two points.
+\end{lemma}
+
+\begin{proof}
+We know $\PP^{1}\times\PP^{1}$ is isomorphic to the quadric surface
+\begin{equation}
+X = \{(x_{0}:x_{1}:x_{2}:x_{3})\mid x_{0}x_{3}=x_{1}x_{2}\}\subset\PP^{3}.
+\end{equation}
+This is just the Segre embedding (\S\S\ref{ex:fall-lec09:segre-embedding} \emph{et seq.}).
+We have a rational map $X\RationalTo\PP^{2}$ projection from $(0:0:0:1)=a$
+sending
+\begin{equation}
+(x_{0}:x_{1}:x_{2}:x_{3})\mapsto(x_{0}:x_{1}:x_{2}).
+\end{equation}
+We want to extend this morphism to all of $\PP^{1}\times\PP^{1}$.
+
+So $\widetilde{X}=\Bl_{a}X$ we have replaced $a$ by all the tangent
+directions to $a$, so this gives us a morphism
+$\widetilde{X}\to\PP^{2}$. We want an inverse morphism. Let
+$y\in\PP^{2}$. Consider the line connecting $\overline{ay}$.
+\end{proof}
