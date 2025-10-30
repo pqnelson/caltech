@@ -1,0 +1,224 @@
+%%
+%% fall-lecture14.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-30T12:10:21-0700
+%% Last update 2025-10-30T12:10:21-0700
+%% 
+
+\lecture{}
+
+\begin{proposition}
+Let $R$ be a finitely-generated algebra over a field $\kk$, and assume
+$R$ is an integral domain.
+Then $\dim(R)=\trdeg_{\kk}(R_{0})$ is the transcendence degree of the
+field of fractions $R_{0}$ (of $R$) over $\kk$.
+\end{proposition}
+
+\begin{proof}
+By Noether normalization, $\kk[x_{1},\dots,x_{n}]\into R$ integral.
+Then $\kk(x_{1},\dots,x_{n})\into R_{0}$ algebraic field extension.
+Then $\dim(R)=n=\trdeg_{\kk}(\kk(x_{1},\dots,x_{n}))=\trdeg_{\kk}(R_{0})$.
+\end{proof}
+
+\begin{corollary}
+If $X$ is a variety and $a\in X$ is a point, then $\codim_{X}\{a\}=\dim\RegularFuns_{X,a}$
+(where $\RegularFuns_{X,a}\subset\FunField{X}$ is contained in the
+functional field of $X$). Furthermore, if $X$ is irreducible, then
+this is the dimension of $X$.
+\end{corollary}
+
+\begin{nakayama}
+Let $A$ be a commutative ring, let $I\ideal A$ be an ideal,
+let $M$ be a finitely-generated $A$-module such that $M=IM$.
+Then there exists an $a\in A$ such that $a\equiv1\bmod{I}$ and $aM=0$.
+(Equivalently, $\exists i\in I\ldotp\forall m\in M\ldotp im=m$ ---
+take $i=1-a$ to get this equivalence.)
+\end{nakayama}
+
+\begin{proof}
+Let $M$ be generrated by $m_{1}$, \dots, $m_{n}$.
+Then each
+\begin{equation}
+m_{i}=\sum_{j}a_{ij}m_{j}
+\end{equation}
+where $a_{ij}\in I$, so
+\begin{equation}
+(I_{n}-Z)\begin{bmatrix}m_{1}\\\vdots\\m_{n}
+  \end{bmatrix} = 0
+\end{equation}
+with $I_{n}$ is the $n\times n$ identity matrix and $Z=(a_{ij})$ as a matrix. Then
+\begin{equation}
+\det(I_{n}-Z)\begin{bmatrix}m_{1}\\\vdots\\m_{n}
+  \end{bmatrix} = 0
+\end{equation}
+and we see $\det(I_{n}-Z)\equiv1\bmod{I}$, and take $a=\det(I_{n}-Z)$.
+\end{proof}
+
+\begin{xca}
+Let $(A,\mathfrak{m})$ be a local ring. Suppose $M$ is a
+finitely-generated $A$-module, and $f_{1},\dots,f_{n}\in M$ generates $M/\mathfrak{m}M$.
+Then $f_{1}$, \dots, $f_{n}$ generate $M$.
+\end{xca}
+
+\begin{corollary}
+Let $(R,\mathfrak{m})$ be a Noetherian local ring, let $\FF=R/\mathfrak{m}$.
+Then the minimum number of generators for $\mathfrak{m}$ equals $\dim_{\FF}(\mathfrak{m}/\mathfrak{m}^{2})\geq\codim(\mathfrak{m})=\dim(R)$.
+\end{corollary}
+
+(The Principal Ideal Theorem (Matsumara Theorem~12.I) gives the
+inequality, then apply the exercise using $M=\mathfrak{m}$, lift the
+generators.)
+
+\begin{definition}
+We say a local ring $(R,\mathfrak{m})$ is \define{Regular} when
+$\dim(R)=\dim_{\FF}(\mathfrak{m}/\mathfrak{m}^{2})$. 
+\end{definition}
+
+\subsection{Smooth Varieties} % 78
+
+We are going to study smooth varieties, then we will go to the later
+part of Hartshorne~\cite{hartshorne1977algebraic} Chapter~1.
+
+\begin{node}[Linear term of a polynomial]
+Let $f\in R[x_{1},x_{2}]$ be a polynomial. 
+Then we can write it as
+\begin{equation*}
+f(x,y) = \sum_{m,n}a_{m,n}x^{m}y^{n}.
+\end{equation*}
+Then its linear term looks like
+\begin{equation}
+f_{1}(x,y) = a_{0,0} + a_{1,0}x + a_{0,1}y.
+\end{equation}
+We just discard the terms of order greater than 1.
+
+More generally and formally: given $f\in\kk[x_{1},\dots,x_{n}]$ and a
+point $p\in\AA^{n}$, we can define a linear functional corresponding
+to the lienar part of $f$ at $p$ to be
+\begin{equation}
+f_{p,1}(v) = \sum^{n}_{i=1}v_{i}\frac{\partial f}{\partial x_{i}}(p).
+\end{equation}
+Then for an irreducible affine variety $X$, we can define the tangent
+space at $p\in X$ as $T_{p}X = \{v\in\kk^{n}\mid\forall f\in I\ldotp f_{1,p}(v)=0\}$.
+Well, we let $I_{1,p}=\{f_{1,p}\mid f\in I\}$, then $T_{p}(X)=V(I_{1,p}^{*})$.
+\end{node}
+
+\begin{definition}% Gathmann, 10.1
+Let $X$ be a variety. Let $a\in X$.
+We define the \define{Tangent Space} of $X$ at $a$ to be
+$T_{a}X = V(f_{1}\mid f\in I(X))\subset\AA^{n}$, where $f_{1}$ is the
+linear term of $f$.
+\end{definition}
+
+\begin{remark}
+We want to establish the dimension of the tangent space does not
+depend on a choice of affine open subset or the coordinates of the point.
+We need an alternate description of the tangent space which does not
+depend on any such choices.
+\end{remark}
+
+\begin{lemma}% Gathmann, 10.4
+Let $X\subset\AA^{n}$ be affine and $a=0\in X$ with $I(a)=\langle\bar{x}_{1},\dots,\bar{x}_{n}\rangle\ideal\CoordRing{\kk}{X}$
+where $\bar{x}_{i}\in\kk[x_{1},\dots,x_{n}]/I(X)=\CoordRing{\kk}{X}$.
+Then $I(a)/I(a)^{2}\iso\hom_{\kk}(T_{a}X,\kk)$.
+\end{lemma}
+
+\begin{proof}
+Let 
+\begin{equation}
+\begin{split}
+\varphi\colon I(a)&\hom_{\kk}(T_{a}X,\kk)\\
+\bar{f}&\mapsto f_{1}|_{T_{a}X}
+\end{split}
+\end{equation}
+We see that $\varphi$ is well-defined and surjective. We want to prove $\ker(\varphi)=I(a)^{2}$.
+
+\textsc{Claim 1} ($\ker(\varphi)\subset I(a)^{2}$).
+Consider the vector space $W=\{g_{1}\mid g\in I(X)\}$ of $\kk[x_{1},\dots,x_{n}]$
+and let $k$ be its dimension. Then from linear algebra, we know $W$ is
+the space of linear forms vanishing on $T_{a}X$. Let $\bar{f}\in\ker(\varphi)$
+[equivalence class of $f$]. Then there exists a $g\in I(X)$ such that
+$g_{1}=f_{1}$ implies $\overline{f-g}\in I(a)^{2}$.
+Hence the claim $\ker(\varphi)\subset I(a)^{2}$.
+
+\textsc{Claim 2} ($\ker(\varphi)\supset I(a)^{2}$).
+Let $\bar{f}$, $\bar{g}\in I(a)$. Then
+\begin{subequations}
+\begin{align}
+(fg)_{1} &= f(0)g_{1} + f_{1}g(0)\\
+  &= 0\cdot g_{1}+f_{1}\cdot0\\
+  &= 0,
+\end{align}
+\end{subequations}
+which implies $\varphi(\bar{f}\bar{g})=0$, hence $\bar{f}\bar{g}\in\ker(\varphi)$.
+\end{proof}
+
+\begin{corollary}% Gathmann, 10.5
+Let $S=\CoordRing{\kk}{X}\setminus I(a)$. Then
+\begin{equation*}
+I(a)/I(a)^{2}\iso\bigl(S^{-1}I(a)\bigr)/\bigl(S^{-1}I(a)\bigr)^{2}.
+\end{equation*}
+In particular, this means if $a\in X$ is a point on any variety $X$,
+and $I_{a}$ is the unique maximal ideal in $\RegularFuns_{X,a}$, then
+$T_{a}X$ is naturally isomorphic to the vector space dual to
+$I_{a}/I_{a}^{2}$ and therefore independent of any choices.
+\end{corollary}
+
+\begin{definition}[Smooth and singular varieties]% Gathmann, 10.7
+Let $X$ be a variety.
+\begin{enumerate}
+\item A point $a\in X$ is \define{Smooth} (or \emph{Regular} or \emph{Nonsingular})
+  if $T_{a}X=C_{a}X$; otherwise it is \define{Singular}.
+\item We say $X$ is \define{Smooth} if it is smooth everywhere,
+  otherwise it is \emph{singular}.
+\end{enumerate}
+\end{definition}
+
+\begin{fact}
+A regular local ring is an integral domain.
+(This implies if $a$ lies in the intersection of 2 irreducible
+components, then $a$ is a singular point.)
+\end{fact}
+
+\begin{proposition}[Affine Jacobi criterion]% Gathmann, 10.11
+Let $a\in X$ be a point in an affine variety $X\subset\AA^{n}$.
+Suppose $I(X)=\langle f_{1},\dots,f_{r}\rangle$.
+Then $X$ is smooth at $a$ if and only if the Jacobian matrix has rank
+\begin{equation}
+\rank(J)=\rank\left(\frac{\partial f_{i}}{\partial x_{j}}(a)\right)
+\end{equation}
+is at least $n-\codim_{X}\{a\}$. (``At least'' may be replaced by ``equal''.)
+\end{proposition}
+
+This is the same as saying $\dim(T_{a}X)\leq\codim_{X}\{a\}$ because
+the Jacobian matrix is just picking out linear terms.
+
+\begin{corollary}% Gathmann, 10.14 (b)
+If $\rank(J)=r$, then $X$ is smooth at a local dimension $n-r$.
+\end{corollary}
+
+\begin{proof}
+We see $\codim_{X}\{a\}\geq n-r$ implies $r\geq n-\codim_{X}\{a\}$.
+Hence $X$ is smooth at $a$ by Jacobi criterion, and it must be an equality.
+\end{proof}
+
+\begin{remark}
+This is really similar to the implicit function theorem.
+\end{remark}
+
+\begin{example}
+Let $X=V(z^{3}-x^{2}y^{2})\subset\AA^{3}$, $\Char(\kk)\neq2,3$.
+Let $p\in X$. Then $p$ is nonsingular if and only if $\rank[-2xy^{2},-2x^{2}y,3z^{2}]=3-\dim(X)=1$.
+Then
+\begin{equation}
+X_{\text{sing}}=V(z^{3}-x^{2}y^{2},2xy^{2},2x^{2}y,3z^{2})=V(xy,z),
+\end{equation}
+so the singular locus is just the union of the $x$, $y$ coordinates.
+\end{example}
+
+\begin{corollary}% Gathmann, 10.19
+The singular locus is always closed, i.e., the smooth locus is always open.
+\end{corollary}
+

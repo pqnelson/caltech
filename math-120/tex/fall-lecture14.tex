@@ -1,0 +1,153 @@
+%%
+%% fall-lecture14.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-30T08:16:22-0700
+%% Last update 2025-10-30T08:16:22-0700
+%% 
+
+\lecture{}
+
+\begin{definition}[Going-up property]
+Let $\phi\colon A\to B$ be a morphism of rings.
+We say the rings satisfy the \define{Going-Up Property} (or ``going-up
+holds for $\phi$'') if:
+for any prime ideals $P$, $P'\in\Spec(A)$ such that $P\subset P'$,
+for any prime ideal $Q\in\Spec(B)$ lying over $P$,
+there exists a prime ideal $Q'\in\Spec(B)$ lying over $P'$
+such that $Q\subset Q'$.
+
+Graphically, given the black data, the
+going-up property asserts the existence of the red data:
+\begin{equation*}
+\begin{array}{lcccc}
+B\colon&\quad& Q & {\color{red}\subset} & {\color{red}Q'}\\
+       &     & \rotatebox{90}{$\subset$} & & {\color{red}\rotatebox{90}{$\subset$}}\\
+A\colon&\quad& P & \subset & P'
+\end{array}
+\end{equation*}
+\end{definition}
+
+\begin{definition}[Going-down property]
+Let $\phi\colon A\to B$ be a morphism of rings.
+We say the rings satisfy the \define{Going-Down Property} (or, ``going-down
+holds for $\phi$'') if:
+for any prime ideals $P$, $P'\in\Spec(A)$ such that $P\subset P'$,
+for any prime ideal $Q'\in\Spec(B)$ lying over $P'$,
+there exists a prime ideal $Q\in\Spec(B)$ lying over $P$
+such that $Q\subset Q'$.
+
+Graphically, given the black data, the
+going-down property asserts the existence of the red data:
+\begin{equation*}
+\begin{array}{lcccc}
+B\colon&\quad& {\color{red}Q} & {\color{red}\subset} & Q'\\
+       &     & {\color{red}\rotatebox{90}{$\subset$}} & & \rotatebox{90}{$\subset$}\\
+A\colon&\quad& P & \subset & P'
+\end{array}
+\end{equation*}
+\end{definition}
+
+\begin{remark}
+This terminology (``going up'' and ``going down'') refers to the
+existence of an ascending or descending chain of ideals. Algebraists
+named these properties, which is why it refers to ``going up'' the
+chain (or ``going down'' the chain) of ideals.
+\end{remark}
+
+\begin{proposition}[Matsumara GD']
+Let $\phi\colon A\to B$ be a ring morphism.
+Then the going-down property is satisfied if and only if:
+for any prime ideal $P\in\Spec(A)$ and for any minimal prime
+over-ideal $Q$ of $PB$, we have $Q\cap A=P$.
+\end{proposition}
+
+\begin{example}[Matsumara 5.1]
+Let $\kk[x]$ be a ring, and suppose we have polynomials
+\begin{equation}
+x_{1}=x(x-1)
+\end{equation}
+and
+\begin{equation}
+x_{2}=x^{2}(x-1).
+\end{equation}
+The function field of $\kk[x]$ is $\kk(x)=\kk(x_{1},x_{2})$ --- since
+$x_{2}/x_{1}=x$. We may consider a map
+\begin{equation}
+\begin{split}
+\kk[x_{1},x_{2}]&\to\kk[x]\\
+x_{1}&\mapsto x(x-1)\\
+x_{2}&\mapsto x^{2}(x-1)
+\end{split}
+\end{equation}
+Note/caution: the domain of this map is the ring of polynomials in two
+unknowns, we are abusing notation (``punning''?) writing the unknowns
+as $x_{1}$ and $x_{2}$, and mapping them to the polynomials of the
+same name in $\kk[x]$.
+
+Now, we want to find a relation between the polynomials $x_{1}$ and
+$x_{2}$ such that $f\in\kk[x_{1},x_{2}]$ is mapped to zero under this
+transformation. For example, we see
+\begin{equation}
+x_{1}^{3}-x_{2}^{2}+x_{1}x_{2}\mapsto0.
+\end{equation}
+This means we have a nodal curve geometrically.
+The difficulty occurs at $x=0$ and $x=1$ are both mapped to
+$x_{1}=x_{2}=0$, the picture we should have is something like:
+\begin{equation*}
+\includegraphics{img/img.1}
+\end{equation*}
+We have two ideals $(x=0)$ and $(x=1)$ sent to the same $(0,0)$ ideal
+under the induced $\phi^{*}$ morphism.
+
+Now, let $B=\kk[x,y]$ and
+$A=\kk[x_{1},x_{2},y]/(x_{1}^{3}-x_{2}^{2}+x_{1}x_{2})$.
+We extend $\phi$ to send $y\mapsto y$.
+The intuition is that we're just ``adding another dimension''.
+We take an ideal corresponding to the red curves in the following
+sketch of the situation (the planar line is $y=ax$ for some $a\neq0$):
+\begin{equation*}
+\includegraphics{img/img.2}
+\end{equation*}
+We see that $B$ corresponds to the plane, $A$ corresponds to the\dots
+exotic situation on the left. There are 4 points in the plane which
+are mapped to the 2 points on the nodal surface.
+\end{example}
+
+\begin{theorem}[Matsumara 5D]
+If $\phi\colon A\to D$ is flat, then going down holds for $\phi$.
+\end{theorem}
+
+\begin{proof}
+Let $P'\subset P$ be prime ideals in $A$, and $Q\ideal B$ is lying over $P$.
+Then $B_{Q}$ is flat over $A_{P}$ (by Theorem~\ref{thm:matsumara-3j}).
+But $A_{P}\to B_{Q}$ is a local morphism, and so faithfully flat.
+Therefore the map $\Spec(B_{Q})\onto\Spec(A_{P})$ is surjective
+(because it's faithfully flat).
+Let $Q'^{*}\in\Spec(B_{Q})$ lying over $P'A_{P}$ by surjectivity.
+Then $Q'=Q'^{*}\cap B$ is a prime ideal of $B$ lying over $P'$.
+\end{proof}
+
+\begin{theorem}[Matsumara 5E]
+Let $B$ be a ring, let $A\subset B$ be a subring over which $B$ is integral
+(i.e., for each $b\in B$, there exists a monic $f\in A[x]$ such that $f(b)=0$).
+Then
+\begin{enumerate}
+\item $\Spec(B)\to\Spec(A)$ is surjective
+\item There is no inclusion relation between the prime ideals of $B$
+  lying over a fixed ideal of $A$ (if $Q\in\Spec(A)$ and
+  $P_{1},P_{2}\in\Spec(B)$ lie over $Q$, then we are not allowed to
+  have either $P_{1}\subset P_{2}$ or $P_{2}\subset P_{1}$).
+\item The going-up property holds.
+\item If $A$ is local, and $P\ideal A$ is its maximal ideal, then the
+  prime ideals of $B$ lying over $P$ are all the maximal ideals of $B$.
+\end{enumerate}
+\medbreak\noindent%
+If further $A$ and $B$ are integral domains and $A$ is integrally
+closed, then
+\begin{enumerate}[resume]
+\item Going-down holds.
+\end{enumerate}
+\end{theorem}

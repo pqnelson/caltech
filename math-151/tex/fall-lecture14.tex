@@ -1,0 +1,287 @@
+%%
+%% fall-lecture14.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-10-30T11:15:50-0700
+%% Last update 2025-10-30T11:15:50-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+\begin{enumerate}
+\item Our goal will be to relate the homology of CW complexes to the
+  homology of singular complexes.
+\item It is a useful fact that, for CW complexes $X$, if
+  $e^{n-1}_{\beta}$ is an $(n-1)$-cell, then the quotient of the
+  $(n-1)$-skeleton satisfies $X^{n-1}/(X^{n-1}\setminus e^{n-1}_{\beta})=\closure{e^{n-1}_{\beta}}/\boundary\closure{e^{n-1}_{\beta}}$
+  (which is just homeomorphic to the $\sphere{n}$).
+\end{enumerate}
+\end{node}
+
+\begin{theorem}
+The cellular homology is isomorphic to the singular homology, $H^{CW}_{*}(X)=H_{*}(X)$.
+\end{theorem}
+
+First, we need to relate the chain complexes.
+
+\begin{observation}
+We see that the CW chain complex satisfies
+\begin{subequations}
+\begin{equation}
+C^{CW}_{n}(X)\iso H_{n}(X^{n},X^{n-1}),
+\end{equation}
+but
+\begin{equation}
+H_{n}(X^{n},X^{n-1})\iso \widetilde{H}_{n}(X^{n}/X^{n-1}),
+\end{equation}
+and from the opening remark, we see
+\begin{equation}
+\widetilde{H}_{n}(X^{n}/X^{n-1}) = \widetilde{H}_{n}(\bigvee_{\alpha}\sphere{n}_{\alpha})=\bigoplus_{\alpha}\widetilde{H}_{n}(\sphere{n}_{\alpha}),
+\end{equation}
+since
+\begin{equation}
+X^{n}/X^{n-1}\iso\bigvee_{\alpha}\sphere{n}_{\alpha}.
+\end{equation}
+\end{subequations}
+\end{observation}
+
+\begin{node}[Boundary map]
+What is the boundary map? Well,
+\begin{equation}
+\vcenter{\xymatrix{H_{n}(X^{n},X^{n-1})\ar[rr]^{d_{n}}\ar[dr]_{\boundary_{n}} & & H_{n-1}(X^{n-1},X^{n-2})\\
+& H_{n-1}(X^{n-1})\ar[ur]_{j_{*}}}}
+\end{equation}
+where $\boundary_{*}$ is the connecting morphism in the long exact
+sequence for the pair $(X^{n},X^{n-1})$, and $j_{*}$ is the induced
+morphism from the quotient map
+\begin{equation}
+j_{*}\colon C_{*}(X^{n-1})\to C_{*}(X^{n-1},X^{n-2}).
+\end{equation}
+Why? Well, just look at
+\begin{equation}
+d_{\alpha\beta}=\deg(\boundary e^{n}_{\alpha}\xrightarrow{\text{bdry}}X^{n-1}\xrightarrow{\text{quotient}}X^{n-1}/(X^{n-1}\setminus e^{n-1}_{\beta}))
+\end{equation}
+and that's what's going on here. We won't prove it here.
+
+Now, we can look at the fragment of the long-exact sequences
+\begin{equation}
+\vcenter{\xymatrix{
+H_{n+1}(X^{n+1},X^{n})\ar[d]_{\boundary_{n+1}}\ar[dr]^{d_{n+1}} & & \\
+H_{n}(X^{n})\ar[r]^{j_{n}} & H_{n}(X^{n},X^{n-1})\ar[r]^{\boundary_{n}}\ar[dr]_{d_{n}} & H_{n-1}(X^{n-1})\ar[d]^{j_{n-1}}\\
+& & H_{n-1}(X^{n-1},X^{n-2})}}
+\end{equation}
+When we look at the second row, it's just part of the long exact
+sequence for the pair $(X^{n},X^{n-1})$. We can complete the diagram,
+filling in a few objects and arrows
+\begin{equation}\label{eq:fall-lec14:messy-diagram}
+\vcenter{\xymatrix{
+&H_{n+1}(X^{n+1},X^{n})\ar[d]_{\boundary_{n+1}}\ar[dr]^{d_{n+1}} & & H_{n-1}(X^{n})\ar[d]\\
+H(X^{n-1})\ar[r]&H_{n}(X^{n})\ar[d]\ar[r]^-{j_{n}} & H_{n}(X^{n},X^{n-1})\ar[r]^{\boundary_{n}}\ar[dr]_{d_{n}} & H_{n-1}(X^{n-1})\ar[d]^{j_{n-1}}\\
+&H_{n}(X^{n+1})\ar[d]& & H_{n-1}(X^{n-1},X^{n-2})\\
+&H_{n}(X^{n+1},X^{n})& &}}
+\end{equation}
+The left and right columns (which we have added more arrows vertically
+to) are obtained using long exact sequences.
+\end{node}
+
+\begin{lemma}
+If $X'$ is attached from $X$ by attaching an $n$-cell, then
+$H_{i}(X')\iso H_{i}(X)$ if $i\neq n-1,n$.
+\end{lemma}
+
+\begin{proof}
+  Look at the long exact sequence
+  \begin{equation}
+H_{i+1}(X',X)\to H_{i}(X)\to H_{i}(X')\to H_{i}(X',X).
+  \end{equation}
+  But $H_{i+1}(X',X)=0$ and $H_{i}(X',X)=0$ when $i\neq n-1,n$. This
+  gives us the isomorphism. Furthermore
+  \begin{equation}
+H_{k}(X',X)\iso\widetilde{H}_{k}(X'/X)\iso\widetilde{H}_{k}(\sphere{n})
+  \end{equation}
+  only in dimension $k=n$.
+\end{proof}
+
+\begin{corollary}
+We have
+$H_{i}(X^{n})=0$ if $i>n$, and $H_{i}(X^{n})\iso H_{i}(X)$ if $i<n$.
+\end{corollary}
+
+\begin{node}
+Returning to the diagram in Equation~\eqref{eq:fall-lec14:messy-diagram},
+we see that the previous results allow us to replace some of the
+entries with zeros
+\begin{equation}
+\vcenter{\xymatrix{
+&H_{n+1}(X^{n+1},X^{n})\ar[d]_{\boundary_{n+1}}\ar[dr]^{d_{n+1}} & & 0\ar[d]\\
+0\ar[r]&H_{n}(X^{n})\ar[d]\ar[r]^-{j_{n}} & H_{n}(X^{n},X^{n-1})\ar[r]^{\boundary_{n}}\ar[dr]_{d_{n}} & H_{n-1}(X^{n-1})\ar[d]^{j_{n-1}}\\
+&H_{n}(X^{n+1})\ar[d]& & H_{n-1}(X^{n-1},X^{n-2})\\
+&0& &}}
+\end{equation}
+\textsc{Goal:} We want to prove $H_{n}\iso\ker(d_{n})/\Im(d_{n+1})$.
+
+We see that $j_{n+1}$ is injective, which implies
+\begin{equation}
+\ker(d_{n})=\ker(\boundary_{n})=\Im(j_{n})=j_{n}(H_{n}(X^{n})).
+\end{equation}
+Now, what is $\Im(d_{n+1})$? We see by commutativity of the diagram,
+\begin{subequations}
+\begin{align}
+\Im(d_{n+1}) &= j_{n}(\Im(\boundary_{n}))\\
+&= j_{n}(\ker(i_{n})).
+\end{align}
+\end{subequations}
+Since $j_{n}$ is injective, we know
+\begin{subequations}
+\begin{align}
+\ker(d_{n})/\Im(d_{n+1}) &= j\bigl(H_{n}(X^{n})/\ker(i_{n})\bigr)\\
+&\iso H_{n}(X^{n})/\ker(i_{n}),
+\end{align}
+but $i_{n}$ is surjective, so basic algebra gives us
+\begin{align}
+\ker(d_{n})/\Im(d_{n+1}) &\iso \Im(i_{n})\\
+&\iso H_{n}(X^{n+1}).
+\end{align}
+\end{subequations}
+Hence the result.
+\end{node}
+
+\subsection{Euler Characteristic}
+
+\begin{definition}
+Let $C_{*}$ be a finitely-generated chain complex, so there are only
+finitely many $C_{n}$ and each are finitely-generated as Abelian groups.
+Let $\alpha_{n}=\rank(C_{n})$. (Recall, a finitely-generated Abelian
+group $A\iso\ZZ^{r}\oplus T$ where $T$ is a finite group called the
+Torsion group; here $r=\rank(A)$.) Then the \define{Euler Characteristic} of $C$
+is defined to be
+\begin{equation*}
+\chi(C):=\sum_{n}(-1)^{n}\alpha_{n}.
+\end{equation*}
+\end{definition}
+
+\begin{definition}
+The $n^{th}$ \define{Betti Number} of $C$ is defined to be $\beta_{n}:=\rank(H_{n}(C_{*}))$.
+\end{definition}
+
+\begin{definition}
+The \define{Poincar\'{e} Polynomial} of $C$ is defined to be 
+\begin{subequations}
+\begin{equation}
+P(t) := \sum_{n}\beta_{n}t^{n}
+\end{equation}
+the generating function for the Betti numbers of $C$. Some authors
+give the following as the Poincar\'{e} polynomial
+\begin{equation}
+Q(t) := \sum_{n}\alpha_{n}t^{n}
+\end{equation}
+(the generating function for the $\alpha_{n}=\rank(C_{n})$).
+\end{subequations}
+\end{definition}
+
+\begin{theorem}
+There exists a polynomial with non-negative coefficients $R(t)$ such
+that $(1-t)R(t) = Q(t)-P(t)$.
+\end{theorem}
+
+\begin{proof}
+Let
+\begin{equation}
+C_{n+1}\xrightarrow{\boundary_{n+1}} C_{n}\xrightarrow{\boundary_{n}}C_{n-1},
+\end{equation}
+let $\xi_{n}=\rank(\ker(\boundary_{n}))$ and $b_{n}=\rank(\Im(\boundary_{n+1}))$.
+Then $C_{n}/\ker(\boundary_{n})\iso\Im(\boundary_{n})$.
+
+This implies
+\begin{equation}
+\alpha_{n}-\xi_{n}=b_{n}-1.
+\end{equation}
+We also know that, by definition,
+\begin{equation}
+\ker(\boundary_{n})/\Im(\boundary_{n+1})=H_{n}(C).
+\end{equation}
+Then $\xi_{n}-b_{n}=\beta_{n}$, by looking atthe ranks of the groups 
+$\ker(\boundary_{n})$, $\Im(\boundary_{n+1})$, and $H_{n}(C)$. Then
+\begin{subequations}
+\begin{align}
+Q(t)-P(t) &= \sum_{n}(\xi_{n}+b_{n-1})t^{n}-(\xi_{n}-b_{n})t^{n}\\
+&= \sum_{n}(b_{n-1}+b_{n})t^{n}\\
+&= (1+t)\sum_{n}b_{n}t^{n},
+\end{align}
+\end{subequations}
+and $b_{n}\geq0$ since it's a rank. Hence the result.
+\end{proof}
+
+\begin{corollary}[Euler-Poincar\'{e} formula]
+We see $Q(-1)=P(-1)$, i.e.,
+\begin{equation*}
+\chi(C) = \sum_{n}(-1)^{n}\beta_{n}.
+\end{equation*}
+\end{corollary}
+
+\begin{example}
+Given a convex polyhedron, we know
+\begin{equation}
+\#(\mbox{vertices})-\#(\mbox{edges})+\#(\mbox{faces})=2.
+\end{equation}
+This is Euler's famous formula. The polyhedron gives a CW complex of
+$\sphere{2}$, and Euler's formula is an alternating sum of Betti numbers.
+\end{example}
+
+\begin{corollary}[Morse inequality]
+For any $q\geq0$,
+\begin{equation*}
+\alpha_{q}-\alpha_{q-1}+\cdots+(-1)^{q}\alpha_{0}\geq\beta_{q}-\beta_{q-1}+\cdots+(-1)^{q}\beta_{0}.
+\end{equation*}
+\end{corollary}
+
+\begin{proof}
+This follows immediately from $Q(t)-P(t)=(1-t)R(t)$, just truncate it
+up to order $q$ and then set $t=-1$.
+\end{proof}
+
+\begin{remark}
+Why prove formulas like this? Well, the right-hand side of Morse's
+inequality depends only on the topology of the space. The left-hand
+side tells us something about the number of cells in the complex. So
+from thjis, we can estimate the number of cells (or a lower bound for
+it). Why do this? Well, Morse theory needs this. So it really tells us
+something about the critical points of a function.
+\end{remark}
+
+\begin{definition}
+If $X$ is a finite CW complex, we can just define the
+\define{Euler Characteristic} of $X$ to be,
+\begin{equation}
+\chi(X) := \sum_{n}(-1)^{n}\alpha_{n}=\sum_{n}(-1)^{n}\rank(H_{n}(X))
+\end{equation}
+by Euler-Poincar\'{e}.
+\end{definition}
+
+\begin{example}
+If $\Sigma_{g}$ is an orientable closed surface of genus $g$, we know
+\begin{equation}
+H_{k}(\Sigma_{g}) = \begin{cases}
+\ZZ & \mbox{if }k=0,2\\
+\ZZ^{2g} & \mbox{if }k=1,
+\end{cases}
+\end{equation}
+and therefore $\chi(\Sigma_{g})=2-2g$.
+\end{example}
+
+\begin{example}
+Closed nonorientable surface of genus $g$ which we denoted as $\Pi_{g}$
+has its Euler characteristic be $\chi(\Pi_{g})=2-g$.
+(Why $\Pi_{g}$ as notation for this space? Because $\Pi$ is Greek for
+``P'', and since the projective plane is not orientable, we use $\Pi$
+for it.)
+\end{example}
+
+\begin{example}
+If $T$ is a tree of $n$ vertices, then $T$ has $n-1$ edges.
+We see $T$ is a contractible graph, then $\chi(T)=1$. Hence we see
+there must be $n-1$ edges for this to hold.
+\end{example}
