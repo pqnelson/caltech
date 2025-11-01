@@ -1181,4 +1181,89 @@ beginfig(46)
   label.urt(btex $e^{k}_{+}$ etex, z2);
   label.lrt(btex $e^{k}_{-}$ etex, z3);
 endfig;
+
+% lecture 15
+beginfig(47) % Mobius strip
+  path p[];
+  pair t;
+  numeric i,w,l,dt,start; w = 1.5u;
+  z0 = (0,0);
+  z1 = (-4u,-3u);
+  z2 = (0,-6u);
+  z3 = (3u,-3u);
+  z4 = z0 + (0,-w);
+  z5 = z1 + (w, 0);
+  z6 = z2 + (0, w);
+  z7 = z3;
+  p0 = z0..z1..z2..z3..z4..z5..z6..z7..cycle;
+  p1 = z3..(0.5[z0,z4])..(0.5[z1,z5])..(0.5[z2,z6])..cycle;
+  l = length(p0);
+  dt=l/64;
+  start=(-l/8);
+  draw (point (start + 2dt) of p0)--(point ((3l/8)+dt) of p0) withcolor
+    0.9white;
+  draw (point (start + 3dt) of p0)--(point ((3l/8)+2dt) of p0) withcolor
+    0.9white;
+  draw (point (start - dt) of p0)--(point ((3l/8)-2dt) of p0) withcolor
+    0.9white;
+  draw (point (start - 2dt) of p0)--(point ((3l/8)-3dt) of p0) withcolor
+    0.9white;
+  dt := l/32;
+  t = (subpath (0,l/2) of p0) intersectiontimes (subpath (l/2,l) of p0);
+  for i=2dt step dt until ((xpart t)+2dt):%(3l/8):
+    draw (point (start + i) of p0)--(point ((3l/8)+i) of p0)
+      withcolor 0.9white;
+  endfor;
+  draw p0;
+  draw p1 withcolor red;
+endfig;
+
+beginfig(48) % Mobius strip
+  path p[];
+  pair t;
+  numeric i,w,l,dt,start; w = 1.5u;
+  z0 = (0,0);
+  z1 = (-4u,-3u);
+  z2 = (0,-6u);
+  z3 = (3u,-3u);
+  z4 = z0 + (0,-w);
+  z5 = z1 + (w, 0);
+  z6 = z2 + (0, w);
+  z7 = z3;
+  p0 = z0..z1..z2..z3..z4..z5..z6..z7..cycle;
+  p1 = z3..(0.5[z0,z4])..(0.5[z1,z5])..(0.5[z2,z6])..cycle;
+  l = length(p0);
+  dt=l/64;
+  start=(-l/8);
+  draw (point (start + 2dt) of p0)--(point ((3l/8)+dt) of p0) withcolor
+    0.9white;
+  draw (point (start + 3dt) of p0)--(point ((3l/8)+2dt) of p0) withcolor
+    0.9white;
+  draw (point (start - dt) of p0)--(point ((3l/8)-2dt) of p0) withcolor
+    0.9white;
+  draw (point (start - 2dt) of p0)--(point ((3l/8)-3dt) of p0) withcolor
+    0.9white;
+  dt := l/32;
+  t = (subpath (0,l/2) of p0) intersectiontimes (subpath (l/2,l) of p0);
+  for i=2dt step dt until ((xpart t)+2dt):%(3l/8):
+    draw (point (start + i) of p0)--(point ((3l/8)+i) of p0)
+      withcolor 0.9white;
+  endfor;
+  draw p0;
+  draw p1 withcolor red;
+  z8 = point (start + 5dt) of p0;
+  z9 = point ((3l/8) + 5dt) of p0;
+  % label(btex $\bullet$ etex, z8);
+  % label(btex $\bullet$ etex, z9);
+  p2 = (fullcircle scaled 4u shifted (z3 + (4u,0)));
+  draw p2;
+  l := -length(p2)/8;
+  z10 = point (l) of p2;
+  z11 = point (l + 0.5length(p2)) of p2;
+  for i:=8 upto 11:
+    label(btex $\bullet$ etex, z[i]);
+  endfor;
+  label.ulft(btex $p(x)$ etex, z11);
+  label.lrt(btex $x$ etex, z10);
+endfig;
 end;

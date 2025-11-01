@@ -1,0 +1,247 @@
+%%
+%% fall-lecture15.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-01T10:22:21-0700
+%% Last update 2025-11-01T10:22:21-0700
+%% 
+
+\lecture{}
+
+\begin{lemma}
+Let 
+\begin{equation}
+0\to A\xrightarrow{i}B\xrightarrow{j}C\to 0
+\end{equation}
+be a short exact sequence of Abelian groups. Then the following are equivalent:
+\begin{enumerate}
+\item $\exists p\colon B\to A\ldotp p\circ i=\id_{A}$
+\item $\exists s\colon C\to B\ldotp j\circ s=\id_{C}$
+\item There exists an isomorphism $B\iso A\oplus C$ using the
+  following commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{
+0\ar[r] & A\ar@{=}[d]\ar[r]^{i} & B\ar[d]^-{\iso}\ar[r]^{j} & C\ar[r]\ar@{=}[d] & 0\\
+0\ar[r] & A\ar[r]^-{i} & A\oplus C\ar[r]^-{\pi} & C\ar[r] & 0}}
+\end{equation}
+where $A\to A\oplus C$ sends $a\mapsto(a,0)$ and $\pi(a,c)=c$ is the
+projection morphism.
+\end{enumerate}
+If any of these conditions are satisfied, we say the short exact
+sequence is \define{Split}.
+\end{lemma}
+
+\begin{proof}
+$(1)\implies(3)$ Hint: if $b\in B$, then $b=(i\circ p)(b) + (\id-i\circ p)(b)$.
+We claim $i\colon A\to (i\circ p)(B)$ is an isomorphism and
+$j\colon(\id-i\circ p)(B)\to C$ is also an isomorphism.
+Then $j(\id- i\circ p)(b)=j(b)$ establishes surjectivity in the second chain.
+\end{proof}
+
+\begin{corollary}
+If $A\subset X$ is a retract, then we have a split short exact
+sequence
+\begin{equation}
+0\to H_{*}(A)\to H_{*}(X)\to H_{*}(X,A)\to0.
+\end{equation}
+In particular, we should have $H_{*}\iso H_{*}(A)\oplus H_{*}(X,A)$.
+\end{corollary}
+
+\begin{proof}
+We have a retract map $r\colon X\to A$ such that $i\colon A\into X$
+(the inclusion map) satisfies $r\circ i=\id_{A}$. Then consider the
+induced map on homology, $r_{*}\circ i_{*}\colon H_{*}(A)\to H_{*}(A)$.
+Now consider the long exact sequence for the pair $(X,A)$ written as a
+triangle
+\begin{equation}
+\vcenter{\xymatrix{
+H_{*}(A)\ar[rr]_{i_{*}} & & \ar@/_1.5pc/[ll]_{r_{*}}\ar[dl]^{j_{*}} H_{*}(X)\\
+& \ar[ul]^{\boundary_{*}}H_{*}(X,A)}}
+\end{equation}
+but this implies $i_{*}$ is injective. This means we can write this as
+a short exact sequence
+\begin{equation}
+0\to H_{*}(A)\to H_{*}(X)\xrightarrow{j_{*}}H_{*}(X,A)\to 0,
+\end{equation}
+so by our previous Lemma, itt follows this short exact sequence is split.
+\end{proof}
+
+\begin{example}
+The M\"{o}bius band $X$ does not retract onto its boundary circle.
+\begin{equation*}
+\includegraphics{img/img.47}
+\end{equation*}
+We want to prove $H_{1}(X)\not\iso H_{1}(\boundary X)\oplus H_{1}(X,\boundary{X})$,
+we know $X\homotopic\sphere{1}$ homotopic and $\boundary X\homotopic\sphere{1}$,
+so we know
+\begin{subequations}
+\begin{align}
+  H_{1}(X) &\iso\ZZ\\
+  \intertext{and}
+  H_{1}(\boundary X) &\iso\ZZ.
+\end{align}
+\end{subequations}
+All we need to do is consider $H_{1}(X,\boundary X)$.
+
+Now, let
+\begin{equation}
+\widehat{X}=X\cup \disk{2}
+\end{equation}
+be glued along the boundary $\boundary X=\sphere{1}$. We see that
+$\widehat{X}$ is the projective plane. This is because, if
+$p\colon\disk{2}\to\disk{2}$ is the antipodal map, as doodled thus:
+\begin{equation*}
+\includegraphics{img/img.48}
+\end{equation*}
+We see by the Excision Theorem
+\begin{subequations}
+\begin{align}
+H_{1}(X, \boundary X) &\iso H_{1}(\widehat{X},\boundary\disk{2})\\
+&\iso H_{1}(\widehat{X},\point{x})\\
+&\iso\widetilde{H}_{1}(\widehat{X})\\
+&\iso H_{1}(\widehat{X})\iso\ZZ/2\ZZ.
+\end{align}
+\end{subequations}
+So if it could retract, we'd have a direct sum
+\begin{equation}
+\underbrace{H_{1}(X)}_{\iso\ZZ}\iso\underbrace{H_{1}(\boundary X)}_{\iso\ZZ}\oplus\underbrace{H_{1}(X,\boundary X)}_{\iso\ZZ/2\ZZ}
+\end{equation}
+but $\ZZ\not\iso\ZZ\oplus(\ZZ/2\ZZ)$.
+
+(Another approach: $i_{*}\colon H_{1}(\boundary X)\to H_{1}(X)$ is
+multiplication by 2, which does not have a retraction [right inverse].)
+\end{example}
+
+\begin{node}
+Recall, the real projective space has nonzero homology groups be
+\begin{equation}
+H_{i}(\RP^{n})\iso\begin{cases}\ZZ/2\ZZ & \mbox{if $i<n$ and $i$ odd}\\
+\ZZ & \mbox{if $i=0$ or ($i=n$ and $i$ odd)},
+\end{cases}
+\end{equation}
+and the chain complex looks like
+\begin{equation}
+\begin{array}{ccccccccccc}
+\dots & \to & C_{3} & \to & C_{2} & \to & C_{1} & \to & C_{0} & \to & 0\\
+\dots & \xrightarrow{2} & \ZZ & \to & \ZZ & \xrightarrow{2} & \ZZ & \to & \ZZ & \xrightarrow{2} & 0\\
+\end{array}
+\end{equation}
+\end{node}
+
+\begin{definition}
+Let $G$ be an Abelian group.
+Let $X$ be a topological space.
+We define the \define{Chain Complex with Coefficients in $G$} to be
+$C_{*}(X;G):=C_{*}(X)\otimes G$, and the boundary map is given by
+$\boundary_{G}:=\boundary\otimes1$.
+
+We can also define the \define{Homology Groups with Coefficients in $G$}
+to be $H_{*}(X;G):=\ker(\boundary_{G})/\Im(\boundary_{G})$.
+\end{definition}
+
+\begin{example}
+The real projective space $\RP^{n}$ has a simple homology group with
+coefficients in $\ZZ/2\ZZ$:
+\begin{equation}
+H_{k}(\RP^{n};\ZZ/2\ZZ)\iso\begin{cases}
+\ZZ/2\ZZ & \mbox{if }0\leq i\leq n\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+\end{example}
+
+\begin{definition}[Bockstein Homomorphism]
+If we have a short exact sequence of Abelian groups
+\begin{equation}
+0\to G'\to G\to G''\to 0,
+\end{equation}
+since $C_{*}(X)$ is free Abelian, after tensoring it with the short
+exact sequence, we get the short exact sequence
+\begin{equation}
+0\to C_{*}(X;G')\to C_{*}(X;G)\to C_{*}(X;G'')\to 0.
+\end{equation}
+Hence we obtain the long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{
+H_{*}(X;G')\ar[rr] & & \ar[dl] H_{*}(X;G)\\
+&\ar[ul]^{\beta_{*}}H_{*}(X;G'') & }}
+\end{equation}
+where $\beta_{*}$ corresponds to the connecting morphism and is
+defined to be the \define{Bockstein Homomorphism}.
+\end{definition}
+
+\begin{xca}
+What is $\beta_{*}$ for $\RP^{n}$ for the short exact sequences:
+\begin{enumerate}
+\item $0\to\ZZ\to\ZZ\to\ZZ/2\ZZ\to0$
+\item $0\to\ZZ/2\ZZ\to\ZZ/4\ZZ\to\ZZ/2\ZZ\to0$
+\end{enumerate}
+\end{xca}
+
+\subsection{Eilenberg--Steenrod Axioms}
+
+\begin{remark}
+In the 1930s, there were a lot of different homologies being
+constructed. Mathematicians asked if they were ``the same'' (in some sense).
+\end{remark}
+
+\begin{definition}
+For each pair $(X,A)$ we define a \define{Homology Theory} consist of three functions,
+\begin{enumerate}
+\item $h_{*}(X,A)$ is a graded Abelian group;
+\item If $f\colon(X,A)\to(Y,B)$ is a continuous mapping, then we have
+  the induced map $f_{*}\colon h_{*}(X,A)\to h_{*}(Y,B)$
+\item Boundary map: $\boundary\colon h_{*}(X,A)\to h_{*-1}(A)=h_{*-1}(A,\emptyset)$,
+  where $(A,\emptyset)$ may be considered as a pair;
+\end{enumerate}
+such that they satisfy the \define{Eilenberg--Steendrod Axioms}:
+\begin{enumerate}[label=A\arabic*:, ref=(A\arabic*)]
+\item \textsc{Identity law:} if $f=\id$, then $f_{*}=\id\colon h_{*}(X,A)\to h_{*}(X,A)$;
+\item \textsc{Composition law:} $(f\circ g)_{*}=f_{*}\circ g_{*}$;
+\item \textsc{Naturality:} if $f\colon(X,A)\to(Y,B)$ is continuous,
+  then $\boundary f_{*}=(f|_{A})_{*}\boundary$, i.e., the following
+  diagram commutes
+  \begin{equation}
+\vcenter{\xymatrix{
+h_{*}(X,A)\ar[r]^{f_{*}} & h_{*}(Y,B)\ar[d]^{\boundary}\\
+h_{*-1}(X,A)\ar[r]^{(f|_{A})_{*}} & h_{*-1}(Y,B)}}
+  \end{equation}
+\item \textsc{Exactness:} If $i\colon(A,\emptyset)\into(X,\emptyset)$
+  and $j\colon(B,\emptyset)\into(Y,\emptyset)$ are inclusion mappings,
+  then we have the long exact triangle:
+  \begin{equation}
+\vcenter{\xymatrix{
+h_{*}(A)\ar[rr]^{i_{*}} & & \ar[dl]^{j_{*}} h_{*}(X)\\
+ & \ar[ul]_{\boundary}^{[-1]}h_{*}(X,A) & }}
+  \end{equation}
+\item \textsc{Homotopy Axiom:} If $f\homotopic g$ homotopic as maps
+  $(X,A)\to(Y,B)$, then $f_{*}=g_{*}\colon h_{*}(X,A)\to h_{*}(Y,B)$
+\item \textsc{Excision Axiom:} If $Z\subset A\subset X$ such that
+  $\cl(Z)\subset\Interior(A)$, then the inclusion
+  $(X\setminus Z,A\setminus Z)\into(X,A)$ induces an isomorphism
+  $h_{*}(X\setminus Z,A\setminus Z)\xrightarrow{\iso}h_{*}(X,A)$;
+\item\label{axiom:eilenberg-steenrod:dimension} \textsc{Dimension Axiom:} $h_{q}(\point{x})=0$ if $q\neq0$.
+\end{enumerate}
+Taken altogether, we generically speak of a
+\define{Eilenberg--Steenrod Homology Theory}.
+\end{definition}
+
+\begin{theorem}
+If $(X,A)$ is a CW pair, let $G=h_{0}(\point{x})$, then
+$h_{*}(X,A)\iso H_{*}(X,A;G)$.
+\end{theorem}
+
+\begin{node}
+If you have a homology theory satisfying the Eilenberg--Steenrod
+axioms, then for a CW pair all the homology theories are really just
+the same. This could be viewed as a ``grand unified theory'' for
+homology theory.
+\end{node}
+
+\begin{definition}
+A \define{Generalized Homology Theory} is one which satisfies all the
+Eilenberg--Steenrod axioms \emph{except} the dimension axiom~\ref{axiom:eilenberg-steenrod:dimension}. (We will
+not discuss it in this course.)
+\end{definition}

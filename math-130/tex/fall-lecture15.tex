@@ -1,0 +1,258 @@
+%%
+%% fall-lecture15.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-01T11:48:27-0700
+%% Last update 2025-11-01T11:48:27-0700
+%% 
+
+\lecture{}
+
+\begin{remark}
+A few words about Blow-Ups: the Blow-up really depends on the ideal
+$I$ and not just $V(I)$. For example, the cusp $C$ described by the
+curve $y^{2}-x^{3}$ in the plane, we have
+\begin{equation}
+\CoordRing{\kk}{C} = \kk[x,y]/\langle y^{2}-x^{3}\rangle
+\end{equation}
+we see there are ideals
+\begin{equation}
+I = \langle\bar{x},\bar{y}\rangle,\quad\mbox{and}\quad J=\langle\bar{x}\rangle
+\end{equation}
+such that $I=\Radical{I}=\Radical{J}\neq J$ beause $\bar{y}\notin J$.
+Then $V(I)=V(J)=\{(0,0)\}$. But $\Bl_{I}(C)\neq\Bl_{J}(C)=C$. When we
+say B lowing-Up at a subvariety $Y$, we are talking about the radical
+ideal $I(Y)$.
+\end{remark}
+
+\begin{proposition}[Generic smoothness]
+$X_{\text{sing}}\propersubset X$ closed proper.
+\end{proposition}
+
+\begin{proof}
+For $X=V(f)\subset\AA^{n}$ is a hypersurface, where $f$ is a
+non-constant irreducible polynomial $f\in\kk[x_{1},\dots,x_{n}]$.
+Assume $X$ is singular everwhere. Then the Jacobian matrix $J$ must
+have rank zero everwhere (by Jacobian criterion),
+\begin{equation}
+\rank(J)=\rank(\partial f/\partial x_{i})=0.
+\end{equation}
+Then $\partial f/\partial x_{i}\in I(X)=\langle f\rangle$ by Nullstellensatz.
+But $\partial f/\partial x_{i}$ must have a smaller degree than $f$,
+so these must vanish for all $i$, $\partial f/\partial x_{i}=0$.
+
+If $\Char(\kk)=0$, then we have our contradiction.
+
+If $\Char(\kk)\neq0$, then
+\begin{equation}
+\begin{split}
+f &= \sum_{i_{1},\dots,i_{n}}a_{i_{1},\dots,i_{n}}x_{1}^{pi_{1}}(\cdots)x_{n}^{pi_{n}}\\
+&= \left(\sum\dots\right)^{p}
+\end{split}
+\end{equation}
+by Freshmen's dream. Hence we contradict $f$ being irreducible.
+\end{proof}
+
+\begin{theorem}
+Every irreducible variety $X$ of dimension $n$ is birational to a
+surface in $\AA^{n+1}$.
+\end{theorem}
+
+\begin{proof}
+\textsc{Stipulation 1:} $\trdeg\FunField{X}=n$ implies $\FunField{X}$
+can be realized as a finite and separable extension of $\kk[x_{1},\dots,x_{n}]$.
+
+\textsc{Stipulation 2:} If we have such a field extension, then using
+the primitive element theorem implies $\FunField{X}$ can be generated
+b y a single element $y$ over $\kk[x_{1},\dots,x_{n}]$.
+
+Then $\FunField{X}\iso\kk(x_{1},\dots,x_{n})[x_{n+1}]/(f)$ where $f$
+is an irreducible polynomial with coefficients in $\kk(x_{1},\dots,x_{n})$.
+Clear the denominators and then consider $f\in\kk[x_{1},\dots,x_{n},x_{n+1}]$
+with coefficients in $\kk$. We see that
+\begin{equation}
+\kk(x_{1},\dots,x_{n})[x_{n+1}]/(f)\iso(\kk[x_{1},\dots,x_{n},x_{n+1}]/(f))_{0}
+\end{equation}
+where the right-hand side is the field of fractions of the ring $\kk[\dots]/(f)$.
+Hence the result.
+\end{proof}
+
+\subsection{Nonsingular Curves over Algebraically Closed Fields}
+
+\begin{node}[Motivating Question]
+If $K$ is some function field of dimension 1 over $\kk$ (where
+$\kk\subset K$ ios a finitely-generated field extension of $\trdeg_{\kk}(K)=1$),
+can we always find a non-singular curve $C$ such that $K=\FunField{C}$?
+\end{node}
+
+First, a review of a few topics in commutative algebra.
+
+\begin{definition}
+Let $R$ be an integral domain, let $K$ be its field of fractions.
+We say $R$ is a  \define{Valuation Ring} of $K$ if for all $x\in K\setminus\{0\}$,
+$x\in R$ or $x^{-1}\in R$.
+\end{definition}
+
+\begin{proposition}
+\begin{enumerate}
+\item A valuation ring $R$ is a local ring;
+\item Valuation rings are integrally closed.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item Consider all non-units of $R$ which is an ideal of $R$, hence
+  closed under scalar multiplication and addition. Let $I=\{x\in R\mid
+  x\mbox{ is not unit}\}$.
+  Then for all $x\in I$, either $x=0$ or $x^{-1}\notin R$.
+  Then for all $a\in R$ and $x\in I$, we have $ax\in \mathfrak{m}$ or
+  ($(ax)^{-1}\in R$ which implies $x^{-1}\in R$ which implies
+  contradiction).
+  And for all non-zero $x,y\in I\setminus0$, we have
+  \begin{equation}
+x+y=x(1+x^{-1}y)=y(y^{-1}x+1),
+  \end{equation}
+  so either $x^{-1}y\in R$ or $y^{-1}x\in R$, and both implies $x+y\in I$.
+\item Let $x^{n}+b_{1}x^{n-1}+\cdots+b_{0}=0$ where $x\neq0$ and
+  $b_{i}\in R$ for each $i$. Then either $x\in R$ or $x^{-1}\in R$,
+  but if $x^{-1}\in R$ we have:
+  \begin{equation}
+x=-b_{1}x^{-1}-\cdots-b_{n}x^{-n-1}.
+  \end{equation}
+  Hence $x\in R$.
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+Let $(A,\mathfrak{m}_{A})$, $(B,\mathfrak{m}_{B})$ be local rings which are subrings of the same field $\kk$.
+We say that $B$ \define{Dominates} $A$ if $A\subset B$ and $\mathfrak{m}_{A}=A\cap\mathfrak{m}_{B}$.
+\end{definition}
+
+\begin{theorem}
+Let $(R,\mathfrak{m})\subset\kk$ be a local ring.
+Then $R$ is a valuation ring with respect to $\kk$ if and only if $R$
+is maximal with respect to domination.
+\end{theorem}
+
+\begin{proof}
+\forwardproof\ Suppose $R\subset S\subset\kk$ and $S$ dominates $R$.
+Then $S$ is local and $\mathfrak{m}_{S}\cap R=\mathfrak{m}_{R}$. We
+want to show $R=S$.
+
+For any $y\in S$, we have either $s\in R$ or $s^{-1}\in R$.
+If $y^{-1}\in R$, then $y\notin\mathfrak{m}_{S}$. Then $y\notin\mathfrak{m}_{R}$.
+Since $y$ is not a non-unit in $R$, we have $y$ must be in $R$.
+\end{proof}
+
+\begin{node}
+If we have a curve $C$, it is a variety of dimension 1 over $\kk$,
+and if $p\in C$ is a smooth point, then its stalk $\RegularFuns_{C,p}$
+is a regular local ring of dimension 1.
+\end{node}
+
+\begin{theorem}\label{thm:fall-lec15:tfae}
+Let $(R,\mathfrak{m})$ be a Noetherian local ring of dimension 1,
+$\kk:=R/\mathfrak{m}$, and its field of fractions $K=R_{0}$. The
+following are equivalent:
+\begin{enumerate}
+\item $R$ is a discrete evaluation ring of $K/\kk$;
+\item $R$ is integrally closed and $R\subset K$;
+\item $R$ is regular;
+\item $\mathfrak{m}$ is principal.
+\end{enumerate}
+(Nakayama lemma proves these last two are equivalent.)
+\end{theorem}
+
+\begin{definition}
+Let $R$ be an integral domain, let $K=R_{0}$ its field of fractions.
+Suppose $\kk\subset K$.
+We call $R$ a \define{Discrete Valuation Ring} of $K$ over $\kk$
+if
+\begin{enumerate}
+\item there exists a \define{Valuation} $v\colon K\setminus0\to\ZZ$
+  such that $v(xy)=v(x)+v(y)$ and $v(x+y)=\min(v(x),v(y))$ and for any
+  $x\in\kk\setminus0$ we have $v(x)=0$;
+\item $R=\{x\in K\mid v(x)\geq0\}\cup\{0\}$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}
+\item Note that property (1) for a discrete valuation ring of $K$ over
+  $\kk$ implies $R$ is a valuation ring. Further, $R$ is a local
+ring whose maximal ideal $\mathfrak{m}=\{x\in K\mid v(x)>0\}\cup\{0\}$.
+\item Then the theorem implies $\RegularFuns_{C,p}$ is a discrete
+  valuation ring of $K$ over $\kk$ where $K=\FunField{C}$ is the
+  function field for the curve.
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+Let 
+\begin{equation}
+\kk\subset\underbrace{\kk[t]_{\langle t\rangle}}_{\RegularFuns_{C,0}}\subset\kk(t),
+\end{equation}
+let $f\in\kk(t)$ be equal to $f=p/q$ where $p=t^{n}p_{0}$ and $q=t^{m}q_{0}$
+where $p_{0}(0)\neq0$ and $q_{0}(0)\neq0$. Then $f=u\cdot t^{n-m}$
+where $u\in\RegularFuns_{C,0}\setminus\mathfrak{m}_{0}$. Write
+$v(f)=n-m$ for the order of vanishing.
+\end{example}
+
+\begin{proposition}\label{prop:fall-lec15:domain-int-closed-iff-every-localization-closed}
+A domain $A$ is integrally closed if and only if every maximal ideal
+$P\in\MSpec(A)$ has $A_{P}$ be integrally closed.
+\end{proposition}
+
+\begin{proof}
+\forwardproof\ Trivial.
+\backwardproof\ Since $A=\bigcap A_{P}\subset\FunField{X}$.
+\end{proof}
+
+\begin{definition}
+A \define{Dedekind Domain} is an integrally closed Noetherian domain
+of dimension 1.
+\end{definition}
+
+\begin{node}
+If $X$ is an irreducible affine variety, then $X$ is a nonsingular
+curve if and only if $\CoordRing{\kk}{X}$ is a Dedekind domain. The
+proof requires using Theorem~\ref{thm:fall-lec15:tfae} and Proposition~\ref{prop:fall-lec15:domain-int-closed-iff-every-localization-closed}.
+\end{node}
+
+\begin{theorem}[Finiteness of integral closure]
+Let $R$ be a finitely-generated domain over $\kk$, let $K=R_{0}$ be
+the field of fractions. Suppose $K\subset L$ is a finite field extension.
+Let $\closure{R}$ be the integral closure of $R$ in $L$.
+[Note $(\closure{R})_{0}=L$ the field of fractions of $\closure{R}$ is
+  precisely $L$. To see this: let $f\in L$, then
+  $f^{n}+a_{1}f^{n-1}+\cdots+a_{n}=0$ where $a_{i}\in K$.
+  Take $b\in R$ such that for all $i$, $ba_{i}\in R$ --- simply clear
+  the denominators. Then $(bf)^{n}+b^{1}a_{1}(bf)^{n-1}+\dots+b^{n}a_{n}=0$
+  implies $bf\in\closure{R}$ which then implies $f\in R_{0}$.]
+
+Then $\closure{R}$ is finitely-generated as an $R$-module.
+In particular, this means $\closure{R}$ is a finitely-generated $\kk$-algebra.
+\end{theorem}
+
+\begin{construction}[Key in answering motivation question]\label{construction:fall-lec15:key}
+Let $f\in K\setminus\kk$. Then $\kk(f)\subset K$ must be an algebraic extension.
+Set $B=\closure{\kk[f]}$ be the integral closure of $\kk[f]$ in $K$.
+Then $B$ must be a finitely-generated $\kk$-algebra (hence Noetherian),
+and moreover $B$ must be a Dedekind domain.
+Its field of fractions is $B_{0}=K$.
+\end{construction}
+
+\begin{proposition}
+Using the setup from the previous Construction~\ref{construction:fall-lec15:key},
+let $X=\MSpec(B)$ be a nonsingular curve.
+\begin{enumerate}
+\item The points in $X$ are in a bijective correspondence with
+  discrete valuation rings $R$ of $K/\kk$ with $f\in R$ [this
+    bijection is $p\mapsto\RegularFuns_{X,p}$];
+\item Points in vanishing of $f=V(f)$ are in bijective correspondence
+  with the discrete valuation rings $R$ of $K/\kk$ such that $f\in\mathfrak{m}_{R}$.
+\end{enumerate}
+\end{proposition}

@@ -1,0 +1,162 @@
+%%
+%% fall-lecture15.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-01T09:50:02-0700
+%% Last update 2025-11-01T09:50:02-0700
+%% 
+
+\lecture{}
+
+\begin{example}
+Returning to an example from last time: let $\kk[x]$ be a ring of
+polynomials, let $x_{1}=x(x-1)$ and $x_{2}=x^{2}(x-1)$ be polynomials
+in this ring. We had a map
+\begin{equation}
+\begin{split}
+\kk[x_{1},x_{2}]&\to\kk[x]\\
+x_{1}&\mapsto x(x-1)\\
+x_{2}&\mapsto x^{2}(x-1),
+\end{split}
+\end{equation}
+which gave us a map
+\begin{equation}
+b\colon \Spec(\kk[x])\to\Spec(\kk[x_{1},x_{2}]/(x_{1}^{3}-x_{2}^{2}-x_{1}x_{2})),
+\end{equation}
+and we also had the natural morphism $\kk[x_{1},x_{2}]\onto \kk[x_{1},x_{2}]/(x_{1}^{3}-x_{2}^{2}-x_{1}x_{2})$,
+which induces the mapping:
+\begin{equation}
+\pi_{*}\colon\Spec(\kk[x_{1},x_{2}]/(x_{1}^{3}-x_{2}^{2}-x_{1}x_{2}))\to\Spec(\kk[x_{1},x_{2}]).
+\end{equation}
+We see that $b$ is a birational map.
+
+(As an aside, this allows us to do things in number theory like: try
+to find integer solutions to $x^{2}+y^{2}=z^{2}$. The first step is to
+divide through by $z$ to obtain $(x/z)^{2} + (y/z)^{2}=1$. But this is
+just the equation for a unit circle, with rational points since $x/z\in\QQ$
+and $y/z\in\QQ$ when $z\neq0$. We can then use stereographic
+projection to find such solutions.)
+\end{example}
+
+\begin{theorem}
+\begin{enumerate}
+\item If $A\to B$ is an integral extension of rings, then Going-Up holds.
+\item Let $A$ and $B$ be integral domains. If $A$ is integrally closed
+  and $A\to B$ is an integral extension, then Going-Down holds.
+\end{enumerate}
+\end{theorem}
+
+\begin{xca}[Hartshorne]
+Show that $\CC[x,y]/(x^{2}-y^{3})$ is not integrally closed, and
+$\CC[x,y,z](x^{2}+y^{3}+z^{5})$ is integrally closed.
+\end{xca}
+
+\begin{theorem}[Matsumara 5E]
+Let $A\subset B$ be rings with $B$ integral over $A$.
+Suppose $A$ is integrally closed.
+\begin{enumerate}[start=6]
+\item If $B$ is an integral closure of $A$ in a normal field extension
+  $L$ of $K=\Frac(A)$ [the field of fractions of $A$), then any two
+  prime ideals $Q$ and $Q'$ of $B$ lying over the same prime ideal
+  $P\in\Spec(A)$ are conjugate to each other by an automorphism of $L$
+  over $K$.
+\end{enumerate}
+\end{theorem}
+
+Remember: A Galois extension = splitting extension + normal.
+
+\begin{proof}
+Let $G=\Aut(K)$ be the automorphism group of $K$.
+Assume that $L$ is a finite extension of $K$.
+Then $G$ is finite.
+Write $G=\{\sigma_{1},\dots,\sigma_{n}\}$.
+Let $Q$, $Q'$ be primes lying over $P$.
+Write $Q_{i}:=\sigma_{i}(Q)$.
+We want to prove that $Q'=Q_{i}$ for some $i$.
+Since $\sigma_{i}(B)\subset B$, $Q_{i}\in\Spec(B)$.
+If $Q'\neq Q_{i}$ for all $i=1,\dots,n$, then $Q'\nsubset Q_{i}$.
+Then there exists $x\in Q'$ such that $x\in Q_{i}$ for all $i=1,\dots,n$.
+Write
+\begin{equation}
+y = \left(\prod^{n}_{i=1}\sigma_{i}(x)\right)^{q}
+\end{equation}
+where $q=1$ if $\Char(K)=0$, and $q=p^{N}$ if $\Char(K)=p$ and $N$ is
+large enough.
+Then $y\in K$, and (since $A$ is integrally closed) we have $y\in B$.
+Then $y\in A$. But $y\notin P$ (because $x\notin\sigma_{i}^{-1}(P)$,
+which implies $\sigma_{i}(x)\notin P$), while $y\in P'\cap A=P\cap A$
+which is a contradiction.
+\end{proof}
+
+\begin{xca}
+Why do we need a normal field extension?? Why would a separable field
+extension fail?
+\end{xca}
+
+\subsection{Constructible Sets}
+
+A digression through topology\dots
+
+\begin{definition}[Matsumara 6A]
+A topological space $X$ is said to be \define{Noetherian} if the
+descending chain condition holds for closed subsets.
+\end{definition}
+
+\begin{example}
+The real line $\RR$ with the standard topology is \emph{not} Noetherian.
+\end{example}
+
+\begin{example}
+Let $A$ be a Noetherian ring. Then $\Spec(A)$ is a Noetherian
+topological space.
+\end{example}
+
+\begin{fact}
+  If a space $X$ is covered by finitely many Noetherian subspaces,
+  then $X$ is Noetherian.
+\end{fact}
+
+\begin{fact}
+  Any subspace of a Noetherian space is Noetherian.
+\end{fact}
+
+\begin{definition}
+We say a space $X$ is \define{Quasicompact} if every open cover has a
+finite subcover.
+
+If further $X$ is Hausdorff, we say $X$ is \define{Compact}. That is
+to say,
+\begin{equation}
+\mbox{Compact} = \mbox{Quasicompact} + \mbox{Hausdorff}.
+\end{equation}
+\end{definition}
+
+\begin{fact}
+Noetherian implies quasicompact: If $X$ is a Noetherian space, then
+$X$ is quasicompact.
+\end{fact}
+
+\begin{node}
+We study Noetherian spaces to discuss irreducible components.
+\end{node}
+
+\begin{definition}
+A closed set $Z$ of a topological space $X$ is \define{Irreducible} if
+we cannot write $Z=Z_{1}\cup Z_{2}$ where $Z_{1}$ and $Z_{2}$ are
+proper closed subsets of $X$ (which may or may not be disjoint).
+\end{definition}
+
+\begin{remark}
+``Irreducible'' corresponds to prime ideals.
+\end{remark}
+
+\begin{fact}
+In a Noetherian space, every closed set $Z$ has a unique decomposition
+into irreducible sets $Z=Z_{1}\cup\cdots\cup Z_{n}$ such that
+$Z_{i}\nsubset Z_{j}$ when $i\neq j$. We call these $Z_{i}$
+\define{Irreducible Components}.
+\end{fact}
+
+Take a ring, take an ideal, then look at their minimal polynomial(?).
