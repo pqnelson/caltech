@@ -1,0 +1,156 @@
+%%
+%% fall-lecture16.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-04T10:20:53-0800
+%% Last update 2025-11-04T10:20:53-0800
+%% 
+
+\lecture{}
+
+This was a student lecture, an undergraduate named Sam lectured.
+
+\bigskip
+In this lecture, we will stipulate categories have zero objects and
+small products.
+
+\begin{definition}
+Let $X$ be a topological space, let $\cat{C}$ be a category.
+A \define{Presheaf} of $X$ over $\cat{C}$
+is a contravariant functor $F\colon U(X)\to\cat{C}$
+from the category $U(X)$ of open sets of $X$ (with morphisms being
+inclusions) such that $F(\emptyset)=0$ and if $U\subset V$ we have
+$\rho_{U,V}\colon F(V)\to F(U)$ be the restriction.
+\end{definition}
+
+\begin{node}
+Morphisms between presheaves are just natural transformations. We can
+form the category $\PSh(X)_{\cat{C}}$ of all presheaves of $X$ over $\cat{C}$.
+\end{node}
+
+\begin{example}
+Let $A\in\cat{C}$ be fixed. We define the constant presheaf
+$\underline{A}(U)=A$ if $U\neq\emptyset$, and $\underline{A}(\emptyset)=0$.
+\end{example}
+
+\begin{proposition}
+If $\cat{C}$ is a (co)complete category, then so is $\PSh(X)_{\cat{C}}$.
+\end{proposition}
+
+\begin{proof}
+$(\colim_{i\in I}F_{i})(U)=\colim_{i\in I}(F_{i}(U))$.
+\end{proof}
+
+\begin{definition}
+A \define{Sheaf} of $X$ over $\cat{C}$ is a presheaf of $X$ over $\cat{C}$
+such that
+\begin{enumerate}
+\item\textsc{Gluing:} for all open subsets $U\subset X$, for all open
+  covers $\{U_{i}\}_{i\in I}$ of $U$, the following diagram is an
+  equalizer using the projection :
+\begin{equation}
+\vcenter{\xymatrix{
+F(U)\ar[r]^-{e} & \prod_{i\in I}F(U_{i})\ar@<0.75ex>[r]^-{\alpha}\ar@<-0.75ex>[r]_-{\beta}&\prod_{i,j\in I}F(U_{i}\cap U_{j})\\
+R\ar@{..>}[u]\ar[ur] &  &}}
+\end{equation}
+where for $t\in F(U)$ we have $e(t)=\{t|_{U_{i}}\mid i\in I\}$; we use $\alpha_{i,j}=\rho_{U_{i},U_{i}\cap U_{j}}\circ p_{i}$
+and $\beta_{i,j}=\rho_{U_{j},U_{i}\cap U_{j}}\circ p_{j}$, these give
+us the morphisms
+$\alpha,\beta\colon\prod_{i\in I}F(U_{i})\to\prod_{i,j\in I}F(U_{i}\cap U_{j})$
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+A non-example, the constant presheaf $\underline{A}(U)$, consider this
+on $\RR$. Let $U=(a,b)\cup(b,c)$, if we assign one value to $F(a,b)$
+but a different value to $F(b,c)$, then there's no way to satisfy the
+equalizer condition.
+\end{example}
+
+\begin{example}
+The sheaf of holomorphic functions on a complex manifold.
+\end{example}
+
+\begin{definition}
+Suppose $\cat{C}$ has filtered colimits. Let $x\in X$, $F\in\PSh(X)_{\cat{C}}$,
+then we define the \define{Stalk} of $F$ at $x$ to be
+\begin{subequations}
+\begin{align}
+  F_{x} & := \colim_{U\ni x}F(U)\\
+  &=\{(s,U)\mid U\ni x\mbox{ open}, s\in F(U)\}/\sim,
+\end{align}
+\end{subequations}
+where $(s_{1},U_{1})\sim(s_{2},U_{2})$ iff there exists a $W\subset X$ open
+such that $W\subset U_{1}\cap U_{2}$ and $s_{1}|_{W}=s_{2}|_{W}$.
+
+(Intuition: this generalizes a germ. The equivalence relation says
+that there is agreement locally.)
+\end{definition}
+
+\begin{example}
+The constant presheaf $\underline{\ZZ}$ has its stalks be constant $\underline{\ZZ}_{x}=\ZZ$.
+\end{example}
+
+\begin{proposition}
+A morphisms of sheaves $\phi\colon F\to G$ is injective (resp., an
+isomorphism) on all open sets $U\subset X$ if and only if
+$\phi_{x}\colon F_{x}\to G_{x}$ is injective (resp., an isomorphism)
+for all $x\in X$.
+\end{proposition}
+
+Note: $\phi_{x}(\langle s,U\rangle)=\langle\phi(s),U\rangle$.
+
+(See MacLane-Moerdijk~\cite{maclane1992sheaves},
+Chapter~II, Section~6, Proposition~6; the Stacks Project
+\texttt{[0078]} for morphisms of stalks.)
+
+\begin{node}[Adjunction]
+Let $F\colon\cat{C}\to\cat{D}$ and $G\colon\cat{D}\to\cat{C}$ be functors.
+We say $F$ is \define{Left Adjoint} to $G$ if there exists a natural
+isomorphism $\hom_{\cat{D}}(F(-),-)\To\hom_{\cat{C}}(-,G(-))$. We
+write $F\dashv G$ if there exists functors $\eta\colon\Id_{\cat{C}}\To G\circ F$
+(called the \define{Unit} of the adjunction)
+and $\varepsilon\colon F\circ G\To\Id_{\cat{D}}$ (called the
+\define{Counit} of the adjunction) such that the triangle identities hold:
+\begin{subequations}
+\begin{equation}
+\vcenter{\xymatrix{%
+F\ar@{=>}[dr]_{\Id}\ar@{=>}[r]^-{F\eta} & F\circ G\circ F\ar@{=>}[d]^{\varepsilon F}\\
+& F}}
+\end{equation}
+\begin{equation}
+\vcenter{\xymatrix{%
+G\ar@{=>}[dr]_{\Id}\ar@{=>}[r]^-{\eta G} & G\circ F\circ G\ar@{=>}[d]^{G\varepsilon}\\
+& G}}
+\end{equation}
+\end{subequations}
+\end{node}
+
+\begin{fact}
+Left adjoints preserve colimits. Right adjoints preserve limits.
+\end{fact}
+
+\begin{proposition}
+If $\cat{C}$ is complete, then $\Sh(X)_{\cat{C}}$ is complete.
+\end{proposition}
+
+\begin{proof}
+Define $(\lim_{i\in I}F_{i})(U) = \lim_{i\in I}(F_{i}(U))$. Limit of
+equalizer is equalizer of limit.
+\end{proof}
+
+\begin{definition}
+The \define{Sheafification Functor} $\sh\colon\PSh(X)\to\Sh(X)$
+is the left adjoint to the inclusion functor $i\colon\Sh(X)\to\PSh(X)$.
+\end{definition}
+
+We want the sheafification functor to preserve stalks, sheaves, and be
+sufficiently nice.
+
+\begin{proposition}
+Sheafification exists, the unit map $\eta\colon\Id_{\PSh(X)}\To i\circ\sh$ induces an
+isomorphism on stalks, and the sheafification of a sheaf is naturally
+isomorphic to itself.
+\end{proposition}

@@ -1,0 +1,165 @@
+%%
+%% fall-lecture17.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-06T12:24:36-0800
+%% Last update 2025-11-06T12:24:36-0800
+%% 
+
+\lecture{}
+
+We continue with the classification of smooth projective
+curves. Recall the key Construction~\ref{construction:fall-lec15:key}:
+
+\begin{construction}
+Let $f\in K\setminus\kk$. Then $\kk(f)\subset K$ must be an algebraic extension.
+Set $B=\closure{\kk[f]}$ be the integral closure of $\kk[f]$ in $K$.
+Then $B$ must be a finitely-generated $\kk$-algebra (hence Noetherian),
+and moreover $B$ must be a Dedekind domain.
+Its field of fractions is $B_{0}=K$.
+\end{construction}
+
+\begin{proposition}
+Let $X=\MSpec(B)$ be a nonsingular curve. We have two bijective correspondences:
+\begin{enumerate}
+\item Points in $X$ $\stackrel{1:1}{\longleftrightarrow}$ Discrete
+  Valuation Rings $R$ of $K/\kk$ such that $f\in R$ --- the bijective
+  correspondence is given by $p\mapsto\RegularFuns_{X,p}$
+\item Points in $V(f)$ $\stackrel{1:1}{\longleftrightarrow}$ Discrete
+  valuation rings $R$ of $K/\kk$ such that $f\in\mathfrak{m}_{R}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item This map $p\mapsto\RegularFuns_{X,p}$ is clearly bijective.
+  We want to show it is injective.
+  Let $R$ be a discrete valuation ring such that $f\in R$.
+  Then $\kk[f]\subset R$ which implies $B\subset R$ since $R$ is integrally closed.
+  Taking $M:= B\cap\mathfrak{m}_{R}$ gives us a prime ideal in $B$.
+  Localizing $B_{M}\subset R$.
+  Then $M\neq0$, so $B_{M}$ is a discrete valuation ring of $K/\kk$.
+  We know $B_{M}\cap\mathfrak{m}_{R}$ is the maximal ideal of $B_{M}$
+  (so $B_{M}$ is dominated by $R$).
+  This implies $B_{M}=R$.
+\item This follows from (1).\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}
+Every discrete valuation ring $R$ of $K/\kk$ is the local ring of a
+nonsingular curve at a point. In particular, the residue field of $R/\mathfrak{m}_{R}\iso\kk$.
+\end{corollary}
+
+\begin{proof}
+Let $f\in R\setminus\kk$, $B=\closure{\kk[f]}\subset K$ be the
+integral closure of $\kk[f]$. Then $R=B_{P}$ for some maximal ideal $P\in\MSpec(B)$.
+That is just the local ring of $\MSpec(B)$ at $P$.
+\end{proof}
+
+\begin{corollary}\label{fall-lec17:cor2}
+Given $f\in K^{*}$, there exists finitely many discrete valuation
+rings $R$ of $K/\kk$ such that $f\in\mathfrak{m}_{R}$. Also there are
+finitely many $f\notin R$.
+\end{corollary}
+
+\begin{proof}
+Without loss of generality, we may stipulate $f\notin\kk$. Taking
+$B:=\closure{\kk[f]}$ (integral closure of $\kk[f]$). Then we know
+there is a bijection
+$\{R\mid f\in\mathfrak{m}_{R}\}\leftrightarrow V(f)\subset\MSpec(B)$.
+By Principal Ideal Theorem, this implies $\dim(V(f))=0$, which then
+implies $V(f)$ is a finite set. (This proves the first claim.)
+
+Now, to prove there are finitely many discrete valuation rings $R$ of
+$K/\kk$ such that $f\notin\mathfrak{m}_{R}$. Taking $1/f\in\mathfrak{m}_{R}$
+iff $f\notin R$, then apply the first claim.
+\end{proof}
+
+\begin{definition}
+We define
+\begin{equation}
+C_{K}:=\{\mbox{discrete valuation rings of }K/\kk\}.
+\end{equation}
+We think of its elements as points. So every point $p$ in $C_{K}$ is
+in a bijective correspondence with discrete valuation rings
+$R_{p}\subset C_{K}$ with maximal ideal $\mathfrak{m}_{p}$.
+\end{definition}
+
+\begin{proposition}
+The $C_{K}$ is a ringed space.
+\end{proposition}
+
+\begin{proof}
+\textsc{Topology}: closed proper subsets are finite subsets of
+$C_{K}$. This gives us the topology.
+
+\textsc{Sheaf}: Let  $f\in K$, $p\in C_{K}$. If $f\in R_{p}$
+(``$f$ is defined at $p$''), then set $f(p)$ to be the image of $f$
+under the canonical morphism $R_{p}\to R_{p}/\mathfrak{m}_{p}$. So we
+have $f(p):=f\bmod{p}$.
+
+\textsc{Regular functions}: if we have $\emptyset\neq U\subset C_{K}$ open,
+then
+\begin{equation*}
+\RegularFuns_{X}(U):=\bigcap_{p\in U}R_{p}\subset K.\qedhere
+\end{equation*}
+\end{proof}
+
+\begin{remark}
+If $U\subset C_{K}$ open and a regular function $f\in\kk[U]$, then
+\begin{equation}
+D(f)=\{p\in U\mid f(p)\neq0\}=\{p\in U\mid f\notin\mathfrak{m}_{p}\}
+\end{equation}
+is the complement of a finite set, hence $D(f)$ is open.
+\end{remark}
+
+\begin{example}
+Let $K=\kk(t)$, then Discrete valuation rings of $K/\kk$ look like either
+\begin{enumerate}
+\item $\kk[t]_{(t-a)}$ for $a\in\kk$ (which is bijective with $a\in\AA^{1}$), or
+\item $\kk[t^{-1}]_{(t^{-1})}$ (which is bijective with the point $\infty\in\PP^{1}$).
+\end{enumerate}
+This gives us a bijection with $C_{K}\stackrel{1:1}{\longleftrightarrow}\PP^{1}_{\kk}$,
+which means $f(\kk[t]_{(t-a)})=f(a)$ as we expect.
+\end{example}
+
+\begin{theorem}
+The curve $C_{K}$ is a nonsingular curve whose function field is $\FunField[\kk]{C_{K}}=K$.
+\end{theorem}
+
+\begin{proof}
+\textsc{Claim 1: Prevariety.} That is to say, $C_{K}$ has a finite affine cover.
+Take $f\in K\setminus\kk$, with $B=\closure{\kk[f]}$ the integral
+closure in $K$. Set
+\begin{equation}
+U:=\{p\in C_{K}\mid f\in R_{p}\}\subset C_{K}.
+\end{equation}
+We see $U$ is open by Corollary~\ref{fall-lec17:cor2}. Define
+$\varphi\colon\MSpec(B)\to U$ by $\varphi(M)=B_{M}$. We proved this is
+bijective and a homeomorphism (since proper closed sets on both sides
+are just finite sets).
+
+For $V\subset\MSpec(B)$ open, then
+\begin{equation}
+\kk[V] = \bigcap_{M\in V}B_{M} = \bigcap_{p\in\varphi(V)}R_{p}=\kk[\varphi(V)].
+\end{equation}
+Hence $\varphi$ is an isomorphism. We found an open affine for $C_{K}$
+we only need 2 of them to cover $C_{K}$ --- this cover is given by the
+maximal ideals of the integral closures $\MSpec(\closure{\kk[f]})\cup\MSpec(\closure{\kk[f^{-1}]})$
+which gives us our open affine cover. Hence $C_{K}$ is a prevariety.
+
+\textsc{Claim 2: Separatedness.}
+If $P,Q\in C_{K}$, it suffices (by homework) to show there is an open
+affine $U\subset C_{K}$ such that $P\in U$ and $Q\in U$. Take any
+$f\in R_{P}\setminus\mathfrak{m}_{P}$ such that $f\notin\kk$. Then
+$f,f^{-1}\in R_{P}$. If $f\in R_{Q}$, then $P,Q\in\MSpec(\closure{\kk[f]})$.
+Otherwise $f^{-1}\in R_{Q}$, so $P,Q\in\MSpec(\closure{\kk[f^{-1}]})$.
+Hence $C_{K}$ is separated (i.e., $C_{K}$ is a variety.
+
+\textsc{Claim 3: Smoothness.} Obvious.
+
+\textsc{Claim 4: $C_{K}$ is projective.}
+\end{proof}

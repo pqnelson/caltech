@@ -1,0 +1,229 @@
+%%
+%% fall-lecture14.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-06T10:59:42-0800
+%% Last update 2025-11-06T10:59:42-0800
+%% 
+
+\lecture{}
+
+(The professor was out of town, there was a quiz/miderm, and so this
+was lecture was 10 days after the previous lecture.)
+
+Recall the Heine--Cantor Theorem~\ref{thm:fall-2025:heine-cantor}:
+
+\begin{theorem}[Heine--Cantor]
+Let $f\colon(X,d)\to(Y,\rho)$ be a continuous function, where $(X,d)$ is a
+compact metric space and $(Y,\rho)$ is an arbitrary metric space.
+Then $f$ is uniformly continuous.
+\end{theorem}
+
+\begin{node}
+The intuition: ``uniform'' stuff has $\delta$ (or $N$ or\dots) depend
+only on $\varepsilon$, but not on $x$ or anything else.
+\end{node}
+
+\begin{definition}
+Let $f_{n}\colon X\to Y$ be a sequence of functions on metric
+spaces. We say $(f_{n})$ \define{Converges Uniformly} to $f\colon X\to Y$ 
+if:
+\begin{equation*}
+\forall\varepsilon>0\exists N\in\NN\forall x\in X\forall n\in\NN\ldotp n\geq N\implies\rho(f_{n}(x),f(x))<\varepsilon.
+\end{equation*}
+(The threshold $N$ \emph{does not} depend on the choice of $x\in X$.)
+\end{definition}
+
+\begin{example}
+Consider $f_{n}(x)=x^{1/n}$ for $x\in[0,1]$. Then pointwise
+\begin{equation}
+f_{n}\to f(x)=\begin{cases}0 & \mbox{if }x=0\\
+1 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+But this is not uniformly convergent. Why/ For any $x\in(0,1)$, we see
+\begin{equation}
+|f_{n}(x)-f(x)|=1-x^{1/n}\geq\varepsilon
+\end{equation}
+we can always pick an $n$ large enough for $1-x^{1/n}\geq\varepsilon$.
+\end{example}
+
+\begin{definition}
+Let $f_{n}\colon X\to Y$ be a sequence of functions between metric spaces.
+We say $f_{n}$ is \define{Uniformly Cauchy} if
+\begin{equation*}
+\forall\varepsilon>0\exists N\in\NN\forall x\in X\forall m,n\in\NN\ldotp%
+m\geq N\land n\geq N\implies\rho(f_{m}(x),f_{n}(x))<\varepsilon.
+\end{equation*}
+\end{definition}
+
+\begin{theorem}
+Let $(Y,\rho)$ be a omplete metric space. Then $f_{n}\colon X\to Y$
+is uniformly convergent if and only if it is uniformly Cauchy.
+\end{theorem}
+
+\begin{proof}
+\forwardproof\ Triangle inequality.
+
+\backwardproof\ Assume $f_{n}$ is uniformly Cauchy. Then for all
+$\varepsilon>0$ there exists an $N\in\NN$ such that for all $x\in X$,
+for all $m,n\geq N$ we have:
+\begin{equation}
+\rho(f_{m}(x),f_{n}(x))<\varepsilon/2.
+\end{equation}
+In particular, fixing $x\in X$, we see $\{f_{m}(x)\}$ is a Cauchy
+sequence. Since $Y$ is complete, $f_{m}(x)\to f(x)$ in $Y$. There
+exists some index $M_{x}\in\NN$ such that $\rho(f(x),f_{M_{x}}(x))<\varepsilon/2$.
+Then by the Triangle Inequality, we can write
+\begin{subequations}
+\begin{align}
+\rho(f_{n}(x),f(x)) & \leq \rho(f_{n}(x),f_{M_{x}}(x)) + \rho(f_{M_{x}}(x),f(x))\\
+&<\frac{\varepsilon}{2} + \rho(f_{M_{x}}(x),f(x))\quad\mbox{provided }M_{x},n\geq N\\
+&<\frac{\varepsilon}{2} + \frac{\varepsilon}{2}\quad\mbox{provided }M_{x}\geq N
+\end{align}
+\end{subequations}
+This was for any choice of $N$ (i.e., $N$ does not depend on the
+choice of $x$). Hence it converges uniformly.
+\end{proof}
+
+\begin{theorem}
+Let $\{f_{n}\}$ be a sequence of continuous functions and $f_{n}\to f$
+uniformly. Then $f$ is continuous.
+\end{theorem}
+
+\begin{proof}
+By uniform convergence, for each $\varepsilon>0$ there is an $N\in\NN$
+such that
+\begin{equation}
+\rho(f_{N}(x),f(x))<\varepsilon,
+\end{equation}
+for every $x\in X$. In particular, fix a point $a\in X$. Then $f_{N}$
+is continuous at $a\in X$. There exists a $\delta>0$ such that
+\begin{equation}
+f_{N}(B_{\delta}(a))\subset B_{\varepsilon}(f_{N}(a)).
+\end{equation}
+Then for any $x\in B_{\delta}(a)$, we have by the Triangle Inequality:
+\begin{subequations}
+\begin{align}
+\rho(f(x),f(a)) & \leq \rho(f(x),f_{N}(x)) + \rho(f_{N}(x),f_{N}(a))+\rho(f_{N}(a),f(a))\\
+&< \varepsilon + \rho(f_{N}(x),f_{N}(a))+\varepsilon\quad\mbox{by $f_{n}\to f$ uniformly}\\
+&< 3\varepsilon\quad\mbox{by continuity of $f_{n}$ at $a$}
+\end{align}
+\end{subequations}
+Then $f$ is continuous at $a\in X$. Since $a\in X$ was arbitrary, we
+see $f$ is continuous everywhere.
+\end{proof}
+
+\begin{theorem}
+Let $(Y,\rho)$ be a complete metric space. Let $f_{n}\colon X\to Y$
+converge uniformly to $f\colon X\to Y$.
+If the limits $\lim_{x\to a}f_{n}(x)=b_{n}$ exists in $Y$, then
+$b_{n}\to b$ in $Y$ with $\lim_{x\to a}f(x)=b$.
+Equivalently,
+\begin{equation}
+\lim_{n\to\infty}\lim_{x\to a}f_{n}(x)=\lim_{x\to a}\lim_{n\to\infty}f_{n}(x).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+We see $f_{n}$ is uniformly Cauchy: for each $\varepsilon>0$ there is
+an $N\in\NN$ such that for all $x\in X$ we have
+\begin{equation}\label{fall-lec14:step-1}
+\rho(f_{m}(x),f_{n}(x))<\varepsilon\quad\forall m,n\geq N.
+\end{equation}
+Then $b_{n}=\lim_{x\to a}f_{n}(x)$. Take $x\to a$, we have
+\begin{equation}\label{fall-lec14:step-2}
+\rho(b_{m},b_{n})<\varepsilon,
+\end{equation}
+which implies $(b_{n})$ is Cauchy in $Y$. By completeness, it
+converges to $b_{n}\to b\in Y$. Taking $n\to\infty$ and $m\to N$, we
+see that Equation~\eqref{fall-lec14:step-1} becomes
+\begin{equation}\label{fall-lec14:step-1-prime}
+\rho(f(x),f_{N}(x))<\varepsilon
+\end{equation}
+and Equation~\eqref{fall-lec14:step-2} becomes
+\begin{equation}\label{fall-lec14:step-2-prime}
+\rho(b,b_{N})<\varepsilon.
+\end{equation}
+Using $b_{N}=\lim_{x\to a}f_{N}(x)$, we can choose a neighborhood
+$U\ni a$ such that
+\begin{equation}\label{fall-lec14:step-3}
+\rho(b_{N},f_{N}(x))<\varepsilon\quad\mbox{for all }x\in U.
+\end{equation}
+The triangle inequality gives us
+\begin{subequations}
+\begin{align}
+\rho(f(x),b) &\leq \rho(f(x),f_{N}(x)) + \rho(f_{N}(x),b_{N}) + \rho(b_{N},b)\\
+&<\varepsilon + \rho(f_{N}(x),b_{N}) + \rho(b_{N},b)\quad\mbox{by Eq~\eqref{fall-lec14:step-1-prime}}\\
+&<\varepsilon + \varepsilon + \rho(b_{N},b)\quad\mbox{by Eq~\eqref{fall-lec14:step-3}}\\
+&<\varepsilon + \varepsilon + \varepsilon\quad\mbox{by Eq~\eqref{fall-lec14:step-2-prime}}.
+\end{align}
+\end{subequations}
+Hence $\lim_{x\to a}f(x)=b$.
+\end{proof}
+
+\begin{definition}
+A collection $\mathcal{F}$ of functions $X\to Y$ is called
+\define{Uniformly Equicontinuous} if for each $\varepsilon>0$ there is
+a $\delta>0$ such that $\rho(f(x),f(y))<\varepsilon$ whenever
+$d(x,y)<\delta$ and $f\in\mathcal{F}$.
+
+Observe the choice of $\delta$ does not depend on $f\in\mathcal{F}$.
+(This implies every $f\in\mathcal{F}$ is continuous, but the converse
+is not true.)
+\end{definition}
+
+\begin{example}
+Consider $f_{n}(x)=x^{n}$ for $x\in[0,1]$. Then by Heine--Cantor Theorem~\ref{thm:fall-2025:heine-cantor}, each
+$f_{n}$ is uniformly continuous. Fix $\varepsilon>0$ and $x\in[0,1)$,
+then $|f_{n}(x)-f_{n}(1)|=1-x^{n}$. But $x^{n}\to 0$ as $n\to\infty$
+for all $0\leq x<1$. We can choose $n$ large enough such that $1-x^{n}>\varepsilon$.
+\end{example}
+
+\begin{theorem}
+Let $(X,d)$ be compact. If $f_{n}\colon X\to Y$ is a uniformly
+convergent sequence of continuous functions, then $\{f_{n}\}$ is
+uniformly equicontinuous.
+\end{theorem}
+
+The proof consists of two moments: prove $\rho(f_{n}(x),f_{n}(y))<\varepsilon$,
+then prove it is continuous.
+
+\begin{proof}
+The limiting function $f\colon X\to Y$ is continuous (and by
+Heine--Cantor, uniformly continuous). So for each $\varepsilon>0$,
+there is a $\delta_{0}>0$ such that
+\begin{equation}\label{fall-lec14:last-thm:eq-1}
+\forall x,y\in X\ldotp d(x,y)<\delta_{0}\implies \rho(f(x),f(y))<\varepsilon/3
+\end{equation}
+Since $f_{n}\to f$ uniformly, there is an $N\in\NN$ such that
+\begin{equation}\label{fall-lec14:last-thm:eq-2}
+\forall x\in X\forall n\geq N\ldotp \rho(f_{n}(x),f(x))<\varepsilon/3.
+\end{equation}
+Then by the Triangle Inequality
+\begin{subequations}
+\begin{align}
+\rho(f_{n}(x),f_{n}(y)) &\leq \rho(f_{n}(x),f(y)) + \rho(f(x),f(y))+\rho(f(y),f_{n}(y))\\
+&<\frac{\varepsilon}{3} + \rho(f(x),f(y)) + \frac{\varepsilon}{3}\quad\mbox{by Eq~\eqref{fall-lec14:last-thm:eq-2}}\\
+&<\frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3}=\varepsilon\quad\mbox{by Eq~\eqref{fall-lec14:last-thm:eq-1}}.
+\end{align}
+\end{subequations}
+This concludes the first moment of the proof.
+
+Now, each function $f_{n}$ is also uniformly continuous by
+Heine--Cantor. So for each $n$, there is a $\delta_{n}>0$ such that
+\begin{equation}
+\rho(f_{n}(x),f_{n}(y))<\varepsilon\quad\mbox{whenever }d(x,y)<\delta_{n}.
+\end{equation}
+Take
+\begin{equation}
+\delta=\min(\delta_{0},\delta_{1},\dots,\delta_{n}).
+\end{equation}
+Then $\delta>0$ and so for all $n\in\NN$, we have:
+\begin{equation}
+d(x,y)<\delta\implies\rho(f_{n}(x),f_{n}(y))<\varepsilon,
+\end{equation}
+as desired.
+\end{proof}

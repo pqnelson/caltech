@@ -69,7 +69,7 @@
 \newcommand\CoordRing[2]{A(#2)}
 \newcommand\HomogeneousCoordRing[2]{S(#2)}
 % Function Field
-\newcommand\FunField[1]{K(#1)}
+\newcommand\FunField[2][\relax]{\ifx\relax#1\relax K\else#1\fi(#2)}
 
 % rational function
 \let\RationalTo\dashrightarrow
@@ -83,6 +83,14 @@
 
 % category theory
 \newcommand\cat[1]{\mathbf{#1}}
+
+\newcommand\PSh{\cat{PSh}} % category of presheaves
+\newcommand\Sh{\cat{Sh}}   % category of sheaves
+\newcommand\To{\Rightarrow} % \to, but for natural transformations
+\DeclareMathOperator*\colim{colim}
+\DeclareMathOperator\Id{Id}
+
+\DeclareMathOperator\sh{sh}
 
 % topology
 \newcommand\closure[1]{\overline{#1}}

@@ -1,0 +1,92 @@
+%%
+%% fall-lecture17.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-06T09:54:27-0800
+%% Last update 2025-11-06T09:54:27-0800
+%% 
+
+\lecture{}
+
+% This was actually at the end of lecture 16
+\begin{theorem}[Chevalley, Matsumara 6E]
+Let $A$ be a Noetherian ring. Let $A$ be an algebra over $A$ of finite
+type (i.e., $B=A[x_{1},\dots,x_{n}]/I$ for some ideal $I$).
+Let $\phi\colon A\to B$ be the canonical morphism. Let $X=\Spec(A)$
+and $Y=\Spec(B)$. Let $f=\preimage\phi\colon Y\to X$.
+
+Then $f(Y')$ of a constructible set $Y'$ in $Y$ is constructible in $X$.
+\end{theorem}
+
+Note: localizations are not ``of finite type''.
+
+\begin{proof}
+Let us show it only for $Y'=Y$. Let $X_{0}$ be some irreducible closed
+subset of $X$. (We will use Proposition~\ref{prop:fall-lec16:prop-6c}.)
+Any irreducible closed subset of some $\Spec$ of a ring may be written
+as
+\begin{equation}
+X_{0}=V(P_{0}),
+\end{equation}
+where $P_{0}\in\Spec(A)$. We have 
+\begin{equation}
+A'=A/P_{0},\quad\mbox{and}\quad B'=B/P_{0}B.
+\end{equation}
+Suppose that $X_{0}\cap f(Y)$ is dense. Conceptually we have something
+like
+\begin{equation}
+\begin{array}{rcl}
+  \Spec(B')=f^{-1}(X_{0}) & \to & X_{0}=\Spec(A')\\
+  \rotatebox{-90}{$\subset$} & & \rotatebox{-90}{$\subset$}\\
+  Y & \xrightarrow{f} & X
+\end{array}
+\end{equation}
+Then the map
+\begin{equation}
+\phi'\colon A'\to B'
+\end{equation}
+is injective by Lemma~\ref{lm:fall-lec16:matsumara-6-2}. Replacing
+$A$, $B$, $\phi$ by $A'$, $B'$, $\phi'$ (respectively) gives us the
+following claim to prove:
+\begin{quote}
+If $A$ is a Noetherian domain and $B$ is a ring containing $A$ (since
+$\phi$ is injective) and $B$ is finitely-generated over $A$, then
+there exists a nonzero $a\in A$ such that the elementary open set
+$D(a)$ of $X=\Spec(A)$ is contained in $f(Y)$ when $Y=\Spec(B)$ and
+$f$ is the canonical map.
+\end{quote}
+So by going to the quotient rings simplifies the claim, to the point
+when we can prove it by pure algebra. (Recall $D(a)=\{P\in\Spec(A)\mid a\notin P\}$.)
+Now we can write $B=A[x_{1},\dots,x_{n}]$. Suppose $x_{1}$, \dots,
+$x_{r}$ are algebraically independent, while $x_{r+1}$, \dots, $x_{n}$
+satisfy some algebraic relations over
+$A^{*}=A[x_{1},\dots,x_{r}]$. Choose some relations of the form
+\begin{equation}
+g_{j,0}(x)x_{j}^{d_{j}}+g_{j,1}(x)x_{j}^{d_{j}-1}+\dots=0,
+\end{equation}
+where the coefficients $g_{j,i}(x)\in A^{*}$ and $g_{j,i}\neq0$. The
+trick is to multiply the leading coefficients together
+$\prod^{n}_{j=r+1}g_{j,0}(x)$ which is a nonzero polynomial in
+$A[x_{1},\dots, x_{r}]$. Pick $a$ to be any coefficient of
+\begin{equation}
+g(x) = \prod^{n}_{j=r+1}g_{j,0}(x).
+\end{equation}
+We claim: if $a\notin P_{0}$, then $P_{0}\in\Im(f)$. (Hence
+$D(a)\subset f(Y)$.) Suppose we have some $P\in\Spec(A)$ such that $a\notin P$.
+Then let $P^{*}=PA^{*}=P[x_{1},\dots,x_{r}]$. Then $\prod g_{j,0}\notin P^{*}$.
+So $B_{P^{*}}$ is integral over $A^{*}_{P^{*}}$.
+(Recall when we had $A\to B$ and $B$ is integral over $A$ and $A$ is a
+Noetherian domain, then this satisfies lying over\dots)
+Then there exists some prime ideal $P_{1}$ of $B_{P^{*}}$ lying over $P^{*}A^{*}_{P^{*}}$.
+We have
+\begin{equation}
+P_{1}\cap A=P_{1}\cap A^{*}\cap A=P[x_{1},\dots,x_{r}]\cap A=P^{*},
+\end{equation}
+which implies
+\begin{equation}
+P=P_{1}\cap A=(P_{1}\cap B)\cap A\in f(\Spec(B)).
+\end{equation}
+Hence the result.
+\end{proof}

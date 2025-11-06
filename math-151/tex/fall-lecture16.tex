@@ -1,0 +1,224 @@
+%%
+%% fall-lecture16.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-04T09:30:07-0800
+%% Last update 2025-11-04T09:30:07-0800
+%% 
+
+\lecture[Categories and Functors]
+
+\subsection{Categories}
+
+\begin{definition}
+We define a \define{Category} $\cat{C}$ to consist of
+\begin{enumerate}
+\item a \emph{collection} $\Ob(\cat{C})$ of ``\emph{objects\/}'';
+\item disjoint \emph{collections}\footnote{The professor defined
+categories to be locally small, and required the collection of
+morphisms to be sets. I could not live with myself if I left that in
+my notes.} $\Mor(X,Y)$ of ``\emph{morphisms\/}'' for each pair of
+  objects $X,Y\in\Ob(\cat{C})$;
+\item a ``\emph{composition of morphisms\/}'' function $\circ\colon\Mor(X,Y)\times\Mor(Y,Z)\to\Mor(X,Z)$
+  for any three objects $X,Y,Z\in\Ob(\cat{C})$;
+\item for each object $X\in\Ob(\cat{C})$, there is an ``\emph{identity morphism}''
+  $\id_{X}\in\Mor(X,X)$;
+\end{enumerate}
+such that
+\begin{enumerate}
+\item\textsc{Unit laws}: for each $f\in\Mor(X,Y)$ we have $f\circ\id_{X}=f$
+  and $\id_{Y}\circ f=f$;
+\item \textsc{Associativity:} for any $X,Y,Z,W\in\Ob(\cat{C})$, and
+  morphisms
+  $X\xrightarrow{f}Y\xrightarrow{g}Z\xrightarrow{h}W$, we have
+  $(f\circ g)\circ h=f\circ(g\circ h)$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[Notation]
+It has become idiomatic to write:
+\begin{enumerate}
+\item $X\in\cat{C}$ instead of $X\in\Ob(\cat{C})$;
+\item $\hom(X,Y)$ instead of $\Mor(X,Y)$;
+\item if there's any ambiguity about which category $\Mor(X,Y)$
+  belongs to, we will write it as a subscript $\Mor_{\cat{C}}(X,Y)$;
+\item we write $f\colon X\to Y$ instead of $f\in\hom(X,Y)$.
+\end{enumerate}
+\end{remark}
+
+\begin{definition}
+We call a category $\cat{C}$ \define{Locally Small} if for all pairs
+of objects $X,Y\in\Ob(\cat{C})$, we have $\Mor(X,Y)$ be a set.
+\end{definition}
+
+\begin{definition}
+We call a locally small category $\cat{C}$ \define{Small} if $\Ob(\cat{C})$
+is a set. Otherwise, we call $\cat{C}$ \define{Large}.
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+\item $\TOP$ is the large locally-small category whose objects are
+  topological spaces and morphisms are continuous maps;
+\item $\GRP$ is the large locally-small category whose objects are
+  groups and morphisms are group homomorphisms;
+\item $\AB$ is another large locally-small category whose objects are
+  Abelian groups and morphisms are group morphisms;
+\item $\LINEAR$ is the large locally-small category whose objects are
+  linear spaces and morphisms are linear maps.
+\end{enumerate}
+\end{example}
+
+\begin{example}
+We define the cat $\BIMOD$ whose objects are rings, the morphisms are
+$(R_{1},R_{2})$-bimodules, and composition of an
+$(R_{1},R_{2})$-bimodule $M_{1}$ with an $(R_{2},R_{3})$-bimodule
+$M_{2}$ is the tensor product $M_{1}\otimes_{R_{2}}M_{2}$.
+\end{example}
+
+\begin{example}
+Let $X$ be a topological space. We can construct a category $\cat{C}$
+whose objects $\Ob(\cat{C})$ is the set of points of $X$. The
+morphisms are just $\Mor(X,Y)$ all paths from $X$ to $Y$, the
+$\id_{X}$ is just the constant path. Composition is just concatenating paths.
+\end{example}
+
+\begin{remark}
+The previous two examples do not have functions be morphisms. That's
+important to realize: morphisms are not always functions.
+\end{remark}
+
+\begin{node}[Monoids as categories]
+When a category $\cat{C}$ has a single object $\Ob(\cat{C})=\{*\}$,
+then this really describes a monoid using $\Mor(*,*)$ as the elements
+of the monoid and $\circ$ is the monoid's law of composition.
+\end{node}
+
+\begin{definition}
+Let $\cat{C}$ be a category. Let $X,Y\in\Ob(\cat{C})$ be objects.
+Let $f\in\Mor(X,Y)$ be a morphism. We call $f$ an \define{Isomorphism}
+if there exists a $g\in\Mor(Y,X)$ such that $f\circ g=\id_{Y}$ and
+$g\circ f=\id_{X}$.
+\end{definition}
+
+\begin{node}[Groups as categories]
+If we have a category $\cat{C}$ where $\Ob(\cat{C})=\{*\}$ and all
+morphisms are isomorphisms, then we really have something equivalent
+to a group: $\Mor(*,*)$ are the elements of the group, $\circ$ is the
+law of composition for the group.
+\end{node}
+
+\begin{definition}
+A \define{Groupoid} is a small category $\cat{C}$ such that all
+morphisms of $\cat{C}$ are isomorphisms.
+\end{definition}
+
+\begin{example}[Fundamental Groupoid]
+Let $X$ be a topological space. The category $\Pi_{1}(X)$ has its
+objects be points of $X$ and morphisms $\Mor(x,y)$ are justs paths
+from $x$ to $y$ modulo homotopy $\rel\boundary$ of the path. The
+composition are just concatenating these paths.
+Observe $\Mor(x,x)=\pi_{1}(X,x)$ is the fundamental group with
+base-point $x$.
+\end{example}
+
+\subsection{Functors}
+
+\begin{definition}
+Let $\cat{C}$ and $\cat{D}$ be categories.
+A \define{Covariant Functor} $F\colon\cat{C}\to\cat{D}$ assigns an
+object $F(X)\in\Ob(\cat{D})$ to each object $X\in\Ob(\cat{C})$, and
+$F(f)\in\Mor_{\cat{D}}(F(X),F(Y))$ in $\cat{D}$ to each
+$f\in\Mor_{\cat{C}}(X,Y)$ in $\cat{C}$ such that
+\begin{enumerate}
+\item\textsc{Preserves identity morphism}: $F(\id_{X})=\id_{F(X)}$ for each $X\in\Ob(\cat{C})$;
+\item\textsc{Covariance}: $F(f\circ g)=F(f)\circ F(g)$ for all $X,Y,Z\in\Ob(\cat{C})$ and
+  $f\in\Mor_{\cat{C}}(Y,Z)$ and $g\in\Mor_{\cat{C}}(X,Y)$.
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+Let $\Chain$ be the category whose objects are singular chain complexes and
+morphisms are chain maps. Then we have a covariant functor
+$C_{*}\colon\TOP\to\Chain$ assigning a singular chain complex to each
+topological space $X$, and to each continuous map $f\colon X\to Y$
+it assigns the chain map $f_{\sharp}\colon C_{*}(X)\to C_{*}(Y)$.
+\end{example}
+
+\begin{example}
+Let $\GrAB$ be the category of graded Abelian groups and
+grade-preserving group morphisms.
+We have a covariant functor $H_{*}\colon\Chain\to\GrAB$
+sending a chain complex $(C,\boundary)$ to the homological group $H_{*}(C)$,
+and chain maps $f\colon(C,\boundary)\to(C',\boundary')$ to the induced
+maps $f_{*}\colon H_{*}(C)\to H_{*}(C')$.
+\end{example}
+
+\begin{example}
+We can compose these two functors to obtain a covariant functor
+$H_{*}\circ C_{*}\colon\TOP\to\GrAB$.
+\end{example}
+
+\begin{example}
+We see that the fundamental group is also a functor from the category
+$\TOP_{*}$ of pointed topological spaces to the category of groups --- $\pi_{1}\colon\TOP_{*}\to\GRP$.
+\end{example}
+
+\begin{example}
+The fundamental groupoid is a functor $\Pi_{1}\colon\TOP\to\GRPD$
+where $\GRPD$ is the category of groupoids and its morphisms are functors.
+\end{example}
+
+\begin{definition}
+A \define{Contravariant Functor} $F\colon\cat{C}\to\cat{D}$ is like a
+covariant functor, except when assigning morphisms:
+\begin{enumerate}[start=2]
+\item\textsc{Contravariance}: $F(f\circ g)=F(g)\circ F(f)$.
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+The ``dual'' functor $*\colon\LINEAR\to\LINEAR$ which assigns a vector
+space $V$ to its dual space $V^{*}$, and a linear map $f\colon V\to W$
+is mapped to $f^{*}\colon W^{*}\to V^{*}$.
+\end{example}
+
+\subsection{Natural Transformations}
+
+\begin{definition}
+Let $\cat{C}$ and $\cat{D}$ be categories.
+Let $F$, $G\colon\cat{C}\to\cat{D}$ be covariant functors.
+We define a \define{Natural Transformation} $T$ from $F$ to $G$
+assigns a morphism $T_{X}\colon F(X)\to G(X)$ for each object $X\in\Ob(\cat{C})$
+(called the \emph{component} of $T$ at $X$)
+such that for each morphism $f\in\hom_{\cat{C}}(X,Y)$ in $\cat{C}$ the
+following diagram commutes
+\begin{equation}
+\vcenter{\xymatrix{%
+F(X)\ar[d]_{T_{X}}\ar[r]^{F(f)} & F(Y)\ar[d]^{T_{Y}}\\
+G(X)\ar[r]^{G(f)} & G(Y)}}
+\end{equation}
+We write $T\colon F\To G$ for the natural transformation.
+\end{definition}
+
+\begin{example}
+Let $\cat{C}$ have its objects be pairs of spaces, and morphisms are
+continuous maps of pairs of spaces. We have $H_{*}\colon\cat{C}\to\GrAB$
+sending $(X,A)\mapsto H_{*}(X,A)$. Then $\boundary_{*}\colon H_{*}(X,A)\to H_{*-1}(A)$
+is a natural transformation.
+\end{example}
+
+\begin{example}
+Let $G$ and $H$ be Abelian groups. Let $\alpha\colon G\to H$ be a
+group morphism. Now we have two functors $H_{*}(-;G),H_{*}(-;H)\colon\TOP\to\GrAB$.
+Then we have a natural transformation $\alpha_{*}\colon H_{*}(-;G)\To H_{*}(-;H)$
+such that the diagram commutes
+\begin{equation}
+\vcenter{\xymatrix{%
+                 & H_{*}(X;G)\ar[dd]^{\alpha_{*}}\\
+X\ar[ur]\ar[dr]  & \\
+                 & H_{*}(X;H)}}
+\end{equation}
+\end{example}

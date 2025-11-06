@@ -1,0 +1,180 @@
+%%
+%% fall-lecture16.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-04T08:57:54-0800
+%% Last update 2025-11-04T08:57:54-0800
+%% 
+
+\lecture{}
+
+\begin{definition}[Matsumara 6B]
+\begin{enumerate}
+\item Let $X$ be a topological space and $Z\subset X$. We say that $Z$ is
+\define{Locally Closed} if $Z=U\cap F$ for some $U\subset X$ open and
+$F\subset X$ closed.
+\item Let $X$ be a Noetherian topological space. We say that a set
+  $Z\subset X$ is \define{Constructible} if $Z$ is a finite union of
+  locally closed sets in $X$, i.e., $Z=\bigcup^{n}_{i=1}(U_{i}\cap F_{i})$
+  for some open $U_{i}\subset X$ and closed $F_{i}\subset X$ for $i=1,\dots,n$
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}
+\item We can define ``constructible'' for generic topological spaces,
+  not just Noetherian spaces, but it is rather unwieldy in general.
+\item If $Z$ and $Z'$ are constructible, then so are $Z\cup Z'$ and
+  $Z\cap Z'$ and $Z\setminus Z'$ are all constructible.
+\end{enumerate}
+\end{remark}
+
+\begin{proposition}[Matsumara 6C]\label{prop:fall-lec16:prop-6c}
+If $X$ is Noetherian and $Z\subset X$, then $Z$ is constructible if
+and only if for each irreducible closed subset $X_{0}\subset X$,
+either $X_{0}\cap Z$ is not dense in $X_{0}$, or $X_{0}\cap Z$
+contains a nonempty open subset of $X_{0}$.
+\end{proposition}
+
+\begin{example}
+The canonical example: consider a map $\AA^{2}\to\AA^{2}$ sending
+$(x,y)\mapsto(x,xy)$. What is the image of this map?
+
+We see that $(0,y)\mapsto(0,0)$ for all $y$, but nothing is mapped to
+$(0,y)$. For all other $(x,y)$ with $y\neq 0$, we can find a point
+$(x,y/x)$ which is mapped to it. Thus the image is
+$\AA^{2}\setminus\{(0,y)\mid y\neq0\}$.
+
+Is this locally closed? [No]
+
+Is this a constructible set? Yes. Intuitively, we could take
+$U_{+}=\{(x,y)\mid x>0\}$ and $U_{-}=\{(x,y)\mid x<0\}$ with $F_{\pm}=\AA^{2}$, and $U_{0}=\AA^{2}$
+with $F_{0}=\{(0,0)\}$. This gives us our family of locally closed
+sets whose union is the image of the map.
+(Or, we could see, the complement of the line $x=0$ is an open set,
+and use that instead of $U_{0}$.)
+\end{example}
+
+\begin{proof}[Proof (6C)]
+\forwardproof\
+Assume $Z$ is constructible. Let $X_{0}$ be an irreducible closed
+subset of $X$. THen $X_{0}\cap Z$ is constructible. So we can consider
+\begin{equation}
+X_{0}\cap Z=\bigcup^{m}_{i=1}(U_{i}\cap F_{i}).
+\end{equation}
+Without loss of generality: (1) since $F_{i}$ are closed, they are irreducible;
+(2)~$\forall i,U_{i}\cap F_{i}\neq\emptyset$ otherwise we could just
+discard any disjoint pair $U_{j}\cap F_{j}=\emptyset$ from consideration.
+
+Now, consider $\closure{U_{i}\cap F_{i}}=F_{i}$ since $F_{i}$
+irreducible (and $F_{i}\setminus U_{i}$ would give the irreducible
+decomposition). Then $\closure{X_{0}\cap Z}=\bigcup^{m}_{i=1}F_{i}$.
+
+If $X_{0}\cap Z$ is dense in $X_{0}$, then
+\begin{equation}
+X_{0}=\bigcup^{m}_{i=1}F_{i},
+\end{equation}
+which implies $X_{0}=F_{1}$ (where we just reorder the indices to make
+$F_{1}$ the particular closed set). Then $U_{1}\cap X_{0}=U_{1}\cap F_{1}$
+is a nonempty open subset of $X_{0}$ contained in $X_{0}\cap Z$. Hence
+the result.
+
+\backwardproof\ A bit harder, use induction and the fact the space is Noetherian.
+\end{proof}
+
+
+\begin{example}
+The integers are not a constructible subset of $\RR$ in the Zariski topology.
+But $\ZZ$ is dense in the Zariski topology (since the closed subsets
+of $\RR$ are either finite or $\RR$, and the closure of $\ZZ$ cannot
+be finite, so the closure of $\ZZ$ must be $\RR$ in the Zariski
+topology --- hence $\ZZ$ is dense in $\RR$ in the Zariski topology).
+\end{example}
+
+\begin{definition}
+Let $A$ be a ring, let $F$ be an irreducible closed subset of $X=\Spec(A)$.
+Then we define the \define{Generic Point} of $F$ to be the unique
+prime ideal $P\in\Spec(A)$ such that $F=V(P)$ (where
+$V(I)=\{P\in\Spec(A)\mid I\subset P\}$).
+\end{definition}
+
+\begin{remark}
+Remember, in Hausdorff spaces, points are closed subsets. But in
+non-Hausdorff spaces, ``points'' can be\dots well, big.
+\end{remark}
+
+\begin{lemma}[Generic point is well-defined, Matsumara 6D]
+Let $A$ be a ring, let $F$ be a closed subset of $X=\Spec(A)$.
+Then $F$ is irreducible if and only if $F=V(P)$ for some prime ideal
+$P$. This $P$ is unique and it's precisely the generic point of $F$.
+\end{lemma}
+
+\begin{proof}
+\forwardproof\ Suppose $F$ is irreducible.
+Since $F$ is closed in the Zariski topology, there is some $I\ideal A$
+such that $F=V(I)$ where $I=\bigcup_{P\in F}P$. We want to show that
+$I$ is prime. If $I$ is not prime, then there exists some $ab\in A\setminus I$
+such that $ab\in I$. Look at $V(a)$ (the ideals containing $a$) and $V(b)$.
+Then $F\nsubset V(a)$ and $F\nsubset V(b)$. But $F\subset V(a)\cap V(b)=V(ab)$.
+Then $F=F(F\cap V(a))\cup(F\cap V(b))$ which contradicts irreducibility.
+
+\backwardproof\ If $V(P)=F$, then $P\in V(P)$. Suppose $F=Z_{1}\cup Z_{2}$.
+Then either $P\in Z_{1}$ or $P\in Z_{2}$. But its closure is the
+entire thing $\closure{P}=V(P)=F$ which implies $Z_{1}=\emptyset$ or
+$Z_{2}=\emptyset$ which implies $F$ is irreducible.
+\end{proof}
+
+% This was actually a "sub-lemma" used in the proof of Matsumara 6.2
+\begin{lemma}\label{lm:fall-lec16:sub-lemma-for-6-2}
+If $Z\subset\Spec(A)=X$ is any sset in the Zariski topology, then
+\begin{equation}
+\closure{Z}=V\left(\bigcap_{P\in Z}P\right)=\{Q\in\Spec(A)\mid Q\supset\bigcap_{P\in Z}P\}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Observe:
+\begin{enumerate}
+\item $V(\bigcap P)$ is a closed set
+\item $Z\subset V(\bigcap P)$
+\item For any closed $Y$ such that $Z\subset Y$, then $Y=V(I)$ implies
+  $\bigcap P\subset I$ which implies $V(\bigcap P)\subset V(I)$. Then
+  $P\in V(I)$ implies $I\subset P$, which implies $V(\bigcap P)\subset V(I)$. 
+\end{enumerate}
+Hence the result.
+\end{proof}
+
+\begin{lemma}[Matsumara 6.2]\label{lm:fall-lec16:matsumara-6-2}
+Let $\phi\colon A\to B$ be a map of rings. Let $X=\Spec(A)$ and $Y=\Spec(B)$.
+Let $f=\preimage\varphi\colon Y\to X$. Then $f(Y)$ is dense in $X$ if
+and only if $\ker(\varphi)\subset\nilradical{A}$. In particular, if
+$A$ is reduced, then $f(Y)$ is dense iff $\phi$ is injective.
+\end{lemma}
+
+% The proof of the lemma was the start of lecture 17
+
+\begin{proof}
+\forwardproof\
+To prove something is dense, we look at its (topological) closure. So
+we look at $\closure{f(Y)}$ in $X$. Now, we apply Lemma~\ref{lm:fall-lec16:sub-lemma-for-6-2}
+to
+\begin{subequations}
+\begin{align}
+\closure{f(Y)} &= V(\bigcap{P\in Y}\phi^{-1}(P))\\
+&= V(\phi^{-1}(\bigcap_{P\in Y}P))\quad\mbox{preimage commutes with interscetion}\\
+&= V(\phi^{-1}(\nilradical(B)))\quad\mbox{by def of nilradical},
+\end{align}
+\end{subequations}
+so now let us look at the kernel of $\phi$. Denoting
+$I=\phi^{-1}(\nilradical(B))$, then we have $\ker(\phi)\subset I$. Now
+suppose $f(Y)$ is dense in $X$ (i.e., $\closure{f(Y)}=X$).
+Then $I\subset\nilradical(A)$. We have $\forall P\in\Spec(A)\ldotp I\subset P$.
+Then $I\subset\bigcap P=\nilradical(A)$. Hence $\ker(\phi)\subset I\subset \nilradical(A)$.
+\end{proof}
+
+\begin{remark}
+Note: Matsumara's proof is flawed. We proved one direction, but the
+other is easy, and we will skip it.
+\end{remark}

@@ -66,4 +66,24 @@
 \let\subgroup\leq
 \def\normalsubgroup{\mathrel{\trianglelefteq}}
 
+% category theory
+\newcommand\cat[1]{\mathbf{#1}}
+\DeclareMathOperator\Ob{Ob}
+\DeclareMathOperator\Mor{Mor}
+\let\og@hom\hom
+\let\hom\relax
+\DeclareMathOperator\hom{Hom}
+\newcommand\To{\Rightarrow} % \to, but for natural transformations
+
+% categories
+\newcommand\TOP{\cat{TOP}}
+\newcommand\SET{\cat{SET}}
+\newcommand\GRP{\cat{GRP}}
+\newcommand\GrAB{\cat{GrAB}}
+\newcommand\AB{\cat{AB}}
+\newcommand\GRPD{\cat{GRPD}}
+\newcommand\LINEAR{\cat{LINEAR}}
+\newcommand\BIMOD{\cat{BIMOD}}
+\newcommand\Chain{\cat{Chain}}
+
 \endinput
