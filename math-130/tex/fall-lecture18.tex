@@ -1,0 +1,300 @@
+%%
+%% fall-lecture18.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-08T09:38:26-0800
+%% Last update 2025-11-08T09:38:26-0800
+%% 
+
+\lecture{}
+
+\begin{proposition}
+Let $C$ be an irreducible curve, let $p\in C$ be a nonsingular point,
+and let $Y$ be a projective variety.
+Any morphism $\varphi\colon C\setminus\{p\}\to Y$
+can be uniquely extended to $\varphi\colon C\to Y$.
+\end{proposition}
+
+\begin{proof}
+Without loss of generality, $Y=\PP^{n}$ and
+$\varphi(C\setminus\{p\})\nsubset V_{p}(x_{i})$ for all $i$.
+Suffices to prove existence, since uniqueness follows immediately.
+
+Write $U := D_{p}(x_{0}x_{1}(\cdots)x_{n})\subset\PP^{n}$ and suppose
+\begin{equation}
+\varphi(C\setminus\{p\})\cap U\neq\emptyset.
+\end{equation}
+Write
+\begin{equation}
+f_{i,j} = \frac{\partial x_{i}}{\partial x_{j}}\circ\varphi,
+\end{equation}
+and we see $f_{i,j}\in\FunField[\kk]{C}$, let
+\begin{equation}
+v_{p}\colon\FunField[\kk]{C}^{*}\to\ZZ,
+\end{equation}
+the valuation given by $\RegularFuns_{C,p}$ (the stalks of the
+structure sheaf of $C$ at $p$). Define
+\begin{equation}
+r_{i}:=v_{p}(f_{i,0}),
+\end{equation}
+choose $j$ such that $r_{j}$ is minimal. Then
+\begin{equation}
+v_{p}(f_{i,j})=r_{i}-r_{j}\geq0.
+\end{equation}
+Since
+\begin{equation}
+\frac{x_{i}}{x_{j}} = 
+\frac{x_{i}/x_{0}}{x_{j}/x_{0}},
+\end{equation}
+it follows that
+\begin{equation}
+f_{i,j} = \frac{f_{i,0}}{f_{j,0}}.
+\end{equation}
+Then $f_{i,j}\in\RegularFuns_{C,p}$ for all $i$ and $j$.
+
+Note: if $Q\in\varphi^{-1}(U)$, then
+\begin{equation}
+\varphi(Q):=(f_{0,j}(Q):\cdots:f_{j,j}(Q):\cdots:f_{n,j}(Q)).
+\end{equation}
+Extend $\varphi$ by defining $\varphi(P)$ by this expression.
+\end{proof}
+
+\begin{theorem}
+$C_{K}$ is projective.
+\end{theorem}
+
+\begin{proof}
+We know we have an open affine cover $C_{K}=U\cap V$ where
+$U=\Spec(\closure{\kk[f]})$ and $V=\Spec(\closure{\kk[f^{-1}]})$
+(where we are taking the spectrum [prime ideals] of the \emph{integral closures}
+of the rings). We know $U\subset\AA^{N}$ is closed. We can take the
+projective closure $\closure{U}$ of $U$, and $\closure{V}$ of $V$,
+then the inclusion $U\into\closure{U}$ (where $\closure{U}\subset\PP^{N}$)
+extends to a morphism $\varphi_{1}\colon C_{K}\to\closure{U}$.
+Similarly, we have a morphism $\varphi_{2}\colon C_{K}\to\closure{V}$.
+
+Define $\varphi\colon C_{K}\to\closure{U}\times\closure{V}$ by
+$\varphi(p)=(\varphi_{1}(p),\varphi_{2}(p))$. Also define
+$Y=\closure{\varphi(C_{K})}\subset\closure{U}\times\closure{V}$.
+
+We claim $\varphi\colon C_{K}\to Y$ is an isomorphism. Note that
+$\varphi(U)$ is closed in $U\times\closure{V}$, 
+observe
+\begin{equation}
+\psi:=(\varphi_{2},\id)\colon U\times\closure{V}\to\closure{V}\times\closure{V},
+\end{equation}
+and
+\begin{equation}
+\varphi(U)=\{(u,v)\in U\times\closure{V}\mid\varphi_{2}(u)=v\}=\psi^{-1}(\Delta_{\closure{V}}).
+\end{equation}
+This means $\varphi(U)=Y\cap(U\times\closure{V})$, so
+$\varphi|_{U}\colon U\to Y\cap(U\times\closure{V})$ is an isomorphism
+whose inverse is $\pi_{U}\colon(Y\cap U\times\closure{V})\to U$ is
+just the projection.
+
+Why is $\varphi$ injective? Well, for any $p\in C_{K}$, we see
+$\RegularFuns_{Y,\varphi(p)}=R_{p}\subset\kk$ and $\RegularFuns_{Y,\varphi(p)}$
+is one-to-one[?] with $R_{p}$.
+
+Why is $\varphi$ surjective? Well, Let $y\in Y$. Then
+$\RegularFuns_{Y,y}\subset R_{p}$ for some $p\in C_{K}$. But
+$R_{p}=\RegularFuns_{Y,\varphi(p)}$. Then $y=\varphi(p)$.
+\end{proof}
+
+\begin{lemma}
+Let $X$ be an irreducible variety. Let $x,y\in X$. If
+$\RegularFuns_{X,x}\subset\RegularFuns_{X,y}$, then $x=y$.
+\end{lemma}
+
+\begin{proof}
+Take open affine neighborhoods $x\in U\subset X$ and $y\in V\subset X$.
+Since $X$ is separated, $U\cap V$ is affine. There exists a surjection
+$\CoordRing{\kk}{U}\otimes_{\kk}\CoordRing{\kk}{V}\to\CoordRing{\kk}{U\cap V}$,
+$\CoordRing{\kk}{U}\subset\RegularFuns_{X,x}\subset\RegularFuns_{X,y}$
+and $\CoordRing{\kk}{V}\subset\RegularFuns_{X,y}$. Then
+$\CoordRing{\kk}{U\cap V}\subset\RegularFuns_{X,y}$.
+
+\textsc{Claim:} $\CoordRing{\kk}{V}\subset\CoordRing{\kk}{U\cap V}$.
+Take the maximal ideal $\mathfrak{m}_{y}\ideal\RegularFuns_{X,y}$.
+Then $\CoordRing{\kk}{U\cap V}\cap\mathfrak{m}_{y}$ is a maximal ideal
+in $\CoordRing{\kk}{U\cap V}$ which corresponds to a point in $U\cap V$
+mapped to $y$ under the inclusion $U\cap V\into V$. Hence $y\in U$.
+Now we can reduce to affine case for $U$.
+Let $A:=\CoordRing{\kk}{U}$, $P\ideal A$ be the maximal ideal
+corresponding to $x$, and $Q\ideal A$ be the maximal ideal
+corresponding to $y$. Then $A_{P}\subset A_{Q}$, so
+\begin{equation}
+QA_{Q}\cap A_{P}\subset PA_{P}
+\end{equation}
+which implies
+\begin{equation}
+Q - QA_{Q}\cap A\subset PA_{P}\cap A=P.
+\end{equation}
+Since $Q\subset P$ and both are maximal ideals, it follows
+$Q=P$. Hence the result.
+\end{proof}
+
+\begin{corollary}
+Any curve is birational to a nonsingular projective curve. If $X$ is
+any curve, then it is birational to $C_{K}$ where $K=\FunField[\kk]{X}$.
+\end{corollary}
+
+\begin{corollary}
+If $X$ is any nonsingular curve, then $X$ is birational to some open
+subset of $C_{K}$ where $K=\FunField[\kk]{X}$.
+\end{corollary}
+
+\begin{proof}
+Define the morphism
+\begin{equation}
+\begin{split}
+\varphi\colon & X\to C_{K},\\
+& x\mapsto p,
+\end{split}
+\end{equation}
+where $\RegularFuns_{X,x}=R_{p}\subset\kk$.
+
+We claim $\varphi(X)\subset C_{K}$ is open. We see $\varphi$ is
+clearly injective. Take $U\subset X$ open and affine, then
+its coordinate ring $\CoordRing{\kk}{U}$ is finitely-generated by
+$f_{1}$, \dots, $f_{n}$. Then
+\begin{subequations}
+\begin{align}
+  \varphi(U) & := \{p\in C_{K}\mid\CoordRing{\kk}{U}\subset R_{p}\}\\
+  &= \{p\in C_{k}\mid f_{1},\dots,f_{n}\in R_{p}\}\\
+  &= \bigcap^{n}_{i=1}\Spec(\closure{\CoordRing{\kk}{f_{i}}})
+\end{align}
+\end{subequations}
+where $\Spec(\closure{\CoordRing{\kk}{f_{i}}})$ in that last equation
+describes the open affine subsets. Hence $\varphi(X)$ is open.
+
+This is an isomorphism because
+\begin{subequations}
+\begin{align}
+  \CoordRing{\kk}{U} &:=\bigcap_{x\in U}\RegularFuns_{X,x}\\
+  &=\bigcap_{p\in\varphi(U)}R_{p}\\
+  &=\CoordRing{\kk}{\varphi(U)}
+\end{align}
+\end{subequations}
+locally, hence globally.
+\end{proof}
+
+\begin{xca}
+We have 2 nonsingular projective curves are isomorphic if and only if
+they have the same function field.
+\end{xca}
+
+\subsection{Degrees of Projective Varieties in $\PP^{n}$}
+
+\begin{node}[Goal]
+We want to compute the number of points in the intersection of
+``general'' subvarieties of projective spaces.
+\end{node}
+
+\begin{definition}[Classical Version]
+Let $X\subset\PP^{n}$ be a projective variety.
+Then the \define{Degree} of $X$ is the number $\deg(X) := \#(X\cap V)$
+where $V\subset\PP^{n}$ is a general linear subspace such that
+$\dim(X)+\dim(V)=n$.
+\end{definition}
+
+\begin{example}
+Let $f\in S=\kk[x_{0},\dots,x_{n}]$ be square-free. Then
+\begin{equation}
+\#(V_{p}(f)\cap(\mbox{general line}))=\deg(f).
+\end{equation}
+We repeatedly use the fundamental theorem of algebra, and we find the
+number of roots is the degree of $f$.
+\end{example}
+
+\begin{caution}
+$V_{p}(yz-x^{2})\subset\PP^{2}$ and $V_{p}(x)\subset\PP^{2}$ are both
+isomorphic to $\PP^{1}$ but they have different degrees. So the degree
+really depends on the embedding.
+\end{caution}
+
+\begin{example}
+Let $f\in\HomogeneousCoordRing{}{\PP^{n}}$ be a square-free degree $d$
+homogeneous polynomial. Let $X = V_{p}(f)\subset\PP^{n}$, and
+$I(X)=\langle f\rangle$ its ideal. Then $R := S/\langle f\rangle$. We see
+\begin{equation}
+\dim_{\kk}(S_{m})=\binom{n+m}{n}=\frac{1}{n!}(m+n)(\cdots)(m+1),
+\end{equation}
+which itself is a polynomial in the variable $m$ of degree $n$ with
+leading coefficient $1/n!$.
+
+To do this for $R$, we just use the short exact sequence
+\begin{equation}
+0\to S_{m-d}\xrightarrow{f}S_{m}\to R_{m}\to 0,
+\end{equation}
+then we can compute
+\begin{subequations}
+\begin{align}
+\deg_{\kk}(R_{m}) &= \deg_{\kk}(S_{m}) - \deg_{\kk}(S_{m-d})\\
+&= \binom{n+m}{n} - \binom{n+m-d}{n}\\
+&= \frac{1}{n!}(m+n)(\cdots)(m+1)-\frac{1}{n!}(m+n-d)(\cdots)(m+1-d),
+\end{align}
+\end{subequations}
+which is a polynomial of degree $n-1$ with leading coefficient
+\begin{subequations}
+\begin{align}
+\begin{pmatrix}\mbox{leading}\\\mbox{coefficient}
+\end{pmatrix}&=\frac{1}{n!}\left(\sum^{n}_{i=1}i-\sum^{n}_{i=1}(i-d)\right)\\
+&=\frac{d}{(n-1)!}.
+\end{align}
+\end{subequations}
+Then we can recover $\deg(f)$ from $m\mapsto\dim_{\kk}(R_{m})$, and we
+call this mapping the \define{Hilbert Function}.
+\end{example}
+
+\begin{node}
+We need to recall a few notions from abstract algebra about graded stuff.
+\end{node}
+
+\begin{definition}
+A \define{Graded $S$-Module} is a module $M$ with a decomposition
+\emph{as an Abelian group}
+\begin{equation}
+M = \bigoplus_{d\in\ZZ}M_{d},
+\end{equation}
+such that $S_{m}M_{d}\subset M_{d+m}$.
+\end{definition}
+
+\begin{definition}
+When $M$ is a graded $S$-module, we have
+\begin{enumerate}
+\item Its annihilator $\Annihilator(M)=\{f\in S\mid fM=0\}\subset S$
+  which is a homogeneous ideal;
+\item Its support $\Support(M)=V_{p}(\Annihilator(M))$ vanishing of
+  $\Annihilator(M)$ in $\PP^{n}$.
+\end{enumerate}
+Why do we use this name ``the support of $M$''? Let $x\in\PP^{n}$,
+then consider the corresponding ideal $P=I(\{x\})\subset S$. Then
+$M_{p}\neq0$ if and only if $P\supset\Annihilator(M)$ if and only if $x\in\Support(M)$;
+i.e., localizing at a point in the support is nonzero.
+\end{definition}
+
+\begin{example}
+Let $X\subset\PP^{n}$ be closed. Then
+\begin{equation}
+\Annihilator(S/I(X))=I(X),
+\end{equation}
+which implies
+\begin{equation}
+\Support(S/I(X))=V_{p}(I(X))=X.
+\end{equation}
+\end{example}
+
+\begin{note}
+The $M_{d}$ is a $\kk$-vector space, since $S_{0}=\kk$.
+If $M$ is a finitely-generated $S$-module, then each $M_{d}$ has
+finite dimension.
+\end{note}
+
+\begin{definition}
+Let $M$ be a graded $S$-module.
+We define the \define{Hilbert Function} of $M$ to be the function
+$\HilbertFun{M}(d):=\dim_{\kk}(M_{d})$.
+\end{definition}

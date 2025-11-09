@@ -1,0 +1,177 @@
+%%
+%% fall-lecture18.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-08T08:22:43-0800
+%% Last update 2025-11-08T08:22:43-0800
+%% 
+
+\lecture{}
+
+\begin{corollary}\label{cor:math-151a:fall-lec18}
+Let $M$, $N$ be $n$-manifolds. If $M$ is compact and $N$ is connected,
+then an injective continuous map $f\colon M\to N$ must be a homeomorphism.
+\end{corollary}
+
+\begin{proof}
+\textsc{Step 1:} $f\colon M\to f(M)$ is a homeomorphism. We know it's
+a bijection and continuous, so we need to prove $g\colon f(M)\to f$
+(where $g=f^{-1}$) is continuous. We Let $B\subset M$ be a closed
+set. We want to show $g^{-1}(B)$ is closed. But any closed subset of a
+compact space must be compact. So $g^{-1}(B)=f(B)$ is also compact,
+hence closed. This establishes $g$ is continuous, which concludes the
+first step of the proof.
+
+\textsc{Step 2.} By invariance of domain, $f(M)$ is open in
+$N$. (Since $N$ is locally like $\RR^{n}$, we can use invariance of
+domain.) Since $M$ is compact, $f(M)$ is also compact, hence $f(M)$ is
+closed in $N$. So either $f(M)=\emptyset$ or $f(M)=N$ (since $f(M)$ is
+open and closed in a connected space $N$). But $M\neq\emptyset$, which
+implies $f(M)=N$.
+\end{proof}
+
+\begin{theorem}[Hopf]
+$\RR$ and $\CC$ are the only finite-dimensional commutative division
+algebras over $\RR$.
+\end{theorem}
+
+Recall, a division algebra over a field $\FF$ is a vector space $V$
+equipped with a bilinear map $\mu\colon V\times V\to V$ called
+``multiplication'' such that for all nonzero $x\in V\setminus\{0\}$ we
+have $\mu(x,-)$ and $\mu(-,x)$ are bijections. We will write $\mu(x,y)=xy$.
+
+\begin{proof}
+Let $V\iso\RR^{n}$ be a finite-dimensional commutative division
+algebra over $\RR$. Given $x\in\sphere{n-1}\subset\RR^{n}$, define
+\begin{equation}
+f(x) := \frac{\mu(x,x)}{\|\mu(x,x)\|}=\frac{x^{2}}{\|x^{2}\|}.
+\end{equation}
+This is well-defined, since $x\neq0$ so $x^{2}\neq0$. Then
+$f\colon\sphere{n-1}\to\sphere{n-1}$ and $f(x)=f(-x)$. So $f$ induces
+a map
+\begin{equation}
+\bar{f}\colon\RP^{n-1}\to\sphere{n-1}.
+\end{equation}
+This is also well-defined.
+
+We claim $\bar{f}$ is injective. If $x,y\in\sphere{n-1}$ are such that
+$f(x)=f(y)$, then $x^{2}/\|x^{2}\|=y^{2}/\|y^{2}\|$. We can rewrite
+this as
+\begin{equation}
+x^{2}=\alpha^{2}y^{2},
+\end{equation}
+where $\alpha\in\RR$ is nonzero, and then we can rearrange this to be
+(since $V$ is commutative)
+\begin{equation}
+(x+\sqrt{\alpha}y)(x-\sqrt{\alpha}y)=0.
+\end{equation}
+Then one of these factors must be zero (since division algebras are
+integral domains). So we must have
+\begin{equation}
+x=\pm\sqrt{\alpha}y.
+\end{equation}
+But since $x,y\in\sphere{n-1}$, they are all unit vectors, and so this implies
+\begin{equation}
+x=\pm y.
+\end{equation}
+This implies $\bar{f}$ is injective.
+
+Then $\bar{f}$ is a homeomorphism by Corollary~\ref{cor:math-151a:fall-lec18}.
+But this is not true if $n>2$ --- just look at
+$H_{1}(\RP^{n-1};\ZZ/2\ZZ)$ and $H_{1}(\sphere{n-1};\ZZ/2\ZZ)$, they
+are different for $n>2$.
+
+So $n\leq2$. For $n=1$, we see $V=\RR$. For $n=2$, we use need to show
+there is a unit $1\in V$ such that $\mu(1,x)=\mu(x,1)=x$ for all $x\in V$
+and there is a $j\in V$ such that $\mu(j,j)=-1$. This is elementary
+algebra, and establishes $V\iso\CC$.
+\end{proof}
+
+\begin{definition}
+A map $f\colon\sphere{n}\to\sphere{m}$ is \define{Even} if $f(-x)=f(x)$,
+and \define{Odd} if $f(-x)=-f(x)$.
+\end{definition}
+
+\begin{theorem}
+An odd map $f\colon\sphere{n}\to\sphere{n}$ has odd degree.
+\end{theorem}
+
+\begin{proof}
+\textsc{Case 1: $n=1$.} When $n=1$, we can check it directly. This
+case is trivial.
+
+\textsc{Case 2: $n>1$.} We have the 2-fold covering
+\begin{equation}
+q\colon\sphere{n}\xrightarrow{2:1}\RP^{n}.
+\end{equation}
+Then we can cover $f$ by $\bar{f}$ to get
+\begin{equation}
+\vcenter{\xymatrix{\sphere{n}\ar[r]^{f}\ar[d]^{2:1} & \sphere{n}\ar[d]^{2:1}\\
+\RP^{n}\ar[r]^{\bar{f}} & \RP^{n}}}
+\end{equation}
+We see $f(\{x,-x\})=\{f(x),-f(x)\}$ maps antipodal points to antipodal
+points. Now consider
+\begin{equation}
+f_{*}\colon H_{*}(\RP^{n};\ZZ_{2})\to H_{*}(\RP^{n};\ZZ_{2}).
+\end{equation}
+Let $\gamma$ be a path on $\sphere{n}$ from $x_{0}=\gamma(0)$ to
+$-x_{0}=\gamma(1)$. Let $f(\gamma)$ be a path from $f(x_{0})$ to $-f(x_{0})$.
+Then $q(\gamma)$ is a loop which generates $\pi_{1}(\RP^{n})$.
+[Lifting criteria: if $q(\gamma)$ is null-homotopic, then it would
+  lift to a loop in $\sphere{n}$.] But $\pi_{1}(\RP^{n})\iso H_{1}(\RP^{n})$
+always, and $H_{1}(\RP^{n})\iso H_{1}(\RP^{n};\ZZ_{2})$ if $n>1$.
+
+Similarly, $[q(f(\gamma))]$ generates $H_{1}(\RP^{n};\ZZ_{2})$.
+
+Hence $f_{*}\colon H_{1}(\RP^{n};\ZZ_{2})\to H_{1}(\RP^{n};\ZZ_{2})$
+is an isomorphism.
+
+Now we want to show the induced map is an isomorphism on $H_{j}$ for
+$1\leq j\leq n$.
+
+\textsc{Transfer Homomorphism:} Let $q\colon\widetilde{X}\to X$ be a
+2-fold covering. The transfer morphism,
+\begin{equation}
+\tau\colon C_{*}(X;\ZZ_{2})\to C_{*}(\widetilde{X};\ZZ_{2}),
+\end{equation}
+where if we have a singular complex $\sigma$ for $X$,
+$\tau(\sigma)=\widetilde{\sigma}_{1}+\widetilde{\sigma}_{2}$ sends it
+to singular complexes for $\widetilde{X}$ are the two lifts of
+$\sigma$.
+\begin{equation}
+\vcenter{\xymatrix{
+&\widetilde{X}\ar[d]^{q}\\
+\Delta\ar@{..>}[ur]\ar[r]^{\sigma} & X}}
+\end{equation}
+This works for $\ZZ$ coefficients, but we only need it for $\ZZ_{2}$ coefficients.
+We have a short exact sequence
+\begin{equation}
+0\to C_{*}(X;\ZZ_{2})\xrightarrow{\tau}C_{*}(\widetilde{X};\ZZ_{2})\xrightarrow{q_{\sharp}}C_{*}(X;\ZZ_{2})\to0,
+\end{equation}
+which gives us a long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{
+H_{*}(X;\ZZ_{2})\ar[rr]^{\tau} && \ar[dl]^{q_{*}}H_{*}(\widetilde{X};\ZZ_{2})\\
+&\ar[ul]_{[-1]}^{\boundary_{*}}H_{*}(X;\ZZ_{2})&}}
+\end{equation}
+We have a commutative diagram letting $X=\RP^{n}$:
+\begin{equation}
+\vcenter{\xymatrix{
+\dots\ar[r]& H_{i}(\RP^{n};\ZZ_{2})\ar[d]^{\bar{f}_{*}}\ar[r] & H_{i}(\sphere{n};\ZZ_{2})\ar[r]\ar[d]^{f_{*}}
+& H_{i}(\RP^{n};\ZZ_{2})\ar[d]^{\bar{f}_{*}}\ar[r] & H_{i-1}(\RP^{n};\ZZ_{2})\ar[d]^{\bar{f}_{*}}\ar[r] & H_{i-1}(\sphere{n};\ZZ_{2})\ar[r]\ar[d]^{f_{*}}& \dots\\
+\dots\ar[r] & H_{i}(\RP^{n};\ZZ_{2})\ar[r] & H_{i}(\RP^{n};\ZZ_{2})\ar[r] & H_{i}(\RP^{n};\ZZ_{2})\ar[r] & H_{i-1}(\RP^{n};\ZZ_{2})\ar[r] & H_{i-1}(\RP^{n};\ZZ_{2})\ar[r]&\dots}}
+\end{equation}
+For $1<i\leq n-1$, the $H_{i}(\sphere{n};\ZZ_{2})=0=H_{i-1}(\sphere{n};\ZZ_{2})$,
+which gives isomorphisms. Then $\bar{f}_{n-1}$ is an isomorphism. But
+then this implies $\bar{f}_{n}$ is an isomorphism. So then $f_{n}$ is
+an isomorphism, because
+\begin{equation}
+\vcenter{\xymatrix{0\ar[r] &
+    H_{n}(\RP^{n};\ZZ_{2})\ar[d]^{\bar{f}_{n}}\ar[r] & H_{n}(\sphere{n};\ZZ_{2})\ar[d]^{f_{n}}\\
+0\ar[r] & H_{n}(\RP^{n};\ZZ_{2})\ar[r] & H_{n}(\RP^{n};\ZZ_{2})}}
+\end{equation}
+Then $f_{n}\colon H_{n}(\RP^{n};\ZZ_{2})\to H_{n}(\RP^{n};\ZZ_{2})$ is
+an isomorphism. Hence the result.
+\end{proof}

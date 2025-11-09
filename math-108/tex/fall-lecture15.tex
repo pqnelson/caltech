@@ -1,0 +1,177 @@
+%%
+%% fall-lecture15.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-08T08:56:46-0800
+%% Last update 2025-11-08T08:56:46-0800
+%% 
+
+\lecture[Arzel\'{a}--Ascoli Theorem]
+
+\begin{definition}
+Let $(X,d)$ be a metric space. We define the \define{Space of
+  Continuous Real-Valued Functions} on $X$ to be the vector space
+$C(X)$ whose underlying set consists of all $f\colon X\to\RR$
+continuous, addition is defined pointwise $(f+g)(x)=f(x)+g(x)$ as is
+scalar multiplication $(\alpha f)(x)=\alpha f(x)$.
+
+Note: if $X$ is compact, then every element of $C(X)$ has a minimum
+and maximum value (by the extreme value theorem).
+\end{definition}
+
+\begin{definition}
+We may define the \define{Uniform Metric} on $C(X)$ by
+\begin{equation}
+d(f,g)=\|f-g\|_{\infty}=\sup_{x\in X}|f(x)-g(x)|,
+\end{equation}
+for any $f,g\in C(X)$.
+
+This is called the ``uniform'' metric because a sequence converges
+with respect to this metric if and only if it is uniformly convergent.
+\end{definition}
+
+\begin{proposition}
+Let $(X,d)$ be compact. Then $C(X)$ is complete.
+\end{proposition}
+
+\begin{proof}
+Let $\{f_{n}\}$ be a Cauchy sequence in $C(X)$. We want to show it converges.
+For each $\varepsilon>0$ there is an $N\in\NN$ such that for all
+$m,n\geq N$ we have $\|f_{m}-f_{n}\|_{\infty}<\varepsilon$ by
+definition of Cauchy. But then for all $x\in X$, we have
+\begin{equation}
+|f_{m}(x)-f_{n}(x)|\leq\|f_{m}-f_{n}\|_{\infty}.
+\end{equation}
+So for each $x\in X$, $\{f_{n}(x)\}$ is a Cauchy sequence in $\RR$,
+and since $\RR$ is complete we see $\{f_{n}(x)\}$ converges. For each
+$x$, we may define
+\begin{equation}
+f(x) := \lim_{n\to\infty}f_{n}(x),
+\end{equation}
+which is a real-valued function on $X$. If we can show $f$ is
+continuous, then we will have $f_{n}\to f$ which will prove the
+theorem.
+
+We use the Triangle inequality, for some $n$,
+\begin{equation}\label{pf:c-x-is-complete:step-zero}
+|f(x)-f(y)|\leq|f(x)-f_{n}(x)|+|f_{n}(x)-f_{n}(y)|+|f_{n}(y)-f(y)|.
+\end{equation}
+Given $\varepsilon>0$, there exists $N_{1}\in\NN$ and $N_{2}\in\NN$
+such that
+\begin{equation}\label{pf:c-x-is-complete:step-one}
+|f_{n}(x)-f(x)|<\frac{\varepsilon}{3}\forall n\geq N_{1}\quad\mbox{and}\quad
+|f_{n}(y)-f(y)|<\frac{\varepsilon}{3}\forall n\geq N_{2}.
+\end{equation}
+Set $N=\max(N_{1},N_{2})$. Since $X$ is compact, by Heine--Cantor
+$f_{N}$ is uniformly continuous. Then there exists $\delta>0$ such
+that
+\begin{equation}\label{pf:c-x-is-complete:step-two}
+d(x,y)<\delta\implies|f_{N}(x)-f_{N}(y)|<\frac{\varepsilon}{3}.
+\end{equation}
+Now using Equations~\eqref{pf:c-x-is-complete:step-one} and~\eqref{pf:c-x-is-complete:step-two},
+we can rewrite Equation~\eqref{pf:c-x-is-complete:step-zero} as
+\begin{equation}
+|f(x)-f(y)|<\varepsilon.
+\end{equation}
+This shows $f\in C(X)$. Since $\RR$ is complete, uniformly Cauchy
+implies uniform convergence.
+\end{proof}
+
+\begin{lemma}\label{lemma:math-108a:fall-lec15:compact-metric-space-is-separable}
+A compact metric space is separable (i.e., has a countable dense set).
+\end{lemma}
+
+\begin{proof}
+Let $(X,d)$ be compact. For each $n\in\NN$, $\{B_{1/n}(x)\}_{x\in X}$ is an
+open cover. By compactness, it has a finite subcover
+$\{B_{1/n}(x_{i_{n}})\mid 1\leq i_{n}\leq M_{n}\}$. Then take the union of
+\begin{equation}
+D:=\bigcup_{n\in\NN}\{x_{i_{n}}\mid 1\leq i_{n}\leq M_{n}\},
+\end{equation}
+which is the countable union of finite sets (hence $D$ is a countable set).
+We claim $D$ is dense, hence the result.
+\end{proof}
+
+\begin{definition}
+A sequence $f_{n}\in C(X)$ is called \define{Point-wise Bounded} if
+for each $x\in X$ there exists some $M_{x}\geq0$ such that
+$|f_{n}(x)|\leq M_{x}$ for all $n$.
+
+We say $f_{n}$ is \define{Uniformly Bounded} if there exists some
+$M\geq0$ such that for all $x\in X$, $|f_{n}(x)|\leq M$ for any $n$.
+\end{definition}
+
+\begin{theorem}[Arzel\'{a}--Ascoli]
+Let $(X,d)$ be a compact metric space. Let $\{f_{n}\}$ be a sequence of
+functions in $C(X)$. If $\{f_{n}\}$ is uniformly bounded and uniformly
+continuous, then it has a subsequence that converges uniformly on $X$
+to a continuous function on $X$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lemma:math-108a:fall-lec15:compact-metric-space-is-separable},
+there exists a countably dense set $\{x_{i}\in X\}$. We claim there is
+a convergent subsequence of $\{f_{n}(x_{1})\}$.
+
+\textsc{Case 1:} If $\{f_{n}(x_{1})\}\subset\RR$ is an infinite set,
+then $\{f_{n}(x_{1})\}$ is pointwise bounded (since $\{f_{n}\}$ is
+uniformly bounded and $\{f_{n}(x_{1})\}$ is closed). If $\{f_{n}(x)\}$
+is closed, then the Bolzano--Weierstrass Theorem implies the sequence
+has a limit point. Then there is a convergent subsequence which we
+write as $f_{1,n}(x_{1})$.
+
+\textsc{Case 2:} If $\{f_{n}(x_{1})\}\subset\RR$ is a finite set.
+Then we can enumerate the elements and there will eventually be
+infinitely many copies of the same element. Hence the sequence is convergent.
+
+Now, inductively, we can find $f_{2,n}(x_{2})$ where $f_{2,n}$ is a
+subsequence of $f_{1,n}$, and $f_{2,n}(x_{2})$ is convergent. Then
+$\{f_{2,n}(x_{2})\}$ and $\{f_{2,n}(x_{1})\}$ are both convergent (the
+latter because it's a subsequence of a convergent sequence). Now we
+continue constructing $f_{3,n}$ as a subsequence of $f_{2,n}$ such
+which has $\{f_{3,n}(x_{3})\}$ be a convergent sequence, and so on. We
+end up with a family of subsequences, which we can write out
+\begin{equation}
+\begin{array}{lcccc}
+\{f_{1,n}\}\quad&\underline{f_{1,1}} & f_{1,2} & f_{1,3} & \dots\\
+\{f_{2,n}\}\quad&f_{2,1} & \underline{f_{2,2}} & f_{2,3} & \dots\\
+\{f_{3,n}\}\quad&f_{3,1} & f_{3,2} & \underline{f_{3,3}} & \dots\\
+\vdots\quad&\vdots & \vdots & \vdots & \ddots
+\end{array}
+\end{equation}
+We then construct $g_{n}=f_{n,n}$ which is the underlined diagonal of
+the previous table. This $g_{n}$ is a convergent sequence when
+evaluated at any $x_{i}$ --- i.e., $\{g_{n}(x_{i})\}$ is a convergent
+sequence for any $x_{i}$ --- since $\{f_{j,j}(x_{i})\}_{j>i}$
+converges.
+
+Since $\RR$ is complete, it suffices to show $g_{n}$ is uniformly
+Cauchy in $X$. Since $\{f_{n}\}$ is uniformly equicontinuous, we have
+\begin{equation}
+\forall\varepsilon>0\exists\delta>0\forall x,y\in X\forall n\ldotp d(x,y)<\delta\implies|f_{n}(x)-f_{n}(y)|<\frac{\varepsilon}{3}.
+\end{equation}
+In particular, this is true for each $g_{n}$.
+
+If we consider $\{B_{\delta}(x_{i})\}$, then this is an open cover
+(since $\{x_{i}\}$ is dense in $X$). Then by compactness, there is a
+finite open subcover --- re-indexing the $x_{i}$, we can write this
+out as $\{B_{\delta}(x_{1}),\dots,B_{\delta}(x_{M})\}$. For each
+$1\leq j\leq M$, $\{g_{n}(x_{j})\}$ converges in $\RR$. Then there
+exists $N_{i}\in\NN$ such that for all $m,n\geq N_{i}$,
+\begin{equation}
+|g_{n}(x_{i})-g_{m}(x_{i})|<\frac{\varepsilon}{3}.
+\end{equation}
+Taking $N=\max(N_{1},\dots,N_{M})$. Every $x$ is contained in a
+$B_{\delta}(x_{i})$ (since it's a cover). Let us call the ball
+containing $x\in B_{\delta}(x_{i_{0}})$. Then for all $m,n\geq N$, the
+Triangle inequality gives us
+\begin{equation}
+\begin{split}
+|g_{m}(x)-g_{n}(x)| & \leq|g_{n}(x)-g_{n}(x_{i_{0}})|+|g_{n}(x_{i_{0}})-g_{m}(x_{i_{0}})|+|g_{m}(x_{i_{0}})-g_{m}(x)|\\
+&<\varepsilon,
+\end{split}
+\end{equation}
+which shows $g_{n}$ is uniformly Cauchy. Hence the result.
+\end{proof}

@@ -1,0 +1,127 @@
+%%
+%% fall-lecture18.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-08T07:52:08-0800
+%% Last update 2025-11-08T07:52:08-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $A$ be a ring. Very frequently, we look at two [prime] ideals
+$P\subset P'$ of $A$. We will say that $P'$ is a
+\define{Specialization} of $P$, and that $P$ is a
+\define{Generalization} of $P'$.
+\end{definition}
+
+\begin{node}
+Geometrically $P$ corresponds to a curve and $P'$ lies on the curve.
+
+What is the topological closure of $\{P'\}$ (in the Zariski topology)?
+It's just $\{P'\}$ itself.
+
+What is the closure of the \emph{point} $\{P\}$ --- what is $\closure{\{P\}}$?
+These are the ideals $I$ containing $P\subset I$. This is all the
+points lying over the curve $P$. This should be very non-intuitive
+topologically. The classic geometric intuition is that maximal ideals
+are points, then we ``add'' more points corresponding to prime
+ideals. Then it makes sense to ask if a point lies in/on the closure
+of another point.
+\end{node}
+
+\begin{node}
+Can we formulate the going-up (\S\ref{defn:going-up-property}) and going-down (\S\ref{defn:going-down-property})
+using this language? We have $A\to B$, and this induces the map
+$f\colon\Spec(B)\to\Spec(A)$.
+\begin{itemize}
+\item Going-up = image of $f$ is stable under specialization;
+\item Going-down = image of $f$ is stable under generalization.
+\end{itemize}
+\end{node}
+
+\begin{lemma}[Matsumara 6.4]\label{lemma:fall-lec18:math-120a:lemma-6-4}
+Let $A$ be a Noetherian ring. Let $X=\Spec(A)$. Let $Z$ be
+constructible. If $Z$ is stable under generalization, then $Z$ is
+closed in $X$.
+\end{lemma}
+
+\begin{proof}
+Take the topological closure $\closure{Z}$. We want to prove $\closure{Z}=Z$.
+Take some irreducible component $W$ of $\closure{Z}$, and $X$ is its
+generic point. (Then $\closure{\{X\}}=W$.) Then $W\cap Z$ is dense in
+$W$. Then $W\cap Z$ contains an open subset of $W$ (by Theorem~\ref{prop:fall-lec16:prop-6c}).
+Then $X\in Z$. Hence the result.
+\end{proof}
+
+\begin{xca}
+Why is $W\cap Z$ dense in $W$?
+\end{xca}
+
+\begin{theorem}[Matsumara 8 (6I)]
+Let $A$ be a Noetherian ring, let $B$ be an $A$-algebra of finite
+type. Suppose that Going-Down (\S\ref{defn:going-down-property}) holds
+for the natural map $i\colon A\to B$. Then the canonical map
+$f\colon\Spec(B)\to\Spec(A)$ is an open map.
+\end{theorem}
+
+(Recall, an open map sends open sets to open sets, it occurs in
+complex analysis, and in the open mapping theorem in Functional
+Analysis.)
+
+\begin{proof}
+Let $U$ be an open set in $\Spec(B)$. Then $f(U)$ is constructible by
+Chevalley's Theorem~\ref{thm:120a:chevalley}. But Going-Down means
+that $f(U)$ is stable under generalization (if $P\subset P'$ and
+$P'\subset f(U)$, then $P\subset f(U)$).
+
+Now, we should use Lemma~\ref{lemma:fall-lec18:math-120a:lemma-6-4} on
+$\Spec(A)\setminus f(U)$. If $P\notin f(U)$, then $P'\notin f(U)$ by
+contrapositive of the above claim.
+
+But if $P\in f(U)$, then we get a contradiction. Hence the result.
+\end{proof}
+
+\begin{proposition}[Matsumara 6J]
+Let $\phi\colon A\to B$ be a ring morphism, let $B$ be Noetherian, and
+$\phi$ satisfies Going-Up.
+Then $\preimage\phi=f\colon\Spec(B)\to\Spec(A)$ is closed.
+\end{proposition}
+
+Matsumara says this is an ``easy exercise''.
+
+\subsection{Associated Primes}
+
+\begin{node}
+This is Chapter~III of Matsumara. Henceforth, we consider all rings to
+be Noetherian (and we will not announce it).
+\end{node}
+
+\begin{definition}
+Let $A$ be a ring, let $M$ be an $A$-module. We say that the prime
+ideal $P\in\Spec(A)$ is an \define{Associated Prime} of $M$ if one of
+the following equivalent conditions holds:
+\begin{enumerate}
+\item There exists some $x\in M$ such that $\Annihilator(x)=P$.
+\item $M$ contains a submodule isomorphic to $A/P$.
+\end{enumerate}
+We write $\Assassinator_{A}(M)$ for the associated primes of $M$ in
+the ring $A$ (and pronounce it as ``the assassinator of $M$'' --- get
+your mind out of the gutter).
+\end{definition}
+
+\begin{example}
+Consider $M=\CC[x,y]/(x^{2},xy)$ as a $\CC[x,y]$ module. We see that
+$(x)\cap(x^{2},y)$ and $(x)\cap(x,y)^{2}$ are primary decompositions
+of $I=(x^{2},xy)$.
+
+Let $x\in\CC[x,y]_{(x^{2},xy)}$. Then $(x,y)=\Annihilator(x)$, so
+$(x,y)\in\Assassinator(M)$.
+
+Let $y\in\CC[x,y]_{(x^{2},xy)}$. Then $(x)=\Annihilator(y)$, so
+$(x)\in\Assassinator(M)$.
+
+We see $(x)=\Radical{(x)}$ and $(x,y)=\Radical{(x^{2},y)}$.
+\end{example}

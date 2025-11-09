@@ -13,6 +13,8 @@
 \def\define#1{\textbf{``#1''}}
 
 % rings and things
+\let\iso\cong
+
 \newcommand\ideal{\mathrel{\trianglelefteq}}
 \def\properideal{\mathrel{\triangleleft}}
 \let\Radical\sqrt
@@ -21,6 +23,9 @@
 \DeclareMathOperator\MSpec{MSpec} % all maximal ideals of a ring
 
 \newcommand\divides{\mathrel{|}}
+
+\DeclareMathOperator\Annihilator{Ann}
+\DeclareMathOperator\Support{Supp}
 
 % Stacks project uses this notation https://stacks.math.columbia.edu/tag/030D
 \DeclareMathOperator\trdeg{trdeg} % transcendental degree
@@ -57,7 +62,9 @@
 
 \DeclareMathOperator\RegularFuns{\mathcal{O}}
 \let\StructureSheaf\RegularFuns
-\let\iso\cong
+% \LocalRing{P}{Y} = \RegularFuns_{P,Y}
+\newcommand\LocalRing[2]{\RegularFuns_{#1,#2}}
+% stalk of \StructureSheaf of X at p == \StructureSheaf_{X,p}
 
 % \TangentCone{point}{variety}
 \newcommand\TangentCone[2]{C_{#1}(#2)}
@@ -65,8 +72,9 @@
 \newcommand\TautologicalBundle{\mathcal{S}}
 
 % Coordinate Ring
-% \CoordRing{\kk}{X}
-\newcommand\CoordRing[2]{A(#2)}
+% \CoordRing{\kk}{X} --- variously denoted as either A(X) or \kk[X]
+%\newcommand\CoordRing[2]{A(#2)}
+\newcommand\CoordRing[2]{#1[#2]}
 \newcommand\HomogeneousCoordRing[2]{S(#2)}
 % Function Field
 \newcommand\FunField[2][\relax]{\ifx\relax#1\relax K\else#1\fi(#2)}
@@ -77,7 +85,7 @@
 \DeclareMathOperator\Bl{Bl}
 
 \DeclareMathOperator\Char{char}
-
+\newcommand\HilbertFun[1]{\mathcal{H}_{#1}}
 % Groups
 \DeclareMathOperator\GL{GL}
 
