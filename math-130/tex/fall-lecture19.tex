@@ -1,0 +1,246 @@
+%%
+%% fall-lecture19.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-11T09:12:59-0800
+%% Last update 2025-11-11T09:12:59-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+Recall, $S=\kk[x_{0},\dots,x_{n}]$ and $M$ is a graded $S$-module. The
+Hilbert function for $M$ is $\mathcal{H}_{M}(d)=\dim_{\kk}(M_{d})$.
+\end{node}
+
+\begin{theorem}
+If $M$ is a finitely-generated $S$-module, then there exists a unique
+polynomial $P_{M}(z)\in\QQ[z]$ such that $\dim_{\kk}(M_{d})=P_{M}(d)$
+for all $d\gg0$. Furthermore, $\deg(P_{M})=\dim\Support(M)$.
+\end{theorem}
+
+We will prove this at the end of the lecture.
+
+\begin{definition}
+Let $P(z)\in\QQ[z]$. We call it a \define{Numerical Polynomial} (or
+just say ``$P$ is \emph{Numerical}'') if $P(d)\in\ZZ$ for all
+$d\in\ZZ$ where $d\gg0$.
+\end{definition}
+
+\begin{example}
+The binomial coefficients
+\begin{equation}
+p(z) = \binom{z}{m} = \frac{1}{m!}z(z-1)(\cdots)(z-m+1),
+\end{equation}
+for sufficiently large $z\in\ZZ$ (specifically when $z\geq m$), this
+will turn out to be numerical.
+
+Note: $\{\binom{z}{m}\mid m\in\NN_{0}\}$ forms a bassis for
+$\QQ$-vector space $\QQ[z]$.
+\end{example}
+
+\begin{lemma}
+Let 
+\begin{equation}
+p(z) = c_{0} + c_{1}\binom{z}{1} + \dots + c_{r}\binom{z}{r},
+\end{equation}
+where $c_{i}\in\QQ$ and $p(z)\in\QQ[z]$, then the following are equivalent:
+\begin{enumerate}
+\item $p(z)$ is numerical;
+\item $p(d)\in\ZZ$ for all $d\in\ZZ$;
+\item $c_{i}\in\ZZ$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We see that $(3)\implies(2)\implies(1)$. We will prove $(1)\implies(3)$.
+
+Observe
+\begin{equation}
+\binom{z+1}{m}-\binom{z}{m}=\binom{z}{m-1},
+\end{equation}
+which implies
+\begin{equation}
+p(z+1)-p(z) = c_{1}+c_{2}\binom{z}{1}+\dots+c_{r}\binom{z}{r-1}.
+\end{equation}
+If $p(z)$ is numerical, then $p(z+1)-p(z)$ is numerical and
+$\deg(p(z))>\deg(p(z+1)-p(z))$. By induction on $r$ we see
+$c_{1},\dots,c_{r}\in\ZZ$. Then we must have $c_{0}\in\ZZ$.
+\end{proof}
+
+\begin{note}
+Now, we will make $S=\bigoplus_{m\geq0}S_{m}$ a graded ring, and $M$
+is a graded $S$-module.
+\end{note}
+
+\begin{definition}
+Let $\ell\in\ZZ$. The \define{Twisted Module} $M(\ell)$ (called ``the
+twist of $M$ by $\ell$'') is defined as
+the same module as $M$ but with the grading $M(\ell)_{d}=M_{\ell+d}$.
+\end{definition}
+
+\begin{definition}
+An $S$-morphism $\varphi\colon M\to N$ (of graded $S$-modules $M$ and $N$)
+is called \define{Homogeneous} if $\varphi(M_{d})\subset N_{d}$ for
+all $d$.
+\end{definition}
+
+\begin{definition}
+Let $M$ be a graded $S$-module.
+A submodule $N\subset M$ is called \define{Graded}
+% (I have written in my notes \define{Homogeneous}, erroneously?)
+if $N=\oplus_{d\in\ZZ}(N\cap M_{d})$. This implies $N$ and
+$M/N=\bigoplus_{d}M_{d}/(N\cap M_{d})$ are both graded. We have a
+short exact sequence
+\begin{equation*}
+0\to N\to M\to M/N\to 0
+\end{equation*}
+with homogeneous maps.
+\end{definition}
+
+\begin{node}
+If $m\in M$ is homogeneous of degree $\ell$ (i.e., $m\in M_{\ell}$),
+then its annihilator $\Annihilator(m)$ is a homogeneous ideal. If we
+set $N:=Sm$, then we have the short exact sequence
+\begin{equation}
+0\to I(-\ell)\to S(-\ell)\xrightarrow{m}N\to 0,
+\end{equation}
+where $I(-\ell)$ is the twisted $\Annihilator(m)$. Then
+$(S/I)(-\ell)\iso N\subset M$.
+\end{node}
+
+\begin{xca}
+If $M$ is a finitely-generated module over a Noetherian ring,
+then $M$ is a Noetherian module (i.e., every submodule is finitely-generated).
+\end{xca}
+
+\begin{lemma}
+Let $M$ be a finitely-generated module over a Noetherian ring $S$.
+Then there exists a filtration $0=M^{0}\propersubset M^{1}\propersubset\cdots\propersubset M^{r}=M$
+(of nested submodules of $M$) such that each $M^{i}$ is homogeneous
+and $M^{i}/M^{i-1}\iso(S/P_{i})(\ell_{i})$ for some homogeneous prime
+ideal $P_{i}\in\Spec(S)$ (and $\ell_{i}\in\ZZ$).
+\end{lemma}
+
+\begin{proof}
+By Noetherian induction. Consider $N\subset M$ a maximal submodule
+such that the claim holds for $N$. We want to show $N=M$. If not, we
+can take the quotient $M''=M/N\neq0$. Choose nonzero $0\neq m\in M''$
+such that its annihilator $\Annihilator(m)\subset S$ is as large as
+possible.
+
+\textsc{Claim:} $P=\Annihilator(m)\in\Spec(S)$. Let $f,g\in S\setminus P$
+be homogeneous. Suffices to show $fg\notin P$. Then $gm\neq0$ implies
+$\Annihilator(gm)\supset\Annihilator(m)$, but since $\Annihilator(m)$
+is as large as possible, we see
+$\Annihilator(gm)=\Annihilator(m)$.
+Since $f\notin\Annihilator(m)$,
+we see $f\notin\Annihilator(gm)$, which implies $fg\notin\Annihilator(m)$.
+This proves $P$ is prime.
+
+Then $Sm\iso(S/P)(-\ell)$ where $\ell=\deg(m)$. But $M\onto M/N=M''\supset Sm$.
+If we take the inverse image $\widetilde{N}\subset M$ of $Sm$, then
+$\widetilde{N}\propersupset N$ and we get a contradiction. Hence the result.
+\end{proof}
+
+\begin{definition}
+Let $f\colon\ZZ\to\ZZ$, we say $f$ is \define{Eventually Polynomial}
+if there is a polynomial $p(z)\in\QQ[z]$ such that $f(n)=p(n)$ for all
+integers $n\gg0$.
+\end{definition}
+
+\begin{note}
+Write $\Delta f$ for the function $(\Delta f)(n)=\Delta f(n)=f(n+1)-f(n)$.
+\end{note}
+
+\begin{lemma}
+We have $f$ is eventually polynomial of degree $r$ if and only if
+$\Delta f$ is eventually polynomial of degree $r-1$.
+\end{lemma}
+
+\begin{proof}
+\forwardproof\ Obvious.
+
+\backwardproof\ Assume $\Delta f(n)=q(n)$ for $n\gg0$ where
+\begin{equation}
+q(z) = c_{1}+c_{2}\binom{z}{1}+\dots+c_{r}\binom{z}{r-1},
+\end{equation}
+and $q(z)\in\QQ[z]$. Set
+\begin{equation}
+P(z) = c_{1}\binom{z}{1}+c_{2}\binom{z}{2}+\dots+c_{r}\binom{z}{r}.
+\end{equation}
+Clearly $\Delta p=q$.
+Then $\Delta(f-P)(n)=0$ for $n\gg0$. Then $f(n)-P(n)=c_{0}$ for all $n\gg0$.
+So $f$ is eventually polynomial (since $f$ is eventually $c_{0}+P$).
+\end{proof}
+
+\begin{notation}
+We let $S=\kk[x_{0},\dots,x_{n}]$ again.
+\end{notation}
+
+\begin{proposition}
+If we have a short exact sequence $0\to M'\to M\to M''\to0$
+of graded $S$-modules, then $\Support(M)=\Support(M')\cup\Support(M'')$.
+\end{proposition}
+
+\begin{proof}
+$(\supset)$ $\Annihilator(M)\subset\Annihilator(M')\cap\Annihilator(M'')$.
+
+$(\subset)$ Let $x\in\PP^{n}$.
+If $x\notin\Support(M')\cup\Support(M'')$, then there is some
+$f\in\Annihilator(M')$ and $g\in\Annihilator(M'')$ such that
+$f(x)\neq0$ and $g(x)\neq0$. But then $fg\in\Annihilator(M)$ and
+$(fg)(x)\neq0$. This shows $x\notin\Support(M)$.
+\end{proof}
+
+Now, we can prove the Theorem we initially presented at the start of
+the lecture, recall;
+
+\begin{theorem}
+If $M$ is a finitely-generated $S$-module, then there exists a unique
+polynomial $P_{M}(z)\in\QQ[z]$ such that $\dim_{\kk}(M_{d})=P_{M}(d)$
+for all $d\gg0$. Furthermore, $\deg(P_{M})=\dim\Support(M)$.
+\end{theorem}
+
+\begin{proof}
+There exists a filtration $0=M^{0}\propersubset M^{1}\propersubset\cdots\propersubset M^{r}=M$
+such that $M^{i}/M^{i-1}=(S/P_{i})(\ell_{i})$.
+Then we can write the Hilbert function as
+\begin{equation}
+\mathcal{H}_{M}(d) = \sum^{r}_{i=1}\mathcal{H}_{M^{i}/M^{i-1}}(d)=\sum^{r}_{i=1}\mathcal{H}_{S/P_{i}}(d+\ell_{i}),
+\end{equation}
+and
+\begin{equation}
+\Support(M) = \bigcup^{r}_{i=1}\Support(M^{i}/M^{i-1})=\bigcup^{r}_{i=1}V_{p}(P_{i}).
+\end{equation}
+Without loss of generality, $M=S/P$ where $P\in\Spec(S)$ is a
+homogeneous prime ideal. By induction on $\dim(V_{p}(P))$:
+\begin{enumerate}
+\item If $P=(x_{0},x_{1},\dots,x_{n})\subset S$ is the trivial ideal,
+  then $V_{p}(P)=\emptyset$ and $\mathcal{H}_{S/P}(d)=0$ for all
+  $d\gg1$. The Theorem is true if we set $\deg(0)=\dim(\emptyset)=-1$.
+\item Otherwise, there is some $x_{i}\notin P$. We can consider the
+  ideal
+  \begin{equation}
+I:=(x_{i})+P\subset S.
+  \end{equation}
+  Then $V_{p}(I)\propersubset V_{p}(P)$. By projective dimension
+  theorem [which is a homework problem],
+  \begin{equation}
+\dim(V_{p}(I))=\dim(V_{p}(P))-1.
+  \end{equation}
+  So now we can apply the inductive hypothesis, $\mathcal{H}_{S/I}(d)$
+  is eventually polynomial and $\deg(P_{S/I})=\dim(V_{p}(P))-1$ (ugh,
+  confusing notation: the $P$ on the left-hand side is a polynomial,
+  the $P$ on the right-hand side is a prime ideal). We have the short
+  exact sequence
+  \begin{equation}
+0\to(S/P)(-1)\xrightarrow{x_{i}}S/P\to S/I\to 0,
+  \end{equation}
+  which implies $\Delta\mathcal{H}_{S/P}(d-1)=\mathcal{H}_{S/P}(d)-\mathcal{H}_{S/P}(d-1)=\mathcal{H}_{S/I}(d)$.
+  Then $\mathcal{H}_{S/P}$ is eventually polynomial of degree equal to
+  $\dim(V_{p}(P))$. \qedhere
+\end{enumerate}
+\end{proof}

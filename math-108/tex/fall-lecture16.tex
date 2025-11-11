@@ -1,0 +1,211 @@
+%%
+%% fall-lecture16.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-11T08:26:10-0800
+%% Last update 2025-11-11T08:26:10-0800
+%% 
+
+\lecture[Stone--Weierstrass]{}
+
+\begin{note}
+For today's lecture, $X$ is a compact Hausdorff space unless otherwise stated.
+\end{note}
+
+\begin{theorem}
+Let $f\in C[a,b]$. Then for each $\varepsilon>0$, there exists a
+polynomial $p$ such that for all $x\in[a,b]$ we have $|f(x)-p(x)|<\varepsilon$.
+\end{theorem}
+
+\begin{remark}
+The preceding theorem is the ``classic'' version of the
+Stone--Weierstrass \emph{approximation} theorem.
+There is a constructive proof using Bernstein polynomials
+$b_{k,n}(x)=\binom{n}{k}x^{k}(1-x)^{n-k}$ for $k=0,\dots,n$ which are
+defined on the interval $[0,1]$.
+\end{remark}
+
+\begin{lemma}\label{lemma:fall-lec16:abs}
+For each $\varepsilon>0$ there is a polynomial $p(x)$ such that
+$|p(x)-|x||<\varepsilon$ for all $x\in[-M,M]$.
+\end{lemma}
+
+\begin{proof}
+Consider the Binomial series $f(x)$ for
+\begin{equation}
+f(x)=(1-x)^{1/2}=\sum^{\infty}_{n=0}c_{n}x^{n},
+\end{equation}
+which converges uniformly in $[-1,1]$. For any $\varepsilon>0$, there
+is a sum $p(x)$ such that $|p(x)-(1-x)^{1/2}|<\varepsilon$ for any $|x|\leq1$
+(which may be found by truncating the binomial series $f(x)$ to some
+sufficiently high degree polynomial).
+
+We do several changes of variables. First, let $x=1-t^{2}$, then
+\begin{equation}
+\left|p(1-t^{2})-|t|\right|<\varepsilon
+\end{equation}
+whenever $|t|\leq1$. We set $u=t/M$ and $\varepsilon'=M\varepsilon$,
+then
+\begin{equation}
+\left|p(1-M^{2}u^{2})-|Mu|\right|<M\varepsilon',
+\end{equation}
+and dividing through by $M$ gives us
+\begin{equation}
+\left|\frac{p(1-M^{2}u^{2})}{M}-|u|\right|<\varepsilon',
+\end{equation}
+which concludes the proof for the lemma.
+\end{proof}
+
+\begin{definition}
+We call a vector subspace $\mathcal{A}$ of $C(X)$ a \define{Function Algebra}
+if (1)~it contains the constant functions, and (2)~for any $f,g\in\mathcal{A}$,
+their pointwise product $fg\in\mathcal{A}$.
+\end{definition}
+
+\begin{example}
+The set of real polynomials is a function algebra on $C[a,b]$.
+\end{example}
+
+\begin{proposition}
+The closure of a function algebra $\mathcal{A}$ of $C(X)$ in the
+metric topology (induced using the uniform metric),
+$\closure{\mathcal{A}}$, is also a function algebra of $C(X)$.
+\end{proposition}
+
+The proof is in the next homework.
+
+\begin{definition}
+A collection $\mathcal{A}$ of real-valued functions on $X$ is said to
+\define{Separate Points} in $X$ if for any $u,v\in X$ distinct $u\neq v$,
+there exists an $f\in\mathcal{A}$ such that $f(u)\neq f(v)$.
+\end{definition}
+
+\begin{theorem}[Stone--Weierstrass]
+Let $X$ be a compact Hausdorff space.
+Let $\mathcal{A}$ be a function algebra of $C(X)$ that separates
+points in $X$.
+Then $\mathcal{A}$ is dense in $C(X)$.
+\end{theorem}
+
+(See also Baby Rudin, Theorem~7.32.)
+
+\begin{proof}
+\textsc{Step 1:} \emph{If $f\in\closure{\mathcal{A}}$, then $|f|\in\closure{\mathcal{A}}$.}
+Let $M=\|f\|_{\infty}$. By Lemma~\ref{lemma:fall-lec16:abs}, there is
+a polynomial $p(t)$ such that it approximates $\left|p(t)-|t|\right|<\varepsilon$
+for any $\varepsilon>0$ and $|t|\leq M$. Since $|f(x)|\leq M$ for all
+$x\in X$, we have
+\begin{equation}
+\left|p(f(x))-|f(x)|\right|<\varepsilon,
+\end{equation}
+i.e.,
+\begin{equation}
+\left|p\circ f-|f|\right|<\varepsilon.
+\end{equation}
+Then by definition of a function algebra, $p\circ f\in\mathcal{A}$ for
+any $f\in\mathcal{A}$. (This is by the second property of the
+definition --- think about it, $cx^{n}\in\mathcal{A}$ if $x\in\mathcal{A}$.) Then $|f|$ is a limit point of $\closure{\mathcal{A}}$,
+but by virtue of the closure containing all its limit points we have $|f|\in\closure{\mathcal{A}}$.
+
+\textsc{Step 2:} \emph{If $f\in\closure{\mathcal{A}}$ and $g\in\closure{\mathcal{A}}$, then $\max(f,g)\in\closure{\mathcal{A}}$
+and $\min(f,g)\in\closure{\mathcal{A}}$.}
+We see that $f\pm g\in\closure{\mathcal{A}}$ and $|f\pm g|\in\closure{\mathcal{A}}$.
+Then using
+\begin{equation}
+\max(f,g)=\frac{1}{2}(f+g)+\frac{1}{2}|f-g|,
+\end{equation}
+implies $\max(f,g)\in\closure{\mathcal{A}}$. Similarly, from
+\begin{equation}
+\min(f,g)=\frac{1}{2}(f+g)-\frac{1}{2}|f-g|,
+\end{equation}
+we find $\min(f,g)\in\closure{\mathcal{A}}$.
+
+\textsc{Step 3:} Since $\mathcal{A}$ separates points in $X$, take any
+distinct $u,v\in X$, there exists a function $g\in\mathcal{A}$ such
+that $g(u)\neq g(v)$ (by definition of separate points). For any fixed
+distinct $a,b\in\RR$, we may define a function
+\begin{equation}
+f(x) = \frac{g(x)-g(v)}{g(u)-g(v)}a+\frac{g(x)-g(u)}{g(v)-g(u)}b.
+\end{equation}
+Then $f\in\mathcal{A}$ and $f(u)=a$ and $f(v)=b$.
+
+\textsc{Step 4:} \emph{Given a real-valued function $h$ continuous on $X$
+and $\varepsilon>0$, there exists an $f\in\closure{\mathcal{A}}$ such
+that $|h(x)-f(x)|<\varepsilon$ for all $x\in X$.}
+For any $\varepsilon>0$ and distinct $u,v\in X$, there exists a
+function $f_{u,v}\in\closure{\mathcal{A}}$ such that $f_{u,v}(u)=h(u)$
+and $f_{u,v}(v)=h(v)$ by step 3. If we fix $u$, then $f_{u,v}(v)=h(v)>h(v)-\varepsilon$.
+Then we use continuity, there exists a neighborhood $\mathcal{O}_{v}$
+such that $f_{u,v}(x)>h(x)-\varepsilon$ for all $x\in\mathcal{O}_{v}$.
+We do this for every $v\in X$ and $\{\mathcal{O}_{v}\}$ is an open
+cover for $X$. By compactness, there is a finite subcover
+$\mathcal{O}_{v_{1}}$, \dots, $\mathcal{O}_{v_{n}}$. We define a
+function
+\begin{equation}
+f_{u}(x) := \max\{f_{u,v_{1}}(x),\dots,f_{u,v_{n}}(x)\}
+\end{equation}
+for all $x\in X$. This approximates $h$ from below.
+
+Similarly, since $f_{u}(u)=h(u)<h(u)+\varepsilon$, there is a
+neighborhood $U_{u}$ such that $f_{u}(x)<h(x)+\varepsilon$. We do this
+for every $u\in X$ and obtain an open cover $\{U_{u}\}$. By
+compactness, there is a finite subcover $U_{u_{1}}$, \dots, $U_{u_{m}}$.
+Then we define
+\begin{equation}
+f(x) = \min\{f_{u_{1}}(x),\dots,f_{u_{m}}(x)\}.
+\end{equation}
+Then we get $f\in\closure{\mathcal{A}}$ and $|f(x)-h(x)|<\varepsilon$
+for all $x\in X$ --- or, equivalently, $\|f-h\|_{\infty}<\varepsilon$.
+Since $\varepsilon$ was arbitrary, $h$ is a limit point of
+$\closure{\mathcal{A}}$. Hence the result.
+\end{proof}
+
+\subsection{Differentiation}
+
+\begin{note}
+We will work in $\RR^{n}$ from now on.
+\end{note}
+
+\begin{node}[Recall calculus]
+Let $x\in(a,b)$ and $f\colon(a,b)\to\RR$.
+Then we have the derivative of $f$ at $x$ be defined as the limit
+\begin{equation}
+f'(x) := \lim_{h\to0}\frac{f(x+h)-f(x)}{h},
+\end{equation}
+when it exists. This is equivalent to something like
+\begin{equation}
+f(x+h)-f(x)=f'(x)\cdot h + \varepsilon(h),
+\end{equation}
+where $\varepsilon(h)$ is called the \define{Remainder} and is such
+that
+\begin{equation}
+\lim_{h\to0}\frac{\varepsilon(h)}{h}=0.
+\end{equation}
+We then view $f'(x)$ as a linear operator acting on $h$.
+\end{node}
+
+\begin{note}
+We will write vectors as $\vec{x}$ instead of $\vector{x}$.
+\end{note}
+
+\begin{definition}
+Let $\vec{f}\colon U\to\RR^{m}$ where $U\subset\RR^{n}$ is open.
+We say $\vec{f}$ is \define{Differentiable} at $\vec{x}\in U$ if there
+exists a linear transformation $A\colon\RR^{n}\to\RR^{m}$ denoted by
+the $m\times n$ matrix $A$ such that for all $\vec{h}$ in a
+neighborhood of the origin of $\RR^{n}$,
+\begin{equation}
+\vec{f}(\vec{x}+\vec{h})-\vec{f}(\vec{x})=A\vec{h}+\varepsilon(\vec{h}),
+\end{equation}
+where
+\begin{equation}
+\lim_{\vec{h}\to\vec{0}}\frac{\|\varepsilon(\vec{h})\|}{\|\vec{h}\|}=0,
+\end{equation}
+where $\|-\|$ is the $\ell_{\infty}$-norm in $\RR^{n}$ or $\RR^{m}$
+(depending on where the vector lives).
+
+We say $\vec{f}$ is \define{Differentiable} if it is differentiable at
+every point.
+\end{definition}

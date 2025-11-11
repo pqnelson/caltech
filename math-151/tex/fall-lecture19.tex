@@ -1,0 +1,160 @@
+%%
+%% fall-lecture19.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-11T07:55:46-0800
+%% Last update 2025-11-11T07:55:46-0800
+%% 
+
+\lecture{}
+
+\begin{corollary}[Borsuk--Ulam]
+Let $f\colon\sphere{n}\to\RR^{n}$. Then there exists $x\in\sphere{n}$
+such that $f(x)=f(-x)$.
+\end{corollary}
+
+\begin{proof}
+Assume for contradiction $f(x)\neq f(-x)$ for all $x\in\sphere{n}$.
+Then we define
+\begin{equation}
+g(x) := \frac{f(x)-f(-x)}{\|f(x)-f(-x)\|},
+\end{equation}
+which is a well-defined function $g\colon\sphere{n}\to\sphere{n-1}$
+and $g$ is odd. Consider $g|_{\sphere{n-1}}$ where
+$\sphere{n-1}\subset\sphere{n}$ is the equator. Then this restriction
+is also odd. Then $\deg(g|_{\sphere{n-1}})\neq0$ is odd. But
+$g|_{\disk{n}_{+}}$ restricted to the Northern hemisphere will give us
+a nullhomotopy of $g|_{\sphere{n-1}}$. So $\deg(g|_{\sphere{n-1}})=0$
+which is a contradiction. Hence the result.
+\end{proof}
+
+\begin{corollary}[Ham Sandwich]
+Suppose $A_{1}$, \dots, $A_{n}\subset\RR^{n}$ are measurable sets with
+finite measures. Then there exists an $(n-1)$-dimensional hyperplane
+$P$ which divides each $A_{i}$ in half (as determined by the measure).
+\end{corollary}
+
+The intuition is that the $A_{i}$ are the bread and slices of ham, and
+we can cut the sandwhich into exactly half.
+
+\begin{proof}
+We first place $\RR^{n}\subset\RR^{n+1}$ with the identification
+$(x_{1},\dots,x_{n})\mapsto(x_{1},\dots,x_{n},0)$. Then we chooise a
+point $x_{0}\in\RR^{n+1}$ equal to $x_{0}=(0,\dots,0,1)$. Given an
+$(n-1)$-dimensional hyperplane $P\subset\RR^{n}$, we can extend it to
+an $n$-dimensional hyperplane $Q\subset\RR^{n+1}$ such that $P\subset Q$ 
+and $x_{0}\in Q$. Now, we can choose a unit normal vector $\vec{v}$ of
+$Q$ with base-point $x_{0}$. (Importantly, each possible $\vec{v}$ corresponds
+to a different $P$.) Suppose $P$ divides $A_{i}$ into two parts, let
+$m_{i}$ be the measure of the part of $A_{i}$ on the same side of $P$
+as $\vec{v}$ points towards. Then we have a map
+\begin{equation}
+\begin{split}
+f\colon &\sphere{n}\to\RR^{n}\\
+&\vec{v}\mapsto(m_{1},\dots,m_{n}),
+\end{split}
+\end{equation}
+which is a continuous map. Then the Borsuk--Ulam theorem implies
+$f(\vec{v})=f(-\vec{v})$ which implies the hyperplane divides each
+$A_{i}$ of equal size subsets. Hence the results.
+\end{proof}
+
+\begin{theorem}[Polynomial Sandwich Theorem]
+Given $N=\binom{k+n}{n}-1$ measurable sets with finite measure $A_{1}$,
+\dots, $A_{N}$.
+Then there exists a polynomial $p\in\RR[x_{1},\dots,x_{n}]$ of degree $\deg(p)\leq k$
+such that for all $i$, $\mu(\{x\in A_{i}\mid p(x)\geq0\})=\mu(\{x\in A_{i}\mid p(x)\leq0\})$.
+(When $k=1$, we recover the usual Ham Sandwich Theorem.)
+\end{theorem}
+
+We will not prove this.
+
+\subsection{Simplicial Approximation}
+
+\begin{node}
+Let $K$ and $L$ be two simplicial complexes. Let $f\colon K\to L$ be continuous.
+
+\textsc{Goal:} Approximate $f$ with a \define{simplicial map} $g$, which
+means if $\sigma$ is a simplex in $K$ then $g(\sigma)$ is a simplex in
+$L$ and $g|_{\sigma}$ is affine. (Simplicial maps are determined by
+where it sends vertices of a simplex $\sigma$ of $K$.) Such a $g$ is
+determined by its values on vertices.
+\end{node}
+
+\begin{node}
+If $g\colon K\to L$ is a simplicial map, then $g$ induces a chain map
+$g_{\sharp}\colon C^{\Delta}(K)\to C^{\Delta}(L)$. If $\sigma=[v_{0},\dots,v_{n}]$
+is a simplex in $K$, then
+\begin{equation}
+g_{\sharp}(\sigma) = \begin{cases}[g(v_{0}),\dots,g(v_{n})] & \mbox{in }L\\
+0 & \mbox{if $g(v_{i})=g(v_{j})$ for some $i$, $j$}
+\end{cases}
+\end{equation}
+\end{node}
+
+\begin{definition}
+Let $K$ be a simplicial complex, let $\sigma$ be a simplex.
+We define the \define{[Closed] Star} of $\sigma$ to be $\ClosedStar(\sigma)$ the union
+of all simplices containing $\sigma$.
+
+We define the \define{Open Star} of $\sigma$ to be $\OpenStar(\sigma)$
+the union of interiors of all simplices containing $\sigma$.
+\end{definition}
+
+\begin{theorem}[Simplicial Approximation]
+Let $K$ be a finite simplicial complex, let $L$ be a simplicial complex.
+Let $f\colon K\to L$ be continuous.
+Then $f$ is homotopic to a map $g$ which is simplicial with respect to
+some Barycentric subdivision of $K$.
+
+Moreover, $g$ satisfies $f(\sigma)\subset\OpenStar(g(\sigma))$ for
+each simplex $\sigma$ of the subdivision. (So ``$f$ and $g$ are not
+too far apart from each other''.)
+\end{theorem}
+
+We will not prove this theorem, but instead consider its applications.
+
+\begin{definition}
+Let $X$ be a space such that $H_{*}(X)$ has finite rank.
+Let $f\colon X\to X$ be continuous. Let $f_{q}\colon H_{q}(X)\to H_{q}(X)$
+be the induced map, in the sense that: if $g\colon A\to A$ is a map of
+an Abelian group $A$ with torsion subgroup $T$, then $\bar{g}\colon A/T\to A/T$
+may be viewed as a matrix $\bar{g}\colon\ZZ^{n}\to\ZZ^{n}$ for some $n\in\NN$
+which we refer to as the induced map.
+
+We define the \define{Lefschetz Number} of $f$ is
+$\tau(f) := \sum_{q}(-1)^{q}\tr(f_{q})$.
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}
+\item This isn't a typo, I didn't mean ``Lipshitz''. This is named
+  after Solomon Lefschetz.
+\item The Lefschetz number may be viewed as a generalization of the
+  Euler characteristic.
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+$\tau(\id_{X})=\chi(X)$ is just the Euler characteristic. (See? The
+  Lefschetz number really does generalize the Euler characteristic.)
+\end{example}
+
+\begin{lemma}
+Let $C_{*}$ be a chain complex and $\rank(C_{*})<\infty$ is finite rank.
+Let $\varphi\colon C_{*}\to C_{*}$ be a chain map.
+Then $\tau(\varphi)=\tau(\varphi_{*})$, where
+$\tau(\varphi)=\sum_{q}(-1)^{q}\rank(\varphi|_{C_{q}})$. 
+\end{lemma}
+
+In other words, the Lefschetz number on the chain complex is the same
+as the Lefschetz number on the homology group. This generalizes the
+same property of the Euler characteristic.
+
+\begin{theorem}[Lefschetz fixed-point theorem]
+Let $X$ be a finite simplicial complex.
+Let $f\colon X\to X$ be continuous.
+If $\tau(f)\neq0$, then $f$ has at least one fixed-point.
+\end{theorem}

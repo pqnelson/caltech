@@ -31,4 +31,13 @@
 % topological stuff
 \newcommand\closure[1]{\overline{#1}}
 
+% vector
+\let\og@vector\vec
+\let\vector\vec
+\def\vec#1{\ensuremath{\mathchoice
+                     {\mbox{\boldmath$\displaystyle#1$}}
+                     {\mbox{\boldmath$\textstyle#1$}}
+                     {\mbox{\boldmath$\scriptstyle#1$}}
+                     {\mbox{\boldmath$\scriptscriptstyle#1$}}}}
+
 \endinput
