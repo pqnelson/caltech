@@ -1,0 +1,177 @@
+%%
+%% fall-lecture20.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-13T08:00:24-0800
+%% Last update 2025-11-13T08:00:24-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+Returning to associated primes of a module, recall:
+\begin{subequations}
+\begin{align}
+\Assassinator(M) &= \{P\in\Spec(A)\mid P=\Annihilator(x)\mbox{ for some }x\in M\}\\
+&= \{P\in\Spec(A)\mid A/P\into M\}.
+\end{align}
+\end{subequations}
+\end{node}
+
+\begin{proposition}[Matsumara 7B]
+If $P$ is maximal among $\Annihilator(x)$ for some nonzero $x\in M$,
+then $P$ is prime and moreover $P\in\Assassinator(M)$.
+\end{proposition}
+
+\begin{proof}
+Suffices to prove that $P$ is prime. Let $P=\Annihilator(x)$.
+Suppose $ab\in P$ and $b\notin P$. Then $bx\neq0$ and $abx=0$. Since
+$\Annihilator(bx)\supset\Annihilator(x)=P$, we must have
+$\Annihilator(bx)=P$ by maximality of $P$. Hence $a\in P$.
+\end{proof}
+
+\begin{corollary}
+$\Assassinator(M)=\emptyset$ iff $M=0$.
+\end{corollary}
+
+\begin{corollary}
+The set of all zero divisors of $M$ is the union of associated primes
+of $M$ ($=\bigcup\Assassinator(M)$).
+\end{corollary}
+
+\begin{definition}[Matsumara, Exercise 1(ii)]
+Let $A$ be a ring, let $M$ be an $A$-module.
+We define the \define{Support} of $M$ to be
+\begin{equation}
+\Support(M):=\{P\in\Spec(A)\mid M_{P}\neq0\}.
+\end{equation}
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}
+  \item Since the notion of a ``prime ideal'' only really makes sense
+    for commutative rings, we should note that the support of a module
+    \emph{should} be considered when working over \emph{commutative}
+    rings. (Observe: the noncommutative ring of $n\times n$ matrices over $\CC$ has
+    no prime ideals.)
+  \item Although this was not discussed in class, Eisenbud's \emph{Commutative Algebra}
+points out that $P\in\Support(M)$ if and only if $P\supset\Annihilator(M)$
+($P$ contains the annihilator of $M$).
+This is Corollary~2.7 on page 67.
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+If we take a free module $M=A^{n}$, then $\Support(M)=\Spec(A)$.
+\end{example}
+
+\begin{example}
+Let $A$ be a ring, let $I\ideal A$ be an ideal.
+Then $\Support(A/I)=\{P\in\Spec(A)\mid I\subset P\}$.
+\end{example}
+
+\begin{remark}
+Geometrically, an $A$-module $M$ ``is'' a bundle over the ``space'' $\Spec(A)$.
+Or more precisely, the ``space of sections of a vector bundle''
+corresponds to a ``finitely-generated projective module'' --- this is
+the Serre--Swan theorem.
+
+The $M_{P}\neq0$ condition demands we have a nontrivial fibre over the
+point $P\in\Spec(A)$.
+\end{remark}
+
+\begin{xca}[Matsumara, Chapter 1(ii)]
+If $M$ is a finite module (i.e., a finitely-generated module), then 
+\begin{subequations}
+  \begin{align}
+\Support(M) &= V(\Annihilator(M))\\
+&= \{P\in\Spec(A)\mid\Annihilator(M)\subset P\}.
+  \end{align}
+\end{subequations}
+\end{xca}
+
+\begin{lemma}[Matsumara 7C]\label{lemma:fall-lec20:7c}
+Let $S\subset A$ be a multiplicative set.
+Let $A'=S^{-1}A$ and $M'=S^{-1}M$.
+Then
+\begin{equation}
+\Assassinator_{A}(M')=f(\Assassinator_{A'}(M'))=\Assassinator_{A}(M)\cap\{P\in\Spec(A)\mid P\cap S=\emptyset\}
+\end{equation}
+where $f\colon\Spec(A')\to\Spec(A)$ is the natural map.
+\end{lemma}
+
+\begin{proof}
+Homework. Hint: $S^{-1}P\subset S^{-1}A=A'$.
+\end{proof}
+
+\begin{theorem}[Matsumara 7D]
+Let $A$ be a Noetherian ring, let $M$ be an $A$-module.
+Then associated primes $\Assassinator(M)\subset\Support(M)$ and any
+\emph{minimal} element of $\Support(M)$ is in $\Assassinator(M)$.
+\end{theorem}
+
+\begin{proof}
+\textsc{Claim 1.}
+If $P\in\Assassinator(M)$, then we can write an exact sequence
+\begin{equation}
+0\to A/P\to M.
+\end{equation}
+We know $A_{P}$ is flat over $A$. Then tensoring the exact sequence
+with $A_{P}$ gives us the exact sequence
+\begin{equation}
+0\to(A/P)\otimes_{A} A_{P}\to M\otimes_{A}A_{P},
+\end{equation}
+or equivalently,
+\begin{equation}
+0\to A_{P}/P\to M_{P}.
+\end{equation}
+Then $A_{P}/PA_{P}\neq0$, so $M_{P}\neq0$. Hence $\Assassinator(M)\subset\Support(M)$.
+
+\textsc{Claim 2.} Let $P$ be a minimal prime ideal in the support $P\in\Support(M)$.
+Then by Lemma~\ref{lemma:fall-lec20:7c},
+\begin{equation}
+P\in\Assassinator(M)\iff PA_{P}\in\Assassinator_{A_{P}}(M_{P}),
+\end{equation}
+so we can replace $M$ by $M_{P}$, and $A$ by $A_{P}$. We may assume
+$(A,P)$ is a local ring and $M\neq0$ and $M_{q}=0$ for every
+$q\propersubset P$ since $P$ is a minimal prime in $\Support(M)$ so
+any smaller prime sub-ideal would kill $M$.
+Then $\Support(M)=\{P\}$.
+Hence $P\in\Assassinator(M)$.
+\end{proof}
+
+\begin{corollary}[Matsumara 7.3]
+If $I\ideal A$ is an ideal, then the minimal associated primes of the
+module $A/I$ are precisely the minimal prime over-ideals of $I$.
+\end{corollary}
+
+\begin{definition}
+We say associated primes which are not minimal in $\Support(M)$ are
+called \define{Embedded}.
+\end{definition}
+
+\begin{fact}
+\begin{enumerate}
+\item (7E) Let $M$ is a finite module over $A$, let $A$ be Noetherian ring.
+  Then there exists the chain of modules
+  \begin{equation}
+(0)=M_{0}\propersubset\cdots\propersubset M_{n-1}\propersubset M_{n}=M
+  \end{equation}
+  such that $M_{i}/M_{i-1}=A/P_{i}$ with $P_{i}\in\Spec(A)$ are also
+  associated primes.
+\item (7F) If $0\to M'\to M\to M''$ is an exact sequence, then
+\begin{equation}
+\Assassinator(M)\subset\Assassinator(M')\cup\Assassinator(M'')
+\end{equation}
+\item (7G) If $M$ is a finite module over $A$, and if $A$ is a
+  Noetherian ring, then $\Assassinator(M)$ is finite. This follows by
+  combining the previous two facts to see the chain of successive
+  quotients of nested submodules have assassinators
+  \begin{equation}
+\Assassinator(M)\subset\Assassinator(M_{1})\cup\Assassinator(M_{2}/M_{1})\cup\cdots\cup\Assassinator(M_{n}/M_{n-1}),
+  \end{equation}
+  where $\Assassinator(M_{i}/M_{i-1})\iso\Assassinator(A/P_{i})=\{P_{i}\}$.
+\end{enumerate}
+\end{fact}

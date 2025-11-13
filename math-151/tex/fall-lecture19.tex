@@ -158,3 +158,43 @@ Let $X$ be a finite simplicial complex.
 Let $f\colon X\to X$ be continuous.
 If $\tau(f)\neq0$, then $f$ has at least one fixed-point.
 \end{theorem}
+
+% This proof was actually at the start of the next lecture, but it
+% felt "cleaner" to place it here.
+
+\begin{proof}
+Since $X$ is a finite simplicial complex, we can put a metric $d$ on $X$.
+If $f$ has no fixed-point, then $d(x,f(x))>0$ for all $x\in X$.
+But $X$ is compact, and this means there exists an $\varepsilon>0$
+such that $d(x,f(x))>\varepsilon$ for all $x\in X$.
+
+Now, we just choose a barycentric subdivision $L$ of $X$ such that
+every simplex has a diameter less than $\varepsilon$.
+
+Moreover, by the simplicial approximation theorem, there exists a
+simplicial map $g$ homotopic to $f$ such that [the conditions of the
+  theorem are satisfied].
+
+Assume for contradiction there exists a simplex $\sigma$ such that $g(\sigma)\cap\sigma\neq\emptyset$,
+then let $x\in g(\sigma)\cap\sigma$.
+Then $f(x)\in f(\sigma)\propersubset\star(g(\sigma))$.
+So there exists a simplex $\sigma'$ such that $f(x)\in\sigma'$ and $g(\sigma)\propersubset\sigma'$.
+But $x\in g(\sigma)\implies x\in\sigma'$, so $f(x)\in\sigma'$ and $x\in\sigma'$,
+so
+\begin{equation}
+d(x,f(x))\leq\diam(\sigma')<\varepsilon,
+\end{equation}
+which gives us a contradiction. This means
+$g(\sigma)\cap\sigma=\emptyset$ for every simplex $\sigma$.
+
+Consider $g_{\sharp}\colon C^{\Delta}_{*}(L)\to C^{\Delta}_{*}(L)$,
+which (if we were to write it out as a matrix) has no nonzero diagonal entry
+--- otherwise $g(\sigma)\cap\sigma\neq\emptyset$ if $g_{\sharp}$ has a
+nonzero diagonal entry. So $\tau(f)=\tau(g)=\tau(g_{\sharp})=0$.
+Hence we proved the contrapositive of the theorem.
+\end{proof}
+
+\begin{remark}
+The Brouwer fixed-point theorem is an immediate corollary, since
+$\tau(f)=1$ for $f\colon\disk{1}\to\disk{1}$.
+\end{remark}

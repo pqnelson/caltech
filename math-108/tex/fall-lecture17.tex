@@ -1,0 +1,279 @@
+%%
+%% fall-lecture17.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-13T09:43:45-0800
+%% Last update 2025-11-13T09:43:45-0800
+%% 
+
+\lecture{}
+
+\begin{definition}[Review from last time]
+Let $U\subset\RR^{n}$ be an open set, $\vec{f}\colon U\to\RR^{m}$.
+We said $\vec{f}$ is \define{Differentiable} at $\vec{x}\in U$ if
+there exists an $A\colon\RR^{n}\to\RR^{m}$ linear such that for all
+$\vec{h}$ in an open neighborhood of the origin of $\RR^{n}$, we have
+\begin{equation}
+\vec{f}(\vec{x}+\vec{h})-\vec{f}(\vec{x})=A\vec{h}+\varepsilon(\vec{h}),
+\end{equation}
+where the remainder $\varepsilon(\vec{h})$ goes to zero sufficiently
+fast, in the sense that
+\begin{equation}
+\lim_{\vec{h}\to0}\frac{\|\varepsilon(\vec{h})\|}{\|\vec{h}\|}=0.
+\end{equation}
+We call the matrix $A$ the \define{Differential} of $\vec{f}$ at $\vec{x}$.
+
+We can also rewrite the defining condition as
+\begin{equation}
+\Delta\vec{f}(\vec{x}):=\vec{f}(\vec{x}+\Delta\vec{x})-\vec{f}(\vec{x})=A\,\Delta\vec{x}+\varepsilon(\Delta\vec{x}),
+\end{equation}
+where we just use $\Delta\vec{x}$ instead of $\vec{h}$.
+\end{definition}
+
+\begin{proposition}[Uniqueness of differential]
+Let $\vec{x}\in U$, $U\subset\RR^{n}$ open, $\vec{f}\colon U\to\RR^{m}$.
+If there are two matrices $A_{1},A_{2}\colon\RR^{n}\to\RR^{m}$ such that
+\begin{equation}
+\vec{f}(\vec{x}+\vec{h})-\vec{f}(\vec{x})=A_{1}\vec{h}+\varepsilon(\vec{h})=A_{2}\vec{h}+\varepsilon(\vec{h}),
+\end{equation}
+then $A_{1}=A_{2}$.
+\end{proposition}
+
+\begin{proof}
+Let $B:=A_{1}-A_{2}$. Then
+\begin{subequations}
+\begin{align}
+B\vec{h} &= A_{1}\vec{h}-A_{2}\vec{h}\\
+&=-\vec{f}(\vec{x}+\vec{h})+\vec{f}(\vec{x})+A_{1}\vec{h}-\left(-\vec{f}(\vec{x}+\vec{h})+\vec{f}(\vec{x})+A_{2}\vec{h}\right)\\
+&=-\left(\Delta\vec{f}(\vec{x})-A_{1}\vec{h}\right)+\left(\Delta\vec{f}(\vec{x})-A_{2}\vec{h}\right),
+\end{align}
+\end{subequations}
+and then we use the triangle inequality on
+\begin{subequations}
+\begin{align}
+\|B\vec{h}\| &\leq\|\Delta\vec{f}(\vec{x})-A_{1}\vec{h}\| + \|\Delta\vec{f}(\vec{x})-A_{2}\vec{h}\|\\
+&\leq\|\varepsilon(\vec{h})\| + \|\varepsilon(\vec{h})\|.
+\end{align}
+\end{subequations}
+Then by dividing both sides by the norm of $\vec{h}$, we find
+\begin{equation}
+\frac{\|B\vec{h}\|}{\|\vec{h}\|}\leq2\frac{\|\varepsilon(\vec{h})\|}{\|\vec{h}\|}
+\end{equation}
+and the right hand side goes to zero as $\vec{h}\to0$. For any fixed
+$\vec{h}\neq0$, we can rescale it
+\begin{equation}
+\frac{\|B(t\vec{h})\|}{\| t\vec{h}\|}\xrightarrow{t\to0}0,
+\end{equation}
+but
+\begin{equation}
+\frac{\|B\vec{h}\|}{\|\vec{h}\|}=\frac{\|B(t\vec{h})\|}{\| t\vec{h}\|}
+\end{equation}
+which holds for every $t\neq0$, so $B\vec{h}=0$ for every $\vec{h}\neq0$,
+so $B=0$. Hence the result.
+\end{proof}
+
+\begin{proposition}
+If $\vec{f}\colon\RR^{n}\to\RR^{m}$ is differentiable at $\vec{x}\in\RR^{n}$,
+then $\vec{f}$ is continuous at $\vec{x}$.
+\end{proposition}
+
+\begin{proof}
+Define an \define{Operator Norm} on the space $\mathcal{L}(\RR^{n},\RR^{m})$ of linear
+transformations from $\RR^{n}$ to $\RR^{m}$ by
+\begin{equation}
+\|A\|_{\text{op}} := \sup_{\substack{x\in\RR^{n}\\\|x\|\leq1}}\|A\vec{x}\|,
+\end{equation}
+for any $A\in\mathcal{L}(\RR^{n},\RR^{m})$. By definition of differentiability,
+\begin{subequations}
+\begin{align}
+\|\vec{f}(\vec{x}+\vec{h})-\vec{f}(\vec{x})\|
+&=\|A\vec{h}+\varepsilon(\vec{h})\|\\
+&\leq\|A\vec{h}\|+\|\varepsilon(\vec{h})\|\\
+&\leq\|\vec{h}\|\cdot\left\|A\frac{\vec{h}}{\|\vec{h}\|}\right\|+\|\varepsilon(\vec{h})\|\\
+&\leq\|A\|_{\text{op}}\cdot\|\vec{h}\|+\|\varepsilon(\vec{h})\|,
+\end{align}
+\end{subequations}
+and then we can pick, for any $\varepsilon>0$, some $\vec{h}$
+sufficiently close to the origin such that
+\begin{equation}
+\leq\|A\|_{\text{op}}\cdot\|\vec{h}\|+\|\varepsilon(\vec{h})\|<\varepsilon.
+\end{equation}
+Combining everything together, this implies continuity of $\vec{f}$ at $\vec{x}$.
+\end{proof}
+
+\begin{example}
+Let $A\in\RR^{m\times n}$ be an $m\times n$ matrix, define $\vec{f}(\vec{x})=A\vec{x}$.
+Then $\vec{f}$ is differentiable everywhere. The remainder
+$\varepsilon(\vec{h})$ is identically zero, so we see
+\begin{equation}
+\vec{f}(\vec{x}+\vec{h})-\vec{f}(\vec{x})=A\vec{h}
+\end{equation}
+for all $\vec{x}\in\RR^{n}$ and $\vec{h}\in\RR^{n}$.
+\end{example}
+
+\begin{definition}
+Let $\vec{f}\colon U\to\RR^{m}$, $U\subset\RR^{n}$ open.
+Let $\{\vec{e}_{1},\dots,\vec{e}_{n}\}$ be a canonical basis for $\RR^{n}$.
+Let $\{\vec{u}_{1},\dots,\vec{u}_{m}\}$ be a canonical basis for $\RR^{m}$.
+The \define{Components} of $\vec{f}$ are the real functions
+$f_{1},\dots,f_{m}\colon U\to\RR$ defined by (for each $i=1,\dots,m$):
+\begin{equation}
+f_{i}(\vec{x})=f(\vec{x})\cdot\vec{u}_{i}.
+\end{equation}
+\end{definition}
+
+\begin{proposition}
+Let $\vec{f}\colon U\to\RR^{m}$, $U\subset\RR^{n}$ open.
+Then $\vec{f}$ is differentiable at all $\vec{x}\in U$ if and only if
+each component $f_{i}$ of $\vec{f}$ is differentiable at $\vec{x}\in U$.
+\end{proposition}
+
+\begin{proof}
+\forwardproof\ Assume $\vec{f}$ is differentiable at $\vec{x}\in U$.
+Then by taking the dot product of $\vec{u}_{i}$ on both sides of the definition,
+\begin{equation}
+f_{i}(\vec{x}+\vec{h})-f_{i}(\vec{x})=\sum^{m}_{j=1}a_{ij}h_{j} + \varepsilon_{i}(\vec{h}).
+\end{equation}
+We also see, by definition of the sup-norm,
+\begin{equation}
+\frac{|\varepsilon_{i}(\vec{h})|}{\|\vec{h}\|}\leq\frac{\|\varepsilon(\vec{h})\|}{\|\vec{h}\|}\xrightarrow{\vec{h}\to0}0.
+\end{equation}
+This implies differentiability of the components.
+
+\backwardproof\ We assume each component of $\vec{f}$ is differentiable.
+We take
+\begin{equation}
+\varepsilon(\vec{h}) = (\varepsilon_{1}(\vec{h}),\dots,\varepsilon_{m}(\vec{h})),
+\end{equation}
+and
+\begin{equation}
+\lim_{\vec{h}\to0}\frac{\|\varepsilon(\vec{h})\|}{\|\vec{h}\|}=0,
+\end{equation}
+since
+\begin{equation}
+\|\varepsilon(\vec{h})\|=\max(|\varepsilon_{1}(\vec{h})|,\dots,|\varepsilon_{m}(\vec{h})|),
+\end{equation}
+and each component $\varepsilon_{i}$ satisfies
+\begin{equation}
+\frac{|\varepsilon_{i}(\vec{h})|}{\|\vec{h}\|}\xrightarrow{\vec{h}\to0}0.
+\end{equation}
+This then implies $\vec{f}$ is differentiable at $\vec{x}$.
+\end{proof}
+
+\begin{definition}
+Let $\vec{f}\colon U\to\RR^{m}$ be a function, let $U\subset\RR^{n}$
+an open subset. Let $f_{1}$, \dots, $f_{m}$ be the components of $\vec{f}$.
+We define the \define{Partial Derivatives} of $\vec{f}$ at $\vec{x}$
+to be
+\begin{equation}
+(\partial_{j}f_{i})(\vec{x}) := \lim_{t\to0}\frac{f_{i}(\vec{x}+t\vec{e}_{j})-f_{i}(\vec{x})}{t},
+\end{equation}
+provided the limit exists. This is also written as
+\begin{equation}
+(\partial_{j}f_{i})(\vec{x})=\frac{\partial f_{i}}{\partial x_{j}}(\vec{x}).
+\end{equation}
+Then we can write out the components of the differential of $\vec{f}$
+at $\vec{x}$ as
+\begin{equation}
+A = \begin{pmatrix}
+(\partial_{1}f_{1})(\vec{x}) & \dots & (\partial_{n}f_{1})(\vec{x})\\
+\vdots & \ddots & \vdots \\
+(\partial_{1}f_{m})(\vec{x}) & \dots & (\partial_{n}f_{m})(\vec{x})
+\end{pmatrix}
+\end{equation}
+\end{definition}
+
+\begin{proposition}
+\begin{enumerate}
+\item If $\vec{f}_{1},\vec{f}_{2}\colon\RR^{n}\to\RR^{m}$ are
+  differentiable, then $\vec{f}_{1}+\vec{f}_{2}$ is differentiable and
+  its differential is $(\vec{f}_{1}+\vec{f}_{2})'(\vec{x})=\vec{f}_{1}'(\vec{x})+\vec{f}_{2}'(\vec{x})$
+  the sum of the differentials for $\vec{f}_{1}$ and $\vec{f}_{2}$
+  evaluated at $\vec{x}\in\RR^{n}$.
+\item If $\vec{f}\colon\RR^{n}\to\RR^{m}$ is differentiable and
+  $T\in\mathcal{L}(\RR^{m},\RR^{k})$, then
+  $T\vec{f}\colon\RR^{n}\to\RR^{k}$ is differentiable and its
+  differential is
+  $(T\vec{f})'(\vec{x})=T(\vec{f}'(\vec{x}))$ for all $\vec{x}\in\RR^{n}$
+\item If $\vec{f}\colon\RR^{n}\to\RR^{m}$ is differentiable at $\vec{x}$,
+  then it has all its partial derivatives at $\vec{x}$. (The converse
+  is not true in general.)
+\end{enumerate}
+\end{proposition}
+
+\begin{example}
+For an example where $\vec{f}$ has all its partial derivatives at
+$\vec{x}$ but is not differentiable at $\vec{x}$, consider $f\colon\RR^{2}\to\RR$
+defined as
+\begin{equation}
+f(x_{1},x_{2}) = \begin{cases}0 & \mbox{if }x_{1}=x_{2}=0,\\
+\displaystyle\frac{x_{1}x_{2}}{x_{1}^{2}+x_{2}^{2}} & \mbox{otherwise}
+\end{cases}
+\end{equation}
+Then we see $f(0,x_{2})=0$ for all $x_{2}\in\RR$ and its partial
+derivative with respect to $x_{2}$ is zero
+\begin{equation}
+\partial_{x_{2}}f(0,x_{2})=0\quad\mbox{for all }x_{2}\in\RR.
+\end{equation}
+Similar reasoning tells us
+\begin{equation}
+\partial_{x_{1}}f(x_{1},0)=0\quad\mbox{for all }x_{1}\in\RR.
+\end{equation}
+But $f$ is not continuous at $(0,0)$. Observe $f(x,x)=1/2$ for all $x\neq0$,
+which differs from $f(0,0)=0$.
+\end{example}
+
+\begin{proposition}
+If the partial derivatives of $\vec{f}\colon\RR^{n}\to\RR^{m}$ exists
+in an open neighborhood $U$ of a point $\vec{a}\in\RR^{n}$ and are
+continuous at $\vec{a}$, then $\vec{f}$ is differentiable at $\vec{a}$.
+\end{proposition}
+
+Without loss of generality, we may set $m=1$.
+It is illustrative to work with $n=2$ (the general $n$ case is
+analogous).
+
+\begin{proof}
+We have $\vec{f}\colon\RR^{2}\to\RR$. 
+Suppose $\partial_{j}f(\vec{a})$ exists at all points in an open ball
+$B_{r}(\vec{a})$ of radius $r>0$ where $\vec{a}=(a_{1},a_{2})$.
+Then consider $\vec{h}=(h_{1},h_{2})$ such that
+\begin{equation}
+\|\vec{h}\|<r.
+\end{equation}
+If we look at the function $f(x_{1},a_{2})$ as a function of $x_{1}$,
+it is differentiable in the interval $[a_{1},a_{1}+h_{1})$. By the
+mean value theorem, there exists a $c_{1}\in(a_{1},a_{1}+h_{1})$ such that
+\begin{equation}
+f(a_{1}+h_{1},a_{2})-f(a_{1},a_{2})=h_{1}\partial_{1}f(c_{1},a_{2}).
+\end{equation}
+Similarly, there exists a $c_{2}\in(a_{2},a_{2}+h_{2})$ such that
+\begin{equation}
+f(a_{1}+h_{1},a_{2}+h_{2})-f(a_{1}+h_{1},a_{2})=h_{2}\partial_{2}f(a_{1}+h_{1},c_{2}).
+\end{equation}
+Then
+\begin{subequations}
+\begin{align}
+f(\vec{a}+\vec{h})-f(\vec{a})
+&=f(a_{1}+h_{1},a_{2}+h_{2})-f(a_{1},a_{2})\\
+&=\left(f(a_{1}+h_{1},a_{2}+h_{2})-f(a_{1}+h_{1},a_{2})\right)\nonumber\\
+&\phantom{=}\quad+\left(f(a_{1}+h_{1},a_{2})-f(a_{1},a_{2})\right)\\
+&=h_{2}\partial_{2}f(a_{1}+h_{1},c_{2})+h_{1}\partial_{1}f(c_{1},a_{2}).
+\end{align}
+\end{subequations}
+We want
+\begin{equation}
+f(\vec{a}+\vec{h})-f(\vec{a})=h_{2}\partial_{2}f(a_{1},a_{2})+h_{1}\partial_{1}f(a_{1},a_{2})+\varepsilon(\vec{h}),
+\end{equation}
+so we write
+\begin{equation}
+\begin{split}
+\varepsilon(\vec{h})=\;&h_{2}\bigl(\partial_{2}f(a_{1}+h_{1},c_{2})-\partial_{2}f(a_{1},a_{2})\bigr)\\
+&+h_{1}\bigl(\partial_{1}f(c_{1},a_{2})-\partial_{1}f(a_{1},a_{2})\bigr)
+\end{split}
+\end{equation}
+and we want to show $\|\varepsilon(\vec{h})\|/\|\vec{h}\|\to0$ as $\vec{h}\to0$.
+This is where continuity comes into play.
+\end{proof}

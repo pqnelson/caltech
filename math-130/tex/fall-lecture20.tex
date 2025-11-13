@@ -1,0 +1,311 @@
+%%
+%% fall-lecture20.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-13T10:37:04-0800
+%% Last update 2025-11-13T10:37:04-0800
+%% 
+
+\lecture{}
+
+\begin{theorem}
+Let $M$ be a finitely-generated module over $S=\kk[x_{0},\dots,x_{n}]$.
+Then the Hilbert function $\mathcal{H}_{M}(d)=\dim_{\kk}(M_{d})$ is
+eventually polynomial to the polynomial $P_{M}(d)$ with
+$\deg(P_{M})=\dim(\Support(M))$. 
+
+Note
+\begin{equation}
+P_{M}(z) = c_{0} + c_{1}\binom{z}{1} + \dots + c_{r}\binom{z}{r}\in\QQ[z],
+\end{equation}
+where $r=\dim(\Support(M))$ and $r!c_{r}\in\ZZ$.
+\end{theorem}
+
+\begin{definition}
+Let $X\subset\PP^{n}$ be a closed variety with dimension $r=\dim(X)$.
+We define the \define{Hilbert Polynomial} of $X$ to be
+\begin{subequations}
+\begin{equation}
+P_{X}(z):=P_{S/I(X)}(z)
+\end{equation}
+where we define the \define{Degree} of $X$ to be the number
+\begin{equation}
+\deg(X):=r!(\mbox{leading coefficient of }P_{X})
+\end{equation}
+\end{subequations}
+\end{definition}
+
+\begin{example}
+$\deg(V_{p}(f))=\deg(f)$ agrees with the usual definition of degree.
+\end{example}
+
+\begin{example}
+If $V\subset\PP^{n}$ is a linear subspace of dimension $r$, then
+without loss of generality $V=V_{p}(x_{r+1},\dots,x_{n})$ and
+$S/I(V)\iso\kk[x_{0},\dots,x_{r}]$. Then
+\begin{equation}
+P_{V}(z)=\binom{z+r}{r},
+\end{equation}
+and $\deg(V)=1$.
+\end{example}
+
+\begin{proposition}
+Let $X_{1},X_{2}\subset\PP^{n}$ be closed projective varieties (not
+necessarily irreducible).
+If $\dim(X_{1})=\dim(X_{2})=r$ and if $X_{1}$ and $X_{2}$ share no common components,
+then $\deg(X_{1}\cup X_{2})=\deg(X_{1})+\deg(X_{2})$.
+\end{proposition}
+
+\begin{proof}
+Write $I_{1}=I(X_{1})$ and $I_{2}=I(X_{2})$.
+Then $I(X_{1}\cup X_{2})=I_{1}\cap I_{2}$. Then we consider the short
+exact sequence
+\begin{equation}
+\begin{array}{ccrccclcc}
+%0 \to A \to B \to C \to 0 =   
+%0\to S/(I_{1}\cap I_{2})\to (S/I_{1})\oplus(S/I_{2})\to S/(I_{1}+I_{2})\to0\\
+0&\to&S/(I_{1}\cap I_{2})&\to&(S/I_{1})\oplus(S/I_{2})&\to&S/(I_{1}+I_{2})&\to&0\\
+ &   &f & \mapsto&(f,f)& & & & \\
+ &   &  &        &(f,g)&\mapsto& f-g& &
+\end{array}
+\end{equation}
+So
+\begin{equation}
+P_{X_{1}}(d) + P_{X_{2}}(d) = P_{X_{1}\cup X_{2}}(d) + P_{S/(I_{1}+I_{2})}(d),
+\end{equation}
+but
+\begin{subequations}
+  \begin{align}
+\deg(P_{S/(I_{1}+I_{2})}) &= \dim(V_{p}(I_{1}+I_{2}))\\
+&= \dim(X_{1}\cap X_{2})\quad\mbox{since there are no common components}\\
+&<r \mbox{so it does not contribute to leading coefficient.}
+  \end{align}
+\end{subequations}
+Then writing $\lc(P)$ for the leading coefficient of $P$,
+\begin{equation}
+\lc(P_{X_{1}})+\lc(P_{X_{2}})=\lc(P_{X_{1}\cup X_{2}}),
+\end{equation}
+which implies
+\begin{equation}
+\deg(X_{1}) + \deg(X_{2}) = \deg(X_{1}\cup X_{2}),
+\end{equation}
+as desired.
+\end{proof}
+
+\begin{corollary}
+If $X\subset\PP^{n}$ has dimension zero, then $\deg(X)=\card{X}$
+its degree is just the number of points of $X$.
+\end{corollary}
+
+\begin{recall}
+Let $R$ be a commutative ring, let $M$ be an $R$-module.
+\begin{enumerate}
+\item We call $M$ \define{Simple} if $M\neq0$ and $M$ has no nontrivial
+proper subsmodules. (Equivalently, $M\iso R/P$ where $P\ideal R$ is maximal.)
+\item A \define{Decomposition Series} for $M$ is a filtration
+  \begin{equation}
+0=M_{0}\propersubset M_{1}\propersubset\cdots\propersubset M_{r}=M,
+  \end{equation}
+  such that $M_{i}/M_{i-1}$ is simple for all $i$.
+\item If there exists a decomposition series for $M$, then (i) $M$ is
+  Artinian, and (ii) the \define{Length} of $M$ is simply $\length_{R}(M):=r$.
+\end{enumerate}
+\end{recall}
+
+\begin{fact}
+If $R$ is Noetherian and $M$ is a finitely-generated module over $R$,
+then there exists a filtration
+\begin{equation}\label{eq:fall-lec20:filtration}
+0=M_{0}\propersubset M_{1}\propersubset\cdots\propersubset M_{r}=M,
+\end{equation}
+with $M_{i}/M_{i-1}\iso R/P_{i}$ where $P_{i}\in\Spec(R)$ is a prime ideal.
+Note: $P_{i}\supset\Annihilator(M)$ for all $i$.
+\end{fact}
+
+\begin{lemma}
+If $P\subset R$ is a minimal prime over $\Annihilator(M)$,
+then $M_{P}$ is an Artinian $R_{P}$-module and $\length_{R_{P}}(M_{P})=\card{\{i\mid P_{i}=P\mbox{ in the filtration in Eq~\eqref{eq:fall-lec20:filtration}}\}}$.
+\end{lemma}
+
+\begin{proof}
+We localize the filtration at $P$ and the inclusions are no longer strict
+\begin{equation}
+0 = (M_{0})_{P}\subset(M_{1})_{P}\subset\cdots\subset(M_{r})_{P}=M_{P},
+\end{equation}
+and we look at the quotients
+\begin{equation}
+(M_{i})_{P}/(M_{i-1})_{P}=(M_{i}/M_{i-1})_{P}=(R/P_{i})_{P}=\begin{cases}
+R_{P}/P_{P} & \mbox{if }P_{i}=P\\
+0 & \mbox{otherwise},
+  \end{cases}
+\end{equation}
+because if $P\neq P_{i}$, then $P_{i}\nsubset P$. Hence the result.
+\end{proof}
+
+\begin{convention}
+Henceforth let $X\subset\PP^{n}$ closed of dimension $r$,
+and $Y=V_{p}(f)\subset\PP^{n}$ such that no component of $X$ is inside $Y$.
+Assume $f$ is irreducible.
+Set $M:=S/(I(X)+\langle f\rangle)$, so $\Support(M)=X\cap Y$.
+\end{convention}
+
+\begin{proposition}
+If $Z\subset X\cap Y$ is a component, then $\dim(Z)=r-1$.
+Therefore $P=I(Z)$ will be a minimal prime over $\Annihilator(M)$.
+\end{proposition}
+
+\begin{definition}
+We define the \define{Intersection Multiplicity} of $X\cap Y$ at $Z$
+to be $I(X\cdot Y;Z):=\length_{S_{P}}(M_{P})$.
+\end{definition}
+
+\begin{theorem}
+\begin{equation*}
+\deg(X)\deg(Y) = \sum_{\substack{Z\subset X\cap Y\\\text{components}}}I(X\cdot Y; Z)\deg(Z)
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+Set $d=\deg(X)$ and $e=\deg(Y)$.
+Consider the map $S/I(X)\xrightarrow{\cdot f}S/I(X)$ multiplication by $f$,
+its cokernel is $M$, so we have an exact sequence
+\begin{equation}
+S/I(X)\xrightarrow{\cdot f}S/I(X)\to M\to 0.
+\end{equation}
+Is this map injective? If $h\cdot f\in I(X)$, then $h=0$ on each
+component of $X$. This implies $h\mapsto h\cdot f$ is injective.
+
+We need to shift by $\deg(f)=e$,
+\begin{equation}
+0\to(S/I(X))_{\ell-e}\to(S/I(X))_{\ell}\to M_{\ell}\to0
+\end{equation}
+is exact. Then
+\begin{equation}
+P_{M}(\ell) = P_{X}(\ell)-P_{X}(\ell-e).
+\end{equation}
+If we look at the leading coefficients,
+\begin{equation}
+\lc(P_{M}) = r\cdot e\cdot \lc(P_{X})
+\end{equation}
+since $z^{r}-(z-e)^{r}=rez^{r-1}$ plus lower-order terms, and since $\lc(P_{X})=\deg(\dots)/r!$,
+\begin{subequations}\label{eq:fall-lec20:eq-one-in-proof}
+  \begin{align}
+\lc(P_{M}) &= r\cdot e\cdot \lc(P_{X})\\
+&= \frac{r\cdot e\cdot d}{r!} = \frac{e\cdot d}{(r-1)!}
+  \end{align}
+\end{subequations}
+Take a filtration
+\begin{equation}
+0=M_{0}\propersubset M_{1}\propersubset\cdots\propersubset M_{t}=M,
+\end{equation}
+where $M_{i}\subset M$ are homogeneous submodules, and
+$M_{i}/M_{i-1}\iso S/P_{i}$ where $P_{i}\in\Spec(S)$ are prime ideals.
+Then
+\begin{subequations}
+\begin{align}
+P_{M}(\ell) &= \sum^{t}_{i=1}P_{M_{i}/M_{i-1}}(\ell)\\
+&=\sum_{Q\in\Spec(S)}\card{\{i\mid P_{i}=Q\}}\cdot P_{S/Q}(\ell)\\
+&=\sum_{\substack{Z\subset X\cap Y\\\text{components}}}\card{\{i\mid P_{i}=I(Z)\}}\cdot P_{Z}(\ell)+(\mbox{lower order terms})\\
+&=\sum_{\substack{Z\subset X\cap Y\\\text{components}}}I(X\cdot Y;Z)\cdot P_{Z}(\ell)+(\mbox{lower order terms}),
+\end{align}
+\end{subequations}
+then we see using Equation~\eqref{eq:fall-lec20:eq-one-in-proof}
+\begin{equation}
+\lc(P_{M}) = \frac{1}{(r-1)!}\sum_{\substack{Z\subset X\cap Y\\\text{components}}}I(X\cdot Y;Z)\deg(Z).
+\end{equation}
+Hence the result.
+\end{proof}
+
+\begin{corollary}[B\'{e}zout's Theorem]
+Let $X,Y\subset\PP^{2}$ are plane curves of degree $d$ and $e$ (respectively)
+such that $X\cap Y=\{p_{1},\dots,p_{m}\}$ is finite. Then
+\begin{equation}
+\sum^{m}_{i=1}I(X\cdot Y; p_{i})=de.
+\end{equation}
+\end{corollary}
+
+\begin{xca}
+If $X$ and $Y$ are plane curves, then the intersection at a point is 1
+iff they are nonsingular at the point and their tangent vectors point
+in different directions.
+\end{xca}
+
+\begin{node}[B\'{e}zout's theorem for $\PP^{n}$]
+The idea is to write
+\begin{equation}
+[X]\cdot[Y] = \sum_{\substack{Z\subset X\cap Y\\\text{components}}}I(X\cdot Y;Z)[Z]
+\end{equation}
+for the product in a Chow ring.
+
+If $Y_{1}$, \dots, $Y_{n}\subset\PP^{n}$ are hypersurfaces such that
+they intersect at a finite number of points $\card{Y_{1}\cap\cdots\cap Y_{n}}<\infty$.
+We may formally compute
+\begin{equation}
+((([\PP^{n}]\cdot[Y_{1}])\cdot[Y_{2}])\cdot\dots)\cdot[Y_{n}]=\sum^{N}_{i=1}c_{i}[P_{i}]
+\end{equation}
+where $Y_{1}\cap\cdots\cap Y_{n}=\{P_{1},\dots,P_{N}\}$. Then
+\begin{equation}
+\sum^{N}_{i=1}c_{i}=\prod^{n}_{j=1}\deg(Y_{j}).
+\end{equation}
+In fact,
+\begin{equation}
+(([\PP^{n}]\cdot[Y_{1}])\cdots)\cdot[Y_{m}]=\sum^{Nm}_{i=1}c^{(m)}_{i}[Z_{i}]
+\end{equation}
+where $Y_{1}\cap\cdots\cap Y_{m}=Z_{1}\cup\cdots\cup Z_{N_{m}}$ are
+its components,
+\begin{equation}
+\prod^{m}_{j=1}\deg(Y_{j})=\sum_{i}c^{(m)}_{i}\deg(Z_{i}).
+\end{equation}
+In fact, the $c_{i}$ and $c_{i}^{(m)}$ are well-defined and
+independent of the associativity of multiplication.
+\end{node}
+
+\begin{corollary}
+If $\card{Y_{1}\cap\cdots\cap Y_{m}}$ is finite,
+then $\card{Y_{1}\cap\cdots\cap Y_{m}}<\prod^{m}_{j=1}\deg(Y_{j})$.
+\end{corollary}
+
+\begin{fact}[Useful]
+If we have irreducible closed subvarieties $X_{1}$, \dots, $X_{m}\subset\PP^{n}$
+and $d\in\NN$ positive $d>0$, then there exists an irreducible
+hypersurface $Y$ of degree $d$ such that $X_{i}\nsubset Y$ for any $i$.
+\end{fact}
+
+\begin{proof}
+We can use the Veronese embedding (\S\ref{defn:fall-lec10:veronese-embedding})
+$V_{d}\colon\PP^{n}\into\PP^{N}$ where $N=\binom{n+d}{n}-1$, $H\subset\PP^{N}$
+is a general hyperplane, then $Y$ is the pullback of $H$ which works.
+\end{proof}
+
+\begin{proof}
+A more intrinsic approach, we see there is a bijection
+\begin{equation}
+\{\mbox{irreducible hypersurfaces of degree $d$ in
+}\PP^{n}\}\longleftrightarrow\PP(\mathcal{S}_{d})\setminus U,
+\end{equation}
+given by $V_{p}(f)\longleftrightarrow [f]$, where
+\begin{equation}
+U := \bigcup_{p+q=d}\varphi_{p,q}(\PP(\mathcal{S}_{p})\times\PP(\mathcal{S}_{q})),
+\end{equation}
+and each hypersurface is parametrized by a degree $d$ polynomial,
+\begin{equation}
+\varphi_{p,q}\colon\PP(\mathcal{S}_{p})\times\PP(\mathcal{S}_{q})\to\PP(\mathcal{S}_{d})
+\end{equation}
+where $\varphi_{p,q}([f],[g])=[fg]$. We always have
+\begin{equation}
+\binom{n+p}{n} + \binom{n+q}{n}\leq\binom{n+p+q}{n},
+\end{equation}
+which implies $U\subset\PP(\mathcal{S}_{d})$ is a dense open subset.
+Then $X\subset V_{p}(f)\iff f\in I(X)_{d}$. We have the bijection
+\begin{equation}
+\{\mbox{hypersurface}\nsupset X\}\longleftrightarrow W_{X}:=\PP(\mathcal{S}_{d})\setminus\PP(I(X)_{d})\mbox{ dense open}
+\end{equation}.
+We conclude
+\begin{equation}
+\{\mbox{irreducible hypersurfaces of deg. }d\nsupset X_{i}\forall i\}\longleftrightarrow
+U\cap W_{X_{1}}\cap\cdots\cap W_{X_{n}}\mbox{ dense open}.
+\end{equation}
+The result follows.
+\end{proof}
