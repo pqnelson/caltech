@@ -1,0 +1,285 @@
+%%
+%% fall-lecture21.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-15T10:28:01-0800
+%% Last update 2025-11-15T10:28:01-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $(C,\boundary)$ be a a chain complex (and $G$ is some fixed
+Abelian group), define
+\begin{equation}
+C^{*}_{n}:=\hom(C_{n},G)
+\end{equation}
+to be the \define{Dual Group} of $C_{n}$ (where we fixed the Abelian
+group of coefficients $G$).
+
+We have the \define{Coboundary Map} $\coboundary_{n}\colon C^{*}_{n-1}\to C^{*}_{n}$
+correspondding to the boundary map $\boundary\colon C_{n}\to C_{n-1}$.
+Since $\boundary^{2}=0$, we find $\coboundary^{2}=0$.
+
+Then we have
+\begin{equation}
+C^{*}_{n+1}\xleftarrow{\coboundary_{n+1}}C^{*}_{n}\xleftarrow{\coboundary_{n}}C^{*}_{n-1},
+\end{equation}
+where $\ker(\coboundary_{n+1})\supset\Im(\coboundary_{n})$. We define
+the \define{Cohomology Group} of $C$ with coefficients $G$ as
+\begin{equation}
+H^{n}(C;G) := \ker(\coboundary_{n+1})/\Im(\coboundary_{n}).
+\end{equation}
+Lastly, we call $(C^{*},\coboundary)$ the \define{Cochain Complex}
+with coefficients $G$.
+\end{definition}
+
+\begin{node}[Geometric meaning to this stuff]
+Elements of $C_{n}^{*}$ are \define{$n$-Dimensional Cochains} which
+gives us a way to evaluate a chain. That is to say, given some
+$\alpha\in C^{*}_{n}$, it's just a morphism $\alpha\colon C_{n}\to G$
+which maps $x\in C_{n}$ to $\alpha(x)$. We usually write
+\begin{equation}
+\langle\alpha, x\rangle :=\alpha(x)
+\end{equation}
+for the result of this mapping.
+
+The coboundary map $\coboundary\colon C^{*}_{n}\to C^{*}_{n+1}$.
+If $\alpha\in C^{*}_{n}$, then $\coboundary\alpha\in C^{*}_{n+1}$;
+i.e., $\coboundary\alpha\colon C_{n+1}\to G$. For any $y\in C_{n+1}$,
+we define
+\begin{equation}
+\langle\coboundary\alpha,y\rangle:=\langle\alpha,\boundary y\rangle.
+\end{equation}
+In this sense, $\coboundary$ is ``dual'' to the boundary $\boundary$.
+
+A cohomology class $[\alpha]\in H^{n}(C;G)$ defines a morphism
+$H_{n}(C)\to G$. How do we see this? Let $[x]\in H_{n}(C)$ be a
+homology class. Then
+\begin{equation}
+\begin{split}
+[\alpha]&\colon H_{n}(C)\to G\\
+&[x]\mapsto\langle\alpha,x\rangle.
+\end{split}
+\end{equation}
+Although this appears to depend on the choice of representatives
+$x\in[x]$ and $\alpha\in[\alpha]$, using
+\begin{equation}
+\langle\coboundary\alpha,y\rangle=\langle\alpha,\boundary y\rangle
+\end{equation}
+and after a bit of work, we see this does not depend o nthe choice of
+representatives. So we have a morphism $H^{n}(C;G)\to\hom(H_{n}(C),G)$.
+(This is a surjective morphism, and its kernel is the Ext functor.)
+\end{node}
+
+\subsection{Universal Coefficient Theorem for Cohomology}
+
+So how do we relate cohomology and homology? Well, homology really
+determines the cohomology. We can make this precise in the following theorem:
+
+\begin{universal-coef-thm}[Cohomology]
+Suppose we have a chain complex $(C_{*},\boundary)$ where $C_{*}$ is
+free Abelian (which is always true for chain complexes constructed
+from topological spaces). Then we have a split short exact sequence
+\begin{equation}
+0\to\Ext(H_{n-1}(C),G)\to H^{n}(C;G)\to\hom(H_{n}(C),G)\to0
+\end{equation}
+and this is natural with respect to chain maps (in the sense that
+chain maps will induce natural transformations making the diagram commute:
+\begin{equation}
+\vcenter{\xymatrix{0\ar[r]&\bullet\ar[r]&\bullet\ar[r]&\bullet\ar[r]&0\\
+0\ar[r]&\bullet\ar[u]\ar[r]&\bullet\ar[u]\ar[r]&\bullet\ar[u]\ar[r]&0}}
+\end{equation}
+but the splitting is not natural.)
+\end{universal-coef-thm}
+
+\begin{corollary}
+Let $G=\ZZ$. Suppose $H_{n}(C)$ and $H_{n-1}(C)$ are
+finitely-generated. If $T_{i}$ is the torsion subgroup of $H_{i}(C)$,
+then $H^{n}(C;\ZZ)\iso\bigl(H_{n}(C)/T_{n}\bigr)\oplus T_{n-1}$.
+\end{corollary}
+
+\begin{proof}[Proof (corollary)]
+Let $H_{i}(C)=\ZZ^{b_{i}}\oplus T_{i}$ where $T_{i}=\bigoplus_{j}(\ZZ/m_{ij}\ZZ)$.
+We see
+\begin{subequations}
+  \begin{align}
+\hom(H_{n}(C),\ZZ) &= \hom(\ZZ^{b_{n}},\ZZ)\oplus\hom(T_{n},\ZZ)\\
+&\iso\ZZ^{b_{n}}
+  \end{align}
+\end{subequations}
+and
+\begin{subequations}
+  \begin{align}
+\Ext(H_{n-1}(C),\ZZ) &=\Ext(\ZZ^{b_{n-1}}\oplus T_{n-1},\ZZ)\\
+&=\Ext(T_{n-1},\ZZ)\\
+&\iso T_{n-1}.
+  \end{align}
+\end{subequations}
+Combining the results proves the corollary.
+\end{proof}
+
+\begin{proof}[Proof (Universal Coefficient Theorem)]
+Recall, $Z_{n}=\ker(\boundary_{n})$ is the group of cycles, and
+$B_{n}=\Im(\boundary_{n+1})$ is the group of boundaries, which are
+both subgroups of $C_{n}$. In particular, they are free Abelian
+groups. Now considerthe short exact sequence
+\begin{equation}
+0\to Z_{n+1}\to C_{n+1}\xrightarrow{\boundary}B_{n}\to 0.
+\end{equation}
+Since the $B_{n}$ are free, the short exact sequence splits. Moreover,
+we can extend this since $\boundary\colon C_{n+1}\to C_{n}$, but
+$\boundary|_{Z_{n+1}}$ and $\boundary|_{B_{n}}$ are just the zero
+maps, so we have
+\begin{equation}
+\vcenter{\xymatrix{%
+        & \vdots\ar[d] & \vdots\ar[d] & \vdots\ar[d] & \\
+0\ar[r] & Z_{n+1}\ar[r]\ar[d]^{0} & C_{n+1}\ar[r]^{\boundary}\ar[d]^{\boundary} & B_{n}\ar[r]\ar[d]^{0} & 0\\
+0\ar[r] & Z_{n}\ar[r]\ar[d]^{0} & C_{n}\ar[r]^{\boundary}\ar[d]^{\boundary} & B_{n-1}\ar[r]\ar[d] & 0\\
+& \vdots & \vdots & \vdots & }}
+\end{equation}
+We can dualize these short exact sequences, and we get the short exact sequences;
+\begin{equation}
+\vcenter{\xymatrix{%
+        & \vdots & \vdots & \vdots & \\
+0 & Z^{*}_{n+1}\ar[l]\ar[u]^{0} & C^{*}_{n+1}\ar[l]^{\coboundary}\ar[u]^{\coboundary} & B^{*}_{n}\ar[l]\ar[u] & 0\ar[l]\\
+0 & Z^{*}_{n}\ar[l]\ar[u]^{0} & C^{*}_{n}\ar[l]^{\coboundary}\ar[u]^{\coboundary} & B^{*}_{n-1}\ar[l]\ar[u]^{0} & 0\ar[l]\\
+        & \vdots\ar[u] & \vdots\ar[u] & \vdots\ar[u] & }}
+\end{equation}
+The short exact sequences in the dualized version are all split (which
+is not true in general!). We then have the long exact sequence by
+extending each column and then we get (by applying cohomology)
+\begin{equation}
+\dots\gets B^{*}_{n}\xleftarrow{i^{*}_{n}}Z^{*}_{n}\gets
+H^{n}(C;G)\gets B^{*}_{n-1}\xleftarrow{i^{*}_{n-1}}Z^{*}_{n-1}\gets\dots
+\end{equation}
+the connecting morphism is determined by the inclusion
+\begin{equation}
+i_{n}\colon B_{n}\into Z_{n}.
+\end{equation}
+So now we have a short exact sequence
+\begin{equation}
+0\gets\ker(i^{*}_{n})\gets H^{n}(C;G)\gets\coker(i^{*}_{n-1})\gets0.
+\end{equation}
+Now, we just need to understand the kernel and cokernel appearing in
+this short exact sequence.
+
+Consider the short-exact sequence from the definition of $H_{n}(C)$,
+\begin{equation}
+0\to B_{n}\xrightarrow{i_{n}}Z_{n}\to H_{n}(C)\to 0,
+\end{equation}
+then we dualize it
+\begin{equation}
+\vcenter{\xymatrix{
+0=\Ext(Z_{n},G) & \ar[l]\Ext(H_{n}(C),G) & & \\
+B^{*}_{n}\ar[ur] & \ar[l]^{i^{*}_{n}}Z^{*}_{n} & \hom(H_{n}(C),G)\ar[l] & 0\ar[l]}}
+\end{equation}
+So $\ker(i^{*}_{n})\iso\hom(H_{n}(C),G)$ and $\coker(i^{*}_{n})\iso\Ext(H_{n}(C),G)$.
+This gives us the short exact sequence we sought. In other words, this
+establishes the \emph{existence} of the short exact sequence.
+
+Now, we just need to prove the short exact sequence is split. Plugging
+in our results
+\begin{equation}
+0\to\Ext(H_{n-1}(C),G)\to H^{n}(C,G)\to\hom(H_{n}(C),G)\to 0.
+\end{equation}
+Consider the short exact sequence
+\begin{equation}
+0\to Z_{n}\xrightarrow{i}C_{n}\xrightarrow{\boundary}B_{n-1}\to0,
+\end{equation}
+which is split. So let
+\begin{equation}
+p\colon C_{n}\to Z_{n}
+\end{equation}
+be a left inverse of $i$ (i.e., $p|_{Z_{n}}$ is the identity morphism).
+Suppose $\xi\in\ker(i^{*}_{n})$ (i.e., $\xi\colon Z_{n}\to G$ and $\xi|_{B_{n}}=0$).
+Then consider
+\begin{equation}
+p^{*}\colon Z^{*}_{n}\to C^{*}_{n}
+\end{equation}
+where $p^{*}(\xi)=\xi\circ p\colon C_{n}\to G$. For $\boundary x\in B_{n}$
+arbitrary, we find
+\begin{subequations}
+  \begin{align}
+\langle p^{*}(\xi),\boundary x\rangle &= \xi\circ p\circ(\boundary x)\\
+&=\xi(\boundary x)\\
+&=0.
+  \end{align}
+\end{subequations}
+So $p^{*}(\xi)\in\ker(\coboundary)$ since
+\begin{equation}
+\langle\coboundary p^{*}(\xi),x\rangle=\langle p^{*}(\xi),\boundary x\rangle=0,
+\end{equation}
+and this is true for every $x$. Then we have a map obtained by
+composing
+\begin{equation}
+\ker(i^{*}_{n})\xrightarrow{p^{*}}\ker(\coboundary)\to H^{n}(C;G),
+\end{equation}
+which we claim is a right inverse to
+\begin{equation}
+H^{n}(C;G)\to\hom(H_{n}(C),G)\to 0
+\end{equation}
+appearing in the short exact sequence. Then the short exact sequence
+is split.
+
+Hence the result.
+\end{proof}
+
+\subsection{Universal Coefficient Theorem for Homology}
+
+\begin{node}[Tor functor]
+Recall (\textit{c.}\S\ref{defn:ext-functor}), Ext fnctor was derived from the $\hom(-,G)$ functor.
+We can derive a Tor functor from the tensor product. What is this?
+Suppose
+\begin{equation}
+A\to B\to C\to 0
+\end{equation}
+is exact. Then ``right exactness'' of the tensor product tells us
+\begin{equation}
+A\otimes G\to B\otimes G\to C\otimes G\to 0
+\end{equation}
+is exact. How do we define Tor?
+
+Well, consider a free resolution
+\begin{equation}
+\dots\to F_{1}\xrightarrow{\boundary}F_{0}\to A\to0
+\end{equation}
+(there may be more entries in the free resolution, but we only need
+this). Then tensor it with $G$ to give us
+\begin{equation}
+\dots\to F_{1}\otimes G\xrightarrow{\boundary_{*}}F_{0}\otimes G\to A\otimes G\to0,
+\end{equation}
+the homology can be determined using $\coker(\boundary_{*})=A\otimes G$
+and $\ker(\boundary_{*})=:\Tor(A,G)$.
+\end{node}
+
+\begin{node}
+From the short exact sequence
+\begin{equation}
+0\to A\to B\to C\to 0,
+\end{equation}
+we can form the long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{
+0\ar[r] &\Tor(A,G)\ar[r] &\Tor(B,G)\ar[r] &\Tor(C,G)\ar[dll] &\\
+&A\otimes G\ar[r]&B\otimes G\ar[r]&C\otimes G\ar[r] & 0}}
+\end{equation}
+\end{node}
+
+
+\begin{universal-coef-thm}[Homology]
+Let $(C_{*},\boundary)$ be a chain complex, $C_{*}$ be a free Abelian group.
+Then we have a split short exact sequence
+\begin{equation}\label{eq:fall-2025:lec21:uct-homology}
+0\to H_{n}(C)\otimes G\to H_{n}(C;G)\to\Tor(H_{n-1}(C),G)\to 0.
+\end{equation}
+It is natural, but the splitting is not.
+\end{universal-coef-thm}
+
+\begin{note}
+All the groups in the short exact sequence in Equation~\eqref{eq:fall-2025:lec21:uct-homology}
+are supposed to be the \underline{\emph{homology}} groups
+(\underline{none} of them are cohomology groups!).
+\end{note}

@@ -1,0 +1,194 @@
+%%
+%% fall-lecture18.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-15T11:19:36-0800
+%% Last update 2025-11-15T11:19:36-0800
+%% 
+
+\lecture{}
+
+\begin{proposition}
+If the partial derivatives of $\vec{f}\colon\RR^{n}\to\RR^{m}$
+exists on an open neighborhood $U\subset\RR^{n}$ of $\vec{a}\in U$
+and are continuous at $\vec{a}$, then $\vec{f}$ is differentiable at $\vec{a}$.
+\end{proposition}
+
+\begin{definition}
+A function $\vec{f}\colon U\to\RR^{m}$ of an open subset
+$U\subset\RR^{n}$ is called \define{Continuously Differentiable} in $U$ (or
+``$f$ is $C^{1}(U)$) if all the partial derivatives of $\vec{f}$ (1) exist,
+and (2) are continuous everywhere in $U$.
+\end{definition}
+
+\begin{definition}
+If $f\colon U\to\RR$ and $U\subset\RR^{n}$ open, then we can define
+the \define{Gradient} of $\vec{f}$ as the column $n$-vector
+\begin{equation}
+\grad f(x)=\begin{pmatrix}
+\partial_{1}f(x)\\
+\partial_{2}f(x)\\
+\vdots\\
+\partial_{n}f(x)
+\end{pmatrix}=\transpose{(f'(\vec{x}))},
+\end{equation}
+which is the transpose of the differential of $f$ at $\vec{x}$.
+\end{definition}
+
+\begin{example}
+Consider the function $f(\vec{x})=x_{j}$ which is just the
+$j^{\text{th}}$ component of $\vec{x}$. Then $\grad f=\vec{e}_{j}$ is
+the unit vector. We write $\D x_{j}=\transpose{\vec{e}_{j}}$.
+\end{example}
+
+\begin{definition}
+Let $f\colon\RR^{n}\to\RR$. We define the \define{Differential} of $f$
+to be
+\begin{equation}
+\D f(\vec{x}):=\sum^{n}_{j=1}\partial_{j}f(\vec{x})\,\D x_{j},
+\end{equation}
+where the $\partial_{j}f(\vec{x})$ are scalars and $\D x_{j}$ are vectors.
+More generally, any linear combination of $\D x_{j}$ are called
+\define{Differential Forms}.\footnote{These are differential forms of
+order 1, but we won't need/discuss higher-order differential forms. No
+wedge product for us!}
+\end{definition}
+
+\begin{theorem}[Chain rule]
+Let $\vec{f}\colon U\to\RR^{m}$ where $U\subset\RR^{n}$ open,
+and $\vec{g}\colon V\to\RR^{k}$ where $V\subset\RR^{m}$ open with
+$\vec{f}(U)\subset V$. If $\vec{f}$ is differentiable at $\vec{x}\in U$,
+and if $\vec{g}$ is differentiable at $\vec{f}(\vec{x})\in V$,
+then $\phi=\vec{g}\circ\vec{f}\colon U\to\RR^{k}$ is differentiable at
+$\vec{x}\in U$ and its derivative is given by the matrix product
+\begin{equation}
+\phi'(\vec{x})=\vec{g}'(\vec{f}(\vec{x}))\vec{f}'(\vec{x}).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+We can write
+\begin{equation}\label{pf:fall2025-lec18:math108a:chain-rule:one}
+\vec{g}(\vec{y}+\vec{h})-\vec{g}(\vec{y})=\vec{g}'(\vec{y})\vec{h}+\varepsilon_{g}(\vec{h})
+\end{equation}
+since $\vec{g}$ is differentiable at $\vec{y}$, where
+\begin{equation}
+\lim_{\vec{h}\to0}\frac{\|\varepsilon_{g}(\vec{h})\|}{\|\vec{h}\|}=0.
+\end{equation}
+We can also write
+\begin{equation}\label{pf:fall2025-lec18:math108a:chain-rule:two}
+\vec{f}(\vec{x}+\vec{k})-\vec{f}(\vec{x})=\vec{f}'(\vec{x})\vec{k}+\varepsilon_{f}(\vec{k})
+\end{equation}
+since $\vec{f}$ is differentiable at $\vec{x}$, where
+\begin{equation}
+\lim_{\vec{k}\to0}\frac{\|\varepsilon_{f}(\vec{k})\|}{\|\vec{k}\|}=0.
+\end{equation}
+Substitute
+\begin{subequations}
+\begin{equation}
+\vec{y}=\vec{f}(\vec{x})
+\end{equation}
+and
+\begin{equation}
+\vec{h}=\vec{f}'(\vec{x})\vec{k}+\varepsilon_{f}(\vec{k})
+\end{equation}
+\end{subequations}
+into Equation~\eqref{pf:fall2025-lec18:math108a:chain-rule:one} to obtain:
+\begin{subequations}
+  \begin{align}
+LHS &= \vec{g}(\vec{f}(\vec{x})+\vec{f}'(\vec{x})\vec{k}+\varepsilon_{f}(\vec{k}))
+-\vec{g}(\vec{f}(\vec{x}))\\
+&= \vec{g}(\vec{f}(\vec{x}+\vec{k}))-\vec{g}(\vec{f}(\vec{x}))\\
+&=\phi(\vec{x}+\vec{k})-\phi(\vec{x}),
+  \end{align}
+\end{subequations}
+and
+\begin{subequations}
+  \begin{align}
+RHS &= \vec{g}'(\vec{f}(\vec{x}))\bigl(\vec{f}'(\vec{x})\vec{k}+\varepsilon_{f}(\vec{k})\bigr)+\varepsilon_{g}(\vec{f}'(\vec{x})\vec{k}+\varepsilon_{f}(\vec{k}))\\
+&=\vec{g}'(\vec{f}(\vec{x}))\vec{f}'(\vec{x})\vec{k}+\underbrace{\vec{g}'(\vec{f}(\vec{x}))\varepsilon_{f}(\vec{k})+\varepsilon_{g}(\vec{h})}_{=:\varepsilon(\vec{k})}.
+  \end{align}
+\end{subequations}
+So we obtain (setting LHS = RHS)
+\begin{equation}
+\phi(\vec{x}+\vec{k})-\phi(\vec{x})=\vec{g}'(\vec{f}(\vec{x}))\vec{f}'(\vec{x})\vec{k}+\varepsilon(\vec{k}).
+\end{equation}
+We just now want to prove
+\begin{equation}
+\lim_{\vec{k}\to0}\frac{\|\varepsilon(\vec{k})\|}{\|\vec{k}\|}=0.
+\end{equation}
+Without loss of generality, $\vec{k}\neq0$. Then the rest of the proof
+boils down to studying two cases.
+
+\textsc{Case 1:} $\vec{h}\neq0$. We use the triangle inequality
+\begin{subequations}
+  \begin{align}
+\frac{\|\varepsilon(\vec{k})\|}{\|\vec{k}\|}
+&\leq\frac{\|\vec{g}'(\vec{f}(\vec{x}))\vec{f}'(\vec{x})\vec{k}\|}{\|\vec{k}\|}
++\frac{\|\varepsilon_{g}(\vec{k})\|}{\|\vec{h}\|}\frac{\|\vec{h}\|}{\|\vec{k}\|}\\
+&\leq\frac{\|\vec{g}'(\vec{f}(\vec{x}))\|_{\text{op}}\|\varepsilon_{f}(\vec{k})\|}{\|\vec{k}\|}
++\frac{\|\varepsilon_{g}(\vec{h})\|}{\|\vec{h}\|}\frac{\|\vec{f}'(\vec{x})\vec{k}+\varepsilon_{f}(\vec{k})\|}{\|\vec{k}\|}\\
+&\leq\frac{\|\vec{g}'(\vec{f}(\vec{x}))\|_{\text{op}}\|\varepsilon_{f}(\vec{k})\|}{\|\vec{k}\|}
++\frac{\|\varepsilon_{g}(\vec{h})\|}{\|\vec{h}\|}\left(\frac{\|\vec{f}'(\vec{x})\|_{\text{op}}\|\vec{k}\|}{\|\vec{k}\|}+\frac{\|\varepsilon_{f}(\vec{k})\|}{\|\vec{k}\|}\right)\\
+&\leq\frac{C_{1}\|\varepsilon_{f}(\vec{k})\|}{\|\vec{k}\|}
++\frac{\|\varepsilon_{g}(\vec{h})\|}{\|\vec{h}\|}\left(C_{2}+\frac{\|\varepsilon_{f}(\vec{k})\|}{\|\vec{k}\|}\right)
+  \end{align}
+\end{subequations}
+where $C_{1}$, $C_{2}$ are constant with respect to $\vec{k}$. We want
+to show the remaining terms goes to zero as $\vec{k}\to0$. We first
+see
+\begin{equation}
+\lim_{\vec{k}\to0}\vec{h}=\lim_{\vec{k}\to0}\vec{f}'(\vec{x})\vec{k}+\varepsilon_{f}(\vec{k})=0.
+\end{equation}
+Then we see that
+\begin{equation}
+\lim_{\vec{k}\to0}\frac{\|\varepsilon(\vec{k})\|}{\|\vec{k}\|}=0,
+\end{equation}
+as desired.
+
+\textsc{Case 2:} $\vec{h}=0$. Then
+\begin{equation}
+\frac{\|\varepsilon(\vec{k})\|}{\|\vec{k}\|}\leq\frac{\|\vec{g}'(\vec{f}(\vec{x}))\|_{\text{op}}\|\varepsilon_{f}(\vec{k})\|}{\|\vec{k}\|},
+\end{equation}
+which goes to zero as $\vec{k}\to0$. Hence the result.
+\end{proof}
+
+\begin{theorem}[Mean value]
+Let $f\colon U\to\RR$, $U\subset\RR^{n}$ be open, and suppose
+$f$ is differentiable on $U$.
+If $\vec{a}$, $\vec{b}$ and the line $\lambda$ connecting them in $U$
+all live in $U$ --- so $\lambda=\{\vec{a}+(\vec{b}-\vec{a})t\mid 0\leq t\leq1\}\subset U$
+--- then there exists a point $\vec{c}\in\lambda$ such that
+\begin{equation}
+f(\vec{b})-f(\vec{a})=\grad f(\vec{c})\cdot(\vec{b}-\vec{a}).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Let $g(t)=f(\vec{a}+t(\vec{b}-\vec{a}))$. This is differentiable with
+respect to $t\in(0,1)$. Then by the mean value theorem for a single
+variable, there exists a $\tau\in(0,1)$ such that $g(1)-g(0)=g'(\tau)$.
+But $g(0)=f(\vec{a})$ and $g(1)=f(\vec{b})$, and using the
+multivariate chain-rule,
+\begin{equation}
+g'(t) = f'(\vec{a}+t(\vec{b}-\vec{a}))\cdot(\vec{b}-\vec{a}).
+\end{equation}
+Observe that
+\begin{equation}
+\grad f(\vec{c})\cdot(\vec{b}-\vec{a})=\transpose{(\transpose{f'(\vec{c})})}(\vec{b}-\vec{a})=f'(\vec{c})(\vec{b}-\vec{a}),
+\end{equation}
+so we obtain
+\begin{equation}
+g(1)-g(0)=f'(\vec{a}+\tau(\vec{b}-\vec{a}))\cdot(\vec{b}-\vec{a})=f''(\vec{c})(\vec{b}-\vec{a}),
+\end{equation}
+as desired.
+\end{proof}
+
+\begin{remark}
+Note: we could try to generalize the mean value theorem to some
+vector-valued function $\vec{f}\colon U\to\RR^{m}$, but then we have
+to figure out how to generalize the line $\lambda$ appropriately. (I
+suspect this will end up becoming a simplex\dots)
+\end{remark}
