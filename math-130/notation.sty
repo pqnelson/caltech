@@ -127,5 +127,15 @@
 %% functions
 \DeclareMathOperator\id{id}
 
+% Image is not the imaginary part, gosh darn it!
+\let\og@Im\Im
+\let\Im\relax
+\DeclareMathOperator\Im{Im}
+
+\newcommand\pushforward[1]{#1_{*}}
+
+%% Sheafs
+\newcommand\sheaf{\mathcal}
+\newcommand\IdealSheaf[1]{\sheaf{I}_{#1}}
 
 \endinput

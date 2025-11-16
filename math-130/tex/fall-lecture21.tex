@@ -1,0 +1,327 @@
+%%
+%% fall-lecture21.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-15T11:57:44-0800
+%% Last update 2025-11-15T11:57:44-0800
+%% 
+
+\lecture[Sheaves]{}
+
+\begin{node}[Review of Sheafification]
+Let $\sheaf{F}$ be a presheaf on $X$. We will denote the
+\define{Sheafification} of $\sheaf{F}$ to be the sheaf
+$\sheaf{F}^{+}$ as follows:
+if $U\subset X$ open, then $\sheaf{F}^{+}(U)$ is the set of all
+functions $s\colon U\to\bigsqcup_{p\in U}\sheaf{F}_{p}$ such that
+\begin{enumerate}
+\item $s(p)\in\sheaf{F}_{p}$ for all $p\in U$, and
+\item $\forall p\in U\ldotp\exists V\subset U\ldotp V\mbox{ is open}\land p\in V\land\exists t\in\sheaf{F}(V)\ldotp\forall q\in V\ldotp s(q)=t_{q}$.
+\end{enumerate}
+Moreover, we always have a morphism (of presheaves) $\theta\colon\sheaf{F}\to\sheaf{F}^{+}$
+defined by if $t\in\sheaf{F}(U)$, then $\theta_{U}(t)=[p\mapsto t_{p}]\in\sheaf{F}^{+}(U)$.
+This induces an isomorphism \underline{on stalks} $\theta_{p}\colon\sheaf{F}_{p}\to\sheaf{F}^{+}_{p}$
+which is an isomorphism for each $p\in X$.
+\end{node}
+
+\begin{node}[Universal property of sheafification]
+If $\sheaf{F}$ is a presheaf, $\sheaf{G}$ is a sheaf, and
+$\varphi\colon\sheaf{F}\to\sheaf{G}$ is a morphism, there is a
+unique morphism which makes the following diagram commute
+\begin{equation}
+\vcenter{\xymatrix{
+\sheaf{F}\ar[rr]^{\varphi}\ar[dr]_{\theta} & & \sheaf{G}\\
+&\sheaf{F}^{+}\ar@{..>}[ur]&}}
+\end{equation}
+This determines sheafification up to (unique?) isomorphism.
+\end{node}
+
+\begin{node}
+If a presheaf $\sheaf{F}$ is a subsheaf of $\sheaf{G}$, then
+$\sheaf{F}^{+}$ is a subsheaf of $\sheaf{G}$.
+\end{node}
+
+\begin{definition}
+Let $\varphi\colon\sheaf{F}\to\sheaf{G}$ be a morphism of sheaves
+of Abelian groups.
+\begin{enumerate}
+\item The \define{Kernel} of $\varphi$ is the sheaf $\ker(\varphi)=[U\mapsto\ker(\varphi_{U})\subset\sheaf{F}(U)]$
+\item The \define{Image} of $\varphi$ is the sheaf obtained from the sheafification
+  $\Im(\varphi)=[\mbox{Presheaf }U\mapsto\Im(\varphi_{U})\subset\sheaf{G}(U)]^{+}$
+\end{enumerate}
+Observe $\ker(\varphi)$ is a subsheaf of $\sheaf{F}$, and
+$\Im(\varphi)$ is a subsheaf of $\sheaf{G}$.
+\end{definition}
+
+\begin{node}
+\begin{enumerate}
+\item $\varphi$ is injective if and only if $\ker(\varphi)=0$
+\item $\varphi$ is surjective if and only if
+  $\Im(\varphi)=\sheaf{G}$ (which does not imply $\varphi_{U}$ is surjective!)
+\item $\varphi$ is surjective if and only if
+  $\varphi_{p}\colon\sheaf{F}_{p}\to\sheaf{G}_{p}$ is surjective
+  for each $p\in X$.
+\end{enumerate}
+\end{node}
+
+\begin{definition}
+Let $\sheaf{F}'\subset\sheaf{F}$ be sheaves. We define the
+\define{Quotient Sheaf} $\sheaf{F}/\sheaf{F}':=[U\mapsto\sheaf{F}(U)/\sheaf{F}'(U)]^{+}$
+which is just the sheafification of the presheaf sending $U$ to the
+quotient group $\sheaf{F}(U)/\sheaf{F}'(U)$.
+
+Note there is a natural map $\sheaf{F}\onto\sheaf{F}/\sheaf{F}'$ and
+its kernel is precisely $\sheaf{F}'$.
+\end{definition}
+
+\begin{notation}
+Suppose we have a sequence of sheaves
+\begin{equation}
+\dots\to\sheaf{F}^{i}\xrightarrow{\varphi_{i}}\sheaf{F}^{i+1}\xrightarrow{\varphi_{i+1}}\sheaf{F}^{i+2}\to\dots
+\end{equation}
+We say it's a \define{Complex} iff $\varphi_{i+1}\circ\varphi_{i}=0$
+for all $i$.
+
+We say it is \define{Exact} iff $\Im(\varphi_{i})=\ker(\varphi_{i+1})$
+for all $i$.
+
+Equivalently, the sequence is a complex (resp., exact) iff at the level of stalks
+\begin{equation}
+\dots\to\sheaf{F}^{i}_{p}\to\sheaf{F}^{i+1}_{p}\to\dots
+\end{equation}
+is a complex (resp., exact) for all $p\in X$.
+\end{notation}
+
+\begin{example}
+$0\to\sheaf{F}'\to\sheaf{F}\to\sheaf{F}''\to0$ is exact if and only if
+  $\sheaf{F}'\subset\sheaf{F}$ and $\sheaf{F}/\sheaf{F}'\iso\sheaf{F}''$.
+\end{example}
+
+\begin{definition}
+Let $f\colon X\to Y$ be a continuous function of topological spaces.
+If $\sheaf{F}$ is a sheaf on $X$, then its \define{Pushforward} by $f$
+is the sheaf $\pushforward{f}\sheaf{F}$ on $Y$ defined by
+$(\pushforward{f}\sheaf{F})(V)=\sheaf{F}(f^{-1}(V))$ for any open
+subset $V\subset Y$.
+\end{definition}
+
+\begin{example}[Ideal sheaf]
+Let $X$ be a variety and $Y$ be a closed subset with the inclusion
+morphism $i\colon Y\into X$. For $U\subset X$ open, set
+\begin{equation}
+\IdealSheaf{Y}(U):=\{f\in\StructureSheaf_{X}(U)\mid \forall y\in U\cap Y\ldotp f(y)=0\},
+\end{equation}
+then $\IdealSheaf{Y}(U)\ideal\StructureSheaf_{X}(U)$ is a subsheaf of ideals.
+
+The quotient
+\begin{equation}
+\StructureSheaf_{X}(U)/\IdealSheaf{Y}(U)=\{\mbox{regular functions }U\cap Y\to\kk\mbox{ which can be extended to all of }U\}.
+\end{equation}
+We have
+$\StructureSheaf_{X}/\IdealSheaf{Y}\iso\pushforward{i}\StructureSheaf_{Y}$
+where $\pushforward{i}\StructureSheaf_{Y}(U)=\StructureSheaf_{Y}(U\cap Y)$.
+Why are these sheaves isomorphic? Every regular function on $Y$ can be
+extended to $X$ locally. This would imply the sheaves are isomorphic
+\emph{\underline{on} \underline{stalks}}, which is sufficient for proving two
+sheaves are isomorphic. (Note: this generically does not work for
+proving two presheaves are isomorphic.)
+
+Then
+\begin{equation}
+0\to\IdealSheaf{Y}\to\StructureSheaf_{X}\to\pushforward{i}\StructureSheaf_{Y}\to0
+\end{equation}
+is a short exact sequence which is \emph{analogous} to the sequence
+\begin{equation}
+0\to I\to A\to A/I\to 0
+\end{equation}
+where $I\ideal A$ is an ideal of a [commutative] ring.
+
+\textsc{Caution:} Some people drop the $\pushforward{i}$ when writing
+the short exact sequence $0\to\IdealSheaf{Y}\to\StructureSheaf_{X}\to\StructureSheaf_{Y}\to0$.
+\end{example}
+
+\begin{example}
+Let $f\colon X\to Y$ be a morphism of ringed spaces. This gives us a
+morphism of structure sheafs
+\begin{equation}
+f^{*}\colon\StructureSheaf_{Y}\to\pushforward{f}\StructureSheaf_{X}
+\end{equation}
+which acts on sections by
+\begin{equation}
+\StructureSheaf_{Y}(V)\mapsto\StructureSheaf_{X}(f^{-1}(V)),
+\end{equation}
+given by $h\mapsto h\circ f=f^{*}h$.
+\end{example}
+
+\begin{xca}
+Find a morphism of varieties $f\colon X\to Y$ such that
+\begin{equation*}
+f^{*}\colon\StructureSheaf_{Y}\to\pushforward{f}\StructureSheaf_{X}
+\end{equation*}
+is an isomorphism but $f$ is not an isomorphism.
+\end{xca}
+% Inclusion $\AA^{2}\setminus0\into\AA^{2}$
+
+\subsection{Inverse Image Sheaves}
+
+\begin{definition}
+Let $f\colon X\to Y$ be a continuous map of topological spaces.
+Let $\sheaf{G}$ be a sheaf on $Y$.
+We consider a presheaf on $X$ sending
+\begin{equation}
+U\mapsto\colim_{V\supset f(U)}\sheaf{G}(V).
+\end{equation}
+Since this is defined by colimits, it is born with maps
+\begin{equation}
+\begin{split}
+&\sheaf{G}(V)\to\mbox{pre-}f^{-1}\sheaf{G}(U)\quad\forall f(U)\subset V\\
+&s\mapsto f^{-1}s.
+\end{split}
+\end{equation}
+The sections of this presheaf $\mbox{pre-}f^{-1}\sheaf{G}$ are
+\begin{equation}
+\mbox{pre-}f^{-1}\sheaf{G}(U)=\{f^{-1}s\mid s\in\sheaf{G}(V),V\supset f(U)\}.
+\end{equation}
+We see $f^{-1}s=0$ if and only if $s|_{W}=0\in\sheaf{G}(W)$ where
+$f(U)\subset W\subset V$.
+We define the \define{Inverse Image of $\sheaf{G}$ by $f$} to be the
+sheafification of
+\begin{equation}
+f^{-1}\sheaf{G} := (\mbox{pre-}f^{-1}\sheaf{G})^{+}.
+\end{equation}
+\end{definition}
+
+\begin{node}[Special case]
+When $i\colon X\into Y$ is an inclusion, then
+$\sheaf{G}|_{X}:=i^{-1}\sheaf{G}$ is the notation for the inverse
+image of $\sheaf{G}$ under inclusion (also called \define{Restriction}).
+\end{node}
+
+\begin{example}
+Let $X\subset Y$ be an open subset.
+Then $\mbox{pre-}i^{-1}\sheaf{G}(U)=\sheaf{G}(U)$ is already a sheaf.
+\end{example}
+
+\begin{xca}
+Show the inverse image sheaf has the same stalk
+\begin{equation}
+(f^{-1}\sheaf{G})_{p}=\sheaf{G}_{f(p)}\quad\forall p\in X.
+\end{equation}
+\end{xca}
+
+\begin{node}[Adjoint property]
+Let $f\colon X\to Y$ be continuous, let $\sheaf{F}$ be a sheaf on $X$,
+and $\sheaf{G}$ be a sheaf on $Y$. Let
+$\varphi\colon\sheaf{G}\to\pushforward{f}\sheaf{F}$ be a morphism of
+sheaves on $Y$. If $U\subset X$ is open, and $V\supset f(U)$, then
+\begin{equation}
+\sheaf{G}(V)\xrightarrow{\varphi_{V}}\sheaf{F}(f^{-1}(V))\to\sheaf{F}(U)
+\end{equation}
+is compatible with restriction maps on $\sheaf{G}$, and so it induces
+\begin{equation}
+\psi_{U}\colon\mbox{pre-}f^{-1}\sheaf{G}(U)\to\sheaf{F}(U),
+\end{equation}
+and $\varphi^{+}\colon f^{-1}\sheaf{G}\to\sheaf{F}$.
+\end{node}
+
+\begin{xca}
+Prove or find a counter-example: Let
+\begin{equation}
+\begin{split}
+\hom(\sheaf{G},\pushforward{f}\sheaf{F})&\xrightarrow{\sim}\hom(f^{-1}\sheaf{G},\sheaf{F})\\
+\varphi&\mapsto\varphi^{+}
+\end{split}
+\end{equation}
+be isomorphisms of Abelian groups. Then $f^{-1}$ is left adjoint to the pushforward
+$\pushforward{f}$, and $\pushforward{f}$ is right adjoint to $f^{-1}$.
+\end{xca}
+
+\begin{definition}
+Let $X$ be a ringed space.
+An \define{$\StructureSheaf_{X}$-Module} is a sheaf $\sheaf{F}$ on $X$
+such that its sections $\sheaf{F}(U)$ is an $\StructureSheaf_{X}(U)$-module:
+for any $U\subset X$ and for any $V\subset U$,
+$\sheaf{F}(U)\to\sheaf{F}(V)$ is an $\StructureSheaf_{X}(U)$-morphism
+(i.e., if $f\in\StructureSheaf_{X}(U)$ and $\sigma\in\sheaf{F}(U)$,
+then $(f\cdot\sigma)|_{V}=f|_{V}\sigma|_{V}$).
+\end{definition}
+
+\begin{definition}
+A \define{$\StructureSheaf_{X}$-Homomorphism} (or
+a ``morphism of $\StructureSheaf_{X}$-modules'')
+$\varphi\colon\sheaf{F}\to\sheaf{G}$ is a morphism of sheaves such
+that for all $U\subset X$,
+$\varphi_{U}\colon\sheaf{F}(U)\to\sheaf{G}(U)$ is an $\StructureSheaf_{X}(U)$-morphism.
+
+Note:
+\begin{enumerate}
+\item $\ker(\varphi)$ and $\Im(\varphi)$ are $\StructureSheaf_{X}$-submodules
+\item If $\sheaf{F}$ is an $\StructureSheaf_{X}$-moduile, then
+  $\sheaf{F}_{p}$ is an $\StructureSheaf_{X,p}$-module.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+If $\sheaf{F}$ and $\sheaf{G}$ are $\StructureSheaf_{X}$-modules, we
+can define their \define{Tensor Product} to be the sheaf
+\begin{equation*}
+\sheaf{F}\otimes_{\StructureSheaf_{X}}\sheaf{G} := [U\mapsto \sheaf{F}(U)\otimes_{\StructureSheaf_{X}(U)}\sheaf{G}(U)]^{+}.
+\end{equation*}
+\end{definition}
+
+\begin{xca}
+Prove or find a counter-example: for any $\StructureSheaf{O}_{X}$
+modules $\sheaf{F}$ and $\sheaf{G}$, we have $(\sheaf{F}\otimes_{\StructureSheaf_{X}}\sheaf{G})_{p}=\sheaf{F}_{p}\otimes_{\StructureSheaf_{X,p}}\sheaf{G}_{p}$
+\end{xca}
+
+\begin{definition}
+An $\StructureSheaf_{X}$-module $\sheaf{F}$ is said to be
+\define{Locally Free of rank $r$} if there exists an open covering
+$\bigcup_{\alpha}U_{\alpha}=X$ such that
+for each $\alpha$ we have $\sheaf{F}|_{U_{\alpha}}\iso\StructureSheaf_{U_{\alpha}}^{\oplus r}$.
+
+A locally free sheaf of rank 1 is called \define{Invertible}.
+\end{definition}
+
+\begin{remark}
+These will be related to vector bundles.
+\end{remark}
+
+\begin{notation}
+If $\sheaf{F}$ is a sheaf on $X$, and $U\subset X$ open,
+then it is common to write the section of $\sheaf{F}$ at $U$ as
+\begin{equation}
+\Gamma(U,\sheaf{F}) := \sheaf{F}(U).
+\end{equation}
+This notation is either inspired by differential geometry, or inspired
+differential geometry to adopt this notation.
+\end{notation}
+
+\begin{example}
+Consider some invertible sheaves on projective space. Recall we had
+\begin{equation}
+\pi\colon\AA^{n+1}\setminus0\to\PP^{n}.
+\end{equation}
+Let $m\in\ZZ$. We can define a sheaf
+\begin{equation}
+\mathcal{O}(m) = \StructureSheaf_{\PP^{n}}(m)
+\end{equation}
+on $\PP^{n}$ by
+\begin{equation}
+\Gamma(U,\mathcal{O}(m))=\{h\in\kk[\pi^{-1}(U)]\mid h(\lambda x)=\lambda^{m}h(x)\forall x\in\pi^{-1}(U),\lambda\in\kk^{*}\},
+\end{equation}
+where $\kk[\pi^{-1}(U)]$ are the regular functions on $\pi^{-1}(U)$.
+
+We can check this is a sheaf. Note that if $f\in S=\kk[x_{0},\dots,x_{n}]$ is
+a form of degree greater zero, then $\kk[\pi^{-1}(D_{p}(f))]=\kk[D(f)]=S_{f}$
+is a graded ring.
+Then
+\begin{equation}
+\Gamma(D_{p}(f),\mathcal{O}(m))=(S_{f})_{m}
+\end{equation}
+is the degree $m$ part of the graded ring. This sheaf $\mathcal{O}(m)$
+is an $\StructureSheaf_{\PP^{n}}$-module: if $f\in\StructureSheaf_{\PP^{n}}(U)$
+and $h\in\Gamma(U,\mathcal{O}(m))$, then $f\cdot h=(f\circ \pi)\circ h\in\kk[\pi^{-1}(U)]$.
+\end{example}
