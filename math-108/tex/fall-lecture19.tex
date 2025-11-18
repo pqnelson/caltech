@@ -1,0 +1,189 @@
+%%
+%% fall-lecture19.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-18T11:50:16-0800
+%% Last update 2025-11-18T11:50:16-0800
+%% 
+
+\lecture{}
+
+\begin{corollary}[Mean-value inequality]
+Let $U\subset\RR^{n}$ be open, let $\vec{f}\colon U\to\RR^{m}$
+be differentiable on $U$. Let $\vec{a}\in U$, $\vec{b}\in U$, and
+$\lambda(\vec{a},\vec{b})\subset U$ be a line segment connecting the points.
+Then there exists a point $\vec{c}\in\lambda(\vec{a},\vec{b})$ such
+that
+\begin{equation}
+\|\vec{f}(\vec{b})-\vec{f}(\vec{a})\|_{p}\leq\|\vec{f}'(\vec{c})\|_{\text{op}}\|\vec{b}-\vec{a}\|_{p}
+\end{equation}
+where $p\geq1$ (possibly $p=\infty$).
+\end{corollary}
+
+\begin{proof}
+Let $\vec{u}\in\RR^{m}$ be a unit vector in the direction of $\vec{f}(\vec{b})-\vec{f}(\vec{a})$,
+so $\|\vec{u}\|_{p}=1$. Then we define
+\begin{equation}
+f_{u}(\vec{x})=\vec{u}\cdot\vec{f}(\vec{x}),
+\end{equation}
+which is a map $f_{u}\colon U\to\RR$. Then we apply the mean
+value theorem: there is a $\vec{c}\in\lambda(\vec{a},\vec{b})$ such
+that
+\begin{equation}
+f_{u}(\vec{b})-f_{u}(\vec{a})=\grad f_{u}(\vec{c})\cdot(\vec{b}-\vec{a}).
+\end{equation}
+We see using the chain-rule
+\begin{equation}
+f_{u}(\vec{x})=g(\vec{f}(\vec{x}))\quad\mbox{with}\quad g(\vec{y})=\vec{u}\cdot\vec{y},
+\end{equation}
+gives $g\colon\RR^{m}\to\RR$, $\vec{g}'(\vec{y})=\transpose{\vec{u}}$
+is the transpose of $\vec{u}$. Then
+\begin{equation}
+f'_{u}(\vec{x})=g'(\vec{f}(\vec{x}))\vec{f}'(\vec{x})=\transpose{\vec{u}}\vec{f}'(\vec{x}),
+\end{equation}
+so we obtain
+\begin{subequations}
+  \begin{align}
+f_{u}(\vec{b})-f_{u}(\vec{a})
+&=f'_{u}(\vec{c})(\vec{b}-\vec{a})\\
+&=\transpose{\vec{u}}\vec{f}'(\vec{c})(\vec{b}-\vec{a})\\
+&=\vec{u}\cdot\bigl(\vec{f}'(\vec{c})(\vec{b}-\vec{a})\bigr)
+  \end{align}
+\end{subequations}
+Then we take the norm of both sides, and since $\vec{u}$ is a unit
+vector in the direction of $\vec{f}(\vec{b})-\vec{f}(\vec{a})$, we see
+\begin{subequations}
+  \begin{align}
+\|\vec{u}\cdot\bigl(\vec{f}'(\vec{c})(\vec{b}-\vec{a})\bigr)\|_{p}
+&=\|\vec{f}(\vec{b})-\vec{f}(\vec{a})\|_{p}\\
+&=|\vec{u}\cdot\bigl(\vec{f}'(\vec{c})(\vec{b}-\vec{a})\bigr)|\\
+\intertext{then by Cauchy--Schwarz,}
+&\leq\|\vec{u}\|_{p}\|\vec{f}'(\vec{c})(\vec{b}-\vec{a})\|_{p}\\
+&\leq\|\vec{f}'(\vec{c})\|_{\text{op}}\|(\vec{b}-\vec{a})\|_{p}
+  \end{align}
+\end{subequations}
+by Cauchy--Schwarz and $\|\vec{u}\|_{p}=1$. Hence the result.
+\end{proof}
+
+\begin{corollary}
+Let $U\subset\RR^{n}$ be a convex open subset, $\vec{f}\colon U\to\RR^{m}$
+be differentiable on $U$, and suppose there is a positive $M>0$ such
+that for all $\vec{x}\in U$ we have
+$\|\vec{f}'(\vec{x})\|_{\text{op}}\leq M$ (the differential of
+$\vec{f}$ is bounded on $U$). Then $\vec{f}$ is uniformly continuous
+on $U$.
+\end{corollary}
+
+\begin{proof}
+Since $U$ is convex, for any $\vec{a}\in U$ and $\vec{b}\in U$, we
+have the line segment connecting the points
+$\lambda(\vec{a},\vec{b})\subset U$. Then by the mean-value
+inequality,
+\begin{equation}
+\|\vec{f}(\vec{b})-\vec{f}(\vec{a})\|_{p}\leq\|\vec{f}'(\vec{c})\|_{\text{op}}\|\vec{b}-\vec{a}\|_{p},
+\end{equation}
+the by hypothesis the differential is bounded so the right-hand side
+can be rewritten as
+\begin{equation}
+\|\vec{f}(\vec{b})-\vec{f}(\vec{a})\|_{p}\leq M\|\vec{b}-\vec{a}\|_{p}.
+\end{equation}
+This is saying that $\vec{f}$ is $M$-Lipschitz, which is always
+uniformly continuous.
+\end{proof}
+
+\begin{theorem}
+Let $\{f_{n}\}$ be a sequence of functions $f_{n}\colon(a,b)\to\RR$
+where each $f_{n}$ is differentiable on $(a,b)$. Suppose there is an
+$x_{0}\in(a,b)$ such that $(f_{n}(x_{0}))$ converges.
+
+If the derivatives $f'_{n}$ converges uniformly in $(a,b)$, then
+$f_{n}$ converges to a differentiable function $f_{n}\to f$ where
+$f\colon(a,b)\to\RR$ differentiable on $(a,b)$ where for each
+$x\in(a,b)$, we have
+\begin{equation}
+\lim_{n\to\infty}f'_{n}(x)=f'(x).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+\textsc{Claim 1: Existence of limit $f$}.
+Let $x,y\in(a,b)$. By the mean value theorem on $(f_{m}-f_{n})(x)$,
+we have
+\begin{equation}
+(f_{m}(y)-f_{n}(y))-(f_{m}(x)-f_{n}(x))=(y-x)(f'_{m}(t)-f'_{n}(t))
+\end{equation}
+for some $t\in(a,b)$. Taking the absolute value of both sides gives us
+(after rearranging and using Cauchy--Schwarz):
+\begin{subequations}\label{eq:fall-2025:cor-mvi:chain-for-existence}
+  \begin{align}
+|(f_{m}(y)-f_{m}(x))-(f_{n}(y)-f_{n}(x))|
+&\leq|y-x|\cdot|f'_{m}(t)-f'_{n}(t)|\\
+&\leq|b-a|\cdot|f'_{m}(t)-f'_{n}(t)|
+  \end{align}
+\end{subequations}
+Since the derivatives converge uniformly in $(a,b)$, for each
+$\varepsilon>0$ there is an $N\in\NN$ such that for all $t\in(a,b)$,
+and for all $m,n\geq N$,
+\begin{equation}
+|f'_{m}(t)-f'_{n}(t)|<\frac{\varepsilon}{2(b-a)}.
+\end{equation}
+(And $N$ is completely independent of $x$ and $y$.) When we plug this
+into the right-hand side of Equation~\eqref{eq:fall-2025:cor-mvi:chain-for-existence},
+we get
+\begin{equation}
+|(f_{m}(y)-f_{m}(x))-(f_{n}(y)-f_{n}(x))| < \frac{\varepsilon}{2}
+\end{equation}
+for all $m,n\geq N$.
+
+Now, fix $x$, so we view $\{f_{m}(y)-f_{n}(x)\}$ as a function in
+$y$. This implies the sequence is uniformly Cauchy as a sequence of
+functions in $y$. Then it's uniformly convergent. So taking $y=x_{0}$,
+$f_{n}(x_{0})$ is Cauchy. Then for each $\varepsilon>0$, there is an
+$N'>0$ such that for all $m,n\geq N'$ we have
+\begin{equation}
+|f_{m}(x_{0})-f_{n}(x_{0})|<\frac{\varepsilon}{2}.
+\end{equation}
+Then for each $x\in(a,b)$ we find (by Cauchy--Schwarz)
+\begin{subequations}
+  \begin{align}
+|f_{m}(x)-f_{n}(x)|
+&\leq|(f_{m}(x)-f_{n}(x))-(f_{m}(x_{0})-f_{n}(x_{0}))|+|f_{m}(x_{0})-f_{n}(x_{0})|\\
+&<\varepsilon
+  \end{align}
+\end{subequations}
+for all $m,n\geq\max(N,N')$. Then $f_{n}(x)$ converges uniformly in
+$(a,b)$ to some function $f(x)$ which is continuous. Hence we have
+proved the existence of some continuous function $f(x)$ such that
+$f_{n}\to f$ uniformly.
+
+\textsc{Claim 2: limit $f'_{n}(x)\to f'(x)$.}
+Fix $x\in(a,b)$ and $\delta>0$ sufficiently small such that $B_{\delta}(x)\subset(a,b)$.
+Then for all $\varepsilon>0$ there is an $N\in\NN$ such that for all
+$y=x+h$ with $h\in(-\delta,\delta)\setminus\{0\}$, we have
+\begin{equation}
+\left|\frac{f_{m}(x+h)-f_{m}(x)}{h}-\frac{f_{n}(x+h)-f_{n}(x)}{h}\right|\leq|f'_{m}(t)-f'_{n}(t)|<\varepsilon
+\end{equation}
+for all $m,n\geq N$. Hence $(f_{n}(x+h)-f_{n}(x))/h$ is uniformly
+Cauchy as a function of $h$. If we set
+\begin{equation}
+\phi_{n}(h) := \frac{f_{n}(x+h)-f_{n}(x)}{h},
+\end{equation}
+then $\phi_{n}(h)$ is uniformly Cauchy (just summarizing what we've
+done so far in new notation). Taking the $n\to\infty$ limit, we see
+\begin{equation}
+\lim_{n\to\infty}\phi_{n}(h)=\frac{f(x+h)-f(x)}{h}
+\end{equation}
+uniformly. We can take the $h\to0$ limit on both sides, and uniformity
+allows us to swap the $h\to0$ and $n\to\infty$ limits (specifically, Theorem~\ref{thm:fall-lec14:complete-metric-spaces-have-super-nice-convvergent-sequences}),
+\begin{subequations}
+  \begin{align}
+\lim_{n\to\infty}f'_{n}(x)
+&=\lim_{n\to\infty}\lim_{h\to0}\frac{f_{n}(x+h)-f_{n}(x)}{h}\\
+&=\lim_{h\to0}\lim_{n\to\infty}\frac{f_{n}(x+h)-f_{n}(x)}{h}\\
+&=\lim_{h\to0}\frac{f(x+h)-f(x)}{h},
+  \end{align}
+\end{subequations}
+hence the result.
+\end{proof}

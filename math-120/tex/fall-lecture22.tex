@@ -1,0 +1,180 @@
+%%
+%% fall-lecture22.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-18T09:55:31-0800
+%% Last update 2025-11-18T09:55:31-0800
+%% 
+
+\lecture[Primary decomposition of modules]{}
+
+\begin{note}
+We will reserve $A$ to be a Noetherian ring, and $M$ for a module over $A$.
+\end{note}
+
+\begin{definition}[Matsumara 8A]
+Let $A$ be a Noetherian ring. We call an $A$-module
+\define{Co-primary} if it has only one associated prime.
+\end{definition}
+
+\begin{definition}
+Let $A$ be a Noetherian ring, $M$ a module over $A$, and $N\subset M$
+a submodule. We say $N$ is \define{Primary} (``a primary submodule of $M$'')
+if the quotient $M/N$ is co-primary.
+
+If $\Assassinator(M/N)=\{P\}$, then we say $N$ is \define{$P$-Primary}
+(or ``$N$ belongs to $P$'').
+\end{definition}
+
+\begin{definition}
+Let $A$ be a ring, let $M\neq0$ be a module over $A$.
+Let $a\in A$. We say $a$ is \define{Locally Niplotent} on $M$ if for
+each $m\in M$ there is a corresponding $n_{m}\in\NN$ such that $a^{n_{m}}m=0$.
+
+(I don't know how standard this terminology is, Matsumara uses it for
+Proposition~8.1 only. It's not even carved out as a definition.)
+\end{definition}
+
+\begin{proposition}[Matsumara 8B]
+The following are equivalent:
+\begin{enumerate}
+\item The module $M$ is coprimary
+\item $M\neq0$, if $a\in A$ is a zero-divisor for $M$, then $a$ is
+  locally nilpotent on $M$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$(1)\implies(2)$ Assume $M$ is co-primary, i.e., that $\Assassinator(M)=\{P\}$.
+Then let $x\in M$ be a nonzero element $x\neq0$, and we can consider
+$\Assassinator(Ax)=\{P\}$. Then by a homework problem, we know
+\begin{equation}
+\Support(Ax)=V(\Annihilator(x)).
+\end{equation}
+Then $P$ is the unique maximal prime in $V(\Annihilator(x))$. Then we
+can infer $P=\Radical{\Annihilator(x)}$, so if $a\in P$, then there is
+an $n\in\NN$ such that $a^{n}\in\Annihilator(x)$.
+
+$(2)\implies(1)$ Write
+\begin{equation}
+P=\{a\in A\mid a\mbox{ is locally nilpotent on } M\}.
+\end{equation}
+We assert that $P$ is an ideal (which can easily be verified). Let $Q$
+be an associated prime $Q\in\Assassinator(M)$. Then there exists some
+$x\in M$ such that $Q=\Annihilator(x)$. Then $P\subset Q$ by
+definition of $P$, so if $a\in P$ then $a^{n}\in Q$. Buut $Q$ is
+prime, so this means $a\in Q$. We can write
+\begin{equation}
+  P=\bigcup_{r\in\Assassinator(M)}r,
+\end{equation}
+which implies $Q\subset P$. Then $P=Q$, hence $\Assassinator(M)=\{P\}$.
+\end{proof}
+
+\begin{remark}
+\begin{enumerate}
+\item When $M=A/Q$, then we have
+\begin{align*}
+(2) &\iff\mbox{all zero-divisors of $M$ are nilpotent}\\
+&\iff Q\mbox{ is primary},
+\end{align*}
+so $A/Q$ is coprimary $\iff$ $Q$ is primary.
+\item Atiyah and Macdonald has a slicker proof of the primary
+  decomposition theorem (c.f., Propositions 4.3--4.5 and exercises 21,
+  22 in their \textit{Introduction to Commutative Algebra}).
+\end{enumerate}
+\end{remark}
+
+\begin{lemma}[Matsumara 8C]
+Let $P\in\Spec(A)$. Let $Q_{1}$, $Q_{2}$ be $P$-primary submodules of $M$.
+Then $Q_{1}\cap Q_{2}$ is $P$-primary.
+\end{lemma}
+
+\begin{proof}
+Look at the quotient
+\begin{equation}
+M/(Q_{1}\cap Q_{2})\into(M/Q_{1})\oplus(M//Q_{2}),
+\end{equation}
+then since $M\neq0$ we have
+\begin{equation}
+\emptyset\neq\Assassinator(M/(Q_{1}\cap Q_{2}))\subset\Assassinator(M/Q_{1})\cup[\Assassinator(M//Q_{2})=\{P\}.
+\end{equation}
+Hence the result.
+\end{proof}
+
+\begin{definition}[Matsumara 8D]
+Let $N$ be a submodule of $M$.
+\begin{enumerate}
+\item A \define{Primary Decomposition} of $N$
+is an equation of the form
+\begin{equation}
+N = Q_{1}\cap\cdots\cap Q_{r},
+\end{equation}
+where each of the $Q_{i}$ are primary in $M$.
+\item We say this primary decomposition is \define{Nonredunant} if (i)
+  no $Q_{i}$ may be omitted, and (ii) $\Assassinator(M/Q_{i})$ are all distinct.
+\end{enumerate}
+\end{definition}
+
+\begin{xca}
+Find an example of a primary decomposition where
+$\Assassinator(M/Q_{i})$ are all distinct, but is redundant.
+\end{xca}
+
+\begin{lemma}[Matsumara 8E]
+If $N=Q_{1}\cap\cdots\cap Q_{r}$ is an irredundant primary
+decomposition and if $Q_{i}$ belongs to $P_{i}$, then
+$\Assassinator(M/N)=\{P_{1},\dots,P_{r}\}$. 
+\end{lemma}
+
+\begin{proof}
+Look at the natural map $M/N\to M/Q_{1}\oplus\dots\oplus M/Q_{r}$,
+then
+\begin{equation}
+\Assassinator(M/N)\subset\Assassinator(M/Q_{1}\oplus\dots\oplus M/Q_{r})=\{P_{1},\dots,P_{r}\}.
+\end{equation}
+But $(Q_{2}\cap\dots\cap Q_{r})/N\subset M//Q_{1}$, so
+$\Assassinator((Q_{2}\cap\dots\cap Q_{r})/N)\subset\{P_{1}\}$, and
+then
+$Q_{2}\cap\cdots\cap Q_{r}/N\subset M/N$, which implies
+$P_{1}\in\Assassinator(M/N)$.
+Hence the result.
+\end{proof}
+
+\begin{theorem}[Matsumara 8G]
+Let $A$ be a Noetherian ring, let $M$ be a module over $A$.
+Then there exists $Q(P)$ a $P$-primary submodule of $M$ for each
+$P\in\Assassinator(M)$ which we can pick in such a way that
+\begin{equation}\label{eq:fall-lec22:p-primary-decomposition-8g}
+(0)=\bigcap_{P\in\Assassinator(M)}Q(P).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+  (We will use Zorn's lemma.)
+Let $P$ be an associated prime of $M$. Write 
+\begin{equation}
+\mathcal{N}=\{N\subset M\mid P\notin\Assassinator(N)\}.
+\end{equation}
+We see $(0)\in\mathcal{N}$, so it's nonempty. If
+$\mathcal{N}'=\{N_{\lambda}\}_{\lambda}$ is a linearly ordered subset
+of $\mathcal{N}$, then $\bigcup_{\lambda}N_{\lambda}$ is an element of
+$\mathcal{N}$ since $\Assassinator(\bigcup_{\lambda}N_{\lambda})=\bigcup_{\lambda}\Assassinator(N_{\lambda})$.
+Then by Zorn's lemma, $\mathcal{N}$ has a maximal element which we
+call $Q=Q(P)$. (We want to show each $Q(P)$ is $P$-primary and satisfies Equation~\eqref{eq:fall-lec22:p-primary-decomposition-8g}.)
+
+We see $P\in\Assassinator(M)$ and $P\notin\Assassinator(Q)$, which
+implies $M\neq Q$.
+
+If $M/Q$ had a different associated prime $P'\neq P$, then there is a
+$Q'$ such that $Q'/Q\iso A/P'$, then $Q'/Q\iso M/Q$. This would mean
+$Q'\in\mathcal{N}$, and we would contradict $Q$ being maximal. Hence
+$Q=Q(P)$ is a $P$-primary submodule of $M$.
+
+From
+\begin{equation}
+\Assassinator(\bigcap_{P\in\Spec(A)}Q(P))=\bigcap_{P}\Assassinator(Q(P))=\emptyset,
+\end{equation}
+we have $\bigcap Q(P)=(0)$ as desired.
+\end{proof}

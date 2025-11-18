@@ -1,0 +1,296 @@
+%%
+%% fall-lecture22.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-18T10:57:51-0800
+%% Last update 2025-11-18T10:57:51-0800
+%% 
+
+\lecture[Cohomology of Spaces]{}
+
+\begin{definition}
+Let $X$ be a topological space and let $G$ be an Abelian group.
+We have the \define{Cochain Complex} of $X$ be
+\begin{equation}
+C^{*}(X,G) := \hom(C_{*}(X), G).
+\end{equation}
+We have the \define{Coboundary Map} $\coboundary\colon C^{*}(X;G)\to C^{*+1}(X;G)$
+which is the dual of the boundary map $\boundary$.
+
+More precisely, let $\varphi\in C^{n}(X;G)$. Then $\varphi\colon C_{n}(X)\to G$.
+Then $\coboundary\varphi\colon C_{n+1}(X)\to G$. To do this, let
+\begin{equation}
+\sigma\colon\Delta^{n+1}=[v_{0},\dots,v_{n+1}]\to G
+\end{equation}
+be a singular simplex, then
+\begin{equation}
+\coboundary\varphi(\sigma)=\sum^{n+1}_{i=0}(-1)^{i}\varphi(\sigma|_{[v_{0},\dots,\widehat{v_{i}},\dots,v_{n+1}]}),
+\end{equation}
+where $\sigma|_{[v_{0},\dots,\widehat{v_{i}},\dots,v_{n+1}]}$ is the
+face of $\sigma$ without the vertex $v_{i}$.
+\end{definition}
+
+\begin{definition}
+When we have $C^{n+1}\xleftarrow{\coboundary_{n+1}}C^{n}\xleftarrow{\coboundary_{n}}C^{n-1}$,
+then we have the $n^{\text{th}}$ \define{Cohomology Group} of $X$
+(with coefficients in $G$) to be $H^{n}(X;G):=\ker(\coboundary_{n+1})/\Im(\coboundary_{n})$.
+\end{definition}
+
+\begin{remark}
+Thus far, we have define the \emph{singular} cohomology group, the
+\emph{singular} cochain complex, the \emph{singular} coboundary
+map. All singular stuff.
+
+We can similarly define these gadgets for $\Delta$-complexes. This
+gives us a \emph{simplicial} cochain complexes with a \emph{simplicial}
+coboundary maps yielding \emph{simplicial} cohomology groups.
+
+We can define analogous gadgets for $CW$-complexes. This gives us
+\emph{cellular} cochain complexes with \emph{cellular} coboundary maps
+yielding \emph{cellular} cohomology groups.
+\end{remark}
+
+\begin{remark}
+On thing you can observe is that $C_{*}(X)$ is a free Abelian group,
+so we can apply the universal coefficient Theorem to get $H^{*}(C;G)$
+from $H_{*}(X)$. So although it \emph{looks} like you don't get
+anything new, we will see cohomology has extra structure which makes
+it more interesting than homology.
+\end{remark}
+
+\subsection{Properties}
+
+\begin{node}
+If $A\subset X$ is a subspace, then there exists a short exact sequence
+\begin{equation}
+0\to C_{*}(A)\to C_{*}(X)\to C_{*}(X,A)\to 0
+\end{equation}
+which is split, so its dual
+\begin{equation}
+0\gets C^{*}(A)\gets C^{*}(X)\gets C^{*}(X,A)\gets 0
+\end{equation}
+is also a split short exact sequence. Hence we obtain the long exact
+sequence
+\begin{equation}
+\vcenter{\xymatrix{H^{*}(A;G)\ar[dr]^{[+1]} & & \ar[ll]H^{*}(X;G)\\
+& H^{*}(X,A;G)\ar[ur] &}}
+\end{equation}
+where not only are the arrows in the opposite direction as in the
+homological case, but the grading increases by 1 (instead of decreases
+by 1).
+\end{node}
+
+\begin{node}[Reduced cochain complex and reduced cohomology]
+Recall the reduced chain complex looked like
+\begin{equation}
+\dots\to C_{1}\to C_{0}\xrightarrow{\varepsilon}\ZZ\to0,
+\end{equation}
+where $\varepsilon$ is just the sum of points. This is $\widetilde{C}_{*}(X)$.
+We can dualize it to get $\widetilde{C}^{*}(X;G)$ which produces the
+reduced cohomology $\widetilde{H}^{*}(X;G)$.
+\end{node}
+
+\begin{node}
+If $f\colon(X,A)\to(Y,B)$ is a continuous map of pairs of spaces, then
+there is a chain map $f_{\sharp}\colon C_{*}(X,A)\to C_{*}(Y,B)$,
+which then induces the \define{Cochain Map}
+\begin{equation}
+f^{\sharp}\colon C^{*}(Y,B;G)\to C^{*}(X,A;G),
+\end{equation}
+and from it we get the induced map
+\begin{equation}
+f^{*}\colon H^{*}(Y,B;G)\to H^{*}(X,A;G).
+\end{equation}
+If further $f\homotopic g\colon(X,A)\to(Y,B)$, then $f^{*}=g^{*}$.
+\end{node}
+
+\begin{theorem}[Exicision for cohomology]
+If $Z\propersubset A\propersubset X$ is such that $\cl(Z)\propersubset\Interior(A)$,
+then the inclusion
+\begin{equation*}
+i\colon(X\setminus Z,A\setminus Z)\into(X,A)
+\end{equation*}
+induces an isomorphism
+\begin{equation*}
+i^{*}\colon H^{*}(X,A;G)\xrightarrow{\iso}H^{*}(X\setminus Z,A\setminus Z;G).
+\end{equation*}
+\end{theorem}
+
+\begin{node}[Mayer--Vietoris pairs]
+If $X=\Interior(A)\cup\Interior(B)$, then we have the long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{
+H^{*}(A\cap B;G)\ar[dr]^{[+1]} & & \ar[ll]H^{*}(A;G)\oplus H^{*}(B;G)\\
+& H^{*}(X;G)\ar[ur] & }}
+\end{equation}
+\end{node}
+
+\begin{node}[Eilenberg--Steenrod Axioms for cohomology]
+We can write down Eilenberg--Steenrod axioms for cohomology similar to
+what we did for homology (\S\ref{subsec:fall-2025:eilenberg-steenrod-axioms-for-homology}).
+This uses $h^{*}$ a contravariant functor from the category of pairs
+of spaces to the category of graded Abelian groups, and analogous data
+(coboundary maps, etc.) satisfying 7 axioms.
+
+There is an analogous uniqueness theorem for cellular cohomology
+groups as for cellular homology stated in Theorem~\ref{thm:eilenberg-steenrod:homology:uniqueness}.
+\end{node}
+
+\subsection{Examples}
+
+\begin{example}[Spheres]
+We recall
+\begin{equation}
+H_{k}(\sphere{n})\iso\begin{cases}\ZZ & \mbox{if $k=0$ or $k=n$}\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+So the homology groups for the sphere are free Abelian groups. The
+universal coefficient theorem tells us
+\begin{equation}
+H^{n}(C;G)\iso\hom(H_{n}(C),G)\oplus\Ext(H_{n-1}(C),G).
+\end{equation}
+But for $H_{n-1}(C)$ being free Abelian groups $\Ext(H_{n-1}(C),G)=0$,
+which means
+\begin{equation}
+H^{n}(C;G)\iso\hom(H_{n}(C),G).
+\end{equation}
+Then for $G=\ZZ$ we see:
+\begin{equation}
+H^{k}(\sphere{n};\ZZ)\iso\begin{cases}\ZZ & \mbox{if $k=0$ or $k=n$}\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+\end{example}
+
+\begin{example}[Real projective plane]
+We recall
+\begin{equation}
+H_{k}(\RP^{2})\iso\begin{cases}
+\ZZ & \mbox{if }k=0,\\
+\ZZ/2\ZZ & \mbox{if }k=1,\\
+0 & \mbox{otherwise}.
+\end{cases}
+\end{equation}
+Then we can use the universal coefficient theorem for the
+cohomology. The torsion part shifts up by 1,
+\begin{equation}
+H^{k}(\RP^{2})\iso\begin{cases}
+\ZZ & \mbox{if }k=0,\\
+\ZZ/2\ZZ & \mbox{if }k=2,\\
+0 & \mbox{otherwise}.
+\end{cases}
+\end{equation}
+But we can also compute it explicitly with $G=\ZZ/2\ZZ$.
+We find
+\begin{subequations}
+  \begin{align}
+H^{1}(\RP^{2};\ZZ/2\ZZ) &\iso\hom(H_{1}(\RP^{2}),\ZZ/2\ZZ)\oplus\Ext(H_{0}(\RP^{2}),\ZZ/2\ZZ)\\
+&\iso\hom(\ZZ/2\ZZ,\ZZ/2\ZZ)\oplus0\mbox{ since $H_{0}(\RP^{2})$ is free}\\
+&\iso\ZZ/2\ZZ,
+  \end{align}
+\end{subequations}
+and
+\begin{subequations}
+  \begin{align}
+H^{2}(\RP^{2};\ZZ/2\ZZ) &\iso\hom(H_{2}(\RP^{2}),\ZZ/2\ZZ)\oplus\Ext(H_{1}(\RP^{2}),\ZZ/2\ZZ)\\
+&\iso 0\oplus\Ext(H_{1}(\RP^{2}),\ZZ/2\ZZ)\\
+&\iso\ZZ/2\ZZ,
+  \end{align}
+\end{subequations}
+giving us
+\begin{equation}
+H^{k}(\RP^{2},\ZZ/2\ZZ)\iso\begin{cases}\ZZ/2\ZZ & \mbox{if }k=0,1,2\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+This is the singular cohomology for $\RP^{2}$.
+
+We can also compute this using the cellular chain complex for
+$\RP^{2}$ which is
+\begin{equation}
+C_{2}=\ZZ\xrightarrow{2} C_{1}=\ZZ\xrightarrow{0}C_{0}=\ZZ\to0,
+\end{equation}
+where the morphisms multiply by 2 or 0. We dualize it with
+coefficients $G=\ZZ$, then we get
+\begin{equation}
+C^{2}=\ZZ\xleftarrow{2}C^{1}=\ZZ\xleftarrow{0}C^{0}=\ZZ\gets0.
+\end{equation}
+From this, it's not too difficult to compute $H^{k}(\RP^{2};\ZZ)$.
+If we dualize the chain complex with coefficients in $G=\ZZ/2\ZZ$,
+then we get
+\begin{equation}
+C^{2}=\ZZ/2\ZZ\xleftarrow{0}C^{1}=\ZZ/2\ZZ\xleftarrow{0}C^{0}=\ZZ/2\ZZ\gets0.
+\end{equation}
+\end{example}
+
+\subsection{Cup product and cap product}
+
+\begin{definition}
+Suppose the coefficients for the cochain complex are in a commutative
+ring $R$. For cochains $\varphi\in C^{k}(X;R)$ and $\psi\in C^{\ell}(X;R)$,
+we define the \define{Cup Product} $\varphi\smile\psi\in C^{k+\ell}(X;R)$
+by defining its evaluation on every $(k+\ell)$-singular simplex
+$\sigma\colon\Delta^{k+\ell}=[v_{0},\dots,v_{k+\ell}]\to X$ as
+\begin{equation}
+(\varphi\smile\psi)(\sigma)=\varphi(\sigma|_{[v_{0},\dots,v_{k}]}\psi(\sigma|_{[v_{k},\dots,v_{k+\ell}]})
+\end{equation}
+where on the right-hand side of this equation, we use the
+multiplication of ring elements.
+\end{definition}
+
+\begin{lemma}[Leibniz rule]
+If $\varphi\in C^{k}(X;R)$ and $\psi\in C^{\ell}(X;R)$, then
+\begin{equation}
+\coboundary(\varphi\smile\psi)=(\coboundary\varphi)\smile\psi+(-1)^{k}\varphi\smile(\coboundary\psi).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Evaluate on $\sigma\colon\Delta^{k+\ell}=[v_{0},\dots,v_{k+\ell}]\to X$.
+Then
+\begin{subequations}
+  \begin{align}
+((\coboundary\varphi)\smile\psi)(\sigma)
+&= (\coboundary\varphi)(\sigma|_{[v_{0},\dots,v_{k+1}]})(\psi(\sigma|_{[v_{k+1},\dots,v_{k+\ell}]}))\\
+&= \left(\sum^{k+1}_{i=0}(-1)^{i}\varphi(\sigma|_{[v_{0},\dots,\widehat{v_{i}},\dots,v_{k+1}]})\right)(\psi(\sigma|_{[v_{k+1},\dots,v_{k+\ell}]})),
+  \end{align}
+\end{subequations}
+and similarly
+\begin{subequations}
+  \begin{align}
+(\varphi\smile(\coboundary\psi))(\sigma)
+&= (\varphi(\sigma|_{[v_{0},\dots,v_{k}]}))((\coboundary\psi)(\sigma|_{[v_{k},\dots,v_{k+\ell}]}))\\
+&= (\varphi(\sigma|_{[v_{0},\dots,v_{k}]}))\left(\sum^{k+\ell+1}_{i=k}(-1)^{i-k}\psi(\sigma|_{[v_{k},\dots,\widehat{v_{i}},\dots,v_{k+\ell}]})\right).
+  \end{align}
+\end{subequations}
+Then we see that the last term of
+$(\coboundary\varphi\smile\psi)(\sigma)$ cancels with the first term
+of $(-1)^{k}(\varphi\smile\coboundary\psi)(\sigma)$, so we're left
+with $k+\ell+1$ terms, and it's a trivial exercise to see
+$\coboundary(\varphi\smile\psi)=(\coboundary\varphi)\smile\psi+(-1)^{k}\varphi\smile(\coboundary\psi)$.
+\end{proof}
+
+\begin{corollary}
+The cup product of 2 cocylces is a cocycle.
+
+The cup product of a cocycle with a coboundary is a coboundary.
+
+The cup product of a coboundary with a cocycle is a coboundary.
+\end{corollary}
+
+(A cocycle $\varphi$ has $\coboundary\varphi=0$, and a coboundary
+$\varphi$ has a $\psi$ such that $\varphi=\coboundary\psi$.)
+
+\begin{node}
+From this corollary, we see that the cup product $\smile$ on the
+cochain complex $C^{*}$ induces a cup product $H^{*}$. Or more
+precisely,
+\begin{equation}
+H^{k}(X;R)\times H^{\ell}(X;R)\xrightarrow{\smile}H^{k+\ell}(X;R)
+\end{equation}
+such that $[\varphi]\smile[\psi]=(-1)^{k\ell}[\psi]\smile[\varphi]$
+and under this product $H^{*}(X;R)$ becomes a graded ring.
+\end{node}
