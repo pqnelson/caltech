@@ -94,6 +94,10 @@
 \DeclareMathOperator\GL{GL}
 
 % category theory
+\let\og@hom\hom
+\let\hom\relax
+\DeclareMathOperator\hom{Hom}
+
 \newcommand\cat[1]{\mathbf{#1}}
 
 \newcommand\PSh{\cat{PSh}} % category of presheaves
@@ -133,7 +137,7 @@
 \DeclareMathOperator\Im{Im}
 
 \newcommand\pushforward[1]{#1_{*}}
-
+\newcommand\pullback[1]{#1^{*}}
 %% Sheafs
 \newcommand\sheaf{\mathcal}
 \newcommand\IdealSheaf[1]{\sheaf{I}_{#1}}

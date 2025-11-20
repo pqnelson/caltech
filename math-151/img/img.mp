@@ -1266,4 +1266,64 @@ beginfig(48) % Mobius strip
   label.ulft(btex $p(x)$ etex, z11);
   label.lrt(btex $x$ etex, z10);
 endfig;
+
+% lecture 23
+beginfig(49) % singular complex for Torus T^2
+  path p[];
+  numeric w,i; w := 3u;
+  z0 = (0,0);
+  z1 = z0 + (w, 0);
+  z2 = z1 + (0, w);
+  z3 = z2 + (-w, 0);
+  p0 = z0--z1;
+  p1 = z1--z2;
+  p2 = z3--z2;
+  p3 = z0--z3;
+  draw_mid_arr(p0,1);
+  draw_mid_arr(p2,1);
+  draw_mid_arr(p1,2);
+  draw_mid_arr(p3,2);
+  label.bot(btex $a$ etex, 0.5[z0,z1]);
+  label.top(btex $a$ etex, 0.5[z3,z2]);
+  label.rt(btex $b$ etex, 0.5[z1,z2]);
+  label.lft(btex $b$ etex, 0.5[z0,z3]);
+  label.llft(btex $A$ etex, z0);
+  label.lrt(btex $B$ etex, z1);
+  label.urt(btex $C$ etex, z2);
+  label.ulft(btex $D$ etex, z3);
+  draw z0--z2;
+  for i=0 upto 3:
+    label(btex $\bullet$ etex, z[i]);
+  endfor;
+endfig;
+
+beginfig(50) % singular complex for \RP^2
+  path p[];
+  numeric w,i; w := 3u;
+  z0 = (0,0);
+  z1 = z0 + (w, 0);
+  z2 = z1 + (0, w);
+  z3 = z2 + (-w, 0);
+  p0 = z0--z1;
+  p1 = z1--z2;
+  p2 = z2--z3;
+  p3 = z3--z0;
+  draw_mid_arr(p0,1);
+  draw_mid_arr(p2,1);
+  draw_mid_arr(p1,2);
+  draw_mid_arr(p3,2);
+  label.bot(btex $a$ etex, 0.5[z0,z1]);
+  label.top(btex $a$ etex, 0.5[z3,z2]);
+  label.rt(btex $b$ etex, 0.5[z1,z2]);
+  label.lft(btex $b$ etex, 0.5[z0,z3]);
+  label.llft(btex $A$ etex, z0);
+  label.lrt(btex $B$ etex, z1);
+  label.urt(btex $C$ etex, z2);
+  label.ulft(btex $D$ etex, z3);
+  draw z0--z2;
+  for i=0 upto 3:
+    label(btex $\bullet$ etex, z[i]);
+  endfor;
+endfig;
+
 end;

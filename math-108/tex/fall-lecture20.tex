@@ -1,0 +1,215 @@
+%%
+%% fall-lecture20.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-20T11:23:52-0800
+%% Last update 2025-11-20T11:23:52-0800
+%% 
+
+\lecture[Inverse mapping theorem]{}
+
+\begin{definition}
+Let $U$, $V$ be open subsets of $\RR^{n}$.
+Let $\phi\colon U\to V$.
+\begin{enumerate}
+\item If $\phi$ and $\phi^{-1}$ are both continuous, then we call
+  $\phi$ a \define{Homeomorphism} between $U$ and $V$.
+\item If $\phi$ and $\phi^{-1}$ are both continuous and their
+  derivatives exist and are continuous, then we call
+  $\phi$ a \define{$C^{1}$ Homeomorphism} between $U$ and $V$.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[One-dimensional version]
+If $f\colon[a,b]\to\RR$ is continuously differentiable in $(a,b)$
+and $f'(x)\neq0$ for all $x\in(a,b)$, then $f$ is a $C^{1}$
+homeomorphism between $(a,b)$ and $f\bigl((a,b)\bigr)$.
+\end{theorem}
+
+\begin{proof}
+\textsc{Step 1.}
+Since $f'(x)$ everywhere, either $f$ is increasing or decreasing.
+Further, since $f$ is continuous and $(a,b)$ is connected,
+$f((a,b))$ is connected. We see $\{x\in(a,b)\mid f'(x)>0\}$
+and $\{x\in(a,b)\mid f'(x)<0\}$ forms a partition of $(a,b)$, but---since $(a,b)$ is connected---one of these must be empty and the other
+is $(a,b)$.
+
+\textsc{Step 2: $f$ has an inverse function $g$.}
+Without loss of generality, assume $f'(x)>0$ for all $x\in(a,b)$. By
+the Mean Value Theorem, if we have two points $a\leq x_{1}<x_{2}\leq b$,
+then there exists a $c\in(x_{1},x_{2})$ such that
+\begin{equation}
+f(x_{2})-f(x_{1})=f'(c)(x_{2}-x_{1})>0,
+\end{equation}
+so $f$ is strictly increasing. Then $f$ is a bijection onto $[c,d]$.
+Hence there is an inverse function $g\colon[c,d]\to[a,b]$. (We just
+want to show $g$ is continuously differentiable.)
+
+\textsc{Step 3: $g$ is continuous.}
+For each $\delta>0$, $f'(x)$ is continuous and positive.
+Then $f'(x)$ attains a minimum of $[a+\delta,b-\delta]$ and the
+minimum is some $m>0$; so $f'(x)\geq m$ for all $x\in[a+\delta,b-\delta]$.
+
+By the Mean Value Theorem, if $a+\delta\leq x_{1}<x_{2}\leq b-\delta$,
+there is a $c\in(x_{1},x_{2})$ such that
+\begin{equation}
+f(x_{2})-f(x_{1})=f'(c)(x_{2}-x_{1})\geq m(x_{2}-x_{1}).
+\end{equation}
+Let $y_{i}=f(x_{i})$ for $i=1,2$. Then $x_{i}=g(y_{i})$. We rewrite
+the inequality to be
+\begin{equation}
+g(y_{2})-g(y_{1})\leq m^{-1}(y_{2}-y_{1}).
+\end{equation}
+But this means $g$ is $m^{-1}$-Lipschitz, hence continuous on
+$[f(a+\delta),f(b-\delta)]$. Since $\delta>0$ arbitrary, this means
+$g$ is continuous on $(c,d)$.
+
+\textsc{Step 4: $g'$ exists and is continuous.}
+If $c\leq y_{1}<y_{2}\leq d$ and then $x_{i}=g(y_{i})$, we see
+\begin{equation}
+\frac{g(y_{2})-g(y_{1})}{y_{2}-y_{1}} =
+\frac{x_{2}-x_{1}}{f(x_{2})-f(x_{1})}\stackrel{x_{2}\to x_{1}}{=}\frac{1}{f'(x_{1})}
+\end{equation}
+since $f$ is continuous and $f'(x_{1})\neq0$. Then taking the
+$y_{2}\to y_{1}$ limit on the left-hand side gives us
+\begin{equation}
+\frac{g(y_{2})-g(y_{1})}{y_{2}-y_{1}} \stackrel{y_{2}\to y_{1}}{=}g'(y_{1})
+\end{equation}
+since $g(y)$ is continuous. Hence $g$ is differentiable on $(c,d)$.
+Since $f'$ is continuous and nonzero, this means $g'$ is continuous.
+\end{proof}
+
+\begin{lemma}[Equivalence of norms]
+For any $\vec{x}\in\RR^{n}$, we have $\|\vec{x}\|_{\infty}\leq\|\vec{x}\|_{2}\leq\sqrt{n}\|\vec{x}\|_{\infty}$.
+\end{lemma}
+
+\begin{proof}
+We see for each $j=1,\dots,n$,
+\begin{equation}
+\|\vec{x}\|_{2}^{2}=\sum^{n}_{i=1}x_{i}^{2}\geq|x_{j}|^{2}.
+\end{equation}
+In particular, this means
+\begin{equation}
+\|\vec{x}\|_{2}^{2}=\sum^{n}_{i=1}x_{i}^{2}\geq\sup|x_{j}|^{2}=\|\vec{x}\|_{\infty}^{2}.
+\end{equation}
+This gives the left inequality.
+
+Then
+\begin{equation}
+\|\vec{x}\|_{2}^{2}=\sum^{n}_{i=1}x_{i}^{2}\leq\sum^{n}_{i=1}\|\vec{x}\|_{\infty}^{2}=n\|\vec{x}\|_{\infty}^{2},
+\end{equation}
+which gives the remaining inequality.
+\end{proof}
+
+\begin{definition}
+A \define{Cell} is a set of the form $K=(a_{1},b_{1})\times(a_{2},b_{2})\times\dots\times(a_{n},b_{n})$.
+\end{definition}
+
+\begin{node}
+If $\vec{f}\colon U\to V$ is a $C^{1}$-homeomorphiism and $\vec{g}$ is
+its inverse, then $\vec{g}(\vec{f}(\vec{x}))=\vec{x}$. By the chain
+rule, we have $\vec{g}'(\vec{f}(\vec{x}))\vec{f}'(\vec{x})=I$ is the
+identity matrix. This implies $\vec{f}'(\vec{x})$ is invertible, and
+its determinant is nonzero $\det(\vec{f}'(\vec{x}))\neq0$.
+\end{node}
+
+\begin{theorem}
+Let $W\subset\RR^{n}$ be an open neighborhood of the origin.
+Let $\vec{f}\colon W\to\RR^{n}$ be continuously differentiable, and
+$\vec{f}(0)=0$ and $\vec{f}'(0)=I$ be the identity matrix.
+Then for any sufficiently small open neighborhood $U\subset W$ of the origin,
+the restriction of $\vec{f}$ to $U$ is a $C^{1}$ homeomorphism
+$\vec{f}\colon U\to V$ where $V$ is an open neighborhood of the origin.
+\end{theorem}
+
+The proof mirrors the structure of the proof for the one-dimensional
+inverse function theorem.
+
+\begin{proof}
+\textsc{Step 1.}
+We define a function
+\begin{equation}
+\vec{r}(\vec{x}):=\vec{f}(\vec{x})-\vec{x}.
+\end{equation}
+We see $\vec{r}(\vec{x})$ is continuously differentiable, and
+$\vec{r}(\vec{0})=\vec{0}$, and $\vec{r}'(\vec{0})=0$ is the zero matrix.
+Then there is a closed cell $\closure{K}\propersubset W\propersubset\RR^{n}$
+centered at the origin, such that
+\begin{enumerate}
+\item $\|\vec{r}'(\vec{x})\|_{\text{op}}\leq\frac{1}{2}$ for all
+  $\vec{x}\in\closure{K}$ when the operator norm is with respect to
+  the $\ell_{2}$-norm;
+\item $\det(\vec{f}'(\vec{x}))\neq0$ for all $\vec{x}\in\closure{K}$.
+\end{enumerate}
+By the Mean-Value Inequality, for any $\vec{a}\in\closure{K}$ and
+$\vec{b}\in\closure{K}$ there is a
+$\vec{c}\in\lambda(\vec{a},\vec{b})$ such that:
+\begin{subequations}
+  \begin{align}
+\|\vec{r}(\vec{b})-\vec{r}(\vec{a})\|_{2} & \leq\|\vec{r}'(\vec{c})\|_{\text{op}}\|\vec{b}-\vec{a}\|_{2}\\
+&\leq\frac{1}{2}\|\vec{b}-\vec{a}\|_{2}
+  \end{align}
+\end{subequations}
+We use the triangle inequality to find
+\begin{subequations}
+  \begin{align}
+\|\vec{b}-\vec{a}\|_{2} &\leq\|\vec{f}(\vec{b})-\vec{f}(\vec{a})-(\vec{b}-\vec{a})\|_{2}+\|\vec{f}(\vec{b})-\vec{f}(\vec{a})\|_{2}\\
+&\leq\|\vec{r}(\vec{b})-\vec{r}(\vec{a})\|_{2}+\|\vec{f}(\vec{b})-\vec{f}(\vec{a})\|_{2}\\
+&\leq\frac{1}{2}\|\vec{b}-\vec{a}\|_{2}+\|\vec{f}(\vec{b})-\vec{f}(\vec{a})\|_{2},
+  \end{align}
+\end{subequations}
+hence
+\begin{equation}
+\|\vec{f}(\vec{b})-\vec{f}(\vec{a})\|_{2}\geq\frac{1}{2}\|\vec{b}-\vec{a}\|_{2}.
+\end{equation}
+This then implies $\vec{f}\colon\closure{K}\to\RR^{n}$ is injective
+because $\vec{f}(\vec{b})=\vec{f}(\vec{a})$ implies
+$\vec{b}=\vec{a}$. In particular,
+$\vec{f}(\vec{x})\neq\vec{f}(\vec{0})$ for any $\vec{x}\in\boundary\closure{K}$.
+Since $\boundary\closure{K}$ is compact, $\vec{f}'(\vec{x})$ attains a
+minimum there, so there exists a $d>0$ such that $\|\vec{f}(\vec{x})\|_{2}>d$
+for all $\vec{x}\in\boundary\closure{K}$.
+
+\textsc{Step 2: $V=\{\vec{y}\mid\|y\|_{2}<d/2\}\propersubset\vec{f}(\closure{K})$.}
+For any $\vec{b}\in V$, consider the function on $\closure{K}$:
+\begin{equation}
+\psi(\vec{x}):=\|\vec{x}-\vec{b}\|_{2}.
+\end{equation}
+Suffices to show $\psi(\vec{a})=0$ for some $\vec{a}\in\closure{K}$.
+Note that for all $\vec{b}\in V$ we have
+\begin{equation}
+\psi(\vec{0})=\|\vec{b}\|_{2}<\frac{d}{2}.
+\end{equation}
+So if we have $\vec{x}\in\boundary\closure{K}$, then (by the triangle inequality)
+\begin{subequations}
+  \begin{align}
+\|\vec{f}(\vec{x})\|
+&\leq\|\vec{f}(\vec{x})-\vec{b}\|_{2}+\|\vec{b}\|_{2}\\
+&\leq\psi(\vec{x})+\|\vec{b}\|_{2}\\
+&<\psi(\vec{x})+\frac{d}{2}.
+  \end{align}
+\end{subequations}
+Hence
+\begin{equation}
+\psi(\vec{x})>\frac{d}{2}.
+\end{equation}
+By the extreme value theorem, $\psi(\vec{x})$ must attain its minimum
+at some $\vec{a}\in\closure{K}$. But $\vec{a}$ cannot be in
+$\boundary\closure{K}$, because $\psi(\vec{x})>\psi(\vec{0})$ for all $\vec{x}\in\boundary\closure{K}$.
+The function
+\begin{equation}
+\psi(\vec{x})^{2}=\sum_{i}(f_{i}(\vec{x})-b_{i})^{2}
+\end{equation}
+attains a minimum of $\vec{a}$. Then
+\begin{equation}
+\partial_{j}(\psi(\vec{a})^{2})=\sum_{i=1}^{n}2(\vec{f}_{i}(\vec{a})-b_{i})\partial_{j}f_{i}(\vec{a})=0
+\end{equation}
+for all $j=1,\dots,n$. Then
+\begin{equation}
+2\vec{f}'(\vec{a})(\vec{f}(\vec{a})-\vec{b})=\vec{0}.
+\end{equation}
+But since $\vec{f}'(\vec{a})$ is nonsingular, it must be
+$\vec{f}(\vec{a})=\vec{b}$. 
+\end{proof}

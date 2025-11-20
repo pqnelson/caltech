@@ -1,0 +1,215 @@
+%%
+%% fall-lecture23.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-20T12:20:05-0800
+%% Last update 2025-11-20T12:20:05-0800
+%% 
+
+\lecture[Pushforward, Pullback]{}
+
+\begin{node}[Pushforward]
+Let $f\colon X\to Y$ be a morphism of ringed spaces.
+When $\sheaf{F}$ is an $\StructureSheaf_{X}$-module, then
+$\pushforward{f}\sheaf{F}$ is an $\pushforward{f}\StructureSheaf_{X}$-module.
+Hartshorne calls this the \define{Direct Image} of $\sheaf{F}$ under
+$f$ (see~\cite[II~\S5, p109]{hartshorne1977algebraic}).
+\end{node}
+
+\begin{definition}[Pullback]
+Similarly, we have a ring morphism
+\begin{equation}
+\pullback{f}\colon\StructureSheaf_{Y}\to\pushforward{f}\StructureSheaf_{X},
+\end{equation}
+which means $\pushforward{f}\sheaf{F}$ is also a $\StructureSheaf_{Y}$-module.
+
+Let $\sheaf{G}$ be a $\StructureSheaf_{Y}$-module. Then
+$f^{-1}\sheaf{G}$ is an $f^{-1}\StructureSheaf_{Y}$-module
+(with $f^{-1}h\cdot f^{-1}s=f^{-1}(hs)$). We see
+$\StructureSheaf_{Y}\to\pushforward{f}\StructureSheaf_{X}$ corresponds
+to $f^{-1}\StructureSheaf_{Y}\to\StructureSheaf_{X}$.
+The pullback $\pullback{f}\sheaf{G}:=f^{-1}\sheaf{G}\otimes_{f^{-1}\StructureSheaf_{Y}}\StructureSheaf_{X}$
+is the \define{Pullback of $\sheaf{G}$ to $X$ by $f$}.
+
+Hartshorne calls this the \define{Inverse Image} of $\sheaf{G}$ under
+$f$ (see~\cite[II~\S5, p110]{hartshorne1977algebraic}).
+\end{definition}
+
+\begin{caution}
+Notation is all over the place. The nLab uses extraordinarily
+confusing notation, in particular when discussing the inverse image of
+a sheaf under a continuous map of ringed spaces. Just be careful when
+reading sources.
+\end{caution}
+
+\begin{example}
+The pullback of structure sheaves are structure sheaves,
+$$\pullback{f}\StructureSheaf_{Y}=\StructureSheaf_{X}.$$
+\end{example}
+
+\begin{example}[Stalks]
+The stalks of pullbacks:
+$$(\pullback{f}\sheaf{G})_{p}=(f^{-1}\sheaf{G})_{p}\otimes_{(f^{-1}\StructureSheaf_{Y})_{p}}\StructureSheaf_{X,p}=\sheaf{G}_{f(p)}\otimes_{\StructureSheaf_{Y,f(p)}}\StructureSheaf_{X,p}$$
+\end{example}
+
+\begin{example}
+Let $U\subset Y$ be open, let $i\colon U\into Y$ be the inclusion map.
+Then the pullback of $\sheaf{G}$ by the inclusion $\pullback{i}\sheaf{G}=\sheaf{G}|_{U}\otimes_{\StructureSheaf_{Y}|_{U}}\StructureSheaf_{U}=\sheaf{G}|_{U}$
+is just the restriction of $\sheaf{G}$ to $U$.
+\end{example}
+
+\begin{node}[Adjoint property]
+Let $f\colon X\to Y$ be a morphism, let $\sheaf{G}$ be an
+$\StructureSheaf_{Y}$-module. We have
+$f^{-1}\StructureSheaf_{Y}$-morphism
+$f^{-1}\sheaf{G}\to\pullback{f}\sheaf{G}$ sending $s\mapsto s\otimes1$.
+This gives us a $\StructureSheaf_{Y}$-morphism $\alpha\colon\sheaf{G}\to\pushforward{f}\pullback{f}\sheaf{G}$.
+\end{node}
+
+\begin{lemma}
+Let $\sheaf{F}$ be an $\StructureSheaf_{X}$-module, let $\sheaf{G}$ be
+an $\StructureSheaf_{Y}$-module. Then
+\begin{equation}
+\hom_{\StructureSheaf_{X}}(\pullback{f}\sheaf{G},\sheaf{F})\iso\hom_{\StructureSheaf_{Y}}(\sheaf{G},\pushforward{f}\sheaf{F}).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Given a $\psi\colon\pullback{f}\sheaf{G}\to\sheaf{F}$, we may obtain
+\begin{equation}
+\sheaf{G}\xrightarrow{\alpha}\pushforward{f}\pullback{f}\sheaf{G}\xrightarrow{\pushforward{f}\psi}\pushforward{f}\sheaf{F},
+\end{equation}
+which compose to
+\begin{equation}
+(\pushforward{f}\psi)\circ\alpha\in\hom_{\StructureSheaf_{Y}}(\sheaf{G},\pushforward{f}\sheaf{F}).
+\end{equation}
+This is one direction.
+
+Given $\varphi\colon\sheaf{G}\to\pushforward{f}\sheaf{F}$, we obtain
+$\widetilde{\varphi}\colon f^{-1}\sheaf{G}\to\sheaf{F}$ an $f^{-1}\StructureSheaf_{Y}$-morphism;
+take
+\begin{equation}
+\psi\colon\pullback{f}\sheaf{G}=f^{-1}\sheaf{G}\otimes_{f^{-1}\StructureSheaf_{Y}}\StructureSheaf_{X}\to\sheaf{F}
+\end{equation}
+defined by $\psi(s\otimes h)=h\circ\widetilde{\varphi}(s)$. It's not
+hard to see these form an isomorphism.
+\end{proof}
+
+\begin{node}[Functoriality]
+Let $f\colon X\to Y$ and $g\colon Y\to Z$ be continuous maps of ringed
+spaces. Let $\sheaf{F}$ be a sheaf on $X$, then
+\begin{equation}
+\pushforward{(g\circ f)}\sheaf{F}=\pushforward{g}\pushforward{f}\sheaf{F}.
+\end{equation}
+\end{node}
+
+\begin{proposition}
+\begin{enumerate}
+\item If $\sheaf{G}$ is a sheaf on $Z$, then $(g\circ f)^{-1}\sheaf{G}=f^{-1}g^{-1}\sheaf{G}$
+\item If $\sheaf{G}$ is an $\StructureSheaf_{Z}$-module, then
+  $\pullback{(g\circ f)}\sheaf{G}=\pullback{f}\pullback{g}\sheaf{G}$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(2) Consider $\id\colon\pullback{(gf)}\sheaf{G}\to\pullback{(gf)}\sheaf{G}$,
+which gives us a morphism $\sheaf{G}\to\pushforward{(gf)}\pullback{(gf)}\sheaf{G}=\pushforward{g}\pushforward{f}\pullback{(gf)}\sheaf{G}$
+by the adjoint property, then we have a morphism
+$\pullback{g}\sheaf{G}\to\pushforward{f}\pullback{(gf)}\sheaf{G}$
+(again by adjoint property) and this gives us
+$\pullback{f}\pullback{g}\sheaf{G}\to\pullback{(gf)}\sheaf{G}$ by the
+adjoint property. 
+
+We check this works by examining it on stalks
+\begin{subequations}
+  \begin{align}
+\pullback{f}(\pullback{g}\sheaf{G})_{p}
+&=(\pullback{g}\sheaf{G})_{f(p)}\otimes_{\StructureSheaf_{Y,f(p)}}\StructureSheaf_{X,p}\\
+&=(\sheaf{G}_{gf(p)}\otimes_{\StructureSheaf_{Z,gf(p)}}\StructureSheaf_{Y,f(p)})\otimes_{\StructureSheaf_{Y,f(p)}}\StructureSheaf_{X,p}\\
+&=\sheaf{G}_{gf(p)}\otimes_{\StructureSheaf_{Z,gf(p)}}\StructureSheaf_{X,p}\\
+&=(\pullback{(gf)}\sheaf{G})_{p}.
+  \end{align}
+\end{subequations}
+Hence the result.
+\end{proof}
+
+\begin{corollary}
+If $\sheaf{G}$ is a locally-free $\StructureSheaf_{Y}$-module,
+then $\pullback{f}\sheaf{G}$ is a locally-free $\StructureSheaf_{X}$-module.
+\end{corollary}
+
+\begin{lemma}
+Let $f\colon X\to Y$ be a morphism, suppose we have a short exact
+sequence of $\StructureSheaf_{Y}$-modules:
+\begin{equation}
+0\to\sheaf{G}'\to\sheaf{G}\to\sheaf{G}''\to0.
+\end{equation}
+Then $\pullback{f}\sheaf{G}'\to\pullback{f}\sheaf{G}\to\pullback{f}\sheaf{G}''\to0$
+is right exact on $X$.
+
+If further $\sheaf{G}''$ is locally-free, then we have
+$0\to\pullback{f}\sheaf{G}'\to\pullback{f}\sheaf{G}\to\pullback{f}\sheaf{G}''\to0$
+be a short exact sequence.
+\end{lemma}
+
+\begin{proof}
+(1) Check on stalks. Recall pullback on stalks is tensor product
+$(\pullback{f}\sheaf{G})_{p}=\sheaf{G}_{f(p)}\otimes_{\StructureSheaf_{Y,f(p)}}\StructureSheaf_{X,p}$.
+Then the short exact sequence
+\begin{equation}
+\begin{array}{ccccccc}
+\sheaf{G}'_{f(p)} &\to & \sheaf{G}_{f(p)} & \to & \sheaf{G}''_{f(p)} &\to&0\\
+\otimes_{\StructureSheaf_{Y,f(p)}} & &
+\otimes_{\StructureSheaf_{Y,f(p)}} & &
+\otimes_{\StructureSheaf_{Y,f(p)}} & &\\
+\otimes_{\StructureSheaf_{X,p}} & &
+\otimes_{\StructureSheaf_{X,p}} & &
+\otimes_{\StructureSheaf_{X,p}} & &
+\end{array}
+\end{equation}
+Since $\otimes_{\StructureSheaf_{Y,f(p)}}\StructureSheaf_{X,p}$ is
+right exact, we have the first claim.
+
+(2) If $\sheaf{G}''$ is locally-free, then $\sheaf{G}''_{f(p)}$ is a
+free $\StructureSheaf_{Y,f(p)}$-module, hence the sequence is split exact.
+\end{proof}
+
+\begin{definition}
+The $\StructureSheaf_{X}$-module $\sheaf{F}$ is \define{generated by
+  finitely many global sections} if there exists a short exact
+sequence $\StructureSheaf_{X}^{\oplus m}\to\sheaf{F}\to0$, which is
+equivalent to:
+There exists global sections $s_{1}$, \dots, $s_{m}\in\Gamma(X,\sheaf{F})$
+such that for all $p\in X$, the stalk $\sheaf{F}_{p}$ is generated by
+$(s_{1})_{p}$, \dots, $(s_{m})_{p}$ as $\StructureSheaf_{X}$-modules.
+\end{definition}
+
+\begin{example}
+Any coherent sheaf on an affine variety is generated by finitely many
+global sections.
+\end{example}
+
+\begin{example}
+$\mathcal{O}_{\PP^{n}}(1)$ is globally generated by $x_{0}$, \dots, $x_{n}\in\Gamma(\PP^{n},\mathcal{O}(1))$.
+\end{example}
+
+\begin{example}
+Suppose $f\colon X\to\PP^{n}$ is a morphism.
+If $\StructureSheaf_{\PP^{n}}^{\oplus m}\to\mathcal{O}(1)\to0$ is a
+short exact sequence,
+then
+$\StructureSheaf_{X}^{\oplus(n+1)}\to\pullback{f}\mathcal{O}(1)\to0$
+is exact. Hence $\pullback{f}\mathcal{O}(1)$ generated by
+$\pullback{f}(x_{0})$, \dots, $\pullback{f}(x_{n})\in\Gamma(X,\pullback{f}\mathcal{O}(1))$.
+\end{example}
+
+\begin{proposition}
+Let $X$ be a variety, $\mathcal{L}$ an invertible sheaf generated by
+$s_{0}$, \dots, $s_{n}\in\Gamma(X,\mathcal{L})$. Then there exists a
+unique $f\colon X\to\PP^{n}$ such that
+$\mathcal{L}\iso\pullback{f}\mathcal{O}(1)$ and $s_{i}=\pullback{f}(x_{i})$
+for all $i$.
+\end{proposition}
+

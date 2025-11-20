@@ -1,0 +1,225 @@
+%%
+%% fall-lecture23.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-20T10:02:02-0800
+%% Last update 2025-11-20T10:02:02-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+The cup product is bilinear over $R$.
+\end{node}
+
+\begin{definition}
+Let $R$ be a commutative ring. We have a ring structure on $H^{*}(X;R)$,
+called the \define{Cohomology Ring} of $X$.
+\end{definition}
+
+\begin{theorem}
+If $[\varphi]\in H^{k}(X;R)$ and $[\psi]\in H^{\ell}(X;R)$, then $[\varphi]\cup[\psi]=(-1)^{k\ell}[\psi]\cup[\varphi]$.
+\end{theorem}
+
+In other words, the cup product is \emph{graded commutative}.
+
+\begin{convention}
+If we omit the ring of coefficients when writing the cohomology group
+(or cohomology ring), then we always mean the integers --- e.g.,
+$H^{*}(X)$ always means $H^{*}(X;\ZZ)$.
+\end{convention}
+
+\begin{node}[Unital cohomology rings]
+If $R$ is a unital commutative ring with $1_{R}\in R$, then we can
+consider the augmentation $\varepsilon\in H^{0}(X;R)$ --- the mapping
+$C_{0}(X)\xrightarrow{\varepsilon}R$ which sends $\sum_{i}n_{i}x_{i}\mapsto\sum_{i}n_{i}$
+(i.e., every point to $1_{R}$). This $\varepsilon$ is the identity
+element of the cohomology ring $H^{*}(X;R)$.
+\end{node}
+
+\begin{example}
+The Torus $T^{2}$. What is $H^{*}(T^{2};\ZZ)$? We have already computed,
+\begin{equation}
+H^{k}(T^{2};\ZZ)\iso\begin{cases}\ZZ & \mbox{if }k=0,2\\
+\ZZ^{2} & \mbox{if }k=1\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+We see then that $H^{0}(T^{2})=\langle\varepsilon\rangle$. We find
+that $H^{2}(T^{2})\smile H^{k}(T^{2})=0$ for any $k>0$, so we only
+need to understand the cup product
+\begin{equation}
+H^{1}(T^{2})\times H^{1}(T^{2})\xrightarrow{\smile}H^{2}(T^{2}).
+\end{equation}
+For $[\varphi],[\psi]\in H^{1}(T^{2})$, we know
+$[\varphi]\smile[\psi]\in H^{2}(T^{2})\iso\ZZ$, but
+\begin{equation}
+[\varphi]\smile[\psi]=-[\psi]\smile[\varphi]
+\end{equation}
+which implies $[\varphi]\smile[\varphi]=0$.
+
+By the universal coefficient theorem, $H^{1}(T^{2})\iso\hom(H_{1}(T^{2}),\ZZ)$.
+We know $H_{1}(T^{2})$. We also know the singular complex for
+$T^{2}$. We doodle its singular complex as
+\begin{equation}
+\vcenter{\hbox{\includegraphics{img/img.49}}}
+\end{equation}
+We have two singular simplices
+\begin{equation}
+\begin{split}
+  \sigma_{1}\colon&\Delta^{2}\to\Delta ABC\\
+&[v_{0},v_{1},v_{2}]\mapsto[A,B,C]
+\end{split}
+\end{equation}
+\begin{equation}
+\begin{split}
+  \sigma_{2}\colon&\Delta^{2}\to\Delta ADC\\
+&[v_{0},v_{1},v_{2}]\mapsto[A,D,C]
+\end{split}
+\end{equation}
+Then $H_{1}(T^{2})=\ZZ\langle[a],[b]\rangle$. Then we find the first
+cohomology group $H^{1}(T^{2})=\ZZ\langle[\alpha],[\beta]\rangle$
+where
+\begin{equation}
+\langle\alpha,a\rangle=1,\quad\mbox{and}\quad\langle\alpha,b\rangle=0
+\end{equation}
+\begin{equation}
+\langle\beta,a\rangle=0,\quad\mbox{and}\quad\langle\beta,b\rangle=1
+\end{equation}
+We find
+\begin{subequations}
+  \begin{align}
+\langle\alpha\smile\beta,\sigma_{1}\rangle
+&=\alpha([AB])\beta([BC])\\
+&=\alpha(a)\beta(b)\\
+&=1
+  \end{align}
+\end{subequations}
+and
+\begin{subequations}
+  \begin{align}
+\langle\alpha\smile\beta,\sigma_{2}\rangle
+&=\alpha([AD])\beta([DC])\\
+&=0.
+  \end{align}
+\end{subequations}
+Then
+\begin{equation}
+\langle\alpha\smile\beta,\sigma_{1}-\sigma_{2}\rangle=1,
+\end{equation}
+so $\sigma_{1}-\sigma_{2}$ generates $H^{2}(T^{2})$.
+This tells us also that $[\alpha]\smile[\beta]$ generates $H^{2}(T^{2})$.
+\end{example}
+
+\begin{example}
+In general, if $\Sigma_{g}$ is the orientable closed surface of genus $g$,
+then we can find a basis
+\begin{equation}
+H_{1}(\Sigma_{g})=\ZZ\langle a_{1},b_{1},\dots,a_{g},b_{g}\rangle
+\end{equation}
+We find the duals to these generators
+\begin{equation}
+\langle\alpha_{i},a_{j}\rangle=\delta_{i,j}\quad\mbox{and}\quad\langle\alpha_{i},b_{j}\rangle=0,
+\end{equation}
+\begin{equation}
+\langle\beta_{i},a_{j}\rangle=0\quad\mbox{and}\quad\langle\beta_{i},b_{j}\rangle=\delta_{i,j}.
+\end{equation}
+Then $\alpha_{i}\smile\alpha_{j}=0$ and $\beta_{i}\smile\beta_{j}=0$, but
+$\alpha_{i}\smile\beta_{j}=\delta_{i,j}$. This gives us the structure
+of $H^{*}(\Sigma_{g};R)$.
+\end{example}
+
+\begin{example}
+The real projective plane $\RP^{2}$. 
+We recall the cohomology groups for $\RP^{2}$ are:
+\begin{equation}
+H^{k}(\RP^{2};\ZZ)\iso\begin{cases}
+\ZZ & \mbox{if }k=0\\
+\ZZ/2\ZZ & \mbox{if }k=2\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+Then we have no interesting cup product, due to grading reasons.
+
+However, using $\ZZ/2\ZZ$ for the coefficients, we find
+\begin{equation}
+H^{k}(\RP^{2},\ZZ/2\ZZ)\iso\begin{cases}\ZZ/2\ZZ & \mbox{if }k=0,1,2\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+What is the cohomology ring in this case?
+Again, we can draw the singular complex
+for it:
+\begin{equation}
+\vcenter{\hbox{\includegraphics{img/img.50}}}
+\end{equation}
+We have two simplices
+\begin{equation}
+\begin{split}
+\sigma_{1}\colon&\Delta^{2}\to\Delta ABC\\
+&[v_{0},v_{1},v_{2}]\mapsto[A,B,C]
+\end{split}
+\end{equation}
+\begin{equation}
+\begin{split}
+\sigma_{2}\colon&\Delta^{2}\to\Delta CDA\\
+&[v_{0},v_{1},v_{2}]\mapsto[C,D,A]
+\end{split}
+\end{equation}
+Eh\dots we skip the calculations. It turns out
+\begin{equation}
+H_{1}(\RP^{2};\ZZ/2\ZZ)\iso\ZZ_{2}\langle a+b\rangle,
+\end{equation}
+so
+\begin{equation}
+\alpha(a+b)=1,
+\end{equation}
+and then we find $\alpha\smile\alpha$ generates $H^{2}(\RP^{2};\ZZ/2\ZZ)$.
+It turns out the ring structure for the cohomology ring looks like
+\begin{subequations}
+  \begin{align}
+H^{*}(\RP^{2};\ZZ/2\ZZ) &= \langle1,\alpha,\alpha^{2}\rangle\\
+&=\ZZ_{2}[\alpha]/(\alpha^{3}).
+  \end{align}
+\end{subequations}
+\end{example}
+
+\begin{example}
+More generally, for $\Pi_{g}$ (the nonorientable closed surface of
+genus $g$), we find
+\begin{equation}
+H^{k}(\Pi_{g};\ZZ/2\ZZ)\iso\begin{cases}\ZZ/2\ZZ & \mbox{if }k=0,2\\
+(\ZZ/2\ZZ)^{g} & \mbox{if }k=1\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+Then we find
+\begin{equation}
+H^{1}(\Pi_{g};\ZZ/2\ZZ)=(\ZZ/2\ZZ)\langle\alpha_{1},\dots,\alpha_{g}\rangle
+\end{equation}
+and $\alpha_{1}^{2}=\alpha_{2}^{2}=\dots=\alpha_{g}^{2}$ is the
+generator for $H^{2}(\Pi_{g};\ZZ/2\ZZ)$. We also find
+$\alpha_{i}\smile\alpha_{j}=0$ if $i\neq j$.
+\end{example}
+
+\begin{proposition}
+Let $R$ be a commutative ring (possibly unital).
+If we have $f\colon X\to Y$ continuous, then we have the induced map
+$f^{*}\colon H^{*}(Y;R)\to H^{*}(X;R)$ is a ring morphism.
+\end{proposition}
+
+\begin{node}[Cup product for relative cohomology]
+Let $R$ be a commutative ring (possibly unital).
+If $A\subset X$ and $B\subset X$ are open subsets,
+then we can define the cup product for relative cohomology groups
+\begin{equation}
+\smile\colon H^{*}(X,A;R)\times H^{*}(X,B;R)\to H^{*}(X,A\cup B;R).
+\end{equation}
+If we have $\alpha\in C^{*}(X,A;R)$ and $\beta\in C^{*}(X,B;R)$,
+then $\alpha$ evaluates to zero on chains in $A$, and $\beta$
+evaluates to zero on chains in $B$. Then $\alpha\smile\beta$ evaluates
+to zero on chains in $C_{*}(A)+C_{*}(B)\homotopic C_{*}(A\cup B)$ if
+$A$, $B$ overlap.
+\end{node}

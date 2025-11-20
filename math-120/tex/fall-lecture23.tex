@@ -1,0 +1,106 @@
+%%
+%% fall-lecture23.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-20T09:38:30-0800
+%% Last update 2025-11-20T09:38:30-0800
+%% 
+
+\lecture{}
+
+\begin{example}
+Consider the ring $A=\kk[x,y,z]$ where $\kk$ is a field.
+We look at $A$ as a graded ring. Let's try counting the number of
+monomials of different degrees:
+\begin{center}
+\begin{tabular}{clc}
+degree & monomials & total number\\
+0 & 1 & 1\\
+1 & $x$, $y$, $z$ & 3\\
+2 & $x^{2}$, $xy$, $xz$, $y^{2}$, $yz$, $z^{2}$ & 6\\
+3 & \dots & 10
+\end{tabular}
+\end{center}
+How many monomials are there of degree $n$? It's the same as asking
+for how many ways can we write $n=i+j+k$ for $i,j,k\geq0$. ``Stars and bars''
+from combinatorics tells if we write down $n+2$ stars and try to place
+2 bars (so we're counting the gaps between the stars as $i$, $j$, $k$),
+then there are $\binom{n+2}{2}$ ways to place the bars down. This
+means we can complete our table:
+\begin{center}
+\begin{tabular}{clc}
+degree & monomials & total number\\
+0 & 1 & 1\\
+1 & $x$, $y$, $z$ & 3\\
+2 & $x^{2}$, $xy$, $xz$, $y^{2}$, $yz$, $z^{2}$ & 6\\
+3 & \dots & 10\\
+$n$ & \dots & $\binom{n+2}{2}$
+\end{tabular}
+\end{center}
+\end{example}
+
+\begin{example}
+Now, consider the number of monomials in the ring $\kk[x,y,z]/(x^{2}-y^{2}-z^{2})$.
+We can write down a similar table
+\begin{center}
+\begin{tabular}{clc}
+degree & monomials & total number\\
+0 & 1 & 1\\
+1 & $x$, $y$, $z$ & 3\\
+2 & $xy$, $xz$, $y^{2}$, $yz$, $z^{2}$ & 5\\
+3 & $xy^{2}$, $xz^{2}$, $y^{3}$, $y^{2}z$, $yz^{2}$, $z^{3}$ & 7
+\end{tabular}
+\end{center}
+What's the general pattern? Well, we can keep grinding through the
+calculations to find
+\begin{center}
+\begin{tabular}{clc}
+degree & monomials & total number\\
+0 & 1 & 1\\
+1 & $x$, $y$, $z$ & 3\\
+2 & $xy$, $xz$, $y^{2}$, $yz$, $z^{2}$ & 5\\
+3 & $xy^{2}$, $xz^{2}$, $y^{3}$, $y^{2}z$, $yz^{2}$, $z^{3}$ & 7\\
+4 & \dots & 9\\
+5 & \dots & 11,
+\end{tabular}
+\end{center}
+then it becomes painfully obvious there are $2n+1$ monomials of degree $n$.
+\end{example}
+
+\begin{theorem}[Matsumara 10F]
+Let $A$ be an Artinian ring, let $B=A[x_{1},\dots,x_{m}]$,
+and $M=\bigoplus_{n\geq0}M_{n}$ be a graded module over $B$. Then
+there exists some polynomial $f_{M}(x)\in\QQ[x]$ such that
+the function defined as $F_{M}(n):=\length_{A}(M_{n})$ is such that $F_{M}(n)=f_{M}(n)$ for some sufficiently large $n\gg0$.
+\end{theorem}
+
+Note that $M$ is a finitely-generated module over $B$, that $B$ is
+Noetherian, and therefore $M$ is Noetherian.
+
+I will confess, I am not terribly fond of Matsumara's proof. It's
+rather maundering. The bulk of the lecture was working through
+Matsumara's proof. At the end of class, one of the graduate students
+(Tasmin Chu?) found a slicker proof for the inductive case:
+
+\begin{proof}
+Let $P[M']$ be the assert holds for a graded module $M'$ over $B$.
+We will prove by induction: for any submodule $N$, the assertion
+$P[M/N]$ holds.
+
+\textsc{Base case:} $P[M/M]$ obviously holds.
+
+\textsc{Inductive hypothesis:} Suppose $P[M/N']$ is true for all
+submodules $N'\propersupset N$ strictly.
+  
+\textsc{Inductive case:}
+Let $\mathcal{N}=\{N\subset M\mid P[M/N]\mbox{ does not hold}\}$.
+If $N$ is a maximal element of $\mathcal{N}$, then for all
+$N'\propersupset N$ we have $P[M/N']$ holds. Then $P[M/N]$ holds,
+which is a contradiction. So $\mathcal{N}=\emptyset$, and
+$(0)\notin\mathcal{N}$ implies $P[M/(0)]$ holds as desired.
+\end{proof}
+
+This works because $B$ is Noetherian and $M$ is a finitely-generated
+module over $B$.
