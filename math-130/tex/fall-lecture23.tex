@@ -30,8 +30,11 @@ $f^{-1}\sheaf{G}$ is an $f^{-1}\StructureSheaf_{Y}$-module
 (with $f^{-1}h\cdot f^{-1}s=f^{-1}(hs)$). We see
 $\StructureSheaf_{Y}\to\pushforward{f}\StructureSheaf_{X}$ corresponds
 to $f^{-1}\StructureSheaf_{Y}\to\StructureSheaf_{X}$.
-The pullback $\pullback{f}\sheaf{G}:=f^{-1}\sheaf{G}\otimes_{f^{-1}\StructureSheaf_{Y}}\StructureSheaf_{X}$
-is the \define{Pullback of $\sheaf{G}$ to $X$ by $f$}.
+The pullback gives us a sheaf on $X$
+\begin{equation}
+\pullback{f}\sheaf{G}:=f^{-1}\sheaf{G}\otimes_{f^{-1}\StructureSheaf_{Y}}\StructureSheaf_{X}
+\end{equation}
+which is called the \define{Pullback of $\sheaf{G}$ to $X$ by $f$}.
 
 Hartshorne calls this the \define{Inverse Image} of $\sheaf{G}$ under
 $f$ (see~\cite[II~\S5, p110]{hartshorne1977algebraic}).
@@ -42,6 +45,11 @@ Notation is all over the place. The nLab uses extraordinarily
 confusing notation, in particular when discussing the inverse image of
 a sheaf under a continuous map of ringed spaces. Just be careful when
 reading sources.
+
+We will be using the intuition that $f^{-1}$ uses superscripts for
+preimages and inverse functions, and the notation $\pullback{f}$
+appeals to this intuition (of using superscripts to remind us its
+``inverse'' or ``preimage''-like). 
 \end{caution}
 
 \begin{example}

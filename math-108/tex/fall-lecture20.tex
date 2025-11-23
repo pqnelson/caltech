@@ -161,7 +161,7 @@ We use the triangle inequality to find
   \end{align}
 \end{subequations}
 hence
-\begin{equation}
+\begin{equation}\label{eq:fall2025:lec20:eq-star}
 \|\vec{f}(\vec{b})-\vec{f}(\vec{a})\|_{2}\geq\frac{1}{2}\|\vec{b}-\vec{a}\|_{2}.
 \end{equation}
 This then implies $\vec{f}\colon\closure{K}\to\RR^{n}$ is injective
@@ -211,5 +211,79 @@ for all $j=1,\dots,n$. Then
 2\vec{f}'(\vec{a})(\vec{f}(\vec{a})-\vec{b})=\vec{0}.
 \end{equation}
 But since $\vec{f}'(\vec{a})$ is nonsingular, it must be
-$\vec{f}(\vec{a})=\vec{b}$. 
+$\vec{f}(\vec{a})=\vec{b}$.
+%% Lecture 20 ended here
+
+%% Lecture 21 starts here (after re-stating the theorem)
+\textsc{Step 3: $g$ is continuous (and continuously differentiable).}
+For any $\vec{y}\in V$ and $\vec{y}+\vec{k}\in V$,
+let $\vec{x}=\vec{g}(\vec{y})$ and $\vec{x}+\vec{h}=\vec{g}(\vec{y}+\vec{k})$.
+Then $\vec{y}=\vec{f}(\vec{x})$ and $\vec{y}+\vec{k}=\vec{f}(\vec{x}+\vec{h})$.
+We find
+\begin{subequations}
+  \begin{align}
+\|\vec{g}(\vec{y}+\vec{k})-\vec{g}(\vec{y})\|_{2} &= \|\vec{x}+\vec{h}-\vec{x}\|_{2}=\|\vec{h}\|_{2}\\
+&\leq2\|\vec{f}(\vec{x}+\vec{h})-\vec{f}(\vec{x})\|_{2}\mbox{ by~\eqref{eq:fall2025:lec20:eq-star}}\\
+&\leq2\|\vec{y}+\vec{k}-\vec{y}\|_{2}=2\|\vec{k}\|_{2}
+  \end{align}
+\end{subequations}
+Then $\vec{g}$ is 2-Lipschitz, hence $\vec{g}$ is continuous.
+
+Since $\vec{f}$ is differentiable,
+\begin{equation}
+\vec{f}(\vec{x}+\vec{h})-\vec{f}(\vec{x})=\vec{f}'(\vec{x})\vec{h}+\varepsilon_{f}(\vec{h}),
+\end{equation}
+where
+\begin{equation}
+\lim_{\vec{h}\to0}\frac{\|\varepsilon_{f}(\vec{h})\|_{2}}{\|\vec{h}\|_{2}}=0.
+\end{equation}
+Then we can rewrite the left-hand side as
+\begin{equation}
+\vec{k}=\vec{y}+\vec{k}-\vec{y}=\vec{f}(\vec{x}+\vec{h})-\vec{f}(\vec{x}).
+\end{equation}
+Then we have
+\begin{equation}
+\vec{k}=\vec{f}'(\vec{x})\vec{h}+\varepsilon_{f}(\vec{h}),
+\end{equation}
+which implies
+\begin{equation}
+\vec{k}-\varepsilon_{f}(\vec{h})=\vec{f}'(\vec{x})\vec{h}.
+\end{equation}
+We multiply both sides by the matrix inverse of $\vec{f}'(\vec{x})$,
+\begin{equation}
+\bigl(\vec{f}'(\vec{x})\bigr)^{-1}(\vec{k}-\varepsilon_{f}(\vec{h}))=
+\bigl(\vec{f}'(\vec{x})\bigr)^{-1}\vec{k}-\varepsilon_{g}(\vec{k})=\vec{h},
+\end{equation}
+where
+\begin{equation}
+\varepsilon_{g}(\vec{k})=\bigl(\vec{f}'(\vec{x})\bigr)^{-1}\varepsilon_{f}(\vec{h}).
+\end{equation}
+Since $\vec{f}'(\vec{x})\neq0$ for all $\vec{x}\in\closure{K}$ and
+$\closure{K}$ is compact, there is some $M>0$ such that for all $\vec{x}\in\closure{K}$,
+\begin{equation}
+\|\vec{f}'(\vec{x})^{-1}\|_{\text{op}}\leq M.
+\end{equation}
+Then
+\begin{equation}
+\|\varepsilon_{g}(\vec{k})\|_{2}\leq M\cdot\|\varepsilon_{f}(\vec{h})\|_{2},
+\end{equation}
+which gives us
+\begin{subequations}
+  \begin{align}
+\frac{\|\varepsilon_{g}(\vec{k})\|_{2}}{\|\vec{k}\|_{2}}
+&\leq\frac{M\cdot\|\varepsilon_{2}(\vec{h})\|_{2}}{\|\vec{k}\|_{2}}\\
+&\leq\frac{M\cdot\|\varepsilon_{2}(\vec{h})\|_{2}}{\|\vec{k}\|_{2}}\frac{\|\vec{h}\|_{2}}{\|\vec{h}\|_{2}}\\
+&\leq\frac{M\cdot\|\varepsilon_{2}(\vec{h})\|_{2}}{\|\vec{h}\|_{2}}\frac{\|\vec{h}\|_{2}}{\|\vec{k}\|_{2}}.
+  \end{align}
+\end{subequations}
+We have, using Equation~\eqref{eq:fall2025:lec20:eq-star},
+\begin{equation}
+\frac{\|\vec{h}\|_{2}}{\|\vec{k}\|_{2}}=\frac{\|\vec{x}+\vec{h}-\vec{x}\|_{2}}{\|\vec{f}(\vec{x}+\vec{h})-\vec{f}(\vec{x})\|_{2}}\leq2,
+\end{equation}
+which gives us (since $\lim_{\vec{k}\to0}\vec{h}=0$)
+\begin{equation}
+0\leq\lim_{\vec{k}\to0}\frac{\|\varepsilon_{g}(\vec{k})\|_{2}}{\|\vec{k}\|_{2}}\leq\lim_{\vec{k}\to0}\frac{2M\|\varepsilon_{f}(\vec{h})\|_{2}}{\|\vec{h}\|_{2}}=2M\lim_{\vec{k}\to0}\frac{\|\varepsilon_{f}(\vec{h})\|_{2}}{\|\vec{h}\|_{2}}=0.
+\end{equation}
+Hence $\vec{g}$ is differentiable and $\vec{g}'(\vec{y})=\bigl(\vec{f}'(\vec{g}(\vec{y}))\bigr)^{-1}$
+for any $\vec{y}\in V$. This implies $\vec{g}$ is $C^{1}$.
 \end{proof}

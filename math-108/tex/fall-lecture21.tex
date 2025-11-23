@@ -1,0 +1,191 @@
+%%
+%% fall-lecture21.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-22T12:20:24-0800
+%% Last update 2025-11-22T12:20:24-0800
+%% 
+
+\lecture{}
+
+\begin{theorem}[Inverse mapping]
+If $\vec{f}\colon W\to\RR^{n}$ is continuously differentiable in a
+neighborhood $W\subset\RR^{n}$ of a point $\vec{a}\in W$, and
+$\det(\vec{f}'(\vec{a}))\neq0$, then for any sufficiently small
+neighborhood $U\subset W$ of $\vec{a}$ we have the restriction
+$\vec{f}\colon U\to V$ is a $C^{1}$ homeomorphism for some open
+neighborhood $V$ of $\vec{b}=\vec{f}(\vec{a})$.
+And also there is an inverse function $\vec{g}\colon V\to U$ such that
+$\vec{g}'(\vec{y})=\bigl(\vec{f}'(\vec{g}(\vec{y}))\bigr)^{-1}$ for
+all $\vec{y}\in V$.
+\end{theorem}
+
+Observe the difference with the previous theorem: (1) before we had
+$\vec{f}(0)=0$, (2) before $\vec{f}'(0)=I$ but now $\vec{f}'(\vec{a})$
+is invertible.
+
+\begin{proof}
+We define two invertible affine functions
+\begin{subequations}
+\begin{equation}
+\varphi,\psi\colon\RR^{n}\to\RR^{n}
+\end{equation}
+where
+\begin{equation}
+\varphi(\vec{x})=\bigl(\vec{f}'(\vec{a})\bigr)^{-1}\vec{x}+\vec{a},
+\end{equation}
+and
+\begin{equation}
+\psi(\vec{x})=\vec{x}-\vec{b}.
+\end{equation}
+\end{subequations}
+Now we write
+\begin{equation}
+\vec{F}:=\psi\circ\vec{f}\circ\varphi,
+\end{equation}
+which is continuously differentiable from an open neighborhood of the
+origin to $\RR^{n}$, and we see
+\begin{subequations}
+  \begin{align}
+\vec{F}(\vec{0}) &= \psi(\vec{f}(\varphi(\vec{0})))\\
+&=\psi(\vec{f}(\vec{a}))\\
+&=\psi(\vec{b})\\
+&=\vec{0}.
+  \end{align}
+\end{subequations}
+By the chain-rule,
+\begin{subequations}
+  \begin{align}
+\vec{F}'(\vec{0}) &=\psi'(\vec{b})\vec{f}'(\vec{a})\varphi'(\vec{0})\\
+&=I\vec{f}'(\vec{a})\varphi'(\vec{0})\\
+&=II = I.
+  \end{align}
+\end{subequations}
+Now we can apply the previous theorem, $\vec{F}$ is a $C^{1}$-homeomorphism.
+Let $\vec{G}=\vec{F}^{-1}$ which is continuously differnetiable. Now,
+consider
+\begin{equation}
+\vec{g}=\varphi\circ\vec{G}\circ\psi,
+\end{equation}
+which is $C^{1}$ on an open neighborhood of $\vec{b}=\vec{f}(\vec{a})$
+to $\RR^{n}$. We see
+\begin{subequations}
+  \begin{align}
+\vec{g}\circ\vec{f} &= \varphi\circ\vec{G}\circ\psi\circ\psi^{-1}\circ\vec{F}\circ\varphi^{-1}\\
+&= \varphi\circ\vec{G}\circ\id\circ\vec{F}\circ\varphi^{-1}\\
+&= \varphi\circ\vec{G}\circ\vec{F}\circ\varphi^{-1}\\
+&= \varphi\circ\id\circ\varphi^{-1}\\
+&= \varphi\circ\varphi^{-1}\\
+&= \id,
+  \end{align}
+\end{subequations}
+which implies
+\begin{equation}
+\vec{g}=\vec{f}^{-1}.
+\end{equation}
+Finally, let
+\begin{equation}
+\vec{y}=\vec{f}\bigl(\vec{g}(\vec{y})\bigr)
+\end{equation}
+for any $\vec{y}\in V$. By the chain-rule, we have
+\begin{equation}
+I = \vec{f}'(\vec{g}(\vec{y}))\vec{g}'(\vec{y})
+\end{equation}
+and since $\det(\vec{f}'(\vec{g}(\vec{y})))\neq0$, we may multiply
+both sides by the inverse matrix $(\vec{f}'(\vec{g}(\vec{y})))^{-1}$
+to get the result
+\begin{equation}
+(\vec{f}'(\vec{g}(\vec{y})))^{-1}=\vec{g}'(\vec{y}),
+\end{equation}
+as desired.
+\end{proof}
+
+\begin{definition}
+We call
+\begin{enumerate}
+\item $\vec{f}'(\vec{a})$ the \define{Jacobian Matrix} of $\vec{f}$
+at $\vec{a}$; and
+\item $\det(\vec{f}'(\vec{a}))$ the \define{Jacobian}  of $\vec{f}$
+at $\vec{a}$.
+\end{enumerate}
+\end{definition}
+
+\begin{node}
+If $\vec{f}$ satisfies the inverse mapping theorem, then $\vec{f}$ is
+an open mapping (i.e., for any open subset $U\subset\dom(\vec{f})$, we
+have $\vec{f}(U)$ is an open set).
+\end{node}
+
+\begin{node}
+The inverse mapping theorem is \emph{local}, i.e., makes sense only in
+a suitably small neighborhood of a point (as opposed to \emph{global}
+on all of $\RR^{n}$).
+\end{node}
+
+\begin{example}
+Consider the function describing a point in the plane using polar coordinates
+\begin{equation}
+\begin{split}
+\vec{f}\colon&\RR^{2}\to\RR^{2}\\
+&(r,\theta)\mapsto(r\cos(\theta),r\sin(\theta))
+\end{split}
+\end{equation}
+We can compute its Jacobian matrix at a generic point $(r,\theta)$:
+\begin{equation}
+\vec{f}'(r,\theta) = \begin{bmatrix}
+\partial_{r}f_{1}(r,\theta) & \partial_{\theta}f_{1}(r,\theta)\\
+\partial_{r}f_{2}(r,\theta) & \partial_{\theta}f_{2}(r,\theta)
+\end{bmatrix}= \begin{bmatrix}
+\cos(\theta) & -r\sin(\theta)\\
+\sin(\theta) & r\cos(\theta)
+\end{bmatrix}
+\end{equation}
+Then we see
+\begin{equation}
+\det(\vec{f}'(r,\theta))=r\cos^{2}(\theta)-(-r\sin^{2}(\theta))=r.
+\end{equation}
+When $r\neq0$ we may apply the inverse mapping theorem. But if we fix
+$r\neq0$, then $\vec{f}(r,\theta)=\vec{f}(r,\theta+2\pi k)$ for any $k\in\ZZ$.
+So the mapping is not invertible globally (since it's not a bijection).
+\end{example}
+
+\subsection{Implicit Function Theorem}
+
+\begin{node}
+Let's recall the implicit function theorem we learned in calculus. If
+$f$ is continuously differentaible and we have $f(x,y)=0$, then we can
+solve for $y$ in terms of $x$ in some neighborhood of a point $(a,b)$
+where $f(a,b)=0$ and $\partial_{y}f(a,b)\neq0$.
+
+We want to generalize this to multivariable settings.
+\end{node}
+
+\begin{notation}
+Let $\vec{x}=(x_{1},\dots,x_{n})\in\RR^{n}$ and $\vec{y}=(y_{1},\dots,y_{m})\in\RR^{m}$.
+We will abuse notation and write $(\vec{x},\vec{y})$ to refer to the
+tuple
+\begin{equation}
+(\vec{x},\vec{y})=(x_{1},\dots,x_{n},y_{1},\dots,y_{m})\in\RR^{n+m}.
+\end{equation}
+As long as we are discussing the implicit function theorem, we will
+abuse notation thusly.
+\end{notation}
+
+\begin{notation}
+Let $\vec{x}=(x_{1},\dots,x_{n})\in\RR^{n}$ and $\vec{y}=(y_{1},\dots,y_{m})\in\RR^{m}$.
+For any linear mapping $A\in\mathcal{L}(\RR^{n+m},\RR^{n})$, it's
+representable by an $n\times(n+m)$ matrix, and we can partition it
+into submatrices $A_{\vec{x}}$ and $A_{\vec{y}}$ such that
+\begin{equation}
+A_{\vec{x}}\vec{h}=A(\vec{h},\vec{0})\quad\mbox{and}\quad
+A_{\vec{y}}\vec{k}=A(\vec{0},\vec{k}),
+\end{equation}
+for any $\vec{h}\in\RR^{n}$ and $\vec{k}\in\RR^{m}$. So $A_{\vec{x}}$
+is an $n\times n$ matrix, and $A_{\vec{y}}$ is an $n\times m$ matrix.
+
+(We can ostensibly generalize this to any $A\in\mathcal{L}(\RR^{n+m},\RR^{p})$
+to write it in block form as a $p\times n$ matrix and a $p\times m$
+matrix. But I don't think we will need this level of generality.)
+\end{notation}

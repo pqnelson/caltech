@@ -23,6 +23,8 @@
 \def\properideal{\mathrel{\triangleleft}}
 \let\Radical\sqrt
 \newcommand\AlgebraicClosure[1]{\overline{#1}}
+\newcommand\IntegralClosure[1]{\overline{#1}}
+\let\integralclosure\IntegralClosure
 \DeclareMathOperator\Spec{Spec}
 \DeclareMathOperator\MSpec{MSpec} % all maximal ideals of a ring
 
@@ -90,13 +92,16 @@
 
 \DeclareMathOperator\Char{char}
 \newcommand\HilbertFun[1]{\mathcal{H}_{#1}}
+
 % Groups
 \DeclareMathOperator\GL{GL}
+\DeclareMathOperator\PGL{PGL}
 
 % category theory
 \let\og@hom\hom
 \let\hom\relax
 \DeclareMathOperator\hom{Hom}
+\DeclareMathOperator\Aut{Aut} % automorphism group of an object
 
 \newcommand\cat[1]{\mathbf{#1}}
 
@@ -143,5 +148,8 @@
 \newcommand\IdealSheaf[1]{\sheaf{I}_{#1}}
 \newcommand\sheafify[1]{#1^{+}}
 \DeclareMathOperator\Pic{Pic} % Picard group
+
+%% Algebra Variety
+\newcommand\normalization[1]{\overline{#1}}
 
 \endinput

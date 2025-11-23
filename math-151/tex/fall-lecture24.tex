@@ -1,0 +1,229 @@
+%%
+%% fall-lecture24.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-22T11:21:57-0800
+%% Last update 2025-11-22T11:21:57-0800
+%% 
+
+\lecture{}
+
+\subsection{Cap Product}
+
+\begin{definition}
+Let $R$ be a commutative ring, $X$ be a space.
+We define the \define{Cap Product} to be
+\begin{equation}
+-\frown-\colon C_{k}(X;R)\times C^{\ell}(X;R)\to C_{k-\ell}(X;R)
+\end{equation}
+for all $k\geq\ell$, defined by acting on the simplex
+$\sigma\colon\Delta^{k}=[v_{0},\dots,v_{k}]\to X$ and any $\varphi\in C^{\ell}(X;R)$ by
+\begin{equation}
+\sigma\frown\varphi:=\varphi(\sigma|_{[v_{0},\dots,v_{\ell}]})\cdot\sigma|_{[v_{\ell},\dots,v_{k}]}.
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Leibniz rule]
+We have
+$\boundary(\sigma\frown\varphi)=(-1)^{\ell}((\boundary\sigma)\frown\varphi-\sigma\frown\coboundary\varphi)$.
+\end{proposition}
+
+\begin{corollary}
+The cap product induces a map
+$H_{k}(X;R)\times H^{\ell}(X;R)\to H_{k-\ell}(X;R)$,
+which makes $H_{*}(X;R)$ a right module over $H^{*}(X;R)$.
+\end{corollary}
+
+\begin{proof}[Proof idea]
+One thing we'd need to check is on the chain level
+$(\sigma\frown\varphi)\frown\psi=\sigma\frown(\varphi\smile\psi)$.
+From this, we'd get $H_{*}(X;R)$ is a module over the cohomology ring.
+\end{proof}
+
+\begin{node}
+If $\alpha\in C_{k+\ell}(X;R)$, $\varphi\in C^{k}(X;R)$, and $\psi\in C^{\ell}(X;R)$,
+then $\psi(\alpha\frown\varphi)=(\varphi\smile\psi)(\alpha)$. This may
+be viewed as a special case of the corollary.
+\end{node}
+
+\begin{corollary}
+The map $[\varphi]\smile-\colon H^{\ell}(X;R)\to H^{k+\ell}(X;R)$ is
+dual to $-\frown[\varphi]\colon H_{k+\ell}(X;R)\to H_{k}(X;R)$.
+\end{corollary}
+
+\begin{proof}[Proof idea]
+From the universal coefficient theorem, we can write $H^{\ell}(X;R)\iso\hom(H_{\ell}(X),R)\oplus\Ext(H_{\ell-1}(X),R)$,
+and this gives us the way to replace the dual map $\frown[\varphi]$ on
+a short-exact sequence yielding $[\varphi]\smile$ acting on a short
+exact sequence.
+\end{proof}
+
+\begin{remark}
+In infinite-dimensional homology, it does not always make sense to
+speak of the cohomology ring, but the cap product remains a
+well-defined notion.
+\end{remark}
+
+\subsection{K\"{u}nneth Formula}
+
+\begin{node}
+Let $X$ and $Y$ be spaces. We want to compute $H_{*}(X\times Y)$ from
+$H_{*}(X)$ and $H_{*}(Y)$. The K\"{u}nneth formula accomplishes this task.
+\end{node}
+
+\begin{definition}[Tensor product of chain complexes]
+Let $(C_{*},\boundary)$ and $(C'_{*},\boundary')$ be two chain complexes.
+Then their \define{Tensor Product} is the chain complex
+$(\overline{C}_{*},\overline{\boundary})$ where
+\begin{equation}
+\overline{C}_{n}=\bigoplus_{i+j=n}C_{i}\otimes C'_{j}\mbox{ as Abelian groups},
+\end{equation}
+and for any $x\in C_{i}$ and $y\in C'_{j}$, we have
+\begin{equation}
+\overline{\boundary}(x\otimes y)=(\boundary x)\otimes y+(-1)^{i}x\otimes\boundary'y.
+\end{equation}
+To prove this is well-defined, we should check that
+$\overline{\boundary}^{2}=0$, so we see
+\begin{subequations}
+  \begin{align}
+\overline{\boundary}^{2}(x\otimes y) &= (\boundary^{2}x)\otimes
+y+(-1)^{i+1}(\boundary x)\otimes(\boundary'y)+(-1)^{i}(\boundary x)\otimes(\boundary'y)
++(-1)^{2i}x\otimes(\boundary'^{2}y)\\
+&=(-1)^{i}(1-1)(\boundary x)\otimes(\boundary'y)\\
+&=0
+  \end{align}
+\end{subequations}
+\end{definition}
+
+\begin{lemma}
+Suppose $0\to A_{*}\to B_{*}\to C_{*}\to )$ is a split short exact
+sequence of chain complexes, and suppose $G_{*}$ is a chain complex.
+Then
+\begin{equation}
+0\to A_{*}\otimes G_{*}\to B_{*}\otimes G_{*}\to C_{*}\otimes G_{*}\to0
+\end{equation}
+is a split short exact sequence.
+\end{lemma}
+
+\begin{theorem}[Algebraic K\"{u}nneth Formula]
+Suppose $C$ and $C'$ are chain complexes. If $C$ is free,
+then for all $n\in\NN_{0}$ there exists a natural short exact sequence
+\begin{equation}
+0\to\bigoplus_{i}H_{i}(C)\otimes H_{n-i}(C')\to H_{n}(C\otimes C')\to\bigoplus_{i}\Tor(H_{i}(C),H_{n-i-1}(C'))\to0
+\end{equation}
+which is split.
+\end{theorem}
+
+This should remind us of the universal coefficient theorem for
+homology (\S\ref{universal-coefficient-theorem-homology}). Even the requirement that one of the guys is free should
+ring a bell.
+
+\begin{proof}
+First, if $\boundary=0$ in $C$, then the conclusion is true. We can
+see this because
+\begin{subequations}
+\begin{equation}
+\bigoplus_{i}H_{i}(C)\otimes H_{n-i}(C')=\bigoplus C_{i}\otimes H_{n-i}(C'),
+\end{equation}
+and
+\begin{equation}
+H_{n}(C\otimes C')=\bigoplus_{i}C_{i}\otimes H_{n-i}(C'),
+\end{equation}
+and
+\begin{equation}
+\bigoplus_{i}\Tor(H_{i}(C),H_{n-i-1}(C'))=\bigoplus\Tor(C_{i},H_{n-i-1}(C')),
+\end{equation}
+\end{subequations}
+and then the conclusion follows immediately.
+
+Now, let $Z_{*}=\ker(\boundary)$ and $B_{*}=\Im(\boundary)$. Then we
+have
+\begin{equation}
+0\to Z_{k}\to C_{k}\xrightarrow{\boundary} B_{k-1}\to0
+\end{equation}
+is a short exact sequence by definition (and it's split since $C$ is free).
+Then we can use our Lemma nad tensor with $C'$, we get the short exact sequence
+\begin{equation}
+0\to Z_{k}\otimes C'_{*}\to C_{k}\otimes C'_{*}\xrightarrow{\boundary\otimes\id} B_{k-1}\otimes C'_{*}\to0.
+\end{equation}
+This gives us a long exact sequence
+\begin{equation}
+\dots\to H_{n}(Z\otimes C')\to H_{n}(C\otimes C')\to H_{n-1}(B\otimes
+C')\to H_{n-1}(Z\otimes C')\to\dots
+\end{equation}
+which is (using the induced map $i_{n}\colon B_{n}\into Z_{n}$ from
+the inclusion $i\colon B\into Z$)
+\begin{equation}
+\dots\xrightarrow{i_{n}}(Z_{*}\otimes H_{*}(C'))_{n}\to H_{n}(C\otimes
+C')\to(B_{*}\otimes H_{*}(C'))_{n-1}\xrightarrow{i_{n-1}}(Z_{*}\otimes H_{*}(C))_{n-1}\to\dots
+\end{equation}
+Hence
+\begin{equation}
+0\to\coker(i_{n})\to H_{n}(C\otimes C')\to\ker(i_{n-1})\to0
+\end{equation}
+is a short exact sequence.
+
+We can consider the short exact sequence (from the definition of
+homology alone)
+\begin{equation}
+0\to B_{k}\xrightarrow{i_{k}}Z_{k}\to H_{k}(C)\to0.
+\end{equation}
+Then tensoring with $H_{n-k}(C')=G$ gives us
+\begin{equation}
+\vcenter{\xymatrix{
+0\ar[r] & \Tor(B_{k},G)\ar[r]        & \Tor(Z_{k},G)=0\ar[r] &\ar[lld]\Tor(H_{k}(C),G)&\\
+        & B_{k}\otimes G\ar[r]_{i_{n}} & Z_{k}\otimes G\ar[r] & H_{k}(C)\otimes G\ar[r]&0}}
+\end{equation}
+So
+\begin{equation}
+\bigoplus_{k}\Tor(H_{k}(C),H_{n-k}(C'))=\ker(i_{n}\otimes G),
+\end{equation}
+where
+$i_{n}\otimes G\colon B\otimes G\to Z\otimes G$, and
+\begin{equation}
+\bigoplus_{k}\Tor(H_{k}(C),H_{n-k}(C'))=\coker(i_{n}\otimes G).
+\end{equation}
+This gives us an exact short sequence. We still need to prove it is
+split, but it is the same as in the universal coefficient theorem, so
+we're calling it a day here.
+\end{proof}
+
+\begin{remark}
+When $C_{*}'=C'_{0}=G$ has only one term, then the tensor product
+$C_{*}\otimes C'_{*}=C_{*}\otimes G$. In this case, the K\"{u}nneth
+formula is just the Universal Coefficient Theorem for homology (\S\ref{universal-coefficient-theorem-homology}).
+Unsurprisingly, the proof for the Algebraic K\"{u}nneth formula
+resembles the proof for the Universal coefficient theorem.
+\end{remark}
+
+\begin{remark}
+See also Hatcher~\cite[Theorem 3B.5]{hatcher2002algebraic} for his presentation of the Algebraic
+K\"{u}nneth formula.
+\end{remark}
+
+\begin{node}
+If $X$ and $Y$ are CW complexes, then $X\times Y$ has an induced CW
+complex structure. If $e_{\alpha}$ is a cell in $X$ and $e_{\beta}$ is
+a cell in $Y$, then $e_{\alpha}\times e_{\beta}$ is a cell in $X\times Y$.
+\end{node}
+
+\begin{proposition}
+Let $C_{*}$ be the cellular chain complex, then $C_{*}(X\times Y)\iso C_{*}(X)\otimes C_{*}(Y)$.
+\end{proposition}
+
+\begin{proof}[Proof idea]
+Check the boundary map (since it's obviously true for the underlying
+Abelian groups). Check the boundary maps on two cubes
+$\boundary(I^{k}\times I^{\ell})$, then every cell can be
+approximated by a cube.
+\end{proof}
+
+\begin{corollary}[K\"{u}nneth formula for topological spaces]
+If $X$ and $Y$ are CW complexes, then
+\begin{equation}
+0\to\bigoplus_{i}H_{i}(X)\otimes H_{n-i}(Y)\to H_{n}(X\times Y)\to\bigoplus_{i}\Tor(H_{i}(X),H_{n-i-1}(Y))\to0
+\end{equation}
+is a natural short exact sequence and it is split.
+\end{corollary}

@@ -1,0 +1,273 @@
+%%
+%% fall-lecture24.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-23T10:22:58-0800
+%% Last update 2025-11-23T10:22:58-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+We say $\sheaf{L}$ is a \define{Very Ample} invertible sheaf on $X$ if
+there exists a basis $s_{0}$, \dots, $s_{n}$ of $\Gamma(X,\sheaf{L})$
+that gives us an isomorphism $f\colon X\to W\subset\PP^{n}$ where
+$W\subset\PP^{n}$ is locally closed.
+\end{definition}
+
+\begin{example}
+$\sheaf{O}_{\PP^{n}}(m)$ is very ample if and only if $m\geq1$ and $W$
+  is given by the Veronese embedding.
+\end{example}
+
+\begin{fact}
+Every invertible sheaf on $\PP^{n}$ is isomorphic to $\sheaf{O}(m)$
+for $m\in\ZZ$.
+\end{fact}
+
+\begin{definition}
+We can define the \define{Projective General Linear Group}
+as $\PGL(n):=\GL(n+1)/\kk^{\times}$. (This is a bit sloppy, it should
+be defined as $\GL(n+1)/Z(\GL(n+1))$ but the center of $\GL(n+1)$ are
+just nonzero scalar matrices.)
+\end{definition}
+
+\begin{xca}
+Prove $\PGL(n)$ is an \emph{affine} algebraic group.
+\end{xca}
+
+\begin{node}
+$\Aut(\PP^{n})=\PGL(n)$.
+\end{node}
+
+\begin{proof}
+We see $\PGL(n)\subset\Aut(\PP^{n})$ clearly.
+
+We want to show $\PGL(n)\supset\Aut(\PP^{n})$. Suppose
+$f\colon\PP^{n}\to\PP^{n}$ is an automorphism. Then by the previous
+fact,
+\begin{equation}
+\pullback{f}\sheaf{O}(1)\iso\sheaf{O}(m).
+\end{equation}
+We want to prove $m=1$. Looking at the global sections, we see
+\begin{equation}
+\binom{n+m}{n}=\dim_{\kk}\Gamma(\PP^{n},\sheaf{O}(m))=\dim_{\kk}\Gamma(\PP^{n},\pullback{f}\sheaf{O}(1))=\dim_{\kk}\Gamma(\PP^{n},\sheaf{O}(1)),
+\end{equation}
+which implies $m=1$ as desired.
+
+Then
+\begin{equation}
+\pullback{f}(x_{i})=\sum^{n}_{j=0}a_{ij}x_{j}\in\Gamma(\sheaf{O}(1)),
+\end{equation}
+where $a_{ij}\in\kk$. Writing the invertible matrix with these
+components as $A=(a_{ij})\in\GL(n+1)$. Then we construct
+$\varphi\colon\PP^{n}\to\PP^{n}$ defined by
+\begin{equation}
+\varphi(x_{0}:\dots:x_{n})=(\sum_{j}a_{0j}x_{j} : \dots : \sum_{j}a_{nj}x_{j}).
+\end{equation}
+We want to prove $f=\varphi$. Suffices to look at the pullback
+\begin{equation}
+\pullback{\varphi}(x_{\ell}/x_{i})=\frac{\sum_{j}a_{\ell j}x_{j}}{\sum_{j}a_{ij}x_{j}}=\pullback{f}(x_{\ell}/x_{i}),
+\end{equation}
+which implies $f=\varphi$ since the pullbacks are unique. Then since
+we can rescale, we find $f=\varphi\in\PGL(n)$.
+\end{proof}
+
+\subsection{Normal Varieties}
+
+\begin{node}
+Normal varieties are a class of ``mildly singular'' varieties, they
+are nonsingular in codimension 1. On the ring level, they correspond
+to integrally closed domains.
+\end{node}
+
+\begin{definition}
+An irreducible variety $X$ is called \define{Normal} if
+$\StructureSheaf_{X,p}$ is normal (i.e., integrally closed domain) for
+all $p\in X$.
+\end{definition}
+
+\begin{example}
+Nonsingular varieties are normal.
+\end{example}
+
+\begin{example}
+Let $X$ be affine. Then
+\begin{align*}
+X\mbox{ is normal}&\iff \CoordRing{\kk}{X}_{\mathfrak{m}}\mbox{ is normal for all maximal ideal }\mathfrak{m}\\
+&\iff \CoordRing{\kk}{X}\mbox{ is normal}
+\end{align*}
+\end{example}
+
+\begin{remark}
+Being normal is a local condition.
+\end{remark}
+
+\begin{lemma}\label{lemma:fall2025-lec24:open-embedding}
+Let $\varphi\colon U\to X$ be a morphism of affine varieties.
+Then $\varphi$ is an open embedding if and only if there exists
+$f_{1},\dots,f_{n}\in\CoordRing{\kk}{X}$ such that
+$(\pullback{\varphi}f_{1},\dots,\pullback{\varphi}f_{n})=(1)=\CoordRing{\kk}{U}$
+and $\pullback{\varphi}\colon\CoordRing{\kk}{X}_{f_{i}}\to\CoordRing{\kk}{X}_{\pullback{\varphi}f_{i}}$
+is an isomorphism for all $i$.
+\end{lemma}
+
+\begin{definition}
+Let $X$ be an irreducible affine variety. We define its
+\define{Normalization} to be $\normalization{X}$ such that it is the
+maximal-spectrum of the integral closure of the coordinate ring of
+$X$, i.e., $\normalization{X}:=\MSpec(\IntegralClosure{\CoordRing{\kk}{X}})$.
+
+(This notation is very unfortunate\dots but it's grandfathered in, and
+I can't do anything about it.)
+\end{definition}
+
+\begin{lemma}
+Let $X$ be an affine variety.
+If $U\subset X$ is open affine, then their normalizations
+$\normalization{U}\subset\normalization{X}$ is open affine.
+\end{lemma}
+
+\begin{proof}
+We see $\CoordRing{\kk}{X}\subset\CoordRing{\kk}{U}\subset\FunField[\kk]{X}$, which implies $\integralclosure{\CoordRing{\kk}{X}}\subset\integralclosure{\kk}{U}$.
+Then we have
+$\varphi\colon\normalization{U}\to\normalization{X}$ which we want to
+show is an open embedding. Take $f_{1}$,
+\dots, $f_{n}\in\CoordRing{\kk}{X}$ as in Lemma~\ref{lemma:fall2025-lec24:open-embedding}
+for $U\subset X$. Then $(f_{1},\dots,f_{n})=(1)\subset\integralclosure{\CoordRing{\kk}{U}}=\CoordRing{\kk}{\normalization{U}}$,
+and
+\begin{subequations}
+  \begin{align}
+\CoordRing{\kk}{\normalization{U}}_{f_{i}}
+&= \integralclosure{\CoordRing{\kk}{U}_{f_{i}}}\\
+&= \integralclosure{\CoordRing{\kk}{X}_{f_{i}}}\\
+&= \integralclosure{\CoordRing{\kk}{X}}_{f_{i}}
+  \end{align}
+\end{subequations}
+since localization commutes with integral closure. Hence the result by Lemma~\ref{lemma:fall2025-lec24:open-embedding}.
+\end{proof}
+
+\begin{construction}[Gluing for normalization]
+If $X$ is any irreducible variety, then $X=U_{1}\cup\dots\cup U_{n}$
+is an open affine covering. Writing $U_{ij}=U_{i}\cap U_{j}$, these
+are affine. We have
+\begin{equation}
+\id=\phi_{ij}\colon U_{ij}\to U_{ji}
+\end{equation}
+is an isomorphism. Then $\normalization{U_{ij}}\subset\normalization{U_{i}}$
+is an open subset. We still have
+$\phi_{ij}\colon\normalization{U_{ij}}\to\normalization{U_{ji}}$ is an
+isomorphism, so we can still glue the normalizations together.
+\end{construction}
+
+\begin{xca}
+There exists a prevariety
+$\normalization{X}=\normalization{U_{1}}\cup\dots\cup\normalization{U_{n}}$
+which is how we construct the normalization of $X$. (We need to check
+$\normalization{X}$ is separated.)
+\end{xca}
+
+\begin{note}
+The integral closures of the coordinate rings
+$\integralclosure{\CoordRing{\kk}{U_{i}}}$ is a finitely-generated $\CoordRing{\kk}{U_{i}}$-module,
+so we have $\pi_{i}\colon\normalization{U_{i}}\to U_{i}$ is a so-called
+finite morphism which glue to form a morphism
+$\pi\colon\normalization{X}\to X$. This morphism is \define{Finite}
+(there exists an open affine cover of $X=\bigcup_{i}U_{i}$ such that
+$\pi^{-1}(U_{i})$ is affine and $\CoordRing{\kk}{\pi^{-1}(U_{i})}$ is
+a finitely-generrated module over $\CoordRing{\kk}{U_{i}}$). In
+particular, the morphism is affine.
+\end{note}
+
+\begin{xca}
+Let $\varphi\colon X\to Y$ be an affine morphism of prevarieties.
+Prove: if $Y$ is separated, then $X$ is separated. (Hence
+the normalization is separated.)
+\end{xca}
+
+\begin{example}
+Let $X$ be an irreducible curve. Then $\pi\colon\normalization{X}\to X$
+is a resolution of singularities. (If we iterate blow-ups, we will
+eventually obtain a result isomorphic to the normalization, once all
+singularities have been resolved.)
+\end{example}
+
+\subsection{Divisors}
+
+\begin{node}
+We will consider local rings along a subvariety, generalizing the
+notion of stalks of sheaves.
+\end{node}
+
+\begin{definition}
+Let $X$ be a variety, let $V\subset X$ be a closed irreducible subvariety.
+We define the \define{Local Ring of $X$ Along $V$} to be
+\begin{equation}
+\StructureSheaf_{X,V} :=\colim_{\substack{U\subset X\text{ open}\\U\cap V\neq\emptyset}}\StructureSheaf_{X}(U).
+\end{equation}
+If $X$ is irreducible, then
+\begin{equation}
+\StructureSheaf_{X,V}=\{f\in\FunField[\kk]{X}\mid f\mbox{ is defined at some point in }V\}.
+\end{equation}
+The general case: if $U\subset X$ is affine, $U\cap V\neq\emptyset$,
+and $P=I(U\cap V)\subset\CoordRing{\kk}{U}$ prime, then $\StructureSheaf_{X,V}=\CoordRing{\kk}{U}_{P}$.
+(For schemes, these are \emph{bona fide} stalks.)
+\end{definition}
+
+\begin{definition}
+We say $X$ is \define{Regular Along} $V$ if $\StructureSheaf_{X,V}$ is
+a regular local ring, i.e., the maximal ideal of
+$\StructureSheaf_{X,V}$ is generated by
+$\dim(\StructureSheaf_{X,V})=\codim(V;X)$ number of elements.
+\end{definition}
+
+\begin{fact}
+$X$ is regular along $V$ if and only if $V\nsubset X_{\text{sing}}$ is
+  not contained in the singular locus of $X$.
+\end{fact}
+
+\subsection*{Divisors}
+
+\begin{assume}
+Now we will require $X$ is a normal variety.
+\end{assume}
+
+\begin{definition}
+A \define{Prime Divisor} of $X$ is a closed irreducible subvariety
+$Y\subset X$ of codimension $1$.
+\end{definition}
+
+\begin{fact}
+If $Y$ is a prime divisor, then $\StructureSheaf_{X,Y}$ is a
+Noetherian local domain of codimension 1.
+\end{fact}
+
+\begin{fact}
+If $Y$ is a prime divisor, then $\StructureSheaf_{X,Y}$ is a
+discrete valuation ring.
+\end{fact}
+
+\begin{node}
+As a consequence of these facts, 
+\begin{enumerate}
+\item $\codim(X_{\text{sing}};X)\geq2$, and
+\item We have a valuation
+  $v_{Y}\colon\FunField[\kk]{X}^{\times}\to\ZZ$ for every prime
+  divisor $Y\subset X$.
+\end{enumerate}
+\end{node}
+
+\begin{lemma}
+Let $f\in\FunField[\kk]{X}^{\times}$. Then $v_{Y}(f)=0$ for all but
+finitely many prime divisors $Y$ of $X$.
+\end{lemma}
+
+\begin{proof}
+Suffices to show there are only finitely many $Y$ with $v_{Y}(f)<0$.
+Set $U\subset X$ be an open set where $f$ is defined. Then
+$Z=X\setminus U$ is its complement. When $v_{Y}(f)<0$,
+$f\notin\StructureSheaf_{X,Y}$ implies $f$ is not defined at any point
+in $Y$. Then $Y\subset Z$ as a component.
+\end{proof}
