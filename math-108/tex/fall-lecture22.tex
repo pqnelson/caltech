@@ -1,0 +1,162 @@
+%%
+%% fall-lecture22.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-25T10:25:11-0800
+%% Last update 2025-11-25T10:25:11-0800
+%% 
+
+\lecture{}
+
+\begin{node}[Review of 1-dimensional situation]
+We learned in calculus if we have a function of two variables $f(x,y)$
+and we have $f(x,y)=0$, then we can write one variable in terms of the
+other if the partial derivative of $f(x,y)$ with respect to the one
+variable is nonzero.
+\end{node}
+
+\begin{theorem}[Linear implicit function theorem]
+Let $A\in\mathcal{L}(\RR^{n+m},\RR^{n})$ and suppose $A_{x}$ is invertible.
+Then for each $\vec{k}\in\RR^{m}$ there exists a unique
+$\vec{h}\in\RR^{n}$ such that $A(\vec{h},\vec{k})=\vec{0}$ and $\vec{h}=-(A_{x})^{-1}A_{y}\vec{k}$.
+\end{theorem}
+
+\begin{proof}
+By direct calculation,
+\begin{align*}
+A(\vec{h},\vec{k})=\vec{0}
+&\iff A_{x}\vec{h}+A_{y}\vec{k}=0\\
+&\iff A_{x}\vec{h}=-A_{y}\vec{k}\\
+&\iff \vec{h}=-(A_{x})^{-1}A_{y}\vec{k}
+\end{align*}
+Hence the result.
+\end{proof}
+
+\begin{theorem}[Implicit function theorem]
+Let $\vec{f}\colon E\to\RR^{n}$ be a continuously differentiable
+function in an open set $E\subset\RR^{n+m}$ such that
+$\vec{f}(\vec{a},\vec{b})=\vec{0}$ for some $(\vec{a},\vec{b})\in E$.
+Let $A=\vec{f}'(\vec{a},\vec{b})$, and assume $A_{x}$ is invertible.
+Then
+\begin{enumerate}
+\item There exists some open subset $U\subset\RR^{n+m}$ and $W\subset\RR^{m}$
+  where $(\vec{a},\vec{b})\in U$ and $\vec{b}\in W$ and for each
+  $\vec{y}\in W$ there exists a unique $(\vec{x},\vec{y})\in U$
+  satisfying $\vec{f}(\vec{x},\vec{y})=\vec{0}$; and
+\item If this $\vec{x}$ is defined to be $\vec{g}(\vec{y})$, then
+  $\vec{g}\colon W\to\RR^{n}$ is continuously differentiable,
+  satisfies $\vec{g}(\vec{b})=\vec{a}$, and for all $\vec{y}\in W$ we
+  have $\vec{f}(\vec{g}(\vec{y}),\vec{y})=\vec{0}$ and $\vec{g}'(\vec{b})=-(A_{x})^{-1}A_{y}$.
+\end{enumerate}
+\end{theorem}
+
+We just explicitly draw attention to the two claims being made.
+
+\begin{proof}
+Define $\vec{F}\colon E\to\RR^{n+m}$ by
+\begin{equation}
+\vec{F}(\vec{x},\vec{y})=\bigl(\vec{f}(\vec{x},\vec{y}),\vec{y}\bigr)
+\end{equation}
+for $(\vec{x},\vec{y})\in E$. Then $\vec{F}$ is continuously
+differentiable in $E$.
+
+\textsc{Step 1: $\vec{F}'(\vec{a},\vec{b})$ is invertible.} Since $\vec{f}(\vec{a},\vec{b})=\vec{0}$,
+\begin{subequations}
+  \begin{align}
+\vec{f}(\vec{a}+\vec{h},\vec{b}+\vec{k})-\vec{f}(\vec{a},\vec{b})
+&=\vec{f}'(\vec{a},\vec{b})(\vec{h},\vec{k})+\vec{r}(\vec{h},\vec{k})\\
+&=A(\vec{h},\vec{k})+\vec{r}(\vec{h},\vec{k})
+  \end{align}
+\end{subequations}
+by definition of the differential. Then
+\begin{subequations}
+  \begin{align}
+\vec{F}(\vec{a}+\vec{h},\vec{b}+\vec{k})-\vec{F}(\vec{a},\vec{b})
+&=\bigl(\vec{f}(\vec{a}+\vec{h},\vec{b}+\vec{k}),\vec{b}+\vec{k}\bigr)-(\vec{0},\vec{b})\\
+&=\bigl(\vec{f}(\vec{a}+\vec{h},\vec{b}+\vec{k}),\vec{k}\bigr)\\
+&=\bigl(A(\vec{h},\vec{k})+\vec{r}(\vec{h},\vec{k}),\vec{k}\bigr)\\
+&=\bigl(A(\vec{h},\vec{k}),\vec{k}\bigr)+\bigl(\vec{r}(\vec{h},\vec{k}),\vec{0}\bigr)
+  \end{align}
+\end{subequations}
+which is written as the sum of a linear part and the remainder term.
+Then $\vec{F}'(\vec{a},\vec{b})$ is the linear map
+\begin{equation}
+(\vec{h},\vec{k})\mapsto\bigl(A(\vec{h},\vec{k}),\vec{k}\bigr).
+\end{equation}
+If $\bigl(A(\vec{h},\vec{k}),\vec{k}\bigr)=\vec{0}$, then
+$\vec{k}=\vec{0}$ and also $A(\vec{h},\vec{0})=\vec{0}$. This implies
+$\vec{F}'(\vec{a},\vec{b})$ is injective (since its kernel is zero).
+
+The domain and codomain of $\vec{F}'(\vec{a},\vec{b})$ have the same
+dimension. This implies $\vec{F}'(\vec{a},\vec{b})$ is
+surjective. Hence $\vec{F}'(\vec{a},\vec{b})$ is surjective. Hence $A$
+is a bijection.
+
+\textsc{Step 2: find $g$.} We apply the inverse function theorem to
+$\vec{F}$. There exists open subsets $U\subset\RR^{n+m}$ and
+$V\subset\RR^{n+m}$ such that $(\vec{a},\vec{b})\in U$ and
+$(\vec{0},\vec{k})\in V$ and $\vec{F}\colon U\to V$ bijective. Let
+\begin{equation}
+W :=\{\vec{y}\in\RR^{m}\mid(\vec{0},\vec{y})\in V\}.
+\end{equation}
+Since $V$ is open, $W$ is open. (Why? ``Continuity''. Think about it!)
+
+\textsc{Step 3.}
+We define $\vec{g}(\vec{y})$ such that $(\vec{g}(\vec{y}),\vec{y})\in U$
+and $\vec{f}(\vec{g}(\vec{y}),\vec{y})=\vec{0}$. Then
+\begin{equation}
+\vec{F}(\vec{g}(\vec{y}),\vec{y})=(\vec{0},\vec{y}).
+\end{equation}
+The inverse function
+\begin{equation}
+\vec{G}\colon V\to U,
+\end{equation}
+by the inverse mapping theorem, $\vec{G}$ is continuously
+differentiable and for all $\vec{y}\in W$,
+\begin{equation}
+\vec{G}(\vec{0},\vec{y})=(\vec{g}(\vec{y}),\vec{y}).
+\end{equation}
+Then $\vec{g}$ is continuously differentiable.
+
+\textsc{Step 4.} Define $\Phi(\vec{y}):=(\vec{g}(\vec{y}),\vec{y})$. Then
+\begin{subequations}
+  \begin{align}
+\Phi(\vec{y}+\vec{k})-\Phi(\vec{y})
+&=(\vec{g}(\vec{y}+\vec{k}),\vec{y}+\vec{k})-(\vec{g}(\vec{y}),\vec{y})\\
+&=(\vec{g}(\vec{y}+\vec{k})-\vec{g}(\vec{y}),\vec{k})\\
+&=\bigl(\vec{g}'(\vec{y})\vec{k},\vec{k}\bigr)+(\vec{s}(\vec{k}),\vec{0}),
+  \end{align}
+\end{subequations}
+where $(\vec{s}(\vec{k}),\vec{0})$ is the remainder term. Then for all
+$\vec{y}\in W$ and $\vec{k}\in\RR^{m}$,
+\begin{equation}
+\Phi'(\vec{y})\vec{k}=\bigl(\vec{g}'(\vec{y})\vec{k},\vec{k}\bigr).
+\end{equation}
+Then for all $\vec{y}\in W$, we see
+$\vec{f}(\Phi(\vec{y}))=\vec{0}$. Then we may apply the chain rule
+\begin{equation}\label{eq:fall2025-lec22:math108a:eq-star}
+\vec{f}'(\Phi(\vec{y}))\Phi'(\vec{y}).
+\end{equation}
+We substitute $\phi(\vec{b})=(\vec{a},\vec{b})$ since $\vec{g}(\vec{b})=\vec{a}$,
+and we find Eq~\eqref{eq:fall2025-lec22:math108a:eq-star} becomes
+\begin{equation}
+A\Phi'(\vec{b})=\vec{0}.
+\end{equation}
+Then
+\begin{subequations}
+  \begin{align}
+A\Phi'(\vec{b})\vec{k}
+&=A(\vec{g}'(\vec{b})\vec{k},\vec{k})\\
+&=A_{x}\vec{g}'(\vec{b})\vec{k} + A_{y}\vec{k}\\
+&=\vec{0}.
+  \end{align}
+\end{subequations}
+Then $A_{x}\vec{g}'(\vec{b})\vec{k} + A_{y}\vec{k}=\vec{0}$ and
+$A_{x}$ is invertible (by hypothesis) gives us
+\begin{equation}
+\vec{g}'(\vec{b})=-(A_{x})^{-1}A_{y},
+\end{equation}
+as desired.
+\end{proof}

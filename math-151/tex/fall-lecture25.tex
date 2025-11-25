@@ -1,0 +1,189 @@
+%%
+%% fall-lecture25.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-25T09:42:28-0800
+%% Last update 2025-11-25T09:42:28-0800
+%% 
+
+\lecture{}
+
+\begin{notation}
+Let $X$ and $Y$ be CW complexes. We will write (in this lecture, at least)
+$p_{X}\colon X\times Y\to X$ and $p_{Y}\colon X\times Y\to Y$
+for the projection morphisms.
+\end{notation}
+
+\begin{definition}
+Let $X$ and $Y$ be CW complexes. Let $R$ be a ring.
+We define the \define{Cross Product} (or ``\emph{External Cup Product}'')
+of cohomology groups as
+\begin{equation}
+\begin{split}
+&H^{k}(X;R)\times H^{\ell}(Y;R)\xrightarrow{\times}H^{k+\ell}(X\times Y;R)\\
+(a,b)\mapsto p_{X}^{*}(a)\smile p_{Y}^{*}(b),
+\end{split}
+\end{equation}
+where $p_{X}^{*}$ is the pullback of the projection $p_{X}$, and
+$p_{Y}^{*}$ is the pullback of $p_{Y}$.
+\end{definition}
+
+\begin{puzzle}
+When is this cross product an isomorphism?
+\end{puzzle}
+
+\begin{remark}[Sources in the literature]
+The only sources I could find on the ``cross product'' in homology or
+cohomology appears to be Hatcher~\cite{hatcher2002algebraic},
+Chapter~3 Section~B. After looking around, it appears that only
+Hatcher discusses ``cross products'' of CW complexes.
+\end{remark}
+
+\begin{theorem}[{Hatcher~\cite[Th.~3.15]{hatcher2002algebraic}}]
+The cross product $H^{*}(X;R)\times H^{*}(Y;R)\to H^{*}(X\times Y;R)$
+is a ring isomorphism if $X$ and $Y$ are CW complexes and $H^{*}(Y;R)$
+is a finitely-generated $R$-module.
+\end{theorem}
+
+\begin{proof}
+Define two cohomology theories,
+\begin{subequations}
+\begin{equation}
+h^{*}(X,A):=H^{*}(X,A;R)\otimes H^{*}(Y;R),
+\end{equation}
+and
+\begin{equation}
+k^{*}(X,A):=H^{*}(X\times Y,A\times Y;R).
+\end{equation}
+\end{subequations}
+(By ``cohomology theories'', we mean functor from the category of
+pairs of spaces to the category of rings satisfying the
+Eilenberg--Steenrod axioms for cohomology.) We can check these
+functors satisfy the axioms for cohomology; $k^{*}$ is easy. The hard
+work is with $h^{*}$ where we need to use the fact $H^{*}(Y;R)$ is a
+finitely-generated free module over $R$, then $h^{*}(X,A)$ is just
+several copies of $H^{*}(X,A;R)$.
+
+We see $h^{*}(\point{})=H^{*}(Y;R)$ and $k^{*}(\point{})=H^{*}(Y;R)$
+and they are equal $h^{*}(\point{})=k^{*}(\point{})$. From this we can
+see these two theories are isomorphic.
+
+But we want \emph{more}. We define
+\begin{equation}
+\mu\colon h^{*}(X,A)\to k^{*}(X,A)
+\end{equation}
+to be the natural transformation defined by the cross product. So
+$\mu$ induces an isomorphism for $(X,A)=(\point{},\emptyset)$. Then
+$\mu$ is an isomorphism for all CW pairs $(X,A)$, a fact which follows
+from the Eilenberg--Steenrod axioms for cohomology.
+\end{proof}
+
+\begin{example}
+Consider the torus $\torus{n}=\sphere{1}\times\dots\times\sphere{1}$
+which is the product of $n$ copies of the circle $\sphere{1}$. We see
+that $H^{*}(\sphere{1})\iso\ZZ[x]/(x^{2})$ where $x$ is the generator
+of $\ZZ$ and the grading of $x$ is $\deg(x)=1$.
+Then
+\begin{subequations}
+  \begin{align}
+H^{*}(\torus{n}) &=\bigotimes H^{*}(\sphere{1})\\
+&=\ZZ\langle x_{1},\dots,x_{n}\rangle/(x_{1}^{2},\dots,x_{n}^{2},x_{i}x_{j}=-x_{j}x_{i})\\
+&=\ExteriorAlgebra\ZZ^{n}.
+  \end{align}
+\end{subequations}
+This is just the exterior algebra of $\ZZ^{n}$.
+\end{example}
+
+\begin{example}
+Consider $X=\sphere{2}\times\dots\times\sphere{2}$ which is the
+product of $n$ copies of the sphere $\sphere{2}$. We recall the
+cohomology ring $H^{*}(\sphere{2})\iso\ZZ[x]/(x^{2})$ where $x$ is a
+generator of $\ZZ$ and its grading is now $\deg(x)=2$. Then we see
+\begin{subequations}
+  \begin{align}
+H^{*}(X) &=\bigotimes H^{*}(\sphere{2})\\
+&=\ZZ[x_{1},\dots,x_{n}]/(x_{1}^{2},\dots,x_{n}^{2}).
+  \end{align}
+\end{subequations}
+\end{example}
+
+\subsection{Orientation of Manifolds}
+
+\begin{definition}
+A \define{$n$-Dimensional Manifold} $X$ is a Hausdorff space such that
+for all $x\in X$ there exists an open subset $U\subset X$ such that
+$x\in U$ and $U\iso\RR^{n}$ homeomorphic. We also require $X$ to be
+separable (i.e., it has a countable dense subset).
+\end{definition}
+
+\begin{example}
+Consider the space $\RR\sqcup\RR/\sim$ where the equivalence relation
+is defined by $(x,0)\sim(x,1)$ if $x>0$. TThis is the line with two
+origins, and it is not Hausdorff at the origin.
+
+If we tried $(x,0)\sim(x,1)$ if $x\geq0$, then it's no longer locally Euclidean.
+\end{example}
+
+\begin{remark}
+``The Long Line'' is Hausdorff, connected, but not path-connected, and
+  it is not separable. Constructing it requires the axiom of choice.
+\end{remark}
+
+\begin{definition}
+An \define{Orientation of $\RR^{n}$} at $x\in\RR^{n}$ is a choice of
+generator of $H_{n}(\RR^{n},\RR^{n}\setminus\{x\})\iso\ZZ$.
+\end{definition}
+
+\begin{node}
+Let $B\subset\RR^{n}$ be a ball containing distinct points $x\in B$ and $y\in B$.
+Then
+\begin{equation}
+H_{n}(\RR^{n},\RR^{n}\setminus\{x\})\iso H_{n}(\RR^{n},\RR^{n}\setminus B)\iso
+H_{n}(\RR^{n},\RR^{n}\setminus\{y\}).
+\end{equation}
+Then we see that the isomorphism
+\begin{equation}
+H_{n}(\RR^{n},\RR^{n}\setminus\{x\})\iso 
+H_{n}(\RR^{n},\RR^{n}\setminus\{y\})
+\end{equation}
+is canonical in the sense that it is independent of the choice of ball $B$. 
+\end{node}
+
+\begin{node}
+Now, for any space $X$,
+we recall $H_{*}(X,X\setminus\{x\})\iso H_{*}(U,U\setminus\{x\})$ for
+any open subset $U\subset X$ containing $x\in U$. (This is just the
+Excision theorem.)
+
+Now let $X$ be an $n$-dimensional manifold, and $U$ is a neighborhood
+of $x\in X$ such that $U\iso\RR^{n}$ homeomorphic. Then
+$H_{*}(X,X\setminus\{x\})\iso H_{*}(\RR^{n},\RR^{n}\setminus\{\point{}\})\iso\ZZ$.
+\end{node}
+
+\begin{definition}
+Let $X$ be an $n$-dimensional manifold. Let $x\in X$.
+We define a \define{Local Orientation} of $X$ at $x$ is a choice of
+generator for $H_{n}(X,X\setminus\{x\})\iso\ZZ$.
+\end{definition}
+
+\begin{definition}
+Let $X$ be an $n$-dimensional manifold.
+An \define{Orientation} of $X$ is an assignment of a local orientation
+$\mu_{x}$ at each $x\in X$ 
+such that $\mu_{x}$ ``varies continuous'' with respect to $x$.
+\end{definition}
+
+\begin{node}[``Varies continuously''?]
+More precisely, for each $x$, there exists a compact neighborhood $N$
+and a class $\mu_{N}\in H_{n}(X,X\setminus N)$ such that the
+pushforward of the inclusion $(\rho_{y})_{*}(\mu_{N})=\mu_{y}$ for
+each $y\in N$ and the inclusion $\rho_{y}\colon(X,X\setminus N)\to(X,X\setminus\{y\})$.
+So all the local orientations inside $N$ are determined by the local
+orientation of $N$.
+\end{node}
+
+\begin{definition}
+We say a manifold $X$ is \define{Orientable} if an orientation exists.
+\end{definition}

@@ -1,0 +1,246 @@
+%%
+%% fall-lecture25.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-25T11:19:14-0800
+%% Last update 2025-11-25T11:19:14-0800
+%% 
+
+\lecture{}
+
+\begin{convention}
+In this lecture, we will work with $X$ being a normal variety.
+\end{convention}
+
+\begin{definition}
+We define the \define{Divisor Group} of $X$, denoted $\Div(X)$, for the free Abelian group gneerated by prime
+divisors, its elements are called \define{Weil Divisors} written
+\begin{equation}
+D=\sum_{\text{finite}}n_{i}[Y_{i}].
+\end{equation}
+\end{definition}
+
+\begin{definition}
+The \define{Principal Divisor} of $f\in\UnitGroup{\FunField[\kk]{X}}$
+is defined as
+\begin{equation}
+(f):=\sum_{Y}v_{Y}(f)[Y]\in\Div(X).
+\end{equation}
+Note: $(f^{-1})=-(f)$ and $(fg)=(f)+(g)$, so $(-)\colon\UnitGroup{\FunField[\kk]{X}}\to\Div(X)$
+is a group morphism.
+\end{definition}
+
+\begin{definition}
+The \define{Divisor Class Group} is
+\begin{equation*}
+\Cl(X):=\Div(X)/\{(f)\mid f\in\UnitGroup{\FunField[\kk]{X}}\}.
+\end{equation*}
+\end{definition}
+
+\begin{example}
+We see $\Cl(\AA^{n})=0$ and $\Div(\AA^{n})=0$.
+\end{example}
+
+\begin{remark}
+If $X$ is not normal, we can still define its class group $\Cl(X)$ by
+using
+\begin{equation}
+v_{Y}(f/g)=\length_{\StructureSheaf_{X,Y}}(\StructureSheaf_{X,Y}/(f))-\length_{\StructureSheaf_{X,Y}}(\StructureSheaf_{X,Y}/(g)),
+\end{equation}
+for $f,g\in\StructureSheaf_{X,Y}$. This recovers the usual definition
+for normal varieties.
+\end{remark}
+
+\subsection{Divisors on $\PP^{n}$}
+
+\begin{definition}
+We may define $\deg\colon\Div(\PP^{n})\to\ZZ$ by
+\begin{equation}
+\deg(\sum m_{i}[Y_{i}])=\sum m_{i}\deg(Y_{i}).
+\end{equation}
+\end{definition}
+
+\begin{node}
+If $f\in\in\UnitGroup{\FunField[\kk]{\PP^{n}}}$, then
+$f=\prod^{r}_{i=0}h_{i}^{m_{i}}$ where
+$h_{i}\in\kk[x_{0},\dots,x_{n}]$ irreducible where $\sum m_{i}\deg(h_{i})=0$. 
+Then $Y_{i}:=V_{p}(h_{i})\subset\PP^{n}$ prime divisor $V_{Y_{i}}(f)=m_{i}$.
+We have $(f)=\sum_{i}m_{i}[Y_{i}]$ implies $\deg(f)=0$. Hence
+\begin{equation}
+\deg\colon\Cl(\PP^{n})\to\ZZ.
+\end{equation}
+\end{node}
+
+\begin{proposition}
+$\Cl(\PP^{n})\iso\ZZ$.
+\end{proposition}
+
+\begin{proof}
+Let $H\subset\PP^{n}$. Then $\deg([H])=1$, so $\deg\colon\Cl(\PP^{n})\to\ZZ$
+is surjective.
+
+To see this injective, let $D=\sum m_{i}[Y_{i}]$ with $\deg(D)=0$.
+Then $Y_{i}=V_{p}(h_{i})$ where $h_{i}$ is irreducible. We see
+\begin{equation}
+\sum m_{i}\deg(h_{i})=\deg(D)=0,
+\end{equation}
+which implies
+\begin{equation}
+f=\prod h_{i}^{m_{i}}\in\UnitGroup{\FunField[\kk]{X}}.
+\end{equation}
+Then $D=(f)$, which implies $D=0\in\Cl(\PP^{n})$.
+\end{proof}
+
+\begin{remark}
+Later we will see: if $X$ is nonsingular, then $\Cl(X)\iso\Pic(X)$.
+\end{remark}
+
+\begin{fact}[Commutative algebra]
+If $R$ is a normal Noetherian domain, then $R=\bigcap_{\dim(R_{P})=1}R_{P}$.
+\end{fact}
+
+\begin{corollary}
+If $X$ is normal and $f\in\UnitGroup{\FunField[\kk]{X}}$, then
+$f\in\StructureSheaf_{X}(X)$ iff $v_{Y}(f)\geq0$ for every prime
+divisor $Y\subset X$; i.e., the closed subset where $f$ is not defined
+is either empty or has codimension 1.
+\end{corollary}
+
+\begin{lemma}\label{lemma:math130a:fall2025:lec25:lemma}
+Let $R$ be a Noetherian domain.
+Then $R$ is a UFD $\iff$ every height 1 prime is principal.
+\end{lemma}
+
+\begin{proposition}
+Let $X$ be an irreducible affine variety.
+Then $\CoordRing{\kk}{X}$ is a UFD $\iff$ $X$ is normal and $\Cl(X)=0$.
+\end{proposition}
+
+\begin{proof}
+\forwardproof\ We proved any UFD is normal, so we want to show
+$\Cl(X)=0$. If $Y\subset X$ is a prime divisor, then $\height(I(Y))=1$
+implies $I(Y)=(f)$ is principal. Then by Lemma~\ref{lemma:math130a:fall2025:lec25:lemma},
+$[Y]=(f)=0\in\Cl(X)$.
+
+\backwardproof\ Let $P\in\Spec(\CoordRing{\kk}{X})$ be $\height(P)=1$
+prime ideal. We want to show $P$ is principal. Let $Y=V(P)\subset X$
+be a prime divisor. Then $[Y]=0\in\Cl(X)$ implies $[Y]=(f)$ for some
+$f\in\UnitGroup{\FunField[\kk]{X}}$. Then $v_{Z}(f)\geq0$ for every
+prime divisor $Z\subset X$. Then $f\in\CoordRing{\kk}{X}$ is regular.
+
+We claim this $P=I(f)=\langle f\rangle\ideal\CoordRing{\kk}{X}$. Since
+$f$ vanishes on $Y$, we have $P\supset\langle f\rangle$. To
+demonstrate $P\subset\langle f\rangle$, let $g\in P$ be
+arbitrary. Then $v_{Y}(g)\geq 1$ implies $v_{Z}(g/f)\geq0$ for any
+prime divisor $Z\subset X$. Then $g/f=a\in\CoordRing{\kk}{X}$, which
+implies $g=af$ and therefore $g\in\langle f\rangle$.
+\end{proof}
+
+\begin{proposition}
+Let $X$ be normal, $Z\propersubset X$ a proper closet subset, and
+$U=X\setminus Z$ its complement. Then:
+\begin{enumerate}
+\item $\Cl(X)\onto\Cl(U)$ is surjective defined by sending
+  $[Y]\mapsto\begin{cases}[Y\cap U]&\mbox{if }Y\cap U\neq\emptyset\\0&\mbox{otherwise}\end{cases}$
+\item If $\codim(Z;X)\geq2$, then $\Cl(X)=\Cl(U)$ are equal to each other.
+\item If $Z$ is a prime divisor, then $\ZZ\to\Cl(X)\to\Cl(U)\to0$ is
+  exact (where $\ZZ\to\Cl(X)$ is given by $m\mapsto m[Z]$).
+\end{enumerate}
+\end{proposition}
+
+\subsection{Picard Group}\label{subsec:fall2025:lec25:picard-group}
+
+We discussed the Picard group earlier
+(\S\S\ref{defn:fall2025:lec22:picard-group} \textit{et seq.}).
+
+\begin{node}
+Let $X$ be any variety, let $\sheaf{L}_{1}$ and $\sheaf{L}_{2}$ be two
+invertible $\StructureSheaf_{X}$-modules. Then
+$\sheaf{L}_{1}\otimes_{\StructureSheaf_{X}}\sheaf{L}_{2}$ is an
+invertible $\StructureSheaf_{X}$-module.
+
+We also see that $\sheaf{L}^{-1}=[U\mapsto\hom_{\StructureSheaf_{U}}(\sheaf{L}|_{U},\StructureSheaf_{U})]$.
+\end{node}
+
+\begin{xca}
+Prove $\sheaf{L}^{-1}$ is an invertible $\StructureSheaf_{X}$-module
+and that $\sheaf{L}\otimes\sheaf{L}^{-1}\iso\StructureSheaf_{X}$.
+\end{xca}
+
+\begin{definition}
+The \define{Picard Group} $\Pic(X)$ is the group consisting of isomorphism classes of
+invertible $\StructureSheaf_{X}$-modules, and $\otimes$ is the binary operator.
+\end{definition}
+
+\begin{notation}
+Assume $X$ is an irreducible variety, $\sheaf{L}$ is an invertible
+$\StructureSheaf_{X}$-module. Let $s\in\sheaf{L}(U)$,
+$t\in\sheaf{L}(V)$ be nonzero sections for open subsets $U,V\subset X$.
+Take $W\subset U\cap V$ open affine such that $\sheaf|_{W}\iso\StructureSheaf_{W}$
+generated by $u\in\sheaf{L}(W)$. Then $s|_{W}=f\cdot u$,
+$t|_{W}=g\cdot u$ where $f,g\in\CoordRing{\kk}{W}$.
+\end{notation}
+
+\begin{definition}
+Using the notation from the previous node, we define $s/t := f/g\in\FunField[\kk]{X}$,
+and it is independent of the choices for $W$ and $u$.
+\end{definition}
+
+\begin{example}
+Let $s_{0},\dots,s_{n}\in\Gamma(X,\sheaf{L})$ be nonzero sections,
+then we can define a rational map $f\colon X\RationalTo\AA^{n}\subset\PP^{n}$
+by
+\begin{equation}
+f(x):=\left(\frac{s_{1}}{s_{0}}(x),\dots,\frac{s_{n}}{s_{0}}(x)\right).
+\end{equation}
+If $s_{0}$, \dots, $s_{n}$ generate $\sheaf{L}$, then $f$ can be
+extended to $f\colon X\to\PP^{n}$.
+\end{example}
+
+\begin{notation}
+Let $X$ be normal, $s\in\sheaf{L}(U)$ a nonzero section, $Y\subset X$ be
+some prime divisor.
+
+We can now take some open $V\subset X$ such that $V\cap Y\neq\emptyset$
+and $\sheaf{L}|_{V}\iso\StructureSheaf_{V}$ generated by $t\in\sheaf{L}(V)$.
+\end{notation}
+
+\begin{definition}
+We define $v_{Y}(s):=v_{Y}(s/t)$.
+
+We can check this is well-defined: it's independent of choice of $t$,
+if $V'\cap Y\neq\emptyset$ and $\sheaf{L}|_{V'}$ generated by $t'\in\sheaf{L}(V')$,
+then $t/t'$ is nowhere zero regular function on $V\cap V'$. Then
+$t/t'$ is a unit in $\StructureSheaf_{X,Y}$. Then
+\begin{equation}
+v_{Y}(s/t') = v_{Y}\left(\frac{s}{t'}\frac{t'}{t}\right)=v_{Y}(s/t).
+\end{equation}
+\end{definition}
+
+\begin{definition}
+We define $(s)=\sum_{Y}v_{Y}(s)[Y]\in\Div(X)$.
+\end{definition}
+
+\begin{note}
+If $s'\in\sheaf{L}(U')$ is a nonzero section, then the divisor
+associated to $s'$ is
+\begin{equation}
+(s')=(s)+(s/s'),
+\end{equation}
+which implies that $(s')=(s)\in\Cl(X)$. So we have a well-defined map
+\begin{equation}
+\begin{split}
+&\Pic(X)\to\Cl(X)\\
+&\sheaf{L}\mapsto(s),
+\end{split}
+\end{equation}
+which is a group morphism sending a sheaf to the divisor associated
+with a nonzero section of the shef, and
+\begin{equation}
+(s_{1}\otimes s_{2})=(s_{1})+(s_{2})\in\Div(X)
+\end{equation}
+for any $s_{1}\in\sheaf{L}_{1}(U)$ and $s_{2}\in\sheaf{L}_{2}(U)$ and
+$s_{1}\otimes s_{2}\in(\sheaf{L}_{1}\otimes\sheaf{L}_{2})(U)$.
+\end{note}
