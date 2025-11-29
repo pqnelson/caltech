@@ -1,0 +1,311 @@
+%%
+%% fall-lecture23.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-29T09:29:55-0800
+%% Last update 2025-11-29T09:29:55-0800
+%% 
+
+\lecture[Riemann Integration]
+
+\subsection*{Review of One-Dimensional Case}
+
+\begin{definition}
+Let $[a,b]$ be a closed interval of the real line. We define a
+\define{Partition} of $[a,b]$, denoted $P$, to be a finite sequence of numbers $a=c_{0}<c_{1}<\dots<c_{n}=b$.
+We call each interval $I_{i}=[c_{i},c_{i+1}]$ a \define{Sub-interval} of the partition
+(and they cover $[a,b]$ in the sense that $[a,b]=\bigcup_{i}[c_{i},c_{i+1}]$).
+
+Also, we use the notation $|I_{i}|=c_{i+1}-c_{i}\geq0$ for the
+``width'' of the subinterval $I_{i}=[c_{i},c_{i+1}]$.
+\end{definition}
+
+\begin{definition}
+Let $f\colon[a,b]\to\RR$ be a [piecewise continuous]\footnote{A
+function is ``piecewise continuous'' if it is continuous with at most
+countably many discontinuities.} function. Let $P$ be a partition of $[a,b]$.
+We define the \define{Lower Sum} of $f$ on this partition $P$ to be
+\begin{equation}
+L(f,P):=\sum^{n-1}_{i=0}|I_{i}|\inf_{x\in I_{i}}f(x).
+\end{equation}
+We define the \define{Upper Sum} of $f$ on $P$ to be
+\begin{equation}
+U(f,P):=\sum^{n-1}_{i=0}|I_{i}|\sup_{x\in I_{i}}f(x).
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Let $f\colon[a,b]\to\RR$ be a [piecewise continuous] function.
+We may define the \define{Upper Riemann Integral} to be the number
+\begin{equation}
+\overline{\int^{b}_{a}}f\,\D x:=\inf_{P}U(f,P)
+\end{equation}
+where the infinimum is over all partitions $P$ of the interval $[a,b]$.
+Similarly, we define the \define{Lower Riemann Integral} to be the number
+\begin{equation}
+\underline{\int^{b}_{a}}f\,\D x:=\sup_{P}U(f,P)
+\end{equation}
+where, again, the supremum is over all partitions $P$ of the interval $[a,b]$.
+\end{definition}
+
+\begin{remark}
+Technically, these define Darboux integration, which is formally the
+same as Riemann integration. The difference is that Riemann integrals
+pick ``some point'' $t_{i}\in I_{i}$ and work with the sums
+\begin{equation}
+S(f,P) = \sum^{n-1}_{i=0}f(t_{i})|I_{i}|.
+\end{equation}
+A partition $P$ with these $t_{i}\in I_{i}$ are called \define{Tagged Partitions}.
+
+Riemann integration relies on the notion of the \define{Mesh} of the partition
+which is just $\max\{|I_{i}|\}$. The integral of $f$ is the value $s$
+defined as: For each $\varepsilon>0$, there
+exists a $\delta>0$ such that for any tagged partition $P$ whose mesh
+is less than $\delta$, we have
+\begin{equation}
+\left|\left(\sum^{n-1}_{i=0}f(t_{i})|I_{i}|\right)-s\right|<\varepsilon.
+\end{equation}
+That is to say, the sequence of Riemann sums converges to the integral $S(f,P)\to s$.
+
+This is actually more tedious to work with than Darboux's version
+(which is logically equivalent to Riemann's version). So we'll just
+work with what's convenient, because life is hard enough already.
+\end{remark}
+
+\begin{definition}
+We call a function $f\colon[a,b]\to\RR$ \define{Riemann Integrable} if
+\begin{equation}
+\overline{\int^{b}_{a}}f\,\D x=\underline{\int^{b}_{a}}f\,\D x.
+\end{equation}
+Since we will not consider other forms of integration in this class,
+we will just call $f$ ``integrable''.
+
+When $f$ is (Riemann) integrable, we just write $\int^{b}_{a}f\,\D x$ for this
+common value which we call the \define{Riemann Integral} of $f$.
+\end{definition}
+
+\subsection*{Generalization}
+
+\begin{definition}
+The \define{Content} of a (closed) cell $\closure{\Delta}=\{\vec{x}\in\RR^{n}\mid a_{i}\leq x_{i}\leq b_{i}\mbox{ for }i=1,\dots,n\}$
+is given by
+\begin{equation}
+|\closure{\Delta}|=\prod^{n}_{i=1}(b_{i}-a_{i}).
+\end{equation}
+We can define the content of an open cell to be equal to the content
+of its closure, i.e., $|\Delta|:=|\closure{\Delta}|$.
+\end{definition}
+
+\begin{definition}
+Let $\closure{\Delta}=\{\vec{x}\in\RR^{n}\mid a_{i}\leq x_{i}\leq b_{i}\mbox{ for }i=1,\dots,n\}$
+be a closed cell. We can define a \define{Partition} $P$ of $\closure{\Delta}$
+to be a sequence of points of $\closure{\Delta}$ which project to
+components which partitions each dimension: 
+$a_{i}=c_{i,0}<c_{i,1}<\dots<c_{i,n_{i}}=b_{i}$ for each
+dimension $i=1,\dots,n$.
+
+It is useful to discuss \define{Subcells} of a partition $P$ which are sets of the form
+\begin{equation}
+\Delta_{k_{1},\dots,k_{n}}=\{\vec{x}\in\RR^{n}\mid c_{i,k_{i}-1}\leq x_{i}\leq c_{i,k_{i}}, i=1,\dots,n\}
+\end{equation}
+where $0\leq k_{i}-1<n_{i}$ for each $i=1,\dots,n$.
+
+We can reindex these guys to be $\Delta_{i}$ where $i=1,\dots,N$ with $N=\prod^{n}_{i}n_{i}+1$
+so that
+\begin{subequations}
+  \begin{align}
+\closure{\Delta} &=\bigcup_{i}\Delta_{i}\\\intertext{and}
+|\closure{\Delta}| &=\sum_{i}|\Delta_{i}|.
+  \end{align}
+\end{subequations}
+\end{definition}
+
+\begin{definition}
+Let $\closure{\Delta}=\{\vec{x}\in\RR^{n}\mid a_{i}\leq x_{i}\leq b_{i}\mbox{ for }i=1,\dots,n\}$
+be a closed cell.
+Let $f\colon\closure{\Delta}\to\RR$ be a bounded function.
+Let $P$ be a partition of $\closure{\Delta}$.
+
+We define the \define{Lower Sum} of $f$ with respect to $P$ to be
+\begin{equation}
+S_{*}(f,P):=\sum_{i}\left(\inf_{\vec{x}\in\closure{\Delta_{i}}}f(\vec{x})\right)|\closure{\Delta}_{i}|
+\end{equation}
+Similarly, the \define{Upper Sum} of $f$ with respect to $P$ is
+\begin{equation}
+S^{*}(f,P):=\sum_{i}\left(\sup_{\vec{x}\in\closure{\Delta_{i}}}f(\vec{x})\right)|\closure{\Delta}_{i}|
+\end{equation}
+Clearly for fixed $f$ and $P$, $S_{*}(f,P)\leq S^{*}(f,P)$.
+\end{definition}
+
+\begin{definition}
+Let $\closure{\Delta}=\{\vec{x}\in\RR^{n}\mid a_{i}\leq x_{i}\leq b_{i}\mbox{ for }i=1,\dots,n\}$
+be a closed cell. Let $P_{1}$ and $P_{2}$ be partitions of $\closure{\Delta}$.
+We say $P_{2}$ is a \define{Refinement} of $P_{1}$ if $P_{1}\subset P_{2}$.
+\end{definition}
+
+\begin{proposition}
+Let $\closure{\Delta}=\{\vec{x}\in\RR^{n}\mid a_{i}\leq x_{i}\leq b_{i}\mbox{ for }i=1,\dots,n\}$
+be a closed cell. Let $P_{1}$ and $P_{2}$ be partitions of $\closure{\Delta}$.
+Let $f\colon\closure{\Delta}\to\RR$ be a bounded function.
+if $P_{2}$ is a refinement of $P_{1}$, then
+$S^{*}(f,P_{2})\leq S^{*}(f,P_{1})$ and also $S_{*}(f,P_{2})\geq S_{*}(f,P_{1})$.
+\end{proposition}
+
+\begin{proof}
+We can write each subcell $\closure{\Delta}_{i}$ of $P_{1}$ as a union $\closure{\Delta}_{i}=\bigcup_{j}\closure{\Delta}_{i,j}$
+of subcells $\closure{\Delta}_{i,j}$ of $P_{2}$. Then
+\begin{equation}
+\sup_{\vec{x}\in\closure{\Delta}_{i,j}}f(\vec{x})\leq\sup_{\vec{x}\in\closure{\Delta}_{i}}f(\vec{x})
+\end{equation}
+and
+\begin{equation}
+\sum_{j}|\closure{\Delta}_{i,j}|=|\closure{\Delta}_{i}|,
+\end{equation}
+which implies
+\begin{subequations}
+  \begin{align}
+S^{*}(f,P_{2}) &=\sum_{i,j}|\closure{\Delta}_{i,j}|\sup_{\vec{x}\in\closure{\Delta}_{i,j}}f(\vec{x})\\
+&\leq\sum_{i,j}|\closure{\Delta}_{i,j}|\sup_{\vec{x}\in\closure{\Delta}_{i}}f(\vec{x})\\
+&\leq\sum_{i}|\closure{\Delta}_{i}|\sup_{\vec{x}\in\closure{\Delta}_{i}}f(\vec{x})=S^{*}(f,P_{1}).
+  \end{align}
+\end{subequations}
+The argument for the lower sums is analogous.
+\end{proof}
+
+\begin{proposition}
+Let $\closure{\Delta}=\{\vec{x}\in\RR^{n}\mid a_{i}\leq x_{i}\leq b_{i}\mbox{ for }i=1,\dots,n\}$
+be a closed cell.
+Let $f\colon\closure{\Delta}\to\RR$ be a bounded function.
+For any two arbitrary partitions $P_{1}$ and $P_{2}$ of $\closure{\Delta}$,
+we have $S_{*}(f,P_{1})\leq S^{*}(f,P_{2})$.
+\end{proposition}
+
+\begin{proof}
+We may form a common refinement $P'$ for both $P_{1}$ and $P_{2}$,
+then by the previous proposition we have the chain of inequalities
+\begin{equation}
+S_{*}(f,P_{1})\leq S_{*}(f,P')\leq S^{*}(f,P')\leq S^{*}(f,P_{2}).
+\end{equation}
+Hence the result.
+\end{proof}
+
+\begin{definition}
+Let $\closure{\Delta}=\{\vec{x}\in\RR^{n}\mid a_{i}\leq x_{i}\leq b_{i}\mbox{ for }i=1,\dots,n\}$
+be a closed cell.
+Let $f\colon\closure{\Delta}\to\RR$ be a bounded function.
+We may define the \define{Lower Integral} of $f$ on $\closure{\Delta}$
+to be
+\begin{equation}
+\int_{*\closure{\Delta}}f:=\sup_{P}S_{*}(f,P).
+\end{equation}
+Similarly, the \define{Upper Integral} of $f$ on $\closure{\Delta}$ to be
+\begin{equation}
+\int^{*}_{\closure{\Delta}}f:=\inf_{P}S^{*}(f,P).
+\end{equation}
+These infinimum and supremum range over all partitions of $\closure{\Delta}$.
+\end{definition}
+
+\begin{proposition}
+Let $\closure{\Delta}=\{\vec{x}\in\RR^{n}\mid a_{i}\leq x_{i}\leq b_{i}\mbox{ for }i=1,\dots,n\}$
+be a closed cell.
+Let $f\colon\closure{\Delta}\to\RR$ be a bounded function. Then
+\begin{equation}
+\int_{*\closure{\Delta}}f\leq\int^{*}_{\closure{\Delta}}f.
+\end{equation}
+\end{proposition}
+
+\begin{definition}
+We say a subset $S\subset\RR^{n}$ has \define{Content Zero} if for any
+$\varepsilon>0$ there are \underline{finitely}-many open cells $\Delta_{i}$ such
+that $S\subset\bigcup_{i}\Delta_{i}$ and $\sum_{i}|\Delta_{i}|<\varepsilon$.
+\end{definition}
+
+\begin{definition}
+We say a subset $S\subset\RR^{n}$ has \define{Measure Zero} if for any
+$\varepsilon>0$ there are \underline{countably}-many open cells $\Delta_{i}$ such
+that $S\subset\bigcup_{i}\Delta_{i}$ and $\sum_{i}|\Delta_{i}|<\varepsilon$.
+\end{definition}
+
+\begin{proposition}
+A set of content zero is also a set of measure zero.
+\end{proposition}
+
+\begin{proposition}
+A compact set of measure zero is also a set of content zero.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Since every open cover has a finite subcover, every countably open
+cells covering the set has a finite subcover.
+\end{proof}
+
+\begin{lemma}
+If countably many subsets $E_{i}\subset\RR^{n}$ each has measure zero,
+then $E=\bigcup_{i}E_{i}$ has measure zero.
+\end{lemma}
+
+\begin{proof}
+Let $\varepsilon>0$ be arbitrary. For each $i$, $E_{i}$ has measure
+zero, so there exists countably many $\Delta_{ij}$ (with $j\in\NN$)
+such that $E_{i}\subset\bigcup_{j\in\NN}\Delta_{ij}$ and $\sum_{j}|\closure{\Delta}_{ij}|<\varepsilon/2^{i}$.
+Then $E=\bigcup_{i}E_{i}\subset\bigcup_{i,j}\Delta_{ij}$ and $\sum_{ij}|\closure{\Delta}_{ij}|<\sum_{i}\varepsilon/2^{i}=\varepsilon$.
+\end{proof}
+
+\begin{example}
+$\QQ\subset\RR$: We see $\QQ$ does not have content zero because there
+  is no finite collection of open intervals which can cover $\QQ$. But
+  $\QQ$ has measure zero because of the previous Lemma.
+\end{example}
+
+\begin{example}
+$\RR\times\{0\}\subset\RR^{2}$: This has measure zero. Take
+\begin{equation}
+\Delta_{i}=(i-\frac{\varepsilon}{2},i+\frac{\varepsilon}{2})\times(\frac{-\varepsilon}{2},\frac{\varepsilon}{2}).
+\end{equation}
+Each $\Delta_{i}$ has content zero, and we have countably many $\Delta_{i}$.
+Then $\bigcup_{i}\Delta_{i}$ has measure zero by the previous Lemma.
+\end{example}
+
+\begin{example}
+Both $(0,1)\times\{0\}\subset\RR^{2}$ and $[0,1]\times\{0\}\subset\RR^{2}$
+have content zero, but $[0,1]\times\{0\}$ is compact, whereas $(0,1)\times\{0\}$
+is noncompact.
+\end{example}
+
+\begin{lemma}
+If $E\subset\RR^{n}$ has content zero, then $\closure{E}$ has content zero.
+But if $EE\subset\RR^{n}$ has measure zero, then $\closure{E}$ may or
+may not have measure zero.
+\end{lemma}
+
+\begin{proof}
+(1) If $E$ has content zero, then for any $\varepsilon>0$ there are
+finitely many $\Delta_{i}$ (where $i=1,\dots,N$) such that
+\begin{equation}
+E\subset\bigcup^{N}_{i=1}\Delta_{i}
+\end{equation}
+and
+\begin{equation}
+\sum^{N}_{i=1}|\closure{\Delta}_{i}|<\varepsilon.
+\end{equation}
+Then for each $\closure{\Delta}_{i}$, there is an open cell
+$\Delta_{i,+}$ such that $\closure{\Delta}_{i}\propersubset\Delta_{i,+}$
+and
+\begin{equation}
+|\Delta_{i,+}|-|\closure{\Delta}_{i}|<\frac{\varepsilon}{N}.
+\end{equation}
+Then
+\begin{equation}
+E\propersubset\bigcup^{N}_{i=1}\closure{\Delta}_{i}\propersubset\bigcup^{N}_{i=1}\Delta_{i,+},
+\end{equation}
+and
+\begin{equation}
+\sum^{N}_{i=1}|\closure{\Delta}_{i}|<\sum^{N}_{i=1}|\Delta_{i,+}|=\varepsilon+\sum^{N}_{i=1}|\closure{\Delta}_{i}|<2\varepsilon,
+\end{equation}
+as desired.
+
+(2) Consider $\QQ\subset\RR$ which has measure zero. But $\closure{\QQ}=\RR$.
+This obviously does not have measure zero.
+\end{proof}

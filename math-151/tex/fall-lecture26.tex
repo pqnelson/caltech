@@ -1,0 +1,197 @@
+%%
+%% fall-lecture26.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-27T11:04:48-0800
+%% Last update 2025-11-27T11:04:48-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+If we have any manifold $M$, then we may form its cover
+\begin{equation}
+\widetilde{M}=\{(x,\mu_{x})\mid x\in M,\mu_{x}\mbox{ is a local orientation at x}\}
+\end{equation}
+with $p\colon\widetilde{M}\to M$ which is a 2-to-1 map. We may give
+$\widetilde{M}$ a topology such that $p$ is continuous. In fact, $p$
+is a covering map.
+\end{node}
+
+\begin{node}
+We can take a local orientation $\widetilde{\mu}_{(x,\mu(x))}$ such
+that 
+\begin{equation}
+p_{*}(\widetilde{\mu}_{(x,\mu(x))})=\mu(x)
+\end{equation}
+which is an orientation of $\widetilde{M}$. This is a canonical local
+orientation for $\widetilde{M}$, so $\widetilde{M}$ is orientable.
+\end{node}
+
+\begin{definition}
+This $\widetilde{M}$ thus described is called the \define{Orientable Double Cover} of $M$.
+\end{definition}
+
+\begin{proposition}
+Let $M$ be connected. Then $\widetilde{M}$ has 2 components iff $M$ is orientable.
+\end{proposition}
+
+\begin{proof}
+\backwardproof\ If $M$ is orientable, then $\widetilde{M}$ consists of
+2 copies of $M$ due to connectedness.
+
+\forwardproof\ By contrapositive. If $M$ is not orientable, then
+$\widetilde{M}$ is connected.
+\end{proof}
+
+\begin{node}
+When $M$ is connected, we can fix a base-point $x_{0}\in M$. Then we
+can consider a loop $C$ with base-pont $x_{0}$. We can consider how
+the local orientation varies continuously around the loop $C$
+(represented by the frames doodled in red):
+\begin{equation*}
+\includegraphics{img/img.51}
+\end{equation*}
+At the end, we get a new local orientation at $x_{0}$. If the new
+local orientation agrees with the initial local orientation, then we
+call $C$ \define{Orientation-Preserving}. Otherwise we call $C$ \define{Orientation-Reversing}.
+\end{node}
+
+\begin{node}
+We can define a map $\phi\colon\pi_{1}(M,x_{0})\to\ZZ/2\ZZ$ such that
+orientation-preserving loops $C$ are mapped to $\phi([C])=0$, but
+orientation-reversing loops $C'$ are mapped to $\phi([C'])=1$.
+
+Further, this is a group morphism iff $M$ is nonorientable.
+\end{node}
+
+\begin{node}
+We see that $\widetilde{M}$ is the 2-fold cover of $M$ corresponding
+to $\ker(\phi)$.
+\end{node}
+
+\begin{node}
+We want to generalize the notion of ``orientation''.
+\end{node}
+
+\begin{definition}
+Let $R$ be a unital commutative ring. Then an \define{$R$-Orientation}
+of $M$ is an assignment of an invertible element $\mu_{x}\in H_{n}(M,M\setminus\{x\};R)\iso R$
+to each $x\in M$ such that it ``varies continuously''.
+\end{definition}
+
+\begin{proposition}
+Every manifold is $(\ZZ/2\ZZ)$-orientable.
+\end{proposition}
+
+(This is because there's exactly one invertible element of $\ZZ/2\ZZ$.)
+
+Now, the next ``big thing'' we want to prove requires a lemma.
+
+\begin{lemma}\label{lemma:fall2025:lecture26:math151:inductive-step}
+Let $M$ be an $n$-manifold, let $K\subset M$ be compact. Let
+$\rho\colon K\into M$ be the inclusion map.
+\begin{enumerate}
+\item $H_{i}(M,M\setminus K)=0$ if $i>n$
+\item A homology class $\alpha\in H_{n}(M,M\setminus K)$ is zero if
+  and only if
+  for all $x\in K$, $(\rho_{x})_{*}(\alpha)=0\in H_{n}(M,M\setminus\{x\})$ where 
+  we recall $H_{n}(M,M\setminus\{x\})\iso\ZZ$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We claim if the Lemma is true for $K_{1}$, $K_{2}$, and $K_{1}\cap K_{2}$,
+then it is true for $K_{1}\cup K_{2}$ (and by induction for $K$). To
+see this, we use the Mayer--Vietoris sequence
+\begin{equation}
+\vcenter{\xymatrix{\dots\ar[r] & H_{i}(M,K_{1}\setminus K_{2})\ar[r] & H_{i}(M,M\setminus K_{1})\oplus
+H_{i}(M,M\setminus K_{2})\ar[r] & H_{i}(M,M\setminus K_{1}\cap K_{2})\ar[dll]\\
+& H_{i-1}(M,K_{1}\setminus K_{2})\ar[r] & \dots &}}
+\end{equation}
+The first statement is obviously true, the second statement we look at
+$i=n$. The forward proof is easy. The backwards proof: we have
+$0\mapsto\alpha\mapsto0\oplus0$ which proves the claim.
+\end{proof}
+
+\begin{theorem}[Hatcher 3.26]
+\begin{enumerate}
+\item If $M$ is a closed, connected, orientable $n$-manifold, then $H_{n}(M)\iso\ZZ$;
+\item If $M$ is a connected manifold but either nonorientable or
+  noncompact, then $H_{n}(M)=0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Let $K\subset M$ be compact, let $x\in K$, let
+$\rho_{x}\colon(M,M\setminus K)\to(M,M\setminus\{x\})$ be the inclusion map.
+We will prove this by cases, in a sort of induction procedure.
+
+\textsc{Case 1: $M=\RR^{n}$, $K$ is convex.} 
+Then $(M,M\setminus K)\homotopic(M,M\setminus\{x\})$ homotopic. So $\rho_{x}\colon H_{*}(M,M\setminus K)\to H_{*}(M,M\setminus\{x\})$
+is an isomorphism. Hence the result for this case.
+
+\textsc{Case 2: $M=\RR^{n}$, $K$ is union of finitely many convex compact subsets.}
+When $K=K_{1}\cup \dots\cup K_{m}$, we can inductively apply Lemma~\ref{lemma:fall2025:lecture26:math151:inductive-step}
+and the previous case to the $K_{i}$ and we're done.
+
+\textsc{Case 3: $M=\RR^{n}$, $K$ compact.}
+Let
+\begin{equation}
+N = \{x\in\RR^{n}\mid d(x,K)\leq\varepsilon\},
+\end{equation}
+so we effectively have added an $\varepsilon$ amount of ``wiggle
+room'' to $K$. Obviously $N$ is compact. We can cover $K$ by finitely
+many convex sets in $N$---call them $K_{1}$, \dots, $K_{m}$. Then we
+have a sequence
+\begin{equation}
+H_{n}(M,M\setminus N)\to H_{n}(M,M\setminus\bigcup_{i}K_{i})\to
+H_{n}(M,M\setminus K)\to H_{n}(M,M\setminus\{x\}).
+\end{equation}
+Let $\alpha$ (a homology class) be represented by a singular chain $a$.
+So $a\in C_{n}(M,M\setminus K)$ is a cycle, i.e., $\boundary a$ has an
+image in $M\setminus K$ (but the image is compact), so we can choose
+$\varepsilon$ small enough such that the image is in $M\setminus N$.
+
+We want to say $\rho_{x}(a)$ for every $x\in K_{1}\cup\dots\cup K_{m}$.
+Then we just consider the two possible subcases:
+
+\textsc{Subcase 1:} If $x\in K$, then it is true by assumption
+
+\textsc{Subcase 2:} If $x\notin K$, then we can find a chain $b$ representing $\alpha$
+  with image disjoint from $x$, so $\rho_{x}(\alpha)=0$. Then we apply
+  the previous subcase.
+
+\textsc{Case 4: general case.} We have $K=K_{1}\cup\dots\cup K_{m}$
+such that for each $i$ there is a $U_{i}\subset M$ open and locally
+Euclidean $U_{i}\iso\RR^{n}$ such that $K_{i}\subset U_{i}\iso\RR^{n}$.
+Then we can prove our theorem by induction on $m$. Each case is like
+one of the 3 preceding cases. Hence the result.
+\end{proof}
+
+\begin{theorem}
+Let $M$ be an oriented $n$-manifold. Let $K\subset M$ compact.
+Then there exists a unique $\mu_{K}\in H_{n}(M,M\setminus K)$ such that
+for each $x\in K$ we have $\rho_{x}(\mu_{K})=\mu_{x}$.
+\end{theorem}
+
+\begin{proof}
+Uniqueness follows from Lemma~\ref{lemma:fall2025:lecture26:math151:inductive-step}:
+if we had 2 different $\mu_{K}$ and $\mu'_{K}$, then their difference
+$\mu_{K}-\mu'_{K}=0$, and the lemma gives us everything.
+
+Existence: induction. If we have existence for $K_{1}$, $K_{2}$, and
+$K_{1}\cap K_{2}$, then we look at the long exact sequences, we see
+how it behaves on this portion:
+\begin{equation}
+\begin{array}{ccccl}
+H_{n}(M,M\setminus K_{1})&\oplus&H_{n}(M,M\setminus K_{2})&\to&H_{n}(M,M\setminus K_{1}\cap K_{2})\\
+\mu_{K_{1}} & & \mu_{K_{2}} & \mapsto & \rho_{x}(j_{K_{1}}(\mu_{K_{1}})-j_{K_{2}}(\mu_{K_{2}}))=0.
+\end{array}
+\end{equation}
+Then there is a preimage $\mu_{K_{1}\cup K_{2}}\in H_{n}(M,M\setminus K_{1}\cup K_{2})$.
+Then by induction o nthe number of charts covering $K$ (which must be
+finite since it's compact) we get the result.
+\end{proof}

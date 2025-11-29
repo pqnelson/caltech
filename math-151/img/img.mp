@@ -1326,4 +1326,24 @@ beginfig(50) % singular complex for \RP^2
   endfor;
 endfig;
 
+%% Lecture 26, Fall 2025
+beginfig(51) % curve with a frame transported around it
+  path frame[];
+  path curve;
+  numeric i;
+  z0 = (0,0);
+  frame0 = ((0,9)--(0,0)--(9,0)) rotated 45;
+  curve = (z0..(u,u)..(2u,2u)..(3u,u)..(4u,0)..(2u,-u)..cycle) cutafter
+    (fullcircle scaled 6pt);
+  drawarrow curve;
+  label(btex $\bullet$ etex, z0);
+  label.lft(btex $x_{0}$ etex, z0);
+  drawdblarrow frame0 shifted (0,6) withcolor red;
+  drawdblarrow frame0 shifted ((0,6) + point 0.2length(curve) of curve) withcolor red;
+  drawdblarrow frame0 rotated -90 shifted ((0,6) + point 0.4length(curve) of curve) withcolor red;
+  drawdblarrow frame0 rotated -90 shifted ((0,6) + point 0.6length(curve) of curve) withcolor red;
+  drawdblarrow frame0 rotated (-90-(45/3)) shifted ((0,-6) + point 0.7length(curve) of curve) withcolor red;
+  drawdblarrow frame0 rotated (-90-45) shifted ((0,-6) + point 0.9length(curve) of curve) withcolor red;
+  drawdblarrow frame0 rotated (-90-90) shifted ((-6,-6) + point length(curve) of curve) withcolor red;
+endfig;
 end;

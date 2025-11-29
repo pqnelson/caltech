@@ -1,0 +1,249 @@
+%%
+%% fall-lecture26.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-11-27T09:14:12-0800
+%% Last update 2025-11-27T09:14:12-0800
+%% 
+
+\lecture[Completions]
+
+\begin{remark}
+We will now turn to Chapter 10 of Atiyah and
+Macdonald~\cite{atiyah1969introduction} to skip ahead to discuss
+completions.
+For a discussion of the completion of groups in full generality,
+Bourbaki's \textit{General Topology} (Chapter~III, \S3) should be consulted.
+\end{remark}
+
+\begin{definition}
+Recall, $G$ is a \define{topological Abelian group} if it is a
+topological space equipped with continuous functions
+$m\colon G\times G\to G$ (written $x+y$ instead of $m(x,y)$)
+and $i\colon G\to G$ (written $-x$ instead of $i(x)$)
+such that they satisfy the group axioms and $x+y=y+x$ for all $x,y\in G$.
+\end{definition}
+
+\begin{fact}
+Let $X$ be a topological space.
+Then $X$ is Hausdorff if and only if its diagonal
+$\Delta_{X}=\{(x,x)\in X\times X\}$ is a closed subset of $X\times X$.
+\end{fact}
+
+\begin{proposition}
+Let $G$ be a topological Abelian group.
+If $\{0\}\subset G$ is closed, then $G$ is Hausdorff.
+\end{proposition}
+
+\begin{proof}
+If $G\times G\to G$ sending $(x,y)\mapsto x-y$, then the preimage of
+$0$ is the diagonal $\Delta_{G}=\{(x,x)\in G\times G\}$. If $\{0\}$ is
+closed, then its preimage under this continuous map is closed, hence
+$G$ is Hausdorff.
+\end{proof}
+
+\begin{node}[Neighborhoods of origin determine topology]
+Let $G$ be a topological Abelian group, let $a\in G$ be some fixed element.
+The translation $T_{a}\colon G\to G$ defined by $T_{a}(x)=x+a$ is a
+homeomorphism of $G$ onto $G$ (since $T_{a}$ is continuous and its
+inverse is $T_{-a}$). Hence if $U$ is any [open] neighborhood of $0$
+in $G$, $U+a$ is an open neighborhood of $a\in G$. Conversely, every
+open neighborhood of $a$ appears in this form. Thus the topology of
+$G$ is uniquely determined by the neighborhoods of $0\in G$.
+\end{node}
+
+\begin{lemma}[Atiyah and Macdonald 10.1]\label{lemma:lec26:math120a:fall2025:intersection-of-all-neighborhoods-of-zero}
+Let $H$ be the intersection of all neighborhoods of $0\in G$. Then
+\begin{enumerate}
+\item $H$ is a subgroup of $G$;
+\item $H=\closure{\{0\}}$;
+\item $G/H$ is Hausdorff;
+\item $G$ is Hausdorff $\iff H=0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{node}
+Recall we had $I\ideal A$ be some ideal, and we had the $I$-adic
+filtration $I\supset I^{2}\supset I^{3}\supset\dots$.
+Then $\bigcap_{n}I^{n}=0\iff$ $I$-adic topology is Hausdorff.
+\end{node}
+
+\begin{definition}
+Let $G$ be a topological Abelian group.
+Assume $0\in G$ has a countable system of neighborhoods.
+Let $(x_{n})$ be a sequence in $G$.
+We say $(x_{n})$ is \define{Cauchy} if for every neighborhood of zero $U\ni 0$
+there exists an integers $s(U)$ such that $x_{n}-x_{m}\in U$
+for all $m,n\geq s(U)$.
+\end{definition}
+
+\begin{example}
+Consider $\ZZ$ equipped with the 2-adic topology. Let $(x_{n})$ be a
+sequence in $\ZZ$ equipped with this topology as a topological Abelian
+group. What would it mean for $(x_{n})$ to be Cauchy? We would require
+$x_{n}-x_{m}$ be divisible by higher and higher powers of 2. For
+example $(1,2,4,8,16,32,64,\dots)$ would be a Cauchy sequence which
+converges to 0.
+
+But we could have a Cauchy sequence which is divergent. For example,
+$(0,1,3,7,15,31,\dots,2^{n}-1,\dots)$ diverges but it's still Cauchy.
+\end{example}
+
+\begin{definition}
+Let $(x_{n})$, $(y_{n})$ be Cauchy sequences in a topological Abelian group.
+We say $(x_{n})$ and $(y_{n})$ are \define{Equivalent}
+if $x_{n}-y_{n}\to0$.
+
+We will write $(x_{n})\sim(y_{n})$ to indicate the sequences are equivalent.
+\end{definition}
+
+\begin{definition}
+Let $G$ be a [first-countable]\footnote{If $G$ is not first-countable,
+then we need to use Cauchy filters instead of Cauchy sequences to
+define the completion. Again, see Bourbaki for detail.} topological Abelian group.
+We define the \define{Completion} of $G$ to be the group 
+consisting of equivalence classes of Cauchy sequences on $G$, i.e.,
+\begin{equation}
+\widehat{G}=\{\mbox{all Cauchy sequences $(x_{n})$ of $G$}\}/\sim.
+\end{equation}
+\end{definition}
+
+\begin{node}
+We have the natural morphism for quotient groups $\phi\colon G\to\widehat{G}$,
+what is its kernel? If $G$ is not Hausdorff, then $\ker(\phi)$ is
+larger than $\{0\}$ (i.e., $\phi$ is not injective). If
+$x\in\ker(\phi)$, then $(x+y)_{n}\to y$ for any $y_{n}\to y$.
+
+In general, we have
+\begin{equation}
+\ker(\phi)=\bigcap\{U\subset G\mbox{ open}\mid 0\in U\},
+\end{equation}
+and by our Lemma~\ref{lemma:lec26:math120a:fall2025:intersection-of-all-neighborhoods-of-zero} we see $\phi$ is injective iff $G$ is Hausdorff.
+\end{node}
+
+\begin{node}[``Functoriality'' of completion]
+If $\alpha\colon G\to G'$ is a morphism of topological groups, then it
+induces a morphism of completions $\widehat{\alpha}\colon\widehat{G}\to\widehat{G'}$.
+\end{node}
+
+\begin{remark}
+We use this in the setting where $G=G_{0}\supset G_{1}\supset G_{2}\supset\dots$
+are neighborhoods of zero. For us, we had $R\supset I\supset I^{2}\supset\dots$.
+Note: the $G_{n}$ are open, but they are also closed (because their
+complement is open).
+\end{remark}
+
+\begin{construction}
+Let $(x_{k})$ be a Cauchy sequence in the topological Abelian group $G$,
+let $n\in\NN$, and
+let $\overline{x_{k}}$ be the image of $x_{k}$ in $G/G_{n}$. 
+Then $\overline{x_{k}}$ will eventually be constant (for $k$ greater
+than some $N$). We write $\xi_{n}:=\overline{x_{N+1}}$ for this constant.
+Then we have maps
+\begin{equation}
+\theta_{n+1}\colon G/G_{n+1}\to G/G_{n},
+\end{equation}
+since $G_{n+1}\subset G_{n}$, defined by sending $\theta_{n+1}(\xi_{n+1})=\xi_{n}$.
+\end{construction}
+
+\begin{definition}
+\begin{enumerate}
+\item We call the sequence $\xi_{n}$ \define{Coherent} if
+  $\theta_{n+1}(\xi_{n+1})=\xi_{n}$ for all $n$. We have just
+  described in the previous construction how to obtain coherent
+  sequences from Cauchy sequences.
+\item More generally, if $A_{n}$ is a sequence of groups and
+  $\theta_{n+1}\colon A_{n+1}\to A_{n}$ are a sequence of group
+  morphisms, we call this an \define{Inverse System}. We define the
+  \define{Inverse Limit} of $(A_{n},\theta_{n})$ to be the set of all
+  coherent sequences (i.e., the sequences $(a_{n})$ such that $a_{n}\in A_{n}$ and $\theta_{n+1}(a_{n+1})=a_{n}$).
+  Atiyah and Macdonald write $\varprojlim A_{n}$ for the inverse limit
+  (when the morphisms $\theta_{n}$ are understood), but the notation
+  varies wildly.
+\end{enumerate}
+\end{definition}
+
+\begin{node}
+With this notation, we see the completion of $G$ is the inverse limit
+\begin{equation*}
+\widehat{G}=\varprojlim(G/G_{n}).
+\end{equation*}
+\end{node}
+
+\begin{proposition}[Universal property]
+If $(A_{n},\theta_{n})$ is an inverse system and $B$ is another group
+with morphisms $B\to A_{n}$ for each $n$, then there exists a unique
+morphism $B\to\varprojlim A_{n}$ making the following diagram commute
+\begin{equation}%!{t1,t2} from t1 to t2
+\vcenter{\xymatrix{
+\varprojlim A_{n}\ar[d]\ar[rd]\ar[rrd]&
+&\ar@{..>}[ll]B\ar[d]
+\ar[ld] |!{[ll];[d]}\hole
+\ar[lld] |!{[ll];[ld]}\hole\\
+A_{n+1}\ar[r]_{\theta_{n+1}}&A_{n}\ar[r]_{\theta_{n}}&A_{n-1}}}
+\end{equation}
+\end{proposition}
+
+\begin{notation}
+Suppose we have 3 inverse systems $A_{n}$, $B_{n}$, $C_{n}$ with maps
+between them such that the following diagram commutes (and the rows
+are short exact sequences):
+\begin{equation}
+\vcenter{\xymatrix{0\ar[r]&A_{n+1}\ar[r]\ar[d]&B_{n+1}\ar[r]\ar[d]&C_{n+1}\ar[r]\ar[d]&0\\
+0\ar[r] & A_{n}\ar[r] & B_{n}\ar[r] & C_{n}\ar[r] & 0}}
+\end{equation}
+We will generically denote this situation by writing
+\begin{equation}
+0\to\{A_{n}\}\to\{B_{n}\}\to\{C_{n}\}\to0.
+\end{equation}
+\end{notation}
+
+\begin{proposition}
+If $0\to\{A_{n}\}\to\{B_{n}\}\to\{C_{n}\}\to0$ is an exact sequence of
+inverse systems, then
+\begin{subequations}
+\begin{equation}
+0\to(\varprojlim A_{n})\to(\varprojlim B_{n})\to(\varprojlim C_{n})
+\end{equation}
+is exact (the slogan is ``limits are left exact'').
+
+If further $\theta^{A}_{n}$ are all surjective, then
+\begin{equation}
+0\to(\varprojlim A_{n})\to(\varprojlim B_{n})\to(\varprojlim C_{n})\to0
+\end{equation}
+\end{subequations}
+is exact.
+\end{proposition}
+
+\begin{proof}
+This is essentially by the Snake lemma. Let $A=\prod_{n}A_{n}$, define
+a map $d^{A}\colon A\to A$ with $d^{A}(a_{n})=a_{n}-\theta_{n+1}(a_{n+1})$
+where we think of these guys as sequences. Then we have a commutative
+diagram of (Abelian) groups, so we use the snake lemma.
+\begin{equation*}
+\vcenter{\xymatrix{
+& & & & & &\\
+    &0\ar[r] & \ker(d^{A})\ar[d]\ar[r] & \ker(d^{B})\ar[d]\ar[r] & \ker(d^{C})\ar[d]
+    \ar`[u]^{}
+    `[ullll]^{}
+    `[dddllll]^{}
+    `[dddll]
+    [dddll]&\\
+&0\ar[r] & A\ar[r]\ar[d]^{d^{A}} & B\ar[d]^{d^{B}}\ar[r] & C\ar[d]^{d^{C}}\ar[r] & 0\\
+&0\ar[r] & A\ar[r]\ar[d] & B\ar[r]\ar[d] & C\ar[r]\ar[d] & 0\\
+& & \coker(d^{A})\ar[r] & \ar[r]\coker(d^{B})\ar[r] & \coker(d^{C})\ar[r]&0
+}}
+\end{equation*}
+The only thing left to prove is that if $\theta_{n}$ are all
+surjective, then $d^{A}$ is surjective, so we're done solving the
+system of equations $x_{n}-\theta_{n+1}(x_{n+1})=a_{n}$ (which is
+possible for surjective $\theta_{n+1}$). Then the cokernels are all zero.
+\end{proof}
+
+\begin{notation}
+People write $\coker(d^{A}):=\varprojlim^{1}A_{n}$ is like ``the first
+inverse limit'', analogous to how we write $\Ext^{1}(\dots)$ or
+$\Tor^{1}(\dots)$. 
+\end{notation}
