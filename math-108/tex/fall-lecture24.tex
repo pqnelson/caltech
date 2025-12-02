@@ -1,0 +1,211 @@
+%%
+%% fall-lecture24.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-12-02T10:32:55-0800
+%% Last update 2025-12-02T10:32:55-0800
+%% 
+
+\lecture
+
+\begin{definition}
+A function $f$ is \define{Continuous Almost Everywhere} (or
+``\emph{Piecewise Continuous}'') in a set $S$ if the set of
+discontinuities of $f$ is a set of measure zero. We'll write
+``continuous a.e.'' as the abbreviation for this term.
+\end{definition}
+
+\begin{example}
+The function
+\begin{equation}
+f(x) = \begin{cases}0 & x\in\RR\setminus\QQ\\
+\frac{1}{q} & x=p/q\in\QQ, \gcd(p,q)=1
+\end{cases}
+\end{equation}
+Then $f$ is continuous almost everywhere. This is because $f=0$ on
+irrational numbers and discontinuous on rational numbers (which has
+measure zero).
+\end{example}
+
+\begin{definition}
+Let $f$ be a bounded function on a set $S$, we define its
+\define{Oscillation} by $o_{f}(S)=(\sup_{x\in S}f(x))-(\inf_{x\in S}f(x))$.
+\end{definition}
+
+We see the difference between the upper and lower sums of $f$ on a
+partition is just the sum of oscillations $S^{*}(f,P)-S_{*}(f,P)=\sum_{i}o_{f}(\Delta_{i})|\closure{\Delta}_{i}|$.
+
+\begin{definition}
+Let $f$ be a bounded function on a set $S$, let $a\in S$, we define its
+\define{Oscillation at a point} by $o_{f}(a)=\lim_{r\to0}o_{f}(B_{r}(a))$.
+\end{definition}
+
+\begin{lemma}\label{lemma:math108a:fall2025:lec24:needed-for-riemann-lebesgue}
+Let $f$ be a real-valued function on a metric space. Suppose $f$ is
+bounded in an open neighborhood of $x$. Then $f$ is continuous at $x$
+iff $o_{f}(x)=0$.
+\end{lemma}
+
+\begin{proof}
+\forwardproof\ If $f$ is continuous at $x$, then for all
+$\varepsilon>0$ there exists a $\delta>0$ such that
+\begin{equation}
+|f(x)-f(a)|<\frac{\varepsilon}{2}
+\end{equation}
+for every $a\in B_{\delta}(x)$. Then for every $a\in B_{\delta}(x)$,
+\begin{equation}
+f(x)-\frac{\varepsilon}{2}<f(a)<f(x)+\frac{\varepsilon}{2},
+\end{equation}
+which implies
+\begin{equation}
+o_{f}(B_{\delta}(x))<\varepsilon.
+\end{equation}
+Since $\varepsilon>0$ arbitrary, $o_{f}(x)=0$.
+
+\backwardproof\ If $o_{f}(x)=0$, then for each $\varepsilon>0$ there
+is a corresponding $\delta>0$ such that $o_{f}(B_{\delta}(x))<\varepsilon$.
+Then whenever $a\in B_{\delta}(x)$, we have
+\begin{equation}
+|f(a)-f(x)|\leq o_{f}(B_{\delta}(x))<\varepsilon.
+\end{equation}
+Hence $f$ is continuous at $x$.
+\end{proof}
+
+\begin{theorem}[Riemann--Lebesgue]
+Let $f$ be a bounded function in a cell $\closure{\Delta}\subset\RR^{n}$.
+Then $\int^{*}_{\closure{\Delta}}f=\int_{*\closure{\Delta}}f$ if and
+only if $f$ is continuous almost everywhere on $\closure{\Delta}$.
+\end{theorem}
+
+The proof requires us doing some preliminary work to get an equivalent
+condition to ``$f$ is continuous almost everywhere on $\closure{\Delta}$''
+which will be easier to prove. Then it's a standard iff proof
+(consisting of a forward and backward proof).
+
+\begin{proof}
+Let $\varepsilon>0$, let
+\begin{equation}
+E_{\varepsilon}=\{x\in\Delta\mid o_{f}(x)<\varepsilon\},
+\end{equation}
+and its complement is denoted
+\begin{equation}
+F_{\varepsilon}=\{x\in\Delta\mid o_{f}(x)\geq\varepsilon\}.
+\end{equation}
+If we can show $E_{\varepsilon}$ is open in $\closure{\Delta}$, then
+we'd obtain $F_{\varepsilon}$ is compact. For any $\vec{x}\in E_{\varepsilon}$,
+there exists $r>0$ such that $o_{f}(B_{r}(\vec{x}))<\varepsilon$.
+If $\vec{x}'\in B_{r}(\vec{x})$ and $r_{0}>0$ is sufficiently small
+such that $B_{r_{0}}(\vec{x}')\propersubset B_{r}(\vec{x})$,
+then $o_{f}(B_{r_{0}}(\vec{x}'))\leq o_{f}(B_{r}(\vec{x}))<\varepsilon$.
+This implies $\vec{x}'\in E_{\varepsilon}$, which implies
+$B_{r}(\vec{x})\propersubset E_{\varepsilon}$. Then $E_{\varepsilon}$
+is open.
+
+By the previous Lemma~\ref{lemma:math108a:fall2025:lec24:needed-for-riemann-lebesgue},
+$f$ is continuous at $\vec{x}$ iff $o_{f}(\vec{x})=0$, which implies
+the set of discontinuities of $f$ is
+\begin{equation}
+F=\{\vec{x}\in\closure{\Delta}\mid o_{f}(\vec{x})>0\},
+\end{equation}
+and this $F$ may be written as a union
+\begin{equation}
+F=\bigcup^{\infty}_{n=1}F_{1/n}.
+\end{equation}
+For the rest of this proof, suffices to show
+$\int^{*}_{\closure{\Delta}}f=\int_{*\closure{\Delta}}f$ if and
+only if $F$ has measure zero.
+
+\backwardproof\ Assume $F$ has measure zero. Then each of $F_{1/n}$
+has measure zero. Since $F_{\varepsilon}$ is compact, we have
+$F_{1/n}$ has content zero. Then for each $\varepsilon>0$, there
+exists finitely many open cells $\Delta'_{j}\propersubset\RR^{n}$
+which cover $F_{\varepsilon}\subset\bigcup_{j}\Delta'_{j}$ and have
+content zero $\sum_{j}|\closure{\Delta}_{j}|<\varepsilon$.
+
+Its complement $K=\closure{\Delta}\setminus(\bigcup_{j}\Delta'_{j})$
+is compact.
+
+If $\vec{x}\in K$, then $\vec{x}\notin F_{\varepsilon}$, and so
+$o_{f}(\vec{x})<\varepsilon$. So for all $\vec{x}\in K$, there exists
+an open cell $\Delta''_{x}$ such that $\vec{x}\in\Delta''_{x}$ and
+$o_{f}(\Delta''_{x})<\varepsilon$. Then $\{\Delta''_{x}\}$ is an open
+cover of $K$. By compactness, there is a finite open subcover
+$\Delta''_{x_{1}}$, \dots, $\Delta''_{x_{N}}$.
+
+Let $P$ be the partition determined by the union of points of
+subdivisions of the finitely many $\Delta'_{j}$ and $\Delta''_{x_{k}}$.
+We write
+\begin{equation}
+\closure{\Delta}=\bigcup_{i}\closure{\Delta}_{i}
+\end{equation}
+where $\Delta_{i}\in P$.
+
+Let $A$ be the set of indices $i$ such that
+$\closure{\Delta}_{i}\subset\closure{\Delta}'_{j}$ for some $j$, so
+\begin{equation}
+\closure{\bigcup_{j}\Delta'_{j}}=\bigcup_{i\in A}\closure{\Delta}_{i}.
+\end{equation}
+Let $B$ be the set of remaining indices. We have
+\begin{equation}
+F_{\varepsilon}\propersubset\bigcup_{i\in A}\closure{\Delta}_{i},
+\end{equation}
+and
+\begin{equation}
+\sum_{i\in A}|\closure{\Delta}_{i}|<\varepsilon.
+\end{equation}
+If $i\in B$, then there is a $k$ such that
+$\closure{\Delta}_{i}\subset\closure{\Delta}''_{x_{k}}$, so $o_{f}(\Delta_{i})<\varepsilon$.
+Since $f$ is bounded, there exists $M$ such that $|f(\vec{x})|<M$ for
+every $\vec{x}\in\closure{\Delta}$, so $o_{f}(D)<2M$ for any $D\subset\closure{\Delta}$.
+Then
+\begin{subequations}
+  \begin{align}
+S^{*}(f,P)-S_{*}(f,P) &= \sum_{i}o_{f}(\closure{\Delta}_{i})|\closure{\Delta}_{i}|\\
+&=\sum_{i\in
+  A}o_{f}(\closure{\Delta}_{i})|\closure{\Delta}_{i}|+\sum_{i\in B}o_{f}(\closure{\Delta}_{i})|\closure{\Delta}_{i}|\\
+&<2M\sum_{i\in A}|\closure{\Delta}_{i}|+\varepsilon\sum_{i\in B}|\closure{\Delta}_{i}|\\
+&<2M\varepsilon+\varepsilon|\closure{\Delta}|=\varepsilon(2M+|\closure{\Delta}|).
+  \end{align}
+\end{subequations}
+Since $\varepsilon$ was arbitrary, this difference goes to zero, which
+then implies $\int^{*}_{\closure{\Delta}}f=\int_{*\closure{\Delta}}f$.
+
+\forwardproof\ Assume $\int^{*}_{\closure{\Delta}}f=\int_{*\closure{\Delta}}f$.
+We want to prove $F$ has measure zero. For each $\varepsilon>0$ and
+for every integer $n>0$, there exists a partition $P_{i}$ of
+$\closure{\Delta}$ such that
+\begin{equation}
+S^{*}(f,P)-S_{*}(f,P)= \sum_{i}o_{f}(\closure{\Delta}_{i})|\closure{\Delta}_{i}|<\frac{\varepsilon}{n}.
+\end{equation}
+Let $A$ be the set of indices such that $\Delta_{i}\cap F_{1/n}\neq\emptyset$,
+and let $B$ be the remaining indices. Then
+\begin{equation}
+F_{1/n}\subset\left(\bigcup_{i\in A}\closure{\Delta}_{i}\right)\cup\left(\bigcup_{i\in B}\boundary\closure{\Delta}_{i}\right).
+\end{equation}
+If $i\in A$, then there exists a point $\vec{x}_{i}\in\Delta_{i}$ such
+that $o_{f}(\vec{x}_{i})\geq1/n$.
+Then $o_{f}(\closure{\Delta}_{i})\geq1/n$.
+Then
+\begin{equation}
+\frac{\varepsilon}{n}>\sum_{i\in A}o_{f}(\closure{\Delta}_{i})|\closure{\Delta}_{i}|\geq\frac{1}{n}\sum_{i\in A}|\closure{\Delta}_{i}|.
+\end{equation}
+Then
+\begin{equation}
+\varepsilon>\sum_{i\in A}|\closure{\Delta}_{i}|.
+\end{equation}
+So for each $F_{1/n}$, we saw we wrote this as
+\begin{equation}
+F_{1/n}\subset\left(\bigcup_{i\in A}\closure{\Delta}_{i}\right)\cup\left(\bigcup_{i\in B}\boundary\closure{\Delta}_{i}\right),
+\end{equation}
+and each $\boundary\closure{\Delta}_{i}$ is measure zero and $B$ is
+countable, so $\bigcup_{i\in B}\boundary\closure{\Delta}_{i}$ is
+measure zero. We just proved $\bigcup_{i\in A}\closure{\Delta}_{i}$
+has measure zero. Together, this implies $F_{1/n}$ has measure
+zero. Since we defined
+\begin{equation}
+F=\bigcup^{\infty}_{n=1}F_{1/n},
+\end{equation}
+this means $F$ has measure zero. Hence the result.
+\end{proof}

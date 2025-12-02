@@ -1,0 +1,201 @@
+%%
+%% fall-lecture27.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-12-02T09:43:23-0800
+%% Last update 2025-12-02T09:43:23-0800
+%% 
+
+\lecture{}
+
+\begin{remark}
+Truthfully, I am confused with the material as I review it. It appears
+to be a different approach to proving what we ended last lecture, but
+that was never made explicitly clear (at least, not that I recollect).
+\end{remark}
+
+\begin{lemma}
+The groups $H_{i}(M,M\setminus K)=0$ for $i>n$. A homology class
+$\alpha\in H_{n}(M,M\setminus K)$ is zero iff
+$\rho_{x}(\alpha)\in H_{n}(M,M\setminus\{x\})$
+is zero for all $x\in M$.
+\end{lemma}
+
+\begin{proof}
+First, we consider the space
+\begin{equation}
+\widetilde{M}=\{(x,a)\mid x\in M,a\in H_{n}(M,M\setminus\{x\})\}.
+\end{equation}
+We have $p\colon\widetilde{M}\to M$, $p^{-1}(x)=H_{n}(M,M\setminus\{x\})\iso\ZZ$.
+This is known as a \define{Bundle of a Group}, but the important thing
+is we can put a topology on $\widetilde{M}$ such that
+$p\colon\widetilde{M}\to M$ is a covering map. Given an $\alpha\in H_{n}(M)$,
+we can define
+\begin{equation}
+\begin{split}
+s_{\alpha}\colon& M\to\widetilde{M}\\
+&x\mapsto(x,\rho_{x}(\alpha))
+\end{split}
+\end{equation}
+where $\rho_{x}\colon H_{n}(M)\to H_{n}(M,M\setminus\{x\})$. It's not
+hard to see that $s_{\alpha}$ is continuous. We also see $\{(x,0)\mid x\in M\}$
+is both open and closed in $\widetilde{M}$. Then
+\begin{equation}
+s^{-1}_{\alpha}(0)=\{x\in M\mid \rho_{x}(\alpha)=0\}
+\end{equation}
+(is the preimage of $0$ of a section of the bundle of a group) is both
+open and closed in $M$. If $M$ is connected, then either
+$s^{-1}_{\alpha}(0)=\emptyset$ or $s^{-1}_{\alpha}(0)=M$.
+\end{proof}
+
+\begin{corollary}
+If $M$ is closed and connected, then $\rho_{x}$ is injective for each
+$x\in M$.
+\end{corollary}
+
+\begin{proof}
+If $\rho_{x}(\alpha)=0$ for some $x\in M$, then $s^{-1}_{\alpha}(0)\neq\emptyset$.
+This means $s^{-1}_{\alpha}(0)=M$. Then $\rho_{y}(\alpha)=0$ for all
+$y\in M$. Then by the previous Lemma, $\alpha=0$. So we've established
+the kernel of $\rho_{y}$ is trivial for all $y\in M$. Hence the result.
+\end{proof}
+
+\begin{theorem}
+\begin{enumerate}
+\item If $M$ is a closed, connected orientable $n$-manifold, then $H_{n}(M)\iso\ZZ$.
+\item If $M$ is an $n$-manifold which is either connected noncompact
+  or nonorientable, then $H_{n}(M)=0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) We have a map $\rho_{x}\colon H_{n}(M)\to H_{n}(M,M\setminus\{x\})\iso\ZZ$
+is injective. Then we know from
+Theorem~\ref{thm:math151a:fall2025:lec26:thm-star} $\rho_{x}(\mu_{M})=\mu_{x}$
+which implies $\rho_{x}$ is surjective. Hence $\rho_{x}$ is an isomorphism.
+
+
+(2) If $M$ is nonorientable and closed, then since $\rho_{x}$ is
+injective we know $H_{n}(M)\iso0$ or $H_{n}(M)\iso\ZZ$. But if
+$H_{n}(M)\iso\ZZ$, then we can consider
+\begin{equation}
+\mu_{x}:=\frac{\rho_{x}(1)}{|\rho_{x}(1)|}\in H_{n}(M,M\setminus\{x\}),
+\end{equation}
+which is a well-defined local orientation, and it varies
+continuously with respect to $x$ (since $\rho_{x}$ varies
+continuously with $x$). But this implies $M$ is orientable, which is
+a contradiction.
+
+If $M$ is noncompact, then let $z\in C_{n}(M)$ be a cycle. Let $x\in M$
+be away from the support of $z$, then $\rho_{x}([z])=0$. (We can
+always find such an $x\in M$ since $M$ is noncompact, and $z$ is a
+\emph{finite} linear combination of simplices.) This implies
+$\rho_{y}([z])=0$ for all $y\in M$.
+
+(Lemma: for all $K\subset M$ compact, $[z]=0$ in $H_{n}(M,M\setminus K)$.)
+
+Let $K$ be a compact subset of $M$ which contains the support of $z$
+in its interior. Let $V=M\setminus K$. We have a commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{0=H_{n+1}(M,\Interior(K)\cup V)\ar[r] & H_{n}(\Interior(K)\cup V,V)\ar[r] & H_{n}(M,V)\\
+& H_{n}(\Interior(K))\ar[u]^{\text{inclusion}}\ar[r]_{\text{inclusion}} & H_{n}(M)\ar[u]}}
+\end{equation}
+The inclusion $H_{n}(\Interior(K))\to H_{n}(\Interior(K)\cup V,V)$ is
+an isomorphism by the Excision theorem. We claim $[z]\in H_{n}(\Interior(K))$
+and $[z]\in H_{n}(M)$ so by the commutative diagram
+$H_{n}(\Interior(K))\to H_{n}(M)\to H_{n}(M,V)$ being exact, this maps
+to $0$. So we have $0\mapsto[z]\mapsto0$, which forces $[z]=0$.
+\end{proof}
+
+\begin{proposition}
+If $M$ is connected and $\boundary M\neq0$, then $H_{n}(M)=0$.
+
+If $M$ is compact, connected, and oriented $n$-manifold, then
+$H_{n}(M,\boundary M)\iso\ZZ$. 
+\end{proposition}
+
+(This is the analogous result for manifolds with boundary.)
+
+\begin{remark}
+If $M$ is a closed, connected $n$-manifold, then $H_{n}(M,\ZZ/2\ZZ)\iso\ZZ/2\ZZ$
+(since every manifold is $\ZZ/2\ZZ$-orientable).
+\end{remark}
+
+\subsection{Poincar\'{e} Duality}
+
+\begin{definition}
+Let $M$ be a connected, compact, orientable $n$-manifold, let $R$ be a ring.
+A \define{Fundamental Class} for $M$ with coefficients in $R$ is an
+element $[M]:=\mu_{M}$ of $H_{n}(M;R)$ whose image in
+$H_{n}(M,M\setminus\{x\};R)$ is a generator for all $x\in M$.
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}
+\item The ``Manifold Atlas'' wiki cites: M.J.~Greenberg and J.R.~Harper, \textit{Algebraic topology}, Benjamin/Cummings Publishing Co. Inc. Advanced Book Program, 1981. 
+\item  This definition can be modified to work with an $(n-1)$-connected topological space.
+\end{enumerate}
+\end{remark}
+
+\begin{theorem}
+Let $M$ be a closed orientable $n$-manifold with ``\emph{Fundamental Class}''
+$[M]:=\mu_{M}\in H_{n}(M;\ZZ)$, then the map $D\colon H^{k}(M)\to H_{n-k}(M)$
+defined by $D(\alpha)=[M]\frown\alpha$ is an isomorphism for all $k$.
+\end{theorem}
+
+\begin{remark}
+This is \emph{the} fundamental result in homology theory.
+\end{remark}
+
+\begin{remark}
+The proof of this is highly nontrivial.
+
+How do we see it intuitively? There's no good way with singular
+homology. But in differential topology, there are ways to gain an intuition.
+
+We will prove an even stronger result, which requires a few new notions.
+\end{remark}
+
+\begin{definition}
+We define the \define{Cochains with compact support} $C^{i}_{c}(X)$
+which consists of cochains $\varphi\colon C_{i}(X)\to\ZZ$ such that
+there exists compact $K\subset X$ such that $\varphi(\sigma)=0$ if the
+image of $\sigma\subset X\setminus K$.
+
+Then we consider $C^{*}_{c}(X)$ which is a chain subcomplex of $C^{*}(X)$.
+
+Then we consider the \define{Cohomology with Compact Support} $H^{*}_{c}(X)$
+which is the cohomology of $C^{*}_{c}(X)$.
+\end{definition}
+
+\begin{example}
+What is $H^{*}(\RR^{n})$? It turns out to be the limit
+\begin{equation}
+H^{*}(\RR^{n})=\lim_{r\to\infty}H^{*}(\RR^{n},\RR^{n}\setminus B^{n}_{r}),
+\end{equation}
+where $B^{n}_{r}$ is the ball of radius $r$ centered at $0$. A cochain
+in compact $K$ may be placed in a large ball. We know that for fixed
+$r$ that
+\begin{equation}
+H^{k}(\RR^{n},\RR^{n}\setminus B^{n}_{r})\iso\begin{cases}\ZZ &
+\mbox{if }k=n,\\
+0&\mbox{otherwise},
+\end{cases}
+\end{equation}
+then
+\begin{equation}
+H^{k}_{c}(\RR^{n},\RR^{n}\setminus B^{n}_{r})\iso\begin{cases}\ZZ &
+\mbox{if }k=n,\\
+0&\mbox{otherwise}.
+\end{cases}
+\end{equation}
+\end{example}
+
+\begin{remark}
+We want to prove Poincar\'{e} duality using $H_{c}$, then we just
+remove the hyporhesis $M$ is closed. We also modify the definition of
+$D$ since the fundamental class is no longer well-defined. We'll do
+this next time.
+\end{remark}
