@@ -144,5 +144,24 @@ two prime ideals of $\ZZ[\sqrt{2}]$ which map to $(p)$. When there is
 no solution, then $(p)$ is a prime ideal of $\ZZ[\sqrt{2}]$ and it's
 the only one which maps to its doppleganger in $\ZZ$.
 
-There was some mention that this has some connection to Galois theory.
+%There was some mention that this has some connection to Galois theory.
+This is related to Galois groups whenevery you quotient a field
+$\QQ(\sqrt{p})$ by its Galois group, you recover $\QQ$. This can be
+used to induce a symmetry sending, e.g.,
+\begin{equation}
+(\sqrt{5}-2)\mapsto(\sqrt{5}+2)
+\end{equation}
+when there are 2 ideals. In fact, we can view this as an ``Algebraic
+covering group''.
+
+There is a canonical association to each extension of $\QQ$, a ring
+version of $\ZZ$:
+\begin{equation}
+\begin{array}{rcl}
+\ZZ & \subset & \QQ \\
+\ZZ[\sqrt{2}] & \subset & \QQ(\sqrt{2}) \\
+\ZZ[\frac{1+\sqrt{5}}{2}] & \subset & \QQ(\sqrt{5}),
+\end{array}
+\end{equation}
+but that last inclusion isn't always the naive version of the extension.
 \end{example}
