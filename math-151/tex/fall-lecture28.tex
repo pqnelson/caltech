@@ -1,0 +1,277 @@
+%%
+%% fall-lecture28.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-12-04T10:12:38-0800
+%% Last update 2025-12-04T10:12:38-0800
+%% 
+
+\lecture{}
+
+\begin{theorem}[Poincar\'{e} duality]
+If $M$ is an oriented $n$-manifold, then there is an isomorphism
+$D_{M}\colon H^{k}_{c}(M)\to H_{n-k}(M)$ for all $k$.
+\end{theorem}
+
+We won't prove this theorem, but we will sketch out its proof.
+
+\begin{note}
+In this form, we do not assume $M$ is closed. But when $M$ is closed,
+the cohomology with compact support coincides with the usual
+cohomology, i.e., $H^{k}_{c}(M)=H^{k}(M)$. 
+\end{note}
+
+\begin{node}[Initial step]
+We need to define $D_{M}$. When $M$ is closed,
+\begin{equation}
+D_{M}(\alpha)=\alpha\frown[M],
+\end{equation}
+where $[M]=\mu_{M}$ is the fundamental class. But when $M$ is not
+closed, we can write it as a directed limit.
+\end{node}
+
+\begin{lemma}\pushQED{\qed}
+$\displaystyle{H^{*}_{c}(M)=\varinjlim_{K\text{ compact in }M}H^{*}(M,M\setminus K)}$\qedhere
+\end{lemma}
+
+\begin{node}
+By a previous lemma or theorem, there exists a unique $\mu_{K}\in H_{n}(M,M\setminus K)$
+such that $\rho_{x}(\mu_{K})=\mu_{x}\in H_{n}(M,M\setminus\{x\})$. So
+we can us this to define
+\begin{equation}
+D_{K}\colon H^{k}(M,M\setminus K)\to H_{n-k}(M).
+\end{equation}
+Then we just take the direct limit, and we get $D_{M}\colon H^{k}_{c}(M)\to H_{n-k}(M)$.
+This concludes the ``initial step'' (defining the Poincar\'{e} duality mapping).
+\end{node}
+
+\begin{proof}[Proof outline]\marginpar{{\footnotesize Proof sketch for Poincar\'{e} duality}}\ignorespaces%
+\textsc{Case 1:} $M=\RR^{n}$ case. This is direct.
+
+\textsc{Case 2:} If the theorem is true for $M=U$ and $M=V$ and
+$M=U\cap V$, then it is also true for $M=U\cup V$. This uses
+Mayer--Vietoris sequence argument and the Five lemma. We have the
+exact sequence
+\begin{equation}
+\vcenter{\xymatrix{
+H^{i}_{c}(U\cap V)\ar[r]\ar[d]^{D_{U\cap V}} & H^{i}_{c}(U)\oplus H^{i}_{c}(V)\ar[r]\ar@<-5ex>[d]^{D_{U}}\ar@<3ex>[d]^{D_{V}} & H^{i}_{c}(U\cup V)\ar[r]\ar[d]^{D_{U\cup V}} & H^{i+1}_{c}(U\cap V)\ar[r]\ar[d]^{D_{U\cap V}} & H^{i+1}_{c}(U)\oplus H^{i+1}_{c}(V)\ar@<-5ex>[d]^{D_{U}}\ar@<3ex>[d]^{D_{V}}\\
+H_{n-i}(U\cap V)\ar[r] & H_{n-i}(U)\oplus H_{n-i}(V)\ar[r] & H_{n-i}(U\cup V)\ar[r] & H_{n-i-1}(U\cap V)\ar[r] & H_{n-i-1}(U)\oplus H_{n-i-1}(V)}}
+\end{equation}
+Since $D_{U\cap V}$, $D_{U}$, and $D_{V}$ are isomorphisms, the Five
+lemma implies $D_{U\cup V}$ is an isomorphism.
+
+\textsc{Case 3:} $M=\bigcup^{\infty}_{m=1}U_{m}$ where
+$U_{m}\propersubset U_{m+1}$ and the theorem is true for each
+$U_{m}$. Then we just apply the direct limit, and then the previous
+case implies the result holds for $M$.
+
+\textsc{Case 4:} If $U\subset\RR^{n}$ is open, then the theorem is
+true for $U$ by cases 2 and 3.
+
+\textsc{Case 5:} The general case. Since $M$ is covered by countably
+many charts, using cases 2--4 implies the result.
+\end{proof}
+
+\begin{remark}
+Just to reiterate: when $M$ is not orientable, then the isomorphism
+still works for $\ZZ/2\ZZ$ coefficients.
+\end{remark}
+
+\subsection{Applications of Poincar\'{e} Cohomology}
+
+\begin{corollary}
+If $M$ is an odd-dimensional closed manifold, then the Euler
+characteristic vanishes $\chi(M)=0$.
+\end{corollary}
+
+\begin{proof}
+We know
+\begin{equation}
+\chi(M)=\sum^{n}_{i=0}(-1)^{i}\dim(H_{i}(M;\ZZ/2\ZZ)),
+\end{equation}
+but by Poincar\'{e} duality
+\begin{equation}
+H^{n-i}(M;\ZZ/2\ZZ)\iso H_{i}(M;\ZZ/2\ZZ).
+\end{equation}
+Then by the universal coefficient theorem
+\begin{equation}
+H^{i}(M;\ZZ/2\ZZ)\iso\hom(H_{i}(M),\ZZ/2\ZZ)\oplus\Ext(H_{i-1}(M),\ZZ/2\ZZ),
+\end{equation}
+and
+\begin{equation}
+H_{i}(M;\ZZ/2\ZZ)\iso (H_{i}(M)\otimes\ZZ/2\ZZ)\oplus\Tor(H_{i-1}(M),\ZZ/2\ZZ),
+\end{equation}
+and it turns out these two are isomorphic:
+\begin{equation}
+H_{i}(M;\ZZ/2\ZZ)\iso H^{i}(M;\ZZ/2\ZZ).
+\end{equation}
+Then we can write (since $n$ is odd),
+\begin{equation}
+\chi(M)=\sum^{(n-1)/2}_{i=0}\bigl((-1)^{i}\dim(H_{i}(M;\ZZ/2\ZZ))+(-1)^{i+1}\dim(H_{n-i}(M;\ZZ/2\ZZ))\bigr),
+\end{equation}
+but
+\begin{subequations}
+  \begin{align}
+H_{n-1}(M;\ZZ/2\ZZ) &\iso H^{n-i}(M;\ZZ/2\ZZ) \quad\mbox{by Universal Coefficient}\\
+&\iso H_{i}(M;\ZZ/2\ZZ)\quad\mbox{by Poincar\'{e} duality},
+  \end{align}
+\end{subequations}
+so each summand in the Euler characteristic vanishes, giving
+$\chi(M)=0$.
+\end{proof}
+
+\begin{remark}
+People know more about even-dimensional manifolds than odd-dimensional
+manifolds because $\chi(M)=0$ for $\dim(M)$ odd.
+\end{remark}
+
+\marginpar{{\footnotesize Connection to Cup Product}}
+
+\begin{node}
+Let $R$ be a commutative ring. Consider the mapping
+\begin{equation}
+\begin{split}
+H^{k}(M;R)\times H^{n-k}(M;R)&\to R\\
+(\varphi,\psi)&\mapsto\langle\varphi\smile\psi,[M]\rangle,
+\end{split}
+\end{equation}
+which defines a bilinear pairing. Let us call the biliniear pairing
+$Q\colon H^{k}(M;R)\times H^{n-k}(M;R)\to R$.
+
+In general, if we have a function $Q\colon A\times B\to R$, then this
+induces two morphisms
+\begin{equation}
+\begin{split}
+A\to\hom(B,R)\\
+a\mapsto Q(a,-),
+\end{split}
+\end{equation}
+and similarly a morphism $B\to\hom(A,R)$.
+
+We call a pairing \define{Nonsingular} if these two induced morphisms
+are isomorphism.
+\end{node}
+
+\begin{proposition}
+The cup product pairing $Q$ is nonsingular for closed oriented
+manifolds when \emph{either} $R$ is a field \emph{or} $R=\ZZ$ and the
+torsion in $H^{*}(M)$ is factored out.
+\end{proposition}
+
+(If $M$ is nonorientable, then this result holds when $R=\ZZ/2\ZZ$.)
+
+\begin{proof}
+For simplicity, we will prove the case when $R=\ZZ$ (but the argument
+is similar for other cases). Consider the map
+\begin{equation}
+h\colon H^{n-i}(M)\to\hom(H_{n-i}(M),\ZZ)
+\end{equation}
+obtained by the Universal Coefficient Theorem. Recall we had
+\begin{equation}
+0\to\underbrace{\Ext(H_{n-i-1}(M),\ZZ)}_{\text{torsion part}}\to H^{n-i}(M)\xrightarrow{h}\underbrace{\hom(H_{n-i}(M),\ZZ)}_{\text{free part}}\to0
+\end{equation}
+If we mod out the torsion,
+\begin{equation}
+h\colon H^{n-i}(M)/\mbox{(torsion)}\to\hom(H_{n-i}(M),\ZZ)
+\end{equation}
+is an isomorphism by the Universal coefficient theorem. Then
+$D^{*}_{M}$ is an isomorphism obtained by Poincar\'{e} duality as
+follows: If $\varphi\in H^{n-i}(M)/\mbox{(torsion)}$, then
+$(D^{*}_{M}\circ h)(\varphi)\in\hom(H^{i}(M),\ZZ)$. Let $\psi\in H^{i}(M)$,
+then
+\begin{subequations}
+  \begin{align}
+(D^{*}_{M}\circ h)(\varphi)(\psi)
+&=h(\varphi)\bigl(D_{M}(\psi)\bigr)\mbox{ by def of } D^{*}_{M}\\
+&=\langle\varphi,D_{M}(\psi)\rangle\mbox{ by def of }h\\
+&=\langle\varphi,\psi\smile[M]\rangle\mbox{ by def of }D_{M}\\
+&=\langle\varphi\smile\psi,[M]\rangle\\
+&=Q(\varphi,\psi)\mbox{ by def of }Q.
+  \end{align}
+\end{subequations}
+So the morphism defined by $Q$ is $D^{*}_{M}\circ h$ which is an isomorphism.
+Hence the pairing $Q$ is nonsingular.
+\end{proof}
+
+\begin{example}
+Suppose we want to compute $H^{*}(\CP^{2})$. We know that
+\begin{equation}
+H^{k}(\CP^{2})\iso\begin{cases}\ZZ & \mbox{if }k=0,2,4\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+But what is the cup product? For dimension reasons, we only need to
+understand the cup product
+\begin{equation}
+H^{2}(\CP^{2})\times H^{2}(\CP^{2})\to H^{4}(\CP^{2})\iso\ZZ.
+\end{equation}
+The proposition implies this mapping is nonsingular. There are only 2
+nonsingular pairings, they are determined by the image of $(1,1)$. So
+what is $(1,1)$ mapped to? It must be a gerneator of $H^{4}(\CP^{2})\iso\ZZ$,
+so $(1,1)\mapsto\pm1$. But we can always choose the generator such
+that $(1,1)\mapsto+1$. So the cohomology ring for $\CP^{2}$ is
+\begin{equation}
+H^{*}(\CP^{2})\iso\ZZ[x]/(x^{3}),
+\end{equation}
+where $x$ is a generator of $H^{2}(\CP^{2})$.
+\end{example}
+
+\begin{fact}
+Complex manifolds (like $\CP^{n}$) are orientable. But $\RP^{2}$ is
+not orientable.
+\end{fact}
+
+\begin{example}
+We can try this for $\CP^{3}$. Recall the cohomology groups for
+$\CP^{3}$ are:
+\begin{equation}
+H^{k}(\CP^{3})\iso\begin{cases}\ZZ & \mbox{if }k=0,2,4,6\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+What is the ring structure of this guy? We observe there is an
+inclusion map
+\begin{equation}
+i\colon\CP^{2}\into\CP^{3},
+\end{equation}
+which induces a ring morphism
+\begin{equation}
+i^{*}\colon H^{*}(\CP^{3})\to H^{*}(\CP^{2}),
+\end{equation}
+and a long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{H^{*}(\CP^{2})\ar[dr]_{[+1]} & & \ar[ll]H^{*}(\CP^{3})\\
+&H^{*}(\CP^{3},\CP^{2})\ar[ru]&}}
+\end{equation}
+where
+\begin{equation}
+H^{*}(\CP^{3},\CP^{2})\iso\widetilde{H}^{*}(\CP^{3}/\CP^{2})\iso\widetilde{H}^{*}(\sphere{6}).
+\end{equation}
+This gives us a short exact sequence
+\begin{equation}
+\begin{array}{ccrcccccc}
+0 & \to & \widetilde{H}^{*}(\sphere{6}) & \to & H^{*}(\CP^{3}) & \to H^{*}(\CP^{2}) & \to & 0\\
+  &     & \widetilde{H}^{6}(\sphere{6})\iso\ZZ & \xrightarrow{\iso} & H^{6}(\CP^{3}) & & & &\\
+  &     &                               &     & H^{j}(\CP^{3}) & \xrightarrow{\iso} & H^{j}(\CP^{2}) & & 
+\end{array}
+\end{equation}
+for $j<6$. Since $H^{*}(\CP^{2})\iso\ZZ[x]/(x^{2})$, we know
+$H^{2}(\CP^{3})$ is generated by $x$, and $H^{4}(\CP^{3})$ is
+generated by $x^{2}$. For dimension reasons, we only need to
+understand the cup product for
+\begin{equation}
+H^{2}(\CP^{3})\times H^{4}(\CP^{3})\to H^{6}(\CP^{3}).
+\end{equation}
+We know it is nonsingular, so $x^{3}$ is a generator for $H^{6}(\CP^{3})$.
+This implies the cohomology ring for $\CP^{3}$ satisfies
+\begin{equation}
+H^{*}(\CP^{3})\iso\ZZ[x]/(x^{4}).
+\end{equation}
+More generally, for any $\CP^{n}$, the cohomology ring satisfies
+\begin{equation}
+H^{*}(\CP^{n})\iso\ZZ[x]/(x^{n+1}),
+\end{equation}
+by a similar argument.
+\end{example}

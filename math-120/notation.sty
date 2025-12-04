@@ -44,7 +44,10 @@
 
 \def\preimage#1{#1^{*}}
 
-% ideal related
+%% linear algebra
+\DeclareMathOperator\rank{rank}
+
+%% ideal related
 \let\Radical\sqrt
 %% \newcommand\ideal{\mathrel{\trianglelefteq}}
 %% \def\properideal{\mathrel{\triangleleft}}
@@ -52,8 +55,11 @@
 \def\properideal{\mathrel{\lhd}}
 \let\iso\cong
 
+% ideals --- Isabelle/Isar notation
+\newcommand\mmm{\mathfrak{m}}
 
-% ring related
+
+%% ring related
 \DeclareMathOperator\Spec{Spec}
 \DeclareMathOperator\MSpec{MSpec}
 \newcommand\nilradical[1]{\operatorname{nil}(#1)}
@@ -67,6 +73,8 @@
 \DeclareMathOperator\height{ht} % height of an ideal
 
 \DeclareMathOperator\gr{gr} % Associated Graded Ring wrt a filtration
+
+\DeclareMathOperator\Cl{Cl} % class group
 
 % category theory related
 \newcommand\cat[1]{\mathbf{#1}}

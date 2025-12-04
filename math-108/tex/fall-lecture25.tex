@@ -1,0 +1,261 @@
+%%
+%% fall-lecture25.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-12-04T11:04:19-0800
+%% Last update 2025-12-04T11:04:19-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+We say $f$ is \define{Riemann integrable} on a generic set
+$S\subset\RR^{n}$ if $f$ is bounded and continuous almost everywhere
+on $S$.
+\end{definition}
+
+\begin{definition}
+If $f$ is Riemann integrable over $\closure{\Delta}$, then we define
+the \define{Riemann integral} of $f$ is just the common value of the
+upper and lower integrals, which we denote as
+$\int_{\closure{\Delta}}f$ or something similar (if we need the
+variable of integration, then $\int_{\closure{\Delta}}f(\vec{x})\,\D\vec{x}$).
+\end{definition}
+
+\begin{proposition}
+Let $f_{1}$, $f_{2}$ be Riemann integrable functions on $S\propersubset\RR^{n}$.
+Then $f_{1}+f_{2}$ and $f_{1}f_{2}$ are Riemann integrable on $S$.
+\end{proposition}
+
+\begin{proposition}
+If $f_{1}$ and $f_{2}$ are Riemann integrable in $\closure{\Delta}\subset\RR^{n}$,
+and if $f_{1}(\vec{x})>f_{2}(\vec{x})$ for all $\vec{x}\in\closure{\Delta}$,
+then $\int_{\closure{\Delta}}f_{1}>\int_{\closure{\Delta}}f_{2}$.
+\end{proposition}
+
+\begin{definition}
+A bounded set $D\subset\RR^{n}$ is called \define{Jordan measurable}
+if its boundary $\boundary D=\closure{D}\setminus\Interior(D)$ is a
+set of measure zero. 
+\end{definition}
+
+\begin{note}
+The boundary $\boundary D=\closure{D}\cap(\Interior(D))^{\complement}$
+is always a closed set. This means $\boundary D$ is closed and
+bounded, hence $\boundary D$ is compact. Then $\boundary D$ has
+measure zero iff it is content zero.
+\end{note}
+
+\begin{remark}
+Most ``nice'' spaces which spring to mind are Jordan measurable. This
+is a feature, not a defect, of the definition: we want to describe
+domains of integration as Jordan measurable sets. The place to look
+for non-examples of Jordan measurable sets are bizarre fractal-like
+constructions or sets like $\QQ\cap(0,1)$.
+\end{remark}
+
+\begin{xca}
+The Cantor set is defined recursively with $C_{0}=[0,1]$.
+We will abuse notation to write $[a,b]/x = [a/x,b/x]$ and $k+[a,b]=[k+a,k+b]$.
+Then
+\begin{equation}
+C_{n} = \frac{C_{n-1}}{3}\cup\left(\frac{2}{3}+\frac{C_{n-1}}{3}\right).
+\end{equation}
+The Cantor set is $C:=\lim_{n\to\infty}C_{n}=\bigcap^{\infty}_{n=0}C_{n}$.
+
+Is the Cantor set Jordan measurable or not? (Hint: does the boundary
+of the Cantor set $\boundary C$ have measure zero or not?)
+\end{xca}
+
+\begin{xca}
+Consider the set $S=\QQ\cap[0,1]$. Is $S$ Jordan measurable or not?
+(Hint: is $\boundary S=[0,1]$?)
+\end{xca}
+
+\begin{lemma}
+If $D_{1}$ and $D_{2}$ are Jordan measurable sets,
+then both $D_{1}\cap D_{2}$ and $D_{1}\cup D_{2}$ are Jordan measurable.
+\end{lemma}
+
+\begin{node}
+For each Jordan measurable set $D\subset\RR^{n}$, there is a closed
+cell $\closure{\Delta}$ such that $D\subset\closure{\Delta}$. A
+Riemann integrable function
+\begin{equation}
+f\colon D\to\RR
+\end{equation}
+may be extended to a Riemann integrable function
+\begin{equation}
+\widetilde{f}\colon\closure{\Delta}\to\RR,
+\end{equation}
+defined by
+\begin{equation}
+\widetilde{f}(\vec{x}) =\begin{cases}f(\vec{x}) & \mbox{if }\vec{x}\in D\\
+0 & \mbox{if }\vec{x}\in\closure{D}\setminus D.
+\end{cases}
+\end{equation}
+We claim that $\widetilde{f}$ is Riemann integrable in
+$\closure{\Delta}$. We see that $\widetilde{f}$ is bounded, but is it
+continuous almost everywhere? Well, $\widetilde{f}$ is continuous in
+$D$ and in $\closure{\Delta}\setminus D$, so the only possible
+discontinuities would be in $\boundary D$ which has measure zero (by
+Definition of Jordan measurable). Since
+\begin{equation}
+\closure{\Delta}=\Interior(D)\cup(\closure{\Delta}\setminus\closure{D})\cup\boundary D
+\end{equation}
+and $\widetilde{f}$ is continuous on the first two factors (and the
+third factor is measure zero), this implies $\widetilde{f}$ is
+continuous almost everywhere on $\closure{\Delta}$.
+
+Now, we can define the \define{Riemann Integral} of $f$ over a Jordan
+measurable subset $D\subset\RR^{n}$ by
+\begin{equation}
+\int_{D}f := \int_{\closure{\Delta}}\widetilde{f}.
+\end{equation}
+This is why we wanted to introduce Jordan measurable sets: we can
+define Riemann integration over them.
+\end{node}
+
+\begin{definition}
+Let $D$ be any set. We define its \define{Characteristic Function} to be
+\begin{equation}
+\chi_{D}(x) = \begin{cases}1 & \mbox{if }x\in D\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+\end{definition}
+
+\begin{remark}
+Not to be a stick in the mud, but technically we need $D\subset S$ and
+the characteristic function is defined on $\chi_{D}\colon S\to\{0,1\}$.
+\end{remark}
+
+\begin{definition}
+If $f$ is a Riemann integrable function on $\closure{\Delta}$, and if
+$D\subset\closure{\Delta}$ is a Jordan measurable set, then we may
+define the \define{Riemann integral} of $f$ over $D$ by
+\begin{equation}
+\int_{D}f=\int_{\closure{\Delta}}\chi_{D}f.
+\end{equation}
+\end{definition}
+
+\begin{definition}
+We may extend the notion of the ``content'' of a set to a Jordan
+measurable set $D$, defining the \define{Content} of $D\subset\closure{\Delta}$ to be
+\begin{equation}
+|D|=\int_{\closure{\Delta}}\chi_{D}.
+\end{equation}
+When $D=\closure{\Delta}$, we recover the usual notion of the content
+of a cell.
+\end{definition}
+
+\begin{proposition}[Linearity]
+If $f_{1}$ and $f_{2}$ are Riemann integrable functions in a Jordan
+measurable set $D$, then for any real constants $c_{1},c_{2}\in\RR$ we
+have
+\begin{equation}
+\int_{D}(c_{1}f_{1}+c_{2}f_{2})=(c_{1}\int_{D}f_{1})+(c_{2}\int_{D}f_{2}),
+\end{equation}
+and $c_{1}f_{1}+c_{2}f_{2}$ is Riemann integrable on $D$.
+\end{proposition}
+
+\begin{proposition}[Positivity]
+Let $f$ and $g$ be Riemann integrable functions on a Jordan measurable
+set $D$. Then the following hold:
+\begin{enumerate}
+\item If for each $\vec{x}\in D$ we have $f(\vec{x})\geq0$, then $\int_{D}f\geq0$;
+\item If for each $\vec{x}\in D$ we have $f(\vec{x})\geq g(\vec{x})$,
+  then $\int_{D}f\geq\int_{D}g$;
+\item $|\int_{D}f|\leq\int_{D}|f|$.
+\end{enumerate}
+\end{proposition}
+
+\begin{lemma}
+If $f$ is bounded in a Jordan measurable set $D\subset\RR^{n}$ and if
+$f(\vec{x})=0$ for all $\vec{x}\in D\setminus E$ where $E\subset D$
+has \emph{content} zero, then $f$ is Riemann integrable on $D$ and
+\begin{equation}
+\int_{D}f=0.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+We place $D$ in a closed cell $\closure{\Delta}\supset D$ since $D$ is
+bounded. Define
+\begin{equation}
+\widetilde{f}=\chi_{D}f\colon\closure{\Delta}\to\RR,
+\end{equation}
+we see $\widetilde{f}=0$ on $\closure{\Delta}\setminus E$.
+Then $\widetilde{f}$ is Riemann integrable in $\closure{\Delta}$ since
+$E$ has content zero.
+Byt definition of content zero, for each $\varepsilon>0$ there exists
+finitely many $\Delta'_{i}$ such that
+\begin{subequations}
+\begin{equation}
+E\subset\bigcup^{n}_{i=1}\Delta'_{i}
+\end{equation}
+and
+\begin{equation}
+\sum_{i}|\closure{\Delta}'_{i}|<\varepsilon.
+\end{equation}
+\end{subequations}
+We want to find a partition $P$ that contains these $\Delta'_{i}$, and
+we'll denote by $\Delta''_{j}$ the remaining cells of the partition.
+Since $f$ is bounded on $E$, there exists an $M>0$ such that for all
+$\vec{x}\in E$,
+\begin{equation}
+|f(\vec{x})|\leq M.
+\end{equation}
+Then we can start to compute the integral by looking at the upper
+Riemann sum,
+\begin{subequations}
+  \begin{align}
+S^{*}(\widetilde{f},P)
+&=\sum_{i}\left(\sup_{\vec{x}\in\Delta'_{i}}f(\vec{x})\right)|\closure{\Delta}'_{i}|+\sum_{j}\left(\sup_{\vec{x}\in\Delta''_{j}}f(\vec{x})\right)|\closure{\Delta}''_{j}|\\
+&\leq M\sum_{i}|\closure{\Delta}'_{i}| + 0 \mbox{ since $f(\vec{x})=0$ on $\Delta''_{j}$}\\
+&<M\varepsilon.
+  \end{align}
+\end{subequations}
+Since $\varepsilon$ is arbitrary, $S^{*}(\widetilde{f},P)$ is an upper
+bound of the upper integral, so
+\begin{equation}
+\int_{D}\widetilde{f}\leq\int^{*}_{\closure{\Delta}}\widetilde{f}\leq0.
+\end{equation}
+A similar argument gives the lower bound
+\begin{equation}
+0\leq\int_{*\closure{\Delta}}\widetilde{f}\leq\int_{D}\widetilde{f},
+\end{equation}
+hence the result.
+\end{proof}
+
+\begin{theorem}
+If $f$ is Riemann integrable over a Jordan measurable set $D$,
+and if $g$ is a bounded function on $D$, and if
+$g(\vec{x})=f(\vec{x})$ at all points $\vec{x}\in D\setminus E$ where
+$E\subset D$ is content zero, then $g$ is Riemann integrable on $D$
+and
+\begin{equation}
+\int_{D}g=\int_{D}f.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Apply the previous lemma to $f-g$.
+\end{proof}
+
+\begin{theorem}
+Let $D_{1}$, $D_{2}$ be Jordan measurable sets, and $E=D_{1}\cap D_{2}$
+have content zero. If $f$ is Riemann integrable on $D_{1}\cup D_{2}$,
+then
+\begin{equation}
+\int_{D_{1}\cup D_{2}}f=\int_{D_{1}}f+\int_{D_{2}}f.
+\end{equation}
+In particular, if $f=1$, then $|D_{1}\cup D_{2}|=|D_{1}|+|D_{2}|$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+$\chi_{D_{1}\cup D_{2}}=\chi_{D_{1}}+\chi_{D_{2}}-\chi_{E}$ but
+  $\int_{D_{1}\cup D_{2}}\chi_{E}=0$.
+\end{proof}
