@@ -1,0 +1,192 @@
+%%
+%% fall-lecture26.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-12-06T11:00:16-0800
+%% Last update 2025-12-06T11:00:16-0800
+%% 
+
+\lecture[Fubini's Theorem]
+
+\begin{notation}
+Let $\closure{\Delta}\subset\RR^{n+m}=\RR^{n}\times\RR^{m}$.
+We will write this closed cell out as a product
+$\closure{\Delta}=\closure{\Delta}'\times\closure{\Delta}''$ where
+$\closure{\Delta}'\subset\RR^{n}$ and $\closure{\Delta}''\subset\RR^{m}$.
+Then $f\colon\closure{\Delta}\to\RR$ can be written as
+$f(\vec{x}',\vec{x}'')$ where $\vec{x}'\in\closure{\Delta}'$ and
+$\vec{x}''\in\closure{\Delta}''$. 
+\end{notation}
+
+\begin{definition}
+Let $f\colon\closure{\Delta}\to\RR$ be bounded
+on $\closure{\Delta}\subset\RR^{n+m}=\RR^{n}\times\RR^{m}$, and let
+$\closure{\Delta}=\closure{\Delta}'\times\closure{\Delta}''$ where
+$\closure{\Delta}'\subset\RR^{n}$ and
+$\closure{\Delta}''\subset\RR^{m}$.
+Then:
+\begin{enumerate}
+\item If we fix $\vec{x}''\in\closure{\Delta}''$, we can write
+  $\int^{*}_{\closure{\Delta}''}\left(\int^{*}_{\closure{\Delta}'}f\right)$
+  for the \define{Iterated Upper Integral}
+\item If we fix $\vec{x}''\in\closure{\Delta}''$, we can write
+  $\int_{*,\closure{\Delta}''}\left(\int_{*,\closure{\Delta}'}f\right)$
+  for the \define{Iterated Lower Integral}
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+If $f$ is Riemann integrable on $\closure{\Delta}=\closure{\Delta}'\times\closure{\Delta}''$
+where $\closure{\Delta}'\subset\RR^{n}$, $\closure{\Delta}''\subset\RR^{m}$,
+then the integrals
+\begin{equation}
+\int^{*}_{\closure{\Delta}'}f(\vec{x}',\vec{x}''),\quad\mbox{and}\quad\int_{*,\closure{\Delta}'}f(\vec{x}',\vec{x}'')
+\end{equation}
+are Riemann integrable functions of $\vec{x}''\in\closure{\Delta}''$.
+We can rewrite the integral
+\begin{subequations}
+  \begin{align}
+\int_{\closure{\Delta}}f &= \int_{\closure{\Delta}''}\left(\int^{*}_{\closure{\Delta}'}f(\vec{x}',\vec{x}'')\right)\\
+&=\int_{\closure{\Delta}''}\left(\int_{*,\closure{\Delta}'}f(\vec{x}',\vec{x}'')\right)
+  \end{align}
+\end{subequations}
+\end{theorem}
+
+\begin{proof}
+Let $P'$ be a partition of $\closure{\Delta}'=\bigcup_{i}\closure{\Delta}'_{i}$,
+and $P''$ be a partition of $\closure{\Delta}''=\bigcup_{j}\closure{\Delta}''_{j}$.
+Then we can form a partition $P$ of $\closure{\Delta}$ which is
+$P'\times P''$. Now, let us consider the upper sum
+\begin{subequations}
+  \begin{align}
+S^{*}(f,P) &= \sum_{i,j}\left(\sup_{\substack{\vec{x}'\in\closure{\Delta}'_{i}\\\vec{x}''\in\closure{\Delta}''_{j}}}f(\vec{x}',\vec{x}'')\right)|\closure{\Delta}'_{i}\times\closure{\Delta}''_{j}|\\
+&= \sum_{j}\left(\sum_{i}\left(\sup_{\substack{\vec{x}'\in\closure{\Delta}'_{i}\\\vec{x}''\in\closure{\Delta}''_{j}}}f(\vec{x}',\vec{x}'')\right)|\closure{\Delta}'_{i}|\right)|\closure{\Delta}''_{j}|
+  \end{align}
+\end{subequations}
+For each fixed $\vec{x}''_{0}\in\closure{\Delta}''_{j}$, define
+\begin{equation}
+F(\vec{x}''_{0}) := \int_{\vec{x'}\in\closure{\Delta}'}f(\vec{x}',\vec{x}''_{0}),
+\end{equation}
+then we see
+\begin{subequations}
+  \begin{align}
+\sum_{i}\left(\sup_{\substack{\vec{x}'\in\closure{\Delta}'_{i}\\\vec{x}''\in\closure{\Delta}''_{j}}}f(\vec{x}',\vec{x}'')\right)|\closure{\Delta}'_{i}|
+&\geq\sum_{i}\left(\sup_{\vec{x}'\in\closure{\Delta}'_{i}}f(\vec{x}',\vec{x}''_{0})\right)|\closure{\Delta}'_{i}|\\
+&\geq S^{*}(f(\vec{x}',\vec{x}''_{0}),P')\\
+&\geq\int^{*}_{\vec{x}'\in\closure{\Delta}'}f(\vec{x}',\vec{x}''_{0})=F(\vec{x}''_{0}).
+  \end{align}
+\end{subequations}
+Since the choice for $\vec{x}''_{0}\in\closure{\Delta}''_{0}$ was
+arbitrary, we can return to the upper sum to find
+\begin{equation}
+S^{*}(f,P)\geq\sum_{j}(\sup_{\vec{x}''\in\closure{\Delta}''}F(\vec{x}''))|\closure{\Delta}''_{j}|=S^{*}(F,P'')\geq\int^{*}_{\closure{\Delta}''}F.
+\end{equation}
+Then
+\begin{equation}
+\int^{*}_{\Delta}f=\inf_{P}S^{*}(f,P)\geq\int^{*}_{\vec{x}''\in\closure{\Delta}''}\left(\int^{*}_{\vec{x}'\in\closure{\Delta}'}f(\vec{x}',\vec{x}'')\right).
+\end{equation}
+Similarly, we have an upper bound for the lower integral of
+$f$. Putting them together, we find
+\begin{equation}
+\int^{*}_{\closure{\Delta}}f
+\geq\int^{*}_{\vec{x}''}\int^{*}_{\vec{x}'}f(\vec{x}',\vec{x}'')
+\geq\int_{*,\vec{x}''}\int^{*}_{\vec{x}'}f
+\geq\int_{*,\vec{x}'}\int_{*,\vec{x}'}f
+\geq\int_{*,\closure{\Delta}}f,
+\end{equation}
+Since $f$ is Riemann integrable,
+\begin{equation}
+\int^{*}_{\closure{\Delta}}f=\int_{*,\closure{\Delta}}f,
+\end{equation}
+and so these inequalities are all equalities. In particular, we have
+\begin{equation}
+\int^{*}_{\vec{x}''}\int^{*}_{\vec{x}'}f(\vec{x}',\vec{x}'')=\int_{*,\vec{x}''}\int^{*}_{\vec{x}'}f=\int_{\closure{\Delta}}f.
+\end{equation}
+This means
+\begin{equation}\label{eq:math108a:fall2025:lec26:penultimate-step}
+\int_{\vec{x}''}\int^{*}_{\vec{x}'}f=\int_{\closure{\Delta}}f.
+\end{equation}
+Similar reasoning gives us a chain of inequalities
+\begin{equation}
+\dots\geq\int^{*}_{\vec{x}''}\int_{*,\vec{x}'}f\geq\int_{*,\vec{x}''}\int_{*,\vec{x}'}f\geq\dots,
+\end{equation}
+which gives us
+\begin{equation}
+\int_{\vec{x}''\in\closure{\Delta}''}\int_{*,\vec{x}'}f=\int_{\closure{\Delta}}f.
+\end{equation}
+The result follows immediately by combining this with Equation~\eqref{eq:math108a:fall2025:lec26:penultimate-step}.
+\end{proof}
+
+\begin{theorem}[Fubini]
+If $f$ is continuous on $\closure{\Delta}=\closure{\Delta}'\times\closure{\Delta}''$,
+then
+\begin{subequations}
+  \begin{align}
+\int_{\closure{\Delta}}f &= \int_{\closure{\Delta}'}\int_{\closure{\Delta}''}f(\vec{x}',\vec{x}'')\\
+&= \int_{\closure{\Delta}''}\int_{\closure{\Delta}'}f(\vec{x}',\vec{x}'')
+  \end{align}
+\end{subequations}
+\end{theorem}
+
+\begin{proof}
+If $f$ is continuous on $\closure{\Delta}$, then it is bounded and $f$
+is continuous with respect to $\vec{x}'$ when fixing $\vec{x}''$. Then
+$f$ is Riemann integrable with respect to $\vec{x}''$. So by the
+previous Theorem,
+\begin{equation}
+\int_{\closure{\Delta}}f=\int_{\closure{\Delta}''}\int_{\closure{\Delta}'}f(\vec{x}',\vec{x}''),
+\end{equation}
+and the same for the other order of integration.
+\end{proof}
+
+\begin{example}
+Consider the sequence of functions defined on the unit interval $[0,1]$:
+\begin{equation}
+f_{n}(x) = \begin{cases}2n & \mbox{if }x\in[\frac{1}{2n},\frac{1}{n}]\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+Then we see that $\int^{1}_{0}f_{n}=1$, but $\lim_{n\to\infty}f_{n}=0$
+is the constant function and $\int^{1}_{0}0=0$. This means
+\begin{equation}
+\lim_{n\to\infty}\int^{1}_{0}f_{n}\neq\int^{1}_{0}\lim_{n\to\infty}f_{n},
+\end{equation}
+which is\dots weird. When will we obtain an equality (i.e., when will
+the limit of the integral be the integral of the limit)?
+\end{example}
+
+\begin{theorem}
+If $f_{n}$ is a uniformly convergent sequence of Riemann integrable
+functions in $\closure{\Delta}\subset\RR^{n}$, then the limit of $f$
+is Riemann integrable and
+\begin{equation}
+\lim_{n\to\infty}\int_{\closure{\Delta}}f_{n}=\int_{\closure{\Delta}}\lim_{n\to\infty}f_{n}=\int_{\closure{\Delta}}f.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+\textsc{Claim 1:} $f$ is bounded.
+
+\textsc{Claim 2:} $f$ is continuous almost everywhere.
+
+\textsc{Claim 3:} By the first two claims, we see $f$ is integrable.
+We see, by linearity,
+\begin{subequations}
+  \begin{align}
+|\int_{\closure{\Delta}}f-\int_{\closure{\Delta}}f_{n}|&=|\int_{\closure{\Delta}}(f-f_{n})|\\
+&\leq\int_{\closure{\Delta}}|f-f_{n}|.
+  \end{align}
+\end{subequations}
+For any $\varepsilon>0$,
+\begin{subequations}
+  \begin{align}
+\int_{\closure{\Delta}}|f-f_{n}| &
+\leq\int_{\closure{\Delta}}\varepsilon \mbox{ for any }n\geq N\\
+&\leq\varepsilon|\closure{\Delta}|.
+  \end{align}
+\end{subequations}
+As $\varepsilon\to0$, we see $\int_{\closure{\Delta}}|f-f_{n}|\to0$
+which proves the result.
+\end{proof}

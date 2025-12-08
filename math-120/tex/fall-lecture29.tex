@@ -1,0 +1,129 @@
+%%
+%% fall-lecture29.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-12-06T09:32:48-0800
+%% Last update 2025-12-06T09:32:48-0800
+%% 
+
+\lecture[Hilbert's Nullstellensatz]
+
+\begin{remark}
+Hilbert's Nullstellensatz enabled us to assert that maximal ideals of
+$\CC[x,y]$ look like $(x-a,y-b)$ for some $a,b\in\CC$. We should
+probably \emph{prove} that before the end of the quarter. Since
+today's the last lecture, that means we should prove it today.
+\end{remark}
+
+\subsection{Morphisms and Dimensions}
+
+\begin{definition}
+Let $\phi\colon A\to B$ be a ring morphism. Let $P\in\Spec(A)$ and
+$\kappa(P)=A_{P}/PA_{P}$ be the residue field. We can consider
+$\Spec(B\otimes_{A}\kappa(P))$ which is called the \define{Fober} over
+$B$ (of the map $\phi^{*}\colon\Spec(B)\to\Spec(A)$).
+
+Observe that the preimage
+$(\phi^{*})^{-1}(P)\iso\Spec(B\otimes_{A}\kappa(P))$ homeomorphic.
+\end{definition}
+
+\begin{remark}
+Consider some ideal $Q$ lying over $P$, where $Q\in\Spec(B)$. This has
+the corresponding prime
+\begin{equation}
+QB_{P}/PB_{P}\subset B_{P}/PB_{P}\iso B\otimes_{A}\kappa(P),
+\end{equation}
+if $Q$ is some appropriate preimage. Writing $Q^{*}=QB_{P}/PB_{P}$,
+we find
+\begin{subequations}
+  \begin{align}
+(B\otimes_{A}\kappa(P))_{Q^{*}} &\iso B_{Q}\otimes_{A}\kappa(P)\\
+&\iso B_{Q}/PB_{Q}.
+  \end{align}
+\end{subequations}
+\end{remark}
+
+\begin{theorem}[Matsumara 13B]
+Let $A$, $B$ be Noetherian rings. Let $\phi\colon A\to B$ be a ring morphism.
+Let $Q\in\Spec(B)$ and $P=Q\cap A$. Then the following all hold:
+\begin{enumerate}
+\item $\height(Q)\leq\height(P)+\height(QB_{P}/PB_{P})$ and in
+  particular this means $\dim(B_{Q})\leq\dim(A_{P})+\dim(B_{Q}\otimes_{A}\kappa(P))$;
+\item If the Going-Down theorem holds for $\phi$ (e.g., if $\phi$ is
+  flat), then the inequalities in the previous item are equalities.
+\item If also $\phi^{*}\colon\Spec(B)\to\Spec(A)$ is surjective and if
+  the Going-Down theorem holds then $\dim(B)\geq\dim(A)$ and also for
+  each ideal $I\ideal A$ we have $\height(I)=\height(IB)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Matsumara 13C]
+Let $B$ be a Noetherian ring. Let $A$ be a Noetherian subring of $B$
+such that $B$ is integral over $A$. Then $\dim(A)=\dim(B)$ and for
+$P\in\Spec(B)$, $\height(P)\leq\height(P\cap A)$.
+\end{theorem}
+
+\subsection{Finitely-Generated Extensions}
+
+\begin{theorem}[Matsumara 14A]
+Let $A$ be a Noetherian ring, then $\dim(A[x_{1},\dots,x_{n}])=n+\dim(A)$.
+\end{theorem}
+
+\begin{remark}
+This is not obvious if $A$ is not Noetherian. Atiyah and Macdonald has
+a fun exercise about this, it's the very last one it their book. In
+fact, they ask (in the last two exercises on page 126) to also prove
+that for any commutative ring $A$ (possibly not Noetherian),
+\begin{equation}
+1+\dim(A)\leq\dim(A[x])\leq 1+2\dim(A).
+\end{equation}
+\end{remark}
+
+\begin{corollary}[Matsumara 14.1]
+Let $\kk$ be a field. Then $\dim(\kk[x_{1},\dots,x_{n}])=n$.
+\end{corollary}
+
+\begin{theorem}[Normalization theorem of E.Noether, Matsumara 14G]
+Let $A=\kk[x_{1},\dots,x_{n}]$ be a finitely-generated algebra over a
+field $\kk$.
+Then there exists elements $y_{1}$, \dots, $y_{r}\in A$ which are
+algebraically independent over $\kk$ such that $A$ is integral over $\kk[y_{1},\dots,y_{r}]$.
+We have $r=\dim(A)$. If further $A$ is an integral domain, we have $r=\trdeg_{\kk}(A)$.
+\end{theorem}
+
+\begin{corollary}[Matsumara 14.4]
+Let $\kk$ be an algebraically closed field.
+Then any maximal ideal $\mmm\ideal\kk[x_{1},\dots,x_{n}]$ is of the
+form $(x_{1}-a_{1},\dots,x_{n}-a_{n})$.
+\end{corollary}
+
+\begin{theorem}[Hilbert's Nullstellensatz, Matsumara 14J]
+Let $\kk$ be a field, let $A$ be a finitely-generated $\kk$-algebra,
+and $I\properideal A$ be a proper ideal of $A$.
+Then 
+\begin{equation}
+\Radical{I}=\bigcap_{\substack{\mmm\in\MSpec(A)\\I\subset\mmm}}\mmm.
+\end{equation}
+\end{theorem}
+
+\begin{remark}
+This may be viewed as a generalization of the fundamental theorem of algebra.
+\end{remark}
+
+\begin{remark}
+There are two forms of Hilbert's Nullstellensatz:
+\begin{enumerate}
+\item Weak form: $I\properideal\kk[x_{1},\dots,x_{n}]$,
+  $V(I)\neq\emptyset$;
+\item Strong form: $I(V(I))=\Radical{I}$ for any $I\properideal\kk[x_{1},\dots,x_{n}]$.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}
+This is the end of the course. And it's only about a third of the
+material in Matsumara. If you want to continue learning Commutative
+Algebra, and this is your first ``real'' exposure to it as a subject,
+then continuing on with Matsumara is a great way to learn the material.
+\end{remark}

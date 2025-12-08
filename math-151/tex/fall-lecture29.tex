@@ -1,0 +1,287 @@
+%%
+%% fall-lecture29.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-12-06T10:04:04-0800
+%% Last update 2025-12-06T10:04:04-0800
+%% 
+
+\lecture{}
+
+\begin{example}
+We can use the same argument to compute the cohomology for the
+quaternionic projective spaces $\HP^{n}$. Here $\HH$ is the set of
+quaternions, guys which look like $a+\I b+\J c+\K d$ where
+$\I^{2}=\J^{2}=\K^{2}=\I\J\K=-1$ and the generators $\I$, $\J$, $\K$
+anticommute with each other (but otherwise it's an associative algebra
+over the reals).
+
+Then we can consider $\HH^{n+1}$ as a right module over $\HH$. Then we
+define
+\begin{equation}
+\HP^{n}:=(\HH^{n+1}\setminus0)/(\HH\setminus0)
+\end{equation}
+where we mod out by right scalar multiplication by arbitrary nonzero
+quaternions. 
+
+It's not hard to see that the cohomology \underline{groups} for the
+projective quaternionic space look like
+\begin{equation}
+  H^{k}(\HP^{n})\iso\begin{cases}\ZZ & \mbox{if }k=0,4,8,\dots,4n\\
+  0 & \mbox{otherwise}
+  \end{cases}
+\end{equation}
+But what is the cohomology \underline{ring} for $\HP^{n}$? We can use
+the previous proposition from last lecture to find
+\begin{equation}
+H^{*}(\HP^{n})\iso\ZZ[x]/(x^{n+1}),
+\end{equation}
+where $x$ is a generator for $H^{4}(\HP^{n})$.
+\end{example}
+
+\begin{corollary}
+When $n$ is even, $\CP^{n}$ and $\HP^{n}$ do not admit an
+orientation-reversing homeomorphism.
+\end{corollary}
+
+\begin{proof}[Proof idea]
+If there were a homeomorphism $f\colon\CP^{2}\to\CP^{2}$, then it
+should induce an isomorphism on the cohomology ring,
+\begin{equation}
+f^{*}\colon H^{*}(\CP^{2})\xrightarrow{\iso}H^{*}(\CP^{2}),
+\end{equation}
+which is a ring isomorphism
+\begin{equation}
+f^{*}\colon\ZZ[x]/(x^{3})\to\ZZ[x]/(x^{3}).
+\end{equation}
+Then $f^{*}(x)=\pm x$, but $f^{*}(x^{2})=+x^{2}$. This means it must
+preserve the orientation.
+\end{proof}
+
+\begin{definition}
+In general, let $M$ and $N$ be two closed connected oriented
+$n$-manifolds. Then $H_{n}(M)\iso H_{n}(N)\iso\ZZ$. If $f\colon M\to N$
+is continuous, then $f_{*}\colon H_{n}(M)\to H_{n}(N)$ is just
+determined by an integer $d\in\ZZ$ by the fact that on the class of
+$M$ it yield the class of $N$, i.e., $f_{*}([M])=[N]=d$. This is
+called the \define{Degree} of $f$ and denoted $\deg(f):=d$.
+\end{definition}
+
+\begin{question}
+We just proved, if $n$ is even, there is no $f\colon\CP^{n}\to\CP^{n}$
+of degree $-1$.
+\begin{enumerate}
+\item What happens if $n$ is odd?
+\item What are the possible degrees for any $n$?
+\end{enumerate}
+\end{question}
+
+\begin{example}
+We can also compute the cohomology ring for the real projective
+spaces, but we need to use $\ZZ/2\ZZ$ coefficients because they're not
+orientable. We find
+\begin{equation}
+H^{*}(\RP^{n};\ZZ/2\ZZ)\iso(\ZZ/2\ZZ)[x]/(x^{n+1}),
+\end{equation}
+where $x$ is a generator of the cohomology group $H^{1}(\RP^{n};\ZZ/2\ZZ)$.
+\end{example}
+
+\begin{remark}
+I asked if this general pattern extends to the Octonionic projective
+plane. The professor said it was a reasonable conjecture and
+expectation, but he was unfamiliar with its topology and hesitated to
+give a misleading answer.
+
+Curiously, there is a homeomorphism $\OP^{1}\iso\sphere{8}$, and
+according to Lackmann's ``The Octonionic Projective Plane''
+(\arXiv{1909.07047}), Corollary 4.1 says
+\begin{equation}
+H^{k}(\OP^{2})\iso\begin{cases}\ZZ & \mbox{if }k=0,8,16\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+So that's nice.
+\end{remark}
+
+\begin{proposition}
+If $f\colon\RP^{n}\to\RP^{m}$ is a continuous map such that the
+induced map $f_{*}\colon H_{1}(\RP^{n})\to H_{1}(\RP^{m})$ is nonzero,
+then $n\leq m$.
+\end{proposition}
+
+\begin{proof}
+By the Universal Coefficient Theorem,
+\begin{equation}
+f^{*}\colon H^{1}(\RP^{m};\ZZ/2\ZZ)\to H^{1}(\RP^{n};\ZZ/2\ZZ)
+\end{equation}
+is nonzero (by the naturality part of the theorem), and $f^{*}$ is
+dual to $f_{*}$ and $f_{*}$ is nonzero by hypothesis, therefore
+$f^{*}$ is nonzero. This gives us a nonzero morphism
+\begin{equation}
+f^{*}\colon(\ZZ/2\ZZ)[x]/(x^{m+1})\to(\ZZ/2\ZZ)[y]/(y^{n+1}).
+\end{equation}
+Then $f^{*}(x)=y$ and then $f^{*}(x^{n})=y^{n}\neq0$. This forces
+$n\leq m$.
+\end{proof}
+
+\begin{theorem}
+Suppose there is an odd continuous map $f\colon\sphere{n}\to\sphere{m}$.
+Then $n\leq m$.
+\end{theorem}
+
+\begin{proof}
+The map $f$ induces the map
+\begin{equation}
+\overline{f}\colon\RP^{n}\to\RP^{m}
+\end{equation}
+such that the induced map on homology groups
+\begin{equation}
+\overline{f}_{*}\colon H_{1}(\RP^{n})\to H_{1}(\RP^{m})
+\end{equation}
+is nonzero. Then the result follows from the previous theorem.
+\end{proof}
+
+\begin{corollary}[Borsuk--Ulam]
+If $g\colon\sphere{n}\to\RR^{n}$, then there exists an
+$x\in\sphere{n}$ such that $g(-x)=-g(x)$.
+\end{corollary}
+
+\subsection{Generalizing Poincar\'{e} Duality}
+
+\begin{remark}
+There are two generalizations of Poincar\'{e} duality. We need to
+introduce a few notions before we get to them, however.
+\end{remark}
+
+\begin{definition}
+A $n$-dimensional \define{Manifold with Boundary}, as far as
+topologists care, is like a manifold except for each point $x\in M$
+there is an open neighborhood $x\in U\subset M$ such that $U$ is
+homeomorphic either to $\RR^{n}$ or $\RR^{n}_{+}=\{(x_{1},\dots,x_{n})\in\RR^{n}\mid x_{n}\geq0\}$.
+\end{definition}
+
+\begin{definition}
+When $M$ is a manifold with boundary, a point $x\in M$ is called a
+\define{Boundary Point} if it has a neighborhood $x\in U\subset M$
+such that $\varphi\colon U\to\RR^{n}_{+}$ is a homeomorphism
+satisfying $\varphi(x)\in\boundary\RR^{n}_{+}\iso\RR^{n-1}$.
+
+The \define{Boundary} of $M$ is the set of all boundary points of $M$
+and we denote the boundary of $M$ by $\boundary M$.
+\end{definition}
+
+\begin{theorem}[Lefschetz duality (Hatcher 3.43)]
+Let $M$ be a compact oriented $n$-manifold and $\boundary M=A\cup B$
+where $A$ and $B$ Are compact $(n-1)$-manifolds with a common boundary
+$\boundary A=\boundary B=A\cap B$. Then
+\begin{equation}
+\begin{split}
+D_{M}\colon & H^{i}(M,A)\to H_{n-i}(M,B)\\
+&\alpha\mapsto\alpha\frown[M],
+\end{split}
+\end{equation}
+is an isomorphism, where $[M]\in H_{n}(M,\boundary M)$ is the fundamental class of $M$.
+\end{theorem}
+
+We usually use Lefschetz duality when either $A=\emptyset$ or
+$B=\emptyset$, since it gives us $D_{M}\colon H^{i}(M,\boundary M)\to H_{n-i}(M)$
+isomorphic.
+
+\begin{proof}
+\textsc{Case 1:} If $B=\emptyset$, then apply Poincar\'{e} duality for
+$M\setminus\boundary M$. Then we get
+\begin{equation}
+H^{i}_{c}(M\setminus\boundary M)\iso H_{n-i}(M\setminus\boundary M)\iso H_{n-i}(M,\boundary M),
+\end{equation}
+and since $M$ is compact we see $H^{i}_{c}(M\setminus\boundary M)\iso H^{i}(M\setminus\boundary M)$,
+which is the idea for the proof.
+
+\textsc{Case 2:} The general case where both $A\neq\emptyset$ and
+$B\neq\emptyset$. We have 2 long exact sequences, with vertical arrows
+given by the cap product
+\begin{equation}
+\vcenter{\xymatrix{
+H^{k}(M,\boundary M)\ar[r]\ar[d]^{[M]\frown} & H^{k}(M,A)\ar[r]\ar[d]^{[M]\frown} & H^{k}(\boundary M,A)\ar[r]\ar[d]^{[B]\frown} & H^{k+1}(M,\boundary M)\ar[r]\ar[d]^{[M]\frown} & H^{k+1}(M,A)\ar[d]^{[M]\frown}\\
+H_{n-k}(M)\ar[r] & H_{n-k}(M,B)\ar[r] & H_{n-k-1}(B)\ar[r] & H_{n-k-1}(M)\ar[r] & H_{n-k-1}(M,B)}}
+\end{equation}
+The bottom row describes the pair $(M,B)$. By the Excision theorem, we
+can remove the interior of $A$ to give us $H^{*}(\boundary M,A)\iso H^{*}(B, \boundary B)$.
+Then we see that all vertical morphisms except the second are obviously
+isomorphisms (possibly relying on Case 1). Then the Five Lemma implies the result.
+\end{proof}
+
+\begin{corollary}
+If $M$ is a compact $n$-dimensional manifold with boundary and $n$ is
+odd, then the Euler characteristic of the boundary $\chi(\boundary M)=2\chi(M)$.
+\end{corollary}
+
+\begin{proof}
+Consider the long exact triangle
+\begin{equation}
+\vcenter{\xymatrix{H_{*}(\boundary M)\ar[rr] & & H_{*}(M)\ar[ld]\\
+& \ar[lu] H_{*}(M,\boundary M) &}}
+\end{equation}
+and then the Euler characteristic,
+\begin{equation}\label{eq:fall2025:math151a:lecture29:pf-step-star}
+\chi(\boundary M)-\chi(M)+\chi(M,\boundary M)=0,
+\end{equation}
+but then by Lefschetz duality, we know
+\begin{equation}
+H^{i}(M,\boundary M;\ZZ/2\ZZ)\iso H_{n-i}(M;\ZZ/2\ZZ),
+\end{equation}
+and by the Universal Coefficient Theorem, the left-hand side is
+isomorphic to
+\begin{equation}
+H_{i}(M,\boundary M;\ZZ/2\ZZ)\iso H^{i}(M,\boundary M;\ZZ/2\ZZ).
+\end{equation}
+Since $n$ is odd, we have
+\begin{equation}
+\chi(M)=-\chi(M,\boundary M),
+\end{equation}
+since the right-hand side is an alternating sum of $\dim H_{i}(M,\boundary M)$.
+Plugging this back into Equation~\eqref{eq:fall2025:math151a:lecture29:pf-step-star}
+gives the result.
+\end{proof}
+
+\begin{theorem}[Alexander duality (Hatcher 3.45)]
+If $K$ is a compact subset of $\sphere{n}$ which is a retract of some
+neighborhood, then
+\begin{equation}
+\widetilde{H}_{i}(\sphere{n}\setminus K)\iso\widetilde{H}^{n-i-1}(K)
+\end{equation}
+for all $i$.
+\end{theorem}
+
+\begin{proof}[Proof idea]
+If $K$ is an $n$-manifold with boundary, then consider
+\begin{subequations}
+  \begin{align}
+H_{i}(\sphere{n}\setminus K) &\iso H^{n-i}(\sphere{n}\setminus K)\mbox{ by Lefschetz}\\
+&\iso H^{n-i}(\sphere{n},K)\mbox{ by Excision}\\
+&\iso H^{n-i-1}(K) \mbox{ if }i\neq0,n-1.
+  \end{align}
+\end{subequations}
+Then we use the long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{H^{*}(K)\ar[rr] & & H^{*}(\sphere{n})\ar[ld]\\
+& \ar[lu]^{[+1]}H^{*}(\sphere{n},K) & }}
+\end{equation}
+But $H^{k}(\sphere{n})$ is mostly zero, so
+\begin{equation}
+H^{n-i-1}(K)\iso H^{n-i}(\sphere{n},K),
+\end{equation}
+as desired.
+\end{proof}
+
+\begin{remark}
+In practice, we only really need to consider the case where $K$ is a
+manifold. Otherwise, we could consider a tubular neighborhood of $K$,
+which is a manifold.
+\end{remark}
+
+\begin{corollary}
+If $N$ is a nonorientable closed surface, then $N$ does not embed into
+$\sphere{3}$. 
+\end{corollary}

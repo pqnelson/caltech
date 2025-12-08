@@ -1,0 +1,249 @@
+%%
+%% fall-lecture29.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2025-12-08T10:26:18-0800
+%% Last update 2025-12-08T10:26:18-0800
+%% 
+
+\lecture{}
+
+\begin{proposition}
+If $X$ is locally factorial, then $\Pic(X)=\Cl(X)$.
+\end{proposition}
+
+\begin{proof}
+Suffices to prove every prime divisor $[Y]$ is Cartier.
+
+First: if $U=X\setminus Y$, then $[Y]|_{U}=0\in\Div(U)$ is principal.
+Let $p\in Y$, then $I(Y)\StructureSheaf_{Y,p}\subset\StructureSheaf_{X,p}$ is a height 1 prime.
+Then $\StructureSheaf_{X,p}$ is a unique factorization domain.
+Then $I(Y)\StructureSheaf_{X,p}=(f)$ for some $f\in\StructureSheaf_{X,p}\subset\FunField[\kk]{X}$.
+Note: $v_{Y}(f)=1$.
+If we look at another prime divisor $Z\neq Y$, and $p\in Z$, then
+$f\in\StructureSheaf_{X,Z}$ and $f\notin I(Z)\StructureSheaf_{X,p}$.
+This implies $v_{Z}(f)=0$. So 
+\begin{equation}
+(f)=[Y] + \sum n_{i}[Z_{i}]
+\end{equation}
+where $p\notin Z_{i}$ for any $i$. Looking at $U:=X\setminus(\bigcup_{i}Z_{i})$,
+then $p\in U$ and $[Y]|_{U}=(f)|_{U}\in\Div(U)$ principal. This
+implies $[Y]$ is Cartier.
+\end{proof}
+
+\begin{example}
+Consider the cone $X=V(xy-z^{2})\subset\AA^{3}$, let $X_{0}=X\setminus\{(0,0,0)\}$.
+Then $X_{0}$ is nonsingular, so
+\begin{equation}
+\Pic(X_{0})=\Cl(X_{0})=\Cl(X)\iso\ZZ/2\ZZ,
+\end{equation}
+and
+\begin{equation}
+\Pic(X)=0.
+\end{equation}
+There exists a unique nontrivial line bundle on $X_{0}$ which is not
+the restriction of a line bundle on $X$.
+\end{example}
+
+\subsection{Divisors on Curves}
+
+\begin{definition}[{Hartshorne~\cite{hartshorne1977algebraic} Ch.II~\S3.2, pg.94}]
+A morphism $f\colon X\to Y$ is called \define{Finite} if there exists
+an open covering of $Y$ by open affine subsets $V_{i}=\Spec(B_{i})$
+such that for each $i$, $f^{-1}(V_{i})$ is affine and
+$f^{-1}(V_{i})=\Spec(A_{i})$ where $A_{i}$ is a $B_{i}$-algebra which
+is a finitely-generated $B_{i}$-module.
+\end{definition}
+
+\begin{fact}
+Every closed embedding is finite.
+\end{fact}
+
+\begin{recall}
+If $X$ is a complete nonsingular curve, then $X$ is projective.
+\end{recall}
+
+\begin{lemma}
+If $X$ is a complete nonsingular curve, then any non-constant morphism
+$\varphi\colon X\to Y$ is finite.
+\end{lemma}
+
+\begin{proof}
+Without loss of generality, we can replace $Y$ with $\varphi(X)$, or
+equivalently that $Y$ is a curve. Then
+$\pullback{f}\colon\FunField{Y}\into\FunField{X}$ is a finite field
+extension. Let $V\subset Y$ be open affine. Its coordinate ring
+$\CoordRing{\kk}{V}\subset\FunField{Y}$ and we may consider its
+integral closure in $\FunField{X}$, call it
+\begin{equation}
+A := \closure{\FunField{V}}\subset\FunField{X}.
+\end{equation}
+This is a finitely-generated $\CoordRing{\kk}{V}$-module.
+Setting $U:=\MSpec(A)$ nonsingular curve, we have $\FunField{U}=\FunField{X}$.
+We have the commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{X\ar[r]^{f}&Y\\
+U\ar[u]^{\subset}\ar[r]&V\ar[u]^{\subset}}}
+\end{equation}
+\textsc{Claim:} $U=f^{-1}(V)$.
+Let $x\in f^{-1}(V)$. Then $\CoordRing{\kk}{V}\subset\StructureSheaf_{X,x}$
+which implies $A\subset\StructureSheaf_{X,x}$ and this implies
+\begin{equation}
+\StructureSheaf_{X,x}=A_{P},
+\end{equation}
+where $P\ideal A$ is a maximal ideal. But this is only possible if
+\begin{equation}
+x=P\in\Spec(A)
+\end{equation}
+by dominance. (To prove $\StructureSheaf_{X,x}=A_{P}$, it suffices to
+prove [easier] $\StructureSheaf_{X,x}\supset A_{P}$ or [harder] $\StructureSheaf_{X,x}\subset A_{P}$.)
+\end{proof}
+
+\begin{definition}
+For any finite morphism (of, say, curves) $\varphi\colon X\to Y$, we
+define the \define{Degree} of $\varphi$ to be 
+\begin{equation}
+\deg(\varphi)=[\FunField{X}:\FunField{Y}],
+\end{equation}
+the degree of field extensions.
+\end{definition}
+
+\subsection{Pullbacks of Divisors on Curves}
+
+\begin{definition}
+Let $f\colon X\to Y$ be a finite morphism of nonsingular curves,
+let $Q\in Y$, $m_{Q}=(t)\subset\StructureSheaf_{Y,Q}$.
+If $f(P)=Q$, then $\pullback{f}\colon\StructureSheaf_{Y,Q}\to\StructureSheaf_{X,P}$,
+and $\pullback{f}(t)\in m_{P}\subset\StructureSheaf_{X,P}$. We write $v_{P}(t):=v_{P}(\pullback{f}(t))$.
+
+Then the \define{Pullback} of divisor groups is a morphism $\pullback{f}\colon\Div(Y)\to\Div(X)$
+sending
+\begin{equation}
+[Q]\mapsto\sum_{P\in f^{-1}(Q)}v_{P}(t)[Q].
+\end{equation}
+\end{definition}
+
+\begin{node}[Alternative definition]
+If $D\in\Div(Y)$, set $V:=Y\setminus\Support(D)$, and looking at the
+invertible sheaf associated with $D$, $\sheaf{L}(D)$, and
+$1\in\Gamma(V,\sheaf{L}(D))$ is a section which is commonly denoted $s=1$.
+Then we can just pullback this section $\pullback{f}s=\Gamma(f^{-1}(V),\pullback{f}\sheaf{L}(D))$.
+\end{node}
+
+\begin{xca}
+Show $\pullback{f}D=(\pullback{f}s)\in\Div(X)$ is the divisor
+associated with the pullback of the section.
+\end{xca}
+
+\begin{definition}
+Let $R$ be a domain, let $M$ be an $R$-module.
+We say $M$ is \define{Torsion-Free} if for all $a\in R$, for all $m\in M$,
+we have $am=0$ implies $a=0$ or $m=0$.
+\end{definition}
+
+\begin{fact}
+A Finitely-generated torsion-free module over a principal ideal domain
+is free. (Example: $R=\ZZ$.)
+\end{fact}
+
+\begin{definition}
+Let $X$ be a nonsingular curve,
+let $D=\sum n_{i}P_{i}\in\Div(X)$. We define the \define{Degree} of
+$D$ to be $\deg(D):=\sum n_{i}$ the sum of the coefficients.
+\end{definition}
+
+\begin{caution}
+The degree of a divisor is not well-defined (when $X$ is not complete)
+on the class group.
+\end{caution}
+
+\begin{proposition}[{Hartshorne~\cite[Prop.~II~6.9]{hartshorne1977algebraic}}]
+If $f\colon X\to Y$ is a finite morphism of nonsingular curves and
+$D\in\Div(Y)$, then the $\deg(\pullback{f}D)=\deg(f)\deg(D)$.
+\end{proposition}
+
+\begin{proof}
+Suffices to prove this for a principal divisor $Q\in Y$ such that $\deg(\pullback{f}[Q])=\deg(f)$.
+Let $V\subset Y$ open affine containing $Q\in V$, then
+$f^{-1}(V)=\MSpec(A)\subset X$ where
+$A=\closure{\CoordRing{\kk}{V}}\subset\FunField{X}$ is the integral
+closure of the coordinate ring of $V$. Then abusing notation we have
+$Q\ideal\CoordRing{\kk}{V}$ is a maximal ideal,
+$B:=A_{Q}=(\CoordRing{\kk}{V}\setminus Q)^{-1}A$. Then $A$ is a
+finitely-generated $\CoordRing{\kk}{V}$-module which implies $B$ is a
+finitely-generated $\CoordRing{\kk}{V}_{Q}=\StructureSheaf_{Y,Q}$-module.
+Then $B$ is torsion-free and $\StructureSheaf_{Y,Q}$ is a discrete
+valuation ring.
+Then $B$ is a free $\StructureSheaf_{Y,Q}$-module.
+Then
+\begin{subequations}
+  \begin{align}
+\rank_{\StructureSheaf_{Y,Q}}(B) &= \dim_{\FunField{Y}}\FunField{X}\\
+&=\deg(f),
+  \end{align}
+\end{subequations}
+where this first equation is justified by the fact $B\otimes\FunField{Y}=\FunField{X}$.
+If we look at the maximal ideal at $Q$,
+\begin{equation}
+\mmm_{Q} :=(t)\ideal\StructureSheaf_{Y,Q}
+\end{equation}
+is generated by $t$, so
+\begin{equation}
+\StructureSheaf_{Y,Q}/\mmm_{Q}=\kk,
+\end{equation}
+which implies
+\begin{equation}
+\dim_{\kk}(B/tB)=\deg(f).
+\end{equation}
+To see this, just tensor product the whole thing by $\StructureSheaf_{Y,Q}/\mmm_{Q}=\kk$.
+
+Recall, points in $f^{-1}(Q)$ are in a bijective correspondence with
+maximal ideals $P\ideal A$ such that $P\cap\CoordRing{\kk}{V}=Q$
+(which is logically equivalent to maximal ideals in $A_{Q}=B$).
+
+Let $f^{-1}(Q)=\{P_{1},\dots,P_{s}\}$ where each $P_{i}\ideal A$ is a
+maximal ideal. Since $B$ is a normal Noetherian domain,
+\begin{equation}
+B=\bigcap^{s}_{i=1}B_{P_{i}},
+\end{equation}
+and so
+\begin{equation}\label{eq:math130a:fall2025:lec29:eq-star}
+tB=\bigcap^{s}_{i=1}(tB_{P_{i}}\cap B).
+\end{equation}
+\textsc{Claim} (Chinese remainder theorem):
+\begin{equation}\label{eq:math130a:fall2025:lec29:eq-star-star}
+B/tB\xrightarrow{\iso}\bigoplus^{s}_{i=1}B/(tB_{P_{i}}\cap B)
+\end{equation}
+We see this is injective by Equation~\eqref{eq:math130a:fall2025:lec29:eq-star}.
+To see surjectivity: We know $t\in P_{i}$ for each $i$, and
+$B_{P_{i}}$ is a discrete valuation ring. Then $tB_{P_{i}}=(P_{i}B_{P_{i}})^{n_{i}}$,
+which implies
+\begin{equation}
+tB_{P_{i}}\cap B\subset P_{i}B,\quad\mbox{and}\quad tB_{P_{i}}\cap
+B\nsubset P_{j}B
+\end{equation}
+for $j\neq i$. Then Equation~\eqref{eq:math130a:fall2025:lec29:eq-star-star}
+describes an isomorphism after tensoring by $\otimes B_{P_{i}}$.
+
+Now,
+\begin{subequations}
+  \begin{align}
+B/(tB_{P_{i}}\cap B) &= (B/(tB_{P_{i}}\cap B))_{P_{i}}\\
+&= (B/tB)_{P_{i}}\\
+&= B_{P_{i}}/tB_{P_{i}}\\
+&=\StructureSheaf_{X,P_{i}}/t\StructureSheaf_{X,P_{i}},
+  \end{align}
+\end{subequations}
+which implies $\dim_{\kk}(B/(tB_{P_{i}}\cap B))=v_{P_{i}}(t)$,
+and this gives us
+\begin{subequations}
+  \begin{align}
+\deg(\pullback{f}[Q]) &= \sum\dim_{\kk}(B/(tB_{P_{i}}\cap B)\\
+&=\dim_{\kk}(B/tB)\\
+&=\deg(f).
+  \end{align}
+\end{subequations}
+Hence the result.
+\end{proof}
