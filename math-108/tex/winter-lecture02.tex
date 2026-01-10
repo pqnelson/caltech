@@ -1,0 +1,182 @@
+%%
+%% winter-lecture02.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-10T12:00:09-0800
+%% Last update 2026-01-10T12:00:09-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+Recall $\chi_{\QQ}$ is not Riemann integrable because the set of its
+discontinuities is the entire real line. On the other hand, the Cantor
+set $C$ has its characteristic function $\chi_{C}$ be Riemann
+integrable (since $C$ has measure zero).
+\end{node}
+
+\begin{node}[Wish list for a measure]
+We have several desired properties for a measure
+$m\colon\powerset{\RR^{d}}\to[0,\infty]$:
+\begin{enumerate}
+\item $m(\mbox{unit cube})=1$
+\item translation invariance: $m(E+h)=m(E)$ for any $h\in\RR^{d}$ and $E\subset\RR^{d}$;
+\item countable additivity: if $E=\bigcup^{\infty}_{j=1}E_{j}$ and
+  $E_{i}\cap E_{j}=\emptyset$ for any $i\neq j$, then $m(E)=\sum^{\infty}_{j=1}m(E_{j})$.
+\end{enumerate}
+We try to build this measure, we start with a ``candidate measure''.
+\end{node}
+
+\begin{definition}
+For any $E\subset\RR^{d}$, the \define{Exterior Measure} of $E$ is
+\begin{equation}
+m_{*}(E)=\inf\{\sum^{\infty}_{j=1}|Q_{j}|\mid E\subset\bigcup^{\infty}_{j=1}Q_{j},
+Q_{j}\mbox{ are closed cubes}\}.
+\end{equation}
+(We could use closed rectangles or closed balls instead of closed
+cubes, but closed cubes simplify some of the proofs.)
+\end{definition}
+
+\begin{example}
+Let $E=\{x\}$ be a point. For any $\varepsilon>0$, we may cover $x$ by
+a cube of sidelength $\varepsilon^{1/d}$ with $x$ in its interior:
+\begin{equation}
+Q_{\varepsilon}=\prod^{d}_{j=1}[\pi_{j}(x)-\frac{1}{2}\varepsilon^{1/d},\pi_{j}(x)+\frac{1}{2}\varepsilon^{1/d}],
+\end{equation}
+where $\pi_{j}(x)$ projects the $j^{\text{th}}$ component of the point $x$.
+This gives us a covering of volume
+\begin{equation}
+m_{*}(Q_{\varepsilon})=\varepsilon,
+\end{equation}
+which was chosen arbitrarily, so $m_{*}(\{x\})=0$.
+\end{example}
+
+\begin{example}
+Let $E=\{x_{1},x_{2},\dots\}$ be a countable set of points indexed by $\NN$.
+Then for each $\varepsilon>0$, we can cover $x_{1}$ by a cube of
+volume $\varepsilon/2$, $x_{2}$ by a cube of volume
+$\varepsilon/2^{2}$, \dots, $x_{n}$ by a cube of volume $\varepsilon/2^{n}$,
+and so on. This gives us a covering of volume
+\begin{equation}
+m_{*}(E)\leq m_{*}(\bigcup^{\infty}_{j=1}Q_{j})=\sum^{\infty}_{j=1}\frac{\varepsilon}{2^{j}}=\varepsilon.
+\end{equation}
+Since $\varepsilon$ was arbitrary, this means $m_{*}(E)=0$.
+\end{example}
+
+\begin{puzzle}
+Let $Q\subset\RR^{d}$ be a cube. Is $m_{*}(Q)=|Q|$ or not?
+\end{puzzle}
+
+\begin{theorem}
+Let $Q\subset\RR^{d}$ be a closed cube. Then $m_{*}(Q)=|Q|$. 
+\end{theorem}
+
+\begin{proof}
+\textsc{Claim 1:} $m_{*}(Q)\leq|Q|$. Since $Q$ covers itself, $Q\subset Q$, so $\inf\{\dots\}\leq|Q|$.
+
+\textsc{Claim 2:} $|Q|\leq m_{*}(Q)$. Let $\{Q_{j}\}_{j\in\NN}$ is an
+arbitrary covering of $Q$, i.e., suppose we have
+$Q\subset\bigcup^{\infty}_{j=1}Q_{j}$.
+We want to prove $|Q|\leq\sum_{j}|Q_{j}|$. Each $Q_{j}$ is contained
+in an open set $O_{j}$ which is the interior of a ``slightly larger''
+cube $C_{j}$ where $\pi_{i}(Q_{j})\propersubset\pi_{i}(\Interior(C_{j}))$.
+Then the volume of $C_{j}$ is $(1+\varepsilon/2^{j})^{d}|Q_{j}|$. The
+rest of the proof is obvious.
+\end{proof}
+
+\begin{node}
+Now, we will check if the exterior measure satisfies the desired
+properties of a measure.
+\end{node}
+
+\begin{proposition}
+If $E_{1}\subset E_{2}$, then $m_{*}(E_{1})\leq m_{*}(E_{2})$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Since every covering of $E_{2}$ is a covering of $E_{1}$, we have
+\begin{equation}
+\inf\{\sum|Q_{j}|\mid Q_{j}\mbox{ covers }E_{1}\}\leq\inf\{\sum|Q_{j}|\mid Q_{j}\mbox{ covers }E_{2}\}.
+\end{equation}
+The result follows.
+\end{proof}
+
+\begin{proposition}
+For any $E\subset\RR^{d}$ and $h\in\RR^{d}$, we have $m_{*}(E+h)=m_{*}(E)$.
+\end{proposition}
+
+\begin{proof}
+Let $\{Q_{j}\}$ cover $E$. Then $\{Q_{j}+h\}$ covers $E+h$ since
+\begin{equation}
+E+h\subset\left(\bigcup^{\infty}_{j=1}Q_{j}\right)+h=\bigcup^{\infty}_{j=1}(Q_{j}+h).
+\end{equation}
+From $\sum_{j}|Q_{j}|=\sum_{j}|Q_{j}+h|$, the result follows.
+\end{proof}
+
+\begin{proposition}[Countable subadditivity]
+For \emph{any} sequence of sets $\{E_{k}\}^{\infty}_{k=1}$, we have
+\begin{equation}
+m_{*}\left(\bigcup^{\infty}_{k=1}E_{k}\right)\leq\sum^{\infty}_{k=1}m_{*}(E_{k}).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Let $\varepsilon>0$. For each $E_{k}$, choose a covering
+$\{Q_{k,j}\}_{j}$ for $E_{k}$ such that
+\begin{equation}
+\sum^{\infty}_{j=1}|Q_{k,j}|\leq m_{*}(E_{k})+\frac{\varepsilon}{2^{k}}.
+\end{equation}
+Then the collection $\{Q_{k,j}\mid j\in\NN,k\in\NN\}$ covers
+\begin{equation}
+E=\bigcup^{\infty}_{k=1}E_{k}\subset\bigcup^{\infty}_{k=1}\bigcup^{\infty}_{j=1}Q_{k,j}.
+\end{equation}
+Then
+\begin{equation}
+m_{*}(E)\leq\sum_{k=1}\sum_{j=1}|Q_{k,j}|\leq\sum_{k=1}\left(m_{*}(E)+\frac{\varepsilon}{2^{k}}\right),
+\end{equation}
+and
+\begin{equation}
+\sum_{k=1}\left(m_{*}(E)+\frac{\varepsilon}{2^{k}}\right)=\left(\sum_{k=1}m_{*}(E)\right)+\varepsilon.
+\end{equation}
+Since $\varepsilon>0$ is arbitrary, we have the result
+\begin{equation}
+m_{*}(E)\leq\sum_{k=1}^{\infty}m_{*}(E_{k}),
+\end{equation}
+as desired.
+\end{proof}
+
+\begin{puzzle}
+If $E_{1}$ and $E_{2}$ are disjoint, do we always have
+$m_{*}(E_{1})+m_{*}(E_{2})=m_{*}(E_{1}\cup E_{2})$?
+\end{puzzle}
+
+\begin{proof}[Answer]
+No, this is not always true. We can have pathological subsets where
+this is not the case. But we always have $m_{*}(E_{1})+m_{*}(E_{2})\geq m_{*}(E_{1}\cup E_{2})$,
+if it's any consolation. 
+\end{proof}
+
+\begin{definition}
+A subset $E\subset\RR^{d}$ is \define{Lebesgue Measurable} (or just
+``measurable'') if for each $\varepsilon>0$ there exists a
+corresponding open subset $O\subset\RR^{d}$ such that
+\begin{enumerate}
+\item it covers $E$: $E\subset O$; and
+\item arbitrarily well: $m_{*}(O\setminus E)\leq\varepsilon$.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+Any open set is measurable.
+\end{proposition}
+
+\begin{proposition}
+The empty set is measurable and $m_{*}(\emptyset)=0$.
+\end{proposition}
+
+\begin{proof}
+Pick the cube $Q$ of volume $\varepsilon$, then $\Interior(Q)$ has
+exterior measure $\varepsilon$, and $\emptyset\subset Q$ always.
+\end{proof}

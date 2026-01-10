@@ -1,0 +1,210 @@
+%%
+%% winter-lecture03.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-10T10:20:23-0800
+%% Last update 2026-01-10T10:20:23-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+If $X\homotopic Y$, then $\pi_{n}(X)\iso\pi_{n}(Y)$.
+\end{node}
+
+\begin{example}
+Let $\widetilde{X}=\RR$ and $X=\sphere{1}$, we have a covering
+$p\colon\widetilde{X}\to X$ sending $\theta\mapsto\E^{\I\theta}$. Then
+for $n\geq2$, $\pi_{n}(\RR)\iso\pi_{n}(\sphere{1})=0$ since
+$R\homotopic\point{*}$ is contractible; and for $n=1$,
+$\pi_{1}(\sphere{1})\iso\ZZ$. 
+\end{example}
+
+\begin{definition}
+A space is called \define{Aspherical} if $\pi_{n}(X)=0$ for all $n\geq2$.
+\end{definition}
+
+\begin{example}
+The $n$-torus $\torus{n}=\sphere{1}\times\dots\times\sphere{1}$ has $\pi_{k}(\torus{n})\iso\pi_{k}(\sphere{1})\times\dots\times\pi_{k}(\sphere{1})=0$
+for $k\geq2$.
+\end{example}
+
+\subsection{Relative homotopy groups}
+
+\begin{definition}
+Suppose $x_{0}\in A\subset X$ where $A$ is a subspace of $X$.
+We may define the \define{Relative Homotopy Group} $\pi_{n}(X,A,x_{0})$
+as follows: for $I^{n}$ with coordinates $(s_{1},\dots,s_{n})$
+consider $I^{n-1}$ sitting in the boundary with $s_{1}=0$. Let
+$J^{n-1}=\closure{\boundary{I^{n}}\setminus I^{n-1}}$ (the union of
+the rest of the faces in $\boundary I^{n}$) as doodled thus:
+\begin{center}
+\includegraphics{img/img.52}
+\end{center}
+We define
+\begin{equation}
+\pi_{n}(X,A,x_{0})=[(I^{n},\boundary I^{n},J^{n-1}),(X,A,x_{0})]
+\end{equation}
+where $J^{n-1}$ is mapped to $x_{0}$, $\boundary I^{n}$ is mapped to $A$,
+and $I^{n}$ is mapped to $X$.
+
+The group structure is defined as before (for $n\geq2$):
+\begin{center}
+\includegraphics{img/img.53}
+\end{center}
+where the thick red portion of the boundary of the square/rectangle is
+mapped to $x_{0}$.
+\end{definition}
+
+\begin{remark}
+When $n=1$, what's going on? Well, we can draw analogous diagrams, but
+with intervals instead of squares/cubes. One endpoint (drawn in red)
+is mapped to $x_{0}$, the other endpoint (in black) is mapped to some
+point in $A$:
+\begin{center}
+\includegraphics{img/img.54}
+\end{center}
+But in general this endpoint in $A$ is not equal to $x_{0}$, so we
+don't get a group structure since concatenation is not a well-defined
+binary operator. Nevertheless, it remains a pointed set.
+\end{remark}
+
+\begin{node}
+The group $\pi_{n}(X,A,x_{0})$ is Abelian for $n\geq3$.
+\end{node}
+
+\begin{remark}
+The absolute homotopy group $\pi_{n}(X,x_{0})$ could be viewed as a
+special case of the relative homotopy group $\pi_{n}(X,A,x_{0})$ where
+$A=\{x_{0}\}$. An equivalent way of defining $\pi_{n}(X,A,x_{0})$
+since $J^{n-1}$ is sent to $x_{0}$, we can quotient out $J^{n-1}$ from
+the domain, which turns $I^{n}$ into a closed disk $\disk{n}$,
+\begin{subequations}
+  \begin{align}
+\pi_{x}(X,A,x_{0}) &= [(I^{n}, \boundary I^{n}, J^{n-1}), (X,A,x_{0})]\\
+&= [(\disk{n},\boundary\disk{n}, \point{*}), (X,A,x_{0})].
+  \end{align}
+\end{subequations}
+In this description, we have the quotient map doodled as:
+\begin{center}
+\includegraphics{img/img.55}
+\end{center}
+We also can describe the group operator using discs, where we identify
+the ``equator'' $\disk{n-1}$ of the disc $\disk{n}$ and quotient out
+by it, sending $\disk{n}\to\disk{n}/\disk{n-1}$ which collapses the
+``equator'' to a point giving us $\disk{n}\wedge\disk{n}\iso\disk{n}/\disk{n-1}$.
+Then we apply $f$ to one disk, and $g$ to the other disk
+\begin{center}
+\includegraphics{img/img.56}
+\end{center}
+\end{remark}
+
+\begin{remark}
+All functorial properties work for relative homotopy groups, as well.
+For example, if $f\colon(X,A,x_{0})\to(Y,B,y_{0})$, then it induces a
+group morphism $f_{*}\colon\pi_{n}(X,A,x_{0})\to\pi_{n}(Y,B,y_{0})$
+for $n$ sufficiently large. Also, an action of $\pi_{1}(A,x_{0})$ on
+$\pi_{n}(X,A,x_{0})$ may be defined.
+\end{remark}
+
+\begin{lemma}[Compression/vanishing criterion]
+An element $[f]\in\pi_{n}(X,A,x_{0})$ is zero if and only if
+$f\homotopic g\rel{\boundary\disk{n}}$ homotopic such that
+$g(\disk{n})\subset A$ (the boundary is fixed throughout).
+\end{lemma}
+
+(That is, $H\colon\disk{n}\times I\to X$ is a homotopy from $f$ to $g$
+is such a homotopy if $H(x,t)=f(x)=g(x)$ for all
+$x\in\boundary\disk{n}$ and all $t\in I$.)
+
+\begin{proof}
+\backwardproof\ If $f\homotopic g\rel{\boundary\disk{n}}$ then $[f]=[g]\in\pi_{n}(X,A,x_{0})$.
+Suffices to show $[g]=0$ in $\pi_{n}(X,A,x_{0})$. Here there isa
+homotopy
+\begin{equation}
+H\colon(\disk{n},\boundary\disk{n},\point{*})\times I\to(X,A,x_{0})
+\end{equation}
+from $g$ to the constant function $c_{x_{0}}$ which takes the
+following form: for all $x\in\disk{n}$ consider the path $\lambda_{x}$
+from $x$ to $p$ by $\lambda_{x}\colon[0,1]\to\disk{n}$. Define
+\begin{equation}
+H(x,t)=g(\lambda_{x}(t)).
+\end{equation}
+Then when $t=0$,
+\begin{equation}
+H(x,0)=g(\lambda_{x}(0))=g(x),
+\end{equation}
+and when $t=1$ we have
+\begin{equation}
+H(x,1)=g(\lambda_{x}(1))=g(p)=x_{0}.
+\end{equation}
+This is valid in the sense that $H(\boundary\disk{n},t)\subset A$
+since $g(\disk{n})\subset A$ (if we tried doing this directly for $f$,
+we can't do that as for $x\in\boundary\disk{n}$,
+$H(x,t)=f(\lambda_{x}(t))$ which does not necessarily lie in $A$).
+
+\forwardproof\ Suppose $[f]=0$ in $\pi_{n}(X, A, x_{0})$. Then there
+exists a relative homotopy
+\begin{equation}
+H\colon(\disk{n},\boundary\disk{n},\point{*})\times I\to(X,A,x_{0})
+\end{equation}
+such that $H(x,0)=f(x)$ and $H(x,1)=x_{0}$. We can draw the homotopy
+as a disc (dashed line corresponds to $\disk{n}$, the red points
+correspond to $\boundary\disk{n}$):
+\begin{center}
+\includegraphics{img/img.57}
+\end{center}
+But it defines a relative homotopy by changing perspective
+\begin{equation}
+\disk{n} = \boundary(\disk{n}\times I)\setminus(\disk{n}\times\{0\}),
+\end{equation}
+which is the entire box except the dashed line, and define $g$ to be
+$H$ restricted to $\disk{n}$. Then $H$ could be viewed as a homotopy
+from $f$ to $g$ such that $H|_{\boundary\disk{n}}(x)=f(x)$. Then
+$g(\disk{n})\subset A$ by definition of $H$.
+\end{proof}
+
+\subsection{Long Exact Sequence of Relative Homotopy Groups}
+
+\begin{node}
+Suppose $x_{0}\in A\subset X$. Then the following:
+\begin{equation}
+\vcenter{\xymatrix{\dots & \dots\ar[r] & \pi_{n+1}(X,A,x_{0})\ar@/_/[dll]_-{\boundary}\\
+\pi_{n}(A,x_{0})\ar[r]^-{i_{*}} & \pi_{n}(X,x_{0})\ar[r]^-{j_{*}} & \pi_{n}(X,A,x_{0})\ar@/_/[dll]_-{\boundary}\\
+\pi_{n}(A,x_{0})\ar[r]^-{i_{*}} & \dots \ar[r]& \pi_{1}(X,A,x_{0})\ar@/_/[dll]_-{\boundary}\\
+\pi_{0}(A,x_{0})\ar[r] & \pi_{0}(X,x_{0}) & }}
+\end{equation}
+where
+\begin{enumerate}[start=0]
+\item $\pi_{1}(X,A,x_{0})$, $\pi_{0}(A,x_{0})$, and $\pi_{0}(X,x_{0})$
+  are all just pointed sets (\textbf{not groups});
+\item the inclusion $i\colon(A,x_{0})\into(X,x_{0})$ induces the
+  morphism $i_{*}\colon\pi_{n}(A,x_{0})\to\pi_{n}(X,x_{0})$;
+\item the inclusion $j\colon(X,x_{0})=(X,\{x_{0}\},x_{0})\into(X,A,x_{0})$
+  induces the morphism
+  $j_{*}\colon\pi_{n}(X,x_{0})\to\pi_{n}(X,A,x_{0})$;
+\item the $\boundary\colon\pi_{n}(X,A,x_{0})\to\pi_{n-1}(A,x_{0})$ is
+  induced by the boundary operator which
+  restricts the continuous map $f\colon (\disk{n},\sphere{n-1},x_{0})\to(X,A,x_{0})$ 
+  to its boundary $\boundary\disk{n}=\sphere{n-1}$ --- so it sends
+  $f\mapsto f|_{\boundary\disk{n}}$.
+\end{enumerate}
+\end{node}
+
+\begin{proposition}
+This really is a long exact sequence.
+\end{proposition}
+
+\begin{remark}
+The end of the long sequence,
+\begin{equation}
+\pi_{1}(X,x_{0})\xrightarrow{j_{*}}\pi_{1}(X,A,x_{0})\xrightarrow{\boundary}\pi_{0}(A,x_{0})\xrightarrow{i_{*}}\pi_{0}(X,x_{0})\to0,
+\end{equation}
+except for $\pi_{1}(X,x_{0})$ (and $0$), everything is a pointed
+set. So in what sense is this ``exact'', really?
+
+Well, we define the ``kernel'' of $i_{*}\colon\pi_{0}(A,x_{0})\to\pi_{0}(X,x_{0})$
+to be the preimage $\ker(i_{*})=i_{*}^{-1}([x_{0}])$. Similarly, $\ker(\boundary)=\boundary^{-1}([x_{0}])$.
+\end{remark}

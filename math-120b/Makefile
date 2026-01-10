@@ -1,7 +1,7 @@
 FILE=main
 TEX=latex
 
-all: images
+all: 
 	$(TEX) $(FILE)
 	$(TEX) $(FILE)
 	dvipdfmx $(FILE).dvi

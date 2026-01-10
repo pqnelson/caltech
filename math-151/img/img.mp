@@ -1346,4 +1346,163 @@ beginfig(51) % curve with a frame transported around it
   drawdblarrow frame0 rotated (-90-45) shifted ((0,-6) + point 0.9length(curve) of curve) withcolor red;
   drawdblarrow frame0 rotated (-90-90) shifted ((-6,-6) + point length(curve) of curve) withcolor red;
 endfig;
+
+%%%%
+%%%% WINTER QUARTER 2026
+%%%%
+
+% Lecture 3, Winter 2026
+beginfig(52)
+  path p[];
+  numeric w,h;
+  w = 2u; h = 2u;
+  p0 = (0,0)--(0,h)--(w,h)--(w,0);
+  p1 = (0,0)--(w,0);
+
+  draw p0 withpen pencircle scaled 3 withcolor red;
+  draw p1;
+  label.rt(btex $J^{n-1}$ etex, 0.5[(w,h),(w,0)]) withcolor red;
+  label.bot(btex $I^{n-1}$ etex, 0.5[(0,0),(w,0)]);
+endfig;
+
+beginfig(53)
+  path p[];
+  numeric w,h;
+  w = 2u; h = 2u;
+  p0 = (0,0)--(0,h)--(w,h)--(w,0);
+  p1 = (0,0)--(w,0);
+
+  z0 = 0.5[(0,0),(w,h)];
+  
+  z1 = (1w,0);
+  z2 = (2w,0);
+  p2 = p0 shifted z2;
+  p3 = p1 shifted z2;
+
+  p4 = (4w,0)--(4w,h)--(6w,h)--(6w,0);
+  p5 = (4w,0)--(6w,0);
+  p6 = (5w,0)--(5w,h);
+
+  label(btex $f$ etex, z0);
+  label(btex $+$ etex, z0 + z1);
+  label(btex $g$ etex, z0 + z2);
+  label(btex $=$ etex, z0 + z1 + z2);
+  label(btex $f$ etex, z0 + (4w,0));
+  label(btex $g$ etex, z0 + (5w,0));
+  
+  draw p0 withpen pencircle scaled 3 withcolor red;
+  draw p2 withpen pencircle scaled 3 withcolor red;
+  draw p4 withpen pencircle scaled 3 withcolor red;
+  draw p6 withcolor red;
+  draw p1;
+  draw p3;
+  draw p5;
+endfig;
+
+beginfig(54)
+  path p[];
+  numeric w,h;
+  w = 2u; h = 2u;
+
+  z0 = (0,0);
+  z1 = (w,0);
+  z2 = (2w,0);
+  z3 = (3w,0);
+  p0 = z0--z1;
+  p1 = z2--z3;
+
+  draw p0; draw p1;
+
+  label(btex $\bullet$ etex, z0) withcolor red;
+  label(btex $\bullet$ etex, z1);
+  label(btex $\bullet$ etex, z2) withcolor red;
+  label(btex $\bullet$ etex, z3);
+  label.top(btex $f$ etex, 0.5[z0,z1]);
+  label.top(btex $g$ etex, 0.5[z2,z3]);
+endfig;
+
+beginfig(55)
+  path p[];
+  numeric w,h;
+  w = 2u; h = 2u;
+  p0 = (0,0)--(0,h)--(w,h)--(w,0);
+  p1 = (0,0)--(w,0);
+
+  p2 = fullcircle scaled w shifted (3w,0.5h);
+  z0 = point 0.25length(p2) of p2;
+  z1 = point 0.75length(p2) of p2;
+
+  draw p0 withpen pencircle scaled 3 withcolor red;
+  draw p1;
+  label.top(btex $J^{n-1}$ etex, 0.5[(w,h),(0,h)]) withcolor red;
+  label.bot(btex $I^{n-1}$ etex, 0.5[(0,0),(w,0)]);
+  label(btex $I^{n}$ etex, (0.5w,0.5h));
+
+  label(btex $\mapsto$ etex, (2w - 3pt,0.5h));
+  draw p2;
+  label(btex $\bullet$ etex, z0) withcolor red;
+  label.bot(btex $\partial D^{n}$ etex, z1);
+  label(btex $D^{n}$ etex, 0.5[z0,z1]); % (3w,0.5h));
+endfig;
+
+beginfig(56)
+  path p[];
+  numeric w,h;
+  w = 2u;
+  h = 2u;
+  p0 = fullcircle scaled 2w;
+  z0 = point 0.25length(p0) of p0;
+  z1 = point 0.75length(p0) of p0;
+  z2 = (point 0 of p0) + (w,0);
+
+  p1 = fullcircle scaled w shifted (z2 + (w,0));
+  p2 = p1 shifted (w,0);
+  z3 = point 0 of p1;
+
+  z4 = (point 0 of p2) + (w,0);
+
+  p3 = p1 shifted (3.5w,0);
+  p4 = p2 shifted (3.5w,0);
+
+  draw p0; draw p1; draw p2;
+  draw z0--z1 dashed evenly;
+  
+  label.bot(btex $D^{n-1}$ etex, z1);
+  label(btex $D^{n}$ etex, 0.5[z0,z1]+(-0.5w,0));
+  
+  label(btex $\mapsto$ etex, z2 + (-3pt, 0));
+  label.top(btex $\scriptstyle q$ etex, z2 + (-3pt, 2pt));
+  label(btex $D^{n}$ etex, z2 + (w,0));
+  label(btex $D^{n}$ etex, z2 + (2w,0));
+  label(btex $\bullet$ etex, z3);
+  
+  label(btex $\mapsto$ etex, z4 + (-3pt, 0));
+  label.top(btex $\scriptstyle f,g$ etex, z4 + (-3pt, 2pt));
+  draw p3; draw p4;
+  z5 = point 0 of p3;
+  label(btex $\bullet$ etex, z5) withcolor red;
+  label(btex $f$ etex, z4 + (1w,0));
+  label(btex $g$ etex, z4 + (2w,0));
+endfig;
+
+beginfig(57)
+  path p[];
+  numeric w,h; w = 2u; h = 2u;
+  z0 = (0,0);
+  z1 = (0,h);
+  z2 = (w,0);
+  p0 = z0--z1;
+  p1 = z0--z2--(z2 + z1)--z1;
+
+  draw p0 dashed evenly;
+  draw p1;
+  label.lft(btex $f$ etex, 0.5[z0,z1]);
+  label.rt(btex $c_{x_{0}}$ etex, 0.5[z2,z1 + z2]);
+  label(btex $\bullet$ etex, z0) withcolor red;
+  label(btex $\bullet$ etex, z1) withcolor red;
+  label(btex $H$ etex, 0.5[z0, z1+z2]);
+endfig;
+
+% 58
+
 end;

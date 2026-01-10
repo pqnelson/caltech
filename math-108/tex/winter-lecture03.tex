@@ -1,0 +1,224 @@
+%%
+%% winter-lecture03.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-10T12:31:09-0800
+%% Last update 2026-01-10T12:31:09-0800
+%% 
+
+\lecture{}
+
+We want to develop the infrastructure to introduce $\sigma$-algebras,
+which are ``safe spaces'' for performing integration.
+
+\begin{proposition}
+If $E$ is any set with $m_{*}(E)=0$, then it is measurable.
+\end{proposition}
+
+\begin{proof}
+Let $E$ be a set with $m_{*}(E)=0$. Let $\varepsilon>0$, there exists
+a covering of cubes $\{Q_{j}\}$ such that $E\subset\bigcup_{j}Q_{j}$ and
+$\sum_{j}|Q_{j}|<\varepsilon$. We want to find an open set $O$ such
+that $E\subset O$ and $m_{*}(O\setminus E)\leq\varepsilon$.
+
+We could try
+\begin{equation}
+O\stackrel{?}{=}\bigcup_{j}\Interior(Q_{j}),
+\end{equation}
+which is the union of open sets and therefore open. Well, this won't
+always work: consider the situation where $E$ is in the boundary of
+one of the cubes, we run into problems. So we need to ``enlarge'' the
+cubes using our $\varepsilon$-trick, and use the interiors of the
+``enlarged'' covering. Specifically, we pick cubes $Q'_{j}$ such that
+$Q_{j}\subset\Interior(Q'_{j})$ and $|Q'_{j}|\leq(1+\delta)|Q_{j}|$
+for some sufficiently small $0<\delta\ll1$. Then
+\begin{equation}
+O = \bigcup_{j}\Interior(Q'_{j}),
+\end{equation}
+and we see $m_{*}(O)\leq2\varepsilon$ for sufficiently small $\delta$.
+
+We see that $E\subset O$, so we just need to check
+\begin{equation}
+m_{*}(O\setminus E)\leq m_{*}(O)\leq 2\varepsilon,
+\end{equation}
+which satisfies the definition of Lebesgue measurable by rescaling
+$\varepsilon$. 
+\end{proof}
+
+\begin{proposition}[Countable union of measurable sets is measurable]\label{prop:winter26:lecture3:3}
+Let $\{E_{j}\}$ be a countable family of measurable sets. Then
+$E=\bigcup_{j}E_{j}$ is measurable.
+\end{proposition}
+
+\begin{proof}
+Let $\varepsilon>0$. We can find an open set $O_{j}\supset E_{j}$ such that
+$m_{*}(O_{j}\setminus E_{j})\leq \varepsilon/2^{j}$. Then
+\begin{equation}
+O=\bigcup_{j}O_{j}.
+\end{equation}
+We claim this is the open set we're seeking.
+
+\textsc{Claim 1:} $E\subset O$. This is obvious since each component
+$E_{j}\subset O_{j}$.
+
+\textsc{Claim 2:} $m_{*}(O\setminus E)\leq\varepsilon$. We see
+\begin{equation}
+O\setminus E=\left(\bigcup_{j}O_{j}\right)\setminus\left(\bigcup_{j}E_{j}\right)\subset\bigcup_{j}(O_{j}\setminus E_{j}).
+\end{equation}
+Then by subadditivity
+\begin{equation}
+m_{*}(O\setminus E)\leq\sum^{\infty}_{j=1}m_{*}(O_{j}\setminus E_{j})=\sum_{j}\frac{\varepsilon}{2^{j}}=\varepsilon.
+\end{equation}
+Hence the result.
+\end{proof}
+
+\begin{lemma}\label{lemma:winter:lec03:positive-distance}
+Let $A\subset\RR^{d}$ and $B\subset\RR^{d}$. If $d(A,B)>0$, then
+$m_{*}(A\cup B)=m_{*}(A)+m_{*}(B)$.
+\end{lemma}
+
+\begin{proof}
+Recall $d(A,B)=\inf\{d(a,b)\mid a\in A,b\in B\}$. Then we can pick a
+covering of $A$ which is disjoint from the covering of $B$.
+\end{proof}
+
+\begin{definition}
+Let $A$, $B\subset\RR^{d}$. We say $A$ and $B$ are \define{Almost Disjoint}
+if they overlap at most only on boundaries $A\cap B\subset\boundary A$ and $A\cap B\subset\boundary B$.
+(Observe: disjoint sets are almost disjoint.)
+\end{definition}
+
+\begin{proposition}
+Closed sets are measurable.
+\end{proposition}
+
+\begin{proof}
+  Let $F\subset\RR^{d}$ be a closed set.
+  
+\textsc{Case 1:} $F$ is unbounded. Then
+\begin{equation}
+F = \bigcup^{\infty}_{n=1}(F\cap[-n,n]^{d}).
+\end{equation}
+So we have written $F$ as a countable union of compact closed sets,
+which we will prove is measurable. Suffices to prove compact closed
+sets are measurable thanks to Proposition~\ref{prop:winter26:lecture3:3}.
+
+\textsc{Case 2:} $F$ is compact. Let $\varepsilon>0$.
+Pick an open set $O\supset F$ such
+that $m_{*}(O)\leq m_{*}(F)+\varepsilon$.
+
+We see $O\setminus F=O\cap F^{\complement}$ is open, and we can write
+\begin{equation}
+O\setminus F=\bigcup^{\infty}_{j=1}Q_{j},
+\end{equation}
+where $Q_{j}$ are almost disjoint closed cubes by our structure theorem.
+For any $N\in\NN$, we write
+\begin{equation}
+K_{N}:=\bigcup^{N}_{j=1}Q_{j},
+\end{equation}
+which is closed and bounded (hence $K_{N}$ is compact for any
+$N\in\NN$). We see that $K_{N}\cap F=\emptyset$ are disjoint since
+$K_{N}\subset O\setminus F$.
+
+Since $F$ and $K_{N}$ are disjoint and both are compact, the distance
+$d(K_{N},F)$ between $K_{N}$ and $F$ is positive. Define
+\begin{equation}
+g(x)=d(x,F).
+\end{equation}
+Then (from lecture 8 of Fall quarter,
+Example~\ref{ex:fall:lec08:metric-is-continuous}) this function is
+continuous. Therefore $g(x)$ attains both its minima and maxima by the
+extreme value theorem. We write $x^{*}\in K_{N}$ for the point where
+$g(x^{*})$ is its minimum. Since $K_{N}$ is disjoint from $F$,
+$x^{*}\notin F$. But since $F$ is closed, $d(x^{*},F)\neq0$ ---
+otherwise $x^{*}$ would be a limit point of $F$, and since $F$ is
+closed this would mean $x^{*}\in F$ (contradicting $F$ being disjoint
+from $K_{N}$). ence $\min(g)\geq0$, which establishes the key fact
+that the distance between $K_{N}$ and $F$ is positive.
+
+Applying Lemma~\ref{lemma:winter:lec03:positive-distance} to $K_{N}$
+and $F$,
+\begin{equation}
+m_{*}(F\cup K_{N})=m_{*}(F)+m_{*}(K_{N}).
+\end{equation}
+Since $K_{N}\cup F\subset O$, this means (by monotonicity)
+\begin{equation}
+m_{*}(F\cup K_{N})\leq m_{*}(O),
+\end{equation}
+and so
+\begin{equation}
+m_{*}(F)+m_{*}(K_{N})\leq m_{*}(O)\leq m_{*}(F)+\varepsilon.
+\end{equation}
+Since $F$ is compact, $m_{*}(F)$ is finite, so we can subtract through
+by it to find
+\begin{equation}
+m_{*}(K_{N})\leq\varepsilon.
+\end{equation}
+Then
+\begin{equation}
+\sum^{\infty}_{j=1}|Q_{j}|\leq\varepsilon,
+\end{equation}
+since we did not depend on $N$ anywhere.
+
+We have
+\begin{equation}
+O\setminus F=\bigcup^{\infty}_{j=1}Q_{j},
+\end{equation}
+so taking the exterior measure for both sides
+\begin{equation}
+m_{*}(O\setminus F)\leq\sum^{\infty}_{j=1}|Q_{j}|\leq\varepsilon,
+\end{equation}
+by countable subadditivity and the preceding results. Hence the claim.
+\end{proof}
+
+\begin{proposition}
+The complement of a measurable set is measurable.
+\end{proposition}
+
+\begin{proof}
+Let $E$ be a measurable set. For each $n\in\NN$, choose an open set
+$O_{n}$ such that $O_{n}\supset E$ and $m_{*}(O_{n}\setminus E)\leq 1/n$.
+
+Let $F_{n}=O_{n}^{\complement}$. Then $F_{n}$ is measurable and
+$F_{n}\subset E^{\complement}$.
+
+Let
+\begin{equation}
+S=\bigcup^{\infty}_{n=1}F_{n}.
+\end{equation}
+Then $F_{n}$ is measurable implies $S$ is measurable. We see $S\subset E^{\complement}$.
+For any $n$, note that $E^{\complement}\setminus S\subset E^{\complement}F_{n}=O_{n}\setminus E$,
+so by monotonicity
+\begin{equation}
+m_{*}(E^{\complement}\setminus S)\leq m_{*}(O_{n}\setminus E)\leq \frac{1}{n}.
+\end{equation}
+Letting $n\to\infty$, $m_{*}(E^{\complement}\setminus S)=0$. We can
+conclude
+\begin{equation}
+E^{\complement}=S\cup(E^{\complement}\setminus S),
+\end{equation}
+and $S$ is measurable and $E^{\complement}\setminus S$ is measurable,
+so $E^{\complement}$ is measurable.
+\end{proof}
+
+\begin{fact}
+Null sets---i.e., sets $N$ where $m_{*}(N)=0$---are measurable.
+\end{fact}
+
+\begin{node}
+We will get to $\sigma$-algebras, collections of sets which are closed
+under complements and countable unions. Specifically, we will want
+$\sigma$-algebras of measurable sets, which describes where we can do
+integration. 
+\end{node}
+
+\begin{remark}
+We are describing measures by looking at open sets ``bigger'' than the
+set we want to measure, and then looking for smaller and smaller such
+open sets. There is another way to approach measure theory, where we
+consider closed subsets of $E$ and we look for ``bigger and bigger''
+closed subsets of $E$. These two methods of defining measures are
+equivalent.
+\end{remark}

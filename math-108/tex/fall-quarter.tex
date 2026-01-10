@@ -1,0 +1,83 @@
+%%
+%% fall-quarter.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-10T11:58:43-0800
+%% Last update 2026-01-10T11:58:43-0800
+%% 
+
+\noindent\textsc{Note:} I only started auditing the Fall course at lecture 6.
+So let me review a few important definitions.
+
+\begin{definition}
+Let $X$ be a vector space over $\FF$. We define a \define{Norm} on $X$
+to be a function $\|\cdot\|\colon X\to\RR$ such that
+\begin{enumerate}
+\item\textsc{Triangle inequality:} $\|x+y\|=\|x\|+\|y\|$ for any $x$,
+  $y\in X$
+\item\textsc{Homogeneity:} $\|sx\|=|s|\cdot\|x\|$ for any $s\in\FF$
+  and $x\in X$
+\item\textsc{Positive-definiteness:} For any $x\in X$, if $\|x\|=0$,
+  then $x=0$.
+\item\textsc{Non-negative:} For any $x\in X$, $\|x\|\geq0$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Let $X$ be a set, We define a \define{Metric} on $X$ to be a function $d\colon X\times X\to\RR$
+such that
+\begin{enumerate}
+\item for any $x\in X$, $d(x,x)=0$
+\item\textsc{Positivity:} for any $x$, $y\in X$, $d(x,y)\geq0$ and
+  $d(x,y)$ iff $x=y$.
+\item\textsc{Symmetry:} for any $x$, $y\in X$, $d(x,y)=d(y,x)$
+\item\textsc{Triangle inequality:} for any $x$, $y$, $z\in X$, $d(x,y)+d(y,z)\geq d(x,z)$
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+On $\RR$, $d(x,y)=|x-y|$ is a metric.
+\end{example}
+
+\begin{example}
+More generally, if $(X,\|\cdot\|)$ is a normed space over a field
+$\FF$, then $d(x,y)=\|x-y\|$ is a metric.
+\end{example}
+
+\begin{example}[Discrete metric]
+Let $X$ be any set. We define the \define{Discrete Metric} to be the function
+\begin{equation}
+d(x,y) = \begin{cases}1 &\mbox{if }x\neq y\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+Then this is an actual metric.
+\end{example}
+
+\setcounter{section}{5}
+\input{tex/fall-lecture06} % Fri 10 October 2025
+\input{tex/fall-lecture07} % Mon 13 October 2025
+\input{tex/fall-lecture08} % Wed 15 October 2025
+\input{tex/fall-lecture09} % Fri 17 October 2025
+\input{tex/fall-lecture10} % Mon 20 October 2025
+\input{tex/fall-lecture11} % Wed 22 October 2025
+\input{tex/fall-lecture12} % Fri 24 October 2025
+\input{tex/fall-lecture13} % Mon 27 October 2025
+\input{tex/fall-lecture14} % Wed  5 November 2025
+\input{tex/fall-lecture15} % Fri  7 November 2025
+\input{tex/fall-lecture16} % Mon 10 November 2025
+\input{tex/fall-lecture17} % Wed 12 November 2025
+\input{tex/fall-lecture18} % Fri 14 November 2025
+\input{tex/fall-lecture19} % Mon 17 November 2025
+\input{tex/fall-lecture20} % Wed 19 November 2025
+\input{tex/fall-lecture21} % Fri 21 November 2025
+\input{tex/fall-lecture22} % Mon 24 November 2025
+\input{tex/fall-lecture23} % Wed 26 November 2025
+\input{tex/fall-lecture24} % Mon  1 December 2025
+\input{tex/fall-lecture25} % Wed  3 December 2025
+\input{tex/fall-lecture26} % Fri  5 December 2025
+
+
+\endinput

@@ -1,0 +1,47 @@
+%%
+%% notation.sty
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-08T10:32:48-0800
+%% Last update 2026-01-08T10:32:48-0800
+%% 
+
+\DeclareMathOperator\id{id}
+\let\iso\cong
+
+% sets
+\let\kk\Bbbk
+\def\AA{\mathbb{A}}
+\def\CC{\mathbb{C}}
+\def\NN{\mathbb{N}}
+\def\QQ{\mathbb{Q}}
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+
+% set theory
+\let\propersubset\subset
+\let\subset\subseteq
+\let\propersupset\supset
+\let\supset\supseteq
+\let\nsubset\nsubseteq
+\let\nsupset\nsupseteq
+
+\let\og@im\Im
+\let\Im\relax
+\DeclareMathOperator\Im{Im}
+
+% ideals --- Isabelle/Isar notation
+\newcommand\mmm{\mathfrak{m}}
+
+
+\def\closure#1{\overline{#1}} % algebraic closure
+
+\let\og@hom\hom
+\let\hom\relax
+
+\DeclareMathOperator\hom{Hom}
+\DeclareMathOperator\Aut{Aut}
+
+\endinput

@@ -1,0 +1,183 @@
+%%
+%% winter-lecture02.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-08T11:12:01-0800
+%% Last update 2026-01-08T11:12:01-0800
+%% 
+
+\lecture{}
+
+\subsection{Overview}
+
+\begin{node}
+Remember $\pi_{n}(X,x_{0})$ is the set of homotopy equivalence classes
+of continuous maps which preserve the specified point,
+\begin{equation}
+\pi_{n}(X,x_{0})=[(\sphere{n},p\in\sphere{n}),(X,x_{0})].
+\end{equation}
+We proved $\pi_{1}$ is the fundamental group, and $\pi_{n}$ is an
+Abelian group for $n\geq2$. We hope to prove Hurewicz theorem,
+Whitehead's theorem, discuss Eilienberg--Mac~Lane spaces $K(G,n)$,
+Excision, and long exact sequences for fibrations/fiber bundles.
+\end{node}
+
+\begin{node}
+If $F\into E\onto B$ is a fiber bundle, if $B$ is path-connected, then
+\begin{equation}
+\vcenter{\xymatrix{ & \dots\ar[r] & \pi_{n+1}(B,b_{0})\ar[dll]\\
+\pi_{n}(F,x_{0})\ar[r] & \pi_{n}(E,x)\ar[r] & \pi_{n}(B,b_{0})\ar[dll]\\
+\pi_{n-1}(F,x_{0})\ar[r] & \dots &  }}
+\end{equation}
+is a long exact sequence.
+\end{node}
+
+\begin{example}[Hopf fibration]
+The Hopf fibration is the most famous example of a fiber bundle
+$\sphere{1}\into\sphere{3}\onto\sphere{2}$ where $E=\sphere{3}$ is the
+unit sphere in $\RR^{4}=\CC^{2}$ given by
+\begin{equation}
+E = \{(z,w)\in\CC^{2}\mid |z|^{2}+|w|^{2}=1\},
+\end{equation}
+and $B=\sphere{2}=\CP^{1}$ is given by
+\begin{equation}
+B=\{[z:w]\in\CC^{2}\}/[\lambda z:\lambda w]\sim[z:w].
+\end{equation}
+Then $J\colon\sphere{3}\to\sphere{2}$ sends $(z,w)\mapsto[z:w]$. The
+fiber is given by $(\E^{\I\theta}z,\E^{\I\theta}w)$ for $\theta\in\sphere{1}$.
+(The $J$ map is the generator for $\pi_{3}(\sphere{2})\iso\ZZ$.)
+\end{example}
+
+\begin{remark}[History]
+Eduard \v{C}ech's ``H\"{o}herdimensionale Homotopiegruppen'' (\textit{Verh.\ Intern.\ Mathematikerkongress Z\"{u}rich}, 1932, O.\ F\"{u}ssli (1932) pp. 203)
+first introduced homotopy groups, which was later separately
+introduced in Witold Hurewicz's ``Beitr\"{a}ge zur Topologie der Deformationen I-II''
+(\textit{Proc.~Ned.~Akad.~Weten.~Ser.~A} \textbf{38} (1935) pp.\ 112--119; 521--528)
+and ``Beitr\"{a}ge zur Topologie der Deformationen III-IV''
+(\textit{Proc.~Ned.~Akad.~Weten.~Ser.~A} \textbf{39} (1936) pp.\ 117--126; 215--224).
+\end{remark}
+
+\subsection{Review homotopy groups}
+
+\begin{remark}
+This is my own review of homotopy groups. There are two definitions
+offered in the literature: one using pointed spheres, and another
+using ``spheroids'' (cubes whose boundary are mapped to a specified point).
+Albert Schwarz's book~\cite{schwarz1993quantum} is a great reference
+for the spheroid definition, and also Fuchs and Fomenko~\cite[\S8]{fuchs2016homotopical}.
+\end{remark}
+
+\begin{definition}
+Let $(X,x_{0})$ be a pointed topological space, let $n\in\NN$. An
+$n$-\define{Spheroid} is a continuous map $f\colon(I^{n},\boundary I^{n})\to(X,x_{0})$
+such that the boundary is mapped to the specified point $f(\boundary I^{n})=\{x_{0}\}$.
+
+Equivalently, an $n$-spheroid is a continuous map
+$g\colon(\sphere{n},s)\to(X,x_{0})$ such that it maps the marked point
+to the marked point $g(s)=x_{0}$.
+
+These two are related by the continuous map $(I^{n},\boundary I^{n})\to(\sphere{n},s)$
+by taking the canonical continuous map to pointed quotient space $(I^{n}/\boundary I^{n},*)$
+and observing this is canonically isomorphic to $(\sphere{n},s)$.
+\end{definition}
+
+\begin{remark}
+We have $n=0$ spheroids by taking $I^{0}$ to be a point and $\boundary I^{0}=\emptyset$.
+\end{remark}
+
+\begin{definition}
+Let $(X,x_{0})$ be a pointed topological space. Let
+$f,g\colon(I^{n},\boundary I^{n})\to(X,x_{0})$ be two
+$n$-spheroids. Then a \define{Homotopy} from $f$ to $g$ is a mapping
+$f_{t}\colon[0,1]\times(I^{n},\boundary I^{n})\to(X,x_{0})$ such that
+\begin{enumerate}
+\item $f_{0}=f$ and
+\item $f_{1}=g$ and
+\item consists of spheroids: for all $t\in[0,1]$ we have
+$f_{t}(\boundary I^{n})=\{x_{0}\}$
+\end{enumerate}
+It's trivial to check that this forms an equivalence relation among
+$n$-spheroids. 
+\end{definition}
+
+\begin{notation}
+We will write $[f]$ for homotopy equivalence classes with $f\in[f]$ as
+a representative.
+\end{notation}
+
+\begin{definition}
+Let $(X,x_{0})$ be a pointed topological space. We define the set
+$\pi_{n}(X,x_{0})$ to be the set of all homotopy equivalence classes
+of $n$-spheroids to $(X,x_{0})$.
+\end{definition}
+
+\begin{definition}
+Let $(X,x_{0})$ be a pointed topological space.
+We have a \define{Composition} of $n$-spheroids
+$f,g\colon(I^{n},\boundary I^{n})\to(X,x_{0})$ giving us the spheroid
+$g*f$ defined by
+\begin{equation}
+(g*f)(t_{1},\dots,t_{n})=\begin{cases}
+  f(2t_{1},t_{2},\dots,t_{n}) & \mbox{if }0\leq t_{1}\leq1/2\\
+  g(2t_{1}-1,t_{2},\dots,t_{n}) & \mbox{if }1/2\leq t_{1}\leq1.
+  \end{cases}
+\end{equation}
+Observe that $f(1,t_{2},\dots,t_{n})=x_{0}=g(0,t_{2},\dots,t_{n})$.
+
+This also descends to homotopy equivalence classes $[g]*[f]=[g*f]$.
+\end{definition}
+
+\begin{lemma}
+The composition of spheroid homotopy equivalence classes is
+associative $([h]*[g])*[f]=[h]*([g]*[f])$. However, it is not
+associative on spheroids $(h*g)*f\neq h*(g*f)$.
+\end{lemma}
+
+\begin{lemma}
+The constant spheroid $(I^{n},\boundary I^{n})\to(X,x_{0})$ (which just
+maps everything to $x_{0}$) is the identity element for the
+composition of homotopy equivalence classes of $n$-spheroids
+\end{lemma}
+
+\begin{lemma}
+Let $f\colon(I^{n},\boundary I^{n})\to(X,x_{0})$ be an $n$-spheroid.
+Then $[f]^{-1}$ given by the spheroid
+$g(t_{1},t_{2},\dots,t_{n})=f(1-t_{1},t_{2},\dots,t_{n})$ is the
+inverse of $[f]$ with respect to composing spheroids.
+\end{lemma}
+
+\begin{theorem}
+The set $\pi_{n}(X,x_{0})$ equipped with the composition of (homotopy
+equivalence classes of) spheroids forms a group for all $n\geq1$.
+\end{theorem}
+
+This follows from the preceding three lemmas.
+
+\begin{proposition}
+For $n\geq2$, $\pi_{n}(X,x_{0})$ is an Abelian group.
+\end{proposition}
+
+\begin{remark}
+We adopt the standard convention of writing $[f]+[g]$ instead of
+$[f]*[g]$ for applying the binary operator of $\pi_{n}(X,x_{0})$ when
+$n\geq2$.
+\end{remark}
+
+\subsection{Independence of the base point for homotopy groups}
+
+\begin{node}
+Let $(X,x_{0})$ be a pointed topological space.
+Let $x_{1}\in X$ and $\gamma\colon[0,1]\to X$ be a path from
+$x_{0}=\gamma(0)$ to $x_{1}=\gamma(1)$. Let $f\colon(\sphere{n},s)\to(X,x_{0})$
+be an $n$-spheroid.
+
+Then we have another $n$-spheroid $\gamma f\colon(\sphere{n},s)\to(X,x_{1})$ defined by
+\begin{equation}
+(\gamma f)(r,\Omega) = \begin{cases} f(2r,\Omega) & 0\leq r\leq1/2\\
+  \gamma(2r-1) & 1/2\leq r\leq1
+  \end{cases}
+\end{equation}
+where $\Omega$ is all the angular components o
+\end{node}

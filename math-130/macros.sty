@@ -33,6 +33,10 @@
 \SelectTips{cm}{}
 
 \RequirePackage[dvipdfmx]{hyperref}
+\RequirePackage{doi}
+
+\let\og@doi\doi
+\def\doi#1{\texttt{\og@doi{#1}}}
 
 % add a period to the name of the lecture, if any
 \newif\ifsectionnonempty\sectionnonemptyfalse
