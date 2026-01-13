@@ -1,0 +1,216 @@
+%%
+%% winter-lecture04.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-13T09:48:18-0800
+%% Last update 2026-01-13T09:48:18-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+We have $\sphere{1}=K(\ZZ,1)$ and $\torus{n}=K(\ZZ^{n},1)$.
+\end{node}
+
+\begin{node}
+Recall (\S\ref{node:151b:lec03:winter2026:long-exact-sequence}) we
+asserted that we have a long exact sequence of homotopy groups.
+\end{node}
+
+\begin{proof}
+Suffices to prove exactness at each of the 3 locations. We should also
+prove exactness ``at the tail end'' when the entries are no longer
+groups, but that's a distraction.
+\begin{enumerate}
+\item At $\pi_{n}(X,x_{0})$ we want to show $\ker(j_{*})=\Im(i_{*})$
+  which consists of 2 claims: $\ker(j_{*})\supset\Im(i_{*})$ and $\ker(j_{*})\subset\Im(i_{*})$
+  --- this is the generic argument at each location.
+
+  \textsc{Claim 1:} $\ker(j_{*})\supset\Im(i_{*})$. Let $[f]\in\Im(i_{*})$.
+  Then there exists a $[g]$ such that $[f]=i_{*}[g]$. Then $f=i\circ g\colon\disk{n}\to A$.
+  Then $[j_{*}f]=0\in\pi_{n}(X,A,x_{0})$ by the compression criterion.
+
+  \textsc{Claim 2:} $\ker(j_{*})\subset\Im(i_{*})$. If $[f]\in\ker(j_{*})$,
+  then by compression criteria $f\homotopic g\rel{\boundary\disk{n}}$
+  for some $g\colon\disk{n}\to A$. Then $[f]=i_{*}[g]\in\pi_{n}(X,x_{0})$
+  which proves the claim.
+\item At $\pi_{n}(X,A,x_{0})$ we want to show $\Im(j_{*})=\ker(\boundary)$.
+
+  \textsc{Claim 1:} $\ker(\boundary)\supset\Im(j_{*})$. Let
+  $[f]\in\pi_{n}(X,x_{0})$ so $f\colon(\disk{n},\boundary\disk{n})\to(X,x_{0})$
+  then $j_{*}[f]$ is represented by the same map
+  $f\colon(\disk{n},\boundary\disk{n},\point{p})\to(X,A,x_{0})$.
+  Then $\boundary(j_{*}[f])$ is given by restricting $f$ to
+  $\boundary\disk{n}$ which means $\boundary(j_{*}[f])=0$.
+  
+  \textsc{Claim 2:} $\ker(\boundary)\subset\Im(j_{*})$.
+  If $\boundary[f]=0$, then $f|_{\boundary\disk{n}}\homotopic c_{x_{0}}$
+  where $c_{x_{0}}$ is the constant map to $x_{0}$, where
+  $H\colon\boundary\disk{n}\times I\to A$ is the homotopy such that
+  \begin{equation}
+\left.\begin{array}{rcl}
+  H(x,0)&=&f(x)\\
+  H(x,1)&=&x_{0}
+\end{array}\right\}\enspace\mbox{for }x\in\boundary\disk{n}.
+  \end{equation}
+  We can draw this situation using concentric disks, where the inner
+  disk is the domain of $f$ and the
+  ``annular disk'' is the domain for the homotopy $H$. We define
+  \begin{equation}
+g\colon(\disk{n},\boundary\disk{n})\to(X,x_{0})
+  \end{equation}
+  on this concentric disk. Then $f\homotopic g$ as maps
+  $(\disk{n},\boundary\disk{n},\point{*})\to(X,A,x_{0})$. Then
+  $[f]=j_{*}[g]$ which implies $[f]\in\Im(j_{*})$. (The homotopy
+  $f\homotopic g$ describes shrinking the ``annular disk'' to the
+  surface of the ``inner disk''.)
+\item At $\pi_{n-1}(A,x_{0})$ we want to show $\ker(i_{*})=\Im(\boundary)$.
+
+  \textsc{Claim 1:} $\ker(i_{*})\supset\Im(\boundary)$. Let
+  $[f]=\boundary[g]\in\pi_{n-1}(A,x_{0})$, then $f=g|_{\boundary\disk{n}}$
+  where $g\colon(\disk{n},\boundary\disk{n},\point{*})\to(X,A,x_{0})$
+  and $f\colon(\sphere{n-1},\point{p})\to(A,x_{0})$. Then
+  $if\colon(\sphere{n-1},\point{p})\to(X,x_{0})$. But $g$ provides a
+  homotopy from $f$ to the constant map.
+  
+  \textsc{Claim 2:} $\ker(i_{*})\subset\Im(\boundary)$. If $i_{*}[f]=0$,
+  then $i\circ f\homotopic c_{x_{0}}$ where $c_{x_{0}}$ is the
+  constant map to $x_{0}$. Let $H$ be this homotopy. Then $H\colon(\disk{n},\boundary\disk{n},\point{p})\to(X,A,x_{0})$
+  such that $H|_{\boundary\disk{n}}=f$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{xca}
+Convince yourself these proofs work.
+\end{xca}
+
+\begin{remark}
+More generally, we can consider $x_{0}\in B\subset A\subset X$.
+Then we have a long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{\dots & \dots\ar[r] & \pi_{n+1}(X,A,x_{0})\ar@/_/[dll]_-{\boundary}\\
+\pi_{n}(A,B,x_{0})\ar[r]^-{i_{*}} & \pi_{n}(X,B,x_{0})\ar[r]^-{j_{*}} & \pi_{n}(X,A,x_{0})\ar[dll]_-{\boundary}\\
+\dots & & }}
+\end{equation}
+where taking $B=\{x_{0}\}$ recovers the previous lecture's long exact sequence.
+\end{remark}
+
+\begin{definition}
+We say a space $X$ is \define{$n$-Connected} if $\pi_{i}(X,x_{0})=0$
+for all $i\leq n$. In particular, $0$-connected is the same as
+path-connected, and $1$-connected is the same as path-connected simply-connected.
+
+We say a pair $(X,A)$ is \define{$n$-Connected} if $\pi_{i}(X,A,x_{0})=0$
+for all $i\leq n$.
+\end{definition}
+
+\begin{xca}
+Prove: $\pi_{i}(X,x_{0})=0$ for all $i\leq n$ if and only if every map
+$\sphere{i}\to X$ is homotopic to the constant map to $x_{0}$ for all
+$i\leq n$.
+\end{xca}
+
+\begin{xca}
+Prove the following are equivalent:
+\begin{enumerate}
+\item $\pi_{i}(X,A,x_{0})=0$ for all $i\leq n$
+\item Every map $f\colon(\disk{i},\boundary\disk{i})\to(X,A)$ is
+  homotopic rel $\boundary\disk{n}$ to $g\colon\disk{i}\to A$ for all
+  $i\leq n$
+\item Every map $f\colon(\disk{i},\boundary\disk{i})\to(X,A)$ is
+  homotopic to $g\colon(\disk{i},\boundary\disk{i})\to(X,A)$ such that
+  $g(\disk{i})\subset A$ through homotopies of the form
+  $H\colon(\disk{i},\boundary\disk{i})\times I\to(X,A)$ for all $i\leq n$
+\item Every map $f\colon(\disk{i},\boundary\disk{i})\to(X,A)$ is
+  homotopic to the constant map $c_{x_{0}}\colon(\disk{i},\boundary\disk{i})\to(X,A)$ such that $c_{x_{0}}(x)=x_{0}$ for all $x\in\disk{i}$ 
+  through the homotopies $H\colon(\disk{i},\boundary\disk{i})\times I\to(X,A)$
+  for all $i\leq n$.
+\end{enumerate}
+\end{xca}
+
+\subsection{Whitehead's Theorem}
+
+\begin{lemma}[Compression {\cite[Lemma 4.6]{hatcher2002algebraic}}]
+Let $(X,A)$ be a CW pair (i.e., $A\subset X$ is a CW subcomplex), let
+$(Y,B)$ be another CW pair such that $B\neq\emptyset$. Suppose for
+every $n$ such that $X\setminus A$ has a cell of dimension $n$, we
+have $\pi_{n}(Y,B)=0$.
+
+Then every (CW?) map $f\colon(X,A)\to(Y,B)$ is homotopic rel $A$ to a
+map $g\colon X\to B$.
+\end{lemma}
+
+\begin{proof}[Proof idea]
+Induction on cells in $X\setminus A$, push them to be mapped to $B$,
+then use the previous lecture's Compression Lemma~\ref{lemma:math151b:winter2026:lecture03:compression}.
+\end{proof}
+
+\begin{definition}
+Let $(X,A)$ be a pair of spaces.
+We say $(X,A)$ has the \define{Homotopy Extension Property} if
+for any continuous map $f_{0}\colon X\to Y$ and for any homotopy $g_{t}\colon A\to Y$ is a homotopy such
+that $g_{0}=f_{0}|_{A}$, we can always extend $g_{t}$ to a homotopy
+$f_{t}\colon X\to Y$ such that $f_{t}|_{A}=g_{t}$.
+\end{definition}
+
+\begin{proposition}[{\cite[Proposition 0.16]{hatcher2002algebraic}}]
+Let $(X,A)$ be a CW pair. Then $(X\times\{0\})\cup(A\times I)$ is a
+deformation retract of $X\times I$. Hence $(X,A)$ has the homotopy
+extension property.
+\end{proposition}
+
+\begin{definition}
+Let $X$ and $Y$ be topological spaces. Let $f\colon X\to Y$ be a continuous map.
+We define the \define{Mapping Cylinder} $M_{f}$ to be the quotient space
+\begin{equation}
+M_{f}=((X\times[0,1])\sqcup Y)/(\forall x\in X\ldotp(x,1)\sim f(x)).
+\end{equation}
+Then we identify $X\subset M_{f}$ as $X\times\{0\}$; we also have
+$Y\subset M_{f}$. Furthermore, $M_{f}$ deformation retracts to $Y$ (by
+``crushing the cylinder'').
+\end{definition}
+
+\begin{theorem}[Whitehead]
+If $X$ and $Y$ are connected CW complexes and $f\colon X\to Y$ is
+continuous such that $f_{*}\colon\pi_{n}(X)\to\pi_{n}(Y)$ is an
+isomorphism for all $n$, then $X\homotopic Y$.
+
+If $f\colon X\into Y$ is an inclusion, then we get $X$ is a
+deformation retraction of $Y$ (i.e., there is a $g\colon Y\to X$ such
+that $g\circ f=\id_{X}$ and $f\circ g\homotopic\id_{Y}$).
+\end{theorem}
+
+\begin{proof}
+Suppose $f\colon X\into Y$ is an inclusion of CW complexes. Then we
+have the long exact sequence of homotopy groups
+\begin{equation}
+\dots\to\pi_{n+1}(Y,X)\to\pi_{n}(X)\xrightarrow{\;f_{*}\;}\pi_{n}(Y)\to\pi_{n}(Y,X)\to\dots
+\end{equation}
+We have $f_{*}$ be an isomorphism, which means
+\begin{equation}
+\pi_{n}(Y,X)=0.
+\end{equation}
+Then apply the Compression Lemma to the identity map $\id\colon(Y,X)\to(Y,X)$.
+Then $\id\homotopic g\rel{\boundary X}$ for any $g\colon Y\to X$, so
+$(g\circ f)(x)=g(x)=\id(x)=x$ and $f\circ g\homotopic\id_{Y}$.
+
+In general, we use the notion of a mapping cylinder $M_{f}$. We will
+show $X\homotopic M_{f}\homotopic Y$. In particular, $Y\homotopic M_{f}$
+by deformation retract.
+
+So it suffices to show $X\homotopic M_{f}$. We approximate continuous
+$f$ by a CW map, so without loss of generality $f$ is a CW map sending
+cells to cells. Then it is easy to see $X\times\{0\}\subset M_{f}$ is
+a CW subcomplex. In general, we will use the CW approximation (there
+exists an $f'\colon X\to Y$ such that $f\homotopic f'$) to use $f'$
+instead of $f$. So we have $X\homotopic M_{f'}\homotopic Y$.
+\end{proof}
+
+\begin{remark}
+It's insufficient to assert $\pi_{n}(X)\iso\pi_{n}(Y)$ for all $n$. We
+need to have this isomorphism be induced from a fixed map $f$.
+\end{remark}
+
+% 357

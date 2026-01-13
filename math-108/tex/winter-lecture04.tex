@@ -1,0 +1,190 @@
+%%
+%% winter-lecture04.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-13T10:47:00-0800
+%% Last update 2026-01-13T10:47:00-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+We showed we can wrap a measurable set by open sets with small
+error. We can also fill a measurable set by closed sets with small error.
+\end{node}
+
+\begin{corollary}
+If $E$ is measurable, then for any $\varepsilon>0$ there is a
+corresponding closed set $F\subset E$ such that $m(E\setminus F)<\varepsilon$.
+\end{corollary}
+
+\begin{proof}
+Since $E$ is measurable, we have $E^{\complement}$ is measurable.
+Then by definition of measurability applied to $E^{\complement}$,
+there is an open set $O$ such that $E^{\complement}\subset O$ and
+$m(O\setminus E^{\complement})<\varepsilon$. Let $F=O^{\complement}$.
+Then $F$ is closed. Since $E^{\complement}\subset O$, we see
+$O^{\complement}\subset(E^{\complement})^{\complement}=E$. So
+$F\subset E$. Now we can compare the errors. We know
+\begin{equation}
+E\setminus F=E\cap F^{\complement}=E\cap O=O\cap(E^{\complement})^{\complement}=O\setminus E^{\complement}.
+\end{equation}
+Then $m(E\setminus F)=m(O\setminus E^{\complement})<\varepsilon$.
+\end{proof}
+
+\begin{proposition}[Countable intersections of measurable sets is measurable]
+If $\{E_{j}\}_{j\in\NN}$ is a countable family of measurable sets,
+then $\bigcap_{j\in\NN}E_{j}$ is measurable.
+\end{proposition}
+
+\begin{proof}
+We see
+\begin{equation}
+\left(\bigcap_{j\in\NN}E_{j}\right)^{\complement}=\bigcup_{j\in\NN}(E_{j}^{\complement}).
+\end{equation}
+Since each $E_{j}$ is measurable, each $E_{j}^{\complement}$ is measurable.
+We also know the countable union of measurable sets is measurable---so
+$\bigcup_{j\in\NN}(E_{j}^{\complement})$ is measurable. Then its
+complement
+\begin{equation}
+\left(\bigcup_{j\in\NN}(E_{j}^{\complement})\right)^{\complement}=\bigcap_{j\in\NN}E_{j}
+\end{equation}
+is measurable.
+\end{proof}
+
+\begin{node}
+Let $\mathcal{M}\subset\powerset{\RR^{d}}$ be the set of all measurable subsets of $\RR^{d}$.
+Then it has the following properties:
+\begin{enumerate}
+\item $\emptyset\in\mathcal{M}$ and $\RR^{d}\in\mathcal{M}$
+\item Closed under complements: if $X\in\mathcal{M}$, then $X^{\complement}\in\mathcal{M}$
+\item Closed under countable unions: if $E_{j}\in\mathcal{M}$ for each $j\in\NN$,
+  then we have their union $\bigcup_{j=1}^{\infty}E_{j}\in\mathcal{M}$.
+\end{enumerate}
+If we replace $\RR^{d}$ with ``some set'' $X$, then the analogous
+collection $\mathcal{M}\subset\powerset{X}$ is called a
+\define{$\sigma$-Algebra} of $X$.
+\end{node}
+
+\begin{node}
+Recall, $m_{*}(A\cup B)\leq m_{*}(A)+m_{*}(B)$ for exterior
+measures. We will prove $m(A\cup B)=m(A)+m(B)$ for disjoint $A,B\in\mathcal{M}$,
+and also the exterior measure of a measurable set agrees with the
+measure of that set $m_{*}|_{\mathcal{M}}=m$.
+\end{node}
+
+\begin{example}
+Let $\chi_{\QQ}$ be the indicator function for the rational numbers.
+Well, $\chi_{\QQ\cap[0,1]}$ is not Riemann integrable. The reason is
+that for any partition $P$ of $\QQ\cap[0,1]$, due to the density of
+the rational numbers in the set of reals, the upper Riemann sum
+will always be 1, but the lower Riemann sum will always be 0.
+\end{example}
+
+\begin{theorem}[Countable additivity]
+If $\{E_{j}\}_{j\in\NN}$ is a family of disjoint measurable sets and $E=\bigcup_{j\in\NN}E_{j}$,
+then $m(E)=\sum_{j\in\NN}m(E_{j})$.
+\end{theorem}
+
+\begin{proof}
+We will prove $m(E)\geq\sum_{j}m(E_{j})$ because subadditivity already
+gives us $m(E)\leq\sum_{j}m(E_{j})$.
+
+\textsc{Case 1:} every $E_{j}$ is bounded. Let $\varepsilon>0$. For
+each $j$ we can find a closed set $F_{j}\subset E_{j}$ such that
+\begin{equation}
+m(E_{j}\setminus F_{j})\leq\frac{\varepsilon}{2^{j}}.
+\end{equation}
+Since each $E_{j}$ is bounded, each $F_{j}$ are compact and
+disjoint. For any $N\in\NN$, we see $F_{1}$, \dots, $F_{N}$ are
+compact and disjoint. Then
+\begin{equation}
+d(F_{j},F_{k})>0.
+\end{equation}
+This implies
+\begin{equation}
+m\left(\bigcup^{N}_{j=1}F_{j}\right)=\sum^{N}_{j=1}m(F_{j}).
+\end{equation}
+Since $F_{j}\subset E_{j}$, we have
+\begin{equation}
+m(F_{j}\geq m(E_{j}) - \frac{\varepsilon}{2^{j}}.
+\end{equation}
+Then we see
+\begin{equation}
+m(E)\geq m\left(\bigcup^{N}_{j=1}F_{j}\right)=\sum^{N}_{j=1}m(F_{j})\geq\sum^{N}_{j=1}(m(E_{j})-\frac{\varepsilon}{2^{j}})\geq\left(\sum^{N}_{j=1}m(E_{j})\right)-\varepsilon,
+\end{equation}
+for arbitrary $N$. Then we can send $N\to\infty$ and conclude
+\begin{equation}
+m(E)\geq\left(\sum^{\infty}_{j=1}m(E_{j})\right)-\varepsilon.
+\end{equation}
+Since $\varepsilon>0$ was arbitrary, we conclude
+\begin{equation}
+m(E)\geq\sum^{\infty}_{j=1}m(E_{j}),
+\end{equation}
+hence $m(E)=\sum_{j\in\NN}m(E_{j})$ as desired.
+
+\textsc{Case 2:} $E_{j}$ are unbounded (e.g., $E_{j}=[j,j+1)$).
+The trick: chop the space into bounded rings. Let $Q_{k}=[-k,k]^{d}$
+be the cube centered at the origin. Then we can define the ``annuli''
+$S_{k}$ by
+\begin{equation}
+S_{1}=Q_{1}\quad\mbox{and}\quad S_{k+1}=Q_{k+1}\setminus Q_{k}
+\end{equation}
+for all $k$. The $\{S_{k}\}_{k\in\NN}$ are disjoint, measurable, and
+\begin{equation}
+\bigcup_{k\in\NN}S_{k}=\RR^{d}.
+\end{equation}
+For any set $A$, we can always write
+\begin{equation}
+A = \bigcup^{\infty}_{k=1}(A\cap S_{k}),
+\end{equation}
+as the union of bounded disjoint sets. (If furthermore $A$ is measurable, then we
+can write $A$ as the union of bounded, disjoint, measurable sets.) So
+given any $E_{j}$ we have
+\begin{equation}
+E_{j}=\bigcup_{k\in\NN}(E_{j}\cap S_{k}),
+\end{equation}
+that is to say, we have $E_{j}$ as a countable union of bounded, disjoint,
+measurable sets. Let us write $E_{j,k}=E_{j}\cap S_{k}$.
+Now we use bounded additivity (i.e., the result of case 1) twice
+\begin{subequations}
+  \begin{align}
+m(E) &= \sum^{\infty}_{k=1}m(E\cap S_{k})\\
+&=\sum^{\infty}_{k=1}m\left(\bigcup^{\infty}_{j=1}E_{j,k}\right)\\
+&=\sum^{\infty}_{k=1}\sum^{\infty}_{j=1}m(E_{j,k})\quad\mbox{by bounded additivity}\\
+&=\sum_{j}\sum_{k}m(E_{j,k})\quad\mbox{since each summand is non-negative}\\
+&=\sum^{\infty}_{j=1}m(E_{j})
+  \end{align}
+\end{subequations}
+by bounded additivity again.
+\end{proof}
+
+\begin{corollary}
+If $E_{k}\nearrow E$ (i.e., $E_{k}\subset E_{k+1}$ for every $k$, and
+$E=\bigcup_{k\in\NN}E_{k}$), then
+\begin{equation}
+m(E)=\lim_{k\to\infty}m(E_{k}).
+\end{equation}
+\end{corollary}
+
+\begin{corollary}
+If $E_{k}\searrow E$ (i.e., $E_{k}\supset E_{k+1}$ for every $k$, and $E=\bigcap_{k\in\NN}E_{k}$)
+and if $m(E_{1})<\infty$ is finite,
+then
+\begin{equation}
+m(E)=\lim_{k\to\infty}m(E_{k}).
+\end{equation}
+\end{corollary}
+
+\begin{remark}
+We could have started with family of subsets
+$\mathcal{M}\subset\powerset{X}$ and some function
+$m\colon\mathcal{M}\to[0,\infty]$ such that
+\begin{enumerate}
+\item $m(\emptyset)=0$, and
+\item $m(\bigcup_{j\in\NN}E_{j})=\sum_{j\in\NN}m(E_{j})$ for disjoint $E_{j}\in\mathcal{M}$.
+\end{enumerate}
+But that's too abstract to learn measure theory.
+\end{remark}
