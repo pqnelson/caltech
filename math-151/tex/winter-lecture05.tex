@@ -1,0 +1,214 @@
+%%
+%% winter-lecture05.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-15T10:13:50-0800
+%% Last update 2026-01-15T10:13:50-0800
+%% 
+
+\lecture{}
+
+\begin{definition}% Hatcher, Algebraic Topology, Section 4.1, PDF pg 361
+The map $f\colon X\to Y$ is called a \define{Weak Homotopy Equivalence}
+if its induced map $f_{*}\colon\pi_{n}(X,x_{0})\to\pi_{n}(Y,f(x_{0}))$ is an
+isomorphism for all $n\geq0$.
+\end{definition}
+
+\begin{remark}
+For Whitehead's Theorem, it is not enough for
+$\pi_{n}(X)\iso\pi_{n}(Y)$ for all $n\geq0$. We need these
+isomorphisms to be induced from the same map. To see why this is
+insufficient, consider the following example.
+\end{remark}
+
+\begin{example}
+Consider $X=\RP^{2}=\sphere{2}/(x\sim-x)$ and $Y=\sphere{2}\times\RP^{\infty}$
+(where $\RP^{\infty}=\sphere{\infty}/(x\sim-x)$). The claim is that
+\begin{equation}
+\pi_{n}(X)\iso\begin{cases}\ZZ/2\ZZ & \mbox{if }n=1\\
+0 & \mbox{otherwise},
+\end{cases}
+\end{equation}
+and $\pi_{n}(Y)\iso\pi_{n}(\sphere{2})\times\pi_{n}(\RP^{\infty})$.
+We know $\sphere{2}\times\sphere{\infty}\to Y$ is a (two-to-one) covering map
+but $\sphere{\infty}$ is contractible, so
+\begin{equation}
+\sphere{2}\times\sphere{\infty}\homotopic\sphere{2}
+\end{equation}
+which gives us\footnote{In general, if $\widetilde{X}\xrightarrow{n:1}X$
+is a covering, then $|\pi_{1}(X)|=n$, but there's only one group of
+order 2, which justifies the claim $\pi_{1}(Y)\iso\ZZ/2\ZZ$.}
+\begin{equation}
+\pi_{n}(Y)\iso\begin{cases}\ZZ/2\ZZ & \mbox{if }n=1\\
+0 & \mbox{otherwise}.
+\end{cases}
+\end{equation}
+Hence we see that for all $n\geq0$,
+\begin{equation}
+\pi_{n}(X)\iso\pi_{n}(Y).
+\end{equation}
+But $X\not\homotopic Y$, and to see why $X$ is not homotopy equivalent
+to $Y$, compute the homology groups. We see that
+\begin{equation}
+H_{k}(\RP^{\infty};\ZZ/2\ZZ)\iso\ZZ/2\ZZ
+\end{equation}
+for all $k\geq0$. However, there are only 2 homology groups of $X$
+which are nonzero. So it's impossible for $X$ and $Y$ to be homotopy
+equivalent. 
+\end{example}
+
+\begin{remark}
+In the same spirit of the compression lemma, but in the opposite
+direction, there is the following result.
+\end{remark}
+
+\begin{lemma}[Extension]% Hatcher, Lemma 4.7, pg 357 of the PDF
+Given a CW complex pair $(X,A)$, a space $Y$ which is path-connected,
+and a continuous map $f\colon A\to Y$. If $\pi_{n-1}(Y)=0$ for all $n$
+such that $X\setminus A$ has a cell of dimension $n$, then $f$ can be
+extended to $g\colon X\to Y$.
+\end{lemma}
+
+\begin{proof}
+By induction on cells in $X\setminus A$ (we extend the map cell by
+cell). For each cell $e^{k}\in X\setminus A$ with attaching map
+$\gamma\colon\boundary e^{k}\to A$. Then the question of extending $f$
+to $e^{k}$ is the same as extending from $\sphere{k-1}\homotopic\boundary e^{k}$
+to the disk $\disk{k}$ making the following diagram commute:
+\begin{equation}
+\vcenter{\xymatrix{\sphere{k-1}\ar@{^{(}->}[d]\ar@{-}[r]^{\sim} & \boundary e^{k}\ar[r]^{\gamma} & A\ar[r]^{f} & Y\\
+\disk{k}\ar@{-->}[urrr]_{???}}}
+\end{equation}
+If $\pi_{k-1}(Y)=0$, then this is possible.
+\end{proof}
+
+\subsection{Cellular and CW Approximation}
+
+\begin{definition}
+Let $X$ and $Y$ be CW complexes. Then a continuous map $f\colon X\to Y$
+is called a \define{Cellular Map} if it preserves the skeletons
+$f(X^{(n)})\subset Y^{(n)}$ where $X^{(n)}$ is the $n$-skeleton of
+$X$, and $Y^{(n)}$ is the $n$-skeleton of $Y$.
+\end{definition}
+
+\begin{definition}
+Let $X$ be a topological space. A \define{CW Approximation} of $X$ is
+a CW complex $Z$ and a \emph{weak} homotopy equivalence $f\colon Z\to X$.
+\end{definition}
+
+\begin{theorem}[Cellular approximation]% Hatcher, Theorem 4.8, PDF pg 358
+Let $f\colon X\to Y$ be a continuous map of CW complexes. Then $f$ is
+homotopic to a cellular map. (Moreover, if $A\subset X$ is a CW
+subcomplex and $f$ is already cellular on $A$, then the homotopy can
+be taken to be stationary on $A$.)
+\end{theorem}
+
+%% \begin{lemma}
+%% Let $f\colon I^{n}\to Z$ be a map where $Z$ is obtained from a
+%% subspace $W$ by attaching a cell $e^{k}$. Then there is a homotopy
+%% \begin{equation}
+%% f_{t}\colon(I^{n},f^{-1}(e^{k}))\to(Z,e^{k})\rel{f^{-1}(W)}
+%% \end{equation}
+%% from $f=f_{0}$ to a map $f_{1}$ for which there is a polyhedron
+%% $K\subset I^{n}$ such that (i) $f_{1}(K)\subset e^{k}$ and
+%% $f_{1}|_{K}$ is piecewise linear with respect to some identification
+%% of $e^{k}$ with $\RR^{k}$; and (ii) $K\supset f^{-1}_{1}(U)$ for some
+%% nonempty open set $U$ in $e^{K}$.
+%% \end{lemma}
+
+\begin{proof}[Proof sketch (very sketchy)]
+We have $f\colon X\to Y$, we want a cellular map $g\colon X\to Y$ such that
+$g\homotopic f$. By induction on $n$ and on cells.
+
+Suppose $e^{n}\subset X$ is mapped to the interior of $e^{k}\subset Y$
+for $k>n$ such that $f(e^{n})\cap\Interior(e^{k})\neq\emptyset$.
+Then it will ``miss a point'' in $e^{k}$, and we can ``stretch''
+everything in $f(e^{n})$ ``back'' to the boundary of $e^{k}$. This
+gives us a path homotopy from $e^{k}\setminus\{p\}$ to $\boundary e^{k}$.
+Then we do this repeatedly to homotope $f$ such that $f(e^{n})\subset Y^{(n)}$.
+Then we use the homotopy extension lemma to extend this to a homotopy
+of $f$ to $f\colon X\to Y$ such that the new map sends $e^{n}$ to $Y^{(n)}$,
+then do it inductively on cells such that it does not touch what we
+did in lower-dimensional cells.
+\end{proof}
+
+\begin{theorem}[CW approximation]% Hatcher, Proposition 4.13, PDF pg 362
+Every topological space $X$ has a CW approximation $f\colon Z\to X$.
+(If $X$ is path-connected, then $Z^{(0)}$ can be taken to be a single point.)
+\end{theorem}
+
+\begin{warning}
+It is \underline{\emph{not}} true that every topological space is
+homotopy equivalent to a CW complex.
+\end{warning}
+
+\begin{example}
+Consider the Hawaiian earring
+\begin{equation}
+X = \bigcup^{\infty}_{n=1}C_{n},
+\end{equation}
+where $C_{n}$ is the circle of radius $1/n$ centered $(1/n,0)$ taken
+with the subspace topology:
+\begin{center}
+\includegraphics{img/img.58}
+\end{center}
+This is not locally contractible at the origin (red dot):
+\begin{center}
+\includegraphics{img/img.59}
+\end{center}
+Any neighborhood (like the gray region) of the origin is not locally
+contractible.
+
+Note that $X$ must be taken with the subspace topology, so it is not
+homeomorphic to $\bigvee^{\infty}_{n=1}\sphere{1}_{(n)}$. 
+\end{example}
+
+\begin{node}
+Henceforth, we will work with spaces homotopy equivalent to CW complexes.
+\end{node}
+
+\begin{node}
+Whitehead's theorem holds for $X$, $Y$ homotopy equivalent to CW
+complexes (i.e., if $X$ and $Y$ are weakly homotopy to CW complexes
+and $f\colon X\to Y$ is a weak homotopy equivalence, then $f$ lifts to
+a strong homotopy equivalence giving us $X\homotopic Y$.)
+\end{node}
+
+\begin{corollary}
+If $n<k$, then $\pi_{n}(\sphere{k})=0$.
+\end{corollary}
+
+\begin{proof}
+Give $\sphere{n}$ the cellular structure of one 0-cell and one
+$n$-cell (and similarly for $\sphere{k}$ give it one 0-cell and one $k$-cell).
+Then by cellular approximation theorem, a continuous
+$f\colon\sphere{n}\to\sphere{k}$ is homotopic to a cellular map
+$g\colon\sphere{n}\to\sphere{k}$. If $k>n$, then $(\sphere{k})^{(n)}$
+is a single point, so $g$ is a constant map. Hence $\pi_{n}(\sphere{k})=0$.
+\end{proof}
+
+\begin{remark}
+We can also do cellular approximation for maps of pairs, i.e., any
+continuous $f\colon(X,A)\to(Y,B)$ of CW pairs is homotopic to a
+cellular map.
+\end{remark}
+
+\begin{corollary}% Hatcher, Corollary 4.12, pg 360 of the PDF
+A CW pair $(X,A)$ is $n$-connected if all cells in $X\setminus A$ has
+dimension strictly greater than $n$. (In particular, $(X,X^{(n)})$ is
+$n$-connected and the inclusion $i\colon X^{(n)}\into X$ induces
+isomorphisms $i_{*}\colon\pi_{k}(X^{(n)})\to\pi_{k}(X)$ for all $k<n$
+and $i_{*}$ is surjective for $k=n$.)
+\end{corollary}
+
+\begin{proof}
+Consider $[f]\in\pi_{i}(X,A)$ which are maps $f\colon(\disk{i},\boundary\disk{i})\to(X,A)$.
+Do the relative cellular approximation to $f$. Then $f$ sends the
+$i$-skeleton of $\disk{i}$ to the $i$-skeleton of $X$ which agrees
+with the $i$-skeleton of $A$; i.e., $f\homotopic g$ as pairs
+$(\disk{i},\boundary\disk{i})$ such that $g(\disk{i})\subset A$. Then
+$[f]=0\in\pi_{i}(X,A)$. The second half follows from the long exact
+homotopy sequence of $(X,A)$.
+\end{proof}

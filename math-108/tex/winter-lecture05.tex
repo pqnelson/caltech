@@ -1,0 +1,228 @@
+%%
+%% winter-lecture05.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-15T11:19:52-0800
+%% Last update 2026-01-15T11:19:52-0800
+%% 
+
+\lecture{}
+
+% stated but not proven at end of last lecture
+\begin{corollary}
+If $E_{k}\nearrow E$ (i.e., $E_{k}\subset E_{k+1}$ for every $k$, and
+$E=\bigcup_{k\in\NN}E_{k}$), then
+\begin{equation}
+m(E)=\lim_{k\to\infty}m(E_{k}).
+\end{equation}
+\end{corollary}
+
+% proof given at beginning of this lecture
+\begin{proof}
+Let $G_{1}=E_{1}$, $G_{2}=E_{2}\setminus E_{1}$, \dots,
+$G_{k+1}=E_{k+1}\setminus E_{k}$ for all $k\in\NN$. Then $G_{k}$ are
+disjoint and measurable sets, and
+\begin{equation}
+E = \bigcup^{\infty}_{k=1}G_{k}.
+\end{equation}
+Also observe, for any $N\in\NN$, we have:
+\begin{equation}
+E_{N} = \bigcup^{N}_{k=1}G_{k}.
+\end{equation}
+So these are ``telescoping unions'' (analogous to ``telescoping sums'').
+Then
+\begin{subequations}
+  \begin{align}
+    m(E) &= m\left(\bigcup_{k=1}^{\infty}G_{k}\right)\\
+&=\sum^{\infty}_{k=1}m(G_{k})\quad\mbox{by countable additivity}\\
+&=\lim_{N\to\infty}\sum^{N}_{k=1}m(G_{k})\\
+&=\lim_{N\to\infty}m(E_{N})\quad\mbox{by finite additivity},
+  \end{align}
+\end{subequations}
+which gives us the result.
+\end{proof}
+
+% stated but not proven at end of last lecture
+\begin{corollary}
+If $E_{k}\searrow E$ (i.e., $E_{k}\supset E_{k+1}$ for every $k$, and $E=\bigcap_{k\in\NN}E_{k}$)
+and if $m(E_{1})<\infty$ is finite,
+then
+\begin{equation}
+m(E)=\lim_{k\to\infty}m(E_{k}).
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Write $D_{k}=E_{1}\setminus E_{k}$ for each $k\in\NN$. Then
+$D_{k}\subset D_{k+1}$. Then we see
+\begin{equation}
+\bigcup^{\infty}_{k=1}D_{k}=E_{1}\setminus\left(\bigcap^{\infty}_{k=1}E_{k}\right)=E_{1}\setminus E.
+\end{equation}
+Then applying the previous corollary to $D_{k}$ gives us
+\begin{subequations}
+  \begin{align}
+m(E_{1}\setminus E) &= \lim_{k\to\infty}m(D_{k})\\
+&=\lim_{k\to\infty}m(E_{1}\setminus E_{k})\\
+&=\lim_{k\to\infty}(m(E_{1})-m(E_{k})),
+  \end{align}
+\end{subequations}
+and using $m(E_{1}\setminus E)=m(E_{1})-m(E)$, we have
+\begin{equation}
+m(E_{1})-m(E)=\lim_{k\to\infty}(m(E_{1})-m(E_{k})).
+\end{equation}
+Then using $m(E_{1})<\infty$ is finite, we can subtract it from both
+sides to conclude
+\begin{equation}
+m(E)=\lim_{k\to\infty}m(E_{k}),
+\end{equation}
+as desired.
+\end{proof}
+
+\begin{node}[Littlewood's three principles]
+Littlewood's \textit{Lectures on the Theory of Functions} (1944)
+describes three principles of real analysis. We are now in a position
+to describe the first principle: every measurable subset of $\RR$ is
+almost always a union of finitely many intervals. (More generally,
+every measurable subset of $\RR^{d}$ is almost the union of finitely
+many cubes.)
+\end{node}
+
+\begin{theorem}[Littlewood's first principle]
+Let $E\subset\RR^{d}$ be a measurable set. If $m(E)<\infty$ has finite
+measure, then for each $\varepsilon>0$ there exists a finite family of
+cubes $\{Q_{j}\}_{j=1}^{N}$ such that $F=\bigcup^{N}_{j=1}Q_{j}$ and
+$m(E\symdiff F)<\varepsilon$.
+\end{theorem}
+
+Note that $E\symdiff F:=(E\setminus F)\cup(F\setminus E)$ is the
+symmetric difference of the two sets. (Exercise: prove the symmetric
+difference of two measurable sets is measurable. In particular,
+$E\symdiff F$ is a measurable set!)
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+\subsection{Unmeasurable sets}
+
+\begin{node}
+We've made a big fuss over measurable sets. Are we worrying about
+nothing? Is \emph{every} set secretly measurable, and this is just a
+practice in self-torture?
+
+Suppose we want a translation-invariant measure $m(E+h)=m(E)$ for any
+measurable set $E\subset\RR^{d}$ and any vector $h\in\RR^{d}$, and
+suppose we also want countable additivity --- for any disjoint family
+of measurable sets $\{E_{j}\}_{j\in\NN}$,
+\begin{equation}
+m\left(\bigcup_{j=1}^{\infty}E_{j}\right)=\sum_{j=1}^{\infty}m(E_{j}).
+\end{equation}
+Then there must be some non-measurable sets.
+\end{node}
+
+\begin{example}
+Let us work in $\RR$ (but the idea generalizes easily to other spaces).
+We define an equivalence relation on the closed unit interval $[0,1]$
+by $x\sim y$ if and only if $x-y\in\QQ$. We should check that this is
+reflexive (since $x-x=0\in\QQ$, we see $x\sim x$ for all $x\in[0,1]$),
+symmetric (since $x-y\in\QQ$ implies $y-x\in\QQ$, we see $x\sim y$
+implies $y\sim x$), and transitive. So it's really an equivalence
+relation.
+
+Now, let $\mathcal{N}$ be the set constructed by using the axiom of
+choice to pick one representative from each equivalence class of
+$[0,1]/\sim$. There may be uncountably many equivalence classes since
+$\sqrt{p}/p$ is in a different equivalence class for each prime number
+$p\in\NN$, and there are so many transcendental numbers it's just too
+much. So $\mathcal{N}\subset[0,1]$ is an infinite subset.
+
+Now, let $\{r_{k}\}_{k\in\NN}$ be an enumeration of $\QQ\cap[-1,1]$
+all rational numbers between $-1$ to $1$. We will consider the
+translates
+\begin{equation}
+\mathcal{N}_{k}:=\mathcal{N}+r_{k}.
+\end{equation}
+What do we know about these guys?
+\begin{enumerate}
+\item\textsc{Disjoint:} Assume
+  $\mathcal{N}_{\alpha}\neq\mathcal{N}_{\beta}$. If we assume for contradiction
+  $\mathcal{N}_{\alpha}\cap\mathcal{N}_{\beta}\neq\emptyset$, then
+  there exists $x+r_{\alpha}\in\mathcal{N}_{\alpha}\cap\mathcal{N}_{\beta}$ and
+  $y+r_{\beta}\in\mathcal{N}_{\alpha}\cap\mathcal{N}_{\beta}$ such that 
+  $x+r_{\alpha}=y+r_{\beta}$. But then
+  $x-y=r_{\beta}-r_{\alpha}\in\QQ$, so $x\sim y$. By construction,
+  this means $x=y$ since they are in the same equivalence class. But
+  this means $r_{\alpha}=r_{\beta}$. So we have a contradiction, and
+  we must have
+  $\mathcal{N}_{\alpha}\cap\mathcal{N}_{\beta}=\emptyset$.
+\item\textsc{Covers unit interval.} Any $x\in[0,1]$ differs from an
+  element in $\mathcal{N}$ by a rational $r\in[-1,1]$. This means $[0,1]\subset\bigcup_{k=1}^{\infty}\mathcal{N}_{k}$.
+\item\textsc{Boundedness.} Since $\mathcal{N}\subset[0,1]$ and
+  $r_{k}\in[-1,1]$, we find $\mathcal{N}_{k}\subset[-1,3]$ for all $k\in\NN$.
+\end{enumerate}
+Now, we have enough to prove our big claim.
+
+\textsc{Claim:} $\mathcal{N}$ is unmeasurable.
+\begin{proof}
+Assume for contradiction $\mathcal{N}$ is measurable. Well, by
+translation invariance
+\begin{equation}
+m(\mathcal{N}_{k})=
+m(\mathcal{N}+r_{k})=
+m(\mathcal{N}).
+\end{equation}
+By countable additivity,
+\begin{subequations}
+  \begin{align}
+m\left(\bigcup^{\infty}_{k=1}\mathcal{N}_{k}\right) &= \sum^{\infty}_{k=1}\mathcal{N}_{k}\\
+&=\sum^{\infty}_{k=1}\mathcal{N}.
+  \end{align}
+\end{subequations}
+But by the monotonicity of measures,
+\begin{equation}
+1=m([0,1])\leq m\left(\bigcup^{\infty}_{k=1}\mathcal{N}_{k}\right).
+\end{equation}
+Similarly, we see
+\begin{equation}
+m\left(\bigcup^{\infty}_{k=1}\mathcal{N}_{k}\right)\leq m([-1,2])=3.
+\end{equation}
+We know $m(\mathcal{N})$ must be finite. There are two cases:
+\begin{enumerate}
+\item $\mathcal{N}$ is a null set, so $m(\mathcal{N})=0\geq1$ which is
+  a contradiction;
+\item $m(\mathcal{N})>0$ then $m\left(\bigcup^{\infty}_{k=1}\mathcal{N}_{k}\right)=\infty\leq3$,
+  which is another contradiction.
+\end{enumerate}
+In either event, we are forced to reject our assumption that
+$\mathcal{N}$ is measurable.
+\end{proof}
+\end{example}
+
+\begin{remark}
+Note we discussed $\mathcal{M}$ briefly as the collection of all
+measurable subsets of $\RR^{d}$. We could equally have constructed the
+Borel $\sigma$-algebra $\mathcal{B}_{\RR^{d}}$ which is a strictly
+smaller $\sigma$ algebra than $\mathcal{M}$ as follows: form the
+family $G_{\delta}$ consisting of all countable intersections of open
+subsets of $\RR^{d}$ (or, form the family $F_{\sigma}$ consisting of all
+countable unions of closed subsets of $\RR^{d}$), then construct
+$G_{\delta,\sigma}=(G_{\delta})_{\sigma}$ consisting of all countable unions of elements of
+$G_{\delta}$ (resp., $F_{\sigma,\delta}=(F_{\sigma})_{\delta}$ consisting of all countable
+intersections of elements of $F_{\sigma}$), and so on. You just keep
+alternating between $\sigma$ and $\delta$ constructions (all countable
+unions [resp., intersections] of elements from the previous step).
+
+Then the limit
+of this process gives you the $\mathcal{B}_{\RR^{d}}$ where
+starting with $G_{\delta}$ corresponds to using ``the smallest open set $O$
+containing $E\subset O$'',
+and starting with $F_{\sigma}$ corresponds to using ``the biggest closed set $F$
+contained in $E\supset F$'' to define measurable sets.
+
+In practice, almost all the measurable sets you'd ever need would be
+found in the Borel $\sigma$-algebra. But what's more important is that
+this construction we just described works for \emph{any arbitrary}
+topological space (not just $\RR^{d}$!). 
+\end{remark}

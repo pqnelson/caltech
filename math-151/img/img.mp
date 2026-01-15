@@ -1503,6 +1503,26 @@ beginfig(57)
   label(btex $H$ etex, 0.5[z0, z1+z2]);
 endfig;
 
-% 58
+% lecture 5 Wednesday 14 January 2026
+beginfig(58) % Hawaiian earring
+  numeric n,r; r:=2u;
+  for n=1 upto 20:
+    draw (fullcircle scaled (2r/n) shifted (r/n, 0));
+  endfor;
+  % cheat for the rest of the space
+  fill (fullcircle scaled (2r/21) shifted (r/21, 0)) withcolor black;
+endfig;
+
+beginfig(59) % Hawaiian earring
+  numeric n,r; r:=2u;
+  fill fullcircle scaled u withcolor 0.9white;
+  draw fullcircle scaled u dashed evenly;
+  for n=1 upto 20:
+    draw (fullcircle scaled (2r/n) shifted (r/n, 0));
+  endfor;
+  label(btex $\bullet$ etex, (0,0)) withcolor red;
+endfig;
+
+% 60
 
 end;
