@@ -15,6 +15,7 @@
 \let\kk\Bbbk
 \def\AA{\mathbb{A}}
 \def\CC{\mathbb{C}}
+\def\FF{\mathbb{F}}
 \def\NN{\mathbb{N}}
 \def\QQ{\mathbb{Q}}
 \def\RR{\mathbb{R}}
@@ -32,6 +33,10 @@
 \let\Im\relax
 \DeclareMathOperator\Im{Im}
 
+% groups
+\DeclareMathOperator\ord{ord}
+\DeclareMathOperator\lcm{lcm}
+
 % ideals --- Isabelle/Isar notation
 \newcommand\mmm{\mathfrak{m}}
 
@@ -43,10 +48,17 @@
 
 \DeclareMathOperator\hom{Hom}
 \DeclareMathOperator\Aut{Aut}
+\DeclareMathOperator\End{End}
 
 \def\normalclosure#1{#1^{\text{nc}}}
-
+% \separableclosure{sub-field}{parent-field}
+\def\separableclosure#1#2{#1^{\text{sc\ }#2}}
 \def\divides{\mid}
 \def\ndivides{\nmid}
+
+\DeclareMathOperator\Char{char}
+
+\def\MultGroup#1{#1^{\times}}
+\DeclareMathOperator\Frob{Frob}
 
 \endinput

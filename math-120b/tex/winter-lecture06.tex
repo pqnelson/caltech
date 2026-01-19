@@ -1,0 +1,320 @@
+%%
+%% winter-lecture06.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-17T08:06:14-0800
+%% Last update 2026-01-17T08:06:14-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $E/F$ be an algebraic extension. We define the \define{Separable Closure}
+of $F$ in $E$ to be the subfield $\separableclosure{F}{E}$ of $E$
+consisting of
+\begin{equation}
+\separableclosure{F}{E}=\{\alpha\in E\mid\alpha\mbox{ is separable in }F\}.
+\end{equation}
+\end{definition}
+\begin{proof}[Proof sketch (separable field is a subfield)]
+Let $a,b\in\separableclosure{F}{E}$. Then so is $a+b$, $ab$, and
+$a^{-1}$ (provided $a\neq0$).
+\end{proof}
+
+\begin{remark}
+The notation is nonstandard, because there is no standard notation for
+the separable closure of $F$ in $E$. The definition we just gave is
+also more general than what you might find elsewhere.
+
+For example, the nLab has a more narrow notion where we always speak
+of the separable closure of $F$ in the algebraic closure
+$\closure{F}$, and write this separable closure as $F_{S}$. (This is
+Wikipedia's definition, and Wikipedia writes $F^{\text{sep}}$ for the
+separable closure.)
+\end{remark}
+
+\begin{proposition}\label{prop:4.6}
+Let $E/F$ be an algebraic extension.
+\begin{enumerate}
+\item If $E/F$ is separable, then $\normalclosure{E}/F$ is separable.
+\item If $E/F$ is normal, then $\separableclosure{F}{E}/F$ is normal.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item For $E=F(\alpha_{i})_{i\in I}$, we have
+\begin{equation}
+\normalclosure{E}=\bigcup_{\sigma}\sigma(E)=F\bigl(\sigma(\alpha_{i})\bigr)_{i\in I}
+\end{equation}
+where $\sigma$ runs over $\hom_{F}(E,\closure{F})$. Since $\alpha_{i}$
+is separable, $\sigma(\alpha_{i})$ is separable, and thus
+$\normalclosure{E}/F$ is separable.
+\item For $\alpha\in\separableclosure{F}{E}$ and $\sigma\in\hom_{F}(\separableclosure{F}{E},\closure{F})$,
+we just need to show that $\sigma(\alpha)\in\separableclosure{F}{E}$
+(by Theorem~\ref{thm:3.3}~\ref{criteria:normal:3}). By
+Proposition~\ref{prop:2.8}, $\sigma$ is extended to
+$\sigma'\in\hom_{F}(E,\closure{F})$ which means
+$\sigma'|_{\separableclosure{F}{E}}=\sigma$. Since $\alpha$ is
+separable,
+\begin{equation}
+\sigma(\alpha)=\sigma'(\alpha)\in E,
+\end{equation}
+then $E/F$ is normal. Therefore $\sigma(\alpha)\in\separableclosure{F}{E}$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\subsection{Perfect fields}
+
+\begin{definition}
+The \define{Characteristic} of a field $F$ is the number denoted
+$\Char(F)=p$ is the non-negative generator of the kernel of the
+canonical map
+\begin{equation}
+\begin{split}
+\ZZ\to F\\
+1\mapsto 1_{F}.
+\end{split}
+\end{equation}
+Then $p=0$ or $p$ is a prime integer.\footnote{I did not realize it
+until now, but this means that we can always use $\Char(F)$ as the
+generator of a prime ideal in $\ZZ$.}
+\end{definition}
+
+\begin{node}
+For any finite extension $E/F$, we have $\Char(E)=\Char(F)$.
+\end{node}
+
+\begin{node}
+If $F$ is a finite field, then $\Char(F)=p>0$, and is a finite
+extension of $\FF_{p}=\ZZ/p\ZZ=\Im(\ZZ\to F)$. In particular,
+\begin{equation}
+|F|=q=p^{[F:\FF_{p}]}
+\end{equation}
+since $F$ can be also viewed as a vector space over $\FF_{p}$ of
+dimension $[F:\FF_{p}]$.
+\end{node}
+
+\begin{proposition}\label{prop:5.1}
+Let $F$ be a field, let $G$ be a finite subgroup of
+$\MultGroup{F}=F\setminus\{0\}$. Then $G$ is cyclic.
+\end{proposition}
+
+\begin{proof}
+Let $g\in G$. Suppose $g$ has maximal order in $G$. (Recall, $\ord(g)$
+is the smallest positive integer $\ord(g)\in\NN$ such that
+$g^{\ord(g)}=1$.) Let $n=\ord(g)\leq|G|$. Then for any $h\in G$,
+$h^{n}=1$. If not (i.e., if $h^{n}\neq1$) and $\ord(h)$ does not
+divide $\ord(g)$, since $gh\in G$ and $\ord(gh)=\lcm(\ord(g),\ord(h))>n\ord(g)$
+we get a contradiction. In other words, $h$ is a root of $x^{n+1}-x\in F[x]$.
+Since
+\begin{equation}
+|G|=|\{\mbox{roots of }x^{n+1}-x\}|\leq n,
+\end{equation}
+we have $|G|\leq n$. Then $n=|G|$. Hence $G$ is cyclic and generated
+by $g$.
+\end{proof}
+
+\begin{notation}
+For $q=p^{n}$, denote $\FF_{q}$ the set of roots of $x^{q}-x$ in
+$\closure{\FF_{p}}$. Then $\FF_{q}$ is a subfield of $\closure{\FF_{p}}$.
+\end{notation}
+
+\begin{definition}
+For any extension $E/\FF_{q}$ (where $q=p^{n}$), the \define{Frobenius Morphism}
+$\Frob\in\End_{\FF_{q}}(E)$ is defined by
+\begin{equation}
+\Frob(\alpha):=\alpha^{p}
+\end{equation}
+for any $\alpha\in E$. Moreover, this is a field endomorphism.
+\end{definition}
+
+\begin{corollary}\label{cor:5.2}
+For any finite field $F$, $|F|=q=p^{n}$, we have $F\iso\FF_{q}$. In
+particular, $x^{q}-x\in F[x]$ is separable and $F$ is its splitting field.
+\end{corollary}
+
+\begin{proof}
+By applying the proof of the previous proposition to
+$G=\MultGroup{F}$, we have
+\begin{equation}
+F=\{\mbox{roots of }x^{q}-x\in F[x]\}.
+\end{equation}
+By Proposition~\ref{prop:3.1}, we have $F\iso\FF_{q}$.
+\end{proof}
+
+\begin{definition}
+A field $F$ is \define{Perfect} if every irreducible polynomial is separable.
+\end{definition}
+
+\begin{note}
+If $F$ is perfect, then every algebraic extension $E/F$ is
+separable. (To see why, if $\alpha\in E$ has its minimal polynomial be
+$p_{\alpha}\in F[x]$, then $p_{\alpha}$ is separable and so $\alpha$
+is separable.)
+\end{note}
+
+\begin{node}
+We want to prove the following claim:
+\begin{quote}\it $F$ is perfect if and only if either
+  \begin{enumerate}
+  \item $\Char(F)=0$ or
+  \item $\Char(F)=p>0$ and $\Frob$ is surjective.
+  \end{enumerate}
+\end{quote}
+This requires a couple lemmas first.
+\end{node}
+
+\begin{lemma}\label{lemma:5.3}
+For any field $F$, a polynomial $f\in F[x]$ is separable if and only
+if $f'\in F[x]$ is coprime to $f$ (where if $f(x)=a_{n}x^{n}+\dots+a_{1}x+a_{0}$
+then $f'(x)=a_{n}nx^{n-1}+\dots+a_{1}$ is its formal derivative).
+\end{lemma}
+
+\begin{proof}
+\forwardproof\ By contrapositive. If $f,f'\in F[x]$ are not coprime,
+then there exists a polynomial $g\in F[x]$ which divides $f$ and $f'$.
+In particular, for any root $a\in\closure{F}$, $f(a)=f'(a)=0$, if $a$
+is not a multiple root of $f$ --- i.e., $f(x)=(x-a)h(x)$ wherre
+$h(a)\neq0$ --- then
+\begin{equation}
+f'(x)=h(x)+(x-a)h'(x),
+\end{equation}
+and so
+\begin{equation}
+0=f'(a)=h(a)+(a-a)h'(a)=h(a)+0,
+\end{equation}
+which means $h(a)=0$ which is a contradiction. Hence $f$ is not
+separable.
+
+\backwardproof\ Since $f,f'\in F[x]$ are coprime, there exists $g,h\in
+F[x]$ such that
+\begin{equation}
+gf+f'h=1.
+\end{equation}
+If $f$ has a multiple root $a\in\closure{F}$, i.e.,
+\begin{equation}
+f(x)=(x-a)^{2}k(x)
+\end{equation}
+for some $k\in F[x]$, then its derivative is
+\begin{equation}
+f'(x)=2(x-a)k(x)+(x-a)^{2}k'(x).
+\end{equation}
+Then $f'(a)=0$. Hence
+\begin{equation}
+1=g(a)f(a)+f'(a)h(a)=g(a)\cdot0+0\cdot h(a)=0
+\end{equation}
+which is a contradiction. Hence the result.
+\end{proof}
+
+\begin{lemma}\label{lemma:5.4}
+For any irreducible polynomial $f(x)\in F[x]$, the following are equivalent:
+\begin{enumerate}
+\item $f$ is not separable
+\item $f'=0$
+\item $\Char(f)=p>0$ and $f(x)=g(x^{p^{r}})$ for some irreducible
+  polynomial $g(x)\in F[x]$ and some $r\geq1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+$(1)\iff(2)$ was proven in Math 5C.
+
+$(2)\implies(3)$ For 
+\begin{equation}
+f(x)=a_{n}x^{n}+\dots+a_{1}x+a_{0},
+\end{equation}
+then
+\begin{equation}
+f'(x)=a_{n}nx^{n-1}+\dots+a_{1}=0.
+\end{equation}
+So $ka_{k}=0$ for any $1\leq k\leq n$. Then we can prove the result by
+cases depending on $\Char(F)=0$ or $\Char(F)=p>0$.
+
+\textsc{Case 1:}
+If $\Char(F)=0$, then $a_{k}=0$ for $k\neq0$, so $f=a_{0}$ which is a
+contradiction.
+
+\textsc{Case 2:}
+If $\Char(F)=p>0$ and $a_{k}=0$ for all $k$ coprime to $p$, then
+\begin{equation}
+f(x)=a_{mp}x^{mp}+\dots+a_{p}x^{p}+a_{0}=\sum^{m}_{j=0}a_{jp}x^{jp}.
+\end{equation}
+So $f(x)=f_{1}(x^{p})$ where
+\begin{equation}
+f_{1}=a_{mp}x^{m}+\dots+a_{p}x+a_{0}.
+\end{equation}
+Moreover $f_{1}$ is irreducible.
+
+If $f_{1}$ is not separable, then $f'_{1}=0$ by $(1)\iff(2)$.
+We obtain $f_{2}$, $f_{3}$, \dots, such that $f_{i+1}(x)=f_{i}(x^{p})$
+where $\deg(f_{i+1})<\deg(f_{i})$. But it stops at some $r\geq1$
+because $\deg(f)<+\infty$. Then
+\begin{equation}
+f(x)=f_{1}(x^{p})=f_{2}(x^{p^{2}})=\dots=f_{r}(x^{p^{r}}),
+\end{equation}
+where $f_{r}$ is irreducible and separable.
+
+$(3)\implies(2)$ If $f$ satisfies $(3)$, then
+\begin{equation*}
+f'(x)=p^{r}x^{p^{r}-1}g'(x^{p^{r}})=0.\qedhere
+\end{equation*}
+\end{proof}
+
+\begin{proposition}\label{prop:5.5}
+$F$ is perfect if and only if either (i) $\Char(F)=0$ or (ii) $\Char(F)=p>0$
+  and $\Frob$ is surjective.
+\end{proposition}
+
+\begin{proof}
+\forwardproof\ (Proof by contrapositive)
+If $\Char(F)=p>0$ but $\Frob$ is not surjective, then
+for $a\notin\Frob(F)$ let
+\begin{equation}
+f(x)=x^{p}-a\in F[x],
+\end{equation}
+and $\alpha\in\closure{F}$ be a root of $f$ --- i.e., $\alpha^{p}=a$.
+Then
+\begin{equation}
+f(x)=x^{p}-a=(x-\alpha)^{p}.
+\end{equation}
+Since the minimal polynomial $p_{\alpha}$ of $\alpha$ divides $f(x)$,
+we have
+\begin{equation}
+p_{\alpha}(x)=(x-\alpha)^{n}
+\end{equation}
+for some $n\leq p$.
+
+If $n<p$, then
+\begin{equation}
+p_{\alpha}(x)=x^{n}-n\alpha x^{n-1}+\dots+\alpha^{n}\in F[x],
+\end{equation}
+so $n\alpha\in F$. Since $n$ and $p$ are coprime, $\alpha\in F$, and
+so we have $a=\alpha^{p}\in\Frob(F)$ which is a
+contradiction. Therefore we must conclude $n=p$.
+
+So $n=p$, i.e.,
+\begin{equation}
+p_{\alpha}(x)=(x-\alpha)^{p},
+\end{equation}
+that is to say $\alpha$ is not separable. In particular, $F(\alpha)/F$
+is not separable. Then $F$ is not perfect.
+
+\backwardproof\ (Proof by contrapositive)
+If $F$ is not perfect, then there exists an algebraic extension $E/F$
+which is not separable and also an inseparable $\alpha\in E$. For the
+nonseparable minimal polynomial $f\in F[x]$ of $\alpha$ by Lemma~\ref{lemma:5.4}
+$\Char(F)=p>0$ and $f(x)=g(x^{p^{r}})$ for some irreducible polynomial
+$g\in F[x]$ and some $r\geq1$. So
+\begin{equation}
+g(x)=x^{n}+a_{n-1}x^{n-1}+\dots+a_{1}x+a_{0}.
+\end{equation}
+If $\Frob$ is surjective, then $(\Frob)^{n}$ is surjective, then there
+exists a $b_{i}\in F$ such that $a_{i}=b_{i}^{p^{r}}$ for each $i$. Hence
+\begin{equation}
+g(x)=(x^{n}+b_{n-1}x^{n-1}+\dots+b_{0})^{p^{r}},
+\end{equation}
+which is a contradiction. So $f$ is irreducible.
+\end{proof}

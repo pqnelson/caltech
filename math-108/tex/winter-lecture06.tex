@@ -1,0 +1,157 @@
+%%
+%% winter-lecture06.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-17T08:40:22-0800
+%% Last update 2026-01-17T08:40:22-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+Recall, if $f\colon X\to Y$ is a continuous function, then we have
+\begin{equation}
+f^{-1}(\mbox{open})=\mbox{open}
+\end{equation}
+(the preimage of an open subset of $Y$ is an open subset of $X$). We
+want something similar for the defining property of ``measurable'' functions.
+\end{node}
+
+\begin{definition}
+Let $E$ be a measurable set, let $f\colon E\to\ExtRR$ be a function
+from $E$ to the extended reals $\ExtRR=\RR\cup\{-\infty,+\infty\}$. We
+say $f$ is \define{Measurable} if for every $a\in\RR$, the preimage
+\begin{equation}
+f^{-1}\bigl([-\infty,a)\bigr)=\{x\in E\mid f(x)<a\}
+\end{equation}
+is measurable.
+\end{definition}
+
+\begin{remark}
+The rays $[-\infty,a)$ generate the Borel $\sigma$-algebra, which is
+  why we want to use them in the definition.
+\end{remark}
+
+\begin{notation}
+It is common to see measure theorists write something like $\{f<a\}$
+as an abbreviation for
+\begin{equation}
+\{f<a\}:=\{x\in E\mid f(x)<a\}.
+\end{equation}
+Similarly, $\{f>a\}$, $\{f\leq a\}$, etc., are all abbreviations for
+analogously defined sets.
+\end{notation}
+
+\begin{definition}
+We say a function $f\colon E\to\ExtRR$ is \define{Finite-Valued} if
+for every $x\in E$ we have $f(x)\in\RR$. That is to say, $f(E)\subset\RR$
+(the image does not include any infinities).
+\end{definition}
+
+\begin{proposition}
+The following conditions are equivalent:
+\begin{enumerate}
+\item $\{x\in E\mid f(x)<a\}$ is measurable for all $a\in\RR$
+\item $\{x\in E\mid f(x)\leq a\}$ is measurable for all $a\in\RR$
+\item $\{x\in E\mid f(x)>a\}$ is measurable for all $a\in\RR$
+\item $\{x\in E\mid f(x)\geq a\}$ is measurable for all $a\in\RR$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$(1)\iff(4)$ The complement of a measurable set is measurable, and
+  these are complementary sets.
+
+$(2)\iff(3)$ The complement of a measurable set is measurable, and
+  these are complementary sets.
+
+$(1)\implies(2)$ We can assume that $\{f<a + \frac{1}{k}\}$ is
+  measurable for all $k\in\NN$. We claim
+\begin{equation}
+\{f\leq a\}=\bigcap_{k\in\NN}\{f<a+\frac{1}{k}\}.
+\end{equation}
+The result follows since the countable intersection of measurable sets
+is measurable, so we just need to prove the claim.
+
+$(\subset)$ If $f(x)\leq a$, then obviously for any $k\geq1$ we have $f(x)<a+\frac{1}{k}$.
+
+$(\supset)$ If $\beta<a+\frac{1}{k}$ for all $k\in\NN$, then $\beta<a$.
+
+$(2)\implies(1)$ We can assume that $\{f\leq a-\frac{1}{k}\}$ is
+measurable for all $k\in\NN$. Then we have the equality
+\begin{equation}
+\{f<a\}=\bigcup_{k\in\NN}\{f\leq a-\frac{1}{k}\}
+\end{equation}
+and the countable union of measurable sets is measurable. Proving
+these two sets are the same follows similar arguments as the previous case.
+\end{proof}
+
+\begin{corollary}
+If $f$ is a measurable function, then $(-f)(x)=-(f(x))$ is a
+measurable function.
+\end{corollary}
+
+\begin{proposition}[Algebraic operations]
+If $f$ and $g$ are measurable functions, then so are [their pointwise sum] $f+g$ and [their
+  pointwise product] $fg$
+and [their pointwise absolute product] $|f|$ all measurable functions.
+\end{proposition}
+
+\begin{proof}[Proof ($f+g$ is measurable)]
+Suppose $f$, $g$ are measurable. If $f(x)+g(x)<a$, then $f(x)>a-g(x)$
+(and conversely). There must exist an $r\in\QQ$ such that $f(x)>r>a-g(x)$.
+We want to prove $\{f+g>a\}$ is measurable. Then we see
+\begin{equation}
+\{f+g>a\}=\bigcup_{r\in\QQ}(\{f>r\}\cap\{g>a-r\}),
+\end{equation}
+and both $\{f>r\}$ and $\{g>a-r\}$ are measurable sets, so is their
+intersection, and so is the countable union of such sets.
+\end{proof}
+
+\begin{proposition}[Limits]
+Let $(f_{n})$ be a sequence of measurable functions. Then
+$\sup_{n}f_{n}(x)$, $\inf_{n}f_{n}(x)$, $\liminf_{n}f_{n}(x)$, and
+$\limsup_{n}f_{n}(x)$ are all measurable functions.
+\end{proposition}
+(As an immediate consequence, $\lim_{n}f_{n}(x)$ is measurable when it
+exists.)
+
+\begin{proposition}
+If $f$ is measurable and $\Phi\colon\RR\to\RR$ is continuous, then
+$\Phi\circ f$ is measurable.
+\end{proposition}
+
+\begin{proposition}[Almost everywhere property]
+If $f$ is measurable and $f=g$ almost everywhere (i.e., $f(x)=g(x)$
+for all $x\in E\setminus N$ where $N$ is some null set), then $g$ is measurable.
+\end{proposition}
+
+\begin{definition}
+A \define{Simple Function} $\varphi$ is a finite sum of indicator
+functions of measurable sets of finite measure,
+\begin{equation}
+\varphi(x)=\sum^{N}_{k=1}a_{k}\chi_{E_{k}}(x)
+\end{equation}
+where each $E_{k}$ is a measurable set of finite measure, and
+$\chi_{E_{k}}$ is the indicator function (``characteristic function'')
+of $E_{k}$. And $a_{k}\in\RR$ are some real numbers.
+\end{definition}
+
+\begin{definition}
+Let $\varphi$ be a simple function. The \define{Canonical Representation}
+of $\varphi$ has the $E_{k}$ be almost-disjoint (i.e., for all $i\neq j$
+we have $E_{i}\cap E_{j}$ be a null set).
+
+Intuitively, this means that there ``is no overlap'' with the summands.
+\end{definition}
+
+\begin{theorem}
+If $f\colon\RR^{d}\to[0,\infty]$ is a measurable function, then there
+exists a sequence of simple functions $\{\varphi_{k}\}_{k\in\NN}$ such that
+\begin{enumerate}
+\item\textsc{Monotonicity:} $0\leq\varphi_{1}\leq\varphi_{2}\leq\dots\leq f$
+\item\textsc{Pointwise convergence:} for all $x\in\RR^{d}$, we have $\lim_{k\to\infty}\varphi_{k}(x)=f(x)$.
+\end{enumerate}
+\end{theorem}

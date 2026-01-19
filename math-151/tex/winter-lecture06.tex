@@ -1,0 +1,193 @@
+%%
+%% winter-lecture06.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-19T09:32:16-0800
+%% Last update 2026-01-19T09:32:16-0800
+%% 
+
+\lecture[CW Approximation]{}
+
+\begin{remark}
+The
+$\pi_{i}(\sphere{2})\iso\pi_{i}(\sphere{2}\times\sphere{\infty})\iso\pi_{i}(\sphere{2}\times\RP^{\infty})$
+example has some subtle issues with it. In particular, these
+isomorphisms hold for $i\geq2$, but for $i=1$ we have
+$\pi_{1}(\RP^{2})\iso\ZZ/2\ZZ$, but $\pi_{1}(\sphere{2})=0$. So care
+must be taken!
+\end{remark}
+
+\begin{lemma}[Review from last time]
+A CW pair $(X,A)$ is $n$-connected if all the cells in $X\setminus A$
+have dimension strictly greater than $n$. The first time you'll see a
+difference between $X$ and $A$ is for $(n+1)$-dimensional cells, and
+$A^{(i)}=X^{(i)}$ for all $i\leq n$.
+\end{lemma}
+
+\begin{theorem}[CW approximation]% Hatcher, Proposition 4.13, PDF pg 362
+Every topological space $X$ has a CW approximation $f\colon Z\to X$.
+(If $X$ is path-connected, then $Z^{(0)}$ can be taken to be a single point.)
+\end{theorem}
+
+\begin{proof}
+Without loss of generality, assume $X$ is path-connected (otherwise
+deal with each path-connected component separately). By induction, we
+will keep adding cells of higher and higher dimensions.
+
+Start with a single 0-cell $A^{(0)}=a_{0}$ with a map $f\colon A^{(0)}\to X$.
+
+For 1-cells, consider a presentation of the fundamental group
+$\pi_{1}(X,x_{0})$ where $f(a_{0})=x_{0}\in X$. Then for each
+generator $\gamma$ of $\pi_{1}(X,x_{0})$ attach a 1-cell
+$e_{1}^{\gamma}$ to $a_{0}$ and call the result $A^{(1)}$, and extend
+the map $f\colon(A^{(1)},a_{0})\to(X,x_{0})$ to send $e^{\gamma}_{1}\mapsto\gamma$.
+Then
+\begin{equation}
+f_{*}\colon\pi_{1}(A^{(1)},a_{0})\to\pi_{1}(X,x_{0})
+\end{equation}
+is a surjection \emph{but not necessarily an injection}.
+
+The way to make it an injection: we attach a 2-cell to kill guys in
+the kernel of $f_{*}$. This also makes $f_{*}$ a surjection on $\pi_{2}$.
+We do it in two steps: (i) kill everything in the kernel, (ii) add
+enough to make it surjective on $\pi_{2}$.
+
+For $\pi_{1}$, we fix a presentation of $\ker(f_{*}\colon\pi_{1}(A^{(1)},a_{0})\to\pi_{1}(X,x_{0}))$
+and for each generator $\beta$ of this kernel we attach a 2-cell
+$\disk{2}_{\beta}$ such that the gluing map
+\begin{equation}
+\varphi_{\beta}\colon\disk{2}_{\beta}\to A^{(1)}
+\end{equation}
+is $\beta$. We call the resulting space $B^{(2)}$ obtained from
+$A^{(1)}$ in this way.
+
+Then we extend the map from $f$ to a map
+\begin{equation}
+f\colon B^{(2)}\to X.
+\end{equation}
+For the 2-cell $\disk{2}_{\beta}$ note that $\beta\in\ker(f_{*}\colon\pi_{1}(A^{(1)})\to\pi_{1}(X))$,
+so
+\begin{equation}
+f_{*}\beta\homotopic c_{x_{0}}
+\end{equation}
+is described by the homotopy $H$. Then we extend the map $f$ to
+include $\disk{2}_{\beta}$ using this very homotopy $H$. Then the
+induced map
+\begin{equation}
+f_{*}\colon\pi_{1}(B^{(2)},a_{0})\to\pi_{1}(X,x_{0})
+\end{equation}
+is now an isomorphism.
+
+For surjectivity on $\pi_{2}$: We fix a presentation of $\pi_{2}(X,x_{0})$.
+For each generator $\delta$ of $\pi_{2}(X,x_{0})$ we attach a 2-cell
+$\disk{2}_{\delta}$ such that $\boundary\disk{2}_{\delta}$ is mapped
+to $a_{0}$. We call the resulting space $A^{(2)}$ and extend the map
+$f$ to
+\begin{equation}
+f\colon A^{(2)}\to X
+\end{equation}
+using $\delta$ on $\disk{2}_{\delta}$. (This is the same as attaching
+$(\sphere{2},\point{*})$ to the complex.)
+
+Now, consider the long exact sequence of the CW pair $(A^{(2)},B^{(2)})$:
+\begin{equation}
+\pi_{2}(A^{2},B^{2})\xrightarrow{\boundary}\pi_{1}(B^{2})\to\pi_{1}(A^{2})\to\pi_{1}(A^{2},B^{2})=0.
+\end{equation}
+We claim $\pi_{1}(A^{2},B^{2})=0$ because we're attacing 2-spheres, so
+by the Lemma it is zero. We also claim the
+$\boundary\colon\pi_{2}(A,B)\to\pi_{1}(B)$ morphism is zero. Therefore
+\begin{equation}
+\pi_{1}(B^{(2)})\iso\pi_{1}(A^{(2)}).
+\end{equation}
+We also have $f$ induce an isomorphism
+$\pi_{1}(B^{(2)})\to\pi_{1}(X)$. So our new $f$ induces
+$f\colon\pi_{1}(A^{(2)})\to\pi_{1}(X)$ which must be an isomorphism by exactness.
+
+Then we get
+\begin{equation}
+f\colon A^{(2)}\to X
+\end{equation}
+such that
+\begin{equation}
+f_{*}\colon\pi_{i}(A^{(2)},a_{0})\to\pi_{i}(X,x_{0})
+\end{equation}
+is an isomorphism for $i<2$ and surjective for $i=2$. This was the
+situation we were in when we attached 2-cells. So we have a way to
+attach 3-cells without affecting $\pi_{1}$ and $\pi_{2}$, and we cann
+inductively add $n$-cells in a similar manner. Then we take the direct
+limit
+\begin{equation}
+A = \lim_{n\to\infty}(A^{(0)}\into A^{(1)}\into A^{(2)}\into\dots A^{(n)}).
+\end{equation}
+Hence the result.
+\end{proof}
+
+\begin{remark}
+We can also do a relative CW approximation for pairs $(X,X_{0})$ where
+$X_{0}\subset X$ is a subspace, there exists a CW pair $(A,A_{0})$ and
+a map
+\begin{equation}
+f\colon(A,A_{0})\to(X,X_{0})
+\end{equation}
+such that $f|_{A_{0}}\colon A_{0}\to X_{0}$ and also $f_{*}\colon\pi_{n}(A,A_{0})\to\pi_{n}(X,X_{0})$
+are isomorphisms (and $f$ and $f_{0}$ (?) are weakly homotopy equivalent).
+\end{remark}
+
+\subsection{Some Applications}
+
+\begin{proposition}% Hatcher, Proposition 4.15, PDF pg 362
+If $(X,A)$ is an $n$-connected CW pair, then there exists a CW pair
+$(Z,A)$ such that
+\begin{enumerate}
+\item $Z\setminus A$ has cells of dimension at least $n+1$
+\item $(Z,A)\homotopic(X,A)\rel{A}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(Modulo the $\rel{A}$ part) It is enough to construct a CW complex $Z$
+such that
+\begin{enumerate}
+\item $f\colon Z\to X$ is a weak homotopy equivalence, and
+\item $A\subset Z$ and
+\item $f|_{A}=\id_{A}$ and
+\item $Z\setminus A$ has cells of dimension strictly greater than $n$.
+\end{enumerate}
+Sounds good? Great!
+
+To get $Z$, we repeat the construction in the CW approximation
+starting with $(n+1)$-cells, and define $f\colon Z\to X$ as in the
+proof. By the same argument, we see
+\begin{equation}
+f_{*}\colon\pi_{i}(Z)\to\pi_{i}(X)
+\end{equation}
+is an isomorphism for $i\geq n+1$, and also for $i<n$. The critical
+question is what happens for $i=n$?
+
+This is an injective morhpism, but we need to prove it is surjective;
+i.e., we want to prove
+\begin{equation}
+f_{*}\colon\pi_{n}(Z)\to\pi_{n}(X)
+\end{equation}
+is surjective. We have the following commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{Z\ar[rr]^{f} & & X\\
+&\ar[ul]^{i}A\ar[ur]_{j} &}}
+\end{equation}
+where $i\colon A\into Z$ and $j\colon A\into X$ are the obvious
+inclusions, and the diagram commutes $j=f\circ i$. Then we look at the
+induced maps on the homotopy groups:
+\begin{equation}
+\vcenter{\xymatrix{\pi_{n}(Z)\ar[rr]^{f_{*}} & & \pi_{n}(X)\\
+&\ar[ul]^{i_{*}}\pi_{n}(A)\ar[ur]_{j_{*}} &}}
+\end{equation}
+The long exact sequence of homotopy groups gives us
+\begin{equation}
+\pi_{n}(A)\xrightarrow{j_{*}}\pi_{n}(X)\to\pi_{n}(X,A)=0,
+\end{equation}
+where $\pi_{n}(X,A)=0$ is by the $n$-connectedness of $(X,A)$. The map
+$j_{*}$ is therefore surjective by exactness. Hence $f_{*}$ must be
+surjective by the commutative diagram.
+\end{proof}
