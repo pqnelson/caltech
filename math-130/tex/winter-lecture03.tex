@@ -1,0 +1,58 @@
+%%
+%% winter-lecture03.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-15T15:46:20-0800
+%% Last update 2026-01-15T15:46:20-0800
+%% 
+
+\lecture[Affine Schemes]{}
+
+\begin{definition}
+Let $R$ be a ring. We define the \define{Structure Sheaf} of
+$\Spec(R)$ to be the presheaf $\sheaf{O}_{\Spec(R)}$ such that for
+each $f\in R$ we have
+\begin{equation}
+\sheaf{O}_{\Spec(R)}(D(f)):=R_{f}.
+\end{equation}
+(We will prove this is a sheaf soon.)
+
+\begin{proof}
+We should prove this is a presheaf.
+\begin{enumerate}
+\item We see $D(0)=\emptyset$, so $\sheaf{O}_{\Spec(R)}(\emptyset)=R_{0}=0$.
+\item For any $f\in R$, we claim the restriction map $\rho_{U,U}=\id_{R_{f}}$
+\item If $W\subset V\subset U$, then
+  $\rho_{U,W}=\rho_{V,W}\circ\rho_{U,V}$ is obvious.
+\end{enumerate}
+Hence it satisfies the desired properties.
+\end{proof}
+\end{definition}
+
+\begin{proposition}
+Let $R$ be a commutative ring. The stalks of $\sheaf{O}_{\Spec(R)}$
+are local rings.
+\end{proposition}
+
+\begin{proposition}
+Let $R$ be a commutative ring. The presheaf $\sheaf{O}_{\Spec(R)}$ is
+a sheaf on the topological space $\Spec(R)$.
+\end{proposition}
+
+\begin{proof}
+Let $\mathcal{B}=\{D(f)\mid f\in R\}$ be the basis of the topology
+using principal opens. For any $U\in\mathcal{B}$, for every open
+covering $\{U_{i}\in\mathcal{B}\}_{i\in I}$ of $U$, we need to prove
+\begin{enumerate}
+\item For any $s,s'\in\sheaf{O}_{\Spec(R)}(U)$ with
+  $s|_{U_{i}}=s'|_{U_{i}}$ for all $i$, we have $s=s'$; and
+\item For each $i\in I$ and any $s_{i}\in\sheaf{O}_{\Spec(R)}(U_{i})$ such that
+  for all $i,j\in I$ we have $s_{i}|_{U_{i}\cap U_{j}}=s_{j}|_{U_{i}\cap U_{j}}$,
+  then there exists an
+  $s\in\sheaf{O}_{\Spec(R)}(U)$ such that $s|_{U_{i}}=s_{i}$ for all
+  $i\in I$.
+\end{enumerate}
+Since $D(f)$ is quasi-compact, we can assume that $I$ is finite
+\end{proof}
