@@ -1,0 +1,102 @@
+%%
+%% winter-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-24T09:56:54-0800
+%% Last update 2026-01-24T09:56:54-0800
+%% 
+
+\lecture{}
+
+\begin{recall}
+A simple function is of the form
+\begin{equation}
+f = \sum^{N}_{k=1}a_{k}\chi_{E_{k}}
+\end{equation}
+where the $E_{k}$ are measurable sets, and this is a finite sum.
+\end{recall}
+
+\begin{theorem}% Stein, Shakarchi, Real Analysis, Theorem 4.1
+Let $f\colon\RR^{d}\to[0,\infty]$ be a measurable function.
+Then there exists a seuqence $(\varphi_{k})_{k\in\NN}$ of positive
+$\varphi_{k}\geq0$ simple functions such that
+\begin{enumerate}
+\item\textsc{Monotonic:} $\varphi_{k}(x)\leq\varphi_{k+1}(x)$ for all
+  $k\in\NN$ and $x\in\RR^{d}$, and
+\item\textsc{Convergence:} $\lim_{k\to\infty}\varphi_{k}(x)=f(x)$ for
+  all $x$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item Truncate the range of the function to $2^{k}$
+\item Divide the range into intervals of size $2^{-k}$ (for $2^{2k}-1$
+  intervals). We define
+  \begin{equation}
+E_{k,j}=f^{-1}\bigl([2^{-k}j,2^{-k}(j+1))\bigr),
+  \end{equation}
+  where $j=0,1,\dots,2^{2k}-1$. We also define
+\begin{equation}
+\varphi_{k}(x)=\left(\sum^{2^{2k}-1}_{j=1}\frac{j}{2^{k}}\chi_{E_{k,j}}(x)\right)+2^{k}\chi_{\{f\geq2^{k}\}}(x)
+\end{equation}
+where $j/2^{k}$ is the ``floor value''.
+(Observe: If $|f(x)|<\infty$ for all $x$, then eventually we will find a
+$k\in\NN$ such that $2^{k}>f(x)$ for all $x$.)
+\end{enumerate}
+This gives us the sequence of functions, and we assert they have the
+desired properties. Monotonicity is obvious, as is convergence.
+\end{proof}
+
+\begin{proposition}
+Let $f\colon\RR^{d}\to\RR$. We can decompose this as $f=f^{+}-f^{-}$ where
+\begin{equation}
+f^{+}(x)=\max(f(x),0)\geq0
+\end{equation}
+and
+\begin{equation}
+f^{-}(x)=\max(-f(x),0)\geq0.
+\end{equation}
+Then we can apply the previous theorem to get sequences
+$\varphi^{(1)}_{k}\nearrow f^{+}$ and $\varphi^{(2)}_{k}\nearrow f^{-}$.
+Then $\varphi_{k}(x)=\varphi_{k}^{(1)}(x)-\varphi_{k}^{(2)}(x)$ would
+give us a sequence of measurable functions. (But $\varphi_{k}$ is not
+monotonic, they just converge.)
+\end{proposition}
+
+\begin{definition}
+  Let $f\colon A\to\ExtRR$ be any function.
+\begin{enumerate}
+\item We say $f$ is \define{Finite-Valued} if $f(x)\in\RR$ for all $x\in A$.
+\item We say $f$ is \define{Finite-Valued Almost Everywhere} (or
+  ``Finite-Valued a.e.'') if $f(x)\in\RR$ for all $x\in A\setminus N$
+  where $N$ is a null set.
+\end{enumerate}
+\end{definition}
+
+\begin{recall}
+A \define{Step Function} is a simple function where the $E_{k}$ are
+all rectangles.
+\end{recall}
+
+\begin{theorem}
+Let $f\colon\RR^{d}\to\RR$ be finite-valued almost everywhere. If $f$
+is measurable, then there exists a sequence of step functions
+$\psi_{k}$ such that $\psi_{k}(x)\to f(x)$ at almost every $x$.
+\end{theorem}
+
+\begin{proof}
+The first step is to use earlier results from this lecture to form a
+sequence $(\varphi_{k})_{k\in\NN}$ which converges to $f$ almost everywhere.
+
+Then we take the $E_{k,j}$ measurable sets used to define the simple
+functions $\varphi_{k}$. We extend them to form rectangles
+$\widetilde{R}_{k,j}$ which are almost disjoint. Then we extend them
+to $\widetilde{R}'_{k,j}$ such that if
+$m(E\symdiff\bigcup_{j}\widetilde{R}_{k,j})<\varepsilon$
+then $m(E\symdiff\bigcup_{j}\widetilde{R}'_{k,j})<2\varepsilon$.
+Then we take $R_{k,j}=\Interior(\widetilde{R}'_{k,j})$ as the rectangles to
+form the basis of a new sequence of simple functions.
+\end{proof}

@@ -1,0 +1,183 @@
+%%
+%% winter-lecture09.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-24T09:22:12-0800
+%% Last update 2026-01-24T09:22:12-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+We stress, we have seen how to use a mapping cone to decompose a map
+into an inclusion and a deformation retraction.
+\end{node}
+
+\begin{remark}
+  We are now starting Section~4.2 of Hatcher.
+
+  The goal is to do more computations of $\pi_{n}$.
+
+  We have two main tools: (1) Excision theorem (discussed today), and
+  (2) Fiber bundles and fibrations. For $\pi_{1}$, these are
+  analogous to (1) van Kampen and (2) covering spaces (respectively).
+\end{remark}
+
+\begin{theorem}[Excision]
+Let $X$ be a CW space. Suppose $X=A\cup B$ where $A$ and $B$ are CW
+subcomplexes of $X$ and $A\cap B=C$ is a subcomplex of both $A$ and $B$.
+Assume $C\neq\emptyset$ and $C$ is connected. If $(A,C)$ is
+$m$-connected and $(B,C)$ is $n$-connected, then the induced map
+\begin{equation*}
+i_{*}\colon\pi_{i}(A,C)\to\pi_{i}(X,B)
+\end{equation*}
+(induced by the inclusion $i\colon (A,C)\into(X,B)$) is an isomorphism
+for $i<m+n$ and surjective for $i=m+n$.
+\end{theorem}
+
+(We defer the proof until next time!)
+
+\subsection{Application: Suspensions}
+
+\begin{node}
+Recall, the \define{Suspension} of a space $X$ is defined as
+\begin{equation}
+SX := \frac{X\times[0,1]}{(x,0)\sim(y,0), (x,1)\sim(y,1)}
+\end{equation}
+where we can write this as joining two cones over $X$ together along
+$X$, i.e., as $SX=C_{+}X\cup_{X}C_{-}X$.
+\end{node}
+
+\begin{example}
+We see $S(\sphere{0})=\sphere{1}$, $S(\sphere{1})=\sphere{2}$,
+$S(\sphere{2})=\sphere{3}$, \dots, $S(\sphere{n})=\sphere{n+1}$.
+\end{example}
+
+\begin{proposition}
+If $f\colon X\to Y$, then
+\begin{equation}
+\begin{split}
+Sf\colon&SX\to SY\\
+&(x,t)\mapsto(f(x),t)
+\end{split}
+\end{equation}
+is a continuous map. (That is to say, $S-$ is a functor.)
+\end{proposition}
+
+
+\begin{definition}
+Let $(X,x_{0})$ be a pointed space. We may define its
+\define{Reduced Suspension}
+\begin{equation}
+\Sigma X:=SX/(x_{0},t)\sim(x_{0},1).
+\end{equation}
+\end{definition}
+
+\begin{node}
+In general, if $X$ is homotopy equivalent to a CW complex, we have
+$\Sigma X\homotopic SX$. In particular,
+\begin{equation}
+\vcenter{\xymatrix@C=0.5pc{\pi_{i}(X)\ar[d]^{S}\ar@{=}[r] & [S^{i},X]& \\
+\pi_{i+1}(SX)\ar@{=}[r] & [\sphere{i+1},SX]\ar@{=}[r] &[S(\sphere{i}),S(X)]}}
+\end{equation}
+where $S\colon\pi_{i}(X)\to\pi_{i+1}(SX)$ is the suspension map.
+\end{node}
+
+\begin{theorem}[Freudenthal suspension]
+If $X$ is an $(n-1)$-connected CW complex, then the suspension map
+$S\colon\pi_{i}(X)\to\pi_{i}(S(X))$ is an isomorphism for $i<2n-1$ and
+surjective for $i=2n-1$. (In particular, for $X=\sphere{n}$, we have
+$\pi_{i}(\sphere{n})\to\pi_{i}(\sphere{n+1})$ is an isomorphism for $i<2n-1$.)
+\end{theorem}
+
+\begin{proof}
+Let $A=C_{+}X$, $B=C_{-}X$, $C=A\cap B\iso X$, writing the long exact
+sequence of $(CX,X)$
+\begin{equation}
+\dots\to\pi_{j}(X)\to\underbrace{\pi_{j}(CX)}_{=0}\to\pi_{j}(CX,X)\xrightarrow{\boundary}\pi_{j-1}(X)\to\underbrace{\pi_{j-1}(CX)}_{=0}\to\dots
+\end{equation}
+We know $CX$ is contractible, so $\pi_{j}(CX,X)\iso\pi_{j-1}(X)$ so
+$(CX,X)$ is $n$-connected.
+
+Then by the Excision theorem, the induced map
+\begin{equation}
+i_{*}\colon\pi_{k}(C_{+}X,X)\to\pi_{k}(SX,C_{-}X)
+\end{equation}
+is an isomorphism for $k<2n$ and surjective for $k=2n$. By the long
+exact sequence of the pair $(SX,C_{-}X)$:
+\begin{equation}
+\dots\to\pi_{j}(C_{-}X)\to\pi_{j}(SX)\xrightarrow{j_{*}}\pi_{j}(SX,C_{-}X)\to\pi_{j-1}(C_{-}X)\to\dots
+\end{equation}
+gives $j_{*}\colon\pi_{j}(SX)\to\pi_{j}(SX,C_{-}X)$ is an
+isomorphism. The goal is to prove the following diagram:
+\begin{equation}
+\vcenter{\xymatrix{\pi_{j}(X)\ar[d]^{\boundary^{-1}}\ar[r]^{S} & \pi_{j+1}(SX)\ar[d]^{j_{*}}\\
+\pi_{j+1}(C_{+}X,X)\ar[r]^{i_{*}} & \pi_{j+1}(SX,C_{-}X)}}
+\end{equation}
+We will compute $j_{*}\circ S$ and $i_{*}\circ(\boundary^{-1})$.
+
+(1) Take $f\colon\sphere{i}\to X$ as an element of $\pi_{i}(X)$. Then
+take the suspension $\pi_{i}(X)\xrightarrow{S}\pi_{i+1}(SX)$, we have
+\begin{equation}
+Sf\colon(\sphere{i+1},\point{*})\to(SX,p).
+\end{equation}
+Then we apply $j$ to $Sf$.
+
+(2) We have $\boundary\colon\pi_{i+1}(C_{+}X,X)\to\pi_{i}(X)$. For
+$f\in\pi_{i}(X)$, $[\boundary^{-1}f]$ is represented by
+\begin{equation}
+\bigl((\disk{i+1},\boundary\disk{i+1})\xrightarrow{g}(C_{+}X,X)\bigr)\mapsto g|_{\boundary\disk{i+1}}
+\end{equation}
+for any
+\begin{equation}
+g\colon(\disk{i+1},\boundary\disk{i+1})\to(C_{+}X,X)
+\end{equation}
+such that $g|_{\boundary\disk{i+1}}=f$. So we take $\boundary^{-1}f$
+to be $Cf\colon C(\sphere{i})\to C_{+}X$ when $\disk{i+1}\iso C(\sphere{i})$.
+Then this map $i_{*}(\boundary^{-1}f)$ is just viewing $Cf$ as a map
+\begin{equation}
+(\disk{i+1},\boundary\disk{i+1})\to(C_{+}X,X)\into(SX,C_{-}X).
+\end{equation}
+Then the claim is
+\begin{equation}
+[i_{*}(\boundary^{-1}f)]=[j_{*}(Sf)]\in\pi_{i+1}(SX,C_{-}X),
+\end{equation}
+making the diagram commute.
+\end{proof}
+
+\begin{remark}
+Since $\pi_{i}(\sphere{n})\iso\pi_{i+1}(\sphere{n+1})$ for $i<2n-1$,
+then we can conclude, e.g., for $i=1$ that $n>(i+1)/2=1$ we have
+\begin{equation}
+0=\pi_{1}(\sphere{2})=\pi_{2}(\sphere{3})=\pi_{3}(\sphere{4})=\dots.
+\end{equation}
+For $i=2$, we have $n>3/2$, so
+\begin{equation}
+\pi_{2}(\sphere{2})\iso\pi_{2}(\sphere{3})\iso\pi_{4}(\sphere{4})\iso\pi_{4}(\sphere{5})\iso\dots.
+\end{equation}
+Generally, for $i=n+k$, we define $\pi_{n+k}(\sphere{k})$ is
+independent of $n$ if $n\geq k+2$. We define the \define{Stable Homotopy Group of Spheres}
+to be $\pi_{k}^{S}$ or $\pi_{k}(\mathbb{S})$ equal to
+\begin{equation}
+\pi_{k}(\mathbb{S})=\lim_{n\to\infty}\pi_{n+k}(\sphere{n}).
+\end{equation}
+\end{remark}
+
+\begin{corollary}
+$\pi_{n}(\sphere{n})\iso\ZZ$.
+\end{corollary}
+
+\begin{proof}
+We just need to compute $\pi_{2}(\sphere{2}$. The rest are the same by
+suspensions. We know $\pi_{1}(\sphere{1})\to\pi_{2}(\sphere{2})$ is
+surjective, so $\pi_{2}(\sphere{2})$ is either $\ZZ$ or $\ZZ/n\ZZ$.
+We want to rule out the latter case. Recall the degree map: if
+$f\colon\sphere{2}\to\sphere{2}$ we define $\deg(f)$ to be such that
+\begin{equation}
+f_{*}[\sphere{2}]=\deg(f)[\sphere{2}]\in H_{2}(\sphere{2};\ZZ).
+\end{equation}
+Then the $\deg$ is a homotopy invariant. So $\deg\colon\pi_{2}(\sphere{2})\to\ZZ$
+is surjective. Hence $\pi_{2}(\sphere{2})\iso\ZZ$.
+\end{proof}

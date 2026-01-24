@@ -1,0 +1,198 @@
+%%
+%% winter-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-24T08:44:30-0800
+%% Last update 2026-01-24T08:44:30-0800
+%% 
+
+\lecture{}
+
+We ended the last lecture in the middle of proving the following lemma:
+
+\begin{lemma}
+If $(X,A)$ is an $n$-connected CW pair, and if $A\neq\emptyset$, then
+there exists a CW pair $(Z,A)\homotopic_{\rel{A}}(W,A)$ such that
+$Z\setminus A$ has cells of dimension strictly greater than $n$.
+\end{lemma}
+
+\begin{proof}
+We still need to show the ``rel $A$'' part of the homotopy equivalence.
+Consider $f\colon Z\to X$. .We know $f|_{A}=\id_{A}$ by
+construction. Then using cellular approximation, we can assume $f$ is
+a cellular map such that $f|_{A}=\id_{A}$. Then consider the mapping
+cylinder
+\begin{equation}
+M_{f}=(Z\times I\sqcup X)/(z,1)\sim f(z).
+\end{equation}
+Define $W:=M_{f}/(a,t)\sim(a,0)$ for all $a\in A$, where we are
+smashing the cylinder $A\times I$ ``down''.
+
+We claim $(Z,A)\homotopic_{\rel{A}}(W,A)\homotopic_{\rel{A}}(X,A)$.
+
+To see $(W,A)\homotopic_{\rel{A}}(X,A)$, recall $W$ deformation
+retracts to $X$ by sending $(X\setminus A)\times I$ to $(X\setminus A)\times\{1\}$
+which is the identity on $A$.
+
+Now, to see $(Z,A)\homotopic_{\rel{A}}(W,A)$. Let $r\colon W\to X$
+be the deformation retraction we just mentioned. Let $j\colon Z\into W$
+be the inclusion, then the following diagram commutes
+\begin{equation}
+\vcenter{\xymatrix{& W\ar[rd]^{r} &\\
+Z \ar@{^{(}->}[ur]^{j}\ar[rr]^{f} & & X}}
+\end{equation}
+That is to say, $f=r\circ j$. Since $f\colon Z\to X$ is a weak
+homotopy equivalence, and $r\colon W\to X$ is a deformation
+retraction, then $j$ is also a weak homotopy equivalence. (Since
+$r_{*}\colon\pi_{n}(W)\iso\pi_{n}(X)$ and
+$f_{*}\colon\pi_{n}(Z)\iso\pi_{n}(X)$, so\dots)
+Then by the long exact sequence of $(W,Z)$ we have
+\begin{equation}
+\vcenter{\xymatrix{ & \dots\ar[r]& \pi_{n+1}(Z,W)=0\ar@/_/[dll]_-{\boundary}\\
+\pi_{n}(Z)\ar[r]^{j_{*}} & \pi_{n}(W)\ar[r] & \pi_{n}(Z,W)=0\ar@/^/[dll]_-{\boundary}\\
+\dots & &}}
+\end{equation}
+(So $\pi_{n}(Z)\iso\pi_{n}(W)$ by exactness.)
+Then applying the compression lemma to the identity map
+\begin{equation}
+\id\colon(W,Z,A)\to(W,Z,A)
+\end{equation}
+gives a deformation retract of $(W,A)$ to $(Z,A)$.
+\end{proof}
+
+\begin{observation}
+The punchline is: it is easier to use the mapping cylinder than a map.
+\end{observation}
+
+\begin{definition}
+Let $(X,A)$ be a CW pair such that $A\neq\emptyset$.
+Then an \\define{$n$-Connected CW Model} is an $n$-connected CW pair
+$(Z,A)$ and a map $f\colon Z\to X$ such that
+\begin{enumerate}
+\item $f|_{A}=\id_{A}$
+\item $f_{*}\colon\pi_{i}(Z)\to\pi_{i}(X)$ is an isomorphism if $i>n$
+  and injective if $i=n$
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}% Hatcher, prop 4.17
+For any CW pair $(X,A)$ with $A\neq\emptyset$, for any $n\in\NN$,
+there exists an $n$-connected CW model of $(Z,A)$ (such that $Z$ is
+obtained by attaching cells of dimension greater than $n$).
+\end{proposition}
+
+\begin{remark}
+Think of this $Z$ as a transition from $X$ to $A$ in some homotopic
+way. As $n\to\infty$, it becomes more and more like $A$.
+\end{remark}
+
+\begin{remark}
+An $n$-connected CW model of $(X,A)$ is unique up to homotopy
+equivalence rel~$A$. (Hatcher Proposition~4.18 and Corollary~4.19):
+for any two such $n$-connected CW models $(Z,A)$ and $(Z',A)$ we have $(Z,A)\homotopic_{\rel{A}}(Z',A)$.
+\end{remark}
+
+Another application of the mapping cylinder.
+
+\begin{proposition}
+A weak homotopy equivalence $f\colon X\to Y$ (for any spaces, no
+assumptions imposed on $X$ and $Y$) induces isomorphisms
+\begin{subequations}
+  \begin{align}
+f_{*}\colon H_{n}(X,G)\to H_{n}(Y,G)\\
+\intertext{and}
+f^{*}\colon H^{n}(Y,G)\to H^{n}(X,G)
+  \end{align}
+\end{subequations}
+for all $n\in\NN_{0}$ and coefficient groups $G$.
+\end{proposition}
+
+\begin{proof}
+Suffices to prove one of these, since the Universal Coefficient
+theorem gives us $f^{*}$ from $f_{*}$.
+
+Consider the mapping cylinder $M_{f}$ of $f$, which gives us the
+following commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{& M_{f}\ar[rd]^{r} &\\
+X \ar@{^{(}->}[ur]^{j}\ar[rr]^{f} & & Y}}
+\end{equation}
+It suffices to prove the inclusion $j\colon X\into M_{f}$ satisfies
+this statement, since $r$ is a deformation retraction. It suffices to
+prove the following using the long exact sequence of $H_{*}$ for $(Z,X)$:
+\begin{quote}\it
+If $(Z,X)$ is an $n$-connected pair of path-connected spaces, then
+$H_{i}(Z,X;G)=0$ for all $i\leq n$ and for all $G$.
+\end{quote}
+This is because
+\begin{equation}
+H_{i}(X)\xrightarrow{j_{*}}H_{i}(Z)\to H_{i}(Z,X)=0
+\end{equation}
+gives the isomorphism. Let us use singular homology for $H_{i}$. Let
+\begin{equation}
+\alpha=\sum_{j}n_{j}\sigma_{j}
+\end{equation}
+where $n_{j}\in G$, $\sigma_{j}\colon\Delta^{i}\to Z$, and
+\begin{equation}
+[\alpha]\in H_{i}(Z,X;G).
+\end{equation}
+Then we can build an $i$-dimensional simplicial complex $K$ with
+boundary $L$ and a map
+\begin{equation}
+\sigma\colon(K,L)\to(Z,X)
+\end{equation}
+such that $\sigma_{*}([K])=[\alpha]$.
+(It may be necessary to replace $(Z,X)$ by a CW pair using the CW
+approximation at this point.) Then by the Compression Lemma, $\sigma$
+is homotopic $\rel{L}$ to a map
+\begin{equation}
+\tau\colon(K,L)\to(X,X)
+\end{equation}
+but
+\begin{equation}
+0=\tau_{*}([K])=\sigma_{*}([K])=\alpha.
+\end{equation}
+Hence the claim.
+\end{proof}
+
+\subsection{Postinikov Tower}
+
+\begin{node}
+For a space $X$, we want to build a sequence of spaces approximating it.
+\end{node}
+
+\begin{proposition}
+Given a path-connected CW complex $X$. For any $n\geq1$, we can
+construct a CW complex $X_{n}$ containing $X$ as a subspace such that
+\begin{enumerate}
+\item $\pi_{i}(X_{n})=0$ if $i>n$, and
+\item The inclusion $i_{n}\colon X\into X_{n}$ induces an isomorphism
+  on $\pi_{j}(X)\iso\pi_{j}(X_{n})$ for $j\leq n$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+It follows from the CW approximation: to get $X_{n}$, consider the
+construction applied to $f\colon X\to\point{*}$. Then start attaching
+cells of dimension at least $(n+2)$. Then this will kill
+$\pi_{i}(X_{n})$ for $i\geq n+1$, and $i_{n}\colon X\into X_{n}$ is an
+isomorphism on $\pi_{j}$ for $j\leq n$ as we only attach cells of
+dimension strictly greater than $(n+1)$.
+
+By the extension lemma applying to the inclusions
+\begin{equation}
+\vcenter{\xymatrix{X_{2} \ar@{.>}[dr] & \\
+X\ar@{^{(}->}[u]^{j_{2}}\ar@{^{(}->}[r]^{j_{1}} & X_{1}}}
+\end{equation}
+we have an extension from $X_{2}$ to $X_{1}$ (since the dimension of
+cells in $X_{2}\setminus X_{1}$ is $2+2=4$, and $\pi_{i}(X_{1})=0$ for $i\geq2$.)
+Then we have a tower by iteratively doing this:
+\begin{equation}
+\vcenter{\xymatrix{ & \vdots\ar[d] \\
+& X_{2}\ar[d] \\
+X\ar@{^{(}->}[uur]\ar@{^{(}->}[ur]^{j_{2}}\ar@{^{(}->}[r]^{j_{1}} & X_{1}}}
+\end{equation}
+This vertical tower of $X_{n}$ is precisely the \define{Postinikov Tower}.
+\end{proof}

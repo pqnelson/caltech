@@ -1,0 +1,78 @@
+%%
+%% winter-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-22T12:45:09-0800
+%% Last update 2026-01-22T12:45:09-0800
+%% 
+
+\lecture{}
+
+\begin{proposition}\label{prop:6.1}
+For a field $F$ such that $\Char(F)=p>0$ and any irreducible polynomial
+$P(x)\in F[x]$, there exists an $\mu\in\NN_{0}$ such that all the
+roots of $P$ have multiplicity $p^{\mu}$. Moreover,
+\begin{equation}
+[F(\alpha):F]=p^{\mu}[F(\alpha):F]_{s},
+\end{equation}
+and $\alpha^{p^{\mu}}$ is separable over $F$.
+\end{proposition}
+
+\begin{corollary}\label{cor:6.2}
+For any finite extension $E/F$, the separable extension $[E:F]_{s}$
+divides the degree $[E:F]$.
+
+Moreover, if $p\nmid[E:F]$ where $p=\Char(F)=\Char(E)$, then $E/F$ is separable.
+\end{corollary}
+
+\begin{definition}
+For any algebraic extension $E/F$, the \define{Inseparable Degree}
+$[E:F]_{i}=[E:\separableclosure{F}{E}]$ where
+$\separableclosure{F}{E}$ is the separable closurer of $F$ in
+$E$. (Note: $E/F$ is separable if and only if $[E:F]_{i}=1$.)
+
+We call the algebraic extension $E/F$ \define{Purely Inseparable}
+if every $\alpha\in E\setminus F$ is inseparable (= not separable)
+over $F$.
+\end{definition}
+
+\begin{proposition}\label{prop:6.3}
+For $\Char(F)=p>0$ and for any algebraic extension $E/F$, we have
+$E/F$ is purely inseparable if and only if any $a\in E/F$ there is an
+$n\in\NN_{0}$ suchthat $a^{p^{n}}\in F$ (equivalently, every $a\in E/F$
+has its minimal polynomial be $x^{p^{n}}-a^{p^{n}}=(x-a)^{p^{n}}$).
+\end{proposition}
+
+\begin{proposition}\label{prop:6.4}
+For any algebraic extension $E/F$, the extension $E/\separableclosure{F}{E}$
+is purely inseparable.
+\end{proposition}
+
+\begin{proposition}\label{prop:6.5}
+For any algebraic extension $[E:F]_{s}=[\separableclosure{F}{E}:F]$.
+\end{proposition}
+
+\begin{corollary}\label{cor:6.6}
+For a tower of algebraic extensions $L/E/F$, we have
+\begin{equation*}
+[L:F]_{i}=[L:E]_{i}[E:F]_{i}.
+\end{equation*}
+\end{corollary}
+
+\begin{proposition}\label{prop:6.7}
+For any algebraic extension $E/F$, this is purely inseparable if and
+only if $[E:F]_{s}=1$. Moreover, if $E/F$ is both separable and purely
+inseparable, then $E=F$.
+\end{proposition}
+
+\begin{corollary}\label{cor:6.8}
+The class of inseparable extensions is distinguished, i.e.,:
+\begin{enumerate}
+\item If $L/E/F$ are extensions, and if $L/F$ is purely inseparable,
+  then both $L/E$ and $E/F$ are purely inseparable; and
+\item If $E/K$ is purely inseparable and $F/K$ is any other field
+  extension, then $EF/F$ is purely inseparable.
+\end{enumerate}
+\end{corollary}

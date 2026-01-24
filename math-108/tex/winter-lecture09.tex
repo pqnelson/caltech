@@ -1,0 +1,191 @@
+%%
+%% winter-lecture09.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-24T10:13:32-0800
+%% Last update 2026-01-24T10:13:32-0800
+%% 
+
+\lecture{}
+
+\begin{proof}[Proof (Continued)]
+We found disjoint rectangles $R_{j}$ such that
+$m(E\symdiff\bigcup_{j}R_{j})\leq2\varepsilon$. This gives us
+$f=\chi_{\bigcup_{j}R_{j}}$ except on a set of measure $2\varepsilon$.
+
+Now, we define the sequence: for each $k\geq1$, choose the step
+function $\psi_{k}$ such that if we define the error set
+\begin{equation}
+E_{k}=\{x\mid f(x)\neq\psi_{k}(x)\},
+\end{equation}
+then (picking $\varepsilon$ appropriately)
+\begin{equation}
+m(E_{k})\leq2^{-k}.
+\end{equation}
+
+The next step is the tail of errors: Let
+\begin{equation}
+F_{k}=\bigcup^{\infty}_{j=k}E_{k}
+\end{equation}
+be the set where $\psi_{j}$ fails at least one point for $j\geq k$.
+Then we have
+\begin{subequations}
+  \begin{align}
+m(F_{K}) &\leq\sum^{\infty}_{j=K}m(E_{j})\quad\mbox{by subadditivity}\\
+&\leq\sum^{\infty}_{j=K}2^{-j}=2^{-(K-1)}.
+  \end{align}
+\end{subequations}
+Now let
+\begin{equation}
+F=\bigcap^{\infty}_{K=1}F_{K}
+\end{equation}
+be the set of points which belong to infinitely many error sets (the
+``bad points''). Then
+\begin{subequations}
+  \begin{align}
+m(F) &\leq m(F_{K})\quad\mbox{for any }K\\
+&\leq\frac{1}{2^{K-1}}\quad\mbox{for any }K.
+  \end{align}
+\end{subequations}
+Then $m(F)=0$.
+
+Why does $x\notin F$ imply convergence? If $x\notin F$, then there
+exists an integer $K\in\NN$ such that $x\notin F_{K}$. This means
+\begin{equation}
+x\notin\bigcup^{\infty}_{j=K}E_{j},
+\end{equation}
+that is to say, for all $j\geq K$ such that $x\notin E_{j}$. Then by
+definition of the error sets $E_{j}$, this means
+\begin{equation}
+\psi_{j}(x)=f(x)
+\end{equation}
+for all $j\geq K$. This means $(\psi_{j}(x))_{j\in\NN}$ converges to
+$f(x)$ and eventually [at some $j$] becomes constant. So $\psi_{k}\to f$
+almost everywhere.
+\end{proof}
+
+\begin{remark}
+Recall, we mentioned Littlewood's 3 principles. We stated:
+\begin{enumerate}
+\item Every measurable set is \emph{nearly} a finite union of rectangles
+\item Every function is \emph{nearly} continuous
+\item Every convergent sequence is \emph{nearly} uniformly convergent.
+\end{enumerate}
+(Here ``nearly'' means ``except on a set of measure $\varepsilon$''.)
+
+We will discuss Littlewood's third principle, which takes the form of
+Egorov's theorem.
+\end{remark}
+
+\begin{example}
+Recall, the epitome of a convergent sequence of functions which is not
+uniformly convergent: $f_{n}(x)=x^{n}$ defined on $[0,1]$. This
+converges pointwise to
+\begin{equation}
+f(x)=\begin{cases}1 & \mbox{if }x=1\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+We have $f_{n}\to f$ pointwise, and uniformly on $[0,1)=[0,1]\setminus\{1\}$
+where $m(\{1\})=0$ as promised.
+\end{example}
+
+\begin{example}[Escape to infinity]
+An important hypothesis of Littlewood's third principle is that the
+sequence of functions are defined on a set $E$ of finite measure
+$m(E)<\infty$. Otherwise, we run into problems. This example will show
+one such situation.
+
+Consider the sequence of functions
+\begin{equation}
+f_{n}=\chi_{[n,n+1]}.
+\end{equation}
+This converges pointwise to the zero function $f_{n}\to 0$ since
+eventually, for any $x\in\RR$, there will be an $N\geq x$ and all
+$n\geq N$ will have $f_{n}(x)=0$. But uniform convergence fails
+because for all $n$,
+\begin{equation}
+\sup_{x}|f_{n}(x)-0|=1,
+\end{equation}
+so it is not uniformly convergent. To make this uniform for \emph{all}
+$n$, we would need to delete
+\begin{equation}
+\bigcup_{n\in\NN}[n,n+1]=[1,+\infty),
+\end{equation}
+which is not a measure zero set.
+\end{example}
+
+\begin{theorem}[Egorov]% Stein, Shakarchi, Real Analysis, Theorem 4.4
+Let $E$ be a measurable set. Assume $m(E)<\infty$. Let $(f_{n})_{n\in\NN}$
+be a sequence of measurable functions defined on $E$. Suppose
+$(f_{n})\to f$ converges almost everywhere on $E$ (i.e., pointwise
+convergence on $E\setminus N$, where $N$ is some null set).
+Then for each $\varepsilon>0$, there is a corresponding closed set
+$A_{\varepsilon}\subset E$ such that
+\begin{enumerate}
+\item $m(E\setminus A_{\varepsilon})<\varepsilon$ (this is the
+  ``nearly'' part), and
+\item $f_{n}\to f$ uniformly on $A_{\varepsilon}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(We will adopt the following modified definition of pointwise
+  convergence: for each $n\in\NN$ there exists a $K\in\NN$ such that
+  for all $k\geq K$ we have $|f_{k}(x)-f(x)|<1/n$.)
+
+Step 2 (Set of slow convergence). Define
+\begin{equation}
+E_{n}(k)=\bigcup_{j=k}^{\infty}\{x\in E\mid |f_{j}(x)-f(x)|\geq1/n\},
+\end{equation}
+which is the set of points where the approximation fails to be $1/n$
+close at least once after step $k$. As $k$ increases, we are demanding
+failures happen later and later. But since the sequence converges,
+eventually there'll be no failures.
+
+Step 3 (Continuity of measures). We see
+\begin{equation}
+E_{n}(1)\supset E_{n}(2)\supset E_{n}(3)\supset\dots
+\end{equation}
+By hypothesis, $E\supset E_{n}(1)$ and $m(E)\geq m(E_{n}(1))$ is finite.
+We find
+\begin{equation}
+\bigcap^{\infty}_{k=1}E_{n}(k)=\bigcap^{\infty}_{k=1}\bigcup^{\infty}_{j=k}\{x\in E\mid|f_{j}(x)-f(x)|<1/n\}=N
+\end{equation}
+is a null set. We also use the hypothesis $m(E)<\infty$ to conclude
+\begin{equation}
+\lim_{k\to\infty}m(E_{n}(k))=0.
+\end{equation}
+
+Step 4 (Building the set). Let $\varepsilon>0$. For each $n$ (measure
+of closeness) choose an integer $k_{n}\in\NN$ such that
+\begin{equation}
+m(E_{n}(k_{n})) < \frac{\varepsilon}{2^{n}}.
+\end{equation}
+(This just repackages the $\lim_{k\to\infty}m(E_{n}(k))=0$ condition.)
+The total ``bad set'' is
+\begin{equation}
+B = \bigcup^{\infty}_{n=1}E_{n}(k_{n}).
+\end{equation}
+Its measure
+\begin{equation}
+m(B)\leq\sum^{\infty}_{n=1}m(E_{n}(k_{n}))<\sum^{\infty}_{k=1}\frac{\varepsilon}{2^{k}}=\varepsilon.
+\end{equation}
+
+Step 5 (Verify uniformity). We take
+\begin{equation}
+A_{\varepsilon}=E\setminus B.
+\end{equation}
+We have verified $m(E\setminus A_{\varepsilon})<\varepsilon$. We just
+need to verify uniform convergence: for any $\delta>0$ pick $n\in\NN$
+such that $(1/n)<\delta$. If $x\in A_{\varepsilon}$, then $x\notin B$,
+so $x\notin E_{n}(k_{n})$. For all $j\geq k_{n}$,
+\begin{equation}
+|f_{j}(x)-f(x)|<\frac{1}{n}<\delta.
+\end{equation}
+Here $k_{n}$ depends only on $n$ (not on $x$), so $\delta$ depends
+only on $n$ (not on $x$). Hence the convergence is uniform. (Next time
+we will prove $A_{\varepsilon}$ is a closed set.)
+\end{proof}

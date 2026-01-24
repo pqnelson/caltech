@@ -10,6 +10,9 @@
 
 \RequirePackage{amssymb,amsmath}
 
+% Their "recommended"  format for citing the stacks project
+\def\stackscite#1{\cite[\href{https://stacks.math.columbia.edu/tag/#1}{Tag #1}]{stacks-project}}
+
 \newcommand\card[1]{|#1|} % cardinality
 \DeclareMathOperator\length{length}
 
@@ -30,6 +33,8 @@
 
 \DeclareMathOperator\Annihilator{Ann}
 \DeclareMathOperator\Support{Supp}
+
+\newcommand\MultGroup[1]{#1^{\times}}
 
 % Stacks project uses this notation https://stacks.math.columbia.edu/tag/030D
 \DeclareMathOperator\trdeg{trdeg} % transcendental degree

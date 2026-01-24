@@ -1,0 +1,264 @@
+%%
+%% winter-lecture09.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-24T08:04:37-0800
+%% Last update 2026-01-24T08:04:37-0800
+%% 
+
+\lecture[Finite Galois theory]{}
+
+\begin{definition}
+We call the field extension $E/F$ a \define{Galois extension}
+if it is normal and separable.
+\end{definition}
+
+\begin{definition}
+For any Galois extension $E/F$, we define its \define{Galois Group}
+$\Gal(E/F):=\Aut_{F}(E)=\End_{F}(E)\iso\End_{F}(E,\closure{F})$.
+\end{definition}
+
+\begin{note}
+By Proposition~\ref{prop:3.4} and Proposition~\ref{prop:4.3}, we have:
+\begin{enumerate}
+\item For any field extensions $L/E$ and $E/F$, if $L/F$ is Galois,
+  then $L/E$ and $E/F$ are both Galois
+\item If $E_{1}/F$ is Galois and $E_{2}/F$ is Galois, then
+  $E_{1}E_{2}/E_{1}$ and $E_{1}E_{2}/E_{2}$ are both Galois
+\item If $E_{1}/F$ and $E_{2}/F$ are both Galois extensions, then
+  both $(E_{1}\cap E_{2})/F$ and $E_{1}E_{2}/F$ are both Galois.
+\end{enumerate}
+\end{note}
+
+\begin{remark}
+In this section, we consider only \emph{finite} Galois extensions.
+\end{remark}
+
+\begin{fundamental-thm-galois-thy}[Finite extension version]\label{thm:7.1}
+Let $L/F$ be a finite Galois extension with $G=\Gal(L/F)$. Let
+\begin{subequations}
+  \begin{align}
+\mathcal{E} &= \{\mbox{all intermediate field extensions } L/E/F\},
+\intertext{and}
+\mathcal{H} &= \{\mbox{subgroups }H\subgroup G\}
+  \end{align}
+\end{subequations}
+We define
+\begin{equation}
+\begin{split}
+\Phi\colon & \mathcal{E}\to\mathcal{H}\\
+& E\mapsto\Gal(L/E),
+\end{split}
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+\Psi\colon & \mathcal{H}\to\mathcal{E}\\
+& H\mapsto L^{H},
+\end{split}
+\end{equation}
+where $L^{H}=\{\alpha\in L\mid\forall\sigma\in H\ldotp\sigma(\alpha)=\alpha\}$.
+For $E=L^{H}$ and $H=\Gal(L/E)$ we denote this relation by $E\sim H$.
+Then
+\begin{enumerate}
+\item $\Phi^{-1}=\Psi$ and $\Psi^{-1}=\Phi$
+\item Let $E_{i}\sim H_{i}$ for $i=1,2$. Then $E_{1}\subset E_{2}$
+  if and only if $H_{1}\supset H_{2}$
+\item Let $E_{i}\sim H_{i}$ for $i=1,2$. Then $E_{1}E_{2}\sim H_{1}\cap H_{2}$
+  and $E_{1}\cap E_{2}\sim\langle H_{1},H_{2}\rangle$.
+\item For $E\sim H$ and $\varphi\in G$, then $\varphi(E)\sim\varphi H\varphi^{-1}$
+\item For $E\sim H$ and $E/F$ is Galois, then $H\normalsubgroup G$ is
+  a normal subgroup of $G$.
+\end{enumerate}
+\end{fundamental-thm-galois-thy}
+
+The proof of the fundamental theorem of Galois theory will be delayed
+until next week.
+
+\begin{lemma}[Dedekind's theorem]\label{lemma:7.2}
+Let $M/F$ and $N/F$ be arbitrary field extensions. Let $f_{1}$, \dots,
+$f_{n}\in\hom_{F}(M,N)$ be distinct. Then $f_{1}$, \dots, $f_{n}$ are distinct.
+\end{lemma}
+
+\begin{proof}
+By induction on $n$. The base case $n=1$ is obvious.
+
+Suppose
+\begin{equation}
+\sum^{n+1}_{j=1}a_{j}f_{j}=0,
+\end{equation}
+where $a_{j}\in N$. Since $f_{1}\neq f_{2}$, there exists an $x\in M$
+such that $f_{1}(x)\neq f_{2}(x)$.
+Then for all $y\in M$ we have
+\begin{subequations}
+  \begin{align}
+0 &= \sum^{n+1}_{j=1}a_{j}f_{j}(xy) = \sum^{n+1}_{j=1}a_{j}f_{j}(x)f_{j}(y)\\
+  &= f_{1}(x)\cdot0=f_{1}(x)\sum^{n+1}_{j=1}a_{j}f_{j}(y)=\sum^{n+1}_{j=1}a_{j}f_{1}(x)f_{j}(y).
+  \end{align}
+\end{subequations}
+Then subtracting the second line from the first equation, we obtain
+\begin{equation}
+0=\sum^{n+1}_{j=2}a_{j}\bigl(f_{j}(x)-f_{1}(x)\bigr)f_{j}.
+\end{equation}
+Then by the inductive hypothesis
+\begin{equation}
+a_{j}(f_{j}(x)-f_{1}(x))f_{j}=0
+\end{equation}
+for all $j=2,\dots,n+1$. Then by assumption
+\begin{equation}
+a_{j}(f_{j}(x)-f_{1})=0,
+\end{equation}
+which means that $f_{j}(x)-f_{1}(x)\neq0$ so $a_{j}=0$ for all $j$.
+\end{proof}
+
+\begin{lemma}\label{lemma:7.3}
+For any finite extension $M/F$ and arbitrary extension $N/F$, we have
+\begin{equation*}
+|\hom_{F}(M,N)|\leq[M:F].
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+Let $n=[M:F]$ and $a_{1},\dots,a_{n}\in M$ be a basis of $M$ as a
+vector space over $F$. Assume for contradiction that there exists
+distinct (and thereby linearly independent) $f_{1},\dots,f_{n+1}\in\hom_{F}(M,N)$.
+Let
+\begin{equation}
+\begin{split}
+\varphi\colon& N^{n+1}\to N^{n}\\
+&(b_{j})_{j=1}^{n+1}\mapsto\bigl(\sum^{n+1}_{j=1}b_{j}f_{j}(a_{i})\bigr)_{i=1}^{n}=(f_{j}(a_{i}))_{ij}(b_{j})_{j}
+\end{split}
+\end{equation}
+By comparing the dimension of both sides, the map is not
+injective. Then there exists a $(b_{j})_{j}\neq(0)_{j}$ such that
+\begin{equation}
+\sum_{j}b_{j}f_{j}(a_{i})=0
+\end{equation}
+for all $i$. For any
+\begin{equation}
+x=\sum_{i}^{n}c_{i}a_{i}\in M,
+\end{equation}
+where each $c_{i}\in F$, we have
+\begin{subequations}
+  \begin{align}
+\sum_{j}b_{j}f_{j}(x)
+&=\sum_{j}f_{j}\left(\sum_{i}^{n}c_{i}a_{i}\right)\\
+&=\sum_{i}c_{i}\left(\sum_{j}b_{j}f(a_{i})\right)\\
+&=\sum_{i}c_{i}\cdot0\\
+&=0.
+  \end{align}
+\end{subequations}
+Then
+\begin{equation}
+\sum_{j}b_{j}f_{j}=0,
+\end{equation}
+and each $b_{j}=0$. Hence we obtain our contradiction. Then we cannot
+take distinct $f_{1}$, \dots, $f_{n+1}$.
+\end{proof}
+
+\begin{theorem}[Artin]\label{thm:7.4}
+Let $E$ be a field, let $G\subgroup\Aut(E)$ be a finite subgroup of
+the automorphisms of $E$. Let $E^{G}$ be the fixed field of $E$. Then
+$[E:E^{G}]=|G|$ and $\Aut(E/E^{G})=G$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lemma:7.3}, let
+\begin{equation}
+n:=|G|\leq|\Aut(E/E^{G})|\leq[E:E^{G}].
+\end{equation}
+It suffices to show that $[E:E^{G}]\leq n$. 
+Set $G=\{f_{1},\dots,f_{n}\}$. Then by Lemma~\ref{lemma:7.2} these are
+linearly independent, so
+\begin{equation}
+\sum^{n}_{i=1}f_{i}(a)\neq0
+\end{equation}
+for some $a\in E$. If $[E:E^{G}]\geq n+1$, then there exists
+\emph{linearly independent} $b_{1}$, \dots, $b_{n+1}\in E$. As in the
+last lemma, we construct a map
+\begin{equation}
+\begin{split}
+E^{n+1}\to E^{n}\\
+(y_{j})_{j=1}^{n+1}\mapsto(\sum^{n+1}_{j=1}f_{i}^{-1}(b_{j})y_{j})^{n}_{i=1}
+\end{split}
+\end{equation}
+is a linear map. By the same reason, there exists a nonzero element of
+the kernel $(x_{1},\dots,x_{n+1})$ such that
+\begin{equation}
+\sum f^{-1}_{i}(b_{j})x_{j}=0
+\end{equation}
+for all $i$. We may assume that $x_{N}=a$ for some $1\leq N\leq n+1$.
+Since
+\begin{equation}
+\sum_{j}b_{j}f_{i}(x_{j})=f_{i}(\sum_{j}f^{-1}_{i}(b_{j})x_{j})=0,
+\end{equation}
+we have
+\begin{equation}
+\sum_{i}\sum_{j}b_{j}f_{i}(x_{j})=\sum_{j}\left(\sum_{i}f_{i}(x_{j})\right)b_{j}=0.
+\end{equation}
+Let us denote
+\begin{equation}
+c_{j}=\sum_{i}f_{i}(x_{j}),
+\end{equation}
+i.e., every $c_{j}\in E^{G}$. Because
+\begin{equation}
+c_{N}=\sum_{i}f_{i}(x_{N})=\sum_{i}f_{i}(a)\neq0
+\end{equation}
+by assumption, we have $(b_{j})_{j}$ are linearly dependent. But
+this contradicts the assumption that they are linearly
+indendent. Hence the result.
+\end{proof}
+
+\begin{proposition}\label{prop:7.5}
+For any finite extension $E/F$, the following are equivalent:
+\begin{enumerate}
+\item $E/F$ is a Galois extension
+\item $|\Aut(E/F)|=[E:F]$
+\item $E^{\Aut(E/F)}=F$
+\item $E$ is a splitting field of a separable polynomial in $F[x]$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$(1)\implies(2)$ $|\Aut(E/F)|=|\hom_{F}(E,\closure{F})|$ since Galois
+  extensions are normal, and $|\hom_{F}(E,\closure{F})|=[E:F]$ since
+  Galois extensions are separable. Hence the claim.
+
+$(2)\implies(3)$ By Theorem~\ref{thm:7.4},
+\begin{equation}
+[E:E^{\Aut(E/F)}]=|\Aut(E/F)|=[E:F]
+\end{equation}
+and
+\begin{equation}
+[E:F]=[E:E^{\Aut(E/F)}][E^{\Aut(E/F)}:F].
+\end{equation}
+Hence the result.
+
+$(3)\implies(4)$ For $a\in E$, write
+\begin{equation}
+S=\{\varphi(a)\mid \varphi\in\Aut(E/F)\}=\{a_{1},\dots,a_{n}\}.
+\end{equation}
+Assume $a_{1}=a$. For each $a_{i}\in S$, let
+$\varphi_{i}\in\Aut(E/F)$ be such that $\varphi_{i}(a)=a_{i}$. Let
+\begin{equation}
+P(x)=\prod^{n}_{i=1}(x-a_{i})\in E[x].
+\end{equation}
+We will show
+\begin{equation}
+P\in E^{\Aut(E/F)}[x]=F[x].
+\end{equation}
+For any $\varphi\in\Aut(E/F)$, $\varphi$ permiutes $S$. Since the
+$k^{\text{th}}$ coefficient of $P(x)$ is given by the $k^{\text{th}}$
+elementary symmetric polynomial
+\begin{equation}
+s_{k}(a_{1},\dots,a_{n})=\sum_{1\leq i_{1}<\dots<i_{k}\leq n}a_{i_{1}}(\dots)a_{i_{k}},
+\end{equation}
+which is fixed by $\varphi$. Hence $P\in E^{\Aut(E/F)}[x]=F[x]$. Let
+$p(x)$ be a minimal polynomial of $a$. Then $p\divides P$. Since $P$
+is separable, then $p$ is separable. Hence $E/F$ is separable. By
+Theorem~\ref{thm:4.5}, we may take $a$ to be a primitive element
+$E=F(a)$. Then by definition, $S$ is the set of all roots of $P$ and
+so $E$ is the splitting field of $P$.
+\end{proof}
