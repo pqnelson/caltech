@@ -1,0 +1,216 @@
+%%
+%% winter-lecture10.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-27T07:46:57-0800
+%% Last update 2026-01-27T07:46:57-0800
+%% 
+
+\lecture{}
+
+\begin{remark}
+We deferred proving the Fundamental Theorem of Galois theory until
+now. Note: we did not use it in proving any result from last lecture
+(so there is no danger of circular reasoning). Let us re-state the
+theorem, then prove it.
+\end{remark}
+
+\begin{fundamental-thm-galois-thy}[Finite extension version]
+Let $L/F$ be a finite Galois extension with $G=\Gal(L/F)$. Let
+\begin{subequations}
+  \begin{align}
+\mathcal{E} &= \{\mbox{all intermediate field extensions } L/E/F\},
+\intertext{and}
+\mathcal{H} &= \{\mbox{subgroups }H\subgroup G\}
+  \end{align}
+\end{subequations}
+We define
+\begin{equation}
+\begin{split}
+\Phi\colon & \mathcal{E}\to\mathcal{H}\\
+& E\mapsto\Gal(L/E),
+\end{split}
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+\Psi\colon & \mathcal{H}\to\mathcal{E}\\
+& H\mapsto L^{H},
+\end{split}
+\end{equation}
+where $L^{H}=\{\alpha\in L\mid\forall\sigma\in H\ldotp\sigma(\alpha)=\alpha\}$.
+For $E=L^{H}$ and $H=\Gal(L/E)$ we denote this relation by $E\sim H$.
+Then
+\begin{enumerate}
+\item $\Phi^{-1}=\Psi$ and $\Psi^{-1}=\Phi$
+\item Let $E_{i}\sim H_{i}$ for $i=1,2$. Then $E_{1}\subset E_{2}$
+  if and only if $H_{1}\supset H_{2}$
+\item Let $E_{i}\sim H_{i}$ for $i=1,2$. Then $E_{1}E_{2}\sim H_{1}\cap H_{2}$
+  and $E_{1}\cap E_{2}\sim\langle H_{1},H_{2}\rangle$.
+\item For $E\sim H$ and $\varphi\in G$, then $\varphi(E)\sim\varphi H\varphi^{-1}$
+\item For $E\sim H$ and $E/F$ is Galois, then $H\normalsubgroup G$ is
+  a normal subgroup of $G$.
+\end{enumerate}
+\end{fundamental-thm-galois-thy}
+
+Note: this is a \emph{longer} proof than normal, requiring proofs for
+5 results. We will state the claim, then have a ``subproof'' for each
+claim. Each subproof will end with a checkmark (``\checkmark'').
+
+\begin{proof}
+We assume $L/F$ is a finite Galois extension. We write
+\begin{subequations}
+\begin{equation}
+G=\Gal(L/F)=\Aut_{F}(L),
+\end{equation}
+\begin{equation}
+\mathcal{E}=\{\mbox{fields }E\mid L/E/F\}
+\end{equation}
+\begin{equation}
+\mathcal{H}=\{\mbox{subgroups }H\subgroup G\}.
+\end{equation}
+\end{subequations}
+Now, we will start proving the claims.
+
+\begin{enumerate}
+\item \textsc{Claim:} $\Phi^{-1}=\Psi$ and $\Psi^{-1}=\Phi$
+\begin{proof}[Subproof]\let\qedsymbol\checkmark
+For $E\in\mathcal{E}$, by Proposition~\ref{prop:7.5}~\ref{item:prop:7.5:3},
+  we have
+  \begin{equation}
+(\Psi\circ\Phi)(E)=\Psi(\Gal(L/E))=L^{\Gal(L/E)}=E.
+  \end{equation}
+For $H\in\mathcal{H}$, by Theorem~\ref{thm:7.4} we have
+\begin{equation}
+(\Phi\circ\Psi)(H)=\Phi(L^{H})=\Gal(L/L^{H})=H.
+\end{equation}
+Hence the result.
+\end{proof}
+%(2)
+\item\textsc{Claim:} Let $E_{i}\sim H_{i}$ for $i=1,2$. Then $E_{1}\subset E_{2}$
+  if and only if $H_{1}\supset H_{2}$
+\begin{proof}[Subproof]\let\qedsymbol\checkmark
+\forwardproof\ If $E_{1}\subset E_{2}$, then for any $f\in\Gal(L/E_{2})$ we have
+$f\in\Gal(L/E_{1})$. Hence $H_{1}\supset H_{2}$.
+
+\backwardproof\ If $H_{1}\supset H_{2}$, then for any $x\in L^{H_{1}}$
+we have $x\in L^{H_{2}}$. Hence $E_{1}\subset E_{2}$.
+\end{proof}
+%(3)
+\item\textsc{Claim:} Let $E_{i}\sim H_{i}$ for $i=1,2$. Then $E_{1}E_{2}\sim H_{1}\cap H_{2}$
+  and $E_{1}\cap E_{2}\sim\langle H_{1},H_{2}\rangle$.
+\begin{proof}[Subproof]\let\qedsymbol\checkmark
+\textsc{Step 1:} $\Gal(L/E_{1}E_{2})\subset H_{1}\cap H_{2}$.
+Since $E_{1}$, $E_{2}\subset E_{1}E_{2}$ by Item~\ref{item:thm:7.1:item-2},
+we see that
+\begin{equation}
+\Gal(L/E_{1}E_{2})\subset\Gal(L/E_{1})\cap\Gal(L/E_{2}),
+\end{equation}
+which establishes the first step.
+
+\textsc{Step 2:} $\Gal(L/E_{1}E_{2})\supset H_{1}\cap H_{2}$.
+If $f\in H_{1}\cap H_{2}$, then $f$ fixes any element of $E_{1}$ and
+$E_{2}$ (and then fixes every element of $E_{1}E_{2}$). Hence $f\in\Gal(L/E_{1}E_{2})$.
+
+(Proof of the other claim omitted.)
+\end{proof}
+%(4)
+\item\textsc{Claim:} For $E\sim H$ and $\varphi\in G$, then $\varphi(E)\sim\varphi H\varphi^{-1}$
+\begin{proof}[Subproof]\let\qedsymbol\checkmark
+For $f\in\Gal(L/\varphi(E))$ and for any $x\in E$, we have
+\begin{equation}
+(\varphi^{-1}\circ f\circ\varphi)(x)=\varphi^{-1}(f(\varphi(x)))=\varphi^{-1}(\varphi(x))=x;
+\end{equation}
+which is to say
+\begin{equation}
+\varphi^{-1}\circ f\circ\varphi\in\Gal(L/E)=H\implies f\in\varphi H\varphi^{-1}.
+\end{equation}
+Now, for any $f=\varphi g\varphi^{-1}\in\varphi H\varphi^{-1}$ (where
+$g\in H$) and for any $y=\varphi(x)\in\varphi(E)$ (where $y\in E$), we
+see
+\begin{equation}
+f(y)=\varphi g\varphi^{-1}\varphi(x)=\varphi(g(x))=\varphi(x)=y,
+\end{equation}
+which is to say $f\in\Gal(L/\varphi(E))$. Hence the claim.
+\end{proof}
+%(5)
+\item\textsc{Claim:} For $E\sim H=\Gal(L/E)$, then $E/F$ is a (finite)
+  Galois extension if and only if $H\normalsubgroup G$ is
+  a normal subgroup of $G$. Furthermore, $\Gal(E/F)\iso G/H$.
+\begin{proof}[Subproof]\let\qedsymbol\checkmark
+\textsc{Step 1:}\forwardproof\ Let $\phi\in G$. Since $E/F$ is Galois (and, in
+particular, normal), $\phi(E)=E$. That is to say
+\begin{equation}
+\Gal(L/\phi(E))=\Gal(L/E)=H
+\end{equation}
+and by Item~\ref{item:thm:7.1:item-4}, we have
+\begin{equation}
+\Gal(L/\phi(E))=\phi H\phi^{-1}.
+\end{equation}
+Hence $H$ is normal.
+
+\textsc{Step 2:}\backwardproof\ Assume $H$ is a normal subgroup. Then
+$E/F$ is separable by Proposition~\ref{prop:4.3}. We will show that
+$E/F$ is normal. Let $L\subset\closure{F}$ be the normal
+closure(?). By Proposition~\ref{prop:2.8}, for any
+$\phi\in\hom_{F}(E,\closure{F})$ is extended to
+$\overline{\phi}\in\hom_{F}(L,\closure{F})$. Since $L/F$ is normal,
+\begin{equation}
+\overline{\phi}(L)=L,
+\end{equation}
+which is to say, $\overline{\phi}\in\Gal(L/F)=G$. Since
+$H\normalsubgroup G$, we have
+\begin{equation}
+H=\overline{\phi}H\overline{\phi}^{-1}.
+\end{equation}
+By Item~\ref{item:thm:7.1:item-4},
+\begin{equation}
+E=\overline{\phi}(E)=\phi(E),
+\end{equation}
+which means $E$ is normal.
+
+\textsc{Step 3:} $\Gal(E/F)\iso G/H$. Let
+\begin{equation}
+\begin{split}
+i\colon&G\to\Gal(E/F)\\
+&\phi\mapsto\phi|_{E}.
+\end{split}
+\end{equation}
+As we checked, $i$ is surjective and
+\begin{equation}
+\phi\in\ker(i)\iff\phi|_{E}=\id_{E}\iff\phi\in H=\Gal(L/E).
+\end{equation}
+So $\Gal(E/F)\iso G/\ker(i)=G/H$.
+\end{proof}
+\end{enumerate}
+Hence the fundamental theorem of Galois theory.
+\end{proof}
+
+\begin{theorem}[Translation theorem]\label{thm:7.6}
+Let $L/E_{i}/F$ be a tower of extensions (with $i=1,2$).
+\begin{enumerate}
+\item If $E_{1}/E_{1}\cap E_{2}$ is a finite Galois extension, then so
+  is $E_{1}E_{2}/E_{2}$ and $\Gal(E_{1}/E_{1}\cap E_{2})\iso\Gal(E_{1}E_{2}/E_{2})$.
+\item If both $E_{i}/E_{1}\cap E_{2}$ are finite Galois extensions,
+  then so is $E_{1}E_{2}/E_{1}\cap E_{2}$ and
+  \begin{equation}
+\Gal\left(\frac{E_{1}E_{2}}{E_{1}\cap E_{2}}\right)\iso\Gal(E_{1}/E_{1}\cap E_{2})\times\Gal(E_{2}/E_{1}\cap E_{2})
+  \end{equation}
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}\label{cor:7.7}
+Let $E_{i}/F$ ($i=1,\dots,n$) be a finite collection of finite Galois
+extensions. Let $G_{i}=\Gal(E_{i}/F)$ be their Galois groups. If for
+each $i$ we have
+\begin{equation}
+E_{i+1}\cap(E_{1}\cdots E_{i})=F,
+\end{equation}
+then $(E_{1}\cdots E_{n})/F$ is a
+finite Galois extension and
+\begin{equation}
+\Gal((E_{1}\cdots E_{n})/F)\iso G_{1}\times\dots\times G_{n}.
+\end{equation}
+\end{corollary}

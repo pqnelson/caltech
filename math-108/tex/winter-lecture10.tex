@@ -1,0 +1,180 @@
+%%
+%% winter-lecture10.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-27T08:27:04-0800
+%% Last update 2026-01-27T08:27:04-0800
+%% 
+
+\lecture{}
+
+\begin{node}[Littlewood's 2nd principle]
+Every measurable function is ``nearly'' continuous.
+\end{node}
+
+\begin{example}
+The characteristic function $\chi_{\QQ}\colon\RR\to[0,1]$ is measurable.
+Then $\chi_{\QQ}|_{\QQ}$ is continuous and defined on $\RR\setminus N$
+where $N$ is a null set.
+\end{example}
+
+\begin{theorem}% Stein, Shakarchi, Real Analysis, Chapter I \S4 theorem 4.5
+Suppose $f\colon E\to\RR$ is measurable, and $m(E)<\infty$. Then for
+each $\varepsilon>0$ there exists a closed set $F_{\varepsilon}\subset E$
+such that
+\begin{enumerate}
+\item $m(E\setminus F_{\varepsilon})<\varepsilon$, and
+\item $f|_{F_{\varepsilon}}$ is continuous.
+\end{enumerate}
+\end{theorem}
+
+The proof strategy consitsts of 4 steps:
+\begin{enumerate}
+\item Step functions are nearly continuous
+\item Measurable functions are {a.e.} limits of step functions
+\item Egorov's theorem makes the convergence from step 2 into
+  uniformly convergent sequences on a large measurable set
+\item Uniform limits of continuous functions are continuous (which is
+  a result from last quarter, so we won't prove it, we'll just use it)
+\end{enumerate}
+
+\begin{proof}
+\textssc{Step 1:} ``Any $\psi$ becomes a $g$''. Let
+\begin{equation}
+\psi=\sum^{N}_{j=1}c_{j}\chi R_{j}
+\end{equation}
+be a step function, where the $R_{j}$ are rectangles. In general,
+$\psi$ is discontinuous on $\boundary R_{j}$. For any $\delta>0$ we
+can construct a continuous $g$ such that $g(x)=\psi(x)$ except on a
+set of measure less than $\delta$.
+
+\textsc{Step 2:} By a previous result, there exists a sequence
+$\psi_{n}$ of step functions such that $\psi_{n}\to f$ almost
+everywhere on $E$. By step 1, we can choose continuous $g_{n}$ such
+that the set of disagreements,
+\begin{equation}
+A_{n}=\{x\in E\mid \psi_{n}(x)\neq g_{n}(x)\},
+\end{equation}
+has sufficiently small measure,
+\begin{equation}
+m(A_{n})<2^{-n}.
+\end{equation}
+Then
+\begin{equation}
+\sum_{n}m(A_{n})\leq\sum_{n}2^{-n}<\infty.
+\end{equation}
+Now we can use Borel--Cantelli Theorem,
+\begin{equation}
+\limsup_{n\to\infty}A_{n}=0.
+\end{equation}
+This means that $\psi_{n}=g_{n}$ almost everywhere eventually (i.e.,
+for sufficiently large $n$). This gives us $g_{n}\to f$ almost
+everywhere. (This $f$ may not be continuous, and in general it is
+not.)
+
+\textsc{Step 3:} By Egorov, there exists a closed measurable set
+$F_{\varepsilon}\subset E$ such that
+\begin{equation}
+m(E\setminus F_{\varepsilon})\leq\varepsilon,
+\end{equation}
+and $F_{\varepsilon}$ is closed, and $g_{n}\to f$ uniformly on $F_{\varepsilon}$.
+
+\textsc{Step 4:} Each $g_{n}$ is continuous on $\RR^{d}$. So
+$g_{n}|_{F_{\varepsilon}}$ is cotninuous on $F_{\varepsilon}$. Since
+$g_{n}\to f$ uniformly on $F_{\varepsilon}$, the limit is continuous.
+\end{proof}
+
+\subsection{Integration Theory}
+
+\begin{node}
+Why does Riemann integration fail? Well, remember, the strategy for
+Riemann integration is to compute something like
+\begin{equation}
+\int f(x)\approx\sum_{k}f(x^{*}_{k})\,\Delta x_{k}.
+\end{equation}
+But when $f(x)$ is highly oscillatory, this approach fails.
+
+We will introduce Lebesgue integration on simple functions, then on
+integrable functions.
+\end{node}
+
+\begin{definition}
+A simple function $\varphi$ on $\RR^{d}$ is said to be in
+\define{Canonical Form} if it is
+\begin{equation}
+\varphi(x)=\sum^{N}_{j=1}a_{j}\chi_{E_{j}}(x)
+\end{equation}
+where $a_{j}\in\RR$ are finite real numbers, and the $E_{j}$ are
+measurable, finite measure, and pairwise disjoint.
+\end{definition}
+
+\begin{remark}
+We should prove that every simple function may be written in canonical
+form. It's obvious, but it's also true.
+\end{remark}
+
+\begin{definition}
+Let $\varphi$ be a simple function in canonical form,
+\begin{equation}
+\varphi(x)=\sum^{N}_{j=1}a_{j}\chi_{E_{j}}(x).
+\end{equation}
+Then its \define{Integral} is
+\begin{equation}
+\int\varphi(x)\,\D x=\sum^{N}_{j=1}a_{j}m(E_{j}).
+\end{equation}
+\end{definition}
+
+\begin{caution}
+We may have well-definedness issues: if $\varphi$ can be defined in
+many different ways (e.g., $\chi_{[0,1]}+\chi_{[1,2]}$ and $\chi_{[0,2]}$)
+then our definition should not depend on the representation used.
+\end{caution}
+
+\begin{lemma}
+Let $\varphi\geq0$ be a simple function defined on $\RR^{d}$.
+Suppose we have two representations for it:
+\begin{equation}
+\varphi=\sum^{M}_{j=1}a_{j}\chi_{E_{j}}=\sum^{N}_{k=1}b_{k}\chi_{F_{k}}
+\end{equation}
+where $a_{j}\in\RR$, $b_{k}\in\RR$, and the $E_{j}$ and $F_{k}$ are
+measurable sets (the $E_{j}$ are disjoint with themselves, the $F_{k}$
+are disjoint with themselves, but the $E_{j}$ is not necessarily
+disjoint with the $F_{k}$). Then
+\begin{equation}
+\sum^{M}_{j=1}a_{j}m(E_{j})=\sum^{N}_{k=1}b_{k}m(F_{k})
+\end{equation}
+(i.e., the integral of $\varphi$ is well-defined).
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Define a common refinement
+\begin{equation}
+G_{jk}=E_{j}\cap F_{k},
+\end{equation}
+for $1\leq j\leq M$ and $1\leq k\leq N$. Then the $G_{jk}$ are all
+pairwise disjoint, and they're all measurable. We have
+\begin{equation}
+E_{j}=\bigcup_{k=1}G_{jk}
+\end{equation}
+and
+\begin{equation}
+F_{k}=\bigcup_{j=1}G_{jk}.
+\end{equation}
+On each $G_{jk}$, we have $\varphi=a_{j}=b_{k}$ whenever
+$m(G_{jk})>0$. (When $m(G_{jk})=0$, we just ignore it.) Since both are
+equal to $\varphi$ pointwise, we have
+\begin{subequations}
+  \begin{align}
+\sum^{M}_{j=1}a_{j}m(E_{j})
+&=\sum^{M}_{j=1}a_{j}\left(\sum^{N}_{k=1}m(G_{jk})\right)\quad\mbox{by finite additivity}\\
+&=\sum_{j}\sum_{k}(a_{j}m(G_{jk}))\quad\mbox{distributivity}\\
+&=\sum_{k}\sum_{j}(a_{j}m(G_{jk}))\quad\mbox{distributivity}\\
+&=\sum_{k}\sum_{j}(b_{k}m(G_{jk}))\quad\mbox{since $a_{j}=b_{k}$ on $G_{jk}$}\\
+&=\sum_{k}b_{k}\sum_{j}(m(G_{jk}))\quad\mbox{distributivity}\\
+&=\sum_{k}b_{k}m(F_{k})\quad\mbox{by finite additivity}
+  \end{align}
+\end{subequations}
+Hence the claim.
+\end{proof}

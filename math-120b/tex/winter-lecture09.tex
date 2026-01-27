@@ -64,13 +64,14 @@ For $E=L^{H}$ and $H=\Gal(L/E)$ we denote this relation by $E\sim H$.
 Then
 \begin{enumerate}
 \item $\Phi^{-1}=\Psi$ and $\Psi^{-1}=\Phi$
-\item Let $E_{i}\sim H_{i}$ for $i=1,2$. Then $E_{1}\subset E_{2}$
+\item\label{item:thm:7.1:item-2} Let $E_{i}\sim H_{i}$ for $i=1,2$. Then $E_{1}\subset E_{2}$
   if and only if $H_{1}\supset H_{2}$
 \item Let $E_{i}\sim H_{i}$ for $i=1,2$. Then $E_{1}E_{2}\sim H_{1}\cap H_{2}$
   and $E_{1}\cap E_{2}\sim\langle H_{1},H_{2}\rangle$.
-\item For $E\sim H$ and $\varphi\in G$, then $\varphi(E)\sim\varphi H\varphi^{-1}$
-\item For $E\sim H$ and $E/F$ is Galois, then $H\normalsubgroup G$ is
-  a normal subgroup of $G$.
+\item\label{item:thm:7.1:item-4} For $E\sim H$ and $\varphi\in G$, then $\varphi(E)\sim\varphi H\varphi^{-1}$
+\item For $E\sim H=\Gal(L/E)$, then $E/F$ is a (finite)
+  Galois extension if and only if $H\normalsubgroup G$ is
+  a normal subgroup of $G$. Furthermore, $\Gal(E/F)\iso G/H$.
 \end{enumerate}
 \end{fundamental-thm-galois-thy}
 
@@ -216,7 +217,7 @@ For any finite extension $E/F$, the following are equivalent:
 \begin{enumerate}
 \item $E/F$ is a Galois extension
 \item $|\Aut(E/F)|=[E:F]$
-\item $E^{\Aut(E/F)}=F$
+\item\label{item:prop:7.5:3} $E^{\Aut(E/F)}=F$
 \item $E$ is a splitting field of a separable polynomial in $F[x]$
 \end{enumerate}
 \end{proposition}
@@ -261,4 +262,18 @@ is separable, then $p$ is separable. Hence $E/F$ is separable. By
 Theorem~\ref{thm:4.5}, we may take $a$ to be a primitive element
 $E=F(a)$. Then by definition, $S$ is the set of all roots of $P$ and
 so $E$ is the splitting field of $P$.
+
+% (4)\implies(1) was part of the next lecture, but fits better here
+$(4)\implies(1)$ Assume $E$ is a splitting field for a separable
+polynomial $f\in F[x]$. We want to prove $E/F$ is Galois. We have
+\begin{equation}
+E=F(a_{1},\dots,a_{n})
+\end{equation}
+for
+\begin{equation}
+f(x)=\prod_{i=1}^{n}(x-a_{i}).
+\end{equation}
+By Theorem~\ref{thm:3.3}, $E/F$ is normal. Since thte minimal
+polynomial $f_{i}$ of $a_{i}$ divides $f$, we see $f_{i}$ (and
+therefore $a_{i}$) are separable. Hence $E/F$ is also separable.
 \end{proof}
