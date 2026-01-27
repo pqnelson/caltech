@@ -1,0 +1,233 @@
+%%
+%% winter-lecture10.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-27T08:55:20-0800
+%% Last update 2026-01-27T08:55:20-0800
+%% 
+
+\lecture[Fiber Products]{}
+
+% Gues Lecturer: Dr Mantovan
+
+\begin{node}
+If $X$ is a scheme and $U\subset X$ is an open subset, then
+$(U,\sheaf{O}_{X}|_{U})$ has a natural scheme structure. But for
+closed subsets $F\subset X$, we can ask if it has a natural scheme
+structure. The problem is that there are \emph{many distinct} natural
+scheme structures we could give it.
+
+We have seen one natural scheme structure, the reduced scheme structure.
+\end{node}
+
+\begin{definition}[Fiber product of sets]
+For sets $X$, $Y$, $S$ and maps $f_{X}\colon X\to S$ and $f_{Y}\colon Y\to S$
+we define the \define{Fiber Product} to be the set
+\begin{equation}
+X\times_{S}Y:=\{(x,y)\in X\times Y\mid f_{X}(x)=f_{Y}(y)\}\subset X\times Y.
+\end{equation}
+\end{definition}
+
+\begin{remark}
+Since $X\times_{S}Y\subset X\times Y$, there are natural maps
+$q_{X}\colon X\times_{S}Y\to X$ and $q_{Y}\colon X\times_{S}Y\to Y$
+given by the projection maps.
+\end{remark}
+
+\begin{example}
+If $S=\{*\}$ is a singleton, then $X\times_{S}Y=X\times Y$.
+\end{example}
+
+\begin{example}
+If $f_{X}(X)\cap f_{Y}(Y)=\emptyset$, then $X\times_{S}Y=\emptyset$.
+\end{example}
+
+\begin{example}
+If $X\subset S$ and $Y\subset S$, using the inclusions $f_{X}(x)=x$
+and $f_{Y}(y)=y$, then the fiber product is isomorphic to the
+intersection $X\times_{S}Y\iso X\cap Y\subset S$ with the
+isomorphism given by $(z,z)\mapsfrom z$.
+\end{example}
+
+\begin{example}
+If $X\subset S$ and $Y\subset S$, if we have $f_{X}\colon X\to Y$ and 
+and the inclusion $f_{Y}(y)=y$, then the fiber product is isomorphic
+to the pre-image of $f$, i.e., $X\times_{S}Y\iso f^{-1}(Y)\subset S$ with the
+isomorphism given by $(z,f_{X}(z))\mapsfrom z$.
+\end{example}
+
+\begin{proposition}
+$\hom(*,X\times_{S}Y)=\hom(*,X)\times_{\hom(*,S)}\hom(*,Y)$
+\end{proposition}
+
+(This was surprising to me, because we have not discussed Yoneda's lemma.)
+
+\begin{proof}
+  This is because we have natural maps $q_{X}$ and $q_{Y}$ with
+  \begin{equation}
+f_{X}\circ q_{X}=f_{Y}\circ q_{Y}.
+  \end{equation}
+  Then any map $\varphi\colon *\to X\times_{S}Y$ satisfies
+\begin{equation}
+\vcenter{\xymatrix{
+  {*}\ar[dr]^{\varphi}\ar@/^/[drr]^{\varphi_{Y}}\ar@/_/[ddr]_{\varphi_{X}}&&\\
+&X\times_{S}Y\ar[d]^{f_{X}}\ar[r]^{q_{Y}} & Y\ar[d]^{f_{Y}}\\
+&X\ar[r]^{f_{X}} & S}}
+\end{equation}
+which will give us the universal property of the fiber product.
+\end{proof}
+
+\begin{remark}
+This will give us a natural way to construct closed subschemes.
+\end{remark}
+
+\begin{definition}
+Let $X$, $Y$, $Z$ be schemes and $f_{X}\colon X\to S$ and $f_{Y}\colon Y\to S$
+be scheme morphisms. The \define{Fiber Product} $W=X\times_{S}Y$ is a
+scheme (if it exists) such that for any scheme $Z$ we have
+\begin{equation}
+\hom(Z,W)=\hom(Z,X)\times_{\hom(Z,S)}\hom(Z,Y).
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+The fiber product of schemes exists.
+\end{theorem}
+
+Proving this is done in several steps. The basic idea is to prove the
+fiber product of affine schemes exists, then carefully glue things
+together. However, the proof is not terribly useful at this stage,
+because more powerful machinery will be given in a few lectures (so
+why waste time learning something which will quickly become
+obsolete?).
+
+For the proof, see (e.g.): Hartshorne~\cite[Theorem II.3.3]{hartshorne1977algebraic},
+Vakil~\cite[\S10.1]{vakil2025rising}.
+
+But we can use the fiber product of schemes to define the intersection
+of schemes and the fiber for a scheme.
+
+\begin{definition}
+Let $Z_{1}$, $Z_{2}$ be closed subschemes of $X$. Then we define their
+\define{Intersection} $Z_{1}\cap Z_{2}:=Z_{1}\times_{X} Z_{2}$.
+\end{definition}
+
+\begin{definition}
+Let $f\colon X\to Y$ be a scheme morphism. Let $y\in Y$. Define the
+\define{Fiber of $y$ over $f$} by $X_{y}:=X\times_{Y}\{y\}$ where
+$\{y\}\iso\Spec(\kk(y))$. It makes sense when we write the commutative
+diagram as
+\begin{equation}
+\vcenter{\xymatrix{X\ar[r]^{f} & Y\\
+X_{y}\ar[u]\ar[r] &\ar[u] y\iso\Spec(\kk(y))}}
+\end{equation}
+\end{definition}
+
+\begin{example}[Extending the base field]
+Let $k\subset K$ be a subfield, let $X$ be a $k$-scheme.
+Then $X_{K}=X\times_{\Spec(k)}\Spec(K)$.
+\end{example}
+
+\begin{example}
+Let $L/k$ be a field, $\closure{k}=K/k$ be its algebraic closure. Let
+$X=\Spec(L)$. Then $X\to\Spec(k)$. So $X$ is a point, but $X_{K}$ is
+no longer a point since
+\begin{equation}
+L\otimes_{k}\closure{k}=\prod_{\hom_{k}(L,\closure{k})}\closure{k}
+\end{equation}
+is just a copy of $\closure{k}$ for each $k$-linear embedding $L\into\closure{k}$.
+
+For concreteness, have $k=\QQ$, $L=\QQ[x]/(f(x))$ for some irreducible
+$f(x)\in\QQ[x]$, then by the Chinese remainder theorem
+\begin{subequations}
+  \begin{align}
+L\otimes\closure{k}
+&=\prod\closure{k}\\
+&=\frac{\closure{k}[x]}{f(x)=\prod(x-\alpha_{i})}
+  \end{align}
+\end{subequations}
+\end{example}
+
+\begin{example}[Intersection of 2 reduced schemes need not be reduced]
+  In $\AA^{2}=X$, consider
+  \begin{equation}
+Z_{1}=\Spec(k[x,y]/(y-x^{2})),
+  \end{equation}
+  and
+  \begin{equation}
+Z_{2}=\Spec(k[x,y]/(y)).
+  \end{equation}
+Then the intuition to have is, just as we have ideals $I,J\ideal A$,
+that $\Spec(A)\supset\Spec(A/I)$ and $\Spec(A)\supset\Spec(A/J)$ and
+we want to compute
+\begin{equation}
+A\onto (A/I)\otimes_{A}(A/J)
+\end{equation}
+and its kernel is $I+J\ideal A$. Then $Z_{1}\cap Z_{2}$ corresponds to
+the ideal $(y-x^{2},y)=(y,x^{2})$ which is a ``double point''.
+\end{example}
+
+\begin{example}
+Fiber of a map (where for concreteness we can pretend $k=\CC$),
+\begin{equation}
+\begin{split}
+k[y]\to k[x,y]\\
+y\mapsto x^{2}
+\end{split}
+\end{equation}
+Then $y=a\in\CC$ we consider $X_{y}=\Spec(k[x]/(x^{2}-a))$ and we have
+the tensor product $\CC[x,y]\otimes_{\CC[y]}\CC$ where $y\mapsto a$
+describes how to do this tensor product.
+
+Now, if we instead take $k=\RR$. Then $\RR[x]/(x^{2}-a)$ is what we
+look at. If $a>0$ we get $2$ real points. If $a=0$ we get a double
+point. If $a<0$ we get 1 complex point.
+\end{example}
+
+\begin{example}[An interesting map]
+Let $X$ be a scheme over $S$---these are all $\FF_{p}$ schemes. We
+know the Frobenius map
+\begin{equation}
+\begin{split}
+\Frob_{S}\colon&S\to S\\
+&x\mapsto x^{p}.
+\end{split}
+\end{equation}
+Moreover for any ring morphism $f$,
+\begin{equation}
+f(x^{p})=f(x)^{p},
+\end{equation}
+i.e., the Frobenius map commutes with $f$. So we have
+\begin{equation}
+\vcenter{\xymatrix{X\ar[d]\ar[r]^{\Frob_{X}} & X\ar[d]\\
+S\ar[r] & S}}
+\end{equation}
+Now, we consider
+\begin{equation}
+\vcenter{\xymatrix{X^{(p)}\ar[d]\ar[r] & X\ar[d]\\
+S\ar[r] & S}}
+\end{equation}
+where
+\begin{equation}
+X^{(p)}=X\times_{S}S
+\end{equation}
+is the fiber product (where $f_{S}=\Frob_{S}$). The universal property
+of the fiber product gives us
+\begin{equation}
+\vcenter{\xymatrix{
+X\ar@{.>}[dr]^{\Frob}\ar@/^1pc/[drr]^{\Frob_{X}}\ar@/_1pc/[ddr]_{f_{X}}&&\\
+& X^{(p)}\ar[d]^{f_{X}^{(p)}}\ar[r] & X\ar[d]^{f_{X}}\\
+& S\ar[r]_{\Frob_{S}} & S}}
+\end{equation}
+If
+\begin{equation}
+X=\Spec(\closure{\FF_{p}}[x]/(f(x,y))),
+\end{equation}
+then
+\begin{equation}
+X^{(p)}=\Spec(\closure{\FF_{p}}[x]/(f^{(p)}(x,y)))
+\end{equation}
+which is like looking at Frobenius acting on solutions to the polynomial.
+\end{example}

@@ -34,6 +34,8 @@
 \DeclareMathOperator\Annihilator{Ann}
 \DeclareMathOperator\Support{Supp}
 
+\DeclareMathOperator\Frob{Frob}
+
 \newcommand\MultGroup[1]{#1^{\times}}
 
 % Stacks project uses this notation https://stacks.math.columbia.edu/tag/030D
@@ -104,10 +106,13 @@
 \let\og@hom\hom
 \let\hom\relax
 \DeclareMathOperator\hom{Hom}
+\def\SheafHom{\mathop{\mathcal{H}\!\textit{om}}\nolimits}
 \DeclareMathOperator\Aut{Aut} % automorphism group of an object
 
 \newcommand\cat[1]{\mathbf{#1}}
 
+\newcommand\Mod[1]{#1-\cat{Mod}} % category of modules
+\newcommand\Sch{\cat{Sch}} % category of schemes
 \newcommand\PSh{\cat{PSh}} % category of presheaves
 \newcommand\Sh{\cat{Sh}}   % category of sheaves
 \newcommand\To{\Rightarrow} % \to, but for natural transformations
@@ -146,6 +151,7 @@
 \let\og@Im\Im
 \let\Im\relax
 \DeclareMathOperator\Im{Im}
+\DeclareMathOperator\coker{coker}
 
 \newcommand\pushforward[1]{#1_{*}}
 \newcommand\pullback[1]{#1^{*}}
@@ -163,5 +169,9 @@
 \DeclareMathOperator\CaCl{CaCl} % cartier divisor class
 
 \newcommand\UnitGroup[1]{#1^{\times}}
+
+%% Schemes
+\DeclareMathOperator\Proj{Proj}
+\DeclareMathOperator\underlyingspace{sp}
 
 \endinput

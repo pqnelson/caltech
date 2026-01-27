@@ -1,0 +1,37 @@
+%%
+%% winter-lecture05.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-27T10:23:26-0800
+%% Last update 2026-01-27T10:23:26-0800
+%% 
+
+\lecture{}
+
+\begin{proposition}[Integral = Reduced + Irreducible]
+A scheme $X$ is integral if and only if $X$ is reduced and irreducible.
+\end{proposition}
+
+\begin{definition}
+Let $X$ be a sscheme. The \define{Dimension} of $X$ is the supremum of
+lengths of a chain of closed irreducible subsets.
+\end{definition}
+
+\begin{theorem}[{Affine communication lemma~\cite[\S5.3.2]{vakil2025rising}}]
+Let $X$ be a scheme. Let $\mathcal{P}$ be a property of affine open subsets
+of $X$ such that
+\begin{enumerate}
+\item If $U\iso\Spec(A)$ has property $\mathcal{P}$ and $f\in A$, then $U_{f}$
+  has property $\mathcal{P}$; and
+\item If $U\iso\Spec(A)$ and $U\subset X$ can be covered by
+  distinguished opens $D(f_{i})$ where each $D(f_{i})$ has property
+  $\mathcal{P}$, then $U$ has property $\mathcal{P}$.
+\end{enumerate}
+Then if $X$ has an affine open cover $X=\bigcup_{i}U_{i}$ where each
+$U_{i}$ has property $\mathcal{P}$, then every open affine subset of $X$ has property $\mathcal{P}$.
+\end{theorem}
+
+Any property $\mathcal{P}$ satisfying criteria (1) and (2) is said to
+be ``affine-local'' (hence the name of the theorem).

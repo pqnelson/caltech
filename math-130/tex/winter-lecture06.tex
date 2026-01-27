@@ -1,0 +1,111 @@
+%%
+%% winter-lecture06.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-27T10:29:44-0800
+%% Last update 2026-01-27T10:29:44-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $X$ be a scheme. We say $X$ is \define{Quasi-Separated} if for any
+pair $U,V\subset X$ of affine open subsets, $U\cap V$ is quasi-compact.
+\end{definition}
+
+\begin{proposition}
+Affine schemes are quasi-separated.
+\end{proposition}
+
+\begin{definition}
+Let $f\colon X\to Y$ be a morphism of schemes. We say $f$ is
+\define{Quasi-Separated} if $f^{-1}(V)$ is quasi-separated for all
+affine open subsets $V\subset Y$.
+\end{definition}
+
+\begin{definition}
+Let $f\colon X\to Y$ be a morphism of schemes. We say $f$ is
+\define{Quasi-Compact} if $f^{-1}(V)$ is quasi-compact for all affine
+open subsets $V\subset Y$.
+\end{definition}
+
+\begin{definition}
+Let $f\colon X\to Y$ be a morphism of schemes. We say $f$ is
+\define{Locally of Finite Type} if $Y$ has an affine cover
+$Y=\bigcup_{i}V_{i}$ where each $V_{i}\iso\Spec(A_{i})$ and
+$f^{-1}(V_{i})=\bigcup_{j}U_{ij}$ with $U_{ij}\iso\Spec(B_{ij})$ such
+that $A_{i}\to B_{ij}$ makes $B_{ij}$ into a finitely-generated
+$A_{i}$-algebra.
+\end{definition}
+
+\begin{definition}
+Let $f\colon X\to Y$ be a morphism of schemes. We say $f$ is
+\define{Finite Type} if $f$ is locally of finite type and $f$ is quasi-compact
+(i.e., each open affine may be covered with finitely many affine opens).
+\end{definition}
+
+\begin{definition}
+Let $f\colon X\to Y$ be a morphism of schemes. We say $f$ is
+\define{Finite} if there exists an open cover of $Y=\bigcup_{i}V_{i}$
+where each $V_{i}\iso\Spec(A_{i})$ such that 
+\begin{enumerate}
+\item $f^{-1}(V_{i})$ is affine --- so $f^{-1}(V_{i})\iso\Spec(B_{i})$
+  for some $B_{i}$;
+\item and (???) $A_{i}$-module.
+\end{enumerate}
+\end{definition}
+
+\subsection{Quasi-coherent sheaves}
+
+\begin{definition}
+Let $(X,\sheaf{O}_{X})$ be a ringed space. Then a \define{Sheaf of $\sheaf{O}_{X}$-modules}
+is a sheaf $\sheaf{F}$ of Abelian groups such that for any open subset
+$U\subset X$, the Abelian group $\sheaf{F}(U)$ has an
+$\sheaf{O}_{X}(U)$-module structure for which if $V\subset U$ and
+$f\in\sheaf{O}_{X}(U)$, $s\in\sheaf{F}(U)$, then $(f\cdot
+s)|_{V}=(f|_{V})\cdot(s|_{V})$. 
+\end{definition}
+
+\begin{node}[Vector bundles]
+In topology, $\pi\colon E\to X$ is a bundle such that for each $x\in X$
+the fiber $\pi^{-1}(x)$ is a real vector space. We can define an
+associated sheaf (of sections):
+\begin{equation}
+\sheaf{E}(U)=\{s\colon U\to E\mid s\circ\pi=\id\}.
+\end{equation}
+This is an example of a sheaf of $\sheaf{O}_{X}$-modules.
+
+Moreover, $X$ has a cover $\bigcup_{i}U_{i}=X$ where
+$\pi^{-1}(U_{i})\iso U_{i}\times\RR^{n}$. The sheaf version of this is
+\begin{equation}
+\sheaf{E}|_{U_{i}}\iso\sheaf{O}_{U_{i}}^{\oplus n}.
+\end{equation}
+We say this is a \define{Locally-Free} sheaf.
+\end{node}
+
+\begin{construction}
+Let $R$ be any ring and $M$ be an $R$-module. Let $X=\Spec(R)$. We
+define a sheaf of $\sheaf{O}_{X}$-modules $\widetilde{M}$ by
+$\widetilde{M}(D(f))=M_{f}$ where $M_{f}$ is an
+$\sheaf{O}_{X}(D(f))$-module since $\sheaf{O}_{X}(D(f))=R_{f}$
+\end{construction}
+
+\begin{lemma}
+$M_{f}$ gives a sheaf on the base.
+\end{lemma}
+
+\begin{definition}
+Let $X$ be a scheme and $\sheaf{F}$ a sheaf of
+$\sheaf{O}_{X}$-modules. We say $\sheaf{F}$ is \define{Quasi-Coherent}
+if $X$ has an open cover $X=\bigcup_{i}U_{i}$ with
+$U_{i}\iso\Spec(R_{i})$ and for all $i$ we have
+$\sheaf{F}|_{U_{i}}\iso\widetilde{M}_{i}$ for some $R_{i}$-module $M_{i}$.
+\end{definition}
+
+\begin{proposition}[Quasi-coherent is a local property]
+$\sheaf{F}$ is quasi-coherent if and only if for all affine open
+  subsets $U\subset X$ we have $\sheaf{F}|_{U}\iso\widetilde{M}$ for
+  some $\sheaf{O}_{X}(U)$-module $M$.
+\end{proposition}

@@ -25,7 +25,8 @@ I am also relying upon G{\"o}rtz and Wedhorn~\cite{gortz2020algebraic}.
 Truthfully, the lecture experience seems to be\dots well, something to
 be \emph{experienced} and impossible to describe (or capture in text).
 The notes I transcribed are nowhere nearly as useful as last
-quarter. Consequently, I think I am going to try to summarize my
+quarter (the transcribed notes are more subjectively useful).
+Consequently, I think I am going to try to summarize my
 reading notes to complement the lectures. Each ``lecture'' will
 probably be larger than the actual contents of the lecture.
 \end{aside}
@@ -43,11 +44,11 @@ a Nullstellensatz for relating these guys, as well as the Zariski
 topology for $\Spec(R)$ and so on.
 \end{node}
 
-\begin{proposition}% Gortz, proposition 2.5
-Let $R$ be a [commutative unital associative] ring.
-Then the collection $\{D(f)\mid f\in R\}$ forms a basis for the
-topology on $\Spec(R)$.
-\end{proposition}
+%% \begin{proposition}\label{d-f-forms-basis-for-zariski-topology}% Gortz, proposition 2.5
+%% Let $R$ be a [commutative unital associative] ring.
+%% Then the collection $\{D(f)\mid f\in R\}$ forms a basis for the
+%% Zariski topology on $\Spec(R)$.
+%% \end{proposition}
 
 \begin{fact}
 Let $R$ be a commutative ring.
@@ -93,6 +94,23 @@ The \define{Zariski Topology} on $\Spec(R)$ is the topology whose
 closed sets are of the form $V(S)=\{P\in\Spec(R)\mid S\subset P\}$
 for some $S\subset R$.
 \end{definition}
+
+\begin{proposition}
+Let $R$ be a commutative ring. Let $S\subset R$.
+Then the zero set of $S$ is the same as the zero set of the ideal it
+generates, i.e., $V(S)=V(\langle S\rangle)$.
+\end{proposition}
+
+\begin{proof}
+This is because any $P\in\Spec(R)$ has $S\subset P$ if and only if
+$\langle S\rangle\subset P$. The forward direction is obvious, the
+backward direction uses the fact
+\begin{equation}
+\langle S\rangle = \bigcap_{S\subset I\ideal R}I,
+\end{equation}
+which means for \emph{any} ideal $I\ideal R$ with $S\subset I$ we have
+$\langle S\rangle\subset I$. Hence the backwards direction.
+\end{proof}
 
 \begin{definition}% Gathmann 12.6
 Let $R$ be a commutative unital ring, let $X\subset R$.
@@ -152,9 +170,11 @@ the open subset
 \begin{equation}
 D(f):=\Spec(R)\setminus V(f)=\{P\in\Spec(R)\mid f\notin P\}.
 \end{equation}
+(This really is open, since $V(f)$ is closed, and $D(f)$ is just the
+complement of $V(f)$.)
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{d-f-forms-basis-for-zariski-topology}% Gortz, proposition 2.5
 The collection of distinguished open subsets
 \begin{equation*}
 \mathcal{B}=\{D(f)\subset\Spec(R)\mid f\in R\}

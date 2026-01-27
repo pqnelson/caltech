@@ -1,0 +1,124 @@
+%%
+%% winter-lecture04.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-27T10:08:34-0800
+%% Last update 2026-01-27T10:08:34-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Scheme morphism
+\end{definition}
+
+\begin{remark}
+Compare scheme morphisms to morphisms of algebraic varieties (which
+just requires the pullback of regular functions to be regular).
+\end{remark}
+
+\begin{example}
+If $\varphi\colon A\to B$ is a ring morphism, then
+$\Spec(\varphi)\colon\Spec(B)\to\Spec(A)$ is a scheme morphism.
+\end{example}
+
+\begin{theorem}
+Every morphism $\Spec(B)\to\Spec(A)$ is induced by a unique ring
+morphism. (This describes all morphisms of affine schemes)
+\end{theorem}
+
+\begin{example}[Troubling example]
+Let $X=Y=\Spec(\CC)$, which is a single point. What are the maps
+$f\colon X\to Y$? These are ring morphisms $\CC\to\CC$ like the
+identity, complex conjugation, and wild automorphisms. But there's
+only one map from a point to a point.
+\end{example}
+
+\begin{terminology}
+Given any scheme $S$, we can form a category $\Sch_{S}$ (``schemes
+over $S$'') where the
+objects are pairs $(X,\pi\colon X\to S)$ and the morphisms are
+$f\colon X\to Y$ such that the diagram
+\begin{equation}
+\vcenter{\xymatrix{X\ar[rr]^{f}\ar[dr]_{\pi_{X}} & & \ar[dl]^{\pi_{Y}}Y\\ 
+& S &}}
+\end{equation}
+commutes. This should be thought of as a \emph{family} of schemes,
+kind of like a fiber bundle.
+\end{terminology}
+
+\begin{example}
+If $S=\Spec(k)$ and $\pi\colon X\to S$, then $X$ has an open cover 
+\begin{equation}
+X=\bigcup\Spec(R_{i})
+\end{equation}
+and we get maps $k\to R_{i}$ which turns $R_{i}$ into a
+$k$-algebra. The gluing maps are $k$-algebra morphisms.
+\end{example}
+
+\begin{example}
+Let $S=\bigoplus_{n\in\NN_{0}}S_{n}$ be a graded ring. $\Proj(S)\to\Spec(S_{0})$
+\end{example}
+
+\begin{example}
+Suppose $t$ has degree zero and $x_{i}$ have degree 1 in
+$k[t][x_{0},\dots,x_{n}]$. Then $\Proj(k[t][x_{0},\dots,x_{n}])$
+``equals'' $\PP^{n}_{k}\times\AA^{1}_{k}$. where the $\AA^{1}_{k}$ is
+described by the $t$ and the $\PP^{n}$ is described by the $x_{i}$.
+\end{example}
+
+\begin{fact}
+Let $X$ and $Y$ be schemes. Then $\hom(-,Y)$ is a sheaf on $X$: for
+any $f\colon X\to Y$, we have $f|_{U}\colon U\to Y$ where $U\subset X$.
+\end{fact}
+
+\begin{node}
+Let $\sheaf{F}$ and $\sheaf{G}$ be sheaves on a topological space
+$Y$. Then $\hom(\sheaf{F},\sheaf{G})$ is a sheaf where 
+$\hom(\sheaf{F},\sheaf{G})(U)=\hom(\sheaf{F}|_{U},\sheaf{G}|_{U})$.
+\end{node}
+
+\begin{node}
+If $U\subset X$ is open, then $(U,\sheaf{O}_{X}|_{U})$ is a scheme, so
+any open subset of a scheme inherits a scheme structure.
+\end{node}
+
+\begin{node}
+$\hom(-,Y)(U)=\hom(U,Y)$ is a set.
+\end{node}
+
+\subsection{Properties of Schemes and Morphisms}
+
+\begin{definition}
+A scheme $X$ is \define{Reduced} if $\sheaf{O}_{X,p}$ is reduced
+(i.e., has no nilpotents) for all $p\in X$.
+\end{definition}
+
+\begin{definition}
+A scheme $X$ is \define{Integral} if $\sheaf{O}_{X}(U)$ is an integral
+domain for all $U\subset X$. (So $\Spec(R)$ is integral if and only if
+$R$ is an integral domain.) You \emph{cannot} check this locally.
+\end{definition}
+
+\begin{node}[Integral = reduced + irreducible]
+A scheme is integral if and only if it is reduced and irreducible.
+\end{node}
+
+\begin{definition}
+A scheme $X$ is \define{Locally Noetherian} if $X=\bigcup_{i}U_{i}$
+where each $U_{i}\iso\Spec(R_{i})$ for some Noetherian ring $R_{i}$.
+\end{definition}
+
+\begin{definition}
+We say a scheme $X$ is \define{Noetherian} if $X$ has a finite cover $X=\bigcup^{n}_{i=1}U_{i}$
+where each $U_{i}\iso\Spec(R_{i})$ for some Noetherian ring $R_{i}$.
+So Noetherian = Locally Noetherian + Quasicompact.
+\end{definition}
+
+\begin{proposition}
+Let $X$ be a scheme. If $X$ is locally Noetherian, then every affine
+open subset $U\subset X$ is isomorphic to $U\iso\Spec(R)$ for some
+Noetherian ring $R$.
+\end{proposition}

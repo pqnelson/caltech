@@ -1,0 +1,87 @@
+%%
+%% winter-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-27T10:43:46-0800
+%% Last update 2026-01-27T10:43:46-0800
+%% 
+
+\lecture[Sheaves of $\sheaf{O}_{X}$-modules]{}
+
+\begin{definition}
+We say $\sheaf{F}$ is a \define{Sheaf of $\sheaf{O}_{X}$-Modules}
+if it is a sheaf of Abelian groups on $X$ and $\sheaf{F}(U)$ is a
+$\sheaf{O}_{X}(U)$-module for every [open affine subset] $U$.
+\end{definition}
+
+\begin{definition}
+If $\sheaf{F}$ and $\sheaf{G}$ are $\sheaf{O}_{X}$-modules, we define
+a \define{$\sheaf{O}_{X}$-module morphism} to be a morphism
+$f\colon\sheaf{F}\to\sheaf{G}$ such that for all open affine subsets
+$U\subset X$, $f_{U}\colon\sheaf{F}(U)\to\sheaf{G}(U)$ is an
+$\sheaf{O}_{X}(U)$-linear map of $\sheaf{O}_{X}(U)$-modules.
+\end{definition}
+
+\begin{node}
+If $f$ is a $\sheaf{O}_{X}$-module morphism, then $\ker(f)$, $\Im(f)$,
+and $\coker(f)$ are all $\sheaf{O}_{X}$-modules. (Note: you need to
+sheafify $\Im(f)$ and $\coker(f)$.)
+\end{node}
+
+\begin{notation}
+Let $\sheaf{F}$ and $\sheaf{G}$ be $\sheaf{O}_{X}$-modules. Usually
+$\hom_{\sheaf{O}_{X}}(\sheaf{F},\sheaf{G})$ denotes the set of all
+  $\sheaf{O}_{X}$-module morphisms from $\sheaf{F}$ to $\sheaf{G}$.
+Also: $\hom_{\sheaf{O}_{X}}(\sheaf{F},\sheaf{G})$ has a natural
+$\sheaf{O}_{X}$-module structure.
+\end{notation}
+
+\begin{notation}
+Let $\sheaf{F}$ and $\sheaf{G}$ be $\sheaf{O}_{X}$-modules.
+Unfortunately, the literature uses
+$\SheafHom_{\sheaf{O}_{X}}(\sheaf{F},\sheaf{G})$ for the ``Sheaf-hom from
+$\sheaf{F}$ to $\sheaf{G}$'' which is a sheaf of $\sheaf{O}_{X}$-modules
+\begin{equation}
+\SheafHom_{\sheaf{O}_{X}}(\sheaf{F},\sheaf{G})(U)=\hom_{\sheaf{O}_{U}}(\sheaf{F}|_{U},\sheaf{G}|_{U}).
+\end{equation}
+\end{notation}
+
+\begin{node}
+If $\sheaf{F}$ and $\sheaf{G}$ are $\sheaf{O}_{X}$-modules, the
+$\sheaf{F}\otimes\sheaf{G}$ is the sheafification of the presheaf $\sheaf{F}(U)\otimes_{\sheaf{O}_{\sheaf{X}}(U)}\sheaf{G}(U)$.
+\end{node}
+
+\begin{node}
+Let $f\colon X\to Y$ be a map. If $\sheaf{F}$ is an
+$\sheaf{O}_{X}$-module, then $f_{*}\sheaf{F}$ is an
+$\sheaf{O}_{Y}$-module defined by
+$(f_{*}\sheaf{F})(V)=\sheaf{F}(f^{-1}(V))$ where $V\subset Y$, which
+is a pushforward of $\sheaf{F}$.
+\end{node}
+
+\begin{node}
+Let $f\colon X\to Y$ be a map. If $\sheaf{G}$ is an
+$\sheaf{O}_{Y}$-module, then $f^{*}\sheaf{G}$ is an $\sheaf{O}_{X}$-module
+defined by $f^{-1}\sheaf{G}\otimes_{f^{-1}\sheaf{O}_{Y}}\sheaf{O}_{X}$.
+\end{node}
+
+\begin{proposition}[Adjointness property]
+$\hom_{\sheaf{O}_{X}}(f^{*}\sheaf{G},\sheaf{F})\iso\hom_{\sheaf{O}_{Y}}(\sheaf{G},f_{*}\sheaf{F})$
+\end{proposition}
+
+\begin{node}
+Recall, if $X=\Spec(A)$ and $M$ is an $A$-module, we defined
+$\widetilde{M}$ a sheaf on $X$ with $\widetilde{M}(D(f))=M_{f}$.
+This gives a functor $\Mod{A}\to\Mod{\sheaf{O}_{X}}$ sending $M\mapsto\widetilde{M}$.
+It is an exact, fully faithful functor.
+\end{node}
+
+%% TODO: transcribe remarks here
+
+\begin{proposition}
+If $X$ is a quasicompact quasiseparated scheme, and if $\sheaf{F}$ is
+a quasicoherent sheaf on $X$, and if $f\in\sheaf{O}_{X}(X)$, then on
+the distinguished open subset $D(f)$ we have $\sheaf{F}(D(f))=\sheaf{F}(X)_{f}$.
+\end{proposition}

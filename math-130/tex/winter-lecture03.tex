@@ -8,7 +8,99 @@
 %% Last update 2026-01-15T15:46:20-0800
 %% 
 
-\lecture[Affine Schemes]{}
+\lecture[Definition of Schemes]{}
+
+\subsection{Sheaf on a Base}
+
+\begin{node}[Presheaf defined on a base]
+Let $X$ be a topological space, let $\mathcal{B}$ be a basis for the
+topology of $X$. Suppose we have a functor
+$\sheaf{F}\colon\mathcal{B}\to\cat{C}$ which is presheaf-like. How can
+we extend it to a presheaf on $X$? Well, what do we mean that
+$\sheaf{F}$ is ``presheaf-like''? Let us first make that notion
+explicitly clear. 
+
+If $B_{1}\subset B_{2}$ are elements of $\mathcal{B}$, then there is a
+restriction morphism
+\begin{equation}
+\rho_{B_{2},B_{1}}\colon\sheaf{F}(B_{2})\to\sheaf{F}(B_{1})
+\end{equation}
+such that $\rho_{B_{i},B_{i}}=\id_{B_{i}}$ for all
+$B_{i}\in\mathcal{B}$, and also for any elements $B_{i}\in\mathcal{B}$
+such that $B_{3}\subset B_{2}\subset B_{1}$ we have 
+$\rho_{B_{3},B_{1}}=\rho_{B_{2},B_{1}}\circ\rho_{B_{3},B_{2}}$. This
+is what we mean by a ``presheaf-like functor defined on the base $\mathcal{B}$''.
+The common terminology in the literature seems to be: $\sheaf{F}$ is a
+\define{Presheaf on a Base} $\mathcal{B}$.
+\end{node}
+
+\begin{node}[Presheaf defined on a base induces a presheaf on the space]
+Can we ``promote'' this into a presheaf on $X$?
+One [cryptically] terse way to do this is by introducing the presheaf
+$\sheaf{F}'$ on $X$ defined by, for any open subset $V\subset X$, we
+have
+\begin{equation}
+\sheaf{F}'(V)=\varprojlim_{V\supset B}\sheaf{F}(B),
+\end{equation}
+which\dots does not seem clear to me.
+
+(See Vakil~\cite[\S2.5]{vakil2025rising}, G\"{o}rtz and Wedhorn~\cite[\S2.5]{gortz2020algebraic}.)
+\end{node}
+
+\begin{definition}
+Let $X$ be a topological space with base $\mathcal{B}$ for its topology.
+Let $\sheaf{F}$ be a presheaf for its base $\mathcal{B}$. We say
+$\sheaf{F}$ is a \define{Sheaf on a Base} $\mathcal{B}$ if it also
+satisfies:
+\begin{enumerate}
+\item\textsc{Base identity:} Let $B=\bigcup_{i}B_{i}$ be a union of
+  elements in the base $B_{i}\in\mathcal{B}$. If $f,g\in\sheaf{F}(B)$
+  are such that $\rho_{B,B_{i}}f=\rho_{B,B_{i}}g$ for all $i$, then $f=g$.
+\item\textsc{Base gluability:} Let $B=\bigcup_{i}B_{i}$ be a union of
+  elements in the base $B_{i}\in\mathcal{B}$. Suppose we have
+  $f_{i}\in\sheaf{F}(B_{i})$ for all $i$ such that $f_{i}$ agrees with
+  $f_{j}$ whenever there is a basic open set contained in $B_{i}\cap B_{j}$
+  (i.e., $\rho_{B_{i},B_{k}}f_{i}=\rho_{B_{j},B_{k}}f_{j}$ for any
+  $B_{k}\in\mathcal{B}$ such that $B_{k}\subset B_{i}\cap B_{j}$),
+  then there exists an $f\in\sheaf{F}(B)$ such that $\rho_{B,B_{i}}f=f_{i}$
+  for all $i$.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[{Vakil~\cite[Th2.5.1]{vakil2025rising}}]
+Let $X$ be a topological space. Let $\mathcal{B}$ be a basis for the
+topology of $X$. Let $\sheaf{F}$ be a sheaf on $\mathcal{B}$. Then
+there is a sheaf $\sheaf{G}$ extending $\sheaf{F}$ (with isomorphisms
+$\sheaf{F}(B_{i})\iso\sheaf{G}(B_{i})$ agreeing with the restriction maps).
+This sheaf $\sheaf{G}$ is unique up to unique isomorphism.
+\end{theorem}
+
+\begin{theorem}[{G{\"o}rtz and Wedhorn~\cite[Prop.2.20]{gortz2020algebraic}}]
+Let $X$ be a topological space. Let $\mathcal{B}$ be a basis for the
+topology of $X$. Let $\sheaf{F}$ be a sheaf on $\mathcal{B}$. Let
+$\sheaf{F}'$ be the associated presheaf on $X$. Then $\sheaf{F}'$ is a
+sheaf if and only if for every $U\in\mathcal{B}$ and for every open
+covering $\{B_{i}\in\mathcal{B}\}_{i\in I}$ of $U$, and for every open
+covering $\{B_{ijk}\in\mathcal{B}\}_{k\in K}$ of $U_{i}\cap U_{j}$,
+the diagram
+\begin{equation}
+  \vcenter{\xymatrix{\sheaf{F}(U)\ar[r]^-{\rho}
+& \displaystyle{\prod_{i\in I}\sheaf{F}(B_{i})} \ar@<0.6666666666666ex>[r]^-{\sigma}\ar@<-0.6666666666666ex>[r]_-{\sigma'}&\displaystyle{\prod_{i,j,k}\sheaf{F}(B_{ijk})}}}
+\end{equation}
+is exact, where $\sigma((s_{i})_{i\in I})=(s_{i}|_{B_{i}\cap B_{j}})_{i\in I}$
+\end{theorem}
+
+\begin{xca}
+Let $X$ be a topological space, let $U\subset X$ be an open subset.
+Let $\sheaf{F}$ be a presheaf on $X$.
+\begin{enumerate}
+\item Prove or find a counter-example: $\sheaf{F}|_{U}$ is a presheaf on $U$.
+\item Prove or find a counter-example: if $\sheaf{F}$ is a sheaf on
+  $X$, then $\sheaf{F}|_{U}$ is a sheaf on $U$.
+\end{enumerate}
+\end{xca}
+
+\subsection{Structure Sheaf}
 
 \begin{definition}
 Let $R$ be a ring. We define the \define{Structure Sheaf} of
@@ -19,15 +111,25 @@ each $f\in R$ we have
 \end{equation}
 (We will prove this is a sheaf soon.)
 
-\begin{proof}
-We should prove this is a presheaf.
-\begin{enumerate}
-\item We see $D(0)=\emptyset$, so $\sheaf{O}_{\Spec(R)}(\emptyset)=R_{0}=0$.
-\item For any $f\in R$, we claim the restriction map $\rho_{U,U}=\id_{R_{f}}$
-\item If $W\subset V\subset U$, then
-  $\rho_{U,W}=\rho_{V,W}\circ\rho_{U,V}$ is obvious.
-\end{enumerate}
-Hence it satisfies the desired properties.
+\begin{proof}[Proof ($\sheaf{O}_{\Spec(R)}$ is a presheaf)]
+We should prove this is a presheaf. Since (\S\ref{d-f-forms-basis-for-zariski-topology}) the distinguished opens
+$D(f)$ forms a basis $\mathcal{B}$ on the Zariski topology, it suffices to prove
+this is a presheaf on $\mathcal{B}$. We just need to check that
+$R_{f}=R_{g}$ when $D(f)=D(g)$.
+
+For any $f,g\in R$, we have $D(f)\subset D(g)$ if and only if there
+exists an $n\geq1$ such that $f^{n}\in Rg$ (or equivalently $g/1\in\MultGroup{(R_{f})}$).
+In this case, we obtain a unique ring morphism
+\begin{equation}
+\rho_{f,g}\colon R_{g}\to R_{f}
+\end{equation}
+such that when composed with the canonical ring morphism $i_{f}\colon R\to R_{f}$
+sending $x\mapsto x/1$, $\rho_{g,f}\circ i_{g}=i_{f}$.
+
+Furthermore, if $D(f)\subset D(g)\subset D(h)$, we have $\rho_{f,g}\circ\rho_{g,h}=\rho_{f,h}$.
+
+In particular, when $D(f)=D(g)$, the ring morphism $\rho_{r,g}$ is the
+identity morphism.
 \end{proof}
 \end{definition}
 
@@ -39,7 +141,7 @@ are local rings.
 \begin{proposition}
 Let $R$ be a commutative ring. The presheaf $\sheaf{O}_{\Spec(R)}$ is
 a sheaf on the topological space $\Spec(R)$.
-\end{proposition}
+\end{proposition} 
 
 \begin{proof}
 Let $\mathcal{B}=\{D(f)\mid f\in R\}$ be the basis of the topology
@@ -55,4 +157,169 @@ covering $\{U_{i}\in\mathcal{B}\}_{i\in I}$ of $U$, we need to prove
   $i\in I$.
 \end{enumerate}
 Since $D(f)$ is quasi-compact, we can assume that $I$ is finite
+\end{proof}
+
+\subsection{Schemes}
+
+\begin{definition}
+A \define{Affine Scheme} is a ringed space $(X,\sheaf{O}_{X})$ consisting of a
+topological space $X$ and a structure sheaf $\sheaf{O}_{X}$ of rings
+such that $(X,\sheaf{O}_{X})\iso(\Spec(R),\sheaf{O}_{\Spec(R)})$. 
+\end{definition}
+
+\begin{remark}
+We call these ``affine'' in analogy to ``affine varieties'', not
+because there's an obvious connection to the affine space (which was
+the case for affine varieties).
+\end{remark}
+
+\begin{remark}
+The nLab defines a notion of a ``spectral topological space'' (or
+``coherent space'') as a topological space $X$ such that it is
+homeomorphic to $\Spec(R)$ for some [commutative] ring $R$. That is to
+say, it is homeomorphic to the topological space of an affine scheme.
+``Spectral spaces'' are thus named because they are the spectra of rings.
+\end{remark}
+
+\begin{terminology}
+Really, since an affine scheme $(X,\sheaf{O}_{X})$ is isomorphic to some $(\Spec(R),\sheaf{O}_{\Spec(R)})$, it
+is common to abuse language and just refer to
+$(\Spec(R),\sheaf{O}_{\Spec(R)})$ as the affine schemes.
+\end{terminology}
+
+\begin{definition}
+A \define{Scheme} is a ringed space $(X,\sheaf{O}_{X})$ such that for
+each point $x\in X$ there exists an open neighborhood $x\in U\subset X$
+such that $(U,\sheaf{O}_{X}|_{U})$ is an affine scheme.
+\end{definition}
+
+\begin{remark}
+I think that we could introduce charts $(U,\varphi)$ such that
+$U\subset X$ is an open subset and
+$\varphi\colon U\to\Spec(R)$ is a homeomorphism
+(and then define the structure sheaf on $U$
+accordingly as isomorphic to $\sheaf{O}_{\Spec(R)}$).
+Then an atlas of such charts---possibly modulo some compatibility
+conditions---gives us a scheme structure on $X$.
+\end{remark}
+
+\begin{example}[Affine space]
+Let $\FF$ be an algebraically closed field. We can define the affine
+space $\AA^{n}_{\FF}$ as the algebraic variety of points
+$(a_{1},\dots,a_{n})$ with coordinates in $\FF$. Its coordinate ring
+is the polynomial ring $R=\FF[x_{1},\dots,x_{n}]$. This should be
+familiar from last quarter.
+
+We can now define the corresponding scheme $X=\Spec(R)$ with the
+Zariski topology. The closed points are the maximal ideals $(x_{1}-a_{1},\dots,x_{n}-a_{n})$.
+But there are also non-closed points for each prime ideal of $R$.
+
+The open subsets of the scheme $X$ are given by the complements of
+hypersurfaces $D(f)=X\setminus V(f)$ where $f\in R$ is an irreducible polynomial.
+The structure sheaf on these principal open subsets are
+\begin{equation}
+\sheaf{O}_{X}(D(f))=R[f^{-1}]=\{\frac{r}{f^{m}}\mid m\in\NN_{0},r\in R\}.
+\end{equation}
+The structure sheaf may be constructed from this data alone.
+\end{example}
+
+\begin{xca}
+Prove or find a counter-example: in the previous example (affine space
+as a scheme), the scheme is an affine scheme. [Hint: obvious.]
+\end{xca}
+
+\begin{puzzle}
+When we view $\Spec(R)$ as the scheme for an affine space
+$\AA^{n}_{\FF}$, is the automorphism group $\Aut(\Spec(R))$
+(consisting of scheme automorphisms) ``the same as'' [isomorphic to?]
+the automorphism group $\Aut(\AA^{n}_{\FF})$ of affine transformations?
+\end{puzzle}
+
+\begin{definition}
+Let $(X,\sheaf{O}_{X})$ be a scheme. Let $U\subset X$ be an open subset.
+An \define{Open Subscheme} of $(X,\sheaf{O}_{X})$ is a scheme
+$(U,\sheaf{O}_{X}|_{U})$.
+\end{definition}
+
+\begin{remark}
+There is a notion of a ``closed subscheme'', but it is far more
+complicated. We will revisit it much later.
+\end{remark}
+
+\begin{definition}
+Let $(X,\sheaf{O}_{X})$ and $(Y,\sheaf{O}_{Y})$ be schemes.
+An \define{Isomorphism of Schemes} (or ``Scheme Isomorphism'')
+consists of
+\begin{enumerate}
+\item a homeomorphism $f\colon X\to Y$ of the underlying topological
+  spaces, and
+\item a isomorphism of sheaves $f^{\sharp}\colon\sheaf{O}_{Y}\to f_{*}\sheaf{O}_{X}$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Some \define{Gluing Data for Schemes} consists of
+\begin{enumerate}
+\item A family of schemes $\{U_{i}\}_{i\in I}$ where $I$ is a
+  (possibly infinite) indexing set,
+\item A family of open subsets $U_{ij}\subset U_{i}$ for all $i,j\in I$
+\item A family of isomorphisms $\varphi_{ji}\colon U_{i}\to U_{j}$
+\end{enumerate}
+such that
+\begin{enumerate}
+\item for each $i\in I$ we have $U_{ii}=U_{i}$, and
+\item \textsc{Cocycle condition:} for all $i,j,k\in I$, we have $\varphi_{kj}\circ\varphi_{ji}=\varphi_{ki}$.
+\end{enumerate}
+Observe that $\varphi_{ii}=\id_{U_{i}}$ and so the cocycle condition
+$\varphi_{ij}\circ\varphi_{ji}=\id_{U_{i}}$ implies
+$\varphi_{ji}=\varphi_{ij}^{-1}$ for all $i,j\in I$. Furthermore
+$\varphi_{ji}|_{U_{ij}\cap U_{ik}}\colon U_{ij}\cap U_{ik}\to U_{ji}\cap U_{jk}$
+is an isomorphism.
+\end{definition}
+
+\begin{construction}
+Let $((U_{i})_{i\in I},(U_{ij})_{i,j\in I},(\varphi_{ji})_{i,j\in I})$
+be gluing data for schemes. There exists a scheme $X$ and morphisms
+$\psi_{i}\colon U_{i}\to X$ such that
+\begin{enumerate}
+\item For all $i\in I$, the morphism $\psi_{i}$ is an isomorphism of
+  $U_{i}$ with an open subset of $X$;
+\item $\psi_{j}\circ\varphi_{ji}=\psi_{i}$ for all $i,j\in I$;
+\item $X=\bigcup_{i\in I}\psi_{i}(U_{i})$
+\item
+  $\psi_{i}(U_{i})\cap\psi_{j}(U_{j})=\psi_{i}(U_{ij})=\psi_{j}(U_{ji})$
+  for all $i,j\in I$.
+\end{enumerate}
+Furthermore, $X$ and the morphisms $\psi_{i}$ are unique up to unique isomorphism.
+\end{construction}
+
+\begin{proof}
+\textsc{Step 1:} Construct $X$.
+To construct $X$, we construct an equivalence relation $\sim$ on the
+disjoint union $\coprod_{i\in I}U_{i}$ as follows: for any
+$x_{i}\in U_{i}$ and $x_{j}\in U_{j}$ we have $x_{i}\sim x_{j}$
+if and only if $x_{i}\in U_{ij}$ and $x_{j}\in U_{ji}$ and $\varphi_{j}(x_{i})=x_{j}$.
+The cocycle condition ensures this is an equivalence relation. Then we
+form
+\begin{equation}
+X = \left(\coprod_{i\in I}U_{i}\right)/\sim.
+\end{equation}
+The maps $\psi_{i}\colon U_{i}\into X$ are the natural maps. We equip
+$X$ with the quotient topology (which is the finest topology such that
+the $\psi_{i}$ are continuous). Thus we have constructed the
+topological space for the scheme we seek.
+
+\textsc{Step 2:} construct the structure sheaf for $X$. It suffices to
+define it on those open subsets $U\subset X$ which are contained in
+one of the $\psi_{i}(U_{i})$ for some $i\in I$. Specifically we set $\sheaf{O}_{X}(U)=\sheaf{O}_{U_{i}}(\psi_{i}^{-1}(U))$.
+
+If $U\subset\psi_{i}(U_{i})\cap\psi_{j}(U_{j})$, we identify the rings
+$\sheaf{O}_{U_{i}}(\psi^{-1}_{i}(U))$ and $\sheaf{O}_{U_{j}}(\psi^{-1}_{j}(U))$
+via $\varphi_{ji}$. This gives us the restriction maps for the sheaf.
+
+\textsc{Step 3:} Check that $\sheaf{O}_{X}$ is a ring sheaf and
+$(X,\sheaf{O}_{X})$ is a locally ringed space.
+
+\textsc{Step 4:} Check the $\psi_{i}$ are morphisms of locally ringed
+spaces. This will imply $X=\bigcup_{i\in I}\psi_{i}(U_{i})$.
 \end{proof}

@@ -1,0 +1,101 @@
+%%
+%% winter-lecture09.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-27T11:11:15-0800
+%% Last update 2026-01-27T11:11:15-0800
+%% 
+
+\lecture{}
+
+\begin{theorem}
+Let $X$ be a quasiseparated quasicompact scheme.
+Let $\sheaf{F}$ be a quasicoherent sheaf on $X$. Then for any
+$f\in\sheaf{O}_{X}(X)$, the natural map $\sheaf{F}(X)_{f}\to\sheaf{F}(X_{f})$
+is an isomorphism.
+\end{theorem}
+(We ended last lecture with this claim.)
+
+\begin{corollary}
+For any scheme $X$, for any affine open subset $U\subset X$ with $U\iso\Spec(A)$,
+if $\sheaf{F}$ is a quasicoherent sheaf on $X$, then
+$\sheaf{F}|_{U}\iso\widetilde{M}$ for some $A$-module $M$.
+\end{corollary}
+
+\begin{proposition}
+Let $\varphi\colon X\to Y$ be a scheme morphism. The following holds:
+\begin{enumerate}
+\item If $\sheaf{G}$ is a quasi-coherent sheaf on $Y$, then
+  $\varphi^{-1}\sheaf{G}$ is a quasi-coherent sheaf on $X$.
+\item If $\varphi$ is quasi-compact and quasi-separated and if
+  $\sheaf{F}$ is a quasi-coherent sheaf on $X$, then
+  $\varphi_{*}\sheaf{F}$ is quasi-coherent on $Y$.
+\end{enumerate}
+\end{proposition}
+
+\begin{warning}
+Although pushforwards of quasi-coherent sheafs are quasi-coherent, it
+is not true for coherent sheafs. The example to bear in minx:
+$X=\AA^{1}_{k}\xrightarrow{\pi}\Spec(k)$, then
+$\pi_{*}\sheaf{O}_{X}=k[x]$ since $\sheaf{O}_{X}=\widetilde{k[x]}$.
+\end{warning}
+
+\subsection{Closed Subschemes}
+
+\begin{node}
+The idea is if we look at $R=k[x_{1},\dots,x_{n}]$ and $\AA^{n}_{k}\iso\Spec(R)$,
+then for any ideal $I\ideal R$ we have $\Spec(R/I)\into\Spec(R)$ be a
+homeomorphism onto a closed subset. We can identify closed subschemes
+with this definition, modulo some subtle issues.
+\end{node}
+
+\begin{definition}
+A morphism of schemes $\varphi\colon Z\to X$ is called a
+\define{Closed Embedding} (or a \define{Closed Immersion}) if
+$\varphi$ is a homeomorphism onto a closed subset (its image) and
+$\varphi^{\sharp}\colon\sheaf{O}_{X}\to\varphi_{*}\sheaf{O}_{Z}$ is surjective.
+\end{definition}
+
+\begin{definition}
+Let $X$ be a scheme. A  \define{Closed Subscheme} of $X$ is an
+equivalence class of closed embeddings
+\begin{equation}
+\vcenter{\xymatrix{Z\ar[rd]^{\varphi}\ar[dd]_{\iso} &\\ 
+& X \\
+Z'\ar[ru]_{\varphi'} &}}
+\end{equation}
+\end{definition}
+
+\begin{observation}
+If $\varphi\colon Z\to X$ is a closed embedding an $U\subset X$ is an
+affine open, then $\varphi^{-1}(U)\to U$ is a closed embedding. (This
+leads us to believe we can study closed subschemes locally.)
+\end{observation}
+
+\begin{proposition}
+If $Z\subset X\iso\Spec(R)$ is a closed subscheme, then
+$Z=Z(I)\iso\Spec(R/I)$ for some ideal $I\ideal R$.
+\end{proposition}
+
+So there are no ``sneaky'' closed subschemes of affine schemes not
+captured by the motivating construction.
+
+\begin{proposition}
+For any $X$, closed subschemes of $X$ are ``the same as'' (bijective with)
+quasi-coherent sheaves of ideals.
+\end{proposition}
+
+\begin{definition}
+Let $X$ be a scheme. A \define{Open Immersion} (or \define{Open Embedding})
+is a scheme morphism $i\colon U\to X$ which is an isomorphism onto an
+open subset.
+\end{definition}
+
+\begin{definition}
+Let $X$ be a scheme, let $W\subset\underlyingspace(X)$ be a closed subset of the
+underlying topological space of $X$. Then there is a ``smallest''
+closed subscheme supported on $W$ called the \define{Induced Reduced
+  Closed Subscheme Structure} on $W$.
+\end{definition}
