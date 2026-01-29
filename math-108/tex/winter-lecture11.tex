@@ -1,0 +1,180 @@
+%%
+%% winter-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-29T10:13:45-0800
+%% Last update 2026-01-29T10:13:45-0800
+%% 
+
+\lecture{}
+
+\begin{recall}
+A function $f$ is a measurable function if for each $a\in\RR$, $\{f<a\}$
+is a measurable set.
+\end{recall}
+
+\begin{definition}[Lebesgue integral for non-negative function]
+Let $f\colon\RR^{d}\to[0,+\infty]$ be a measurable function. We define
+its \define{Integral} to be
+\begin{equation}
+\int f(x)\,\D x=\sup\{\int\varphi(x)\,\D x\mid \varphi\mbox{ is simple},0\leq\varphi\leq f\}.
+\end{equation}
+\end{definition}
+
+\begin{remark}
+This is the ``inner measure'' philosophy approximating the area of the
+graphy by stacking simple blocks below it.
+\end{remark}
+
+\begin{proposition}[Basic properties]
+Let $f,g\colon\RR^{d}\to[0,+\infty]$ be measurable. The following all hold:
+\begin{enumerate}
+\item\textsc{Monotonicity:} If $f\leq g$, then $\int f(x)\,\D x\leq\int g(x)\,\D x$
+\item\textsc{Homogeneity:} If $c\in\RR$ and $c>0$, then $\int cf(x)\,\D x=c\int f(x)\,\D x$
+\item\textsc{Chebyshev's Inequality:} For any $\alpha>0$,
+$m(\{f\geq\alpha\})\leq\frac{1}{\alpha}\int f(x)\,\D x$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item Let 
+\begin{subequations}
+  \begin{align}
+\Phi_{f}&=\{\mbox{simple functions }\varphi\mid0\leq\varphi\leq f\}\\
+\intertext{and}
+\Phi_{g}&=\{\mbox{simple functions }\varphi\mid0\leq\varphi\leq g\}.
+  \end{align}
+\end{subequations}
+If $f(x)\leq g(x)$ for all $x$, then any $\varphi\leq f$ also
+satisfies $\varphi\leq g$. So $\Phi_{f}\subset\Phi_{g}$. Then
+\begin{equation}
+\sup\Phi_{f}\leq\sup\Phi_{g},
+\end{equation}
+but
+\begin{equation}
+\int f(x)\,\D x=\sup_{\varphi\in\Phi_{f}}\int\varphi\leq\sup_{\varphi\in\Phi_{g}}\int\varphi=\int g(x)\,\D x.
+\end{equation}
+Hence the first claim.
+\item Let $c>0$.
+
+\textsc{Claim 1:} $\int cf(x)\,\D x\geq c\int f(x)\,\D x$.
+Let $\varphi$ be simple and $0\leq\varphi\leq f$. Then $c\varphi$ is
+simple and moreover $0\leq c\varphi\leq cf$. By linearity we can
+conclude $\int(c\varphi)=c\int\varphi$. Hence $\int(c\varphi)\geq c\int\varphi$.
+Then by taking the supremum over all such $\varphi$ gives us $\int cf\geq c\int f$.
+
+\textsc{Claim 2:} $\int cf(x)\,\D x\leq c\int f(x)\,\D x$.
+Let $\psi$ be simple and $0\leq\psi\leq cf$.
+Dividing by $c$, $0\leq c^{-1}\psi\leq f$, and again $c^{-1}\psi$ is simple.
+Denote by $\varphi=c^{-1}\psi$, we have $0\leq\varphi\leq f$. Then we have
+\begin{equation}
+\int\psi=c\int\varphi\leq c\int f(x)\,\D x.
+\end{equation}
+Taking the supremum on both sides gives us
+\begin{equation}
+\sup_{\psi}\int\psi=\int(cf(x))\,\D x\leq c\int f(x)\,\D x.
+\end{equation}
+Hence the claim.
+\item Let $E_{\alpha}=\{f\geq\alpha\}$. This is measurable, since $f$
+  is measurable. We define $\varphi=\alpha\chi_{E_{\alpha}}$. Then $0\leq\varphi$
+since $\alpha>0$ and $\chi_{E_{\alpha}}\geq0$. We also have
+$\varphi\leq f$ by definition of $\varphi$. So $0\leq\varphi\leq f$.
+Then by monotonicity $\int\varphi\leq\int f$ and by definition
+$\int\varphi=\alpha m(E_{\alpha})$, which gives us the desired result.
+\end{enumerate}
+\end{proof}
+
+\begin{recall}
+We had some difficulty with taking integrals of sequences of functions.
+It's not always true that limit of the integral is the integral of
+limits. A couple examples should spring to mind:
+\begin{enumerate}
+\item $f_{n}=\chi_{[n,n+1]}$. Then $f_{n}(x)\to0$ for all $x$, but
+  $\int f_{n}(x)\,\D x=1$ for all $n$. So clearly we have problems
+  since
+  \begin{equation}
+1=\lim_{n\to\infty}\int f_{n}(x)\,\D
+x\neq\int\lim_{n\to\infty}f_{n}(x)\,\D x=0,
+  \end{equation}
+  which is problematic.
+\item Consider
+  \begin{equation}
+f_{n}(x) = \begin{cases}n\chi_{(0,1/n]}(x) & \mbox{if }x\neq0\\
+0 & \mbox{if }x=0
+\end{cases}
+  \end{equation}
+  Then $f_{n}(x)\to f(x)$ where $f(x)=0$. But $\int f_{n}(x)\,\D x=1$,
+  despite $\int f(x)\,\D x=0$.
+\end{enumerate}
+\end{recall}
+
+\begin{monotone-convergence-theorem}
+Let $(f_{n})$ be a sequence of measurable functions (for simplicity, $f_{n}\colon\RR^{d}\to[0,+\infty]$)
+such that
+\begin{enumerate}
+\item\textsc{Monotone:} $0\leq f_{n}(x)\leq f_{n+1}(x)$ for almost
+  every $x$, and
+\item\textsc{Convergence:} $f_{n}(x)\to f(x)$ pointwise almost everywhere.
+\end{enumerate}
+Then $\lim_{n\to\infty}\int f_{n}(x)\,\D x=\int f(x)\,\D x$.
+\end{monotone-convergence-theorem}
+
+The monotone convergence theorem holds more generally than just for
+functions on $\RR^{d}$.
+
+\begin{proof}
+\textsc{Claim 1:} $\lim_{n\to\infty}\int f_{n}(x)\,\D x\leq\int f(x)\,\D x$.
+Since $\int f_{n}\leq\int f$ for each $n$, the result follows.
+
+\textsc{Claim 1:} $\lim_{n\to\infty}\int f_{n}(x)\,\D x\geq\int f(x)\,\D x$.
+Let $\varphi$ be any simple function such that $0\leq\varphi\leq f$, let
+$\alpha\in\RR$ be such that $0<\alpha<1$. Consider
+\begin{equation}
+E_{n}=\{x\in\RR^{d}\mid f_{n}(x)\geq\alpha\varphi(x)\}.
+\end{equation}
+Then
+\begin{equation}
+E_{n}\subset E_{n+1},
+\end{equation}
+since $f_{n}\leq f_{n+1}$ almost everywhere. Also Since $f_{n}\to f$
+pointwise and $\alpha<1$,
+\begin{equation}
+\bigcup^{\infty}_{n=1}E_{n}=\{x\in\RR^{d}\mid\varphi(x)>0\}.
+\end{equation}
+If $\varphi(x)>0$ then $\alpha\varphi(x)<\varphi(x)\leq f(x)$, and
+eventually $f_{n}(x)$ surpasses $\alpha\varphi(x)$.
+
+Now, we integrate over $E_{n}$:
+\begin{equation}
+\int_{\RR^{d}}f_{n}\geq\int_{E_{n}}f_{n}\geq\int_{E_{n}}\alpha\varphi=\alpha\int_{E_{n}}\varphi
+\end{equation}
+where the last equality is by linearity of integrating simple
+functions. Writing
+\begin{equation}
+\varphi=\sum_{j}c_{j}\chi_{A_{j}},
+\end{equation}
+we have
+\begin{equation}
+\int_{E_{n}}\varphi=\sum_{j}c_{j}m(A_{j}\cap E_{n}).
+\end{equation}
+By continuity of measures, $m(A_{j}\cap E_{n})\to m(A_{j})$. Thus
+\begin{equation}
+\lim_{n\to\infty}\int_{\RR^{d}}f_{n}\geq\alpha\int\varphi
+\end{equation}
+for any $\alpha<1$. Take the limit $\alpha\to 1$, we get
+\begin{equation}
+\lim_{n\to\infty}\int f_{n}\geq\int\varphi.
+\end{equation}
+This holds for \emph{any} simple $\varphi\leq f_{n}$. Then
+\begin{equation}
+\lim_{n\to\infty}\int f_{n}\geq\sup\{\int\varphi\mid\varphi\leq f\}=\int f(x)\,\D x.
+\end{equation}
+Hence the second claim, and the result follows immediately.
+\end{proof}
+
+\begin{xca}
+Review this proof. Where is monotonicity used?
+\end{xca}

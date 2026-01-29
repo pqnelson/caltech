@@ -1,0 +1,229 @@
+%%
+%% winter-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-29T09:26:12-0800
+%% Last update 2026-01-29T09:26:12-0800
+%% 
+
+\lecture{}
+
+Our next application: quotient spaces.
+
+\begin{theorem} % Hatcher, Proposition 4.28, PDF page 375
+If a CW pair $(X,A)$ is $r$-connected and $A$ is $s$-connected (and
+$r,s\geq0$), then $f_{*}\colon\pi_{i}(X,A)\to\pi_{i}(X/A,A/A)$
+[induced by the quotient map $f\colon X\to X/A$] is an isomorphism for
+$i\leq r+s$ and surjective for $i=r+s$.
+\end{theorem}
+
+Note that $\pi_{i}(X/A,A/A)\iso\pi_{i}(X/A)$.
+
+\begin{proof}
+Consider the mapping cone for the inclusion $i\colon A\into X$ which is
+\begin{equation}
+C_{f}=X\cup_{A}CA.
+\end{equation}
+More generally, for $f\colon Y\to X$, its mapping cone $C_{f}$ is its mapping
+cylinder $M_{f}$ collapsing $Y$ to a point $C_{f}=M_{f}/Y\times\{0\}$
+(recall $M_{f}=((Y\times I)\sqcup X)/(z,1)\sim f(z)$ is the mapping cylinder).
+This is equivalent to $(CY\cup X)/(y,1)\sim f(y)$. Since $A$ is
+$r$-connected and $CA$ is contractible, the long exact sequence for
+the pair $(CA,A)$ implies $(CA,A)$ is $(s+1)$-connected. So by the
+Excision theorem, the map
+\begin{equation}
+i_{*}\colon\pi_{i}(X,A)\to\pi_{i}(X\cup CA,A)
+\end{equation}
+is an isomorphism for $i\leq r+s$ and surjective if $i=r+s+1$.
+
+Since $CA$ is contractible, the map
+\begin{equation}
+X\cup CA\xrightarrow{r}(X\cup CA)/CA=X/A,
+\end{equation}
+since $CA$ collapses to a point but that's the same as $A$ collapsing
+to a point (i.e., $X/A$). Then $r$ is a deformation retraction (by
+Proposition 0.17 of Hatcher). The quotient map
+\begin{equation}
+q\colon X\to X/A
+\end{equation}
+can be written as the following commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{ & X\cup CA\ar[dr]^{r} & \\
+X\ar@{^{(}->}[ur]^{i}\ar[rr]^{q} & & X/A}}
+\end{equation}
+In other words, $q=r\circ i$. Hence we have the following
+\begin{equation}
+\vcenter{\xymatrix{\pi_{i}(X,A) \ar@/_/[drr]_{q_{*}}\ar[r]^-{i_{*}} & \pi_{i}(X\cup CA,CA)\ar[r]^-{r_{*}} & \ar[d]^{\iso}\pi_{i}\bigl((X\cup CA)/CA, CA/CA\bigr)\\
+& & \pi_{i}(X,A)}}
+\end{equation}
+where $r_{*}$ is an isomorphism because it's' a deformation
+retraction. Hence $q_{*}$ has the desired property.
+\end{proof}
+
+\begin{example}
+Compute $\pi_{n}(\bigvee_{\alpha\in A}\sphere{n}_{\alpha})$. When
+$n=1$, the Seifert--van Kampen theorem says this is just the free
+product of $|A|$ copies of $\ZZ$.
+
+When $n\geq2$, the situation is similar, we claim
+\begin{equation}
+\pi_{n}(\bigvee_{\alpha\in A}\sphere{n}_{\alpha})\iso\bigoplus_{\alpha\in A}\ZZ
+\end{equation}
+Note: $A$ may be an infinite set, or it may be a finite set.
+\end{example}
+
+\begin{proof}
+\textsc{Case 1:} $A$ is a finite indexing set. If each
+$\sphere{n}_{\alpha}$ is given the standard cell structure (i.e., one
+$0$-cell and one $n$-cell). Then consider $\prod_{\alpha\in A}\sphere{n}_{\alpha}$
+with the product cell structure---so for each $\alpha\in A$, we pick
+either the $0$-cell or $n$-cell from $\sphere{n}_{\alpha}$. In
+particular, each cell in $\prod_{\alpha\in A}\sphere{n}_{\alpha}$ has
+dimension $kn$ (for some $k=0,1,\dots,n$). Then the wedge sum
+$\bigvee_{\alpha\in A}\sphere{n}_{\alpha}$ is the $n$-skeleton of
+$\prod_{\alpha\in A}\sphere{n}_{\alpha}$.
+So each cell in the wedge product is one $n$-cell producted with the
+remaining $0$-cells. And $(\prod_{\alpha\in A}\sphere{n}_{\alpha},\bigvee_{\alpha\in A}\sphere{n}_{\alpha})$
+is $(2n-1)$-connected since cells in 
+$(\prod_{\alpha\in A}\sphere{n}_{\alpha})\setminus(\bigvee_{\alpha\in A}\sphere{n}_{\alpha})$
+has dimension at least $2n$.
+
+By the long exact sequence of the pair $(\prod_{\alpha\in A}\sphere{n}_{\alpha},\bigvee_{\alpha\in A}\sphere{n}_{\alpha})$
+we have
+\begin{equation}
+\pi_{n}(\bigvee_{\alpha\in A}\sphere{n}_{\alpha})\iso\pi_{n}(\prod_{\alpha\in A}\sphere{n}_{\alpha})\iso\prod_{\alpha\in A}\pi_{n}(\sphere{n}_{\alpha})\iso\bigoplus_{\alpha\in A}\ZZ,
+\end{equation}
+as desired.
+
+\textsc{Case 2:} $A$ is infinite. Define a map
+\begin{equation}
+\Phi\colon\bigoplus_{\alpha\in A}\pi_{n}(\sphere{n}_{\alpha})\to\pi_{n}(\bigvee_{\alpha\in A}\sphere{n}_{\alpha}),
+\end{equation}
+by the universal property of the coproduct this is defined by how it
+behaves on components. Then define it to be
+\begin{equation}
+\Phi:=\bigoplus_{\alpha\in A}(i_{\alpha})_{*}.
+\end{equation}
+We want to show $\Phi$ is surjective and injective.
+
+\textsc{Surjectivity:} Suppose $[f]\in\pi_{n}(\bigvee_{\alpha\in A}\sphere{n}_{\alpha})$,
+i.e., we have $f\colon\sphere{n}\to\bigvee_{\alpha\in A}\sphere{n}_{\alpha}$.
+Since $\sphere{n}$ is compact and $f$ is continuous, $f(\sphere{n})$
+is compact and therefore touches only finitely many $\sphere{n}_{\alpha}\setminus\{\point{*}\}$.
+So $f\in\Im(\Phi)$.
+
+\textsc{Injectivity:} Suppose $\Phi(g)=0$.. Then there is a homotopy
+$H$ from $(\bigoplus_{\alpha\in A}i_{\alpha})\circ g$ to the constant
+map in $\bigvee_{\alpha\in A}\sphere{n}_{\alpha}$. But the image of
+$H$ is compact, so it only intersects finitely of the $\sphere{n}_{\alpha}$
+away from the point. Then it follows $[g]=0$.
+\end{proof}
+
+\begin{example}
+$\pi_{n}(\sphere{1}\vee\sphere{n})$ for $n\geq2$.
+\end{example}
+
+\begin{proof}
+\textsc{Claim 1:} $\pi_{n}(\sphere{1}\vee\sphere{n})\iso\ZZ[t,t^{-1}]$.
+(We see $\ZZ[t,t^{-1}]\iso\bigoplus_{n\in\ZZ}\ZZ$ indexed by $\deg(t)$.)
+We can consider the universal cover of $\sphere{1}\vee\sphere{n}$
+which is roughly attaching $\sphere{n}$ to each point of $\RR$ modulo
+translation. Let $\widetilde{X}$ be this covering space. Then
+$\widetilde{X}\homotopic\bigvee_{\alpha\in\ZZ}\sphere{n}_{\alpha}$, so
+\begin{equation}
+\pi_{n}(\sphere{1}\vee\sphere{n})
+\iso\pi_{n}(\widetilde{X})
+\iso\pi_{n}(\bigvee_{\alpha\in\ZZ}\sphere{n}_{\alpha})
+\iso\bigoplus_{\alpha\in\ZZ}\ZZ
+\iso\ZZ[t,t^{-1}].
+\end{equation}
+Hence the result.
+\end{proof}
+
+\begin{remark}
+This example shows given some finite CW complex, its homotopy group
+could be infinitely-generated. (The source of this infinity is the
+action of $\pi_{1}$.)
+\end{remark}
+
+\begin{example}
+We can realize any Abelian group as $\pi_{n}$ for $n\geq2$.
+Consider
+\begin{equation}
+X:=(\bigvee_{\alpha\in A}\sphere{n}_{\alpha})\underbrace{\cup_{\varphi_{\beta}}(\bigcup_{\beta\in B}e^{n+1}_{\beta})}_{\text{kills the relations for Abelian group}},
+\end{equation}
+where the gluing map is
+\begin{equation}
+\varphi_{\beta}\colon(\sphere{n}\iso\boundary e^{n+1}_{\beta})\to\bigvee_{\alpha\in A}\sphere{n}_{\alpha}.
+\end{equation}
+\textsc{Claim:}
+\begin{equation}
+\pi_{n}(X)\iso\frac{\bigoplus_{\alpha\in A}\ZZ}{\langle[\varphi_{\beta}]\mid\beta\in B\rangle}.
+\end{equation}
+\begin{proof}
+Consider the long exact sequence of the pair $(X,\bigvee_{\alpha\in A}\sphere{n}_{\alpha})$,
+\begin{equation}
+\vcenter{\xymatrix{\pi_{n+1}(X,\bigvee_{\alpha\in A}\sphere{n}_{\alpha})\ar[r]^{\boundary}
+&\ar[d]^{\iso}\pi_{n}(\bigvee_{\alpha\in A}\sphere{n}_{\alpha})\ar[r]
+&\pi_{n}(X)\ar[r] &\pi_{n}(X,\bigvee_{\alpha\in A}\sphere{n}_{\alpha})\ar@{=}[d]\\
+& \bigoplus_{\alpha\in A}\ZZ & & 0}}
+\end{equation}
+Exactness then says
+\begin{subequations}
+  \begin{align}
+\pi_{n}(X)&\iso\pi_{n}(\bigvee_{\alpha\in A}\sphere{n}_{\alpha})/\Im(\boundary)\\
+&\iso(\bigoplus_{\alpha\in A}\ZZ)/\Im(\boundary),
+  \end{align}
+\end{subequations}
+where
+\begin{equation}
+\begin{split}
+\boundary\colon&\pi_{n+1}(X,\bigvee_{\alpha\in A}\sphere{n}_{\alpha})\to\pi_{n}(\bigvee_{\alpha\in A}\sphere{n}_{\alpha})\\
+&[e^{n+1}_{\beta}]\mapsto[\varphi_{\beta}(\boundary e^{n+1}_{\beta})],
+\end{split}
+\end{equation}
+so $\Im(\boundary)=\langle[\varphi_{\beta}]\mid\beta\in B\rangle$.
+\end{proof}
+\end{example}
+
+\subsection{Eilenberg--MacLane Spaces}
+
+\begin{definition}
+A space $X$ with only one nontrivial homotopy group $\pi_{n}(X)=G$ is
+called a (the?) \define{Eilenberg--Mac~Lane Space} usually denoted
+$K(G,n)$ for $n\geq1$.
+\end{definition}
+
+\begin{example}
+$G=\ZZ$, $n=1$, $k(\ZZ,1)=\sphere{1}$.
+\end{example}
+
+\begin{example}
+$K(\ZZ/2\ZZ, 1)=\RP^{\infty}=\sphere{\infty}/x\sim-x$ where we mod out
+  by the antipodal map. 
+\end{example}
+
+\begin{example}
+$K(\ZZ,2)=\CP^{\infty}=\sphere{\infty}/\sphere{1}$ where recall we had
+\begin{equation}
+\CP^{1}=\underbrace{\langle[z:w]\in\CC^{2}\mid |z|^{2}+|w|^{2}=1\rangle}_{=\sphere{3}}/\underbrace{[\E^{\I\theta}z:\E^{\I\theta}w]\sim[z:w]}_{=\sphere{1}},
+\end{equation}
+a sphere in $\CC^{n+1}\iso\RR^{2n+2}$ is $\sphere{2n+1}$,
+so using the same reasoning we have more generally $\CP^{n}=\sphere{2n+1}/\sphere{1}$.
+\end{example}
+
+\begin{node}
+In general, for $n=1$ and any group $G$, Hatcher \S1{.}B constructs a contractible space
+$EG$ together with a free $G$-action, so $K(G,1):=(EG)/G=BG$.
+\end{node}
+
+\begin{node}
+For $n\geq2$ and any Abelian group $G$, in the previous example we
+constructed a CW complex $X$ of dimension $n+1$ and it is
+$(n-1)$-connected and $\pi_{n}(X)=G$. We just need to kill all higher
+homotopy groups. So by applying the same argument used in the CW
+approximation by attaching cells of dimension at least $n+2$, we get a
+CW complex which is $K(G,n)$.
+\end{node}

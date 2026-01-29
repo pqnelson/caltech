@@ -1,0 +1,230 @@
+%%
+%% winter-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-29T08:41:48-0800
+%% Last update 2026-01-29T08:41:48-0800
+%% 
+
+\lecture[Examples and Applications]{}
+
+\begin{example}\label{ex:8.1}
+Consider the polynomial
+\begin{equation}
+f(x)=x^{4}-2\in\QQ[x].
+\end{equation}
+We denote by
+\begin{equation}
+\alpha=\sqrt[4]{2},\quad\mbox{and}\quad\I=\sqrt{2}.
+\end{equation}
+Then the roots of $f(x)$ are $\pm\alpha$, $\pm\I\alpha$. In
+particular, $f(x)$ is irreducible and separable. Thus the splitting
+field of $f$ is $\QQ(\alpha,\I)/\QQ$, which is a finite Galois
+extension.
+
+What is its Galois group? Denote $G=\Gal(\QQ(\alpha,\I)/\QQ)$. Since
+\begin{equation}
+[\QQ(\alpha):\QQ]=4,\quad\mbox{and}\quad[\QQ(\I):\QQ]=2,
+\end{equation}
+we have
+\begin{subequations}
+  \begin{align}
+[\QQ(\alpha,\I):\QQ]
+&=[\QQ(\alpha,\I):\QQ(\alpha)][\QQ(\alpha):\QQ]\\
+&=[\QQ(\I):\QQ(\alpha)\cap\QQ(\I)][\QQ(\alpha):\QQ]\quad\mbox{by Theorem~\ref{thm:7.6}}\\
+&=[\QQ(\I):\QQ][\QQ(\alpha):\QQ]\\
+&=2\times4=8
+  \end{align}
+\end{subequations}
+Define $\sigma\in\Gal(\QQ(\alpha,\I)/\QQ(\I))$ and
+$\tau\in\Gal(\QQ(\alpha,\I)/\QQ(\alpha))$ such that
+\begin{equation}
+\sigma(\alpha)=\I\alpha,\quad\mbox{and}\quad\tau(\I)=-\I.
+\end{equation}
+Then clearly we have $|\langle\sigma\rangle|=4$ and $|\langle\tau\rangle|=2$,
+and $\tau\notin\langle\sigma\rangle$ and
+\begin{equation}
+8=|G|\geq|\langle\sigma,\tau\rangle|=|\langle\sigma\rangle|\cdot[\langle\sigma,\tau\rangle:\langle\tau\rangle]=8,
+\end{equation}
+so by cardinality reasons $G=\langle\sigma,\tau\rangle$.
+
+We can verify $\sigma\tau\sigma=\tau$ and this is the only relation
+for $\langle\sigma,\tau\rangle$. So the underlying set of elements
+is:;
+\begin{equation}
+G=\{1,\sigma,\sigma^{2},\sigma^{3},\tau,\tau\sigma,\tau\sigma^{2},\tau\sigma^{3}\},
+\end{equation}
+since $\sigma^{3}\tau=\tau\sigma$, $\sigma^{2}\tau=\tau\sigma^{2}$, $\sigma\tau=\tau\sigma^{3}$.
+This allows us to classify the subgroups $H$ of $G$, let us tabulate
+them by cardinality:
+\begin{center}
+\begin{tabular}{r|l}
+$|H|$ & $H$\\\hline
+1 & $\mathbf{1}$ (trivial group)\\
+2 & $\langle\tau\rangle$, $\langle\sigma^{2}\rangle$, $\langle\tau\sigma\rangle$, $\langle\tau\sigma^{2}\rangle$, $\langle\tau\sigma^{3}\rangle$\\
+4 & $\langle\sigma\rangle$, $\langle\tau,\sigma^{2}\rangle$, $\langle\tau,\tau\sigma^{2}\rangle$\\
+8 & $H=G=\langle\sigma,\tau\rangle$
+\end{tabular}
+\end{center}
+The corresponding subextensions $\QQ(\alpha,\I)^{H}$ are:
+\begin{center}
+\begin{tabular}{r|l}
+$|H|$ & $\QQ(\alpha,\I)^{H}$\\\hline
+1 & $\QQ(\alpha,\I)$ \\
+2 & $\QQ(\alpha)$, $\QQ(\alpha^{2},\I)$, $\QQ((1-\I)\alpha)$, $\QQ(\I\alpha)$, $\QQ((1+\I)\alpha)$\\
+4 & $\QQ(\I)$, $\QQ(\alpha^{2})$, $\QQ(\alpha^{2}\I)$\\
+8 & $\QQ$
+\end{tabular}
+\end{center}
+\end{example}
+
+\begin{example}[Fundamental theorem of Algebra]\label{ex:8.2}
+That is, $\CC$ is algebraically closed. Here $\CC=\RR(\I)$ wherre
+$\I=\sqrt{-1}$ is a root of the polynomial $x^{2}+1$.We use the
+following properties of $\RR$:
+\begin{enumerate}
+\item $(\RR,\leq)$ is an ordered field --- recall, ordered fields have
+  the properties that, specifically for the reals,
+  \begin{enumerate}
+  \item $\forall a,b,c\in\RR\ldotp a\geq b\implies a+c\geq b+c$
+  \item $\forall a,b\in\RR\ldotp a\geq0\land b\geq0\implies ab\geq0$
+  \end{enumerate}
+\item\textsc{Existence of squareroot:} $\forall a\in\RR\ldotp a\geq0\implies x^{2}-a$ has a root in
+  $\RR$ (namely, $\sqrt{a}\in\RR$)
+\item For any polynomial $f(x)\in\RR[x]$, if $\deg(f)$ is odd, then
+  $f$ has a root in $\RR$.
+\end{enumerate}
+
+For any monic polynomial
+\begin{equation}
+f(x)=x^{n}+a_{n-1}x^{n-1}+\dots+a_{1}x+a_{0},
+\end{equation}
+where $n$ is odd, we have
+\begin{equation}
+\lim_{x\to+\infty}f(x)=+\infty,\quad\mbox{and}\quad
+\lim_{x\to-\infty}f(x)=-\infty.
+\end{equation}
+Then by the intermediate value Theorem, there exists an $x_{0}\in\RR$
+such that $f(x_{0})=0$.
+
+Now, we also have two facts needed for the proof:
+\begin{enumerate}
+\item For any separable finite extension $K/\RR$, if $[K:\RR]$ is odd
+  then $K=\RR$;
+  \begin{proof}
+By Theorem~\ref{thm:4.5}, there exists $\alpha\in K$ such that
+$K=\RR(\alpha)$ and thus the minimal polynomial of $p_{\alpha}$ of
+$\alpha$ in $\RR$, we have $[K:\RR]=\deg(p_{\alpha})$ is odd. But
+since $p_{\alpha}$ has a root in $\RR$, $\deg(p_{\alpha})=1$.
+  \end{proof}
+\item Every quadratic polynomial $x^{2}+ax+b\in\CC[x]$ has roots in $\CC$
+\begin{proof}
+We can just use the quadratic formula
+\begin{equation}
+x_{\pm}=\frac{-a\pm\sqrt{a^{2}-4b}}{2}
+\end{equation}
+which is an element of $\CC$.
+\end{proof}
+\end{enumerate}
+
+\textsc{Claim:} $\CC$ is algebraically closed. We will show for any
+$P(x)\in\CC[x]$ the splitting field of $P$ is $K=\CC$.
+
+\begin{proof}
+Since $\Char(\RR)=0$ (otherwise it contradicts the first property of
+ordered fields), then $\RR$ and $\CC$ and $K$ are perfect by
+Proposition~\ref{prop:5.5}. Since every algebraic extension of a
+perfect field is separable, we can assume that $P$ is irreducible and
+separable, and thus $K/\CC/\RR$ and $K/\RR$ are finite Galois extensions.
+
+For $G=\Gal(K/\RR)$, we can write
+\begin{equation}
+|G|=[K:\RR]=2^{m}q,
+\end{equation}
+where $m\geq0$ and $q\in\NN_{0}$ is odd. If $m=0$, then $[K:\RR]=q$ is
+an odd extension, which means $q=1$ which is a contradiction (it
+implies $\CC\subset K=\RR$). So $m>0$.
+
+By Sylow's theorem for $p=2$, there exists a maximal Sylow 2-subgroup
+$H\leq G$ such that $|H|=2^{m}$ and $[G:H]=q$. By Theorem~\ref{thm:7.4},
+\begin{equation}
+[K:K^{H}]=|H|=2^{m},
+\end{equation}
+and
+\begin{equation}
+[K^{H}:\RR]=\frac{[K:\RR]}{[K:K^{H}]}=q=1,
+\end{equation}
+which means
+\begin{equation}
+[K:\RR]=2^{m}=|G|.
+\end{equation}
+
+Next, we study $K/\CC$. For $G'=\Gal(K/\CC)$, we find
+\begin{equation}
+|G'|=[K:\CC]=2^{m-1}.
+\end{equation}
+If $m>1$, then there exists a subgroup $H'\subgroup G'$ such that
+$|H'|=2^{m-2}$. (Note: if $m>1$, then $m-1\geq1$.) Thus by similar
+reasoning as before,
+\begin{equation}
+[K^{H'}:\CC]=\frac{[K:\CC]}{[K:K^{H'}]}=\frac{2^{m-1}}{|H'|}=2.
+\end{equation}
+But as we'd check every quadratic polynomial in $\CC[x]$ has all its
+roots in $\CC$, this gives us a contradiction. Hence $m=1$, so $[K:\CC]=2^{1-1}=1$.
+Therefore $K=\CC$.
+\end{proof}
+\end{example}
+
+\begin{example}[Fundamental theorem of symmetric polynomials/functions]
+Let $\FF$ be a field, let $t_{1}$, \dots, $t_{n}$ be formal variables
+(or, at least, algebraically independent). Let $L:=\FF(t_{1},\dots,t_{n})$.
+Then the symmetric group $S_{n}$ acts on $L$ by $\sigma(t_{i})=t_{\sigma(i)}$
+for $\sigma\in S_{n}$. Clearly this $\sigma$ is an automorphism
+$\sigma\in\Aut_{\FF}(L)$. Then $L^{S_{n}}$ is a field of all symmetric
+functions over $\FF$. Denote this by $E=L^{S_{n}}$. Denote
+\begin{equation}
+s_{k}:=\sum_{1\leq i_{1}<\dots<i_{k}\leq n}t_{i_{1}}(\cdots)t_{i_{k}}
+\end{equation}
+for the elementary $k^{\text{th}}$ symmetric polynomial. Then
+$s_{k}\in E$ for $k=0,1,\dots,n$. Writing
+$K=\FF(s_{1},\dots,s_{n})\subset E$. We obviously have $K\subset E$.
+Then
+\begin{subequations}
+  \begin{align}
+P(x) &:= \prod(x-t_{i})\in E[x]\\
+&=\sum^{n}_{i=0}(-1)^{n-i}s_{n-i}x^{i}\in K[x].
+  \end{align}
+\end{subequations}
+We show that $K=E$.
+
+Since $L$ is the splitting field of $P(x)$, then by a homework problem
+$[L:K]$ divides $(\deg(P))!=n!$. On the other hand, since $K\subset
+E$, we have
+\begin{subequations}
+  \begin{align}
+[L:E] &= [L:L^{S_{n}}]\\
+&=|S_{n}|\quad\mbox{by Theorem~\ref{thm:7.4}}\\
+&=n!.
+  \end{align}
+\end{subequations}
+But
+\begin{equation}
+n!=[L:E]\leq[L:K]\leq n!,
+\end{equation}
+which implies $E=K$. Hence every symmetric rational function may be
+written using elementary symmetric polynomials.
+\end{example}
+
+\begin{remark}
+The polynomial version of this theorem (every symmetric polynomial may
+be written as $f\in\FF[s_{1},\dots,s_{n}]$).
+\end{remark}
+
+\begin{proof}
+Writing $f=\frac{g}{h}$ with $g,h\in\FF[s_{1},\dots,s_{n}]$ when $g$
+is irreducible and $h$ is irreducible or a unit. If $h$ is
+irreducible, then $g=fh$ which is a contradiction unless $f$ is a
+unit. Hence $h$ must be a unit.
+\end{proof}
