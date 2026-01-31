@@ -23,11 +23,11 @@ We still need to show the ``rel $A$'' part of the homotopy equivalence.
 Consider $f\colon Z\to X$. .We know $f|_{A}=\id_{A}$ by
 construction. Then using cellular approximation, we can assume $f$ is
 a cellular map such that $f|_{A}=\id_{A}$. Then consider the mapping
-cylinder
+cylinder (\S\ref{defn:mapping-cylinder})
 \begin{equation}
-M_{f}=(Z\times I\sqcup X)/(z,1)\sim f(z).
+\MappingCylinder{f}=(Z\times I\sqcup X)/(z,1)\sim f(z).
 \end{equation}
-Define $W:=M_{f}/(a,t)\sim(a,0)$ for all $a\in A$, where we are
+Define $W:=\MappingCylinder{f}/(a,t)\sim(a,0)$ for all $a\in A$, where we are
 smashing the cylinder $A\times I$ ``down''.
 
 We claim $(Z,A)\homotopic_{\rel{A}}(W,A)\homotopic_{\rel{A}}(X,A)$.
@@ -63,7 +63,7 @@ gives a deformation retract of $(W,A)$ to $(Z,A)$.
 \end{proof}
 
 \begin{observation}
-The punchline is: it is easier to use the mapping cylinder than a map.
+The punchline is: it is easier to use the mapping cylinder (\S\ref{defn:mapping-cylinder}) than a map.
 \end{observation}
 
 \begin{definition}
@@ -113,13 +113,13 @@ for all $n\in\NN_{0}$ and coefficient groups $G$.
 Suffices to prove one of these, since the Universal Coefficient
 theorem gives us $f^{*}$ from $f_{*}$.
 
-Consider the mapping cylinder $M_{f}$ of $f$, which gives us the
+Consider the mapping cylinder (\S\ref{defn:mapping-cylinder}) $\MappingCylinder{f}$ of $f$, which gives us the
 following commutative diagram
 \begin{equation}
-\vcenter{\xymatrix{& M_{f}\ar[rd]^{r} &\\
+\vcenter{\xymatrix{& \MappingCylinder{f}\ar[rd]^{r} &\\
 X \ar@{^{(}->}[ur]^{j}\ar[rr]^{f} & & Y}}
 \end{equation}
-It suffices to prove the inclusion $j\colon X\into M_{f}$ satisfies
+It suffices to prove the inclusion $j\colon X\into\MappingCylinder{f}$ satisfies
 this statement, since $r$ is a deformation retraction. It suffices to
 prove the following using the long exact sequence of $H_{*}$ for $(Z,X)$:
 \begin{quote}\it

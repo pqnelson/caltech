@@ -46,7 +46,8 @@
 \DeclareMathOperator\ClosedStar{St}
 \DeclareMathOperator\OpenStar{st}
 
-\newcommand\MappingCylinder[1]{\operatorname{MC}(f)}
+\newcommand\MappingCylinder[1]{\operatorname{MC}(#1)} % Fall quarter
+\renewcommand\MappingCylinder[1]{\operatorname{M}_{#1}} % Winter quarter
 
 \DeclareMathOperator\rank{rank}
 

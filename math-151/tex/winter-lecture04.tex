@@ -161,18 +161,23 @@ deformation retract of $X\times I$. Hence $(X,A)$ has the homotopy
 extension property.
 \end{proposition}
 
-\begin{definition}
+\begin{definition}\label{defn:mapping-cylinder}
 Let $X$ and $Y$ be topological spaces. Let $f\colon X\to Y$ be a continuous map.
-We define the \define{Mapping Cylinder} $M_{f}$ to be the quotient space
+We define the \define{Mapping Cylinder} $\MappingCylinder{f}$ to be the quotient space
 \begin{equation}
-M_{f}=((X\times[0,1])\sqcup Y)/(\forall x\in X\ldotp(x,1)\sim f(x)).
+\MappingCylinder{f}=((X\times[0,1])\sqcup Y)/(\forall x\in X\ldotp(x,1)\sim f(x)).
 \end{equation}
-Then we identify $X\subset M_{f}$ as $X\times\{0\}$; we also have
-$Y\subset M_{f}$. Furthermore, $M_{f}$ deformation retracts to $Y$ (by
+Then we identify $X\subset\MappingCylinder{f}$ as $X\times\{0\}$; we also have
+$Y\subset\MappingCylinder{f}$. Furthermore, $\MappingCylinder{f}$ deformation retracts to $Y$ (by
 ``crushing the cylinder'').
 \end{definition}
 
-\begin{theorem}[Whitehead]
+\begin{remark}
+We discussed the mapping cylinder the first lecture of Fall Quarter,
+but did not make extensive use of the notion.
+\end{remark}
+
+\begin{theorem}[Whitehead]\label{thm:whitehead}
 If $X$ and $Y$ are connected CW complexes and $f\colon X\to Y$ is
 continuous such that $f_{*}\colon\pi_{n}(X)\to\pi_{n}(Y)$ is an
 isomorphism for all $n$, then $X\homotopic Y$.
@@ -196,16 +201,16 @@ Then apply the Compression Lemma to the identity map $\id\colon(Y,X)\to(Y,X)$.
 Then $\id\homotopic g\rel{\boundary X}$ for any $g\colon Y\to X$, so
 $(g\circ f)(x)=g(x)=\id(x)=x$ and $f\circ g\homotopic\id_{Y}$.
 
-In general, we use the notion of a mapping cylinder $M_{f}$. We will
-show $X\homotopic M_{f}\homotopic Y$. In particular, $Y\homotopic M_{f}$
+In general, we use the notion of a mapping cylinder $\MappingCylinder{f}$. We will
+show $X\homotopic\MappingCylinder{f}\homotopic Y$. In particular, $Y\homotopic\MappingCylinder{f}$
 by deformation retract.
 
-So it suffices to show $X\homotopic M_{f}$. We approximate continuous
+So it suffices to show $X\homotopic\MappingCylinder{f}$. We approximate continuous
 $f$ by a CW map, so without loss of generality $f$ is a CW map sending
-cells to cells. Then it is easy to see $X\times\{0\}\subset M_{f}$ is
+cells to cells. Then it is easy to see $X\times\{0\}\subset\MappingCylinder{f}$ is
 a CW subcomplex. In general, we will use the CW approximation (there
 exists an $f'\colon X\to Y$ such that $f\homotopic f'$) to use $f'$
-instead of $f$. So we have $X\homotopic M_{f'}\homotopic Y$.
+instead of $f$. So we have $X\homotopic\MappingCylinder{f'}\homotopic Y$.
 \end{proof}
 
 \begin{remark}
