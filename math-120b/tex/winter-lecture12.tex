@@ -1,0 +1,206 @@
+%%
+%% winter-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-31T09:19:30-0800
+%% Last update 2026-01-31T09:19:30-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+For a field $F$ and any natural number $n\in\NN$, we define an
+\define{$n^{\text{th}}$ Root of Unity} to be an element $\zeta\in F$ 
+such that $\zeta^{n}=1$.
+
+If further $\zeta^{p}\neq1$ for all $1\leq p<n$, we say $\zeta$ is
+\define{Primitive} and conventionally is denoted by $\zeta_{n}$.
+\end{definition}
+
+\begin{definition}
+A Galois extension $E/F$ is called \define{Abelian} if its Galois
+group $\Gal(E/F)$ is Abelian.
+\end{definition}
+
+\begin{remark}
+After thinking about it for a minute, I think we could ostensibly
+generalize this notion to: for any field extension $E/F$, we say $E/F$
+is ``Abelian'' if $\Aut_{F}(E)$ is an Abelian group. Whether this
+degree of abstraction is useful, however\dots That is to say: just
+because we can do something \emph{does not mean we should do it!}
+\end{remark}
+
+\begin{proposition}\label{prop:9.1}
+For any $n\in\NN$ such that $\Char(F)=p\nmid n$ (or $\Char(F)=0$),
+there exists a primitive root of unity $\zeta_{n}\in\closure{F}$ 
+such that $F(\zeta_{n})/F$ is finite Abelian.
+\end{proposition}
+
+\begin{proof}
+Since the formal derivative of $x^{n}-1$ is $nx^{n-1}\neq0$ has its
+only root be zero, it is coprime to $x^{n}-1$ in $F[x]$. By
+Lemma~\ref{lemma:5.3}, $x^{n}-1$ is separable (i.e., has $n$ distinct
+roots in $\closure{F}$). They form a finite subgroup $\mu_{n}\subgroup\MultGroup{\closure{F}}=\closure{F}\setminus\{0\}$.
+By Proposition~\ref{prop:5.1}, $\mu_{n}$ is cyclic. So we can take
+$\zeta_{n}\in\mu_{n}$ as a generator. In particular, $F(\zeta_{n})$ is
+the splitting field of the separable polynomial $x^{n}-1$ (i.e.,
+$F(\zeta_{n})/F$ is a normal extension).
+
+Since the $x^{n}-1$ is separable, the minimal polynomial of
+$\zeta_{n}$ divides $x^{n}-1$---$\zeta_{n}$ is therefore separable,
+and moreover $F(\zeta_{n})/F$ is Galois.
+
+Now we will show $\Gal(F(\zeta_{n})/F)$ is Abelian. For
+$\sigma\in\Gal(F(\zeta_{n})/F)=G$, we have
+$\sigma(\zeta_{n})^{n}=\sigma(\zeta_{n}^{n})=\sigma(1)1$. That is to
+say, $\sigma(\zeta_{n})=\zeta^{i(\sigma)}_{n}\in\mu_{n}$ for some
+$i(\sigma)\in\ZZ$. If
+\begin{equation}
+\gcd(i(\sigma),n)\neq1,
+\end{equation}
+then $\langle\sigma(\zeta_{n})\rangle=\langle\zeta^{i(\sigma)}_{n}\rangle\propersubset\mu_{n}$
+and this contradicts $\sigma$ being an Automorphism. Thus we have a
+group morphism
+\begin{equation}
+\begin{split}
+G\to\MultGroup{(\ZZ/n\ZZ)}\\
+\sigma\mapsto i(\sigma)
+\end{split}
+\end{equation}
+from the Galois group to the multiplicative group of integers modulo
+$n$. We know $\MultGroup{(\ZZ/n\ZZ)}$ is Abelian. We know this group
+morphism is surjective. To prove injectivity, if $i(\sigma)=i(\tau)$,
+then
+\begin{equation}
+\sigma(\zeta_{n})=\zeta^{i(\sigma)}_{n}=\zeta^{i(\tau)}_{n}=\tau(\zeta_{n}).
+\end{equation}
+Hence it's a group isomorphism, which means $G$ is Abelian.
+\end{proof}
+
+\begin{definition}
+We define \define{Euler's Totient Function} of $n$ to be the number of
+positive integers coprime to $n$
+\begin{equation}
+\varphi(n):=|\{m\in\NN\mid m\leq n,\gcd(m,n)=1\}|.
+\end{equation}
+\end{definition}
+
+\begin{node}
+We have $[F(\zeta_{n}):F]=|G|\leq\varphi(n)$.
+\end{node}
+
+\begin{lemma}[Gauss]\label{lemma:9.3}
+For any $g,h\in\ZZ[x]$ primitive, we have $gh\in\ZZ[x]$ is primitive.
+\end{lemma}
+
+\noindent(Recall: $f=a_{n}x^{n}+\dots+a_{1}x+a_{0}\in\ZZ[x]$ is primitive if
+$\gcd(a_{0},a_{1},\dots,a_{n})=1$.)
+
+\begin{corollary}\label{cor:9.4}
+If $f\in\ZZ[x]$ is reducible in $\QQ[x]$ (i.e., there exists
+$g,h\in\QQ[x]$ such that $g$ and $h$ are not units and also $f=gh$),
+then $f$ is reducible in $\ZZ[x]$.
+
+Moreover, if $f$ is monic, then $g,h\in\ZZ[x]$ are monic.
+\end{corollary}
+
+\begin{proposition}\label{prop:9.5}
+If $F=\QQ$, then $G=\Gal(\QQ(\zeta_{n})/\QQ)\iso\MultGroup{(\ZZ/n\ZZ)}$
+(and thus $[\QQ(\zeta_{n}):\QQ]=\varphi(n)$).
+\end{proposition}
+
+\begin{proof}
+Let $f\in\QQ[x]$ be the minimal polynomial of $\zeta_{n}$. Since
+$f\divides(x^{n}-1)$, by repeatedly applying Corollary~\ref{cor:9.4},
+there exists a monic $h\in\ZZ[x]$ such that $x^{n}-1=fh$.
+
+It suffices to show, for a prime $p\ndivides n$, that $\zeta^{p}_{n}$ is a
+root of $f(x)$. In fact, if $f(\zeta^{p}_{n})=0$, then for any
+$m\in\MultGroup{(\ZZ/n\ZZ)}$, the $\zeta^{m}_{n}$ are distinct roots
+of $f(x)$. Then
+\begin{subequations}
+\begin{equation}
+\varphi(n)\leq\deg(f)=[\QQ(\zeta_{n}):\QQ]\quad\mbox{since $f$ is a min polynomial}
+\end{equation}
+and then by Proposition~\ref{prop:9.1}
+\begin{equation}
+[\QQ(\zeta_{n}):\QQ]\leq\varphi(n).
+\end{equation}
+So we conclude
+\begin{equation}
+[\QQ(\zeta_{n}):\QQ]=\varphi(n),
+\end{equation}
+\end{subequations}
+so therefore the group morphism $G\to\MultGroup{(\ZZ/n\ZZ)}$ is bijective.
+
+If 
+\begin{equation}
+p_{1}(\cdots)p_{k}=m,
+\end{equation}
+so
+\begin{equation}
+\zeta^{m}_{n}=\zeta_{n}^{p_{1}(\cdots)p_{k}},
+\end{equation}
+and $p_{i}\ndivides n$ for all $i$, then every $\zeta^{p_{1}(\cdots)p_{k}}_{n}$
+are roots of $f(x)$ by the inductive hypothesis. This proves ``for
+some $p\ndivides n$, $\zeta_{n}^{p}$ is a root of $f$''.
+
+Suppose that $\zeta_{n}^{p}$ is not a root of $f$ (i.e., it is a root
+of $h$). In other words, $\zeta_{n}$ is a root of $h(x^{p})$. But
+since $f$ is a minimal polynomial of $\zeta_{n}$, we have by
+Corollary~\ref{cor:9.4} there exists a monic $g(x)\in\ZZ[x]$ such that
+\begin{equation}
+h(x^{p})=f(x)g(x).
+\end{equation}
+This is because if $P(x)$ is such that $P(\zeta^{p}_{n})=0$ we have
+$f$ divides $P$. By Fermat's little Theorem\footnote{For any
+$a\in\ZZ$, $a^{p}\equiv a\pmod{p}$.}, we have
+$h(x^{p})\equiv h(x)^{p}=f(x)g(x)\pmod{p}$
+since writing $h(x)=\prod_{i}(x-\alpha_{i})=\sum_{j}t_{j}(\alpha_{i})x^{j}$
+(where the $t_{j}$ are the elementary symmetric polynomials), we have
+\begin{subequations}
+  \begin{align}
+h(x)^{p} 
+&=\prod_{i}(x-\alpha_{i})^{p}=\prod_{i}(x^{p}-\alpha_{i}^{p})\\
+&=\sum_{j}t_{j}(\alpha_{i}^{p})x^{jp}\\
+&\equiv\sum_{j}t_{j}(\alpha_{i})x^{j}\pmod{p}\\
+&\equiv h(x^{p})\pmod{p}.
+  \end{align}
+\end{subequations}
+We denote $\overline{f},\overline{h}\in(\ZZ/p\ZZ)[x]$ (for these
+polynomials in $\ZZ/p\ZZ$). Then $\overline{f}$ and $\overline{h}$
+have a common factor (since $\overline{h}^{p}=\overline{f}\overline{g}$)
+and then $x^{n}-\overline{1}=\overline{f}\overline{h}$ has a multiple root
+[N.B.: $x^{n}-\overline{1}$ is separable by Lemma~\ref{lemma:5.3}]
+which gives a contradiction. Hence the claim.
+\end{proof}
+
+\begin{definition}
+For $n\in\NN$, the \define{Cyclotomic Polynomial}
+$\Phi_{n}(x)\in\QQ[x]$ is the minimal polynomial of $\zeta_{n}$ in $\QQ[x]$.
+\end{definition}
+
+\begin{node}
+By the proof of Proposition~\ref{prop:9.5},
+\begin{equation}
+\Phi_{n}(x)=\prod_{\substack{1\leq d\leq n\\\gcd(d,n)=1}}(x-\zeta_{n}^{d})\in\ZZ[x].
+\end{equation}
+Furthermore, for any $n\geq1$,
+\begin{equation}
+x^{n}-1=\prod_{k\geq1}\prod_{\substack{1\leq e\leq n\\\gcd(e,n)=k}}(x-\zeta_{n}^{e})
+\end{equation}
+Writing $n=kn_{k}$ and $e=ke_{k}$
+\begin{subequations}
+  \begin{align}
+x^{n}-1&=\prod_{k\geq1}\prod_{\substack{1\leq e\leq n\\\gcd(e,n)=k}}(x-\zeta_{n}^{e})\\
+&=\prod_{k}\prod_{\substack{e_{k}\\\gcd(e_{k},n_{k})=1}}(x-\zeta_{n_{k}}^{e_{k}})\\
+&=\prod_{d\divides n}\Phi_{d}(x).
+  \end{align}
+\end{subequations}
+In particular, if $n$ is prime, we have
+\begin{equation}
+\Phi_{n}(x)=\frac{x^{n}-1}{x-1}.
+\end{equation}
+\end{node}

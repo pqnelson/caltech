@@ -1,0 +1,137 @@
+%%
+%% winter-lecture13.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-03T10:03:34-0800
+%% Last update 2026-02-03T10:03:34-0800
+%% 
+
+\lecture[Fiber Bundles]{}
+
+\begin{definition}
+A \define{Fiber Bundle} is a map $p\colon E\to B$ (where $E$ is
+called the ``total space'' and $B$ is called the ``base'' [or ``base space''])
+such that
+\begin{enumerate}
+\item\textsc{Fibers are the same:} there exists a space $F$ such that
+  for any $b\in B$, we have $p^{-1}(\{b\})\iso F$ --- we usually just
+  refer to $F$ as the \define{Fiber} of the fiber bundle; and
+\item\textsc{Locally trivializable:} for each $b\in B$ there exists a
+  \define{Chart} $U\subset B$ such that $b\in U$ and there exists a
+  \define{Local Trivialization} homeomorphism $h\colon p^{-1}(U)\to U\times F$ such that the
+  following diagram commutes
+\begin{equation}
+\vcenter{\xymatrix{p^{-1}(U)\ar[rr]^{h}\ar[dr]_{p}& &\ar[dl]^{\pi_{1}}U\times F\\
+& U &}}
+\end{equation}
+where $\pi_{1}\colon U\times F\to U$ is the usual projection $\pi_{1}(u,f)=u$.
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+The covering space $p\colon\widetilde{X}\to X$ where for each $x\in X$,
+there exists a neighborhood $U\subset X$ such that $x\in U$ and
+$p^{-1}(U)=\bigsqcup_{i}U_{i}$. This is when the fiber is a discrete set.
+\end{example}
+
+\begin{example}
+Mobius strip has the fiber be an interval, and the base $B=\sphere{1}$.
+\end{example}
+
+\begin{example}
+Vector bundles where the fiber $F$ is a vector space. (The linear
+structure on $p^{-1}(U)$ is the one imposed by $h\colon p^{-1}(U)\to U\times F$.)
+\end{example}
+
+\begin{example}[Hopf fibration]
+We can consider a fibration $p\colon\sphere{3}\to\sphere{2}$ with
+fiber $\sphere{1}$ obtained as follows: we look at $\CP^{1}$,
+\begin{subequations}
+  \begin{align}
+\sphere{2}\iso\CP^{1}&=\bigl(\{(z,w)\in\CC^{2}\setminus\{(0,0)\}\bigr)/(\lambda
+z,\lambda w)\sim(z,w)\\
+\intertext{where $\lambda=r\E^{\I\theta}$ lets us factorize the
+  symmetry as}
+&=\{(z,w)\in\CC^{2}\mid |z|^{2}+|w|^{2}=1\}/(\E^{\I\theta}z,\E^{\I\theta}w)\sim(z,w)\\
+&=\sphere{3}/\sphere{1}
+  \end{align}
+\end{subequations}
+There is a smooth action of $\sphere{1}$ on $\sphere{3}$, so we get a map
+\begin{equation}
+\begin{split}
+&\sphere{1}\times\sphere{3}\to\sphere{3}\\
+&(\E^{\I\theta},(z,w))\mapsto(\E^{\I\theta}z,\E^{\I\theta}w)
+\end{split}
+\end{equation}
+and this is the action we modded out by to give us $\sphere{2}=\sphere{3}/\sphere{1}$.
+\end{example}
+
+\begin{node}[Long exact sequence]
+There is a long exact sequence of homotopy groups associated to fiber
+bundles, which looks like
+\begin{equation}
+\vcenter{\xymatrix{
+& \dots\ar[r] & \pi_{n+1}(B)\ar[lld]\\
+\pi_{n}(F) \ar[r]& \pi_{n}(E)\ar[r] & \pi_{n}(B)\ar[lld]\\
+\pi_{n-1}(F) \ar[r] & \dots & }}
+\end{equation}
+We divide the proof into two steps:
+\begin{enumerate}
+\item For any map $p\colon E\to B$ satisfying the \emph{homotopy
+lifting property} with respect to $\disk{k}$, we have such a long
+  exact sequence;
+\item AFor a fiber bundle $p\colon E\to B$, this property is always satisfied.
+\end{enumerate}
+\end{node}
+
+\begin{definition}
+A map $p\colon E\to B$ is said to have the \define{Homotopy Lifting Property
+with respect a space $X$} if a given homotopy $g_{t}\colon X\to B$
+(i.e., a $G\colon X\times[0,1]\to B$) and given a lifting
+$\widetilde{g}_{0}\colon X\to E$ of $g_{0}$ such that
+$p\circ\widetilde{g}_{0}=g_{0}$, then there exists a lifting
+$\widetilde{g}_{t}\colon X\to E$ (of the whole family) such that
+$p\circ\widetilde{g}_{t}=g_{t}$, i.e., the following diagram commutes
+\begin{equation}
+\vcenter{\xymatrix{ & E\ar[d]^{p}\\
+X\ar@{..>}[ur]^{\widetilde{g}_{t}}\ar[r]_{g_{t}} & B}}
+\end{equation}
+Note: there is also a ``pair'' version of this notion.
+\end{definition}
+
+\begin{definition}
+A map $g\colon E\to B$ is said to have the \define{Homotopy Lifting
+  Property with respect to a pair $(X,A)$} if for each homotopy
+$f_{t}\colon X\to B$ with $g_{t}=f_{t}|_{A}\colon A\to B$ and a given
+lift $\widetilde{f}_{0}\colon X\to E$ and a lift
+$\widetilde{g}_{0}\colon A\to E$, there exists a lift
+$\widetilde{f}_{t}\colon X\to E$ extending both.
+\end{definition}
+
+\begin{definition}
+A map $p\colon E\to B$ which has the homotopy lifting property with
+respect to any space $X$ is called a \define{Fibration}.
+\end{definition}
+
+\begin{remark}
+The homotopy lifting property with respect to $\disk{k}$ is equivalent
+to the homotopy lifting property with respect to $(\disk{k},\boundary\disk{k})$.
+\end{remark}
+
+\begin{remark}
+By induction on each cell, the homotopy lifting property with respect
+to $\disk{k}$ for all $k\geq0$ is equivalent to the homotopy lifting
+property with respect to any CW pair $(X,A)$.
+\end{remark}
+
+\begin{definition}
+A map $p\colon E\to B$ is called a \define{Serre Fibration} if it has
+the homotopy lifting property with respect to all the discs $\disk{k}$
+for all $k\geq0$.
+\end{definition}
+
+\begin{theorem}% theorem 2
+A fiber bundle $p\colon E\to B$ is a Serre fibration.
+\end{theorem}

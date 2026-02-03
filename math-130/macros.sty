@@ -64,7 +64,7 @@
 % 
 % Using \section{} should raise an error, \lecture[]{} should be used instead
 \let\og@section\section
-\def\section{\error}
+%% \def\section{\error}
 
 \newcommand\lecture[1][\relax]{\ifx\relax#1\relax%
   \sectionnonemptyfalse\og@section{}% an un-named lecture

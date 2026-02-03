@@ -1,0 +1,65 @@
+%%
+%% winter-lecture13.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-03T09:49:45-0800
+%% Last update 2026-02-03T09:49:45-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $E/F$ be a finite field extension. Let $r=[E:F]_{s}$ be the
+separable degree (which equals $|\hom_{F}(E,\closure{F})|$). Let
+$\sigma_{1},\dots,\sigma_{r}\in\hom_{F}(E,\closure{F})$ be
+distinct.
+\begin{enumerate}
+\item We define the \define{Norm} $N_{E/F}\colon E\to F$ to be such
+  that $N_{E/?F}(\alpha)=(\prod_{j}\sigma_{j}(\alpha))^{[E:F]_{i}}$
+\item We define the \define{Trace} $T_{E/F}\colon E\to F$ equal to
+  $\Tr_{E/F}(\alpha)=[E:F]_{i}\sum_{j}\sigma_{j}(\alpha)$.
+\end{enumerate}
+Note: some people define the norm on $\MultGroup{E}$, but it can be
+defined on all of $E$. The question is just what do we do with $0\in E$?
+(It will be obvious shortly that it should be mapped to zero.)
+\end{definition}
+
+\begin{note}
+When the norm $N_{E/F}$ is restricted to $\MultGroup{E}$, it is a
+group morphism.
+\end{note}
+
+\begin{proposition}\label{prop:10.1}
+Let $E/F$ be a finite extension. Then $N_{E/F}(\alpha)\in\MultGroup{F}$
+and $\Tr_{E/F}(\alpha)\in F$. Moreover, for $L/E/F$, we have
+$N_{L/F}=N_{L/E}\circ N_{E/F}$ and $\Tr_{L/F}=\Tr_{L/E}\circ\Tr_{E/F}$.
+\end{proposition}
+
+\begin{proposition}\label{prop:10.2}
+For any finite extension $E/F$ and for any $\alpha\in E$, we may write
+\begin{equation}
+\begin{split}
+m_{\alpha}\colon & E\to E\\
+& \beta\mapsto\alpha\beta.
+\end{split}
+\end{equation}
+We may view $m_{\alpha}$ as an $F$-linear transformation and hence as
+an $[E:F]\times[E:F]$ matrix. Then $N_{E/F}(\alpha)=\det(m_{\alpha})$
+and $\Tr_{E/F}(\alpha)=\tr(m_{\alpha})$, and the minimal polynomial of
+$\alpha$ is equal to the characteristic polynomial of $m_{\alpha}$.
+\end{proposition}
+
+\begin{proposition}\label{prop:10.3}
+For any finite separable extension $E/F$, and for any $\alpha\in\MultGroup{E}$,
+we define the inner product $\langle x,y\rangle := \Tr_{E/F}(\alpha xy)$.
+This is a nondegenerate and perfect pairing, and the mapping
+\begin{equation}
+\begin{split}
+&E\to\hom_{F}(E,F)=E^{*}\\
+&y\mapsto\langle-,y\rangle,
+\end{split}
+\end{equation}
+is an isomorphism (where $E^{*}$ is the dual of $E$).
+\end{proposition}

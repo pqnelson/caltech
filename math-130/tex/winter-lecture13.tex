@@ -1,0 +1,136 @@
+%%
+%% winter-lecture13.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-03T11:23:37-0800
+%% Last update 2026-02-03T11:23:37-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+This lecture was highly idiosyncratic. For different presentations of
+the same material, but done differently, see either the last chapter
+of Eisenbud and Harris's \textit{The Geometry of Schemes}, or Vakil~\cite[\S\S10.1.7~\textit{et~seq}.]{vakil2025rising}.
+
+The whole idea is to extend some notions from schemes to functors.
+\end{node}
+
+\begin{definition}
+Let $\cat{C}$ be a category, $F\colon\cat{C}\to\Set$ be a
+contravariant functor. We say $F$ is \define{Representable} if there
+exists an $X\in\cat{C}$ such that $\hom(-,X)\iso F$.
+\end{definition}
+
+\begin{remark}
+One of the key insights, which I don't think is adequately expressed,
+is that if $X$ is a scheme---so $X\in\Sch$---then any open subset
+$U\subset X$ is also a scheme (thanks to the open immersion $i\colon U\into X$).
+But this means the collection of all such open subsets and inclusions
+forms a subcategory of $\Sch$. That is to say, $\Open(X)$ is a
+subcategory of $\Sch$.
+\end{remark}
+
+\begin{definition}
+Let $F$ be a contravariant functor $F\colon\Sch\to\Set$. We say that
+$F$ is a \define{Sheaf in Zariski Topology} if for any scheme $Z$, the
+presheaf on $Z$ induced by $F$ is a sheaf (we see $F|_{\Open(Z)}$ is
+obviously a pre-sheaf, by the previous remark).
+\end{definition}
+
+\begin{proposition}
+If $X$ is a scheme, then its functor of points is a sheaf.
+\end{proposition}
+
+\begin{theorem}\label{thm:math130b:winter2026:thm1}
+A functor $F\colon\Sch\to\Set$ is representable iff both $F$ is a
+sheaf and $F$ admits an open cover by a representable functor.
+\end{theorem}
+
+\begin{definition}
+Let $F\colon\Sch\to\Set$ be a contravariant functor.
+We define an \define{Open Subset} $U$ of $F$ is an association to each
+element $\xi\in F(T)$ (where $T$ is a scheme) an open set $U_{\xi}\subset T$ which is
+compatible with pullbacks, i.e., if $f\colon S\to T$ is a morphism of
+schemes, then
+\begin{equation}
+f^{-1}(U_{\xi})=U_{F(f)(\xi)}.
+\end{equation}
+\end{definition}
+
+\begin{node}
+The idea is that we write $T\xrightarrow{\xi}F$ for $\xi\in F(T)$. So if
+we have a scheme morphism $f\colon S\to T$, then
+\begin{equation}
+S\xrightarrow{f}T\xrightarrow{\xi}F
+\end{equation}
+pullsback stuff correctly. After all, we just indexed all open subsets
+of a scheme $S$ by elements of the set $F(S)$. We want to prove that
+$F(S)$ is the set of scheme morphisms from $S$ to some [fixed] scheme,
+which is the intuition underlying this notation (which seems bizarre
+at first glance).
+\end{node}
+
+\begin{remark}
+This definition is highly nonstandard, there seems to be no literature
+on it besides those cited earlier in the lecture. If I understand the
+``heritage'' of the notions, it may be traced back to Grothendieck. So
+this is all \emph{his} fault.
+
+I \emph{think} the reason this seems strange is because we can avoid
+it using sites instead, and the construction offered ``works'' because
+``secretely'' we're doing something with sites.
+\end{remark}
+
+\begin{lemma}
+If $F_{X}=\hom(-,X)\colon\Sch\to\Set$ is a contravariant functor, then
+open subsets of $X$ are in natural bijection with open subsets of $F_{X}$.
+\end{lemma}
+
+\begin{definition}
+Let $F\colon\Sch\to\Set$ be a contravariant functor.
+An \define{Open Covering} of $F$ is a collection of open subsets
+$U_{i}$ of $F$ such that for every scheme $S$ and for every element
+$\xi\in F(S)$, the collection $\{(U_{i})_{\xi}\}$ is an open covering of $S$
+in the usual sense $S=\bigcup_{i}(U_{i})_{\xi}$.
+\end{definition}
+
+\begin{definition}
+Let $F\colon\Sch\to\Set$ be a contravariant functor, and also
+let $U\subset F$ be an open subset of the functor $F$.
+We define the \define{Open Subfunctor} $F_{U}(S)=\{\xi\in F(S)\mid U_{\xi}=S\}$.
+\end{definition}
+
+\begin{remark}
+Vakil offers a fancier definition for an ``open subfunctor'' which is
+equivalent to what we have just defined.
+\end{remark}
+
+\begin{proof}[{Proof sketch of Theorem~\ref{thm:math130b:winter2026:thm1}}]
+Let $X_{i}$ be the collection of schemes associated to the
+representable open subfunctors which cover $F$. Now, we can show that
+we can construct the gluing data in Hartshorne~\cite{hartshorne1977algebraic}
+(exercise II.2.12).
+\end{proof}
+
+\begin{node}
+Now, we are in a position to prove
+Theorem~\ref{thm:math130b:winter2026:thm1}, but it is really not
+enlightening. (Hence we offered only a proof sketch.)
+But we can use it to prove the immediate corollary:
+\end{node}
+
+\begin{corollary}
+Fiber products exist in the cateory of schemes.
+\end{corollary}
+
+\begin{node}
+We can use all this machinery to construct the Grassmannian $G(r,n)$
+by showing the following functor
+\begin{equation}
+F(X)=\{\sheaf{O}_{X}^{\oplus n}\onto\sheaf{E}\}
+\end{equation}
+where $\sheaf{E}$ is a rank $r$ locally-free sheaf on $X$.
+\end{node}

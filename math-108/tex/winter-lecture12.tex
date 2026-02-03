@@ -1,0 +1,289 @@
+%%
+%% winter-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-31T11:04:22-0800
+%% Last update 2026-01-31T11:04:22-0800
+%% 
+
+\lecture{}
+
+\begin{corollary}
+If $f\geq0$ and $g\geq0$, then $\int(f+g)=(\int f)+(\int g)$.
+\end{corollary}
+
+\begin{proof}
+We had a sequence of simple functions $\varphi_{n}\nearrow f$ (recall,
+which means for all $n$ we have $0\leq\varphi_{n}\leq\varphi_{n+1}$
+and pointwise {a.e.} $\varphi_{n}\to f$) and $\psi_{n}\nearrow g$.
+But also $(\varphi_{n}+\psi_{n})$ is an increasing sequence of simple functions 
+converging to $f+g$. Then we can apply the Monotone Convergence
+Theorem to $(\varphi_{n}+\psi_{n})$, but it is well known linearity
+holds for simple functions, so we have
+\begin{subequations}
+  \begin{align}
+\lim_{n\to\infty}\int(\varphi_{n}+\psi_{n}) &= \int\lim(\varphi_{n}+\psi_{n})=\int(f+g)\\
+&=\lim\bigl((\int\varphi_{n})+(\int\psi_{n})\bigr)=(\lim\int\varphi_{n})+(\lim\int\psi_{n})=(\int f) + (\int g).
+  \end{align}
+\end{subequations}
+Hence the result.
+\end{proof}
+
+\subsection{Non-Monotone Sequences}
+
+\begin{recall}
+We will use notions of ``lim inf'' and ``lim sup'' for sequences $(a_{n})$. Let us recall
+their definitions
+\begin{equation}
+\liminf_{n\to\infty}a_{n}=\lim_{n\to\infty}\inf_{k\geq n}a_{k}
+\end{equation}
+and
+\begin{equation}
+\limsup_{n\to\infty}a_{n}=\lim_{n\to\infty}\sup_{k\geq n}a_{k}.
+\end{equation}
+This works on any sort of sequence (e.g., a sequence of measurable functions).
+
+Also recall, the lim-inf and lim-sup are always well-defined. When
+they are equal, the limit exists and equals the common value. And
+conversely, when the limit exists, both the lim-inf and lim-sup are
+equal to the limit.
+\end{recall}
+
+\begin{node}
+Recall we had $f_{n}=\chi_{[n,n+1]}$ which converged pointwise to
+$f_{n}\to0$, but $\int f_{n}=1$. So ``mass escapes to infinity''. This
+is a general phenomena. Fatou's lemma says mass can be lost but not created.
+\end{node}
+
+\begin{lemma}[Fatou]
+If $(f_{n})$ is a sequence of non-negative measurable functions, then
+\begin{equation*}
+\int\liminf_{n\to\infty}f_{n}\leq\liminf_{n\to\infty}\int f_{n}.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+We define a function
+\begin{equation}
+g_{n}(x):=\inf_{k\geq n}f_{k}(x).
+\end{equation}
+Then clearly $g_{n}(x)\leq f_{n}(x)$ for all $n$, and $g_{n}$ is an
+increasing sequence, so $g_{n}\nearrow\liminf_{n}f_{n}$. By the
+Monotone Convergence Theorem,
+\begin{subequations}
+  \begin{align}
+\int\liminf_{n\to\infty}f_{n} &= \int\lim_{n\to\infty}g_{n}\\
+&= \lim\int g_{n} \mbox{by MCT}
+  \end{align}
+\end{subequations}
+Since $g_{n}\leq f_{n}$, we have
+\begin{equation}\label{eq:proof:fatou-lemma:star}
+\int g_{n}\leq\int f_{n}
+\end{equation}
+by monotonicity of integral for non-negative functions. Then (because
+the limit exists),
+\begin{equation}
+\lim\int g_{n}=\liminf\int g_{n},
+\end{equation}
+and then Equation~\eqref{eq:proof:fatou-lemma:star} implies
+\begin{equation}
+\liminf\int g_{n}\leq\liminf\int f_{n}.
+\end{equation}
+Hence the result.
+\end{proof}
+
+% Starsky and Shenarki, Chapter 2, \S1.4
+
+\begin{definition}
+A measurable function $f\colon\RR^{d}\to\RR$ is \define{Integrable} if $\int|f|<+\infty$.
+\end{definition}
+
+\begin{remark}
+Recall, $|x|$ is a continuous {a.e.} function, and the composition of
+a measurable function followed by a continuous {a.e.} function is a
+measurable function. So this ``makes sense'', i.e., $|f|$ is measurable.
+\end{remark}
+
+\begin{definition}
+If $f\colon\RR^{d}\to\RR$ is integrable, then we can write it as
+$f=f^{+}-f^{-}$ where $f^{+}(x)=\max(f(x),0)$ and $f^{-}(x)=\max(-f(x),0)$.
+Then the \define{Integral} of $f$ is defined to be
+\begin{equation}
+\int f(x)\,\D x:=\int f^{+}(x)\,\D x-\int f^{-}(x)\,\D x.
+\end{equation}
+Since $|f|=f^{+}+f^{-}$, by hypothesis this is finite-valued, both $f^{+}$
+and $f^{-}$ are finite-valued.
+\end{definition}
+
+\begin{notation}
+The space of integrable functions is denoted $L^{1}(\RR^{d})$. More
+generally, if $X$ is the domain of integrable functions, then
+$L^{1}(X)$ is the space of integrable functions defined on $X$.
+\end{notation}
+
+\begin{proposition}
+$L^{1}(\RR^{d})$ is a vector space, and for any $f,g\in L^{1}(\RR^{d})$
+and for any $\alpha,\beta\in\RR$ we have
+\begin{equation}
+\int(\alpha f+\beta g)\,\D x =\alpha\int f(x)\,\D x+\beta\int g(x)\,\D x.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Proving homogeneity of integration is left as an exercise. We will
+prove additivity,
+\begin{equation}
+\int(f+g)\,\D x=\int f(x)\,\D x +\int g(x)\,\D x.
+\end{equation}
+We see
+\begin{subequations}
+\begin{equation}
+(f+g)^{+}-(f+g)^{-}=f+g,
+\end{equation}
+and
+\begin{equation}
+(f+g)=(f)+(g)=(f^{+}-f^{-})+(g^{+}-g^{-}).
+\end{equation}
+Then by adding $(f+g)^{-}+f^{-}+g^{-}$ to both of these equations. We
+can do this because we can replace $f$ and $g$ with finite-valued
+functions since the set of points where they are infinite-valued forms
+a null set because they are integral (Proof: by contradiction,
+$\int|f|<\infty$ implies $|f|$ finite {a.e.}). Then we rearrange terms
+to get
+\begin{equation}
+(f+g)^{+}+f^{-}+g^{-}=f^{+}+g^{+}+(f+g)^{-}.
+\end{equation}
+\end{subequations}
+Then by linearity of the integral of non-negative functions, we have
+\begin{subequations}
+  \begin{align}
+\int\bigl((f+g)^{+}+f^{-}+g^{-}\bigr)&=\int(f+g)^{+}\,\D x+\int f^{-}\,\D x+\int g^{-}\,\D x\\
+&=\int\bigl((f+g)^{-}+f^{+}+g^{+}\bigr)\\
+&=\int(f+g)^{-}\,\D x+\int f^{+}\,\D x+\int g^{+}\,\D x
+  \end{align}
+\end{subequations}
+Then rearranging terms, we obtain the result.
+\end{proof}
+
+\subsection{Dominated Convergence Theorem}
+
+\begin{theorem}
+Let $(f_{n})$ be a sequence of \emph{measurable} functions such that
+$f_{n}\to f$ pointwise almost everywhere. Suppose there exists a
+function $g\in L^{1}(\RR^{d})$ such that for all $n$,
+\begin{equation}
+|f_{n}(x)|\leq g(x)\quad\mbox{a.e.}
+\end{equation}
+Then $f\in L^{1}(\RR^{d})$ and
+\begin{equation}
+\lim_{n\to\infty}\int|f_{n}-f|=0,
+\end{equation}
+which implies (by the triangle inequality) $\lim\int f_{n}=\int f$.
+\end{theorem}
+
+\begin{proof}
+Since $|f|\leq g$, we know $f$ is integrable.
+
+\textsc{Step 1: Lower bound.} Consider
+\begin{equation}
+h_{n}=g+f_{n}.
+\end{equation}
+So $h_{n}\geq0$ since $|f_{n}|\leq g$. By Fatou's lemma,
+\begin{equation}
+\underbrace{\int\liminf_{n\to\infty}(g+f_{n})}_{=\int(g+f)}\leq\liminf(g+f_{n}).
+\end{equation}
+For the right-hand side, since $g,f_{n}\in L^{1}(\RR^{d})$, we can
+split the sum
+\begin{equation}
+\int(g+f_{n})=(\int g)+(\int f_{n})\leq(\int g)+\liminf\int f_{n}.
+\end{equation}
+Subtracting $\int g$ from both sides gives us
+\begin{equation}
+\int f\leq\liminf_{n\to\infty}\int f_{n}.
+\end{equation}
+(We cannot use Fatou's lemma directly because $f_{n}$ may be
+negative.)
+
+\textsc{Step 2: Upper bound}. Let
+\begin{equation}
+k_{n}=g-f_{n}.
+\end{equation}
+Then $k_{n}\geq0$. Again, using Fatou's Lemma,
+\begin{equation}
+\int\liminf(g-f_{n})\leq\liminf\int(g-f_{n}).
+\end{equation}
+Then by linearity,
+\begin{equation}
+\int(g-f_{n})=(\int g)-(\int f_{n}),
+\end{equation}
+we have
+\begin{equation}
+\int(g-f)=(\int g)+(\int-f)\leq(\int
+g)+\liminf_{n\to\infty}\int-f_{n}=\int g-\limsup_{n\to\infty}\int f_{n}.
+\end{equation}
+Then subtracting $\int g\,\D x$ from both sides gives us
+\begin{equation}
+\int-f\leq-\limsup_{n\to\infty}\int f_{n}
+\end{equation}
+and then multiplying both sides by $-1$ gives us
+\begin{equation}
+\int f\geq\limsup_{n\to\infty}\int f_{n}.
+\end{equation}
+
+\textsc{Step 3: Sandwich}. From the previous two steps, we see
+\begin{equation}
+\limsup_{n\to\infty}\int f_{n}\leq\int f\leq\liminf_{n\to\infty}\int f_{n},
+\end{equation}
+which implies $\lim\int f_{n}$ exists and equals
+\begin{equation}
+\lim_{n\to\infty}\int f_{n}=\int f.
+\end{equation}
+(Since $|a|-|b|\leq|a-b|$, we see $|f|-|f_{n}|\leq|f-f_{n}|$, then
+$0\leq\int\bigl||f|-|f_{n}|\bigr|\leq\int|f_{n}-f|=0$, we see why
+$\int|f-f_{n}|=0$ is a stronger result.)
+
+% This last part was proven at the start of the next lecture
+\textsc{Step 4: Triangle}. We see by the triangle inequality,
+\begin{subequations}
+  \begin{align}
+|f_{n}-f| &\leq |f_{n}|+|f|\\
+&\leq g+g=2g.
+  \end{align}
+\end{subequations}
+Define $\psi_{n}=2g-|f_{n}-f|$. Observe $\psi_{n}\geq0$. We also see
+$\psi_{n}\to 2g$ (since $f_{n}\to f$). Then using Fatou's lemma
+\begin{subequations}
+  \begin{align}
+\int 2g &= \int\liminf_{n\to\infty}(2g-|f_{n}-f|)\\
+&\leq\liminf_{n\to\infty}\int(2g-|f_{n}-f|)\quad\mbox{by Fatou's lemma}\\
+&=(\int2g)+\liminf_{n\to\infty}\int-|f_{n}-f|\\
+&=(\int2g)-\limsup_{n\to\infty}\int|f_{n}-f|.
+  \end{align}
+\end{subequations}
+Then we have $0\leq-\limsup_{n\to\infty}\int|f_{n}-f|$ which means
+\begin{equation}
+\limsup_{n\to\infty}\int|f_{n}-f|\leq0.
+\end{equation}
+But we also see the integrand is non-negative, so we have
+\begin{equation}
+0\leq\limsup_{n\to\infty}\int|f_{n}-f|\leq0,
+\end{equation}
+which sandwiches together. So then
+\begin{equation}
+\int|f_{n}-f|=0,
+\end{equation}
+as desired.
+\end{proof}
+
+\begin{remark}
+We have a notion of ``Banach spaces''. Roughly,
+\begin{equation}
+\mbox{Banach space} = \mbox{normed space} + \mbox{metric space} +
+\mbox{complete space}.
+\end{equation}
+A normed space has a metric induced by the norm $d(x,y)=\|x-y\|$. A
+Banach space has this metric space structure be ``complete''.
+We will see $L^{1}$ is a Banach space.
+\end{remark}

@@ -1,0 +1,144 @@
+%%
+%% winter-lecture13.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-03T10:38:52-0800
+%% Last update 2026-02-03T10:38:52-0800
+%% 
+
+\lecture[Completeness of L1]{}
+
+% Stein, Sharkarchi, Ch. 2, \S2, Theorem 2.2
+
+\begin{node}
+We had asserted that the function $\|-\|\colon L^{1}(\RR^{d})\to\RR$,
+defined as
+\begin{equation}
+\|f\|=\int|f|,
+\end{equation}
+was a norm. But we never proved it. We should prove it now. What needs
+to be done?
+\begin{enumerate}[start=0]
+\item $L^{1}(\RR^{d})$ is a vector space over $\RR$
+\item Positive-definiteness: for any $f\in L^{1}$, $\|f\|\geq0$ and $\|f\|=0$ iff $f=0$
+\item Absolute homogeneity: for any $f\in L^{1}$ and $c\in\RR$, $\|cf\|=|c|\cdot\|f\|$
+\item Triangle inequality: for any $f,g\in L^{1}$, we have $\|f+g\|\leq\|f\|+\|g\|$.
+\end{enumerate}
+\end{node}
+
+\begin{remark}
+We're going to get bogged down $\|f\|=0$ iff $f=0$, because it's not
+true for any $f\in L^{1}$. Well, $f=0$ implies $\|f\|=0$ is true. But
+$\|f\|=0$ is equivalent to $\int|f|=0$, but that can happen for $f$
+which is nonzero on a null set (e.g., the indicator function for a
+singleton). For such $f$, they are not identically zero, merely ``zero
+almost everywhere''. What do we do?
+
+The remedy is to define $L^{1}$ as the equivalence classes of
+functions $f\sim g$ iff $f=g$ almost everywhere. Then writing
+$[f]_{\sim}$ for the equivalence class of functions $g\sim f$, we see
+that $L^{1}$ consists of all such equivalence classes of functions $f$
+such that $\int|f|<\infty$:
+\begin{equation}
+L^{1}(X)=\{[f]_{\sim}\mid f\colon X\to\RR, \int|f|<\infty\}.
+\end{equation}
+As per usual mathematical practice, we abuse notation and write $f\in L^{1}(X)$
+to mean $[f]_{\sim}\in L^{1}(X)$ and we use $f$ as its representative element.
+\end{remark}
+
+\begin{theorem}
+The space $L^{1}(\RR^{d})$ is complete in its metric: if $(f_{n})$ is
+a Cauchy sequence of elements of $L^{1}(\RR^{d})$, then
+\begin{enumerate}
+\item there exists an $f\in L^{1}(\RR^{d})$ such that $f_{n}\to f$
+  converges in norm (i.e., $\|f_{n}-f\|\to0$); and
+\item furthermore, there exists a subsequence of $(f_{n})$ which
+  converges pointwise almost everywhere.
+\end{enumerate}
+\end{theorem}
+
+Remember: by ``subsequence'', we mean there is a strictly increasing
+sequence of integers $n_{1}<n_{2}<\dots$ which index the subsequence
+$(f_{n_{k}})$ of $(f_{n})$. (We do not mean: another sequence with
+values in $\rng(f_{n})=\{g\mid\exists n\ldotp f_{n}=g\}$.)
+
+\begin{proof}
+\textsc{Step 1}. Since $f_{n}$ is Cauchy, we choose indices $n_{1}<n_{2}<\dots$
+such that
+\begin{equation}
+\|f_{n_{k+1}}-f_{n_{k}}\|<\frac{1}{2^{k}}.
+\end{equation}
+This follows by definition of Cauchy sequences. We define
+\begin{equation}
+f(x):=f_{n_{1}}(x)+\sum^{\infty}_{k=1}\bigl(f_{n_{k+1}}(x)-f_{n_{k}}(x)\bigr).
+\end{equation}
+The partial sums are $s_{k}=f_{n_{k}}$, so we just need to prove
+convergence.
+
+\textsc{Step 2: Convergence}.
+Define
+\begin{equation}
+g(x) := |f_{n_{1}}(x)| + \sum^{\infty}_{k=1}\bigl|f_{n_{k+1}}(x)-f_{n_{k}}(x)\bigr|.
+\end{equation}
+We see since the partial sums $s_{N}$ are monotone,
+\begin{subequations}
+  \begin{align}
+\int g &=\int|f_{n_{1}}| + \int\sum^{\infty}_{k=1}\bigl|f_{n_{k+1}}(x)-f_{n_{k}}(x)\bigr|\\
+&=\int|f_{n_{1}}| + \sum^{\infty}_{k=1}\int\bigl|f_{n_{k+1}}(x)-f_{n_{k}}(x)\bigr|\\
+&\leq(\int|f_{n_{1}}|) + \sum^{\infty}_{k=1}2^{-k}=(\int|f_{n_{1}}|)+1\\
+&<\infty
+  \end{align}
+\end{subequations}
+Then the series
+$\sum^{\infty}_{k=1}\bigl|f_{n_{k+1}}(x)-f_{n_{k}}(x)\bigr|$ is finite
+almost everywhere, so therefore $f(x)$ converges absolutely almost everywhere.
+
+\textsc{Step 3: Norm convergence}. We see $f_{n_{k}}\to f$ pointwise
+almost everywhere. We see that $|f|\leq g$ and also $g\in L^{1}$, so
+we find $f\in L^{1}$ as well. We claim
+\begin{equation}
+\lim_{k\to\infty}\|f_{n_{k}}-f\|=0.
+\end{equation}
+We see, by the dominated convergence theorem (and that
+$|f_{n_{k}}|\leq g$),
+\begin{equation}
+\lim_{k\to\infty}\|f_{n_{k}}-f\|=\lim_{k\to\infty}\int|f_{n_{k}}-f|=0
+\end{equation}
+We see by the triangle inequality
+\begin{subequations}
+  \begin{align}
+\|f_{n}-f\| &\leq\|f_{n}-f_{n_{k}}\|+\|f_{n_{k}}-f\|\\
+&\leq \|f_{n}-f_{n_{k}}\|+0\quad\mbox{since we just proved this}\\
+&\leq 0+0\quad\mbox{since $(f_{n})$ Cauchy},
+  \end{align}
+\end{subequations}
+which proves the claim.
+\end{proof}
+
+\begin{xca}
+Is there a Cauchy sequence ``in norm'' $(f_{n})$ in $L^{1}$ such that
+$\int|f_{n}-f|\to0$ but not all subsequences of $(f_{n})$ converges
+pointwise to $f$? (Specifically, there exists at least one subsequence
+of $(f_{n})$ which does not converge pointwise to $f$?)
+\end{xca}
+
+% One example which springs to mind: $f_{n}=g_{n}+f$ where $g_{n}=0$
+% for composite $n$ and $g_{p}\neq0$ is measure zero for prime
+% $p$. Then $(f_{n_{k}})=(g_{p})$ for all primes $p$. Clearly
+% $g_{p}\not\to f$ pointwise.
+
+\begin{node}
+Not all $L^{1}$ functions are nice and continuous. They can be pretty
+wild and ornery. However, there is a dense subset of $L^{1}$
+consisting of ``nice continuous functions''. Let us make this claim
+more precise in the following theorem.
+\end{node}
+
+\begin{theorem}[Density]
+The set of continuous functions with compact support is dense in
+$L^{1}$. That is to say, for any $f\in L^{1}$ and for any
+$\varepsilon>0$, there exists a $g\in L^{1}$ continuous and with
+compact support such that $\|f-g\|_{L^{1}}<\varepsilon$.
+\end{theorem}

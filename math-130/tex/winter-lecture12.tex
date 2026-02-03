@@ -1,0 +1,125 @@
+%%
+%% winter-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-01-31T11:36:43-0800
+%% Last update 2026-01-31T11:36:43-0800
+%% 
+
+\lecture{}
+
+(This seems to be based on Chapter 15 of
+Vakil~\cite{vakil2025rising}. But it may be useful to consult
+Hartshorne~\cite[Ch~II~\S7]{hartshorne1977algebraic}.)
+
+\subsection{Key Construction}
+
+\begin{theorem}
+The set $\Mor(X,\PP^{n}_{\ZZ})$ is \emph{naturally} in bjection with
+the set of tuples $(\sheaf{L},s_{0},\dots,s_{n})$ where $\sheaf{L}$ is
+an invertible sheaf on $X$ and the $s_{i}\in\sheaf{L}(X)$ are global
+sections of $\sheaf{L}$ on $X$ such that $\bigcap_{i}Z(s_{i})=\emptyset$.
+This data is unique up to isomorphism.
+\end{theorem}
+
+This is Hartshorne~\cite{hartshorne1977algebraic} Ch~II Theorem~7.1
+
+\begin{proof}
+\forwardproof\ Given $\varphi\colon X\to\PP^{n}$, we can set
+$\sheaf{L}=\varphi^{*}(\sheaf{O}(1))$ and
+$s_{i}=\varphi^{*}(x_{i})$. It is true that $\bigcap_{i}Z(s_{i})=\emptyset$
+because $\bigcap_{i}Z(x_{i})=\emptyset$.
+
+\backwardproof\ Given $(\sheaf{L},s_{0},\dots,s_{n})$ such that
+\begin{equation}
+\bigcap_{i}Z(s_{i})=\emptyset.
+\end{equation}
+We define $V_{i}\subset X$ equal to
+\begin{equation}
+V_{i}:=\{s_{i}\neq0\}.
+\end{equation}
+Then by hypothesis, the $V_{i}$ cover $X=\bigcup_{i}V_{i}$. Then we
+will map $V_{i}$ to $U_{i}\subset\PP^{n}$ where
+\begin{equation}
+U_{i}=\Spec(\ZZ[x_{0}/x_{i},\dots,x_{i-1}/x_{i},x_{i+1}/x_{i},\dots,x_{n}/x_{i}]),
+\end{equation}
+given by $n$ functions
+\begin{equation}
+f_{j}=\frac{s_{j}}{s_{i}}.
+\end{equation}
+Why does this make sense?/ Well, on $V_{i}$ we have $s_{i}\in\sheaf{L}(V_{i})$,
+so
+\begin{equation}
+s_{i}\colon\sheaf{O}_{V_{i}}\to\sheaf{L}|_{V_{i}}
+\end{equation}
+is nowhere vanishing. Then $s_{i}$ is an isomorphism of
+sheaves. Since this \emph{function} $s_{i}$ is multiplication by the
+element $s_{i}$, it's perfectly reasonable to denote the inverse
+morphism as division by $s_{i}$. All we have left to check is
+agreement on overlaps which is left as an exercise (i.e., check gluing).
+\end{proof}
+
+\begin{note}
+If $\sheaf{L}=\sheaf{O}$, then $f_{0},\dots,f_{n}\in\sheaf{O}_{X}(X)$
+gives us the map
+\begin{equation}
+\begin{split}
+\varphi\colon & X\to\PP^{n}\\
+& x\mapsto[f_{0}(x):\cdots:f_{n}(x)],
+\end{split}
+\end{equation}
+but multiplying by a nonzero scalar gives us an isomorphism $\varphi$.
+\end{note}
+
+\begin{definition}[{Vakil~\cite[\S7.3.10]{vakil2025rising}}]
+Given a scheme $W$, the functor 
+\begin{equation}
+\begin{split}
+F_{W}\colon & \Sch_{S}\to\Set\\
+& X\mapsto\hom_{S}(X,W)
+\end{split}
+\end{equation}
+is called the \define{Functor of Points of $W$}. If $W$ is a
+$k$-scheme, then
+\begin{equation}
+F_{W}(\Spec(k))=\hom_{k}(\Spec(k),W)
+\end{equation}
+is like the collection of points.
+\end{definition}
+
+\begin{remark}
+The Yoneda lemma says that $W$ is determined by this functor.
+\end{remark}
+
+\begin{aside}[Yoneda's Lemma]
+If $\cat{C}$ is a locally small category, and $A\in\cat{C}$ is some
+object, we define $h_{A}(-):=\hom(A,-)$ to be the covariant
+hom-functor which sends a morphism $f\colon X\to Y$ to compose on the
+left by $f$, i.e., for any $g\in\hom(A,X)$ (so $g\colon A\to X$) we
+have $h_{A}(f)(g)=f\circ g\colon A\to Y$.
+
+Now, Yoneda's lemma says for any functor $F\colon\cat{C}\to\Set$, for
+each object $A\in\cat{C}$ the natural transformations $\Nat(h_{A},F)$
+from $h_{A}$ to $F$ are bijective with elements of $F(A)$. This means
+\begin{equation}
+\Nat(h_{A},F)\iso F(A).
+\end{equation}
+Moreover, this isomorphism is natural in $A$ and $F$ when both sides
+are regarded as functors $\cat{C}\times\Set^{\cat{C}}\to\Set$.
+
+There is a contravariant version of Yoneda's lemma, working with a
+contravariant hom-functor $h^{A}(-):=\hom(-,A)$. For any contravariant
+functor $G\colon\cat{C}\to\Set$, Yoneda's contravariant lemma gives
+$\Nat(h^{A},G)\iso G(A)$.
+\end{aside}
+
+\begin{node}
+We are usually introduced to projective space as $\PP^{n}_{\CC}\mathrel{\mbox{``=''}}$ 1-dimensional subspaces of $\CC^{n+1}$.
+So how does this all connect?
+
+Well, we should think of $X\to\PP^{n}$ as a family of lines through
+the origin. So $X\to\PP^{n}$ is the same as a line bundle and
+$(n+1)$-sections. 
+\end{node}
