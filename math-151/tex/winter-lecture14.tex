@@ -1,0 +1,246 @@
+%%
+%% winter-lecture14.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-05T10:31:14-0800
+%% Last update 2026-02-05T10:31:14-0800
+%% 
+
+\lecture{}
+
+% This was at the very end of last lecture, but it makes sense to move
+% it here.
+\begin{theorem}% theorem 2
+A fiber bundle $p\colon E\to B$ is a Serre fibration.
+\end{theorem}
+
+\begin{proof}
+We will use $I^{n}$ instead of $\disk{n}$ since it is easier to work with.
+Let $G\colon I^{n}\times I\to B$ and let $p\colon E\to B$ be a fiber
+bundle. Let $\widetilde{g}_{0}$ be a lift of $g_{0}$. We want to get a
+lift $\widetilde{G}\colon I^{n}\times I\to E$ extending $\widetilde{g}_{0}$.
+
+We can choose an open cover $\{U_{\alpha}\}$ of $B$ consisting of
+locally trivial charts (i.e., $E|_{p^{-1}(U_{\alpha})}\xrightarrow{p}U_{\alpha}$
+looks locally like $U_{\alpha}\times F\to U_{\alpha}$). Then
+$\{G^{-1}(U_{\alpha})\}$ is an open cover of $I^{n}\times I$. By
+compactness, there is a \emph{finite} subcover of $I^{n}\times I$.
+By finiteness, we can divide $I^{n}$ into smaller cubes
+$\{C_{\beta}\}$ and $I$ into $I_{j}=[a_{j},b_{j}]$ (where each $a_{j}<b_{j}$)
+such that for all $\beta$ and $j$ we have $C_{\beta}\times I_{j}$ is
+in one of the open sets covering $I^{n}\times I$.
+
+Then by induction on dimension $n$, for a given cube $C_{\beta}$, we
+can assume we already have a lift of $G$ over each of its faces for
+all $I$, and a lift $\widetilde{g}_{0}|_{C_{\beta}}$ at $t=0$. The
+task is to extend the lift over $C_{\beta}\times I$.
+
+For this, $C_{\beta}\times I$ the lifting can be taken. We define
+\begin{equation}
+\begin{split}
+\widetilde{G}\colon & C_{\beta}\times I\to U_{\alpha}\times F\\
+&x\mapsto(G(x),H(x)),
+\end{split}
+\end{equation}
+where $H$ is given by the deformation retraction obtained by
+conceptually taking the wall $C_{\beta}\times\{1\}$ and drawing a line
+from each point to a distinct point on
+$(C_{\beta}\times\{0\})\cup(\boundary C_{\beta}\times I)$, something
+like:
+\begin{center}
+\includegraphics{img/img.62}
+\end{center}
+where $r$ is a deformation retraction, and then we just use the
+boundary conditions to map $(C_{\beta}\times\{0\})\times(\boundary C_{\beta}\times I)\to F$.
+This is the result.
+\end{proof}
+
+Now, we have the long exact sequence claim we wish to prove.
+
+% This should have been included at the end of the previous lecture as
+% "Theorem 1", but it is more fittingly placed here, alongside its proof.
+\begin{theorem}
+Suppose $p\colon E\to B$ is a Serre fibration. Choose a basepoint
+$b_{0}\in B$ and let $F=p^{-1}(\{b_{0}\})$ be its preimage (``fiber''). 
+Choose a basepoint $x_{0}\in F\subset E$. Then the map
+\begin{equation}
+p_{*}\colon\pi_{n}(E,F)\to\pi_{n}(B,b_{0})
+\end{equation}
+is an isomorphism for all $n\geq1$. Therefore, if $B$ is
+path-connected, there is a long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{
+& \dots\ar[r] & \pi_{n+1}(B,b_{0})\ar@/_/[dll] \\
+\pi_{n}(F,x_{0})\ar[r]^{i_{*}} & \pi_{n}(E,x_{0})\ar[r]^{p_{*}} & \pi_{n}(B,b_{0})\ar[dll]\\
+\dots\ar[r] & \dots\ar[r] & \dots\ar[dll]\\
+\pi_{0}(F,x_{0})\ar[r] & \pi_{0}(E,x_{0})\ar[r] & 0}}
+\end{equation}
+where the map $p_{*}\colon\pi_{n}(E,x_{0})\to\pi_{n}(B,b_{0})$ is
+induced by $p$ (but it can be thought of as the composition
+$\pi_{n}(E,x_{0})\to\pi_{n}(E,F)\xrightarrow{p'_{*}}\pi_{n}(B,b_{0})$
+where both $p'_{*}$ and $p_{*}$ are induced by the same $p$).
+\end{theorem}
+
+\begin{proof}
+\textsc{Surjectivity}: For any $[f]\in\pi_{n}(B,b_{0})$ (equivalently,
+for any $f\colon(I^{n},\boundary I^{n})\to(B,b_{0})$) we want to find
+\begin{equation}
+\widetilde{f}\colon(I^{n},\boundary I^{n},J^{n-1})\to(E,F,x_{0})
+\end{equation}
+such that $p\circ\widetilde{f}=f$ or equivalentls $p_{*}[\widetilde{f}]=[f]$.
+By the homotopy lifting property applied to $(I^{n-1},\boundary I^{n-1})$,
+a lift $\widetilde{f}$ exists such that $\widetilde{f}|_{J^{n-1}}=x_{0}$.
+Note that $\widetilde{f}(\boundary I^{n})\subset F$ since
+\begin{equation}
+p\circ\widetilde{f}(\boundary I^{n})=f(\boundary I^{n})=b_{0},
+\end{equation}
+and
+\begin{equation}
+F=p^{-1}(b_{0}).
+\end{equation}
+Hence the claim for surjectivity.
+
+\textsc{Injectivity}: Suppose
+\begin{equation}
+\widetilde{f}_{0},\widetilde{f}_{1}\colon(I^{n},\boundary I^{n},J^{n-1})\to(E,F,x_{0})
+\end{equation}
+such that
+\begin{equation}
+p_{*}[\widetilde{f}_{0}]=p_{*}[\widetilde{f}_{1}]
+\end{equation}
+or equivalently there is a homotopy
+\begin{equation}
+G\colon(I^{n}\times I,(\boundary I^{n})\times I)\to(B,b_{0})
+\end{equation}
+from $p\circ\widetilde{f}_{0}$ to $p\circ\widetilde{f}_{1}$.
+Then we want to find a homotopy $\widetilde{G}$ from
+$\widetilde{f}_{0}$ to $\widetilde{f}_{1}$. There is a partial lifting 
+\begin{equation}
+\widetilde{G}\colon(I^{n}\times\{0\})\cup(I^{n}\times\{1\})\cup(J^{n-1}\times I)\to
+E
+\end{equation}
+where we view $I^{n}\times\{0\}$ as the bottom face of a cube where
+$\widetilde{G}$ equals $\widetilde{f}_{0}$,
+$I^{n}\times\{1\}$ as the top face of a cube where
+$\widetilde{G}$ equals $\widetilde{f}_{1}$, and $J^{n-1}\times I$ are
+three of the four remaining faces of the cubes where
+$J^{n-1}\times\{0\}$ is sent to $x_{0}$. The rest follows from
+unfolding definitions.
+
+\textsc{Surjectivity of $i_{*}$}: The last term of the long exact
+sequence is
+\begin{equation}
+\pi_{0}(F,x_{0})\xrightarrow{i_{*}}\pi_{0}(E,x_{0})\to 0.
+\end{equation}
+We just need to prove $i_{*}$ is surjective here. For
+$[x]\in\pi_{0}(E,x_{0})$ we want to find $[y]\in\pi_{0}(F,x_{0})$ such
+that
+\begin{equation}
+i_{*}[y]=[x];
+\end{equation}
+in other words, for all $x\in E$ there exists a $y\in F$ and a path
+$\widetilde{\gamma}$ from $y$ to $x$. Since $B$ is path-connected, we
+can find a path $\gamma$ from $b_{0}$ to $p(x)$. By the homotopy
+lifting propertyy applied to $I^{0}$, we can lift $\gamma$ to a path
+$\widetilde{\gamma}$ starting at $x$. Then the end of
+$\widetilde{\gamma}$ is the required point $y$.
+\end{proof}
+
+\begin{notation}
+We will write $F\into E\onto B$ to indicate the components of a fiber bundle.
+\end{notation}
+
+\begin{example}[Hopf fibration]
+We see the Hopf fibration
+$\sphere{1}\into\sphere{3}\onto\sphere{2}$. Then the long exact
+sequence of homotopy groups for the fibration is
+\begin{equation}
+\vcenter{\xymatrix{\pi_{n}(\sphere{1})\ar[r] &
+    \pi_{n}(\sphere{3})\ar[r] & \pi_{n}(\sphere{2})\ar[dll]\\
+    \dots\ar[r] & \pi_{2}(\sphere{3})\ar[r] & \pi_{2}(\sphere{2})\ar[dll]\\
+    \pi_{1}(\sphere{1})\ar[r] & \pi_{1}(\sphere{3})\ar[r] & \pi_{1}(\sphere{2})\ar[dll]\\
+    \pi_{0}(\sphere{1})\ar[r] & \pi_{0}(\sphere{3})\ar[r] & 0}}
+\end{equation}
+Since $\pi_{k}(\sphere{1})=0$ for $k\geq2$, we have
+\begin{equation}
+\pi_{k}(\sphere{3})\iso\pi_{k}(\sphere{2})
+\end{equation}
+for all $k\geq3$. In particular,
+\begin{equation}
+\ZZ\iso\pi_{3}(\sphere{3})\iso\pi_{3}(\sphere{2}),
+\end{equation}
+and also $\pi_{3}(\sphere{2})$ is generated by the Hopf fibration.
+
+Note the fibration generalizes to $\sphere{1}\into\sphere{2n+1}\onto\CP^{n}$
+and also $\sphere{1}\into\sphere{\infty}\onto\CP^{\infty}$. So we have
+\begin{equation}
+\pi_{n}(\CP^{\infty})\iso\pi_{n}(\sphere{\infty})
+\end{equation}
+for $n\geq2$, and $\pi_{1}(\CP^{\infty})=0$ since
+\begin{equation}
+\vcenter{\xymatrix{& 0=\pi_{1}(\sphere{\infty})\ar[r] & \pi_{1}(\CP^{\infty})\ar[dll]\\
+\pi_{0}(\sphere{1})\ar[r]^{\id}&\pi_{0}(\sphere{\infty})\ar[r] & 0}}
+\end{equation}
+This implies $\CP^{\infty}$ is $K(\ZZ,2)$.
+\end{example}
+
+\begin{example}
+Instead of $\CC$ in the previous example, we can do $\HH$ and $\OO$.
+We have a similar ``quaternionic'' Hopf fibration $\sphere{3}\into\sphere{4n+3}\onto\HP^{n}$
+where
+\begin{equation}
+\HP^{n}=\{[x_{0},\dots,x_{n}]\in\HH^{n+1}\setminus0\}/(\lambda\vec{x}\sim\vec{x})
+\end{equation}
+We can factor out the quotients to first work with the unit sphere in
+$\HH^{n+1}$, then quotient out the action of the unit quaternion
+(i.e., $\sphere{3}$).
+
+For the Octonions, we lack associativity, so this procedure runs into
+problems (namely: without associativity, this relation
+$\lambda\vec{x}\sim\vec{x}$ is no longer transitive). But we can still
+construct the Octonionic line where the fibration takes the form
+\begin{equation}
+\sphere{7}\into\sphere{15}\onto\OP^{1}\iso\sphere{8}.
+\end{equation}
+\end{example}
+
+\begin{example}
+We recall the Orthogonal group $O(n)$. There is a fiber bundle
+$O(n-1)\into O(n)\onto\sphere{n-1}$ where 
+\begin{equation}
+\begin{split}
+p\colon & O(n)\to\sphere{n-1}\\
+& A\mapsto A\vec{v}_{0}
+\end{split}
+\end{equation}
+where $\vec{v}_{0}$ is some fixed unit vector (say,
+$\vec{v}_{0}=e_{1}=(1,0,\dots,0)$). Then we have $O(n-1)\into O(n)$
+given by the stabilizer of $\vec{v}_{0}$, which induces an isomorphism
+on $\pi_{i}$ for $i<n-2$. That is to say, we \emph{fix} the $i$ index
+and we can let $n\to\infty$, and the $\pi_{i}$ will stabilize. We
+denote the \define{Stable Orthogonal Group} as $O(\infty)$ and define
+it such that $\pi_{i}(O(\infty))=\pi_{i}(O(n))$ under this
+limit. Surprisingly, the $\pi_{i}(O(\infty))$ is periodic with period 8:
+\begin{center}
+\begin{tabular}{c|cccccccc}
+$i\bmod{8}$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ \\\hline
+$\pi_{i}(O(\infty))$ & $\ZZ/2\ZZ$ & $\ZZ/2\ZZ$ & $0$ & $\ZZ$ & $0$ &
+  $0$ & $0$ & $\ZZ$
+\end{tabular}
+\end{center}
+Ok, great.
+
+We can do a complex version of the same thing, using $U(n-1)\into U(n)\onto\sphere{2n-1}$
+unitary group $U(n)$ acting on a fixed unit vector $\vec{v}_{0}\in\sphere{2n-1}$.
+The stabilizer is $U(n-1)$. The same limiting procedure works, and we
+define the \define{Stable Unitary Group} $U(\infty)$. The situation is
+simpler here, the homotopy groups are also periodic but have period $2$.
+\begin{center}
+\begin{tabular}{c|cc}
+$i\bmod{2}$ & $0$ & $1$ \\\hline
+$\pi_{i}(U(\infty))$ & $0$ & $\ZZ$ 
+\end{tabular}
+\end{center}
+\end{example}

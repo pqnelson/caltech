@@ -118,6 +118,26 @@ respect to any space $X$ is called a \define{Fibration}.
 \begin{remark}
 The homotopy lifting property with respect to $\disk{k}$ is equivalent
 to the homotopy lifting property with respect to $(\disk{k},\boundary\disk{k})$.
+The pictures we should have in mind are, when drawing this as a
+homotopy, the disk $\disk{k}$ [in red] and its boundary
+$\boundary\disk{k}$ [in blue]:
+\begin{center}
+\includegraphics{img/img.60}
+\end{center}
+and the relevant part for the homotopy lifting property is
+$(\disk{k}\times\{0\})\cup(\boundary\disk{k}\times I)$ (where
+$\disk{k}\times\{0\}$ is identified as $\disk{k}$ [drawn in red], and
+$\boundary\disk{k}\times I$ is drawn in blue):
+\begin{center}
+\includegraphics{img/img.61}
+\end{center}
+So what we're saying is that if we know the boundary conditions (drawn
+in red and blue), we
+can extend it to the whole cube $\disk{k}\times I$.
+
+\textsc{Note:}\marginpar{{\footnotesize $J^{k}$ for boundary conditions}} it is common to work with $I^{k}\times I$ instead of
+$\disk{k}\times I$, and it is common to refer to the 3 edges of this
+$I^{k+1}\iso I^{k}\times I$ are $J^{k}$.
 \end{remark}
 
 \begin{remark}
@@ -131,7 +151,3 @@ A map $p\colon E\to B$ is called a \define{Serre Fibration} if it has
 the homotopy lifting property with respect to all the discs $\disk{k}$
 for all $k\geq0$.
 \end{definition}
-
-\begin{theorem}% theorem 2
-A fiber bundle $p\colon E\to B$ is a Serre fibration.
-\end{theorem}

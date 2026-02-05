@@ -1523,6 +1523,105 @@ beginfig(59) % Hawaiian earring
   label(btex $\bullet$ etex, (0,0)) withcolor red;
 endfig;
 
-% 60
+% Winter quarter lecture 13
+beginfig(60)
+  path p[];
+  numeric w; w = 3u;
+  p0 = (0,0)--(w,0)--(w,w)--(0,w)--cycle;
+  p1 = (0,0)--(0,w);
+  z0 = (0,0);
+  z1 = (0,w);
+  z2 = (0.5w,w);
+  z3 = (-w,1.5w);
+  p2 = ((z3 - (3,0))..(-0.75w,0.25w)..z0) cutafter (fullcircle scaled 7 shifted z0);
+  p3 = ((z3 + (3,0))..z1) cutafter (fullcircle scaled 7 shifted z1);
+  draw p0 withcolor 0.6white;
+  %draw p0;
+  draw p1 withpen pencircle scaled 1.5 withcolor red;
+  label.top(btex $\overbrace{\hbox to3pc{}}^{I}$ etex, z2);
+  label(btex $D^{k}\times I$ etex, (0.5w,0.5w));
+  label.lft(btex $D^{k}$ etex, 0.5[z0,z1]) withcolor red;
+
+  label.top(btex $\partial D^{k}$ etex, z3) withcolor blue;
+  drawarrow p2 withcolor blue;
+  drawarrow p3 withcolor blue;
+  
+  label(btex $\bullet$ etex, z0) withcolor blue;
+  label(btex $\bullet$ etex, z1) withcolor blue;
+endfig;
+
+beginfig(61)
+  path p[];
+  numeric w; w = 3u;
+  p0 = (w,0)--(w,w); % (0,0)--(w,0)--(w,w)--(0,w)--cycle;
+  p1 = (0,0)--(0,w);
+  z0 = (0,0);
+  z1 = (0,w);
+  z2 = (0.5w,w);
+  z3 = (2w,1.5w);
+  z4 = (-w,1.5w);
+  p2 = ((z4 - (3,0))..(-0.75w,0.25w)..z0) cutafter (fullcircle scaled 7 shifted z0);
+  p3 = ((z4 + (3,0))..z1) cutafter (fullcircle scaled 7 shifted z1);
+  p4 = ((z3 + (3,0))..(3w-0.75w,0.25w)..(0.75w,-3)) cutafter (fullcircle scaled 6 shifted (w,0));
+  p5 = ((z3 - (3,0))..(0.75w,w+3)) cutafter (fullcircle scaled 6 shifted (w,w));
+  draw p0 withcolor 0.8white;
+  draw p1 withcolor red; %withpen pencircle scaled 1.5 withcolor red;
+  label.top(btex $\overbrace{\hbox to3pc{}}^{I}$ etex, z2+(0,6pt));
+  label(btex $D^{k}\times I$ etex, (0.5w,0.5w));
+  label.lft(btex $D^{k}$ etex, 0.5[z0,z1]) withcolor red;
+
+  label.top(btex $\partial D^{k}$ etex, z4) withcolor blue;
+  drawarrow p2 withcolor blue;
+  drawarrow p3 withcolor blue;
+
+  label.top(btex $\partial D^{k}\times I$ etex, z3) withcolor blue;
+  drawarrow p4 withcolor blue;
+  drawarrow p5 withcolor blue;
+  draw z0--(w,0) withcolor blue;
+  draw (0,w)--(w,w) withcolor blue;
+  
+  label(btex $\bullet$ etex, z0) withcolor blue;
+  label(btex $\bullet$ etex, z1) withcolor blue;
+endfig;
+
+% Winter quarter lecture 14
+beginfig(62)
+  path p[];
+  numeric i;
+
+  p0 = (w,0)--(0,0); % bottom
+  p1 = (w,0)--(w,w); % right
+  p2 = (0,w)--(w,w); % top
+  p3 = (0,0)--(0,w); % left
+
+  for i=1 upto 3:
+    draw (point (i*length(p1)/10) of p1)--(point (i*length(p0)/3) of p0)
+      withcolor 0.7white;
+  endfor;
+  for i=1 upto 4:
+    draw (point ((i+3)*length(p1)/10) of p1)--(point (i*length(p3)/4) of p3)
+      withcolor 0.7white;
+  endfor;
+  for i=1 upto 3:
+    draw (point ((i+7)*length(p1)/10) of p1)--(point (i*length(p2)/3) of p2)
+      withcolor 0.7white;
+  endfor;
+  
+  draw p0; draw p1; draw p2; draw p3;
+  label.bot(btex $C_{\beta}\times I$ etex, (0.5w,0));
+
+  drawarrow (w+6,0.5w)--(2w-6,0.5w);
+  z0 = (2w,0);
+  label.top(btex $r$ etex, 0.5[(w+6,0.5w),(2w-6,0.5w)]);
+
+  draw p0 shifted z0;
+  draw p2 shifted z0;
+  draw p3 shifted z0;
+  label.bot(btex $\scriptstyle (C_{\beta}\times\{0\})\cup(\partial C_{\beta}\times I)$ etex,
+      z0 + (0.5w,0));
+  drawarrow (3w+6,0.5w)--(4w-6,0.5w);
+  label(btex $F$ etex, (4w,0.5w));
+endfig;
+% 63
 
 end;

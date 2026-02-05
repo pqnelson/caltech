@@ -1,0 +1,220 @@
+%%
+%% winter-lecture14.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-05T09:38:06-0800
+%% Last update 2026-02-05T09:38:06-0800
+%% 
+
+\lecture{}
+
+\begin{theorem}\label{thm:10.4}
+Let $E/F$ be a finite Galois extension, let $n=[E:F]=|G|$ be its degree
+where $G=\Gal(E/F)=\{\sigma_{1},\dots,\sigma_{n}\}$ is its Galois group. 
+If $|F|=\infty$, then there exists a $w\in E$ such that
+$\{\sigma_{1}(w),\dots,\sigma_{n}(w)\}$ is a basis of $E$ as a vector
+space over $F$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:4.5}, there is some $\alpha\in E$ such that $E=F(\alpha)$.
+We may reindex the $\sigma_{i}$ such that $\sigma_{1}=\id$. We write
+the minimal polynomial of $\alpha$ as
+\begin{equation}
+f(x)=\prod^{n}_{i=1}(x-\alpha_{i})\in F[x]
+\end{equation}
+where $\alpha_{i}=\sigma_{i}(\alpha)$. (Note that if $i\neq j$ then $\alpha_{i}\neq\alpha_{j}$.)
+
+Now, using the formal derivative $f'(x)$ of the minimal polynomial of
+$\alpha$, we write
+\begin{equation}
+g_{i}(x)=\frac{f(x)}{(x-\alpha_{i})f'(x)}=\prod_{j\neq i}\frac{x-\alpha_{j}}{\alpha_{i}-\alpha_{j}}.
+\end{equation}
+Since $G$ is a group, we will denote the index $(i\cdot j)$ for the
+index of the element such that
+\begin{equation}
+\sigma_{i}^{-1}\sigma_{j}=\sigma_{(i\cdot j)}.
+\end{equation}
+This is because there is some $k\in\{1,\dots,n\}$ such that
+$\sigma_{i}^{-1}\sigma_{j}=\sigma_{k}$, so we just write $k=(i\cdot j)$.
+Using this, let us define the $n\times n$ matrix
+\begin{equation}
+A(x)=(a_{i,j}(x))=(g_{(i\cdot j)}(x)),
+\end{equation}
+and its determinant
+\begin{equation}
+D(x):=\det(A(x))=\sum_{\tau\in S_{n}}\sgn(\tau)\prod_{i=1}^{n}g_{(i\cdot\tau(i))}(x).
+\end{equation}
+Then, as
+\begin{equation}
+g_{ij}(\alpha)=\delta_{i,j}=\begin{cases}1 & \mbox{if }i=j\\
+0 & \mbox{otherwise},
+\end{cases}
+\end{equation}
+we have $A(\alpha)=I$ is the identity matrix, so its determinant is
+unity $D(\alpha)=1\neq0$. In particular, the determinant is always
+nonzero $D\neq0$, and thus has only finitely many roots in $E$.
+
+Now, using the hypothesis $|F|=\infty$, there exists some $b\in E$
+such that $D(b)\neq0$. Let us show these $\{\beta_{j}:=g_{j}(b)\}_{j=1,\dots,n}$
+forms a basis for $E$ as a vector space over $F$. Then $w := g_{1}(b)$.
+If
+\begin{equation}
+\sum^{n}_{j=1}a_{j}\beta_{j}=0
+\end{equation}
+for some $a_{1}$, \dots, $a_{n}$, then applying $\sigma_{i}^{-1}$ to
+it gives us
+\begin{equation}
+0=\sum^{n}_{j=1}\sigma_{i}^{-1}g_{j}(b)a_{j}=A(b)\vec{a},
+\end{equation}
+where we just rewrite it in matrix notation. But since $D(b)\neq0$,
+this means $A(b)$ is an invertible matrix, and therefore $\vec{a}=\vec{0}$.
+Hence the result.
+\end{proof}
+
+\subsection{Cyclic Extensions}
+
+\begin{definition}
+A Galois extension $E/F$ is called \define{Cyclic} if its Galois group
+$\Gal(E/F)$ is a cyclic group.
+\end{definition}
+
+\begin{theorem}[Hilbert's theorem 90]\label{thm:11.1}
+Let $E/F$ be a cyclic Galois extension of degree $n$ (i.e.,
+$G=\Gal(E/F)\iso\ZZ/n\ZZ$). Let $\sigma\in G$ be a generator. Then the
+following all hold:
+\begin{enumerate}
+\item\label{item:thm:11.1:item:1} There exists some $\alpha\in E$ such that: $N_{E/F}(\alpha)=1$ if
+  and only if there exists some $\beta\in E$ such that
+  $\alpha=\beta/\sigma(\beta)$;
+\item\label{item:thm:11.1:item:2} For any $\alpha\in E$, we have $\Tr_{E/F}(\alpha)=0$ if and only
+  if there exists a $\beta\in E$ such that $\alpha=\beta-\sigma(\beta)$.
+\end{enumerate}
+\end{theorem}
+
+(This seems to be \emph{literally} the 90th Theorem in David Hilbert's
+\textit{Die Theorie der algebraischen Zahlk\"{o}rper} (1897), which is
+the origin of the name.)
+
+\begin{proof}
+\backwardproof\ $N_{E/F}$ and $\Tr_{E/F}$ are preserved by the group
+action, which gives both results.
+
+(1)~\forwardproof\ Assume that
+\begin{equation}
+N_{E/F}(\alpha)=\prod^{n}_{i=0}\sigma^{i}(\alpha)=1.
+\end{equation}
+By Lemma~\ref{lemma:7.2}, the $\sigma^{i}$ are linearly independent,
+and so
+\begin{equation}\label{eq:math120b:winter:lec14:hilbert90:def-of-f}
+f:=\sum^{n-1}_{i=0}\left(\prod^{i-1}_{j=0}\sigma^{j}(\alpha)\right)\sigma^{i}=\id+\alpha\sigma+\alpha\sigma(\alpha)\sigma^{2}+\dots\neq0
+\end{equation}
+
+Then there exists some $\gamma\in E$ such that
+\begin{equation}
+\beta=f(\gamma)\neq0.
+\end{equation}
+Then
+\begin{subequations}
+  \begin{align}
+\alpha\sigma(\beta)
+&=\alpha\sigma(\gamma)+\alpha\sigma(\alpha)\sigma^{2}(\gamma)+\dots+\underbrace{\alpha\left(\prod^{n}_{j=1}\sigma^{j}(\alpha)\right)}_{=N_{E/F}(\alpha)=1}\underbrace{\sigma^{n}(\gamma)}_{=\gamma}\\
+&=\beta
+  \end{align}
+\end{subequations}
+In particular, since we just proved $\alpha\sigma(\beta)=\beta$, then
+we find $\alpha=\beta/\sigma(\beta)$ as desired.
+
+(2) \forwardproof\ For this, we take
+\begin{equation}
+\beta=\frac{1}{\Tr_{E/F}(\gamma)}f(\gamma)
+\end{equation}
+where we use $f$ from
+Equation~\eqref{eq:math120b:winter:lec14:hilbert90:def-of-f}. By
+similar reasoning, the result follows.
+\end{proof}
+
+\begin{proposition}\label{prop:11.2}
+Let $\zeta_{n}\in F$ (so $F$ contains the $n^{\text{th}}$ root of
+unity $\zeta_{n}$) for some $n$ such that $\Char(F)\ndivides n$. Then
+the following all hold:
+\begin{enumerate}
+\item If there exists some $\alpha\in E$ such that $E=F(\alpha)$
+  (where $\alpha^{n}\in F$ but $\alpha^{m}\notin F$ for all $0<m<n$),
+  then $E/F$ is cyclic of degree $n$.
+\item If $E/F$ is cyclic of degree $n$, then there exists an
+  $\alpha\in E$ such that $E=F(\alpha)$ and $\alpha^{n}\in F$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) For $i=1$, \dots, $n$, we have $\zeta_{n}^{i}\in F(\alpha)$ are
+distinct roots of $x^{n}-\alpha^{n}\in F[x]$. Therefore $F(\alpha)$
+is a splitting field for the separable polynomial $x^{n}-\alpha^{n}$,
+and in particular $F(\alpha)/F$ is a finite Galois extension.
+
+For $\sigma\in G:=\Gal(E/F)$, we see $\sigma(\alpha)=\zeta_{n}^{i}\alpha$
+for some $i$, and thus we have a map (by Proposition~\ref{prop:9.1}):
+\begin{equation}
+\begin{split}
+&G\to\mu_{n}\\
+&\sigma\mapsto\frac{\sigma(\alpha)}{\alpha}=\zeta_{n}^{i}.
+\end{split}
+\end{equation}
+This is a group morphism. If $\sigma$ is in its kernel, then
+$\sigma(\alpha)=\alpha$ and therefore $\sigma=\id$ (i.e., the kernel
+is trivial). Hence this group morphism is injective. Therefore
+\begin{equation}
+G\iso\ZZ/d\ZZ
+\end{equation}
+for some $d\divides n$. But
+\begin{equation}
+(\sigma(\alpha)/\alpha)^{d}=1,
+\end{equation}
+which is to say: $\sigma(\alpha^{d})=\alpha^{d}$ so $\alpha^{d}\in E^{G}$
+and by Theorem~\ref{prop:7.5}~\ref{item:prop:7.5:3} we have $E^{G}=F$. This means that
+$d=n$ by the hypothesis that $\alpha^{n}\in F$ but $\alpha^{m}\notin F$
+for any $1<m<n$.
+
+(2) Let $\sigma$ be a generator of $G=\Gal(E/F)\iso\ZZ/n\ZZ$. Since
+\begin{subequations}
+  \begin{align}
+N_{E/F}(\zeta_{n}^{-1})
+&= \prod^{n}_{i=0}\sigma^{i}(\zeta_{n}^{-1})\\
+&=(\zeta^{-1}_{n})^{n}=1,
+  \end{align}
+\end{subequations}
+we have by Theorem~\ref{thm:11.1}~\ref{item:thm:11.1:item:1}m there
+exists $\alpha\in E$ such that $\sigma(\alpha)=\zeta_{n}\alpha$. Then
+\begin{subequations}
+  \begin{align}
+\sigma(\alpha^{n})
+&=\bigl(\sigma(\alpha)\bigr)^{n}\\
+&=(\zeta_{n}\alpha)^{n}\\
+&=\alpha^{n}
+  \end{align}
+\end{subequations}
+and thus $\alpha^{n}\in E^{G}=F$. Hence $x^{n}-\alpha^{n}\in F[x]$,
+and it has distinct roots $\zeta^{i}_{n}\alpha\in F(\alpha)$. That is
+to say, $F(\alpha)/F$ is a Galois extension. So we have the following
+summary of which extensions are Galois (solid lines) and which we have
+no information about (dotted lines):
+\begin{equation}
+\vcenter{\xymatrix{&E\ar@/_2pc/@{-}[dd]_{\text{galois}}\ar@{-}[d]^{\text{galois}}\\
+      &F(\alpha)\ar@{..}[d]\\
+    &F}}
+\end{equation}
+(Note that
+$\Gal(E/F(\alpha))$ is a normal subgroup of $\Gal(E/F)$ by
+Theorem~\ref{thm:7.1}.) We have
+\begin{equation}
+\ZZ/n\ZZ\iso\Gal(F(\alpha)/F)\iso\frac{\Gal(E/F)}{\Gal(E/F(\alpha))},
+\end{equation}
+but
+\begin{equation}
+\Gal(E/F)\iso\ZZ/n\ZZ,
+\end{equation}
+which means that $\Gal(E/F(\alpha))$ must be trivial. Hence $E=F(\alpha)$.
+\end{proof}
