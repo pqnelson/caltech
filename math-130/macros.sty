@@ -6,7 +6,8 @@
 %% 
 %% Started on  2025-09-30T07:31:06-0700
 %% Last update 2025-09-30T07:31:06-0700
-%% 
+%%
+\RequirePackage{marginnote}
 \RequirePackage{xcolor}
 \RequirePackage{titlesec}
 \RequirePackage{amsthm,amsmath,amssymb}
@@ -37,6 +38,9 @@
 
 \let\og@doi\doi
 \def\doi#1{\texttt{\og@doi{#1}}}
+
+%% Margin note style
+\renewcommand*{\marginfont}{\footnotesize\slshape\sffamily}
 
 % add a period to the name of the lecture, if any
 \newif\ifsectionnonempty\sectionnonemptyfalse
@@ -88,26 +92,27 @@
 \newtheorem{fundamental-thm-galois-thy}[theorem]{Fundamental theorem of Galois Theory}
 \newtheorem{monotone-convergence-theorem}[theorem]{Monotone Convergence Theorem}
 \theoremstyle{definition}
+\newtheorem{aside}[theorem]{Aside}
 \newtheorem{assume}[theorem]{Assume}
+\newtheorem{caution}[theorem]{Caution}
+\newtheorem{construction}[theorem]{Construction}
 \newtheorem{convention}[theorem]{Convention}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
-\newtheorem{non-example}[theorem]{Non-Example}
 \newtheorem{fact}[theorem]{Fact}
-\newtheorem{slogan}[theorem]{Slogan}
-\newtheorem{question}[theorem]{Question}
-\newtheorem{puzzle}[theorem]{Puzzle}
-\newtheorem{construction}[theorem]{Construction}
-\newtheorem{observation}[theorem]{Observation}
+\newtheorem{idea}[theorem]{Idea}
 \newtheorem{node}[theorem]{}
+\newtheorem{non-example}[theorem]{Non-Example}
+\newtheorem{notation}[theorem]{Notation}
 \newtheorem{note}[theorem]{Note}
 \newtheorem{notice}[theorem]{Notice}
-\newtheorem{notation}[theorem]{Notation}
-\newtheorem{caution}[theorem]{Caution}
-\newtheorem{warning}[theorem]{Warning}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{puzzle}[theorem]{Puzzle}
+\newtheorem{question}[theorem]{Question}
 \newtheorem{recall}[theorem]{Recall}
-\newtheorem{aside}[theorem]{Aside}
+\newtheorem{slogan}[theorem]{Slogan}
 \newtheorem{terminology}[theorem]{Terminology}
+\newtheorem{warning}[theorem]{Warning}
 %\theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{xca}[theorem]{Exercise}

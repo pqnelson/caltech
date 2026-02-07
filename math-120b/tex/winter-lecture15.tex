@@ -1,0 +1,254 @@
+%%
+%% winter-lecture15.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-07T09:18:31-0800
+%% Last update 2026-02-07T09:18:31-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+A group $G$ is \define{Solvable} if there exists a finite sequence of
+subgroups $\TrivialGroup=G_{0}\normalsubgroup G_{1}\normalsubgroup\dots\normalsubgroup G_{n}=G$
+(i.e., each $G_{i}$ is a subgroup of $G$, and $G_{i}$ is a normal
+subgroup of $G_{i+1}$) such that $G_{i+1}/G_{i}$ is Abelian for all $i$.
+\end{definition}
+
+\begin{remark}
+For finite groups, an equivalent criteria is for the quotient groups
+$G_{i+1}/G_{i}$ to be cyclic groups of prime order.
+\end{remark}
+
+\begin{definition}
+A finite field extension $E/k$ is \define{Solvable} if there exists a field
+extension $L/E$ such that $L/k$ is Galois and $\Gal(L/k)$ is a
+solvable group.
+
+\textsc{Note}: if $E$ is Galois and solvable, then $\Gal(E/k)$ is solvable (by
+the next lemma---and also see Theorem~\ref{thm:7.1}~\ref{item:thm:7.1:item-5}).
+\end{definition}
+
+\begin{lemma}\label{lemma:12.1}
+Let $G$ be a solvable group, let $G'\subgroup G$ be any subgroup of $G$.
+Let $N\normalsubgroup G$ be a normal subgroup of $G$. Then both $G'$
+and $G/N$ are solvable groups.
+\end{lemma}
+
+\begin{proof}
+Let
+\begin{equation}
+\TrivialGroup=G_{0}\normalsubgroup G_{1}\normalsubgroup\dots\normalsubgroup G_{n}=G,
+\end{equation}
+where each quotient $G_{i+1}/G_{i}$ is Abelian. Then
+$G_{i}N\normalsubgroup G_{i+1}N$ and we have the canonical map
+\begin{equation}
+\phi\colon G_{i+1}/G_{i}\onto(G_{i+1}N)/(G_{i}N)
+\end{equation}
+where $(G_{i+1}N)/G_{i}\normalsubgroup\ker(\phi)\normalsubgroup G_{i+1}/G_{i}$,
+so $(G_{i+1}N)/(G_{i}N)$ must be Abelian.
+
+The argument for $G'$ is similar, we just take $G_{i}\cap G'$ in the
+subgroup series.
+\end{proof}
+
+\begin{remark}
+If $E/k$ is solvable, then there exists a solvable Galois extension
+$L/k$ such that $E\subset L$. We often will just use this in the
+abbreviated form ``Since $E/k$ is solvable, then consider the solvable
+Galois extension $L/k$ such that $L/E/k$.''
+\end{remark}
+
+\begin{proposition}\label{prop:12.2}
+The class of solvable extensions is distinguished.
+\end{proposition}
+
+\begin{proof}
+We just need to check two things:
+\begin{enumerate}
+\item Tower property: For any field extensions $E/F/k$, we have $E/k$ is solvable if
+  and only if both $E/F$ and $F/k$ are solvable
+\item Lifting property: For any solvable extension $E/k$ and any arbitrary field
+  extension $F/k$, we have $EF/F$ is solvable.
+\end{enumerate}
+We will prove (2), then use it to prove (1).
+
+\textsc{Subproof (Lifting property)}: Let $E/k$ be a solvable
+extension. Then consider $K/k$ a solvable Galois extension such that $K/E/k$.
+Let $F/k$ be an arbitrary field extension.
+So we have the following situation (where dotted lines are arbitrary
+field extensions, solid lines are solvable field extensions)
+\begin{equation}
+\vcenter{\xymatrix{
+K \ar@/_2pc/@{-}_{\text{Galois solvable}}[ddrr]\ar@{-}[dr] & & & \\
+& E\ar@{-}[dr] & & F\ar@{..}[dl]\\
+& & k & }}
+\end{equation}
+By Proposition~\ref{prop:3.4} and Proposition~\ref{prop:4.3}, it follows
+that $KF/F$ is Galois.
+Now, both $KF/K$ and $KF/F$ are Galois extensions, so we have:
+\begin{equation}
+\vcenter{\xymatrix{
+& & KF\ar@{..}[dll]_{\text{Galois}}\ar@{..}[ddr]^{\text{Galois}} &\\
+%    & & & \\      
+K \ar@/_2pc/@{-}_{\text{Galois solvable}}[ddrr]\ar@{-}[dr] & & & \\
+& E\ar@{-}[dr] & & F\ar@{..}[dl]\\
+& & k & }}
+\end{equation}
+Then by Theorem~\ref{thm:7.6}, we have
+\begin{subequations}
+  \begin{align}
+\Gal(KF/F) &\iso\Gal(K/K\cap F)\\
+&\subgroup\Gal(K/k)
+  \end{align}
+\end{subequations}
+and since $\Gal(K/k)$ is solvable, we have $\Gal(KF/F)$ is solvable by
+Lemma~\ref{lemma:12.1}.
+In particular, this means $EF/F$ is solvable, so we have the following diagram:
+\begin{equation}
+\vcenter{\xymatrix{
+& & KF\ar@{-}[dll]_{\text{Galois}}\ar@{-}[ddr]^{\text{Galois}}\ar@{-}[d] &\\
+K \ar@/_2pc/@{-}_{\text{Galois solvable}}[ddrr]\ar@{-}[dr] & & EF\ar@{..}[dl]\ar@{-}[dr] & \\
+& E\ar@{-}[dr] & & F\ar@{..}[dl]\\
+& & k & }}
+\end{equation}
+Hence the lifting property holds (i.e., $EF/F$ is solvable).
+
+\textsc{Subproof (Tower property)}: \backwardproof\ Let $E/F/k$ be
+such that $E/F$ and $F/k$ are solvable extensions; we want to prove
+$E/k$ is solvable. Since $F/k$ is
+solvable, there exists a solvable Galois $K/k$ such that $K/F/k$. So
+we have the following situation:
+\begin{equation}
+\vcenter{\xymatrix{E\ar@{-}[d] & \\
+F\ar@{-}[d] & \ar@{..}[l]\ar@{-}[dl]^{\text{Galois}}K \\
+k & }}
+\end{equation}
+Then by the lifting property, both $E/F$ and $K/F$ implies $EK/K$ is
+solvable. That is to say, there exists an $L/EK$ such that $L/K$ is
+solvable Galois.
+\begin{equation}
+\vcenter{\xymatrix{ & L\ar@{..}[dl]\ar@{..}[d]\ar@/^2pc/@{-}[dd]^{\text{Galois}}\\
+E\ar@{-}[d]\ar@{..}[r] & EK\ar@{-}[d] \\
+F\ar@{-}[d] & \ar@{..}[l]\ar@{-}[dl]^{\text{Galois}}K \\
+k & }}
+\end{equation}
+We can conclude $L/k$ is Galois by Note~\ref{note:galois-extension-properties}~\ref{item:note:galois-extension-properties:transitivity}.
+We just need to prove $\Gal(L/k)$ is solvable. We see that
+\begin{equation}
+\Gal(K/k)\iso\frac{\Gal(L/k)}{\Gal(L/K)},
+\end{equation}
+by Theorem~\ref{thm:7.1}. Since both $\Gal(K/k)$ and $\Gal(L/K)$ are
+solvable, then $\Gal(L/k)$ is solvable by concatenating the subnormal
+series. Hence $E/k$ is solvable.
+
+\forwardproof\ Assume $E/k$ is solvable. Then consider the Galois extension $L/E$ such that
+$L/k$ is solvable Galois. Then by the lifting property, clearly $F/k$
+is solvable. So we have the current situation:
+\begin{equation}
+\vcenter{\xymatrix{
+E\ar@{..}[d]\ar@/_2pc/@{-}[dd]_{\text{Galois}} & L\ar@{..}[dl]\ar@{..}[ddl]\ar@{-}[l]_{\text{Galois}} \\
+F\ar@{-}[d] & \\
+k & }}
+\end{equation}
+Now, we want to prove $E/F$ is solvable. Since $L/k$ is Galois, then
+$L/F$ is Galois. Suffices to show that $L/F$ is solvable (we only need
+to show $\Gal(L/F)$ is a solvable group). Since $\Gal(L/F)\subgroup\Gal(L/k)$
+and $\Gal(L/k)$ is solvable, then by Lemma~\ref{lemma:12.1} we have
+the result that $E/F$ is solvable.
+\end{proof}
+
+\begin{definition}
+A finite extension $E/k$ is \define{Solvable by Radicals} if there
+exists an extension $L/E$ such that $L/k$ is \define{Radical}, i.e.,
+there is a finite toiwer of extensions
+\begin{equation}
+L=L_{n}/L_{n-1}/\cdots/L_{1}/L_{0}=k
+\end{equation}
+such that $L_{i+1}=L_{i}(\alpha_{i+1})$ where $\alpha_{i+1}$ is a root
+of either $x^{n}-a_{i}\in L_{i}[x]$ (provided $\Char(k)\ndivides n$)
+or $x^{p}-x-a_{i}\in L_{i}[x]$ where $\Char(k)=p$.
+\end{definition}
+
+\begin{proposition}\label{prop:11.3}
+Let $F$ be a field with $\Char(F)=p>0$. Let
+\begin{equation}
+f_{a}(x)=x^{p}-x-a\in F[x].
+\end{equation}
+Then the following all hold:
+\begin{enumerate}
+\item $f_{a}(x)$ either splits in $F$ or is an irreducible polynomial.
+\item Moreover, if $f_{a}$ is irreducible, then
+  $\Gal(F(\alpha)/F)\iso\ZZ/p\ZZ$ for any root $\alpha$ of $f_{a}$
+\item If $E/F$ is cyclic of degree $p$ (i.e., $E/F$ is Galois and
+  $\Gal(E/F)$ is cyclic and $\Gal(E/F)\iso\ZZ/p\ZZ$), then there
+  exists some $\alpha\in E$ such that $E=F(\alpha)$ and
+  $f_{a}(\alpha)=0$ for some $a\in F$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Homework.
+\end{proof}
+
+\begin{theorem}
+Let $E/k$ be a separable extension.\marginnote{``$E/k$ separable'' is
+  not needed for the result, it only simplifies the proof}
+Then $E/k$ is solvable if and only if $E/k$ is solvable-by-radicals.
+\end{theorem}
+
+\begin{proof}
+\forwardproof\ Assume $E/k$ is a solvable extension. Then consider
+$K/E$ such that $K/k$ is solvable Galois.
+\begin{equation}
+\vcenter{\xymatrix{K\ar@{..}[d]\ar@/^2pc/@{-}[dd]^{\text{Galois}}\\
+E\ar@{-}[d] \\
+k}}
+\end{equation}
+Then we write
+\begin{equation}
+m := \prod_{i}p_{i}
+\end{equation}
+where $p_{i}$ are prime numbers such that $p_{i}\ndivides\Char(k)$ and
+$p_{i}\divides[K:k]$. Then we introduce the field
+\begin{equation}
+F:=k(\zeta_{m})
+\end{equation}
+where $\zeta_{m}$ is the primitive $m^{\text{th}}$ root of unity. So
+now our situation looks like:
+\begin{equation}
+\vcenter{\xymatrix{K\ar@{..}[dr]\ar@/_2pc/@{-}[ddrr]_{\text{Galois}} & & & \\
+& E\ar@{-}[dr] & & \ar@{..}[dl] F \\
+&   & k & }}
+\end{equation}
+By Proposition~\ref{prop:9.1}, $F/k$ is Abelian since
+$\Gal(F/k)\subgroup\MultGroup{(\ZZ/m\ZZ)}$.
+
+On the other hand, $KF/F$ is solvable Galois by Proposition~\ref{prop:12.2}
+and Note~\ref{note:galois-extension-properties}. This gives us
+\begin{equation}
+\vcenter{\xymatrix{& & KF\ar@{..}[dll]\ar@{-}[ddr]^{\text{Galois}}\\
+K\ar@{..}[dr]\ar@/_2pc/@{-}[ddrr]_{\text{Galois}} & & & \\
+& E\ar@{-}[dr] & & \ar@{..}[dl] F \\
+&   & k & }}
+\end{equation}
+Now, by definition of $m$, $KF/k$ is radical. In fact, $F/k$ is
+radical because $\Char(k)\ndivides m$. On the other hand, by
+\begin{equation}
+\Gal(KF/F)\iso\Gal(K/K\cap F)\subgroup\Gal(K/k),
+\end{equation}
+and Lagrange's theorem
+\begin{equation}
+[KF:F]\divides[K:k],
+\end{equation}
+we see that all prime factors of $[KF:F]$ appear in $m=\prod_{i}p_{i}$.
+Therefore each step of the tower of extensions $KF/\cdots/F$
+corresponding to the composition series of $\Gal(KF/F)$ [each step
+  $(KF)_{i}$ is a simple extension by adjoining a root of unity]
+satisfies the hypotheses of Proposition~\ref{prop:11.2}. By using
+Proposition~\ref{prop:11.2} or Proposition~\ref{prop:11.3} repeatedly,
+$KF/F$ is radical. Hence $KF/k$ is radical, which forces $E/k$ to be
+solvable by radicals.
+\end{proof}

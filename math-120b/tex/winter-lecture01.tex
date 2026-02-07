@@ -12,7 +12,7 @@
 
 I missed the first lecture, it was mostly review of field extensions.
 A good reference I have found is Steven Roman's \textit{Field Theory}
-(second ed., Springer, 2006).
+(second ed., Springer, 2006)~\cite{roman2006field}.
 
 \begin{proposition}\label{prop:1.2}
 If $L_{1}/L_{2}$ is a simple extension $L_{1}=L_{2}(\alpha)$, then
@@ -22,3 +22,22 @@ If $L_{1}/L_{2}$ is a simple extension $L_{1}=L_{2}(\alpha)$, then
 where $p_{\alpha}\in L_{1}[x]$ is the
 minimal polynomial of $\alpha$.
 \end{proposition}
+
+\begin{definition}[{Roman~\cite[\S2.2]{roman2006field}}]
+Let $\mathcal{C}$ be a class of field extensions. We say it is
+\define{Distinguished} if both of the following conditions hold:
+\begin{enumerate}
+\item\textsc{Tower Property}: For any tower of extensions $L/E/F$, we
+  have $L/F$ is in $\mathcal{C}$ if and only if both $L/E$ and $E/F$
+  are in $\mathcal{C}$
+\item\textsc{Lifting Property}: For any extension $E/F$ in
+  $\mathcal{C}$ and any arbitrary other field extension $K/F$, we have
+  the extension $EK/K$ is in $\mathcal{C}$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+Serge Lang apparently invented this notion of distinguished classes of
+field extensions. See Lang's \textit{Algebra} (third ed., Springer;
+Chapter~V \S1, pages 227 \textit{et seq}.).
+\end{remark}

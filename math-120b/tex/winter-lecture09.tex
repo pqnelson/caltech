@@ -20,10 +20,10 @@ For any Galois extension $E/F$, we define its \define{Galois Group}
 $\Gal(E/F):=\Aut_{F}(E)=\End_{F}(E)\iso\End_{F}(E,\closure{F})$.
 \end{definition}
 
-\begin{note}
+\begin{note}\label{note:galois-extension-properties}
 By Proposition~\ref{prop:3.4} and Proposition~\ref{prop:4.3}, we have:
 \begin{enumerate}
-\item For any field extensions $L/E$ and $E/F$, if $L/F$ is Galois,
+\item\label{item:note:galois-extension-properties:transitivity} For any field extensions $L/E$ and $E/F$, if $L/F$ is Galois,
   then $L/E$ and $E/F$ are both Galois
 \item If $E_{1}/F$ is Galois and $E_{2}/F$ is Galois, then
   $E_{1}E_{2}/E_{1}$ and $E_{1}E_{2}/E_{2}$ are both Galois
@@ -69,7 +69,7 @@ Then
 \item Let $E_{i}\sim H_{i}$ for $i=1,2$. Then $E_{1}E_{2}\sim H_{1}\cap H_{2}$
   and $E_{1}\cap E_{2}\sim\langle H_{1},H_{2}\rangle$.
 \item\label{item:thm:7.1:item-4} For $E\sim H$ and $\varphi\in G$, then $\varphi(E)\sim\varphi H\varphi^{-1}$
-\item For $E\sim H=\Gal(L/E)$, then $E/F$ is a (finite)
+\item\label{item:thm:7.1:item-5} For $E\sim H=\Gal(L/E)$, then $E/F$ is a (finite)
   Galois extension if and only if $H\normalsubgroup G$ is
   a normal subgroup of $G$. Furthermore, $\Gal(E/F)\iso G/H$.
 \end{enumerate}
