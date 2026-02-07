@@ -1,0 +1,132 @@
+%%
+%% winter-lecture14.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-07T12:34:20-0800
+%% Last update 2026-02-07T12:34:20-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+We write $C_{c}(\RR^{d})$ for the space of continuous functions with
+compact support.
+\end{definition}
+
+% Stein, Shakarchi, "Real Analysis", theorem 2.4
+\begin{theorem}[Density]
+$C_{c}(\RR^{d})$ is dense in $L^{1}(\RR^{d})$; i.e., for any $f\in L^{1}$
+and for any $\varepsilon>0$, there exists a $g\in C_{c}$ such that $\|f-g\|_{L^{1}}<\varepsilon$.
+\end{theorem}
+
+\begin{proof}
+\textsc{Step 1: Truncation}. Produce $f_{n}(x)=f(x)\chi_{B(r=n,0)}(x)$
+where $B(r=n,0)$ is the open ball of radius $r=n$ centered at the
+origin. We know $f_{n}\to f$ pointwise everywhere and
+$|f_{n}|\leq|f|$, so by the Dominated Convergence
+Theorem~\ref{thm:dct}, we have $\|f_{n}-f\|_{L^{1}}\to0$.
+
+\textsc{Step 2: Simple functions}. Given any $n$, there exists a
+sequence of simple functions $(\varphi^{(n)}_{k})$ such that
+$\varphi^{(n)}_{k}\to f_{n}$ pointwise and $|\varphi^{(n)}_{k}|\leq|f_{n}|$.
+(Observe each $\varphi^{(n)}_{k}$ is supported on a radius $n$-ball,
+since $f_{n}$ was supported on such a ball.) [This will cost us an
+  $\varepsilon$ later.]
+
+\textsc{Step 3: Step functions}. Recall for a simple function
+$\sum_{j} c_{j}\chi_{E_{j}}$, we can use rectangles $R_{j'}$ instead of $E_{j}$ 
+to give us a step function $\sum_{j'}c'_{j'}\chi_{R_{j'}}$ equal to
+the given simple function almost everywhere. [This costs another $\varepsilon$.]
+
+\textsc{Step 4: ``Smoothing''}. Without loss of generality, it
+suffices to treat $f$ as a characteristic function for a rectangle at this point
+\begin{equation}
+f(x) = \chi_{R_{j}}(x).
+\end{equation}
+The intuition in the 1-dimensional case is that $f=\chi_{[a,b]}$ and
+we approximate it with a [piecewise] continuous function $g\colon\RR\to\RR$ such
+that
+\begin{equation}
+g(x) = \begin{cases}1 & \mbox{if }a\leq x\leq b\\
+0 & \mbox{if }x\leq a-\varepsilon\mbox{ or }b+\varepsilon\leq x.
+\end{cases}
+\end{equation}
+Then we can have $g(x)$ be linear on the intervals $[a-\varepsilon,a]$
+and $[b,b+\varepsilon]$ (or polynomial, or\dots).
+Then $\|f-g\|_{L^{1}}<2\varepsilon$ at this step, and when we include
+the contributions from the previous approximations, it sums to an
+error of $4\varepsilon$ (so we just rescale
+$\varepsilon'=\varepsilon/4$ and use $\varepsilon'$ everywhere we used
+$\varepsilon$ earlier).
+\end{proof}
+
+\begin{notation}
+When $d=d_{1}+d_{2}$, we can write
+$\RR^{d}=\RR^{d_{1}}\times\RR^{d_{2}}$ and $(x,y)\in\RR^{d}$ for
+$x\in\RR^{d_{1}}$ and $y\in\RR^{d_{2}}$.
+
+The \define{product measure} which is defined on a rectangle as $m_{d}(A\times B)=m_{d_{1}}(A)m_{d_{2}}(B)$.
+\end{notation}
+
+\begin{definition}
+For a set $E\subset\RR^{d_{1}}\times\RR^{d_{2}}$, let $y$ be fixed. The
+\define{$y$-slice of $E$} is the subset $E^{y}=\{x\mid (x,y)\in E\}\subset\RR^{d_{1}}$.
+\end{definition}
+
+\begin{definition}
+For a function $f$, the \define{$y$-slice of $f$} is the function
+$f^{y}(x):=f(x,y)$. 
+\end{definition}
+
+\begin{theorem}[Fubini]
+Let $f(x,y)$ be measurable on $\RR^{d_{1}}\times\RR^{d_{2}}$. Then the
+following all hold:
+\begin{enumerate}
+\item (Tonelli) If $f\geq0$, then
+\begin{subequations}
+  \begin{align}
+\int_{\RR^{d}}f&=\int_{\RR^{d_{1}}}\left(\int_{\RR^{d_{2}}}f(x,y)\,\D y\right)\D x\\
+&=\int_{\RR^{d_{2}}}\left(\int_{\RR^{d_{1}}}f(x,y)\,\D x\right)\D y
+  \end{align}
+\end{subequations}
+\item (Fubini) If $f\in L^{1}$, then
+\begin{subequations}
+  \begin{align}
+\int_{\RR^{d}}f&=\int_{\RR^{d_{1}}}\left(\int_{\RR^{d_{2}}}f(x,y)\,\D y\right)\D x\\
+&=\int_{\RR^{d_{2}}}\left(\int_{\RR^{d_{1}}}f(x,y)\,\D x\right)\D y
+  \end{align}
+\end{subequations}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\textsc{Case 1: Rectangles}.
+
+\textsc{Case 2: Null sets}.
+
+\textsc{Case 3: Simple functions}.
+
+\textsc{Case 4: Tonelli's theorem}.
+
+\textsc{Case 5: Fubini's theorem}.
+\end{proof}
+
+\begin{example}
+Consider the function $f\colon[0,1]\times[0,1]\to\RR$, defined as:
+\begin{equation}
+f(x,y)=\frac{x^{2}-y^{2}}{(x^{2}+y^{2})^{2}}.
+\end{equation}
+This is not an $L^{1}$ function. We see
+\begin{equation}
+\iint f(x,y)\,\D x\D y=\frac{\pi}{4}
+\end{equation}
+but
+\begin{equation}
+\iint f(x,y)\,\D y\D x=\frac{-\pi}{4}.
+\end{equation}
+It is not non-negative, so Tonelli's theorem does not hold
+($f(0,1)=-1$ for example). It is not $L^{1}$, so Fubini's theorem does
+not hold.
+\end{example}
