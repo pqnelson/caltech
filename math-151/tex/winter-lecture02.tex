@@ -65,7 +65,8 @@ and ``Beitr\"{a}ge zur Topologie der Deformationen III-IV''
 This is my own review of homotopy groups. There are two definitions
 offered in the literature: one using pointed spheres, and another
 using ``spheroids'' (cubes whose boundary are mapped to a specified point).
-Albert Schwarz's book~\cite{schwarz1993quantum} is a great reference
+Albert Schwarz's books~\cite{schwarz1993quantum} and especially
+Chapter 8 of~\cite{schwarz1996topology} are great references
 for the spheroid definition, and also Fuchs and Fomenko~\cite[\S8]{fuchs2016homotopical}.
 \end{remark}
 
@@ -135,11 +136,47 @@ associative $([h]*[g])*[f]=[h]*([g]*[f])$. However, it is not
 associative on spheroids $(h*g)*f\neq h*(g*f)$.
 \end{lemma}
 
+\begin{proof}
+We see that
+\begin{equation}
+((f*g)*h)(t,\vec{x})=\begin{cases}
+f(4t,\vec{x}) & \mbox{if }0\leq t\leq1/4\\
+g(4t-1,\vec{x}) & \mbox{if }1/4\leq t\leq1/2\\
+h(2t-1,\vec{x}) & \mbox{if }1/2\leq t\leq1,
+  \end{cases}
+\end{equation}
+and
+\begin{equation}
+(f*(g*h))(t,\vec{x})=\begin{cases}
+f(2t,\vec{x}) & \mbox{if }0\leq t\leq1/2\\
+g(4t-2,\vec{x}) & \mbox{if }1/2\leq t\leq3/4\\
+h(4t-3,\vec{x}) & \mbox{if }3/4\leq t\leq1.
+  \end{cases}
+\end{equation}
+These are clearly distinct, in general. However, there is a homotopy
+\begin{equation}
+F\colon[0,1]\times(I^{n},\boundary I^{n})\to(X,x_{0})
+\end{equation}
+from $(f*g)*h$ to $f*(g*h)$ defined by
+\begin{equation}
+F_{\tau}(t,\vec{x})=(1-\tau)((f*g)*h)(t,\vec{x})+\tau(f*(g*h))(t,\vec{x}).
+\end{equation}
+Hence they are homotopic, and belong to the same homotopy class.
+\end{proof}
+
 \begin{lemma}
 The constant spheroid $(I^{n},\boundary I^{n})\to(X,x_{0})$ (which just
 maps everything to $x_{0}$) is the identity element for the
 composition of homotopy equivalence classes of $n$-spheroids
 \end{lemma}
+
+\begin{proof}[Proof sketch]
+Let $c\colon(I^{n},\boundary I^{n})\to(X,x_{0})$ be the constant
+spheroid $c(t,\vec{x})=x_{0}$. Then for any spheroid $f\colon(I^{n},\boundary I^{n})\to(X,x_{0})$,
+the two claims are (1)~$c*f=f$ and (2)~$f*c=f$. The idea is that we
+can ``contract'' $c$ to the boundary $\boundary I^{n}$, and this gives
+us the homotopy equivalences.
+\end{proof}
 
 \begin{lemma}
 Let $f\colon(I^{n},\boundary I^{n})\to(X,x_{0})$ be an $n$-spheroid.
@@ -148,12 +185,22 @@ $g(t_{1},t_{2},\dots,t_{n})=f(1-t_{1},t_{2},\dots,t_{n})$ is the
 inverse of $[f]$ with respect to composing spheroids.
 \end{lemma}
 
+\begin{proof}[Proof sketch]
+The idea is to see that $g*f$ is homotopic to a function defined on
+$\boundary I^{n}$, which is the same as the constant map (because
+spheroids map the boundary to the basepoint $\boundary I^{n}\mapsto\{x_{0}\}$). The previous lemma
+shows the constant map is the identity element for concatenation of
+spheroids. 
+\end{proof}
+
 \begin{theorem}
 The set $\pi_{n}(X,x_{0})$ equipped with the composition of (homotopy
 equivalence classes of) spheroids forms a group for all $n\geq1$.
 \end{theorem}
 
+\begin{proof}
 This follows from the preceding three lemmas.
+\end{proof}
 
 \begin{proposition}
 For $n\geq2$, $\pi_{n}(X,x_{0})$ is an Abelian group.
