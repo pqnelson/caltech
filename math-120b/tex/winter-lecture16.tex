@@ -1,0 +1,361 @@
+%%
+%% winter-lecture16.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-10T08:18:16-0800
+%% Last update 2026-02-10T08:18:16-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $G$ be an Abelian group\footnote{Really, this definition works
+fine for \emph{any} group $G$.}, let $\MultGroup{\CC}$ be the
+multiplicative group of complex numbers. We call a group morphism
+$\chi\colon G\to\MultGroup{\CC}$ a \define{Character} of $G$. We
+define the \define{Character Group} of $G$ to be
+$\widehat{G}:=\hom(G,\MultGroup{\CC})$. 
+\end{definition}
+
+\begin{caution}
+We will be using $1$ as the identity element of Abelian groups and
+writing it with multiplicative notation, while simultaneously
+switching back to additive notation whenever convenient.
+\end{caution}
+
+\begin{note}
+We have
+\begin{enumerate}
+\item $\displaystyle\widehat{G_{1}\times G_{2}}=\widehat{G_{1}}\times\widehat{G_{2}}$
+(the character group for the product is the product of character groups);
+\item $\widehat{G}\iso G$ (the character group of $G$ is isomorphic to
+  $G$ itself)
+\end{enumerate}
+\end{note}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $\chi\in\widehat{G_{1}\times G_{2}}$, let $a\in G_{1}$ and
+  $b\in G_{2}$. The fundamental observation is that $\chi(a,b)=\chi(a,1)\chi(1,b)$.
+  We can construct a morphism (call it $\phi$):
+\begin{equation}
+\chi(a,b)\mapsto(\chi(a,1),\chi(1,b)).
+\end{equation}
+Conversely, given $\chi_{1}\in\widehat{G}_{1}$ and $\chi_{2}\in\widehat{G}_{2}$,
+we can construct the inverse morphism by
+\begin{equation}
+(\chi_{1},\chi_{2})(a,b)\mapsto\chi_{1}(a)\chi_{2}(b).
+\end{equation}
+This gives us the isomorphism.
+\item By (1) and the structure Theorem for Abelian groups, it suffices
+  to check for
+  \begin{equation}
+G\iso\ZZ/n\ZZ=\langle a\rangle.
+  \end{equation}
+  (Step 1: Constructing a morphism $\widehat{G}\to G$)
+  Let $\chi_{a}\in\widehat{G}$ be such that $\chi_{a}(a)=\zeta_{n}$
+  is a root of unity. Then
+\begin{subequations}
+  \begin{align}
+\widehat{G}
+&\iso\langle\chi_{a}\rangle\\
+&\iso\langle a\rangle\\
+&\iso G.
+  \end{align}
+\end{subequations}
+(Step 2: Constructing an inverse morphism $G\to\widehat{G}$)
+We also see if $\chi\in\widehat{G}$, then
+\begin{subequations}
+  \begin{align}
+\chi(a)^{n} &= \chi(a^{n})\\
+&=\chi(1)\\
+&=1
+  \end{align}
+\end{subequations}
+Then there exists some $k\in\NN_{0}$ such that $\chi=\chi_{a}^{k}$.
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+Let $G_{1}$, $G_{2}$, $G_{3}$ be groups (possibly non-Abelian---we
+don't impose any condition on them). We define a \define{Pairing} to
+be a map
+\begin{equation*}
+e\colon G_{1}\times G_{2}\to G_{3}
+\end{equation*}
+such that
+\begin{enumerate}
+\item for all $x_{1}$, $x_{2}\in G_{1}$, and for all $y\in G_{2}$, we
+  have $e(x_{1}x_{2},y)=e(x_{1},y)e(x_{2},y)$; and
+\item for all $x\in G_{1}$ and for all $y_{1}$, $y_{2}\in G_{2}$,
+  we have $e(x,y_{1}y_{2})=e(x,y_{1})e(x,y_{2})$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Let $G_{1}$, $G_{2}$, $G_{3}$ be groups; let $e\colon G_{1}\times G_{2}\to G_{3}$
+be a pairing.
+We call $e$ \define{Non-Degenerate} if the maps
+\begin{subequations}
+\begin{equation}
+\begin{split}
+&G_{1}\to\hom(G_{2},G_{3})\\
+&x\mapsto e(x,-)
+\end{split}
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+&G_{2}\to\hom(G_{1},G_{3})\\
+&y\mapsto e(-,y)
+\end{split}
+\end{equation}
+\end{subequations}
+are injective.
+\end{definition}
+
+\begin{definition}
+Let $G_{1}$, $G_{2}$, $G_{3}$ be groups; let $e\colon G_{1}\times G_{2}\to G_{3}$
+be a pairing.
+We call $e$ \define{Perfect} if the maps
+\begin{subequations}
+\begin{equation}
+\begin{split}
+&G_{1}\to\hom(G_{2},G_{3})\\
+&x\mapsto e(x,-)
+\end{split}
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+&G_{2}\to\hom(G_{1},G_{3})\\
+&y\mapsto e(-,y)
+\end{split}
+\end{equation}
+\end{subequations}
+are bijective.
+\end{definition}
+
+\begin{node}
+If $G_{1}$ and $G_{2}$ are finite Abelian groups and $G_{3}=\MultGroup{\CC}$,
+then any pairing $e\colon G_{1}\times G_{2}\to G_{3}$ is
+non-degenerate if and only if $e$ is perfect.
+\end{node}
+
+\begin{proof}
+\backwardproof\ Obvious (bijective maps are always injective, duh).
+
+\forwardproof\ Assume $e$ is nondegenerate, so $G_{1}\into\widehat{G}_{2}$
+and $G_{2}\into\widehat{G}_{1}$, so
+\begin{equation}
+|G_{1}|\leq|\widehat{G}_{2}|=|G_{2}|\leq|\widehat{G}_{1}|=|G_{1}|.
+\end{equation}
+Hence $|G_{1}|=|G_{2}|$. Since these are finite groups, the injective
+maps $e(x,-)$ and $e(-,y)$ must be bijective.
+\end{proof}
+
+\begin{notation}[$F_{B}$]
+For a field $F$ such that $\zeta_{n}\in F$ and $B\subset\MultGroup{F}/(\MultGroup{F})^{n}$,
+we denote
+\begin{equation}
+F_{B}:=F(\sqrt[n]{B}),
+\end{equation}
+where $\sqrt[n]{B}=\{a\in\closure{F}\mid a^{n}\in B\}$.
+\end{notation}
+
+\begin{definition}
+Let $G$ be a group. We say $G$ has \define{Exponent} $n$ if for all
+$g\in G$ we have $g^{n}=1$.
+\end{definition}
+
+\begin{proposition}\label{prop:13.1}\marginnote{Proposition~13.1}
+Let $F$ be a field such that $\zeta_{n}\in F$ and $\Char(F)$ does not
+divide $n$. Then the following are equivalent:
+\begin{enumerate}
+\item $E/F$ is a finite Abelian field extension and $\Gal(E/F)$ has
+  exponent $n$.
+\item There exists $a_{1}$, \dots, $a_{r}\in F$ such that $E=F(\sqrt[n]{a_{1}},\dots,\sqrt[n]{a_{r}})$.
+\end{enumerate}
+\end{proposition}
+
+(Compare to Proposition~\ref{prop:11.2} when $r=1$.)
+
+\begin{proof}
+$(1)\implies(2)$
+By the structure theorem for finite Abelian groups,
+\begin{equation}
+G=\Gal(E/F)\iso(\ZZ/n_{1}\ZZ)\times\cdots\times(\ZZ/n_{r}\ZZ)
+\end{equation}
+such that each $n_{i}$ divides $n$. For each $i$, we write
+\begin{equation}
+N_{i}=\prod_{j\neq i}(\ZZ/n_{j}\ZZ)
+\end{equation}
+where $N_{i}\normalsubgroup G$. We note the fixed field
+\begin{equation}
+M_{j}:=E^{N_{j}}.
+\end{equation}
+Then by Theorem~\ref{thm:7.1}~\ref{item:thm:7.1:item-5},
+\begin{equation}
+\Gal(M_{i}/F)\iso\frac{\Gal(E/F)}{\Gal(E/M_{i})}=\frac{G}{N_{i}}\iso\ZZ/n_{i}\ZZ,
+\end{equation}
+and thus $M_{i}=F(\sqrt[n]{a_{i}})$ for some $a_{i}\in F$ by Proposition~\ref{prop:11.2}~\ref{item:prop:11.2:2}
+Then by Theorem~\ref{thm:7.1}~\ref{item:thm:7.1:item-3},
+$\prod_{i}M_{i}$ corresponds to $\bigcap_{i}N_{i}=\{0\}$. This means
+\begin{equation}
+E=\prod_{i}M_{i}=F(\sqrt[n]{a_{1}},\dots,\sqrt[n]{a_{r}}).
+\end{equation}
+Hence the claim.
+
+$(2)\implies(1)$ Using Proposition~\ref{prop:11.2}~\ref{item:prop:11.2:1}
+repeatedly, $E/F$ is a Galois extension. For any $\sigma,\tau\in\Gal(E/F)$
+we have
+\begin{subequations}
+\begin{equation}
+\sigma(\sqrt[n]{a_{i}})=\zeta^{e_{i}}_{n}\sqrt[n]{a_{i}}
+\end{equation}
+and
+\begin{equation}
+\tau(\sqrt[n]{a_{i}})=\zeta^{f_{i}}_{n}\sqrt[n]{a_{i}}
+\end{equation}
+\end{subequations}
+for some [non-negative] integers $e_{i}\leq n$ and $f_{i}\leq n$.
+We will show $\Gal(E/F)$ is finite Abelian and exponent $n$. Then
+\begin{equation}
+\sigma^{n}(\sqrt[n]{a_{i}})=\zeta^{ne_{i}}_{n}\sqrt[n]{a_{i}}=\sqrt[n]{a_{i}},
+\end{equation}
+so $\sigma^{n}=\id=1$. Then $G$ has exponent $n$ (since $\sigma$
+varied arbitrarily). Similarly,
+\begin{subequations}
+  \begin{align}
+(\sigma\tau)(\sqrt[n]{a_{i}})
+&=\zeta^{e_{i}+f_{i}}_{n}\sqrt[n]{a_{i}}\\
+&=\zeta^{f_{i}+e_{i}}_{n}\sqrt[n]{a_{i}}\\
+&=(\tau\sigma)(\sqrt[n]{a_{i}})
+  \end{align}
+\end{subequations}
+which implies $\sigma\tau=\tau\sigma$ for all $\sigma,\tau\in G$.
+Hence $G$ is Abelian.
+\end{proof}
+
+\begin{definition}
+Let $E/F$ be a field extension. We say $E/F$ is a \define{Kummer Extension}
+if [it is Galois and] $\Gal(E/F)$ is a finite Abelian group of
+exponent $n$.
+\end{definition}
+
+\begin{remark}
+In the literature, there is some degree of freedom in defining Kummer
+extensions. For example, Roman~\cite{roman2006field} ``overfits'' the
+definition with redundant axioms.
+\end{remark}
+
+\begin{definition}
+Let $\zeta_{n}\in F$. Then the \define{Kummer Pairing}
+\begin{equation}
+\langle-,-\rangle\colon\Gal(\closure{F}/F)\times\bigl(\MultGroup{F}/(\MultGroup{F})^{n}\bigr)\to\mu_{n}
+\end{equation}
+is defined such that: for any $\sigma\in\Gal(\closure{F}/F)$ and for
+any $x\in\MultGroup{F}$, there exists a $y\in\MultGroup{\closure{F}}$
+such that $y^{n}=x$ and we set
+\begin{equation}
+\langle\sigma,x\rangle=\frac{\sigma(y)}{y}.
+\end{equation}
+\end{definition}
+
+(We need to prove this is well-defined, since it may depend on the
+choice of $y$, and on the choice of $x$. Also, we should prove this
+really is a pairing.)
+
+\begin{proof}[Proof (well-definedness)]
+\begin{enumerate}
+\item If $y'\in\MultGroup{\closure{F}}$ is another element such that
+  $(y')^{n}=x$, then $y'=\zeta^{k}_{n}y$ and
+\begin{equation}
+\frac{\sigma(y')}{y'}=\frac{\zeta^{k}_{n}\sigma(y)}{\zeta^{k}_{n}y}=\frac{\sigma(y)}{y}.
+\end{equation}
+Hence the construction does not depend on the choice of $y$.
+\item If we choose a different representative for $x$, say $x'=xz^{n}$
+  for some $z\in\MultGroup{F}$, and some $y'$ such that $(y')^{n}=x'$,
+  then $y'=yz$ and
+  \begin{equation}
+\frac{\sigma(y')}{y'}=\frac{\sigma(y)}{y}.
+  \end{equation}
+\item I am not convinced we have proven this is a pairing. To be
+  clear: I don't doubt this is a pairing, but we have not furnished a
+  proof (so we are in a state of ignorance).
+  \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{notation}
+Hence we can write
+\begin{equation*}
+\langle\sigma,x\rangle=\frac{\sigma(\sqrt[n]{x})}{\sqrt[n]{x}}.
+\end{equation*}
+\end{notation}
+
+\begin{proposition}\label{prop:13.2}\marginnote{Proposition~13.2}
+Let $F$ be a field, let $\zeta_{n}\in F$ be a primitive root of unity,
+where $\Char(F)$ does not divide $n$. Let $B\subgroup\MultGroup{F}/(\MultGroup{F})^{n}$
+be a subgroup. Then $F_{B}/F$ is a Kummer extension and the Kummer
+pairing is perfect.
+\end{proposition}
+
+\begin{proof}
+In the same manner as Proposition~\ref{prop:13.1}, this is clearly a
+Kummer extension: we check it is a Galois extension, and its Galois
+group is a finite Abelian group. The (restricted) Kummer pairing makes
+sense (since every $a\in B$ has $\sqrt[n]{a}\in F_{B}$).
+
+We will show $\langle-,-\rangle$ is perfect, i.e.,
+\begin{equation}
+\Gal(F_{B}/F)\iso\hom(B,\mu_{n})=\widehat{B}.
+\end{equation}
+It suffices to check it is injective. If
+\begin{equation}
+\langle\sigma,a\rangle=1,
+\end{equation}
+then
+\begin{equation}
+\frac{\sigma(\sqrt[n]{a})}{\sqrt[n]{a}}=1,
+\end{equation}
+which implies $\sigma=\id=1$, hence the Kummer pairing is non-degenerate.
+\end{proof}
+
+\begin{theorem}[Fundamental theorem of Kummer theory]\label{thm:13.3}\marginnote{Theorem~13.3}
+The mapping $B\mapsto F_{B}$ gives an order-preserving bijection
+between the subgroups of $\MultGroup{F}/(\MultGroup{F})^{n}$ and the
+Kummer extensions of $F$.
+\end{theorem}
+
+\begin{proof}
+\textsc{Claim 1: Injectivity}.
+If $B_{1}\subset B_{2}$, then $F_{B_{1}}\subset F_{B_{2}}$ clearly.
+Assume $F_{B_{1}}\subset F_{B_{2}}$. For $B_{3}=B_{1}B_{2}\subgroup\MultGroup{F}/(\MultGroup{F})^{n}$,
+we have $F_{B_{2}}=F_{B_{3}}$; and by Proposition~\ref{prop:13.2},
+\begin{equation}
+B_{2}\iso\Gal(F_{B_{2}}/F)\iso\Gal(F_{B_{3}}/F)\iso B_{3}.
+\end{equation}
+So $B_{1}\subgroup B_{3}=B_{2}$. In particular, $B\mapsto F_{B}$ is
+injective because if $F_{B}=F_{B'}$, then $B=B'$.
+
+\textsc{Claim 2: Surjectivity}. Let $E/F$ be a Kummer extension, and
+let us write
+\begin{equation}
+B:=(E^{n}\cap\MultGroup{F})/(\MultGroup{F})^{n}\subgroup\MultGroup{F}/(\MultGroup{F})^{n}.
+\end{equation}
+Then $F_{B}\subset E$, and suppose there exists a
+\begin{equation}\label{eq:contradiction:math120b:winter2026:lecture16}
+b\in E\setminus F_{B}.
+\end{equation}
+Then for the splitting field of (the minimal polynomial for) $b$
+denoted $F_{b}\subset E$, we have $F_{b}/F$ be a finite Kummer
+extension. By Proposition~\ref{prop:13.1},
+\begin{equation}
+F_{b}(\sqrt[n]{b_{1}},\dots,\sqrt[n]{b_{r}})\subset F_{B},
+\end{equation}
+which contradicts Equation~\eqref{eq:contradiction:math120b:winter2026:lecture16},
+so $E=F_{B}$.
+\end{proof}

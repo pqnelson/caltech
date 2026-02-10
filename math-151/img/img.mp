@@ -1622,6 +1622,81 @@ beginfig(62)
   drawarrow (3w+6,0.5w)--(4w-6,0.5w);
   label(btex $F$ etex, (4w,0.5w));
 endfig;
-% 63
+
+%%% WINTER QUARTER LECTURE 16
+beginfig(63)
+  path p[];
+  numeric w,h;
+  w=4u; h=2u;
+  p0 = fullcircle xscaled 2w yscaled h; % top
+  p1 = (0,0)--(-w,-w)--(0,-2w)--(w,-w)--cycle; % outline of cones
+  % p2, p3 are equator
+  p2 = halfcircle xscaled 2w yscaled 0.5h shifted (0,-w);
+  p3 = halfcircle rotated 180 xscaled 2w yscaled 0.5h shifted (0,-w);
+  p4 = p0 shifted (0,-2w); % bottom
+  z0 = (0,0);
+  z1 = (0.5u,-w);
+  z2 = (0,-2w);
+  p5 = z0--z1--z2;
+  draw p5 withcolor red;
+  draw p0;
+  draw p1;
+  draw p2 dashed evenly;
+  draw p3;
+  draw (subpath (0,0.25length(p4)) of p4) cutafter p1;
+  draw (subpath (0.25length(p4),length(p4)) of p4) cutbefore p1;
+  label.rt(btex $X\times\{0\}$ etex, point 0 of p0);
+  label.rt(btex $X\times\{1\}$ etex, point 0 of p4);
+  label(btex $\bullet$ etex, z1) withcolor red;
+  label.rt(btex $x_{0}$ etex, z1) withcolor red;
+  label(btex $\bullet$ etex, z0);
+  label(btex $\bullet$ etex, z2);
+endfig;
+
+beginfig(64) % group structure for $\langle\Sigma X,Y\rangle$
+  path p[];
+  path tmp;
+  numeric w,h,dw;
+  w=3u; h=0.5w;
+  z0 = (0,-w); % label for \Sigma X
+  % reduced suspension \Sigma X
+  p0 = (0,w)--(-w,0)--z0--(w,0)--cycle;
+  p1 = halfcircle rotated 180 xscaled 2w yscaled 0.5h;
+  p2 = halfcircle xscaled 2w yscaled 0.5h;
+  % quotiented out by X\times\{1/2\}
+  z1 = (3w,0);
+  dw=w/3;
+%  tmp = ((0.5w,0)..(0.5w-dw,0.5h)..(0,h)..(0.5w,2h)..(w,h)..(0.5w+dw,0.5h)..cycle);
+  tmp = ((0w,0)..(0w-dw,0.5h)..(-0.5w,h)..(0,2h)..(0.5w,h)..(0w+dw,0.5h)..cycle);
+  p3 = tmp shifted z1;
+  p4 = tmp rotated 180 shifted z1;
+
+  z2 = (0.5w,0) + 1.5z1; % Y
+
+  p5 = (z1 + (u,0))--z2;
+  
+  draw p0;
+  draw p1;
+  draw p2 dashed evenly;
+
+  draw p3;
+  draw p4;
+
+  p6 = ((point 0 of p2)+(0.5u,0))--(z1-(u,0));
+  drawarrow p6;
+  drawarrow p5;
+  
+  label.bot(btex $\Sigma X$ etex, z0);
+  label.bot(btex $\Sigma X\vee\Sigma X$ etex, z0+z1);
+  label.rt(btex $Y$ etex, z2);
+  label(btex $\scriptstyle\rm quotient$ etex,
+      (point 0.5length(p6) of p6) + (0,1.2u));
+  label(btex $\scriptstyle{\rm out\ }X\times\{1/2\}$ etex,
+      (point 0.5length(p6) of p6) + (0,0.6u));
+  label(btex $f$ etex, 0.5[z2,z1] + (0,u));
+  label(btex $g$ etex, 0.5[z2,z1] + (0,-u));
+endfig;
+
+% 65
 
 end;

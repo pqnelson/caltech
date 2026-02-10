@@ -1,0 +1,220 @@
+%%
+%% winter-lecture16.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-10T09:31:12-0800
+%% Last update 2026-02-10T09:31:12-0800
+%% 
+
+\lecture{}
+
+\begin{notation}
+Let $(X,x)$ and $(Y,y)$ be pointed topological spaces.
+We write $\langle(X,x),(Y,y)\rangle$ for the set of homotopy classes
+of base-point preserving continuous maps from $X$ to $Y$. When the
+basepoints are clear from context, we just write $\langle X,Y\rangle$.
+\end{notation}
+
+\begin{node}
+The first issue: \textit{a priori} the functor
+\begin{equation}
+\begin{split}
+&\CW\to\SET\\
+&X\mapsto\langle X,Y\rangle
+\end{split}
+\end{equation}
+lands in $\SET$. But for cohomology theory, we need it to be an
+(Abelian) group. How do we make $\langle X,Y\rangle$ a group?
+
+If the domain is a reduced suspension $\Sigma X$, then we can define a
+group structure on $\langle\Sigma X,Y\rangle$. Remember, we have the
+reduced suspension defined as:
+\begin{equation}
+\Sigma X:=\frac{X\times I}{(X\times\{0\})\cup(X\times\{1\})\cup(\{x_{0}\}\times I)}=\frac{SX}{\{x_{0}\}\times I}
+\end{equation}
+where $SX$ is the suspension of $X$. Generically, it looks like:
+\begin{center}
+\includegraphics{img/img.63}
+\end{center}
+The basic idea is: Given $f,g\colon\Sigma X\to Y$, we define $f+g$ by
+first quotienting out $X\times\{1/2\}$ from $\Sigma X$ to obtain
+$\Sigma X\vee\Sigma X$, then we apply $f$ to one copy and $g$ to the
+other. Schematically doodled as:
+\begin{center}
+  \includegraphics{img/img.64}
+\end{center}
+This works for $\Sigma X$, which would impose conditions on the
+functor $\CW\to\SET$ to restrict ourselves to some subcategory of
+$\CW$\dots which we want to avoid. Instead, we impose a restriction on
+$Y$. But in the end, we want a group structure for any $X$. There is a
+special trick called ``adjoint''.
+\end{node}
+
+\begin{motivation}
+Consider instead of $\langle X,Y\rangle$, we work instead with
+$\langle X\times I,Y\rangle$. This consists of homotopy classes of
+maps from $X\times I$ to $Y$ which we can think of as $f_{t}(x)$ for
+$x\in X$ and $t\in I$. We can also look at this as an $X$-parameter
+family of maps from $I$ to $Y$, $X\to Y^{I}$. This is just Currying
+\begin{equation}
+\bigl((x,t)\mapsto f_{t}(x)\bigr)\mapsto\bigl(x\mapsto(t\mapsto f_{t}(x))\bigr).
+\end{equation}
+But we really are working with $\prod_{i\in I}Y\approx Y^{I}$ which is
+topologized slightly differently (i.e., with the product
+topology). This si a crucial step: think in terms of the path space $Y^{I}$.
+Then $\Sigma X=(X\times I)/(\mbox{stuff})$ should be curried over. We
+have
+\begin{equation}
+\langle\Sigma X,Y\rangle=\begin{pmatrix}\mbox{homotopy classes of}\\
+\mbox{maps from }X\times I\mbox{ to }Y\\
+\mbox{such that }(X\times\{0\})\cup(X\times\{1\})\cup(\{x_{0}\}\times I)\\
+\mbox{maps to the base point }y_{0}\in Y
+\end{pmatrix}
+\end{equation}
+and
+\begin{equation}
+\langle X,Y^{I}\rangle=\langle(X,x_{0}),\;(\Omega Y,\mbox{constant
+  loop at }y_{0})\rangle,
+\end{equation}
+where
+\begin{equation}
+\Omega Y=\{\mbox{base loops in }Y\mbox{ based at }y_{0}\}\subset Y^{I}\subset\prod_{i\in I}Y
+\end{equation}
+the topology is induced from Currying. Therefore, we have a natural
+bijection
+\begin{equation}
+\langle\Sigma X,Y\rangle=\langle X,\Omega Y\rangle.
+\end{equation}
+Under this bijection, the addition structure in $\langle\Sigma X,Y\rangle$
+becomes concatenation of loops in $\Omega Y$---i.e., if
+\begin{equation}
+f,g\colon X\to\Omega Y,
+\end{equation}
+then
+\begin{equation}
+(f+g)(x)=f(x)\bullet g(x)
+\end{equation}
+where ``$\bullet$'' is the concatenation of loops. Therefore, there is
+a group structure on $\langle X,\Omega Y\rangle$ for any $X$ and $Y$.
+\end{motivation}
+
+\begin{remark}
+The ``looping operation'' ($\Omega$) is a functor
+\begin{equation}
+\begin{split}
+\Omega\colon&\CW\to\CW\\
+&X\mapsto\Omega X
+\end{split}
+\end{equation}
+where, if $f\colon X\to Y$ is a morphism in $\CW$, then
+\begin{equation}
+\Omega f\colon\Omega X\to\Omega Y
+\end{equation}
+is given by
+\begin{equation}
+(\gamma\colon\sphere{1}\to X)\xrightarrow{\Omega f}(f\circ\gamma\colon\sphere{1}\to Y)
+\end{equation}
+It is easy to check:
+\begin{enumerate}
+\item if $f\homotopic g$, then $\Omega f\homotopic\Omega g$; and
+\item if $X\homotopic Y$, then $\Omega X\homotopic\Omega Y$.
+\end{enumerate}
+(Less obviously, Milnor\footnote{J.W.~Milnor, ``On spaces having the homotopy type of a CW complex''.\ \textit{Trans.~A.M.S.}\ \textbf{90}~no.2 (1959) pp.272--280. \doi{10.2307/1993204}} proved if $X$ is a CW complex, then $\Omega X$ has
+the same homotopy type as a CW complex.)
+\end{remark}
+
+\begin{remark}\label{rmk:winter2026:lecture16:math151b:weak-homotopy-equiv}
+If we take $X=\sphere{n}$, then
+\begin{subequations}
+  \begin{align}
+\pi_{n+1}(Y) &=\langle\sphere{n+1},Y\rangle\\
+&=\langle\Sigma\sphere{n},Y\rangle\\
+&=\langle\sphere{n},\Omega Y\rangle\\
+&=\pi_{n}(\Omega Y).
+  \end{align}
+\end{subequations}
+In particular, if $Y$ is a CW $K(G,n)$ space, then the homotopy group
+of $\Omega Y$ is the same as $K(G,n-1)$. By a previous theorem, we get
+a (weak) homotopy equivalence $K(g,n-1)\to\Omega K(G,n)$ (given by a
+CW approximation of $\Omega K(G,n)$).
+\end{remark}
+
+\begin{remark}
+We can loop several times, defining $\Omega^{1}Y:=\Omega Y$ and $\Omega^{n+1}Y:=\Omega(\Omega^{n}Y)$.
+In some sense, $\Omega Y$ consists of maps of the form $(I,\boundary I)\to(Y,y_{0})$
+so $\Omega^{2}Y$ consists of maps of the form $(I^{2},\boundary I^{2})\to(Y,y_{0})$,
+\dots, and $\Omega^{n}$ consists of guys like $(I^{n},\boundary I^{n})\to(Y,y_{0})$.
+In particular, if $n\geq2$, the group structure on $\langle X,\Omega^{n}Y\rangle$
+is Abelian for the same reason as $\pi_{n}(Y)$ is Abelian for $n\geq 2$.
+
+In summary, we are being led to the notion of $\Omega$-spectrum.
+\end{remark}
+
+\begin{definition}
+An \define{$\Omega$-Spectrum} is a sequence of CW complexes $(K_{n})_{n\in\NN}$
+and for each $n\in\NN$, a weak homotopy equivalence $K_{n}\to\Omega K_{n+1}$.
+\end{definition}
+
+\begin{example}
+For any Abelian group $G$, $\{K(G,n)\}_{n\in\NN}$ is an
+$\Omega$-spectrum and the weak homotopy equivalence is given by the
+one discussed in Remark~\ref{rmk:winter2026:lecture16:math151b:weak-homotopy-equiv}.
+\end{example}
+
+\begin{remark}
+The $\Omega$-spectrum is sometimes called an \define{Infinite Loop Space}
+since $K_{n}\homotopic\Omega^{k}K_{n+k}$ for all $k\geq1$. So if you
+discard the first few terms, you can recover them by looping later terms.
+\end{remark}
+
+\begin{theorem}
+If $(K_{n})$ is an $\Omega$-spectrum, then the sequence of functors
+$h^{n}\colon\CW\to\GrAB$ which sends CW spaces $X$ to
+$h^{n}(X)=\langle X,K_{n}\rangle$ and acts on morphisms by precomposition
+\begin{equation}
+h^{n}\left(X\xrightarrow{f}Y\right)=h^{n}(Y)\xrightarrow{-\circ f}h^{n}(X)
+\end{equation}
+(where we usually denote $h^{n}(f)=f^{*}$) define a \emph{reduced}
+cohomology theory where
+\begin{enumerate}
+\item If $f\homotopic g$, then $f^{*}=g^{*}$;
+\item $h^{n}(\bigvee_{\alpha}X_{\alpha})\iso\prod_{\alpha}h^{n}(X_{\alpha})$;
+\item Long exact sequence on pairs: For any CW pair $(X,A)$, there is
+  a long exact sequence
+\begin{equation}
+  \vcenter{\xymatrix{
+      h^{n+1}(X/A)\ar[r] & \dots & \\
+h^{n}(X/A)\ar[r]^{q^{*}} & h^{n}(X)\ar[r]^{i^{*}} & h^{n}(A)\ar@/_/[llu]\\
+& \dots \ar[r]& h^{n-1}(A)\ar[ull]}}
+\end{equation}
+\end{enumerate}
+\end{theorem}
+Note: the first two claims in this theorem are trivial. The nontrivial
+bit is the long exact sequence, which we will prove next class.
+
+\begin{remark}
+Amazingly, the converse statement of this theorem is also true: Every
+reduced cohomology theory is represented by an $\Omega$-spectrum. This
+is the ``Brown Representability Theorem''.
+\end{remark}
+
+\begin{remark}
+Besides $K(G,n)$, there are at least two commonly seen
+$\Omega$-spectrum: Let $O=O(\infty)=\lim_{n\to\infty}O(n)$ be the
+directed limit obtained by embedding $O(n)$ into $O(n+1)$ sending $A$
+into the ``upper left'' corner
+\begin{equation}
+A\mapsto\begin{pmatrix}A & 0\\
+0 & 1\end{pmatrix}
+\end{equation}
+We can consider $KO=(\Omega^{n}O)_{n\in\NN}$. Then
+$\Omega^{8}O\homotopic O$ which is a phenomena called ``Bott periodicity''.
+
+Similarly for $U(\infty)$ (defined as an analogous directed limit),
+$KU=(\Omega^{n}U)_{n\in\NN}$ has a period of 2: $\Omega^{2}U\homotopic U$.
+
+Then $KO$ (resp., $KU$) represent the real (resp., complex)
+K-theory. K-theory studies maps to $KO$ (resp., to $KU$).
+\end{remark}
