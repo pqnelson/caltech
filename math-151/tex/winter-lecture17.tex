@@ -1,0 +1,210 @@
+%%
+%% winter-lecture17.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-12T09:34:09-0800
+%% Last update 2026-02-12T09:34:09-0800
+%% 
+
+\lecture{}
+
+We mentioned this theorem, and punted its proof until today:
+
+\begin{theorem}
+Given an $\Omega$-spectrum $(K_{n})_{n}$, the sequence of functors
+$h^{n}\colon\CW\to\GrAB$---which sends CW spaces $X\mapsto\langle X,K_{n}\rangle$
+and CW morphisms $f\colon X\to Y$ to $h^{n}(f)=f^{*}\colon\langle Y,K_{n}\rangle\to\langle X,K_{n}\rangle$
+sending $\varphi\mapsto\varphi\circ f$---forms a cohomology theory.
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item\textsc{Homotopy invariance}: If $f\homotopic g$, then $f^{*}=g^{*}$.
+It's true as for any $[\varphi]\in\langle Y,K_{n}\rangle$, we then have
+\begin{subequations}
+  \begin{align}
+f^{*}[\varphi] &=[\varphi\circ f]\\
+&=[\varphi\circ g]\\
+&=g^{*}[\varphi].
+  \end{align}
+\end{subequations}
+\item\textsc{Wedge sum}: The claim is $h^{n}(\bigvee_{\alpha}X_{\alpha})=\prod_{\alpha}h^{n}(X_{\alpha})$.
+This holds since $h^{n}(\bigvee_{\alpha}X_{\alpha})=[(\bigvee_{\alpha}X_{\alpha},p),(K_{n},q)]$
+is the set of homotopy equivalence classes of continuous
+basepoint-preserving maps, where $p$ is the wedge point and $q$ is the
+basepoint of $K_{n}$. Then we just form $\bigvee_{\alpha}f_{\alpha}$
+where $f_{\alpha}\colon X_{\alpha}\to K_{n}$ is a basepoint-preserving
+continuous map, and this is the same as just taking its homotopy
+equivalence class $[\bigvee_{\alpha}f_{\alpha}]$ as an element of $\prod_{\alpha}[(X_{\alpha},p_{\alpha}),(K_{n},q)]=\prod_{\alpha}h^{n}(X_{\alpha})$.
+\item\textsc{Long exact sequence}: The long exact sequence for pairs
+  $(X,A)$, we want it ``natural'' in the sense that for any map
+\begin{equation}
+f\colon(X,A)\to(Y,B)
+\end{equation}
+such that the following diagram commutes:
+\begin{equation}
+\vcenter{\xymatrix{\dots & \ar[l]h^{n}(A) & \ar[l]h^{n}(X) &
+    \ar[l]h^{n}(X,A) & \ar[l]\dots\\
+\dots & \ar[l]\ar[u]^{f^{*}}h^{n}(B) & \ar[l]\ar[u]^{f^{*}}h^{n}(Y) & \ar[l]\ar[u]^{f^{*}}h^{n}(Y,B) & \ar[l]\dots}}
+\end{equation}
+We are going to introduce the notion of a \define{Cofibration sequence}
+(also called a \define{Puppe sequence}) of a pair $(X,A)$. It takes
+the form (at the level of spaces):
+\begin{equation}
+A\into X\to X/A\to\Sigma A\to \Sigma X\to (\Sigma X)/(\Sigma A)\to\Sigma^{2}A\to\dots
+\end{equation}
+with the following property: For any space $K$, there is a long exact
+sequence
+\begin{equation}
+\langle A,K\rangle\gets\langle X,K\rangle\gets\langle
+X/A,K\rangle\gets\langle\Sigma A,K\rangle\gets\langle\Sigma X,K\rangle\gets\dots
+\end{equation}
+In particular, if $K\homotopic\Omega K'$,
+\begin{equation}
+\vcenter{\xymatrix{& & &\langle A,K\rangle\ar[d]^{\iso} & \langle X,K\rangle\ar[l]\ar[d]^{\iso}&\langle X/A,K\rangle\ar[l]\ar[d]^{\iso} & \ar[l]\dots\\
+& & &\langle A,\Omega K'\rangle\ar[d]^{\iso} & \langle X,\Omega K'\rangle\ar[l]\ar[d]^{\iso}&\langle X/A,\Omega K'\rangle\ar[l]\ar[d]^{\iso} & \ar[l]\dots\\
+\langle X,K'\rangle & \ar[l]\langle A,K'\rangle & \ar[l]\langle
+X/A,K'\rangle & \langle\Sigma A,K'\rangle\ar[l] & \langle\Sigma X,K'\rangle\ar[l] & \langle\Sigma(X/A),K'\rangle\ar[l] & \dots\ar[l]}}
+\end{equation}
+Observe we get ``extra terms'' on the left. For an $\Omega$-spectrum
+$(K_{n})$, we have $K_{n}=\Omega^{k}K_{n+k}$ for any $k\in\NN$. Then
+the cofibration sequence applied to $\langle-,K_{n}\rangle$ gives a
+long exact sequence
+\begin{equation}
+\dots\gets\langle X/A,K_{n+1}\rangle\gets\langle
+A,K_{n}\rangle\gets\langle X, K_{n}\rangle\gets\langle X/A,K_{n}\rangle\gets\langle
+A,K_{n-1}\rangle\gets\dots
+\end{equation}
+which gives us the long exact sequence we seek for the pair
+$(X,A)$. (The natural property desired follows from the definition.)
+\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{construction}
+We just need to prove the well-definedness of the Puppe sequence for a
+pair $(X,A)$. We'll just construct it. There are two guiding
+principles here:
+\begin{enumerate}
+\item The quotient $X/A$ is bad and we can replace it by attaching a
+  cone over $A$, written as $X\cup CA$ (``homotopy quotient'')
+\item It turns out, every three adjacent terms in the Puppe sequence
+  are of the form $N\into M\onto M\cup CN$.
+\end{enumerate}
+\textsc{Disclaimer}: for ease of visualization, we will use unreduced
+suspension $SX$ instead of reduced suspensions $\Sigma X$ (which won't
+matter if $X$ is CW because $SX\homotopic\Sigma X$).
+\end{construction}
+
+\begin{proof}
+Given a CW pair $(X,A)$, the thing we want is an exact sequence
+\begin{equation}
+A\into X\to X/A\to SA\to SX\to\frac{SX}{SA}\iso S(X/A)\to\dots.
+\end{equation}
+Instead, using our guiding principles, we have
+\begin{equation}
+A\into X\into X\cup CA\to (X\cup CA)\cup CX\to\bigl((X\cup CA)\cup CX\bigr)\cup C(X\cup CA)\to\dots
+\end{equation}
+We see with, e.g., $X\cup CA$ there is a natural map to $X/A$ by
+contracting the cone $CA$ to its cone point. Similarly, $(X\cup CA)\cup CX)$
+roughly gives us $CA/X$ where we contract the entire $X$ to a point,
+and this is homotopic to $SA\homotopic CA/X$. We can continue onwards.
+
+The construction is natural for any map of pairs $f\colon(X,A)\to(Y,B)$,
+there is a commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{%
+A\ar[d]^{f}\ar[r] & X\ar[d]^{f}\ar[r] & X/A\ar[d]^{f}\ar[r] &\Sigma
+A\ar[d]^{f}\ar[r] &\Sigma X\ar[d]^{f}\ar[r] & \dots\\
+B\ar[r] & Y\ar[r] & Y/B\ar[r] & \Sigma B\ar[r] & \Sigma Y\ar[r] & \dots}}
+\end{equation}
+The long exact sequence we want just applies $\langle-,K\rangle$ to
+each entry for any $K$, we want to prove it is exact
+\begin{equation}
+\langle A,K\rangle\gets\langle X,K\rangle\gets\langle
+X/A,K\rangle\gets\langle\Sigma A,K\rangle\gets\dots.
+\end{equation}
+Since every 3 adjacent terms in the Puppe sequence takes the form (up
+to homotopy equivalence) $M\into N\to N\cup CM$. Therefore it is
+enough to show the exactness of
+\begin{equation}
+\langle A,K\rangle\xleftarrow{i^{*}}\langle
+X,K\rangle\xleftarrow{j^{*}}\langle X\cup CA,K\rangle
+\end{equation}
+at $\langle X,K\rangle$ where $i\colon A\into X$ and $j\colon X\into(X\cup CA)$ are the inclusions.
+We want to prove $\ker(i^{*})=\Im(j^{*})$.
+
+\textsc{Claim 1:} $\ker(i^{*})\supset\Im(j^{*})$.
+Let $[f]\in\langle X\cup CA,K\rangle$. Then we want to show
+\begin{equation}
+i^{*}(j^{*}[f])=[f\circ j\circ i]=0\in\langle A,K\rangle,
+\end{equation}
+which is to say, $f\circ j\circ i\colon A\to K$ is nullhomotopic. But
+$CA$ is homotopic to a point, so $j\circ i\colon A\into X\cup CA$ is
+homotopic to a constant map $A\to\{c\}$ (where $c$ is the cone point
+of $CA$). Then
+\begin{equation}
+f\circ j\circ i\homotopic f\circ\mbox{const}\homotopic\mbox{const},
+\end{equation}
+as desired.
+
+\textsc{Claim 2:} $\ker(i^{*})\subset\Im(j^{*})$.
+Let $[g]\in\langle X,K\rangle$ be such that
+\begin{equation}
+j^{*}[g]=[g\circ j]=0.
+\end{equation}
+We want to find $[\ell]\in\langle X\cup CA,K\rangle$ such that
+$i^{*}[\ell]=[\ell\circ i]=[g]$. As $g\circ j$ is nullhomotopic, we
+denote the homotopy by
+\begin{equation}
+H\colon[0,1]\times A\to K,
+\end{equation}
+and we want to extend $g$ to a map
+\begin{equation}
+\ell\colon X\cup CA\to K.
+\end{equation}
+Then we define
+\begin{equation}
+\ell\colon X\cup CA\to K
+\end{equation}
+such that $\ell|_{CA}=H$ and $\ell|_{X}=g$, then $\ell\circ i=g$.
+Hence the claim.
+\end{proof}
+
+\begin{remark}
+There is no big difference between reduced and unreduced cohomology
+theories. One way to get an unreduced theory from a reduced theory is
+by the following: For any CW complex $X$, we define
+\begin{equation}
+X_{+}:=X\sqcup\{*\}
+\end{equation}
+by just adjoining [via disjoint union] a point to $X$. Then for any
+reduced cohomology theory $h^{n}$ we can define an unreduced
+cohomology theory $\widetilde{h}^{n}$ such that
+\begin{equation}
+\widetilde{h}^{n}(X)=h^{n}(X_{+}),
+\end{equation}
+with the base point being the fresh one we added.
+\end{remark}
+
+\begin{theorem}
+If $h^{*}$ is an unreduced cohomology theory on CW complexes such that
+$h^{n}(\mbox{point})=0$ for all $n\neq0$, then there is a natural
+isomorphism
+\begin{equation}
+h^{n}(X,A)\iso H^{n}(X,A;h^{0}(\mbox{point}))
+\end{equation}
+where $H^{n}(-)$ is the natural cellular/simplicial/singular
+cohomology theory.
+\end{theorem}
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{remark}
+The $\Omega$-spectrum $(K(G,n))_{n}$ is a classifying space for the
+usual cohomology theory and properties of cohomology theories could be
+studied by looking at the $(K(G,n))$.
+\end{remark}

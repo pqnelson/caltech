@@ -1,0 +1,99 @@
+%%
+%% winter-lecture17.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-12T10:13:58-0800
+%% Last update 2026-02-12T10:13:58-0800
+%% 
+
+\lecture{}
+
+\begin{definition}[$L^{2}$]
+The space $L^{2}(\RR^{d})$ consists of all complex-valued measurable functions
+$f\colon\RR^{d}\to\CC$ such that
+\begin{equation}
+\int_{\RR^{d}}|f(x)|^{2}\,\D x<\infty.
+\end{equation}
+Furthermore, it has a norm
+\begin{equation}
+\|f\|_{L^{2}}=\left(\int_{\RR^{d}}|f|^{2}\D x\right)^{1/2}
+\end{equation}
+and a pairing
+\begin{equation}
+(f,g)=\int_{\RR^{d}}f(x)\overline{g(x)}\,\D x.
+\end{equation}
+Note: the elements of $L^{2}$ are equivalence classes of functions
+which are the same almost everywhere $[f]=\{g\colon\RR^{d}\to\CC\mid f=g~\mbox{a.e.}\}$.
+\end{definition}
+
+\begin{proposition}
+\begin{enumerate}
+\item $L^{2}$ is a vector space
+\item\textsc{Cauchy-Schwarz inequality:} $|(f,g)|\leq\|f\|_{L^{2}}\|g\|_{L^{2}}$
+\item\textsc{Triangle inequality:} $\|f+g\|\leq\|f\|+\|g\|$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+We will prove the Cauchy-Schwarz inequality.
+
+\textsc{Case 1:} $\|f\|=0$ or $\|g\|=0$. Then $f=0$ almost everywhere
+(resp., $g=0$ almost everywhere), so $(f,g)=0$.
+
+\textsc{Case 2:} $\|f\|=\|g\|=1$. Then using the fact
+\begin{equation}
+2|AB|\leq|A|^{2}+|B|^{2},
+\end{equation}
+we get
+\begin{equation}
+2|f(x)g(x)|\leq|f(x)|^{2}+|g(x)|^{2}.
+\end{equation}
+Integrating this through (and observing $\|f\|^{2}=\|f\|$ and
+$\|g\|^{2}=\|g\|$) gives us
+\begin{equation}
+|(f,g)|\leq\int|f(x)g(x)|\,\D x\leq\int2|f(x)g(x)|\,\D
+x\leq\int|f(x)|^{2}+|g(x)|^{2}\,\D x=2.
+\end{equation}
+Hence $|(f,g)|\leq\|f\|\cdot\|g\|$.
+
+\textsc{Case 3:} For any nonzero $f$ and $g$, we introduce
+\begin{equation}
+\widetilde{f}=\frac{f}{\|f\|},\quad\mbox{and}\quad\widetilde{g}=\frac{g}{\|g\|}.
+\end{equation}
+Then we see $|(\widetilde{f},\widetilde{g})|\leq1$ by the previous
+case, which implies
+\begin{equation}
+\frac{|(f,g)|}{\|f\|\cdot\|g\|}\leq1.
+\end{equation}
+Hence the claim.
+\end{proof}
+
+\begin{theorem}
+$L^{2}$ is complete in its metric.
+\end{theorem}
+
+The proof is remarkably similar to the proof that $L^{1}$ is complete.
+
+\begin{theorem}[Separability]
+$L^{2}(\RR^{d})$ is separable (i.e., there exists a countable dense
+  subset of $L^{2}(\RR^{d})$).
+\end{theorem}
+
+\begin{proof}[Proof idea]
+The idea is to take $g_{n}=f\chi_{B(r=n,0)\cap\{|f|\leq n\}}$ as a
+sequence of bounded compactly-supported functions, show
+$\|f-g_{n}\|\to0$, and then approximate $g_{n}$ by step functions
+$\psi_{n}$ where $\|g_{n}-\psi_{n}\|<\varepsilon$.
+We then approximate the $\psi_{n}$ by a ``rational
+approximation'' $\widetilde{\psi}_{n}$ consisting of coefficients
+$c_{n}\in\QQ+\I\QQ$ and using rectangles whose vertices lie in $(\QQ+\I\QQ)^{d}$.
+These $\widetilde{\psi}_{n}$ enjoy the property that $\|\psi_{n}-\widetilde{\psi}_{n}\|<\varepsilon$,
+and the triangle inequality gives us
+\begin{equation}
+\|f-\widetilde{\psi}_{n}\|\leq\|f-g_{n}\|+\|g_{n}-\psi_{n}\|+\|\psi_{n}-\widetilde{\psi}_{n}\|<3\varepsilon.
+\end{equation}
+Redefining $\varepsilon'=\varepsilon/3$ and using $\varepsilon'$
+everywhere gives us the claim.
+\end{proof}
