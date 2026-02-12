@@ -10,7 +10,23 @@
 
 \lecture{}
 
-\begin{definition}[Going-up property]\label{defn:going-up-property}
+\begin{definition}
+Let $\phi\colon A\to B$ be a morphism of [commutative unital] rings.
+Let $P\in\Spec(A)$ and $Q\in\Spec(B)$ be prime ideals.
+We say $Q$ \define{Lies Over} $P$ (or $P$ \emph{lies under} $Q$)
+if $\phi^{*}(Q)=P$.
+
+We usually view $B$ as an extension of $A$, and just write $Q\cap A$
+for $\phi^{*}(Q)$.
+\end{definition}
+
+\begin{definition}\index{Lying over property}
+Let $\phi\colon A\to B$ be a morphism of [commutative, unital] rings.
+We say they satisfy the \define{Lying Over Property} if every prime
+ideal $P$ of $A$ lies under some prime ideal $Q$ of $B$.
+\end{definition}
+
+\begin{definition}[Going-up property]\label{defn:going-up-property}\index{Going-up!Property}
 Let $\phi\colon A\to B$ be a morphism of rings.
 We say the rings satisfy the \define{Going-Up Property} (or ``going-up
 holds for $\phi$'') if:
@@ -30,7 +46,7 @@ A\colon&\quad& P & \subset & P'
 \end{equation*}
 \end{definition}
 
-\begin{definition}[Going-down property]\label{defn:going-down-property}
+\begin{definition}[Going-down property]\label{defn:going-down-property}\index{Going-down!Property}
 Let $\phi\colon A\to B$ be a morphism of rings.
 We say the rings satisfy the \define{Going-Down Property} (or, ``going-down
 holds for $\phi$'') if:
