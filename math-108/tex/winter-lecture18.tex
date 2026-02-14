@@ -1,0 +1,105 @@
+%%
+%% winter-lecture18.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-14T08:33:42-0800
+%% Last update 2026-02-14T08:33:42-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+A \define{Hilbert Space} over a field $\FF$ (usually taken to be $\CC$
+or $\RR$ for our purposes) consists of a set $H$ such that:
+\begin{enumerate}
+\item $H$ is a vector space over $\FF$
+\item $H$ has an inner product $(-,-)\colon H\times H\to\FF$ such that
+\begin{enumerate}
+\item $f\mapsto(f,g)$ is linear in its first entry
+\item conjugate symmetry: $(f,g)=\overline{(g,f)}$
+\item Positive-definiteness: $(f,f)\geq0$, and $(f,f)=0$ iff $f=0$
+\end{enumerate}
+\item $H$ is complete in the sense of a metric space induced by the
+  norm $\|f\|:=\sqrt{(f,f)}$
+\item $H$ is separable---i.e., it has a countable dense subset.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+If we drop the completeness criterion from the definition of a Hilbert
+space, we end up with something called a \define{Pre-Hilbert Space}.
+But we can always take the completion of a pre-Hilbert space to
+construct a Hilbert space.
+\end{remark}
+
+\subsection{Geometry}
+
+\begin{definition}
+We say two vectors $f,g\in H$ in a Hilbert space $H$ are
+\define{Orthogonal} $f\perp g$ if $(f,g)=0$.
+\end{definition}
+
+\begin{theorem}[Pythagorean]
+For any orthogonal $f,g\in H$, we have $\|f+g\|^{2}=\|f\|^{2}+\|g\|^{2}$.
+\end{theorem}
+
+\begin{theorem}[Parallelogram law]
+For any $f,g\in H$, we have
+\begin{equation*}
+\|f+g\|^{2}+\|f-g\|^{2}=2(\|f\|^{2}+\|g\|^{2}).
+\end{equation*}
+\end{theorem}
+
+\begin{remark}
+If we have a norm which satisfies the Parallelogram law, then the norm
+is induced from an inner product. Moreover, this can be used to test
+if we are working with a Hilbert space ``in disguise''.
+\end{remark}
+
+\subsection{Bases}
+
+\begin{node}
+Recall, a basis is a set which spans the vector space.
+\end{node}
+
+\begin{theorem}
+Let $\{e_{k}\}_{k\in\NN}$ be an orthonormal set for a Hilbert space
+$H$ (so $(e_{i},e_{j})=\delta_{i,j}$ for all $i,j\in\NN$). Then the
+following are equivalent:
+\begin{enumerate}
+\item Density: finite linear combinations of $\{e_{k}\}_{k\in\NN}$ are
+  dense in $H$;
+\item Complete as a basis: If $(f,e_{k})=0$ for all $k\in\NN$, then $f=0$;
+\item For all $f\in H$, if $s_{N}(f)=\sum^{N}_{k=1}(f,e_{k})e_{k}$,
+  then $s_{N}(f)\to f$ in norm;
+\item Parsevel's identity: for all $f\in H$, $\|f\|^{2}=\sum^{\infty}_{k=1}|(f,e_{k})|^{2}$
+\end{enumerate}
+\end{theorem}
+
+\subsection{Isomorphism Theorem}
+
+\begin{definition}
+Let $H$ and $H'$ be Hilbert spaces (over the same field). We say $H$
+and $H'$ are \define{(Isometrically) Isomorphic} (or \emph{Unitarily Equivalent})
+if there exists a linear bijection $U\colon H\to H'$ such that
+for all $f,g\in H$ we have
+\begin{equation}
+(U(f),U(g))_{H'}=(f,g)_{H}.
+\end{equation}
+That is to say, it preserves the inner product.
+\end{definition}
+
+\begin{theorem}[Classification]
+Any separable infinite-dimensional Hilbert space over $\FF$ is isomorphic to $\ell^{2}(\ZZ,\FF)$.
+\end{theorem}
+
+The idea is to look at a basis of a Hilbert space, and write any
+vector $f=\sum^{\infty}_{k=1}(f,e_{k})e_{k}$. But then it corresponds
+to a sequence $(c_{k})\in\ell^{2}(\NN,\FF)$ [$\FF$-valued sequences
+  indexed by $\NN$] with $c_{k}=(f,e_{k})$ the
+coefficients of the basis vector for $f$. This gives us an isomorphism
+of $H$ with $\ell^{2}(\NN,\FF)$. We can use the bijection $\NN\to\ZZ$ to
+reindex the sequences giving us $\ell^{2}(\ZZ,\FF)$ as desired.
+The inner product on $\ell^{2}(\ZZ,\FF)$ is given by the ``dot product''.

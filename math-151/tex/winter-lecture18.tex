@@ -1,0 +1,193 @@
+%%
+%% winter-lecture18.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-14T08:04:19-0800
+%% Last update 2026-02-14T08:04:19-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+A map $i\colon A\to X$ is called a \define{Cofibration} if it
+satisfies the \textsc{Homotopy extension property} with respect to any
+$S$: Given a homotopy $H\colon A\times I\to S$ and a map $f'\colon X\to S$
+such that $H_{0}=f'\circ i$, there exists an extension $H'\colon X\times I\to S$
+such that $H'=H\circ i$. In diagram:
+\begin{equation}
+\vcenter{\xymatrix{S & \ar[l]_{f'}X\ar@{..>}[dl]^{H'}X\\
+S^{I}\ar[u]& \ar[l]^{H}\ar[u]_{i}A}}
+\end{equation}
+where $S^{I}\to S$ maps $\gamma\mapsto\gamma(0)$.
+\end{definition}
+
+\begin{fact}
+\begin{enumerate}
+\item Cofibration is a ``good inclusion''
+\item Every cofibration is an inclusion
+\item Every inclusion of CW subcomplexes $i\colon A\into X$ is a cofibration.
+\end{enumerate}
+\end{fact}
+
+\begin{recall}
+The notion of a \define{Fibration} which has the homotopy lifting
+property with respect to any $X$. More explicitly, a map $p\colon E\to B$
+s a fibration if for any space $X$ and any homotopy $H\colon X\times I\to B$
+and a map $\widetilde{h}_{0}\colon X\to E$ such that $p\circ\widetilde{h}_{0}=H$,
+there exists a lift $\widetilde{H}\colon X\times I\to E$ extending
+$\widetilde{h}_{0}$ such that
+\begin{equation}
+\vcenter{\xymatrix{X\ar[d]\ar[r]^{\widetilde{h}_{0}} & E\ar[d]\\
+X\times I\ar@{..>}[ur]^{\widetilde{H}}\ar[r]&B}}
+\end{equation}
+commutes, where $X\to X\times I$ sends $x\mapsto(x,0)$.
+\end{recall}
+
+\begin{recall}
+\begin{enumerate}
+\item A fiber bundle $p\colon E\to B$ over a paracompact space $B$ is
+  a fibration.
+\item There is a long exact sequence associated to a fibration
+\begin{equation}
+\dots\to\pi_{n}(F)\to\pi_{n}(E)\to\pi_{n}(B)\to\pi_{n-1}(F)\to\dots
+\end{equation}
+\end{enumerate}
+\end{recall}
+
+\begin{node}
+Dual to the notion of a mapping cylinder, there is a notion of a
+mapping path space $E_{f}$ for any $f\colon A\to B$.
+\end{node}
+
+\begin{definition}
+Let $f\colon A\to B$. Then the \define{Mapping Path Space} $E_{f}$ is
+defined as
+\begin{equation}
+E_{f}=\{(a,\gamma)\in A\times B^{I}\mid f(a)=\gamma(0)\}.
+\end{equation}
+Equivalently, $E_{f}$ is the pullback of the diagram
+\begin{equation}
+\vcenter{\xymatrix{E_{f}\ar[r]\ar[d] & B^{I}\ar[d]^{q}\\
+A\ar[r]^{f} & B}}
+\end{equation}
+where $q(\gamma)=\gamma(0)$.
+
+We have a couple obvious maps associated to the mapping path space,
+namely
+\begin{equation}
+\begin{split}
+i\colon & A\to E_{F}\\
+& a\mapsto(a,\mbox{constant map }f(a))
+\end{split}
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+p\colon &E_{f}\to B\\
+&(a,\gamma)\mapsto\gamma(1).
+\end{split}
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+The map $i\colon A\into E_{f}$ (sending $a\mapsto(a,\mbox{constant map at }f(a))$)
+is a homotopy equivalence.
+\end{lemma}
+
+\begin{proof}
+  Elements of $E_{f}$ are of the form $(a,\gamma)$. The retraction
+  \begin{equation}
+\begin{split}
+r\colon& E_{f}\to A\\
+&(a,\gamma)\mapsto a.
+\end{split}
+  \end{equation}
+Then $r\circ i=\id_{A}$. We want to show $i\circ r\homotopic\id_{E_{f}}$,
+let $H$ be this homotopy
+\begin{equation}
+H_{t}\bigl((a,\gamma)\bigr)=(a,\tau\mapsto\gamma(t\tau)).
+\end{equation}
+We see $H_{0}=\id_{E_{f}}$ and $H_{1}(a,\gamma)=(a,\gamma_{a})$ where
+$\gamma_{a}\colon I\to A$ sends $t\mapsto a$ is the constant path. But
+this is just $H_{1}(a,\gamma)=i\circ r$. Hence the claim.
+\end{proof}
+
+\begin{lemma}
+For a map $f\colon A\to B$, the map $p\colon E_{f}\to B$ sending
+$(a,\gamma)\mapsto\gamma(1)$ is a fibration.
+\end{lemma}
+
+\begin{proof}
+We want to show the homotopy lifting property holds for any $X$. For a
+homotopy $g_{t}\colon X\to B$ and a lift $|widetilde{g}_{0}\colon X\to E_{f}$
+sending $x\mapsto(h(x),\gamma_{x})$, we define a lift
+\begin{equation}
+\widetilde{g}_{t}(x)=(h(x),g_{[0,t]}(x)\bullet\gamma_{x})
+\end{equation}
+where $g_{[0,t]}(x)$ is the subpath on the interval $[0,t]$, $\bullet$
+is path concatenation.
+\end{proof}
+
+\begin{definition}
+For a map $f\colon(A,a_{0})\to(B,b_{0})$, the \define{Homotopy Fiber}
+of $f$ denoted $F_{f}$ is defined to be $p^{-1}(\{b_{0}\})$ for
+$p\colon E_{f}\to B$. That is to say,
+\begin{equation}
+F_{f}=\{(a,\gamma)\in A\times B^{I}\mid f(a)=\gamma(0),b_{0}=\gamma(1)\}.
+\end{equation}
+\end{definition}
+
+\begin{example}
+If $A=\{a_{0}\}$, $f\colon A\to B$, then $f(a_{0})=b_{0}$ preserves
+base-points. Then
+\begin{subequations}
+  \begin{align}
+E_{f} &=\{(a,\gamma)\in A\times
+B^{I}\mid\gamma(0)=f(a)\}\approx\{\gamma\in B^{I}\mid\gamma(0)=f(a_{0})=b_{0}\}\\
+&=PB
+  \end{align}
+\end{subequations}
+is the path space $PB$ of $B$ starting at $b_{0}$. The homotopy fiber
+is
+\begin{equation}
+F_{f}=\{\gamma\in B^{I}\mid \gamma(0)=\gamma(1)=b_{0}\}
+\end{equation}
+the loop space of $B$ at $b_{0}$.
+\end{example}
+
+\begin{example}
+Let $i\colon A\into B$ be a good inclusion. Then
+\begin{subequations}
+  \begin{align}
+E_{f}&=\{(a,\gamma)\in A\times B^{I}\mid i(a)=a=\gamma(0)\}\\
+&\approx\{\mbox{paths which start in }A\}.
+  \end{align}
+\end{subequations}
+Then
+\begin{equation}
+F_{f}=\{(a,\gamma)\in A\times B^{I}\mid\gamma(0)=i(a)=a,\gamma(1)=b_{0}\}.
+\end{equation}
+\end{example}
+
+\begin{node}
+Recall
+\begin{equation}
+\langle X\times I,Y\rangle=\langle X,Y^{I}\rangle,
+\end{equation}
+we can use it to get the following
+\begin{equation}
+[(I^{n+1},\boundary I^{n+1},J^{n}),(B,A,x_{0})]\iso[(I^{n},\boundary I^{n}),(F_{f},\mbox{constant path at }x_{0})]
+\end{equation}
+Then $\pi_{n+1}(B,A)\iso\pi_{n}(F_{f})$. From this perspective, the
+relative long exact sequence of the pair $(B,A)$ is a special case of
+the fibration long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{
+\dots\ar[r] & \pi_{n+1}(B,A)\ar[d]^{\iso}\ar[r] & \pi_{n}(A)\ar[d]^{\iso}\ar[r] & \pi_{n}(B)\ar[d]^{\iso}\ar[r]&\pi_{n}(B,A)\ar[d]^{\iso}\ar[r]&\pi_{n-1}(A)\ar[d]^{\iso}\ar[r]&\dots\\
+\dots\ar[r] & \pi_{n}(F_{f})\ar[r] & \pi_{n}(E_{f})\ar[r] & \pi_{n}(B)\ar[r]&\pi_{n-1}(F_{f})\ar[r]&\dots&}}
+\end{equation}
+This leads to modal category theory, which is a bit old fashioned now,
+and replaced by $\infty$-category theory.
+\end{node}

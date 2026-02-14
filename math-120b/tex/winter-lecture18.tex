@@ -1,0 +1,217 @@
+%%
+%% winter-lecture18.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-14T07:24:13-0800
+%% Last update 2026-02-14T07:24:13-0800
+%% 
+
+\lecture{}
+
+
+\begin{corollary}\label{cor:14.4}
+By inducing the Krull topology to $\Gal(\Omega/F)\iso\varprojlim\Gal(E/F)$
+this is isomorphic as topological groups. In particular,
+\begin{equation}
+U_{\sigma}:=\{\Gal(\Omega/E)\mid\sigma\in\Gal(\Omega/E), E/F\mbox{ is a finite Galois extension}\}
+%U_{\sigma}:=\{\sigma\in\Gal(\Omega/E)\mid E/F\mbox{ is a finite Galois extension}\}
+\end{equation}
+is a neighborhood basis of $\sigma\in\Gal(\Omega/F)$ and
+\begin{equation}
+  \begin{split}
+    \Gal(\Omega/F)\to\Gal(E/F)\\
+    \sigma\mapsto\sigma|_{E}
+  \end{split}
+\end{equation}
+is continuous and surjective.
+\end{corollary}
+
+\begin{lemma}\label{lemma:14.5}
+Let $G=\Gal(\Omega/F)$ and $S\subset\Omega$ be a finite subset such
+that $GS=S$. Then $F(S)/F$ is a finite Galois and $\Gal(F(S)/F)\iso G/\Gal(\Omega/F(S))$.
+
+(In particular, $\Gal(\Omega/F(S))$ is an open subgroup with finite index.)
+\end{lemma}
+
+\begin{proof}
+We see $F(S)/F$ is a finite Galois extension.
+\begin{enumerate}
+\item It is normal by Proposition~\ref{prop:4.3}.
+\item It is normal by Theorem~\ref{thm:3.3},
+  Proposition~\ref{prop:2.8}, and $GS=S$ (which implies $GF(S)=F(S)$).
+  So if $\sigma\in\hom_{F}(F(S),\closure{F})$, then
+  $\sigma'\in\Gal(\Omega/F)=F$ by Proposition~\ref{prop:2.8}
+\item It is clearly a finite extension.
+\end{enumerate}
+The other claim is also clear.
+\end{proof}
+
+\begin{lemma}\label{lemma:14.6}
+Let $S\subset\Omega$ be a finite subset. Then 
+$G_{S}=\{\sigma\in G\mid\sigma|_{S}=\id_{S}\}$ is an open subgroup of
+$G$ with finite index. Moreover, $G_{S}$ is normal if and only if $GS=S$.
+\end{lemma}
+
+\begin{proof}
+Let $\overline{S}=GS$. Then by Lemma~\ref{lemma:14.5},
+\begin{equation}
+G_{\overline{S}}=\Gal(\Omega/F(\overline{S}))\subset G_{S}  
+\end{equation}
+is an open subgroup with finite index.
+
+We claim $G_{S}=\bigcup_{\sigma\in G_{S}}\sigma G_{\overline{S}}$. 
+One direction $G_{S}\subset\bigcup_{\sigma\in G_{S}}\sigma G_{\overline{S}}$ is obvious.
+The other direction: Let $\tau\in\bigcup_{\sigma\in G_{S}}\sigma G_{\overline{S}}$.
+Then there exists a $\sigma\in G_{S}$ and a $\tau'\in G_{\overline{S}}$
+such that $\tau=\sigma\tau'$ where $\tau'|_{G_{\overline{S}}}=\id_{G_{\overline{S}}}$
+and $\tau|_{S}=\sigma\tau'|_{S}=\id_{S}$. Then we see $\tau\in G$ which
+proves the claim $G_{S}\supset\bigcup_{\sigma\in G_{S}}\sigma G_{\overline{S}}$.
+
+This implies $G_{S}$ is a union of open sets, and in particular
+$G_{S}$ is open.
+
+Since $\tau G_{S}\tau^{-1}=G_{\tau S}$, we see $G_{S}$ is normal iff
+for all $\tau\in G$ we have $\tau S=S$ (or equivalently $GS=S$).
+\end{proof}
+
+\begin{proposition}\label{prop:14.7}
+\begin{enumerate}
+\item For $\Omega/E/F$ (where $E/F$ is a possibly infinite extension),
+  $\Gal(\Omega/E)$ is closed in $G=\Gal(\Omega/F)$
+\item For any subgroup $H\subgroup G$, $\Gal(\Omega/\Omega^{H})$ is
+  the closure of $H$ (the smallest closed [topological] subgroup of
+  $G$ containing $H$).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item Since
+\begin{equation}
+\Gal(\Omega/E)=\bigcap_{\substack{S\subset E\\S\text{ finite}}}G_{S},
+\end{equation}
+$G_{S}$ is closed by Lemma~\ref{lemma:14.6} and
+Proposition~\ref{prop:14.2}, hence $\Gal(\Omega/E)$ is closed (since
+it's the arbitrary intersection of closed subsets).
+\item We apply (1) to $E=\Omega^{H}$, then $\Gal(\Omega/\Omega^{H})$
+  is closed and by definition $H\subgroup\Gal(\Omega/\Omega^{H})$, and
+  thus $\closure{H}\subgroup\Gal(\Omega/\Omega^{H})$.
+
+  Suppose $\sigma\in\Gal(\Omega,\Omega^{H})\setminus\closure{H}$. Then
+  by Corollary~\ref{cor:14.4}, there exists a finite Galois extension
+  $E/F$ such that
+\begin{equation}
+\sigma\Gal(\Omega/E)\cap H=\emptyset.
+\end{equation}
+By $\pi=\pi_{E}\colon G\to\Gal(E/F)$, we have
+\begin{equation}
+\pi(\sigma\Gal(\Omega/E))=\{\pi(\sigma)\},
+\end{equation}
+and thus
+\begin{equation}\label{eq:math120b:winter2026:lecture18:contradiction}
+\{\pi(\sigma)\}\cap\pi(H)=\emptyset.
+\end{equation}
+Since
+$\pi(H)\subgroup\Gal(E/F)$ by Proposition~\ref{prop:7.5},
+\begin{equation}
+\pi(H)=\Gal(E/E^{\pi(H)})=\Gal(E/E\cap\Omega^{H}).
+\end{equation}
+On the other hand, since $\sigma\in\Gal(\Omega/\Omega^{H})$, for any
+$\alpha\in E|cap\Omega^{H}$ we have $\sigma(\alpha)=\alpha$. That is
+to say, $\pi(\sigma)\in\Gal(E/E\cap\Omega^{H})=\pi(H)$. But this
+contradicts Equation~\eqref{eq:math120b:winter2026:lecture18:contradiction}.
+\end{enumerate}
+\end{proof}
+
+\begin{fundamental-thm-galois-thy}[Infinite version]
+Let $\Omega/F$ be Galois, $G=\Gal(\Omega/F)$, $\mathcal{E}=\{E\mid\Omega/E/F\}$
+(where $E/F$ may possibly be infinite), $\mathcal{H}=\{\mbox{closed subgroups }H\subgroup G\}$.
+Then
+\begin{equation}
+\begin{split}
+\Phi\colon&\mathcal{E}\to\mathcal{H}\\
+&E\mapsto\Gal(\Omega/E)
+\end{split}
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+\Psi\colon&\mathcal{H}\to\mathcal{E}\\
+&H\mapsto\Omega^{H}
+\end{split}
+\end{equation}
+are bijective and inverse of each other $\Phi^{-1}=\Psi$, $\Psi^{-1}=\Phi$.
+\end{fundamental-thm-galois-thy}
+
+\begin{proof}
+First we note $\Phi$ is injective. In fact, if $\Gal(\Omega/E)=\Gal(\Omega/E')$,
+and $\alpha\in E\setminus E'$, then there exist
+$\sigma_{1},\dots,\sigma_{n}\in\Gal(\Omega/E'')$ such that the roots
+of the minimal polynomial $p_{\alpha}\in E'[x]$ of $\alpha$ are
+$\{\sigma_{i}(\alpha)\mid i=1,\dots,n\}$. But since
+$\Gal(\Omega/E')=\Gal(\Omega/E)$ we must have
+$\{\sigma_{i}(\alpha)\mid i=1,\dots,n\}=\{\alpha\}$ and
+$[E'(\alpha):E']=1$, so $\alpha\in E'$ which is a contradiction.
+
+By Proposition~\ref{prop:14.7}, $\Phi(E)$ is closed [by part (1) of
+  the proposition] and $\Gal(\Omega/\Omega^{\Phi(E)})=\Gal(\Omega/E)$
+[by part (2)], i.e., $\Omega^{\Phi(E)}=E$. Then we have
+\begin{equation}
+\Psi\circ\Phi(E)=\Omega^{\Phi(E)}=E.
+\end{equation}
+On the other hand,
+\begin{subequations}
+  \begin{align}
+\Phi\circ\Psi(H) &=\Gal(\Omega/\Omega^{H})\\
+&=H
+  \end{align}
+\end{subequations}
+by Proposition~\ref{prop:14.7}~(2).
+\end{proof}
+
+\begin{proposition}\label{prop:14.9}
+Let $\Omega/F$ be a Galois extension, let $G=\Gal(\Omega/F)$,
+and let $N\normalsubgroup G$ be a normal open subgroup.
+Then $\Omega^{N}/F$ is a finite Galois extension.
+\end{proposition}
+
+\begin{proof}
+We will first prove $\Omega^{N}/F$ is a Galois extension. We see it is
+separable by Proposition~\ref{prop:4.3}. Now, to prove it is
+normal. Let $\sigma\in\hom_{F}(\Omega^{N},\closure{F})$. Let its
+extension be $\sigma'\in\Gal(\Omega/F)$ be such that
+$\sigma'|_{\Omega^{N}}=\sigma$ by Proposition~\ref{prop:2.8}. Since
+$N$ is normal, for any $\alpha\in\Omega^{N}$ we have
+\begin{equation}
+(\sigma')^{-1}N\sigma'(\alpha)=N(\alpha)=\alpha,
+\end{equation}
+i.e., $N\sigma(\alpha)=\sigma(\alpha)$. Hence $\Omega^{N}/F$ is
+normal and, in particular, Galois.
+
+We claim $\Omega^{N}/F$ is finite. Since $N$ is open by
+Corollary~\ref{cor:14.4}, there exists finite Galois extension $E/F$
+such that $\Gal(\Omega/E)\subset N$. (Note: $\Gal(\Omega/E)$ is an
+open neighborhood of 1 in Galois group.) Then by
+Proposition~\ref{prop:14.2}, $N$ and $\Gal(\Omega/E)$ are closed. Then
+by Lemma~\ref{lemma:14.5}, we have
+\begin{equation}
+|G/N|\leq|G/\Gal(\Omega/E)|=|\Gal(E/F)|<\infty.
+\end{equation}
+If $\Omega^{N}/F$ is infinite, then there exists $\alpha\in\Omega^{N}$
+such that
+\begin{equation}\label{eq:contradiction:prop:14.9}
+m:=[F(\alpha):F]>|G/N|.
+\end{equation}
+(In fact, every subextension of $\Omega^{N}/F$ is separable, so by
+Theorem~\ref{thm:4.5} such an $\alpha$ exists.) Denote
+\begin{equation}
+\hom_{F}(F(\alpha),\closure{F})=\{\sigma_{1},\dots,\sigma_{m}\}
+\end{equation}
+and its extension be $\{\sigma'_{1},\dots,\sigma'_{m}\}\subset\Gal(\Omega/F)$.
+If $\sigma'_{i}N=\sigma'_{j}N$, then $\sigma'_{i}(\alpha)=\sigma'_{j}(\alpha)$,
+and therefore $\sigma_{i}=\sigma_{j}$. So $|G/N|\geq m$, which
+contradicts the assumption in Equation~\eqref{eq:contradiction:prop:14.9}.
+Hence $\Omega^{N}/F$ is finite.
+\end{proof}
