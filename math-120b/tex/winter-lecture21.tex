@@ -1,0 +1,239 @@
+%%
+%% winter-lecture21.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-21T10:33:13-0800
+%% Last update 2026-02-21T10:33:13-0800
+%% 
+
+\lecture{}
+
+\begin{recall}[Connecting morphism]
+From homological algebra (Math 128), we have a short exact sequence
+for the chain complex
+\begin{equation}
+\vcenter{\xymatrix{0\ar[r] & A^{0}\ar[r]\ar[d] & B^{0}\ar[r]\ar[d] & C^{0}\ar[r]\ar[d] & 0\\
+& \vdots\ar[d] & \vdots\ar[d] & \vdots\ar[d] & \\
+0\ar[r] & A^{n}\ar[r]\ar[d]^{\D_{A}} & B^{n}\ar[r]\ar[d]^{\D_{B}} & C^{n}\ar[r]\ar[d]^{\D_{C}} & 0\\
+0\ar[r] & A^{n+1}\ar[r]\ar[d] & B^{n+1}\ar[r]\ar[d] & C^{n+1}\ar[r]\ar[d] & 0\\
+& 0 & 0 & 0 &}}
+\end{equation}
+Since $B^{n}\to C^{n}$ is surjective, it sends $b_{n}\mapsto c_{n}\in\ker(\D_{C})$.
+We also see $b_{n}\mapsto \D_{B}(b_{n})\in\ker(B^{n+1}\to C^{n+1})=\Im(A^{n+1}\to B^{n+1})$.
+So there exists an $a_{n+1}\in A^{n+1}$ such that $a_{n+1}\mapsto\D_{B}(a_{n})$
+and we define the connecting morphism $\delta^{n}(c_{n}):=a_{n+1}$
+which is mapped to $\D_{B}(a_{n})$.
+
+(I should double check this against Osborne's \textit{Homological Algebra}
+(Springer, GTM196, proof of Theorem~3.3, viz.\ page 51; and Fuchs's
+lecture notes on homological algebra.)
+\end{recall}
+
+\begin{proposition}\label{prop:15.3}
+For a field $F$ containing a primitive $n^{\text{th}}$ root of unity
+$\zeta_{n}\in F$ (for some $n$), the perfect Kummer pairing is defined
+on $\Gal(\separableclosure{F}{\relax}/F)\times(\MultGroup{F}/(\MultGroup{F})^{n})\to\mu_{n}$.
+\end{proposition}
+
+\begin{proof}
+We have the short exact sequence
+\begin{equation}
+\TrivialGroup\to\mu_{n}\to\MultGroup{(\separableclosure{F}{\relax})}\xrightarrow{n}\MultGroup{(\separableclosure{F}{\relax})}\to\TrivialGroup
+\end{equation}
+where
+$\MultGroup{(\separableclosure{F}{\relax})}\xrightarrow{n}\MultGroup{(\separableclosure{F}{\relax})}$
+is $x\mapsto x^{n}$, which gives us a long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{
+\TrivialGroup\ar[r] & H^{0}(G,\mu_{n})\ar[r] & H^{0}(G,\MultGroup{(\separableclosure{F}{\relax})})\ar[r]^{n}&H^{0}(G,\MultGroup{(\separableclosure{F}{\relax})})\ar[dll]_{\delta^{0}}\\
+& H^{1}(G,\mu_{n})\ar[r] & \dots & }}
+\end{equation}
+where $\delta^{0}$ is the connecting morphism,
+$G=\Gal((\separableclosure{F}{\relax}/F)$, and we saw that
+$H^{0}(G,\mu_{n})=\mu_{n}$, and
+\begin{subequations}
+  \begin{align}
+H^{0}(G,\MultGroup{(\separableclosure{F}{\relax})})
+&=(\MultGroup{(\separableclosure{F}{\relax})})^{G}\\
+&=\MultGroup{F}\quad\mbox{by Theorem~\ref{thm:14.8}}
+  \end{align}
+\end{subequations}
+and
+$H^{1}(G,\MultGroup{(\separableclosure{F}{\relax})})=\TrivialGroup$ by Proposition~\ref{prop:15.2}.
+This means we get
+\begin{equation}
+\TrivialGroup\to\mu_{n}\to\MultGroup{F}\xrightarrow{n}\MultGroup{F}\xrightarrow{\delta^{0}}\bigl(H^{1}(G,\mu_{n})\iso\MultGroup{F}/(\MultGroup{F})^{n}\bigr)\to\TrivialGroup
+\end{equation}
+is an exact sequence. 
+Then, recalling the connecting morphism discussion, for $\alpha\in H^{0}(G,\MultGroup{(\separableclosure{F}{\relax})})$
+we see $\delta^{0}(\alpha)$ is represented as follows: since
+$C^{n}(G,A)=\operatorname{Maps}(G^{n},A)$ and $C^{0}(G,A)=\operatorname{Maps}(\mbox{pt},A)$,
+we have $\mbox{pt}\into\MultGroup{(\separableclosure{F}{\relax})}\xrightarrow{n}\MultGroup{(\separableclosure{F}{\relax})}$
+defined by sending $*\mapsto\alpha\in\MultGroup{(\separableclosure{F}{\relax})}$.
+So
+\begin{equation}
+\delta^{0}(\alpha)=\D^{1}(\beta),
+\end{equation}
+where $\beta^{n}=\alpha$, i.e.,
+\begin{equation}
+\delta^{0}(\alpha)(\sigma)=\D^{1}(\beta)(\sigma)=\frac{\sigma(\beta)}{\beta},
+\end{equation}
+which is the Kummer pairing (\S\ref{defn:kummer-pairing}).
+
+On the other hand, $\mu_{n}\subset F$, the Galois group acts on
+$G\ActsOn\mu_{n}$ trivially, and thus
+\begin{equation}
+\ker(\D^{1})=\{\varphi\colon G\to\mu_{n}\mid\varphi(\sigma\tau)=\varphi(\sigma)\sigma\varphi(\tau)=\varphi(\sigma)\varphi(\tau)\}.
+\end{equation}
+Observe that the condition
+\begin{equation}
+\varphi(\sigma)\sigma\varphi(\tau)=\varphi(\sigma)\varphi(\tau)
+\end{equation}
+And we find
+\begin{subequations}
+  \begin{align}
+\Im(\D^{0})&=\{\varphi\colon G\to\mu_{n}\mid\exists x\in\mu_{n}\ldotp\varphi(\sigma)=\frac{\sigma(x)}{x}=1\}\\
+&=\TrivialGroup
+  \end{align}
+\end{subequations}
+which means
+\begin{equation}
+H^{1}(G,\mu_{n})=\frac{\ker(\D^{1})}{\Im(\D^{0})}\iso\hom(G,\mu_{n})..
+\end{equation}
+From the long exact sequence, we find
+\begin{equation}
+  H^{1}(G,\mu_{n})\iso\MultGroup{F}/(\MultGroup{F})^{n}
+\end{equation}
+by exactness, so therefore
+\begin{equation}
+\begin{split}
+\MultGroup{F}/(\MultGroup{F})^{n}&\xrightarrow{\sim}\hom(G,\mu_{n})\\
+\alpha&\mapsto(\sigma\mapsto\frac{\sigma(\beta)}{\beta}\mbox{ where }\beta^{n}=\alpha)
+\end{split}
+\end{equation}
+which is to say, the Kummer pairing is perfect.
+\end{proof}
+
+\begin{proposition}[Artin--Schreier version]\label{prop:15.4}
+Homework.
+\end{proposition}
+
+\begin{definition}
+Let $H\subgroup G$ be a subgroup of $G$, let $A$ be an $H$-module.
+We define the \define{Induction} of $A$ from $H$ to $G$ (or the
+\emph{Inductive $G$-Module} of $A$) is
+\begin{subequations}
+  \begin{align}
+\Ind^{G}_{H}A &:=\hom_{H}(G,A)\\
+&=\{f\colon G\to A\mid \forall h\in H\ldotp f(hg)=hf(g)\}
+  \end{align}
+\end{subequations}
+And also $G\ActsOn\Ind^{G}_{H}A$ by $(gf)(g')=f(g'g)$. [Note: if we
+  tried $(gf)(g')=f(gg')$, then this would fail to be a group action.]
+\end{definition}
+
+\begin{proposition}[Frobenius reciprococity]\label{prop:15.5}
+Let $H\subgroup G$, let $A$ be an $H$-module, let $M$ be a
+$G$-module. Then we have the natural isomorphisms
+\begin{enumerate}
+\item $\hom_{G}(M,\Ind^{G}_{H}A)\iso\hom_{H}(M,A)$, and
+\item $\hom_{G}(\Ind^{G}_{H}A,M)\iso\hom_{H}(A,M)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+We will only check (1), since the second natural isomorphism is similar.
+For $\lambda\in\hom_{H}(M,A)$, we send it to $m\mapsto(g\mapsto\lambda(gm))$.
+On the other hand, for $(m\mapsto fm)\in\hom_{G}(M,\Ind^{G}_{H}A)$, we
+send it to $m\mapsto(fm(1))$. Then it is straightforward to check they
+are natural and inverses of each other.
+\end{proof}
+
+\begin{corollary}[Shapiro's lemma]\label{cor:15.6}
+Let $H\subgroup G$ be a subgroup of $G$, let $A$ be an $H$-module.
+Then there exists a canonical isomorphism
+$H^{n}(G,\Ind^{G}_{H}A)\iso H^{n}(H,A)$.
+\end{corollary}
+
+\begin{proof}
+Since the group cohomology (using the second definition offered, as $\Ext^{n}_{\ZZ[G]}(\ZZ,-)=R^{n}\hom_{G}(\ZZ,-)$)
+and then applying Proposition~\ref{prop:15.5} to $M=\ZZ$ the trivial
+$G$-module, proves the claim.
+\end{proof}
+
+
+\begin{theorem}\label{thm:15.7}
+The $n^{\text{th}}$ Galois cohomology of the separable closure
+vanishes for $n>0$;
+\begin{equation}
+H^{n}(\separableclosure{F}{\relax}/F,\separableclosure{F}{\relax})=0\quad\mbox{for }n>0.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By Homework (2), it suffices to check for the case $E/F$ being a
+finite Galois extension. By the normal basis theorem  (Theorem~\ref{thm:10.4}
+and Week 5 Homework problems (1) and (2)), there exists an $\alpha\in E$
+such that $\{\sigma(\alpha)\mid\sigma\in\Gal(E/F)\}$ is an $F$-basis
+of $E$. Let us define the bijective map
+\begin{equation}
+\begin{split}
+E&\xrightarrow{\sim}\hom_{H=\TrivialGroup}(G,F)=\Ind^{G}_{\TrivialGroup}F\\
+a&\mapsto c,
+\end{split}
+\end{equation}
+where $a\in E$ is defined by
+\begin{equation}
+a=\sum_{\sigma\in G}c(\sigma)\sigma(\alpha),
+\end{equation}
+where $c(\sigma)\in F$ are just the coefficients. But since the
+coefficients are unique, this establishes bijectivity.
+
+Then we find for $n>0$,
+\begin{subequations}
+  \begin{align}
+H^{n}(E/F,E) &= H^{n}(G,E)\\
+&\iso H^{n}(G,\Ind^{G}_{\TrivialGroup}F)\\
+&\iso H^{n}(\TrivialGroup,F)\quad\mbox{by Corollary~\ref{cor:15.6}}\\
+&\iso 0.
+  \end{align}
+\end{subequations}
+Hence the claim.
+\end{proof}
+
+\begin{definition}
+Let $H\subgroup G$ be a subgroup of $G$, let $A$ be a $G$-module,
+let $i\colon A\to\Ind^{G}_{H}A$ sending $a\mapsto(g\mapsto ga)$ be the
+injective map. Then we define the \define{Restriction Map}
+$\operatorname{res}\colon H^{n}(G,A)\to H^{n}(H,A)$ by 
+$H^{n}(G,A)\to H^{n}(G,\Ind^{G}_{H}A)\iso H^{n}(H,A)$. (Note: for
+$n=0$, this is just $A^{G}\into A^{H}$.)
+\end{definition}
+
+\begin{definition}
+Let $N\normalsubgroup G$, let $A$ be a $G$-module (and so $A$ is also
+a $(G/N)$-module). We define the \define{Inflation Map}
+$\operatorname{inf}\colon H^{n}(G/N,A^{N})\to H^{n}(G,A)$ by 
+\begin{equation*}
+H^{n}(G/N,A^{N})\to H^{n}(G,A^{N})\to H^{n}(G,A)
+\end{equation*}
+by precomposing with the natural map $-\circ\nu_{G/N}$.
+\end{definition}
+
+\begin{claim}
+The following \define{Inflation-Restriction Exact Sequence}
+is known:
+\begin{equation}
+\vcenter{\xymatrix{0\ar[r] &
+    H^{1}(G/N,A^{N})\ar[r]^-{\operatorname{inf}} & H^{1}(G,A)\ar[r]^{\operatorname{res}}
+& H^{1}(N,A)\ar[dll]_{\text{transgression\ map}\quad}\\
+& H^{2}(G/N,A^{N})\ar[r] & H^{2}(G,A)\ar[r] & \dots}}
+\end{equation}
+\end{claim}
+
+\begin{proof}
+It is a special case of the five term exact sequence in the study of
+sepctral sequences (from Math 128).
+\end{proof}

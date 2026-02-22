@@ -1697,6 +1697,31 @@ beginfig(64) % group structure for $\langle\Sigma X,Y\rangle$
   label(btex $g$ etex, 0.5[z2,z1] + (0,-u));
 endfig;
 
-% 65
+%%% Winter quarter, lecture 20
+beginfig(65)
+  path p[];
+  numeric w; w := 2u;
+  p0 = (w,0)--(0,0)--(0,w)--(w,w);
+  p1 = (w,0)--(w,w);
+  draw p0 withpen pencircle scaled 2;
+  draw p1;
+  label.top(btex $L_{\gamma'}$ etex, 0.5[(0,w),(w,w)]);
+  label.bot(btex $L_{\gamma}$ etex, 0.5[(0,0),(w,0)]);
+
+  drawarrow (0.5u,-1.5u)--(1.5u,-1.5u);
+  label.bot(btex $t$ etex, (u,-1.5u));
+
+  drawarrow (-.5u,0.5u)--(-.5u,1.5u);
+  label.lft(btex $s$ etex, (-.5u,u));
+endfig;
+beginfig(66)
+  path p[];
+  numeric w; w := 2u;
+  p0 = (0,0)--(w,0)--(w,w)--(0,w);
+  p1 = (0,0)--(0,w);
+  draw p0;
+  draw p1 withpen pencircle scaled 2;
+endfig;
+% 67
 
 end;

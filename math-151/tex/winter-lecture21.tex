@@ -1,0 +1,109 @@
+%%
+%% winter-lecture21.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-21T14:41:37-0800
+%% Last update 2026-02-21T14:41:37-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+The duality between fibration and cofibration goes under the name
+\define{Eckmann--Hilton duality}. This is a natural bijection
+\begin{equation}
+\langle\Sigma X,Y\rangle\iso\langle X,\Omega Y\rangle,
+\end{equation}
+which is the starting point of everything. This gives us the
+correspondence:
+\begin{itemize}
+\item $\mbox{cofibration}\longleftrightarrow\mbox{fibration}$
+\item $\mbox{homotopy extension}\longleftrightarrow\mbox{homotopy lifting}$
+\item The (reduced) cohomology of a space $X$ is measured by maps from $X$
+to a space with a single nontrivial homotopy group
+\begin{equation}
+\widetilde{H}^{n}(X,G)\stackrel{1:1}{\longleftrightarrow}\langle X,K(G,n)\rangle
+\end{equation}
+\item Homotopy groups of $X$ are measured by maps from a space with a
+  very simple (reduced) cohomology to $X$
+\begin{equation}
+\pi_{n}(X)=\langle\sphere{n},X\rangle
+\end{equation}
+\end{itemize}
+For more about this, see Hatcher \S4.H.
+\end{node}
+
+\begin{node}[Homotopy groups with other coefficients?]
+But the homotopy group does not take \emph{any} (Abelian) group of
+coefficients, which spoils the duality. We can discuss ``rational
+homotopy groups'',\index{Homotopy group!Rational}\index{Rational homotopy group}
+defined as $\pi_{n}(X)\otimes_{\ZZ}\QQ$ which kills the torsion part
+of the homotopy groups. See Quillen's ``Rational Homotopy Groups''.
+\end{node}
+
+\begin{node}[Co-homotopy groups]\index{Co-homotopy groups}
+We could try constructing the ``co-homotopy group''' studying maps
+$\langle X,\sphere{n}\rangle$ which should be dual to homotopy groups,
+but it's not studied that much.
+
+Confusingly, these were originally
+named ``cohomotopy sets'' by Borsuk who introduced them in ``Sur les groupes des classes de transformations continues''
+(\textit{Comptes Rendue de Academie de Science}, Paris \textbf{202} (1936) no.1400--1403, no.2),
+but it wasn't until Spanier's ``Borsuk's cohomotopy groups''
+(\textit{Annals of Mathematics} \textbf{50} (1949) pp.203--245, \doi{10.2307/1969362})
+that they were systematically studied.
+\end{node}
+
+\begin{node}
+We should think of fibration sequence as a ``space-level long exact sequence''.
+What happens if $E$ is contractible ($E\homotopic\point{*}$)?
+The long exact sequence for homotopy groups of the fibration
+simplifies considerably, can we hope for something similar?
+\end{node}
+
+\begin{proposition}
+If $F\into E\xrightarrow{p}B$ is a fibration and if $E$ is
+contractible, then there is a weak homotopy equivalence between $F$
+and $\Omega B$.
+\end{proposition}
+
+\begin{remark}
+Milnor proved: If $B$ is a CW complex, then $PB$ and $\Omega B$ are of
+the homotopy type of a CW complex, and therefore $f$ is a homotopy equivalence.
+\end{remark}
+
+\begin{example}
+Recall the fibration $\sphere{1}\into\sphere{\infty}\to\CP^{\infty}$,
+the space $\sphere{\infty}$ is contractible. Then
+\begin{equation}
+\vcenter{\xymatrix@R=0.5pc@C=0.25pc{\sphere{1} \ar@{=}[r]^-{\txt{$\sim$}} & \Omega\CP^{\infty}\\
+K(\ZZ,1)\ar@{=}[u] & K(\ZZ,2)\ar@{=}[u]}}
+\end{equation}
+In general, we have the following result (again by Milnor):
+\end{example}
+
+\begin{theorem}[Milnor]
+For any topological group $G$, there is a fiber bundle with fiber
+$G\into EG\to BG$ such that the space $EG$ is contractible (hence
+$G\homotopic\Omega BG$).
+\end{theorem}
+
+\begin{remark}
+The $p\colon EG\to BG$ is called the \define{Universal $G$-Bundle} if $EG$ is
+contractible. We refer to $BG$ as the \define{Classifying Space of $G$}.
+Every $G$-bundle is a pullback of this one, so the universal one
+contains all the information.
+\end{remark}
+
+\begin{theorem}
+The loop space of a CW complex is homotopy equivalent to a topological group.
+\end{theorem}
+
+\begin{proof}[Proof idea]
+The basic idea is to allow reparametrization for based loops, i.e.,
+elements of $\Omega X$. Compare this to the homotopy groups, which are
+based loops in $X$ modulo homotopy equivalence. The reparametrization
+allows us to obtain associativity of concatenation of based loops.
+\end{proof}

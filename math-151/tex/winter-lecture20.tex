@@ -1,0 +1,268 @@
+%%
+%% winter-lecture20.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-19T09:54:20-0800
+%% Last update 2026-02-19T09:54:20-0800
+%% 
+
+\lecture{}
+
+\begin{example}
+If $f\colon E\to B$ is a fibration, then there is a fiber homopy
+equivalence
+\begin{equation}
+\vcenter{\xymatrix{E\,\ar[dr]_{f} \ar@{^{(}->}[rr]^{i} & & E_{f}\ar[dl]_{p}\\
+& B &}}
+\end{equation}
+where $i$ is a homotopy equivalence and the ``actual fiber''
+$f^{-1}(b_{0})$ is homotopy equivalent to the ``homotopy fiber'' $F_{f}=p^{-1}(b_{0})$.
+This requires justification. It follows from the Five-Lemma applied to
+the 2 long exact sequences of a fibration. There isa map
+$i\colon(E,F)\to(E_{f},F_{f})$ which gives us
+\begin{equation}
+\vcenter{\xymatrix{
+\dots\ar[r] & \pi_{n+1}(E)\ar[r]\ar[d]^{i_{*}\iso} & \pi_{n+1}(B)\ar[r]\ar[d]^{i_{*}=\id} & \pi_{n}(F)\ar[r]\ar[d]^{i_{*}}& \pi_{n}(E)\ar[r]\ar[d]^{i_{*}\iso} & \pi_{n}(B)\ar[r]\ar[d]^{i_{*}=\id} & \dots\\
+\dots\ar[r] & \pi_{n+1}(E_{f})\ar[r] & \pi_{n+1}(B)\ar[r] & \pi_{n}(F_{f})\ar[r]& \pi_{n}(E_{f})\ar[r] & \pi_{n}(B)\ar[r] & \dots
+}}
+\end{equation}
+Then by Whitehead's theorem, $F\homotopic F_{f}$.
+\end{example}
+
+\begin{node}
+Cofibration is ``inclusion'' with ``good properties''. Another way to
+think of fibration is the following slogan: ``It is a homotopic
+version of fiber bundles''. More precisely:
+\end{node}
+
+\begin{proposition}
+For a fibration $p\colon E\to B$, the fibers $F_{b}=p^{-1}(b)$ over
+each path-connected component of $B$ are homotopy equivalent.
+\end{proposition}
+
+\begin{proof}
+Choose $b_{0}$, $b_{1}$ in the same path-connected component of
+$B$. We want to show $F_{b_{0}}\homotopic F_{b_{1}}$. Choose a path
+$\gamma\colon I\to B$ from $b_{0}$ to $b_{1}$. Then we get a homotopy
+\begin{equation}
+\begin{split}
+G\colon&F_{b_{0}}\times I\to B\\
+&(a,t)\mapsto\gamma(t)
+\end{split}
+\end{equation}
+(or $g_{t}\colon F_{b_{0}}\to B$ sending $a\mapsto\gamma(t)$). Then
+there is a lift
+\begin{equation}
+\widetilde{g}_{0}\colon F_{b_{0}}\to E,
+\end{equation}
+given by the inclusion. Then by the Homotopy Lifting Property with
+respect to $F_{b_{0}}$ (\S\ref{defn:homotopy-lifting-property}), we
+get a lift $\widetilde{g}_{t}$ of $g_{t}$ extending $\widetilde{g}_{0}$.
+Then
+\begin{equation}
+p(\widetilde{g}_{1})(a)=g_{1}(a),
+\end{equation}
+which is $b_{1}$ for all $a\in F_{b_{1}}$. That is to say,
+$\widetilde{g}_{1}$ is a map from $F_{b_{0}}$ to $F_{b_{1}}$. Denote
+this map by
+\begin{equation}
+L_{\gamma}\colon F_{b_{0}}\to F_{b_{1}}.
+\end{equation}
+The map $L_{\gamma}$ satisfies the following properties:
+\begin{enumerate}
+\item If $\gamma\homotopic_{\rel{I}}\gamma'$, then
+  $L_{\gamma}\homotopic L_{\gamma'}$;
+\item $L_{\gamma\bullet\gamma'}\homotopic L_{\gamma'}\circ L_{\gamma}$
+  where $\gamma\bullet\gamma'$ is concatenation of paths (do $\gamma$
+  first, then do $\gamma'$).
+\end{enumerate}
+Assuming these properties, choose $\gamma$ to bea path from $b_{0}$ to
+$b_{1}$ and choose $\overline{\gamma}$ to be the reverse map. Then
+\begin{equation}
+\gamma\bullet\overline{\gamma}\homotopic\mbox{const}_{b_{0}}
+\end{equation}
+and
+\begin{equation}
+\overline{\gamma}\bullet\gamma\homotopic\mbox{const}_{b_{1}}.
+\end{equation}
+So
+\begin{equation}
+L_{\gamma\bullet\overline{\gamma}}\homotopic
+L_{\overline{\gamma}}\circ L_{\gamma}\homotopic L_{\mbox{const}_{b_{0}}}\homotopic\id_{F_{b_{0}}}.
+\end{equation}
+Similarly,
+\begin{equation}
+L_{\gamma}\circ L_{\overline{\gamma}}\homotopic\id_{F_{b_{1}}}.
+\end{equation}
+Hence the claim, provided we accept these properties stipulated of $L_{\gamma}$.
+\end{proof}
+
+\begin{claim}
+If $\gamma\homotopic_{\rel{I}}\gamma'$, then
+$L_{\gamma}\homotopic L_{\gamma'}$.
+\end{claim}
+
+\begin{proof}
+Let $h(s,t)$ be the homotopy between $h(0,t)=g_{\gamma}(t)$ and
+$h(1,t)=g_{\gamma'}(t)$ where
+\begin{equation}
+h(-,-)\colon F_{b_{0}}\times I\times I\to B.
+\end{equation}
+We have partial lifting of $h(s,t)$ over $L_{\gamma}=F_{b}\times I\times\{0\}$
+and $F_{b_{0}}\times I\times\{1\}=L_{\gamma'}$ and
+$F_{b}\times\{0\}\times I$ is the inclusion $F_{b_{0}}\into B$.
+We have
+\begin{equation}
+\vcenter{\hbox{\includegraphics{img/img.65}}}\quad\homotopic\quad\vcenter{\hbox{\includegraphics{img/img.66}}}
+\end{equation}
+Then we apply the homotopy lifting property to $F_{b_{0}}\times I$ to
+get a lift
+\begin{equation}
+\widetilde{h}(s,t)\colon F_{b_{0}}\times I\times I\to E,
+\end{equation}
+extending the partial lift. In particular, restricting to $t=1$, we
+get a homotopy from $L_{\gamma}=\widetilde{h}(0,1)$
+to $L_{\gamma'}=\widetilde{h}(1,1)$.
+\end{proof}
+
+\begin{claim}
+$L_{\gamma\bullet\gamma'}\homotopic L_{\gamma'}\circ L_{\gamma}$
+  where $\gamma\bullet\gamma'$ is concatenation of paths (do $\gamma$
+  first, then do $\gamma'$).
+\end{claim}
+
+\begin{proof}
+Reparametrizing and lifting consecutively, you see
+$\widetilde{g}_{\gamma'}\widetilde{g}_{\gamma}$ is a lifting of $g_{\gamma\bullet\gamma'}$.
+\end{proof}
+
+\subsection{Pullback fibration}
+
+\begin{definition}
+Given a fibration $p\colon E\to B$ and a map $f\colon A\to B$, the
+\define{Pullback Fibration} of $f^{*}p$ is given by
+\begin{equation}
+p^{*}\colon f^{*}(E)\to A,
+\end{equation}
+where
+\begin{equation}
+f^{*}(E):=\{(a,e)\in A\times E\mid f(a)=p(e)\},
+\end{equation}
+and $p^{*}(a,e)=a$; i.e.,
+\begin{equation}
+\vcenter{\xymatrix{f^{*}E\ar[r]\ar[d]^{p^{*}}\ar@{}[dr]|>{\txt{$\ulcorner$}} & E\ar[d]^{p}\\
+A\ar[r]^{f} &  B}}
+\end{equation}
+\end{definition}
+
+\begin{xca}
+Check $p^{*}\colon f^{*}E\to A$ is a fibration (i.e., satisfies the
+homotopy lifting property).
+\end{xca}
+
+\begin{node}[Fibration sequence]
+We start with a fibration $p\colon E\to B$. We get a sequence by
+repeatedly taking the homotopy fiber; it takes the form
+\begin{equation}
+\dots\to\Omega^{2}B\to\Omega F\to\Omega E\xrightarrow{\Omega p}\Omega B\to
+F\into E\xrightarrow{p}B.
+\end{equation}
+This sequence has the following property:
+For any $X$, we have the following long exact sequence
+\begin{equation}\label{eq:math151b:lecture20:long-exact-sequence:fibration-sequence}
+\dots\to\langle X,\Omega B\rangle\to\langle X,F\rangle\xrightarrow{i_{*}}\langle
+X,E\rangle\xrightarrow{p_{*}}\langle X,B\rangle.
+\end{equation}
+It may be useful to compare this to the cofibration sequence,
+\begin{equation}
+A\into B\to A/B\to\Sigma A\to\Sigma B\to\Sigma(A/B)\to\Sigma^{2}A\to\dots.
+\end{equation}
+In particular, if you take $X=\sphere{0}$, this gives you the long
+exact sequence [of the homotopy groups] of the fibrations.
+\end{node}
+
+\begin{construction}
+The idea is to look at every 3 consecutive terms in the sequence in
+Equation~\eqref{eq:math151b:lecture20:long-exact-sequence:fibration-sequence},
+we want to find
+\begin{equation}
+\Omega B\xrightarrow{?}F\to E.
+\end{equation}
+The trick is to use
+\begin{equation}
+\dots\to F_{j}\to F_{i}\xrightarrow{j}F_{f}\xrightarrow{i}E_{f}\to B
+\end{equation}
+where $i\colon F_{f}\to E_{f}$ is also a fibration. We just keep
+iterating ``take homotopy fiber of previous map'', then we show
+$\Omega B\homotopic F_{i}$, and then $\Omega E\homotopic F_{j}$,
+and so on. Take $F_{p}$ the homotopy fiber of $p\colon E\to B$.
+We need to show $F_{p}\homotopic F$ and $i\colon F_{p}\into E$ is a
+fibration.
+
+Then take the homotopy fiber $F_{i}$ of $i\colon F_{p}\to E$ and then
+we need to show $j\colon F_{i}\into F_{p}$ is a fibration and
+$F_{i}\homotopic\Omega B$. Then take the homotopy fiber of $F_{j}$ and
+we need to show $F_{j}\homotopic\Omega E$. Then repeat.
+
+Recall
+\begin{equation}
+F_{p}=\{(e,\gamma)\in E\times B^{I}\mid\gamma(0)=p(e),\gamma(1)=b_{0}\}
+\end{equation}
+where $b_{0}\in B$ is the basepoint of $B$. We define
+\begin{equation}
+\begin{split}
+i\colon&F_{p}\into E\\
+&(e,\gamma)\mapsto e
+\end{split}
+\end{equation}
+just projects out the first component. Then $F_{p}$ is the pullback
+fibration of
+\begin{equation}
+\vcenter{\xymatrix{F_{p}\ar[d]\ar[r] & PB\ar[d] & \gamma\ar@{|->}[d]\\
+E\ar[r] & B & \gamma(0)}}
+\end{equation}
+where
+\begin{equation}
+PB=\{\gamma\in B^{I}\mid \gamma(1)=b_{0}\}.
+\end{equation}
+Because $p\colon E\to B$ is a fibration, we have $F\homotopic F_{p}$.
+Then we take the homotopy fiber $F_{i}$ of $F_{p}\xrightarrow{i}E$. 
+We see that
+\begin{equation}
+F_{i}=\{\bigl((e,\gamma),\eta\bigr)\in F_{p}\times E^{I}\mid i(e,\gamma)=e=\eta(0),\eta(1)=e_{0},\gamma(0)=p(e),\gamma(1)=b_{0}\},
+\end{equation}
+where $e_{0}$ is the basepoint of $E$. We can recover $e$ by looking
+at $\eta(0)$, so this is kind of redundant, and the condition comes
+from $F_{p}$. That is to say,
+\begin{equation}
+F_{i}\iso\{(\gamma,\eta)\in B^{I}\times E^{I}\mid\eta(1)=e_{0},\gamma(1)=b_{0},\gamma(0)=p(\eta(0))\},
+\end{equation}
+and the map $j\colon F_{i}\to F_{p}$ is given by sending $(\gamma,\eta)\mapsto(e=\eta(0),\gamma)$.
+
+The proof $j$ is a fibration is the same as before.
+
+We need to show $\Omega B\homotopic F_{i}$. The actual fiber of the map
+$i\colon F_{p}\to E$ is given by loops in $B$ based at $b_{0}$ where
+\begin{equation}
+\begin{split}
+F_{p}\to E\\
+(e,\gamma)\mapsto e.
+\end{split}
+\end{equation}
+Then since $i\colon F_{p}\to E$ is a fibration, then its actual fiber
+$\Omega B$ is homotopic to the homotopy fiber $F_{i}$.
+
+Then we take the homotopy fiber $F_{j}$ of $j\colon F_{i}\to F_{p}$
+and we need to show the actual fiber of $j$ is $\Omega E$. The actual
+fiber of $j$ is given by
+\begin{subequations}
+  \begin{align}
+j^{-1}\bigl((e_{0},\mbox{const}_{b_{0}})\bigr)
+&=\{(\gamma,\eta)\in B^{I}\times E^{I}\mid\eta(1)=e_{0},\gamma(1)=b_{0},\eta(0)=e_{0},\gamma=\mbox{const}_{b_{0}}\}\\
+&=\{\eta\in B^{I}\mid\eta(0)=\eta(1)=e_{0}\}\\
+&=\Omega E.
+  \end{align}
+\end{subequations}
+\end{construction}

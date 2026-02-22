@@ -1,0 +1,222 @@
+%%
+%% winter-lecture20.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-19T11:16:23-0800
+%% Last update 2026-02-19T11:16:23-0800
+%% 
+
+\lecture{}
+
+\begin{recall}
+We defined and introduced Hilbert spaces $L^{2}(\RR)$, $L^{2}([0,1])$, and
+$\ell^{2}(\ZZ,\CC)$. We also defined a notion of isomorphism for
+Hilbert spaces as inner product preserving bijective linear
+transformations. 
+\end{recall}
+
+\begin{node}[Polarization identity]
+Let $T\colon\mathcal{H}\to\mathcal{H}'$ be a linear transformation
+between Hilbert spaces. If $T$ preserves the norm, then $T$ preserves
+the inner product.
+\end{node}
+
+\subsection{Closed subspaces and Orthogonal projection}
+
+\begin{definition}
+Let $\mathcal{H}$ be a Hilbert space, let $\mathcal{S}\subset\mathcal{H}$
+be a subspace. We say $\mathcal{S}$ is \define{Closed} if every
+sequence $(f_{n})\subset\mathcal{S}$ which converges $f_{n}\to f$ to
+some $f\in\mathcal{H}$ (converging in norm $\|f_{n}-f\|_{\mathcal{H}}\to0$)
+contains its limit $f\in\mathcal{S}$.
+\end{definition}
+
+\begin{non-example}
+The epitome of a non-example: continuous functions on the interval as
+a subspace of $L^{2}$ functions $C([-1,1])\subset L^{2}([-1,1])$. We
+know continuous functions $f\in C^([-1,1])$ attain maximum values in
+the interval
+\begin{equation}
+M=\max_{I}f.
+\end{equation}
+We then have $|f|\leq M$ which implies $|f|^{2}\leq M^{2}$, so we get:
+\begin{equation}
+\int^{1}_{-1}|f|^{2}\leq2M^{2}.
+\end{equation}
+However, we could have a sequence of continuous functions converge to
+a step function, which is not continuous.
+\end{non-example}
+
+\begin{problem}[Approximation problem]
+Let $\mathcal{H}$ be a Hilbert space. Let
+$\mathcal{S}\subset\mathcal{H}$ be a subspace.
+
+\textsc{Given:} $f\in\mathcal{H}$.
+
+\textsc{Find:} the closest ``approximation'' to $f$ in $\mathcal{S}$.
+\end{problem}
+
+\begin{theorem}[Projection]\label{thm:4.1}
+Let $\mathcal{H}$ be a separable Hilbert space, let
+$\mathcal{S}\subset\mathcal{H}$ be a \emph{closed} subspace of
+$\mathcal{H}$. Let $f\in\mathcal{H}$.
+\begin{enumerate}
+\item\textsc{Existence and uniqueness of minimizer:} There exists a
+  unique $g_{0}\in\mathcal{S}$ closest to $f$ in the sense that
+  \begin{equation}
+\|f-g_{0}\|_{\mathcal{H}}=\inf_{g\in\mathcal{S}}\|f-g\|_{\mathcal{H}}=d.
+  \end{equation}
+\item\textsc{Orthogonality to the subspace:} For any $g\in\mathcal{S}$,
+\begin{equation}
+(f-g_{0},g)_{\mathcal{H}}=0;
+\end{equation}
+i.e., $f-g_{0}\perp\mathcal{S}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item\textsc{Existence:} Let
+\begin{equation}
+d=\inf_{g\in\mathcal{S}}\|f-g\|_{\mathcal{H}}.
+\end{equation}
+We can choose a sequence $(g_{n})_{n\in\NN}\subset\mathcal{S}$ such
+that $\|f-g_{n}\|_{\mathcal{H}}\to d$ (we know such a sequence exists
+by definition of the infinimum).
+
+\textsc{Claim 1:} $(g_{n})$ is Cauchy. We apply the parallelogram law
+to $f-g_{n}$ and $f-g_{m}$:
+\begin{subequations}
+  \begin{align}
+2(\|f-g_{n}\|^{2}+\|f-g_{m}\|^{2})
+&=\|(f-g_{m})+(f-g_{n})\|^{2}+\|(f-g_{n})-(f-g_{m})\|^{2}\\
+&=\|2f-g_{m}-g_{n}\|^{2}+\|g_{m}-g_{n}\|^{2}.
+  \end{align}
+\end{subequations}
+We observe that
+\begin{equation}
+\left\|f-\frac{g_{m}+g_{n}}{2}\right\|\geq d,
+\end{equation}
+and that $(g_{m}+g_{n})/2\in\mathcal{S}$ since $\mathcal{S}$ is a
+vector space. Then we rearrange terms to find
+\begin{equation}
+\|g_{n}-g_{m}\|^{2}\leq2\bigl(\|f-g_{n}\|^{2}+\|f-g_{m}\|^{2})-4d^{2}
+\end{equation}
+since
+\begin{subequations}
+  \begin{align}
+\|2f-g_{m}-g_{n}\|^{2}
+&=4\left\|f-\frac{g_{m}+g_{n}}{2}\right\|^{2}\\
+&\leq4d^{2}.
+  \end{align}
+\end{subequations}
+Taken together, this implies $\|g_{n}-g_{m}\|^{2}\leq0$, which implies
+$(g_{n})$ is Cauchy.
+
+\textsc{Claim 2:} Since $\mathcal{H}$ is complete, $g_{n}\to g_{0}\in\mathcal{H}$.
+Since $\mathcal{S}$ is closed, $g_{0}\in\mathcal{S}$. Hence $g_{n}\to g_{0}$
+in $\mathcal{S}$.
+\item\textsc{Orthogonality:} We will use a variational argument. Let $h=f-g_{0}$.
+Assume for contradiction there is a \emph{nonzero} $g\in\mathcal{S}$ such that
+\begin{equation}
+(h,g)_{\mathcal{H}}\neq0.
+\end{equation}
+Consider the perturbation $g_{0}+\varepsilon g$ for some ``small''
+$-1<\varepsilon<1$ with ``correct sign''. We see then that
+\begin{subequations}
+  \begin{align}
+\|f-(g_{0}+\varepsilon g)\|^{2}
+&=\|h-\varepsilon g\|^{2}\\
+&=\|h\|^{2}-2\Re\bigl(\varepsilon\cdot(h,g)\bigr)+|\varepsilon|^{2}\|g\|^{2}\\
+&<\|h\|^{2}
+  \end{align}
+\end{subequations}
+where we pick $\varepsilon$ such that $2\Re(\varepsilon(h,g))>|\varepsilon|^{2}\|g\|^{2}$.
+This contradicts the result that $g_{0}$ is the minimizer. The faulty
+assumption is that $(h,g)\neq0$. Hence we conclude $(h,g)=0$ as desired.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+Let $\mathcal{S}\subset\mathcal{H}$ be a subspace of a Hilbert space
+$\mathcal{H}$. We define its \define{Orthogonal Complement} to be the
+subspace $\mathcal{S}^{\perp}\subset\mathcal{H}$ consisting of
+$f\in\mathcal{S}^{\perp}$ such that for all $g\in\mathcal{S}$ we have
+$(f,g)=0$. 
+\end{definition}
+
+% This is from lecture 21, but seems more suitably placed here
+\begin{proposition}
+We can write $\mathcal{H}=\mathcal{S}\oplus\mathcal{S}^{\perp}$.
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item\textsc{Existence}: By the Projection Theorem~\ref{thm:4.1},
+let $g_{0}\in\mathcal{S}$ be the closest element to $f$, so we can
+write
+\begin{equation}
+f=g_{0}+(f-g_{0}).
+\end{equation}
+We see $f-g_{0}\in\mathcal{S}^{\perp}$, so we denote it by
+\begin{equation}
+h:=f-g_{0}.
+\end{equation}
+Then $f=g_{0}+h$ is a valid decomposition, which gives us existence.
+\item\textsc{Uniqueness}: Suppose we had two such decompositions
+\begin{equation}
+f=g+h=\widetilde{g}+\widetilde{h}.
+\end{equation}
+Then
+\begin{equation}
+g-\widetilde{g}=\widetilde{h}-h,
+\end{equation}
+and the left-hand side belongs to $\mathcal{S}$, but the right hand
+side belongs to $\mathcal{S}^{\perp}$. The only element belonging to
+both subspaces is the zero vector. This means
+\begin{equation}
+0=g-\widetilde{g}=\widetilde{h}-h,
+\end{equation}
+and therefore
+\begin{equation}
+g=\widetilde{g}\quad\mbox{and}\quad\widetilde{h}=h.
+\end{equation}
+Hence the decomposition is unique.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+Let $\mathcal{H}$ be a Hilbert space.
+Let $\mathcal{S}$ be a closed subspace of $\mathcal{H}$.
+The \define{Orthogonal Projection} onto $\mathcal{S}$ is a linear
+transformation $P_{S}\colon\mathcal{H}\to\mathcal{S}$ such that for
+all $f\in\mathcal{H}$ we have $P_{S}(f)=g$ where $f=g+h$ with
+$g\in\mathcal{S}$ and $h\in\mathcal{S}^{\perp}$. This is well-defined
+due to the previous propositions.
+\end{definition}
+
+\begin{proposition}
+The orthogonal projection $P_{S}$ of $\mathcal{H}$ onto $\mathcal{S}$
+satisfies the following properties:
+\begin{enumerate}
+\item $P_{S}$ is linear
+\item $P_{S}(f)=f$ whenever $f\in\mathcal{S}$
+\item $P_{S}(f)=0$ whenever $f\in\mathcal{S}^{\perp}$
+\item $\|P_{S}(f)\|_{\mathcal{H}}\leq\|f\|_{\mathcal{H}}$ for all $f\in\mathcal{H}$
+\end{enumerate}
+\end{proposition}
+
+\begin{observation}
+  We can abstractly define:
+\begin{enumerate}
+\item A \emph{projection} is a linear transformation
+  $P\colon\mathcal{H}\to\mathcal{H}$ such that $P\circ P=P$.
+\item An \emph{orthogonal projection} as a linear
+transformation $P\colon\mathcal{H}\to\mathcal{H}$ such that $P\circ P=P$
+and it is self-adjoint (i.e., equals its complex conjugate of its transpose) $P=P^{*}$.
+\item An \emph{oblique projection} is a projection which is not an
+  orthogonal projection.
+\end{enumerate}
+\end{observation}

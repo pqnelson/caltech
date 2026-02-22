@@ -11,6 +11,7 @@
 \DeclareMathOperator\id{id}
 \let\iso\cong
 
+\def\D{\mathrm{d}} % differential
 \def\I{\mathrm{i}} % = \sqrt{-1}
 
 % sets
@@ -43,6 +44,8 @@
 \DeclareMathOperator\Gal{Gal}
 \def\TrivialGroup{\mathbf{1}}
 
+\let\ActsOn\curvearrowright
+
 % permutation groups
 \DeclareMathOperator\sgn{sgn}
 
@@ -61,7 +64,7 @@
 
 \def\normalclosure#1{#1^{\text{nc}}}
 % \separableclosure{sub-field}{parent-field}
-\def\separableclosure#1#2{#1^{\text{sc\ }#2}}
+\def\separableclosure#1#2{#1^{\ifx#2\relax\text{sc}\else\text{sc\ }#2\fi}}
 \def\divides{\mid}
 \def\ndivides{\nmid}
 
@@ -71,5 +74,14 @@
 \DeclareMathOperator\Frob{Frob}
 \DeclareMathOperator\Tr{Tr} % field trace
 \DeclareMathOperator\tr{tr} % matrix trace
+
+% category theory
+\def\cat#1{\operatorname{\mathbf{#1}}}
+\def\GMod#1{#1\cat{-Mod}} % G-Modules
+\def\Ab{\cat{Ab}} % Abelian groups
+
+% homological algebra
+\DeclareMathOperator\Ext{Ext}
+\DeclareMathOperator\Ind{Ind}
 
 \endinput

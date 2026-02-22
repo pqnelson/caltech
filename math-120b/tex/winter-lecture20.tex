@@ -1,0 +1,247 @@
+%%
+%% winter-lecture20.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-19T08:54:33-0800
+%% Last update 2026-02-19T08:54:33-0800
+%% 
+
+\lecture[Review of Group Cohomology]{}
+
+\begin{definition}
+For a group $G$, a \define{$G$-Module} consists of an Abelian group
+$(A,+)$ with a group morphism $G\to\Aut(A)$ (and we denote this by
+$G\ActsOn A$).
+
+This $A$ really \emph{is} a module, specifically a module over the
+group ring $\ZZ[G]$.
+\end{definition}
+
+\begin{lemma}\label{lemma:15.1}
+The functor $(-)^{G}\colon\GMod{G}\to\Ab$ (from the Abelian category
+of $G$-modules $\GMod{G}$ to the category of Abelian groups $\Ab$) is
+\emph{Left Exact}, i.e., for any short exact sequence in $\GMod{G}$,
+\begin{subequations}
+\begin{equation}
+0\to A\to B\to C\to 0,
+\end{equation}
+we have the following be an exact sequence in $\Ab$:
+\begin{equation}
+0\to A^{G}\to B^{G}\to C^{G}.
+\end{equation}
+\end{subequations}
+\end{lemma}
+
+\begin{definition}
+We say that an Abelian category \define{has enough injectives} if
+given any object $M$ there exists a monomorphism $0\to M\to I$ where
+$I$ is an injective object.
+
+(This is from Serge Lang's \textit{Algebra} Chapter~XX \S5.)
+\end{definition}
+
+\begin{definition}[First way to define group cohomology]
+Since $\GMod{G}$ has enough injectives, we may consider the
+\define{Right Derived Functor} $H^{n}(G,-):=R^{n}\bigl((-)^{G}\bigr)$
+which is called the \define{$n^{\text{th}}$ Group Cohomology}.
+We can form its long exact sequence
+\begin{equation}
+\vcenter{\xymatrix{
+0\ar[r] & \underbrace{H^{0}(G,A)}_{=A^{G}}\ar[r] & \underbrace{H^{0}(G,B)}_{=B^{G}}\ar[r]&\underbrace{H^{0}(G,C)}_{=C^{G}}\ar[dll]\\
+&H^{1}(G,A)\ar[r] & H^{1}(G,B)\ar[r] & H^{1}(G,C)\ar[dll]\\
+&H^{2}(G,B)\ar[r] & \dots &}}
+\end{equation}
+\end{definition}
+
+\begin{recall}
+Recall
+(e.g., Lang's \textit{Algebra} XX~\S6) that for any $G$-module $M$,
+there is an injective resolution for it
+\begin{equation}
+0\to M\to \underbrace{I_{0}\to I_{1}\to \dots}_{=I_{M}}
+\end{equation}
+But we can observe that $0\to I_{M}$ (i.e., $0\to I_{0}\to I_{1}\to\dots$) forms a complex.
+Then we form the complex
+\begin{equation}
+0\to(I_{0})^{G}\to(I_{1})^{G}\to(I_{2})^{G}\to\dots
+\end{equation}
+and compute its cohomology groups. This defines $R^{n}\bigl((-)^{G}\bigr)$.
+\end{recall}
+
+\begin{definition}[Second way to define group cohomology]
+Let us regard $\ZZ$ as the trivial $\ZZ[G]$-module. Then we have the
+natural isomorphism
+\begin{equation}
+\begin{split}
+&\hom_{\ZZ[G]}(\ZZ,A)\to A^{G}\\
+&\phi\mapsto\phi(1).
+\end{split}
+\end{equation}
+The \define{Ext Functor} is defined as
+\begin{equation}
+\Ext^{n}_{\ZZ[G]}(\ZZ,-):=R^{n}\hom_{\ZZ[G]}(\ZZ,-).
+\end{equation}
+By naturality, we have
+\begin{equation}
+\Ext^{n}_{\ZZ[G]}(\ZZ,-)\iso H^{n}(G,-).
+\end{equation}
+Since
+\begin{equation}
+\Ext^{n}_{\ZZ[G]}(\ZZ,A)=\bigl(\Ext^{n}_{\ZZ[G]}(-,A)\bigr)(\ZZ)=\left(\Ext^{n}_{\ZZ[G]}(-,A)\right)(\ZZ)
+\end{equation}
+we can compute $H^{n}(G,A)$ by the projective resolution of $\ZZ$
+(i.e., independent of $A$).
+\end{definition}
+
+\begin{definition}[Third way to define group cohomology]
+Let $C^{n}(G,A)$ be an Abelian group of maps from $G^{n}$ to
+$A$. [When $n=0$, $C^{0}(G,A)=\hom(\mbox{pt},A)$.] Let us define the
+\define{Boundary Map} $\D_{A}^{n}\colon C^{n}(G,A)\to C^{n+1}(G,A)$ by
+\begin{equation}
+\begin{split}
+  \D_{A}^{n}(f)(g_{0},\dots,g_{n}):=\;&g_{0}f(g_{1},\dots,g_{n})\\
+&  +\sum^{n}_{k=1}(-1)^{k}f(g_{0},\dots,g_{k-2},g_{k-1}g_{k},g_{k+1},\dots,g_{n})\\
+&  +(-1)^{n+1}f(g_{0},\dots,g_{n-1})
+\end{split}
+\end{equation}
+Then we have $\D_{A}^{n+1}\circ\D_{A}^{n}=0$ giving us a chain complex
+(Homework: prove $\D_{A}^{n+1}\circ\D_{A}^{n}=0$).
+
+We can now define the group cohomology by:
+\begin{equation}
+H^{n}(G,A):=\ker(\D_{A}^{n})/\Im(\D_{A}^{n-1}).
+\end{equation}
+This gives us a third way to define the group cohomology.
+\end{definition}
+
+\begin{example}
+Let us compute $H^{n}(G,A)$ for small $n$.
+
+For $n=0$, we see that
+\begin{equation}
+H^{0}(G,A)=\ker(\D_{A}^{0})=\{f(\mbox{pt})=\alpha\in A\mid 0=\D^{0}f(g)=gf(\mbox{pt})-\alpha\}
+\end{equation}
+which are the fixed-points of $A$ under the group action of $G$ on $A$.
+
+For $n=1$, we find
+\begin{equation}
+\ker(\D^{1}_{A})=\{\varphi\colon G\to A\mid \forall g_{1},g_{2}\in G\ldotp\varphi(g_{1}g_{2})=\varphi(g_{1})=g_{1}\varphi(g_{2})\}.
+\end{equation}
+Elements of $\ker(\D^{1}_{A})$ are called \define{Crossed Homomorphisms}.
+We also can find
+\begin{equation}
+\Im(\D^{0}_{A})=\{\varphi\colon G\to A\mid\exists x\in A\ldotp\varphi(g)=gx-x\}.
+\end{equation}
+These are \define{Principal Crossed Homomorphisms}. So
+\begin{equation}
+H^{1}(G,A)=\frac{\ker(\D_{A}^{1})}{\Im(\D_{A}^{0})}=\frac{\mbox{crossed morphisms}}{\mbox{principal crossed morphisms}}.
+\end{equation}
+In particular, if $G\ActsOn A$ is trivial, then $H^{1}(G,A)=\hom(G,A)$
+is just the set of group morphisms from $G$ to $A$.
+\end{example}
+
+\begin{xca}
+Compute $H^{2}(G,A)$.
+\end{xca}
+
+\begin{definition}
+For a (possibly infinite) Galois extension $L/F$, and a
+$\Gal(L/F)$-module $A$, the \define{$n^{\text{th}}$ Galois Cohomology}
+is defined to be
+\begin{equation}
+H^{n}(L/F, A) := H^{n}(\Gal(L/F),A)
+\end{equation}
+the $n^{\text{th}}$ group cohomology of its Galois group.
+\end{definition}
+
+\begin{xca}
+Prove $\displaystyle{H^{n}(L/F,A)=\varprojlim_{E/F\text{ finite Galois}}H^{n}(E/F,A^{\Gal(L/E)})}$.
+\end{xca}
+
+\begin{proposition}[Galois theory version of Hilbert theorem 90]\label{prop:15.2}
+Let $E/F$ be a Galois extension. Then
+\begin{subequations}
+  \begin{align}
+H^{1}(E/F,E)&:=H^{1}(E/F, (E,+))=0\\
+\intertext{and}
+H^{1}(E/F,\MultGroup{E})&=1.
+  \end{align}
+\end{subequations}
+\end{proposition}
+
+This is the ``Galois theory version'' of Hilbert's theorem 90.
+
+\begin{proof}
+We can assume $E/F$ is finite (by homework) and consider the case
+$H^{1}(E/F,(E,+))$---the second case is similar. Let
+$f\in\ker(\D^{1})$, i.e., let $G=\Gal(E/F)$,
+\begin{equation}\label{eq:math120b:lecture20:winter2026:pf:thm90:star}
+\forall\sigma,\tau\in G\ldotp f(\sigma\tau)=f(\sigma)+\sigma f(\tau).
+\end{equation}
+By Lemma~\ref{lemma:7.2},
+\begin{equation}
+\sum_{g\in G}g\neq0,
+\end{equation}
+that is to say, there exists an $\alpha\in E$ such that
+\begin{equation}
+\sum_{g\in G}g(\alpha)\neq0.
+\end{equation}
+Then for
+\begin{equation}
+\beta=\sum_{\sigma\in G}f(\sigma)\sigma(\alpha),
+\end{equation}
+and for all $\tau$, we have
+\begin{subequations}
+  \begin{align}
+\tau^{-1}(\beta) &= \sum_{\sigma\in G}\tau^{-1}f(\sigma)\tau^{-1}\sigma(\alpha)\\
+&=\sum_{g\in G}\tau^{-1}f(\tau g)g(\alpha)\quad\mbox{by $\sigma=\tau g$}\\
+&=\sum_{g\in G}\tau^{-1}\bigl(f(\tau)+\tau f(g)\bigr)g(\alpha)\quad\mbox{by~\eqref{eq:math120b:lecture20:winter2026:pf:thm90:star}}\\
+&=\tau^{-1}f(\tau)\sum_{g\in G}g(\alpha)+\sum_{g\in G}f(g)g(\alpha)\\
+&=\tau^{-1}f(\tau)\sum_{g\in G}g(\alpha)+\beta.
+  \end{align}
+\end{subequations}
+Thus for
+\begin{equation}
+\gamma=\frac{-\beta}{\sum_{g\in G}g(\alpha)},
+\end{equation}
+we have
+\begin{equation}
+f(\tau)=\tau(\gamma)-\gamma;
+\end{equation}
+that is to say, $f\in\Im(\D^{0})$. Hence
+\begin{equation}
+H^{1}(G,E)=0.
+\end{equation}
+Hence the result.
+\end{proof}
+
+We call this the ``Galois theory of Hilbert's theorem 90'', because as
+an immediate consequence:
+
+\begin{corollary}
+If $E/F$ is cyclic and $\sigma$ is a generator of $G=\Gal(E/F)\iso\ZZ/n\ZZ$,
+then $N_{E/F}(\alpha)=1$ if and only if there exists some $\beta\in E$
+such that $\alpha=\sigma(\beta)/\beta$.
+\end{corollary}
+
+\begin{proof}
+\backwardproof\ Obvious.
+
+\forwardproof\ The map,
+\begin{equation}
+f(\sigma^{m}):=\sigma^{m-1}f(\alpha)(\cdots)\sigma(\alpha)\alpha,
+\end{equation}
+is well-defined as a map $f\in C^{1}(G,E)$. [Proof: $f(1)=f(\sigma^{n})=N_{E/F}(\alpha)=1$.]
+Further, $f\in\ker(\D^{1})$. [Proof: exercise.] By
+Proposition~\ref{prop:15.2},
+\begin{equation}
+\ker(\D^{1})=\Im(\D^{0}),
+\end{equation}
+which is to say
+\begin{equation}
+\exists\beta\in E\ldotp\alpha=f(\sigma)=\frac{\sigma(\beta)}{\beta}.
+\end{equation}
+Hence the claim.
+\end{proof}

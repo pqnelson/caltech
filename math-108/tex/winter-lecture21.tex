@@ -1,0 +1,246 @@
+%%
+%% winter-lecture21.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-22T09:24:36-0800
+%% Last update 2026-02-22T09:24:36-0800
+%% 
+
+\lecture[Bounded linear transformations]{}
+
+\begin{definition}
+A \define{Linear Transformation} $T\colon\mathcal{H}\to\mathcal{H}'$
+is a linear map preserving the vector space structure.
+
+A \define{Linear Operator} is a linear transformation whose domain is
+its codomain $T\colon\mathcal{H}\to\mathcal{H}$.
+\end{definition}
+
+\begin{remark}
+For finite-dimensional Hilbert spaces $\mathcal{H}$ and $\mathcal{H}'$,
+linear transformations $T\colon\mathcal{H}\to\mathcal{H}'$ are
+automatically continuous. This is \emph{not} necessarily true for
+infinite-dimensional Hilbert spaces.
+\end{remark}
+
+\begin{example}
+Consider $L^{2}(\RR)$. Then monomials $\{e_{n}:=x^{n}\mid n\in\NN_{0}\}$ is a basis
+for the space. The derivative is a linear operator
+\begin{subequations}
+  \begin{align}
+\frac{\D}{\D x}e_{n+1}&=(n+1)\cdot e_{n}\\
+\intertext{and}
+\frac{\D}{\D x}e_{0}&=0
+  \end{align}
+\end{subequations}
+But as $n\to\infty$, we see
+\begin{equation}
+\lim_{n\to\infty}\frac{\D}{\D x}e_{n}\mbox{ becomes unbounded}.
+\end{equation}
+We need a condition to impose some stability.
+\end{example}
+
+\begin{definition}
+\begin{enumerate}
+\item A linear transformation $T\colon\mathcal{H}\to\mathcal{H}'$ is
+  called \define{Bounded} if there exists a positive constant $M>0$
+  such that for all $f\in\mathcal{H}$ we have
+  $\|T(f)\|_{\mathcal{H}'}\leq M\cdot\|f\|_{\mathcal{H}}$
+\item The \define{Operator Norm} of a [bounded] linear operator $T\colon\mathcal{H}\to\mathcal{H}'$
+  is the non-negative number
+  \begin{equation}
+\|T\|_{\text{op}}=\sup_{\substack{f\in\mathcal{H}\\f\neq0}}\frac{\|T(f)\|_{\mathcal{H}'}}{\|f\|_{\mathcal{H}}}=\sup_{\substack{f\in\mathcal{H}\\\|f\|_{\mathcal{H}}=1}}\|T(f)\|_{\mathcal{H}'}.
+  \end{equation}
+  [Strictly speaking, unbounded linear operators do not have a
+    well-defined operator norm.]
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+When $T\colon\mathcal{H}\to\mathcal{H}'$ is a linear transformation,
+we will write $\|T\|$ instead of $\|T\|_{\text{op}}$ for the operator
+norm when it is clear.
+\end{remark}
+
+\begin{proposition}
+A linear transformation $T\colon\mathcal{H}\to\mathcal{H}'$ is bounded
+if and only if $T$ is continuous.
+\end{proposition}
+
+\begin{proof}
+\forwardproof\ Assume $T$ is bounded. Then for any $f,g\in\mathcal{H}$,
+\begin{subequations}
+  \begin{align}
+\|T(f)-T(g)\|_{\mathcal{H}} &= \|T(f-g)\|_{\mathcal{H}}\quad\mbox{by linearity}\\
+&\leq M\cdot\|f-g\|_{\mathcal{H}}\quad\mbox{by boundedness},
+  \end{align}
+\end{subequations}
+If $f\to g$, then $\|f-g\|\to0$, and so we have $T(f)\to T(g)$.
+
+\backwardproof\ Assume $T$ is continuous. Assume for contradiction
+that $T$ is not bounded. Then for every $n\in\NN$, there exists
+$f_{n}\in\mathcal{H}$ such that
+\begin{equation}
+\|T(f)\|_{\mathcal{H}'}>n\|f_{n}\|_{\mathcal{H}}.
+\end{equation}
+Let us now define
+\begin{equation}
+g_{n}:=\frac{f_{n}}{n\|f_{n}\|_{\mathcal{H}}}.
+\end{equation}
+Then
+\begin{equation}
+\|g_{n}\|=\frac{1}{n}.
+\end{equation}
+Then
+\begin{equation}
+\|T(g_{n})\|=\frac{1}{n\|f_{n}\|}\|T(f_{n})\|>1.
+\end{equation}
+So $\|g_{n}\|\to0$ which means $g_{n}\to0$, but $\|T(g_{n})\|$ does
+not converge, which contradicts continuity. Hence $T$ must be
+considered bounded.
+\end{proof}
+
+\begin{remark}
+I am unhappy with the \backwardproof, and I think a direct proof may
+be given:
+
+Assume $T$ is continuous. Then for $0\in\mathcal{H}$, choose
+$\varepsilon=1$, so there should exist a $\delta_{1}>0$ such that for
+all $g\in\mathcal{H}$ we have $\|g\|<\delta_{1}$ implies $\|T(g)\|<1$.
+Without loss of generality, assume $g\neq0$. Then multiplying through
+by $1/\|g\|$ gives us
+\begin{equation}
+\left\|\frac{T(g)}{\|g\|_{\mathcal{H}}}\right\|_{\mathcal{H}'}<\frac{1}{\|g\|_{\mathcal{H}}}<\frac{1}{\delta_{1}}.
+\end{equation}
+This means for all $g\in\mathcal{H}$, we have:
+\begin{equation}
+\|T(g)\|_{\mathcal{H}'}\leq\frac{1}{\delta_{1}}\|g\|_{\mathcal{H}}.
+\end{equation}
+(We checked the case for $g\neq0$, which satisfies this property by
+continuity; for $g=0$, the condition trivially holds.)
+Hence $T$ must be bounded with $M=1/\delta_{1}$ as one possible
+bounding constant.
+\end{remark}
+
+\begin{remark}
+Boundedness is often a more natural condition than continuity in many
+applications. So in practice, it's easier to check and work with.
+\end{remark}
+
+\begin{definition}
+\begin{enumerate}
+\item A \define{Linear Functional} is just a (linear) map
+  $\ell\colon\mathcal{H}\to\CC$ (or more generally,
+  $\ell\colon\mathcal{H}\to\FF$ when $\mathcal{H}$ is a Hilbert space
+  over $\FF$)
+\item A linear functional $\ell$ is \define{Bounded} if there exists
+  an $M>0$ such that for all $f\in\mathcal{H}$ we have $|\ell(f)|\leq M\cdot\|f\|_{\mathcal{H}}$.
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+The canonical example: fix $g\in\mathcal{H}$, we define
+$\ell\colon\mathcal{H}\to\CC$ by
+\begin{equation}
+\ell(f):=(f,g)_{\mathcal{H}}.
+\end{equation}
+Is it bounded?
+
+Well, if it were, then we would have
+\begin{equation}
+|\ell(f)|=|(f,g)|\leq\|g\|\cdot\|f\|.
+\end{equation}
+Our $M=\|g\|_{\mathcal{H}}>0$ for nonzero $g\neq0$.
+
+Further, its operator norm is bounded
+\begin{equation}
+\|\ell\|_{\text{op}}\leq\|g\|_{\mathcal{H}},
+\end{equation}
+since $f\in\mathcal{H}$ was arbitrary. We can also prove
+\begin{equation}
+\|\ell\|_{\text{op}}\geq\|g\|_{\mathcal{H}}
+\end{equation}
+by taking $f=g$. Hence
+$\|\ell\|_{\text{op}}=\|g\|_{\mathcal{H}}$. This suggests there is
+some kind of duality going on here. We can ask: if I have an arbitrary
+continuous linear functional $\ell$, is there a $g\in\mathcal{H}$ such
+that $\ell(f)=(f,g)$?
+\end{example}
+
+\begin{theorem}[Riesz representation]
+If $\ell$ is a continuous linear functional on $\mathcal{H}$, then
+there exists a unique $g\in\mathcal{H}$ such that for all $f\in\mathcal{H}$,
+$\ell(f)=(f,g)$. Moreover, $\|\ell\|_{\text{op}}=\|g\|_{\mathcal{H}}$.
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item\textsc{Existence:} Define
+\begin{equation}
+N=\{f\in\mathcal{H}\mid\ell(f)=0\}=\ker(\ell).
+\end{equation}
+Since $\ell$ is continuous, $N$ is a closed subspace [Check it: for
+  any sequence $(f_{n})\subset N$ which converges to $f_{n}\to f$,
+  if $\ell(f)=0$, then $f\in N$; hence $N$ is closed.]
+
+\textsc{Subcase 1:} $N=\mathcal{H}$. Then $\ell(f)=0$ is the zero
+map. Choose $g=0$, and the result follows immediately.
+
+\textsc{Subcase 2:} $N\neq\mathcal{H}$. Then $\mathcal{H}=N\oplus N^{\perp}$
+and $N^{\perp}\neq\{0\}$. We can pick an $h\in N^{\perp}$ such that $\|h\|=1$
+and $\ell(h)\neq0$. For any $f\in\mathcal{H}$, pick
+\begin{equation}
+u:=\ell(f)h-\ell(h)f.
+\end{equation}
+Then, by linearity,
+\begin{subequations}
+  \begin{align}
+\ell(u) &= \ell\bigl(\ell(f)h-\ell(h)f\bigr)\\
+&=\ell(f)\ell(h)-\ell(h)\ell(f)\\
+&=0,
+  \end{align}
+\end{subequations}
+so $u\in N$. Then $(u,h)=0$. We see
+\begin{subequations}
+  \begin{align}
+0 &= (u,h) = (\ell(f)h-\ell(h)f,h)\\
+&=\ell(f)(h,h)-\ell(h)(f,h)\quad\mbox{by linearity in first slot}\\
+&=\ell(f)\cdot1-\ell(h)(f,h)\quad\mbox{by }\|h\|^{2}=1.
+  \end{align}
+\end{subequations}
+Then
+\begin{subequations}
+  \begin{align}
+\ell(f) &= \ell(h)(f,h)\\
+&=(f,\overline{\ell(h)}h)
+  \end{align}
+\end{subequations}
+by antilinearity in the second slot. Define
+\begin{equation}
+g:=\overline{\ell(h)}h,
+\end{equation}
+then for all $f\in\mathcal{H}$,
+\begin{equation}
+\ell(f)=(f,g).
+\end{equation}
+Hence existence is proven.
+
+\item\textsc{Uniqueness:} Suppose we have $g_{1}$, $g_{2}$ such that
+  for all $f\in\mathcal{H}$ we have
+\begin{equation}
+\ell(f)=(f,g_{1})=(f,g_{2}).
+\end{equation}
+Then
+\begin{equation}
+0=(f,g_{1})-(f,g_{2})=(f,g_{1}-g_{2}).
+\end{equation}
+But this implies
+\begin{equation}
+0=(g_{1}-g_{2},g_{1}-g_{2})=\|g_{1}-g_{2}\|^{2}.
+\end{equation}
+This implies $g_{1}-g_{2}=0$ by positive-definiteness of the norm (or
+inner product). Hence $g_{1}=g_{2}$, which is uniqueness.
+\end{enumerate}
+\end{proof}
