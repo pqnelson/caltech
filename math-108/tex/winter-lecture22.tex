@@ -1,0 +1,359 @@
+%%
+%% winter-lecture22.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-24T09:25:09-0800
+%% Last update 2026-02-24T09:25:09-0800
+%% 
+
+\lecture{}
+
+% Guest lecture by Ethan Davis
+\begin{recall}
+  The Riesz representation theorem said: For any functional
+  $\varphi\colon\mathcal{H}\to\FF$ which is bounded, there exists a
+  unique $\eta\in\mathcal{H}$ such that $\varphi(\xi)=(\xi,\eta)$ for
+  any $\xi\in\mathcal{H}$. Moreover, $\|\varphi\|=\|\eta\|$.
+\end{recall}
+
+\begin{definition}
+Let $X$ be a vector space over $\FF$.
+A \define{Sesquilinear form} on $X$ is a map $(-,-)\colon X\times X\to\FF$
+such that it is linear in its first slot and conjugate-linear in its
+second slot (so for $\FF=\RR$, it's just a bilinear form).
+\end{definition}
+
+\begin{remark}
+We should think of a sesquilinear form as a generalized inner
+product. We need to choose a basis for it.
+\end{remark}
+
+\begin{definition}
+Let $X$ be a vector space over $\FF$, let $(-,-)$ be a sesquilinear
+form for $X$. We can construct the \define{Adjoint} of the
+sesquilinear form, which is another sesquilinear form $(-,-)^{*}\colon X\times X\to\FF$ defined as
+$(x,y)^{*}=\overline{(y,x)}$ the conjugate of the given sesquilinear
+form with the arguments swapped.
+
+If a sesquilinear form is equal to its adjoint, then we say it is
+\define{Self-Adjoint}. For $\FF=\RR$, this is the same thing as saying
+it is symmetric.
+\end{definition}
+
+\begin{definition}
+For $\FF=\CC$, for a vector space $X$ over $\FF$ with a sesquilinear
+form, we can calculate the quantity
+\begin{equation}
+4\cdot(x,y)=\sum^{3}_{k=0}\I^{k}(x+\I^{k}y,x+\I^{k}y),
+\end{equation}
+which is called the \define{Polarization}.
+\end{definition}
+
+\begin{node}
+The polarization shows the sesquilinear form $(-,-)$ is self-adjoint
+if and only if for all $x\in X$ we have $(x,x)\in\RR$.
+\end{node}
+
+\begin{remark}
+This is a standard trick in measure theory, to calculate things of the
+form
+\begin{equation}
+\sum^{3}_{k=0}\I^{k}\mbox{(something)}.
+\end{equation}
+\end{remark}
+
+\begin{definition}
+We say the sesquilinear form $(-,-)$ is \define{Positive} if for all
+$x\in X$ satisfies $(x,x)\geq0$.
+\end{definition}
+
+\begin{node}
+If $\FF=\CC$, then positive sesquilinear forms are self-adjoint. This
+\emph{is not true} if $\FF=\RR$!
+\end{node}
+
+\begin{definition}
+An \define{Inner Product} on $X$ is a self-adjoint, positive
+sesquilinear form such that
+\begin{enumerate}
+\item\textsc{Definiteness}: for all $x\in X$, if $(x,x)=0$ then $x=0$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+Some older literature call a self-adjoint, positive sesquilinear form
+a \define{Pre-Inner Product}.
+\end{remark}
+
+\begin{node}
+The operator framework does not require a choice of basis. Before von
+Neumann introduced it, everyone worked with sesquilinear forms. It
+requires a choice of basis, making multiplication tedious. But it
+makes the Riesz representation theory quite transparent and explicit.
+\end{node}
+
+\begin{node}
+Suppose $(-,-)$ is a positive, self-adjoint sesquilinear form. We can define
+\begin{equation}
+\begin{split}
+\|-\|\colon&X\to\RR\\
+&x\mapsto\sqrt{(x,x)}.
+\end{split}
+\end{equation}
+By polarization,
+\begin{equation}
+4\cdot(x,y)=\begin{cases}\sum^{3}_{k=0}\I^{k}\|x+\I^{k}y\|^{2} &
+\mbox{if }\FF=\CC\\
+\|x+y\|^{2}-\|x-y\|^{2} & \mbox{if }\FF=\RR
+\end{cases}
+\end{equation}
+Let $\alpha\in\FF$ be a scalar, then
+\begin{equation}
+|\alpha|\cdot\|x\|^{2}+2\Re\alpha(x,y)+\|y\|^{2}=\|\alpha x+y\|^{2}\geq0,
+\end{equation}
+then the Cauchy--Schwarz inequality holds
+\begin{equation}
+|(x,y)|\leq\|x\|\cdot\|y\|.
+\end{equation}
+Then we have $\|-\|$ is a \define{Seminorm} (it's not necessarily definite).
+\end{node}
+
+\begin{node}
+If the sesquilinear form $(-,-)$ is an inner product, then the
+associated seminorm $\|-\|$ is a norm.
+\end{node}
+
+\begin{node}
+If $\langle-,-\rangle$ is an inner product, then we obtain the
+Parallelogram rule
+\begin{equation*}
+\|x+y\|^{2}+\|x-y\|^{2}=2\|x\|^{2}+2\|y\|^{2}.
+\end{equation*}
+\end{node}
+
+\begin{definition}
+If $(x,y)=0$, then we say they are \define{Orthogonal} and denote it
+by $x\perp y$.
+
+Similarly, for subsets, we write $A\perp B$ if and only if for all
+$a\in A$ and for all $b\in B$ we have $a\perp b$.
+
+We might abuse notation and write something like $x\perp A$ to mean:
+for all $a\in A$, we have $x\perp a$.
+\end{definition}
+
+\begin{definition}
+A space $X$ with an inner product $\langle-,-\rangle$ is a
+\define{Pre-Hilbert Space}.
+\end{definition}
+
+\begin{example}
+The space $\FF^{n}$ equipped with the usual inner product
+\begin{equation}
+\langle x,y\rangle = \sum^{n}_{k=1}x_{k}\overline{y_{k}}
+\end{equation}
+is a pre-Hilbert space.
+\end{example}
+
+\begin{example}
+The space $C_{c}(\RR^{n})$ of continuous functions with compact
+support on $\RR^{n}$ with inner product
+\begin{equation}
+\langle f,g\rangle = \int f\overline{g}\,\D\mu
+\end{equation}
+where $\D\mu$ is the usual Lebesgue measure, this is a pre-Hilbert space.
+However, $C_{c}(\RR^{n})$ is \emph{not} complete as a topological space.
+We can take its completion (as a topological space) and obtain $L^{2}(\RR^{n})$.
+
+Remarks:
+\begin{enumerate}
+\item There may be a way to circumvent a lot of measure theory this way.
+\item This example generalizes from $\RR^{n}$ to any Hausdorff space.
+\end{enumerate}
+\end{example}
+
+\begin{example}[External direct sum]
+Let $\{\mathcal{H}_{i}\mid i\in I\}$ be a (possibly infinite) family of Hilbert spaces.
+Then we can form $\sum_{i\in I}\mathcal{H}_{i}$ and form an inner
+product by
+\begin{equation}
+(x,y)=\sum_{i\in I}\langle P_{i}(x),P_{i}(y)\rangle
+\end{equation}
+which just takes the projection of $x$ and $y$ onto each $\mathcal{H}_{i}$,
+calculates the inner product on $\mathcal{H}_{i}$, then adds them all together.
+So we need this to be summable.
+
+The completion of this pre-Hilbert space is written $\bigoplus_{i\in I}\mathcal{H}_{i}$.
+We identify $\mathcal{H}_{i}$ with its copy in the directsum. Viewed
+this way, $\mathcal{H}_{i}\perp\mathcal{H}_{j}$ for all indices $i\neq j$. 
+The elements of the direct sum are $x\in\prod_{i\in I}\mathcal{H}_{i}$
+such that
+\begin{equation}
+\sum_{j\in I}\|P_{j}(x)\|^{2}<\infty
+\end{equation}
+is finite. In particular, this means finitely many summands are nonzero.
+\end{example}
+
+\begin{lemma}
+If $C\neq\emptyset$ is a closed convex subset of $\mathcal{H}$,
+then for all $y\in\mathcal{H}$ there exists a unique $x_{y}\in C$ such
+that $x_{y}$ minimizes the distance from $y$ to $C$.
+\end{lemma}
+
+\begin{theorem}
+For a closed subset $X\subset\mathcal{H}$, write
+\begin{equation}
+X^{\perp}:=\{y\in\mathcal{H}\mid y\perp X\}.
+\end{equation}
+Then every $y\in\mathcal{H}$ has a unique decomposition as
+\begin{equation}
+y = x+x_{\perp}
+\end{equation}
+where $x\in X$ and $x_{\perp}\in X^{\perp}$. Moreover, we can write
+$\mathcal{H}$ as the \emph{internal} direct sum
+\begin{equation}
+\mathcal{H}=X\oplus X^{\perp},
+\end{equation}
+and also $(X^{\perp})^{\perp}=X$.
+\end{theorem}
+
+\begin{corollary}
+If $X\subset\mathcal{H}$ is any \emph{subset} (not necessarily a
+subspace), then the smallest closed subspace containing $X$ is
+$(X^{\perp})^{\perp}$. In particular, if $X$ is a subspace, then its
+completion is $\overline{X}=(X^{\perp})^{\perp}$.
+\end{corollary}
+
+Note that $X^{\perp}=\{y\in\mathcal{H}\mid y\perp X\}$ is a subspace
+by linearity.
+
+\begin{theorem}[Riesz representation]
+The map $\Phi\colon\mathcal{H}\to\mathcal{H}^{*}$ given by sending
+$x\in\mathcal{H}$ to $\Phi(x):=(-,x)$ is a conjugate-linear isometry
+of $\mathcal{H}$ [surjective] onto $\mathcal{H}^{*}$.
+\end{theorem}
+
+\begin{remark}
+This is so important, we should think of the Riesz representation
+theorem as \emph{the} fundamental theorem of Hilbert spaces.
+\end{remark}
+
+\begin{remark}
+Suppose someone wakes you up in the middle of the night and says, ``Quick,
+in three seconds, what is the dual space of $L^{2}(\RR^{n})$?''
+
+Without the Riesz representation, you'd freak out.
+
+With the Riesz representation theorem, it's trivial.
+\end{remark}
+
+\begin{definition}
+Suppose $X$ is a set, and $\{Y_{i}\mid i\in I\}$ is a family of
+topological spaces. Suppose we have for each $i\in I$ a function of
+sets $f_{i}\colon X\to Y_{i}$, then we can construct the
+\define{Initial Topology} for $X$ which is the smallest topology $T_{\text{init}}$ such
+that for all $i\in I$ each $f_{i}\colon(X,T_{\text{init}})\to(Y_{i},T_{Y_{i}})$ is a continuous function
+(in the sense that if there is another topology $T$ on $X$ such that
+for all $i\in I$ each $f_{i}\colon(X,T)\to(Y_{i},T_{Y_{i}})$ is
+continuous, then $T_{\text{init}}\subset T$).
+
+The initial topology is generated by the subbasis $\{f_{i}^{-1}(U)\mid i\in I, U_{i}\subset Y_{i}\mbox{ open}\}$.
+\end{definition}
+
+\begin{definition}
+Let $\mathcal{H}$ be a Hilbert space. We have $\mathcal{H}^{*}$ is the
+dual space consisting of continuous linear functionals. But
+$\mathcal{H}$ may contain more open sets than necessary for each
+$\varphi\in\mathcal{H}^{*}$ to be continuous.
+
+The \define{Weak Topology} on $\mathcal{H}$ is the weakest topology on
+$\mathcal{H}$ keeping every $\varphi\in\mathcal{H}^{*}$ continuous. It
+is generated by all $\varphi^{-1}(U)$ for every open subset
+$U\subset\FF$, as we did for the initial topology. Conceptually, we
+are ``removing'' open sets from the normed topology.
+\end{definition}
+
+\begin{node}
+By Riesz representation theorem, we know each $\varphi$ looks like
+$\xi\mapsto(\xi,\eta)$. So the weak topology is the weakest one making
+$\xi\mapsto(\xi,\eta)$ continuous for all $\eta\in\mathcal{H}$.
+\end{node}
+
+\begin{notation}
+Let $\mathcal{H}$ be a Hilbert space. We write
+$\mathcal{B}(\mathcal{H})$ for the set of bounded linear operators on $\mathcal{H}$.
+\end{notation}
+
+\begin{lemma}\label{lemma:math108b:lecture22:winter2026}
+There exists a bijective isometric correspondence between bounded
+linear operators $\mathcal{B}(\mathcal{H})$ and bounded sesquilinear
+forms on $\mathcal{H}$ given by sending $T\in\mathcal{B}(\mathcal{H})$
+to $B_{T}(x,y)=(x,Ty)$.
+\end{lemma}
+
+\begin{aside}
+The norm of a sesquilinear form is given by
+\begin{equation}
+\|(-,-)\|=\sup\{|(x,y)|\mid x\in\mathcal{H},y\in\mathcal{H},\|x\|\leq1,\|y\|\leq1\}.
+\end{equation}
+\end{aside}
+
+\begin{proof}[{Proof (Lemma~\ref{lemma:math108b:lecture22:winter2026})}]
+\forwardproof\ If $T\in\mathcal{B}(\mathcal{H})$, then $B_{T}$ is sesquilinear.
+
+We claim $B_{T}$ is bounded:
+\begin{subequations}
+  \begin{align}
+\|B_{T}\| &=\sup\{|(x,Ty)|\mid x,y\in\mathcal{H},\|x\|\leq1,\|y\|\leq1\}\\
+&\leq\|T\|_{\text{op}}\mbox{ by Cauchy--Schwarz}
+  \end{align}
+\end{subequations}
+Conversely,
+\begin{subequations}
+  \begin{align}
+\|Tx\|^{2} &= B_{T}(Tx,x)\\
+&\leq\|B_{T}\|\|Tx\|\|x\|\\
+&\leq\|B_{T}\|\|T\|_{\text{op}}\|x\|^{2}.
+  \end{align}
+\end{subequations}
+
+\backwardproof\ If $B$ is a bounded sesquilinear form, then fixing one
+slot $B(-,\eta)$ is a bounded lienar functional. Then by Riesz, there
+exists a unique vector $\mbox{``}T\eta\mbox{''}\in\mathcal{H}$ such
+that
+for all $\xi\in\mathcal{H}$,
+\begin{equation}
+B(\xi,\eta)=(\xi,T\eta).
+\end{equation}
+Then the map $\eta\mapsto T\eta$ is linear and bounded above by $\|B\|$ as a
+sesquilinear form. This linear operator
+\begin{equation}
+T\colon\mathcal{H}\to\mathcal{H}
+\end{equation}
+belongs to $T\in\mathcal{B}(\mathcal{H})$. Then we claim our given
+sesquilinear form coincides with the induced sesquilinear form using
+$T$, i.e., that $B=B_{T}$.
+\end{proof}
+
+\begin{theorem}[Existence of adjoints]
+For every $T\in\mathcal{B}(\mathcal{H})$, there exists a unique
+$T^{*}\in\mathcal{B}(\mathcal{H})$ [called the \define{Adjoint}] such
+that for all $\xi,\eta\in\mathcal{H}$ we have
+\begin{equation}
+\langle T\xi,\eta\rangle=\langle\xi,T\eta\rangle.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Consider the mapping
+\begin{equation}
+\begin{split}
+\mathcal{H}\times\mathcal{H}\to\FF\\
+\xi,\eta\mapsto\langle T\xi,\eta\rangle
+\end{split}
+\end{equation}
+as a bounded sesquilinear form. Then by Lemma~\ref{lemma:math108b:lecture22:winter2026}, there
+exists a unique $T^{*}\in\mathcal{B}(\mathcal{H})$ satisfying the condition.
+\end{proof}

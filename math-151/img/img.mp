@@ -1714,6 +1714,7 @@ beginfig(65)
   drawarrow (-.5u,0.5u)--(-.5u,1.5u);
   label.lft(btex $s$ etex, (-.5u,u));
 endfig;
+
 beginfig(66)
   path p[];
   numeric w; w := 2u;
@@ -1722,6 +1723,29 @@ beginfig(66)
   draw p0;
   draw p1 withpen pencircle scaled 2;
 endfig;
-% 67
+
+%% Lecture 22
+beginfig(67)
+  path F,E,B,gamma;
+  numeric wb,hb,wf,hf,db,df;
+  wb = 8u; hb = 2u; db = 2u;
+
+  wf = 2u; hf = 4u; df = 2u;
+  B = (0,0)--(wb,0)--(wb+db,hb)--(db,hb)--cycle;
+  z1 = (0.5wb,hb+0.25db); % displacement to llft vertex of F
+  F = ((0,0)--(wf,df)--(wf,hf+df)--(0,hf)--cycle) shifted z1;
+  z2 = z1 + (0.5wf,0.5*(hf + df)); % center of gamma
+  gamma = fullcircle yscaled 3u xscaled u shifted z2;
+  z3 = z1 + (wf, hf + df); % upper right vertex of F
+  draw B;
+  draw F;
+  draw gamma;
+  label(btex $\gamma$ etex, z2);
+  label(btex $\bullet b_{0}$ etex, (0.5wb+0.5wf,0.5hb));
+  label.rt(btex $B$ etex, (wb+db,0.5hb));
+  label.rt(btex $p^{-1}(\{b_{0}\})=F\subset E$ etex, z3);
+endfig;
+
+% 68
 
 end;
