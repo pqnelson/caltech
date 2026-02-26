@@ -1,0 +1,304 @@
+%%
+%% winter-lecture23.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-26T09:51:06-0800
+%% Last update 2026-02-26T09:51:06-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+We showed every $T\in\mathcal{B}(\mathcal{H})$ there exists a unique
+$T^{*}\in\mathcal{B}(\mathcal{H})$ such that for all $\xi,\eta\in\mathcal{H}$
+\begin{equation}
+\langle T\xi,\eta\rangle=\langle\xi,T^{*}\eta\rangle.
+\end{equation}
+This gives us a map
+\begin{equation}
+\begin{split}
+\mathcal{B}(\mathcal{H})\to\mathcal{B}(\mathcal{H})\\
+T\mapsto T^{*}
+\end{split}
+\end{equation}
+which is involutive $T^{**}=T$, conjugate-linear $(\lambda T)^{*}=\overline{\lambda}T^{*}$,
+anti-multiplicative $(TS)^{*}=S^{*}T^{*}$, and it is an isometry, and
+it obeys the ``$C*$ identity'':
+\begin{equation}
+\|T^{*}T\|=\|T\|^{2}.
+\end{equation}
+\end{node}
+
+\begin{node}
+If $T\in\mathcal{B}(\mathcal{H})$, then $T^{**}=T$.
+\end{node}
+
+\begin{proof}
+For any $\xi,\eta\in\mathcal{H}$, we have
+\begin{subequations}
+  \begin{align}
+\langle\xi,T^{**}\eta\rangle
+&=\langle T^{*}\xi,\eta\rangle\\
+&=\overline{\langle\eta,T^{*}\xi\rangle}\\
+&=\overline{\langle T\eta,\xi\rangle}\\
+&=\langle\xi,T\eta\rangle.
+  \end{align}
+\end{subequations}
+Hence the claim.
+\end{proof}
+
+\begin{node}
+For any $S,T\in\mathcal{B}(\mathcal{H})$, we have $(ST)^{*}=T^{*}S^{*}$.
+\end{node}
+
+\begin{proof}
+Let $\xi,\eta\in\mathcal{H}$ be arbitrary. Then
+\begin{subequations}
+  \begin{align}
+\langle\xi,(ST)^{*}\eta\rangle
+&=\langle(ST)\xi,\eta\rangle\\
+&=\langle S(T\xi),\eta\rangle\\
+&=\langle T\xi,S^{*}\eta\rangle\\
+&=\langle\xi,T^{*}S^{*}\eta\rangle.
+  \end{align}
+\end{subequations}
+Since $\xi$ and $\eta$ were arbitrary, we must have $(ST)^{*}=T^{*}S^{*}$,
+as desired.
+\end{proof}
+
+\begin{node}[$C*$ norm identity]
+For any $T\in\mathcal{B}(\mathcal{H})$, we have $\|T^{*}T\|=\|T\|^{2}$.
+\end{node}
+
+\begin{proof}
+We know that $\|TS\|\leq\|T\|\cdot\|S\|$, so we have automatically
+$\|T^{*}T\|\leq\|T^{*}\|\cdot\|T\|$. Then for any $\xi\in\mathcal{H}$,
+we have
+\begin{subequations}
+  \begin{align}
+\|T\xi\|_{\mathcal{H}}
+&=\langle T\xi,T\xi\rangle\\
+&=\langle T^{*}T\xi,\xi\rangle\\
+&\leq\|T^{*}T\|_{\text{op}}\|\xi\|_{\mathcal{H}}^{2},
+  \end{align}
+\end{subequations}
+where we used the Chebyshev-inequality to get the last line, since we
+can restrict attention to $\xi$ such that $\|\xi\|\leq1$, this means
+$\|T\|^{2}\leq\|T^{*}T\|$.
+
+We can use the fact $\|T^{*}T\|\leq\|T\|\cdot\|T^{*}\|$ now to get the
+fact that $\|T\|\leq\|T^{*}\|$. Then we use the fact $T^{**}=T$ to
+obtain $\|T^{*}\|\leq\|T^{**}\|=\|T\|$. Hence $\|T^{*}\|=\|T\|$. Then
+it follows immediately that $\|T^{*}T\|\geq\|T\|\cdot\|T^{*}\|$.
+\end{proof}
+
+\begin{proposition}
+For any $T\in\mathcal{B}(\mathcal{H})$, $\ker(T^{*})=(T\mathcal{H})^{\perp}$.
+\end{proposition}
+
+\begin{proof}
+\textsc{Claim 1:} $\ker(T^{*})\subset(T\mathcal{H})^{\perp}$.
+We see for any $\eta\in\ker(T^{*})$ and for any $\xi\in\mathcal{H}$
+we have
+\begin{subequations}
+  \begin{align}
+\langle\eta,T\xi\rangle
+&=\langle T^{*}\eta,\xi\rangle\\
+&=\langle0,\xi\rangle\\
+&=0.
+  \end{align}
+\end{subequations}
+Hence $\eta\in(T\mathcal{H})^{\perp}$.
+
+\textsc{Claim 2}: $\ker(T^{*})\supset(T\mathcal{H})^{\perp}$.
+The same reasoning read backwards.
+\end{proof}
+
+\begin{proposition}
+For $T\in\mathcal{B}(\mathcal{H})$, the following are equivalent:
+\begin{enumerate}
+\item $T$ is invertible
+\item $T^{*}$ is invertible
+\item $T$ is bijective
+\item $T$ and $T^{*}$ are both surjective
+\item $T$ and $T^{*}$ are both injective and the image of $T$ is closed
+\end{enumerate}
+\end{proposition}
+
+\subsection{Types of Operators}
+
+\begin{definition}
+We call $T$ \define{Self-Adjoint} if $T=T^{*}$ (so if $F=\CC$, $T$ is
+self-adjoint iff  for all $\xi\in\mathcal{H}$ we have $\langle T\xi,\xi\rangle\in\RR$).
+\end{definition}
+
+\begin{notation}
+We denote the set of all self-adjoint bounded linear operators on $\mathcal{H}$
+as $\mathcal{B}(\mathcal{H})_{sa}$
+\end{notation}
+
+\begin{definition}
+We say $T\in\mathcal{B}(\mathcal{H})$ is \define{Unitary} if
+$T^{*}T=TT^{*}=\id$. Equivalently, if $T$ is an isometric isomorphism.
+\end{definition}
+
+\begin{notation}
+We denote the set of unitary bounded linear operators on $\mathcal{H}$
+as $\mathcal{U}(\mathcal{H})$ and the intuition is that they are
+analogous to the unit circle in the complex plane $\CC$.
+
+They form a group under multiplication since $(UV)^{*}UV=V^{*}U^{*}UV=\id$
+and $UV(UV)^{*}=\id$ (and multiplication is associative, and the
+identity operator is unitary).
+\end{notation}
+
+\begin{definition}
+We say $T,S\in\mathcal{B}(\mathcal{H})$ are \define{Unitarily Equivalent}
+if there exists a unitary $U\in\mathcal{B}(\mathcal{H})$ such that $U^{*}TU=S$.
+\end{definition}
+
+\begin{definition}
+We say $T\in\mathcal{B}(\mathcal{H})$ is \define{Normal} if it
+commutes with its adjoint $T^{*}T=TT^{*}$.
+
+Equivalently, if for all $\xi\in\mathcal{H}$ we have $\|T\xi\|_{\mathcal{H}}=\|T^{*}\xi\|_{\mathcal{H}}$.
+\end{definition}
+
+\begin{definition}
+An \define{Isometry} $T\in\mathcal{B}(\mathcal{H})$ is such that $TT^{*}=\id$.
+\end{definition}
+
+\begin{example}[Isometry but not unitary]
+Consider $\ell^{2}$ with the standard canonical orthonormal basis 
+$e_{1}=(1,0,0,\dots)$, $e_{2}=(0,1,0,\dots)$, and so on. Now consider
+the linear operator $T\colon\ell^{2}\to\ell^{2}$ such that $T(e_{n})=e_{n+1}$.
+This is not a unitary operator, but it is isometric.
+\end{example}
+
+\begin{xca}
+Determine $T^{*}$ from the previous example.
+\end{xca}
+
+\begin{definition}
+We say $T\in\mathcal{B}(\mathcal{H})$ is \define{Positive} if for all
+$\xi\in\mathcal{H}$ we have $\langle T\xi,\xi\rangle\geq0$ and (if $F=\RR$)
+$T=T^{*}$.
+\end{definition}
+
+\begin{node}
+Let $T\in\mathcal{B}(\mathcal{H})$. Observe the following are equivalent:
+\begin{enumerate}
+\item $T$ is positive
+\item There exists an $S\in\mathcal{B}(\mathcal{H})$ such that $T=S^{*}S$
+\item There exists a self-adjoint $W\in\mathcal{B}(\mathcal{H})_{sa}$
+  such that $T=W^{2}$ (i.e., ``$T$ has a square root'').
+\end{enumerate}
+\end{node}
+
+\begin{node}[Functional calculus]
+We can take advantage of the density of polynomials in the ring of
+continuous real-valued functions to do stuff with operators. Observe
+that if $p(x)\in\RR[x]$ (or $p(z)\in\CC[z]$), and if
+$T\in\mathcal{B}(\mathcal{H})$ is a linear operator, then $p(T)$ is a
+bounded linear operator on $\mathcal{H}$ since it is determined by
+finitely many additions of finitely many scalar multiples of operator products.
+
+If $f\in C_{c}(\RR)$ or $f\in C_{c}(\CC)$ (depending on if $F=\RR$ or
+$F=\CC$, respectively), then we can try the same trick to find a
+bounded linear operator $f(T)\in\mathcal{B}(\mathcal{H})$.
+
+We first need to introduce the notion of the spectrum of a linear
+operator $T$ as
+\begin{equation}
+\sigma(T):=\{\lambda\in\FF\mid\lambda\id-T\mbox{ is not invertible}\}.
+\end{equation}
+We can consider $f\in C_{c}(\sigma(T))$, then $f(T)\in\mathcal{B}(\mathcal{H})$
+makes sense.
+
+For measurable functions $f$, it is tricky to consider $f(T)$. We need
+something like $f\in L^{\infty}$.
+\end{node}
+
+\begin{node}
+Using functional calculus, we can show $T$ is positive implies
+$\sigma(T)\subset[0,\infty)$ and the square root of $T$ then ``make sense''.
+\end{node}
+
+\begin{definition}
+We say $P\in\mathcal{B}(\mathcal{H})$ is a \define{Projection} if
+$P=P^{2}$ it is idempotent, and if it is self-adjoint $P=P^{*}$.
+\end{definition}
+
+\begin{remark}
+Projections among operators are analogous to characteristic functions
+of subsets.
+\end{remark}
+
+\begin{remark}
+Projections are building blocks for all of the theory. Any operator
+can be written as a weighted sum of projections (or an integral of projections).
+\end{remark}
+
+\begin{xca}
+Suppose $T\colon L^{2}([0,1])\to L^{2}([0,1])$ is defined by $(Tf)(t)=tf(t)$.
+\begin{enumerate}
+\item Prove this is a bounded linear operator.
+\item Prove this has no eigenvectors.
+\end{enumerate}
+\end{xca}
+
+\begin{definition}
+An operator $T$ is \define{Finite Rank} if $\dim(\Im(T))<\infty$.
+We denote $\mathcal{B}_{f}(\mathcal{H})$ for the subalgebra of finite
+rank operators.
+\end{definition}
+
+\begin{proposition}
+If $T\in\mathcal{B}_{f}(\mathcal{H})$, then $\mathcal{H}=T\mathcal{H}\oplus\ker(T^{*})$.
+Moreover, $T^{*}\in\mathcal{B}_{f}(\mathcal{H})$.
+\end{proposition}
+
+\begin{proof}
+We see $T^{*}\mathcal{H}=T^{*}T\mathcal{H}\oplus0=T^{*}T\mathcal{H}$.
+Then $T^{*}\in\mathcal{B}_{f}(\mathcal{H})$.
+\end{proof}
+
+\begin{remark}
+The analogy: $\mathcal{B}_{f}(\mathcal{H})\subset\mathcal{B}(\mathcal{H})$
+is kind of like $C_{c}(X)\subset C_{b}(X)$ compact continuous
+real-valued functions of a compact Hausdorff space $X$ as contained in
+the bounded continuous real-valued functions on $X$.
+\end{remark}
+
+\begin{definition}
+Let $B=\{f\in\mathcal{H}\mid \|f\|\leq1\}$ be the unit ball in $\mathcal{H}$.
+  We say $T$ is \define{Compact} if the [topological] closure of the
+  image of the unit ball $\closure{T(B)}$ is compact.
+\end{definition}
+
+\begin{fact}
+We see $T$ is compact if and only if $T\in\closure{\mathcal{B}_{f}(\mathcal{H})}$
+in the normed topology.
+\end{fact}
+
+\begin{notation}
+We write $K(\mathcal{H})$ for the set of all compact operators on $\mathcal{H}$.
+\end{notation}
+
+\begin{fact}
+$K(\mathcal{H})=\closure{\mathcal{B}_{f}(\mathcal{H})}$.
+\end{fact}
+
+\begin{fact}
+If $T\in K(\mathcal{H})$ and $S\in\mathcal{B}(\mathcal{H})$,
+then $ST\in K(\mathcal{H})$.
+\end{fact}
+
+\begin{theorem}[Spectral theorem for compact operators]
+For convenience, let $\mathcal{H}$ be a separable Hilbert space.
+Then if $T\in K(\mathcal{H})$ is compact and self-adjoint, then there
+exists an orthonormal basis $\{e_{i}\}$ of $\mathcal{H}$ such that
+each $e_{i}$ is an eigenvector of $T$.
+\end{theorem}

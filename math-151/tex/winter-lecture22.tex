@@ -52,7 +52,7 @@ introduce $X'_{1}:=X_{1}$ (the primed $X'_{i}$ will be the new
 Postnikov tower we are constructing, and we draw in red the
 corresponding entries used in the mapping path construction):
 \begin{equation}
-\vcenter{\xymatrix{ & {\color{red}X_{2}}\ar[d]\ar[r]^{\homotopic} & {\color{red}X'_{2}\ar[d]^{\text{fibration}}}\\
+\vcenter{\xymatrix{ & {\color{red}X_{2}}\ar[d]\ar@[red][r]^{\homotopic} & {\color{red}X'_{2}\ar@[red][d]^{\text{fibration}}}\\
 X\ar[ur]\ar[r] & X_{1}\ar@{=}[r] & {\color{red}X'_{1}}}}
 \end{equation}
 \end{subequations}
@@ -272,3 +272,10 @@ $\pi_{n}(X_{n},X_{n-1})\iso\pi_{n}(X)$.
 
 \backwardproof\ Long, unenlightening, so we skip it.
 \end{proof}
+
+\begin{remark}
+Hatcher uses the idiosyncratic term \define{Abelian CW Complex} for the situation
+where $\pi_{1}(X)$ acts trivially on $\pi_{n}(X)$ for all $n>1$.
+Others have called such things ``simple'', but there does not seem to
+be any consensus.
+\end{remark}

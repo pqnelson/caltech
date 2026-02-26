@@ -1,0 +1,235 @@
+%%
+%% winter-lecture23.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-26T09:12:44-0800
+%% Last update 2026-02-26T09:12:44-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+A lot of problems in Algebraic Topology can be phrased as:
+\begin{subequations}
+\begin{enumerate}
+\item\textsc{Extension problem}: Given a CW pair $(W,A)$ (in
+  particular, $A\into W$ is a cofibration) and a map $A\to X$, can we
+  extend it to a map $W\to X$? The diagram looks like:
+\begin{equation}
+\vcenter{\xymatrix{A\ar@{^{(}->}[d]\ar[r] & X\\
+W\ar@{..>}[ur] & }}
+\end{equation}
+\item\textsc{Lifting problem}: Given a fibration $X\to Y$ and a map
+  $W\to Y$ can we lift it to $W\to X$?
+\begin{equation}
+\vcenter{\xymatrix{ & X\ar[d]\\
+W\ar@{..>}[ur]\ar[r] & Y}}
+\end{equation}
+\item\textsc{Relative lifting problem}: Given a CW pair $(W,A)$ and a
+  fibration $X\to Y$,
+given a map $W\to Y$ and a ``partial lifting'' $A\to X$, can we extend
+this ``partial lifting'' to a lift $W\to X$?
+\begin{equation}
+\vcenter{\xymatrix{A\ar@{^{(}->}[d]\ar[r] & X\ar[d]\\
+W\ar@{..>}[ur]\ar[r] & Y}}
+\end{equation}
+\end{enumerate}
+Observe the other problems are special cases of the relative lifting
+problem: $A=\emptyset$ recovers the lifting problem, and when $Y$ is a
+singleton $Y=\{y\}$ we recover the extension problem.
+\end{subequations}
+\end{node}
+
+\begin{node}
+Obstruction theory is the procedure to identify a family of chomology
+classes which are obstructions to the lifting/extension problems (in
+the sense that a lift/extension exists if and only if the cohomology
+classes vanish).
+\end{node}
+
+\begin{node}
+We have already seen some preliminary statement in this direction by
+cell-by-cell argument (e.g., in the compression lemma and the
+extension lemma).
+\end{node}
+
+\begin{node}[Goal]
+Get some finer answer using Postnikov tower. Let us consider the
+extension problem. (In general, there is a construction called the
+Moore--Postnikov tower which can be used to run the same argument).
+\end{node}
+
+\begin{node}
+Suppose we consider the extension problem:
+\begin{equation}
+\vcenter{\xymatrix{A\ar@{^{(}->}[d]\ar[r] & X\\
+W\ar@{..>}[ur] & }}
+\end{equation}
+Suppose that $X$ has a Postnikov tower consisting of principal
+fibrations. Then
+we can write it as
+\begin{equation}
+\vcenter{\xymatrix{
+                      &    & \dots\ar[d] & \\
+                      &    & X_{3}\ar[r]\ar[d] & K(\pi_{4}(X),5)\\
+                      &    & X_{2}\ar[r]\ar[d] & K(\pi_{3}(X),4)\\
+A\ar@{^{(}->}[d]\ar[r] & X\ar[ur]\ar[uur]\ar[uuur]\ar[r]  & X_{1}\ar[r] & K(\pi_{2}(X),3)\\
+W\ar@{..>}[ur] & }}
+\end{equation}
+Suppose further that $X$ is a connected CW complex. Then we can extend
+the Postnikov tower one more layer to $X_{0}=\{*\}$ a point
+\begin{equation}
+\vcenter{\xymatrix{
+                      &    & \dots\ar[d] & \\
+                      &    & X_{3}\ar[r]\ar[d] & K(\pi_{4}(X),5)\\
+                      &    & X_{2}\ar[r]\ar[d] & K(\pi_{3}(X),4)\\
+A\ar@{^{(}->}[d]\ar[r] & X\ar[ur]\ar[uur]\ar[uuur]\ar[r]  & X_{1}\ar[r]\ar[d] & K(\pi_{2}(X),3)\\
+W\ar@{..>}[ur] & & X_{0}\ar[r] & K(\pi_{1}(X),2)}}
+\end{equation}
+where we view $X_{1}\to X_{0}\to K(\pi_{1}(X),2)$ as a fibration.
+In the above argument roughly $X$ can be viewed as an \emph{inverse limit}
+of $\varprojlim(\dots\to X_{2}\to X_{1}\to X_{0})$, so the extension
+problem may be viewed as an inductive argument or a recursive construction (where the $X_{0}$ case
+is rather trivial):
+
+Given
+\begin{equation}
+\vcenter{\xymatrix{A\ar@{^{(}->}[d]\ar[r] & X_{n}\ar[d]\\
+W\ar[r]\ar@{..>}[ur] & X_{n-1}}}
+\end{equation}
+can we extend the partial lift $W\to X_{n-1}$ to a lift $W\to X_{n}$?
+\end{node}
+
+\begin{node}
+For the vertical map $X_{n}\to X_{n-1}$, by assumption it is a
+\emph{principal} fibration, i.e., $X_{n}$ is the homotopy fiber of the
+map
+\begin{equation}
+k_{n}\colon X_{n-1}\to K:=K(\pi_{n}(X),n+1).
+\end{equation}
+Recall the construction of homotopy fiber of a fibration
+\begin{equation}
+\vcenter{\xymatrix{\phantom{A} & X_{n}\ar[r]\ar[d] & PK\ar[d]\\
+\phantom{W} & X_{n-1}\ar[r]^{k_{n}} & K}}
+\end{equation}
+The question is whether it can be extended to the red portion of the diagram:
+\begin{equation}
+\vcenter{\xymatrix{{\color{red}A}\ar@[red][r]\ar@[red][d] & X_{n}\ar[r]\ar[d] & PK\ar[d]\\
+{\color{red}W}\ar@[red][r]^{\color{red}f}\ar@[red]@{..>}[ur]^{\color{red}\widetilde{f}} & X_{n-1}\ar[r]^{k_{n}} & K}}
+\end{equation}
+A lift of a map $f\colon W\to X_{n-1}$ would be something like
+\begin{equation}
+\begin{split}
+\widetilde{f}\colon&W\to X_{n}\\
+&w\mapsto(f(w),\gamma_{w}),
+\end{split}
+\end{equation}
+i.e., $\widetilde{f}$ can be viewed as a map
+\begin{equation}
+\begin{split}
+\gamma\colon & W\to PK\\
+& w\mapsto\gamma_{w}
+\end{split}
+\end{equation}
+such that $\gamma_{w}(0)=k_{n-1}(f(w))$ and $\gamma_{w}(b)$ is the
+base point.
+
+But there is another way to view a lifting $\gamma\colon W\to PK$ is
+the same as a homotopy from $k_{n-1}\circ f$ to a constant map
+$\operatorname{const}_{b}$.
+
+We want a null homotopy of the composition
+\begin{equation}
+k_{n-1}\circ f\colon W\to K,
+\end{equation}
+extending the given one in $A$.
+
+One more thing: the map $k_{n-1}\circ f\colon W\to K$ together with a
+null-homotopy to $A$ (this is just the given data) can be viewed as a
+map $W\cup CA\to K$ where, when on $W$ it is just $k_{n-1}\circ f$,
+and when on $CA$ it is just the null-homotopy.
+
+Recall the definition of a fibration $X\to Y$ meaning for any $W\times I\to Y$
+and any partial lift $W\times\{0\}\to X$ there exists a lift $W\times I\to X$
+\emph{of homotopies}.
+
+The map $W\cup CA\to K=K(\pi_{n}(X),n+1)$ gives us an element $\omega_{n}$ in
+\begin{equation}
+H^{n+1}(\underbrace{X\cup CA}_{\homotopic X/A};\pi_{n}(X))\iso H^{n+1}(W,A;\pi_{n}(X)).
+\end{equation}
+\end{node}
+
+\begin{definition}
+The \define{$n^{\text{th}}$ Obstruction Class} $\omega_{n}\in H^{n+1}(W,A;\pi_{n}(X))$
+is defined to be the above element.
+\end{definition}
+
+\begin{lemma}
+A lift $\widetilde{f}_{n}\colon W\to X_{n}$ of $f\colon W\to X_{n-1}$
+extending the given one $A\to X_{n}$ exists if and only if the
+$n^{\text{th}}$ obstruction class vanishes $\omega_{n}=0$.
+\end{lemma}
+
+\begin{proof}
+Such a lifty $\widetilde{f}\colon W\to X_{n}$ exists if and only if
+the map $W\cup CA\to K$ can be extended to a map $CW\to K$. (We want
+to extend the null-homotopy from $CA$ to $CW$.
+
+Then $\omega_{n}=0$ if and only if the map $W\cup CA\to K$ is
+null-homotopic. Therefore it is enough to show: a given map
+\begin{equation}
+g\colon W\cup CA\to K
+\end{equation}
+is null-homotopic if and only if $g$ can be extended to a map
+\begin{equation}
+\widetilde{g}\colon CW\to K.
+\end{equation}
+This is the claim we will prove.
+
+\backwardproof\ Suppose we have an extension $\widetilde{g}\colon CW\to K$.
+Since $CW$ is contractible, there is a null-homotopy from
+$\widetilde{g}$ to $\operatorname{const}_{b}$. Then restricting this
+null-homotopy to $W\cup CA$ gives the desired null-homotopy from $g$
+to $\operatorname{const}_{b}$.
+
+\forwardproof\ Suppose $g_{t}\colon W\cup CA\to K$ is a null-homotopy
+of $g$. That is to say,
+\begin{equation}
+\begin{split}
+g_{1}\colon & W\cup CA\to K\\
+& w\mapsto b,
+\end{split}
+\end{equation}
+and
+\begin{equation}
+g_{0}=g.
+\end{equation}
+Then by the \emph{homotopy extension property} of CW pair $(CW,W\cup CA)$,
+there exists an extension of the homotopy
+\begin{equation}
+\widetilde{g}_{t}\colon W\to K
+\end{equation}
+such  that
+\begin{equation}
+\begin{split}
+\widetilde{g}_{1}\colon & CW\to K\\
+& w\mapsto b
+\end{split}
+\end{equation}
+is the constant map. Then $\widetilde{g}_{0}$ is a map $CW\to K$
+extending $g_{0}=g$.
+\end{proof}
+
+\begin{remark}
+This proof is kind of unsatisfactory, but it's the machinery which
+allows us to translate the problem simply.
+\end{remark}
+
+\begin{corollary}
+If $X$ is a connected CW complex such that $\pi_{1}(X)$ acts trivially
+on $\pi_{n}(X)$ for all $n>1$, and if $(W,A)$ is a CW pair such that
+for all $n$ we have $H^{n+1}(W,A;\pi_{n}(X))=0$, then every map $A\to X$
+can be extended to a map $W\to X$.
+\end{corollary}

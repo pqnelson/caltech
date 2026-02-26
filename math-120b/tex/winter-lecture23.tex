@@ -1,0 +1,265 @@
+%%
+%% winter-lecture23.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-26T08:19:44-0800
+%% Last update 2026-02-26T08:19:44-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $B$ be a commutative ring, let $A\subset B$ be a subring of $B$.
+\begin{enumerate}
+\item We say an element $\alpha\in B$ is \define{Integral} over $A$ if there
+  exists a monic polynomial $P\in A[x]$ such that $P(\alpha)=0$.
+\item We say $B$ is \define{Integral} if every $\alpha\in B$ is
+  integral over $A$.
+\item The \define{Integral Closure} of $A$ over $B$ is the set of all
+  elements of $B$ which are integral over $A$.
+\end{enumerate}
+\end{definition}
+
+\begin{note}
+When $A\subset B$ is a subring of a commutative ring $B$, we have the
+following are equivalent:
+\begin{enumerate}
+\item $\alpha\in B$ is integral
+\item $A[\alpha]$ is a finite $A$-module
+\item There exists a finite $A$-module $C$ such that $A[\alpha]\subset C$
+\end{enumerate}
+\end{note}
+
+\begin{node}
+In particular, if $\alpha,\beta\in B$ are integral over $A\subset B$,
+then so are $\alpha+\beta$ and $\alpha\beta$ both integral over $A$.
+\end{node}
+
+\begin{proof}
+We see $A(\alpha,\beta)$ is a finite $A$-module and both
+$A(\alpha+\beta)\subset A[\alpha,\beta]$ and $A(\alpha\beta)\subset A[\alpha,\beta]$.
+Hence the result.
+\end{proof}
+
+\begin{node}[Intuition]
+We should think of ``integral'' for ring extensions as analogous to
+``algebraic'' for field extensions.
+\end{node}
+
+\begin{definition}
+Let $A$ be an integral domain and $F=\Frac(A)$ its field of fractions.
+We say $A$ is \define{Integrally Closed} if the integral closure of
+$A$ in $F$ is $A$ itself.
+\end{definition}
+
+\begin{proposition}\label{prop:17.1}
+The class of integral extensions is distinguished.
+\end{proposition}
+
+\begin{proof}
+\textsc{Tower property}: We want to prove, given commutative rings
+$A\subset B\subset C$ that $C$ is integral over $A$ if and only if $C$
+is integral over $B$ and $B$ is integral over $A$.
+
+\forwardproof\ Assume $C$ is integral over $A$. Then $C$ is integral
+over $B$, and also $B$ is integral over $A$ (both by definition of integral).
+
+\backwardproof\ Assume $C$ is integral over $B$, and assume $B$ is
+integral over $A$. Let $c\in C$ be integral over $B$. Then there
+exists a monic polynomial
+\begin{equation}
+f(x)=x^{n}+b_{n-1}x^{n-1}+\dots+b_{1}x+b_{0}\in B[x]
+\end{equation}
+such that $f(c)=0$ and the coefficients belong to $b_{i}\in B$. So $c$
+is integral over $A[b_{0},\dots,b_{n-1}]$. But since $B$ is integral
+over $A$, this means $A[b_{0},\dots,b_{n-1}]$ is integral over
+$A$. Therefore $A[c,b_{0},\dots,b_{n-1}]$ is integral over $A$. Hence
+$c$ is integral over $A$.
+
+\textsc{Lifting property}: Let $B$ be integral over $A$, let $R$ be
+any commutative ring containing $A\subset R$ as a subring. We will
+prove $RB$ is integral over $R$. For any arbitrary linear combination
+\begin{equation}
+\sum_{i}r_{i}b_{i}\in RB
+\end{equation}
+where each $b_{i}$ is integral over $A$, then we see that $b_{i}$ is
+integral over $R$. Then $\sum_{i}r_{i}b_{i}\in R[b_{i}]$ is integral
+over $R$. Since the linear combination was arbitrary, this means every
+element of $RB$ is integral over $R$.
+\end{proof}
+
+\begin{corollary}\label{cor:17.2}
+Let $A$ be integrally closed, let $k=\Frac(A)$ its field of fractions,
+and let $L/k$ be an algebraic extension. Let $B$ be the algebraic
+closure of $A$ in $L$. Then $B$ is integrally closed and $L=\Frac(B)$.
+\end{corollary}
+
+\begin{proof}
+We draw the current ``state of affairs'' (solid lines indicate one
+ring is integral over another, dotted lines indicate one ring is a
+subring [possibly integral but not proven] of another):
+\begin{equation}
+\vcenter{\xymatrix{& L\ar@{..}[ddl]\ar@{..}[ddr]\ar@{..}[drr] & & & \\
+  &   &   & \Frac(B)\ar@{-}[dl]\ar@{-}[dr] & \\
+k\ar@{..}[dr] &   & B\ar@{..}[dl]\ar@{..}[rr] &     & C\ar@{..}[dlll] \\
+  & A &   &     & }}
+\end{equation}
+Since $B$ is integral over $A$, then by Proposition~\ref{prop:17.1}
+the integral closure $C$ of $B$ in $\Frac(B)$ is integral over $A$.
+\begin{equation}
+\vcenter{\xymatrix{& L\ar@{..}[ddl]\ar@{..}[ddr]\ar@{..}[drr] & & & \\
+  &   &   & \Frac(B)\ar@{-}[dl]\ar@{-}[dr] & \\
+k\ar@{..}[dr] &   & B\ar@{..}[dl]\ar@{-}[rr] &     & C\ar@{..}[dlll] \\
+  & A &   &     & }}
+\end{equation}
+Since $\Frac(B)\subset L$ and the definition of $B$ shows $B=C$,
+therefore $B$ is integrally closed. Since $L/k$ is algebraic, any
+$\gamma\in L$ has a minimal polynomial
+\begin{equation}
+P(\gamma)=\gamma^{n}+c_{n-1}\gamma^{n-1}+\dots+c_{1}\gamma+c_{0}=0,
+\end{equation}
+where the coefficients $c_{i}\in k$. Then there exists an $a\in A$
+such that
+\begin{equation}
+0=a^{n}P(\gamma)=(a\gamma)^{n}+a^{1}c_{n-1}(a\gamma)^{n-1}+\dots+a^{n-1}c_{1}(a\gamma)+a^{n}c_{0}=\widetilde{P}(a\gamma)
+\end{equation}
+so each coefficient $a^{n-i}c_{i}\in A$ which gives us a monic polynomial
+$\widetilde{P}\in A[x]$. Then $a\gamma$ is integral over $A$ and
+$\gamma\in\Frac(B)$. (Therefore $L=\Frac(B)$.)
+\end{proof}
+
+\begin{definition}
+Let $E/F$ be a separable extension. A \define{Galois Closure} $L$ of
+$E$ is the smallest Galois extension $L/E$.
+\end{definition}
+
+\begin{proposition}\label{prop:17.3}
+Let $A$ be integrally closed and Noetherian. Let $L$ bea finite
+separable extension of $k=\Frac(A)$. Let $B$ be the integral closure
+of $A$ in $L$. Then $B$ is a finite $A$-module.
+\end{proposition}
+
+\begin{proof}
+%Suffices to prove $L/k$ is finite Galois.
+Let $C$ be the integral closure of $A$ (and thus $B$) in the Galois
+closure of $L$. If $C$ is a finite $A$-module, then $B$ is a finite
+$A$-module [Proof: $A$ is Noetherian, then $C$ is a finite Noetherian
+$A$-module, and therefore every submodule of $C$ is finite.]
+Therefore we may assume $L//k$ is finite Galois.
+
+Then by Theorem~\ref{thm:4.5}, there exists an $\alpha\in L$ such that
+$L=k(\alpha)$. By clearing the denominators of the minimal polynomial
+of $\alpha$, we may assume $\alpha$ is integral over $A$ and thus
+$\alpha\in B$.
+
+For $\beta\in B\subset L=k(\alpha)$, we have
+\begin{equation}
+\beta=\sum^{n-1}_{j=0}c_{j}\alpha^{j}
+\end{equation}
+where $c_{j}\in k$ and $n=[L:k]=|\Gal(L/k)|$. We suppose
+\begin{equation}
+\Gal(L/k)=\{\sigma_{1},\dots,\sigma_{n}\}.
+\end{equation}
+By applying $\sigma_{i}\in\Gal(L/k)$ we have
+\begin{equation}
+\sigma_{i}(\beta)=\sum_{j}c_{j}\sigma_{i}(\alpha)^{j},
+\end{equation}
+which is to say
+\begin{equation}
+\underbrace{\begin{pmatrix}
+\sigma_{1}(1) & \sigma_{1}(\alpha) & \dots & \sigma_{1}(\alpha)^{n-1}\\
+\sigma_{2}(1) & \sigma_{2}(\alpha) & \dots & \sigma_{2}(\alpha)^{n-1}\\
+\vdots & \vdots & \ddots & \vdots\\
+\sigma_{n}(1) & \sigma_{n}(\alpha) & \dots & \sigma_{n}(\alpha)^{n-1}
+\end{pmatrix}}_{=(\sigma_{i}(\alpha)^{j})=\text{Vandermonde matrix}}
+\begin{pmatrix}
+c_{1}\\ \vdots\\ c_{n}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\sigma_{1}(\beta)\\ \vdots\\ \sigma_{n}(\beta)
+\end{pmatrix}
+\end{equation}
+Then we multiply both sides by the matrix inverse of the Vandermonde
+matrix to give us
+\begin{subequations}
+  \begin{align}
+c_{k}
+&=\sum_{\ell}(\sigma_{i}(\alpha)^{j})^{-1}_{k,\ell}b_{\ell}\\
+\intertext{then using Cramer's rule, we write the matrix of cofactors
+  as $(\Delta_{i,j})$ to give us:}
+&=\frac{1}{\prod_{1\leq i<j\leq n}(\sigma_{j}(\alpha)-\sigma_{i}(\alpha))}(\Delta_{i,j})\begin{pmatrix}
+\sigma_{1}(\beta)\\ \vdots\\ \sigma_{n}(\beta)
+\end{pmatrix}
+  \end{align}
+\end{subequations}
+Since $\alpha,\beta\in B$ and $B$ is an integral closure of $A$, then
+$\sigma_{i}(\alpha)\in B$ and $\sigma_{i}(\beta)\in B$ for all $i=1,\dots,n$,
+and also the Vandermonde determinant belongs to $B$. Then we have
+\begin{equation}
+\left(\prod(\sigma_{i}(\alpha)-\sigma_{j}(\alpha))\right)c_{k}\in B.
+\end{equation}
+Moreover, if we multiply $c_{k}$ by this product again, we have
+$Dc_{k}\in B$ where
+\begin{equation}
+D=\left(\prod(\sigma_{i}(\alpha)-\sigma_{j}(\alpha))\right)^{2}
+\end{equation}
+is the \define{Discriminant} of the minimal polynomial of $\alpha$
+over $k$, which is contained in $k$. Therefore $D\in k\cap B$.
+Therefore $Dc_{k}\in k\cap B=A$. Then
+\begin{equation}
+D\beta=\sum_{j}c_{j}\alpha^{j}\in A(\alpha),
+\end{equation}
+hence $DB\subset A[\alpha]$. Since $A[\alpha]$ is a finite $k$-module
+and $A$ is Noetherian, then
+\begin{equation}
+\begin{split}
+B\to DB\\
+x\mapsto Dx
+\end{split}
+\end{equation}
+is an isomorphism whose inverse is given by $y\mapsto D^{-1}y$. Then
+$DB$ is also a finite $A$-module. Hence the claim.
+\end{proof}
+
+\begin{proposition}\label{prop:17.4}
+If $A$ is an integral domain and a unique factorization domain, then
+$A$ is integrally closed.
+\end{proposition}
+
+\begin{proof}
+Suppose that we take $r/s\in\Frac(A)$ to be an integral element over
+$A$, and suppose further that $\gcd(r,s)=1$. Then
+\begin{equation}
+(r/s)^{n}+a_{n-1}(r/s)^{n-1}+\dots+a_{0}=0
+\end{equation}
+where each $a_{i}\in A$ for $i=0,\dots,n-1$. Then multiplying by
+$s^{n}$:
+\begin{equation}
+r^{n}+(a_{n-1}s)r^{n-1}+\dots+(a_{1}s^{n-1})r+a_{0}s^{n}=0
+\end{equation}
+For a prime factor $p$ of $s$, we have $p$ divides $(a_{n-1}s)r^{n-1}+\dots+(a_{1}s^{n-1})r+a_{0}s^{n}$
+so therefore $p$ divides $r^{n}$. Therefore $r$ must be divisible by
+$p$. But since $\gcd(r,s)=1$, we must have $(r/s)\in A$.
+\end{proof}
+
+\begin{lemma}\label{lemma:17.5}
+If $B$ is an integral extension over $A$, and if $Q\in\Spec(B)$ is a
+prime ideal which lies above $P\in\Spec(A)$, then
+\begin{enumerate}
+\item $B/Q$ is integral over $A/P$, and
+\item $B_{Q}$ is integral over $A_{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For a representative in $B$ of an element of $B/Q$ taking the minimal
+polynomial (mod $P$) shows the integrality over $A/P$.
+
+For $(b/s)\in B_{Q}$, since $b\in B$ and $s\in Q\subset B$, there
+exists an $n\in\NN$ sufficiently large $n\gg0$ such that $b^{n}\in A$
+and $s^{n}\in A\cap(B\setminus Q)=A\setminus P$, and the claim follows
+(we have a finite module).
+\end{proof}
