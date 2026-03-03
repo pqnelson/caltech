@@ -1,0 +1,318 @@
+%%
+%% winter-lecture25.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-03T08:29:10-0800
+%% Last update 2026-03-03T08:29:10-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $E_{1}$ be a Hermitian vector bundle and $E_{2}\subset E_{1}$ be a
+sub-bundle. We define the \define{Orthogonal Complement} of $E_{2}$ in
+$E_{1}$ to be the sub-bundle $E_{2}^{\perp}$ of $E_{1}$ such that
+\begin{equation*}
+E_{2}^{\perp}=\{(b,w)\in B\times E_{1}\mid w\perp F_{b}(E_{2})\}
+\end{equation*}
+its fibers are orthogonal complements to the fibers of $E_{2}$ in $E_{1}$.
+\end{definition}
+
+(Note: this equation defining the underlying set of $E_{2}^{\perp}$
+might \emph{seem} redundant since conceptually $E_{1}$ ``looks like''
+$B\times F$, but that's misguided intuition. We just need a continuous map
+$p\colon E_{1}\onto B$, it doesn't need to be the projection of a
+Cartesian product.)
+
+\begin{notation}
+We will write $\TrivialBundle{\CC}^{N}\to B$ for the trivial vector bundle over
+some $B$. When $B$ is clear by context, we will just write $\TrivialBundle{\CC}^{N}$.
+\end{notation}
+
+\begin{lemma}
+If $B$ is a compact Hausdorff space, then every complex vector bundle
+over $B$ is a sub-bundle of a trivial $\TrivialBundle{\CC}^{N}$-bundle for some $N\in\NN$.
+\end{lemma}
+
+\begin{proof}[Proof idea]
+Use trivialization charts. By compactness, there are only finitely
+many of them.
+\end{proof}
+
+\begin{lemma}
+For every (complex) vector bundle $E$ over a compact Hausdorff space
+$B$, there exists another (complex) vector bundle $E'$ over $B$ such
+that their Whitney sum is trivial $E\oplus E'=\TrivialBundle{\CC}^{N}$.
+\end{lemma}
+
+\begin{proof}[Proof idea]
+Take the orthogonal complement of $E$ in $\TrivialBundle{\CC}^{N}$ to
+obtain $E'$.
+\end{proof}
+
+\begin{definition}\marginnote{More operations on vector bundles}
+The \define{Wedge Product} of vector bundles $\extp^{k}E$ where the fibers of
+$\extp^{k}E$ are $\extp^{k}F$.
+\end{definition}
+
+\begin{definition}
+If $n=\dim(E)$, then $\extp^{n}E$ is called the \define{Determinant Line Bundle}
+and denoted $\det(E)$.
+\end{definition}
+
+\begin{definition}
+Let $p_{1}\colon E_{1}\to B$ and $p_{2}\colon E_{2}\to B$ be vector bundles. Then
+we define the \define{Tensor Product Bundle} is a vector bundle $E_{1}\otimes E_{2}\to B$
+whose fiber over $b\in B$ is the tensor product of fibers
+$p_{1}^{-1}(\{b\})\otimes p_{2}^{-1}(\{b\})$.
+\end{definition}
+
+\begin{example}
+Let $E\to B$ be a vector bundle, let $\TrivialBundle{\CC}$ be the
+trivial line bundle over $B$. Then $E\otimes\TrivialBundle{\CC}=E$.
+\end{example}
+
+\begin{definition}
+Let $p_{1}\colon E_{1}\to B$ and $p_{2}\colon E_{2}\to B$ be vector bundles. Then
+we define the \define{Hom Bundle} is a vector bundle whose fiber at
+$b\in B$ is the space of linear map of fibers over $b$, i.e., linear maps $p_{1}^{-1}(\{b\})\to p_{2}^{-1}(\{b\})$.
+\end{definition}
+
+\begin{definition}
+Let $E\to B$ be a vector bundle. The \define{Dual Bundle} is defined
+to be $E^{*}=\hom(E,\TrivialBundle{\CC})$.
+\end{definition}
+
+\begin{example}
+As a consistency check, the reader can verify for any vector bundle
+$E\to B$ such that $E\otimes E^{*}$ is isomorphic to the hom bundle $\hom(E,E)$
+\end{example}
+
+\begin{construction}[Clutching construction]
+Given $\xi$ a vector bundle $E\to\sphere{k}$ and a $\CC^{n}$-bundle,
+consider the usual decomposition of the sphere into hemispheres
+$\sphere{k}=\disk{k}_{N}\cup\disk{k}_{N}$. Then $\disk{k}_{N}$ and
+$\disk{k}_{S}$ are contractible, so $\xi|_{\disk{k}_{N}}$ and
+$\xi|_{\disk{k}_{S}}$ are trivial. So there are trivializations
+\begin{subequations}
+  \begin{align}
+\phi_{N}\colon\xi|_{\disk{k}_{N}}\to\disk{k}_{N}\times\CC^{n}\\
+\intertext{and}
+\phi_{S}\colon\xi|_{\disk{k}_{S}}\to\disk{k}_{S}\times\CC^{n}
+  \end{align}
+\end{subequations}
+are bundle morphisms. Then $\xi$ is determined by the transition map
+along the equator
+\begin{equation}
+\begin{split}
+\sphere{k-1}&\to\GL_{n}(\CC)\\
+x&\mapsto(\phi_{N}|_{\{x\}\times\CC^{n}})\circ(\phi_{S}|_{\{x\}\times\CC^{n}})^{-1}
+\end{split}
+\end{equation}
+The commutative diagram to have in mind is
+\begin{equation}
+\vcenter{\xymatrix{&\ar[dl]_{\phi_{S}}\sphere{k-1}\ar[dr]^{\phi_{N}} & \\
+\CC^{n}\ar[rr]^{\phi_{N}\circ\phi_{S}^{-1}} & & \CC^{n}}}
+\end{equation}
+Moreover, $\xi$ is also determined by the homotopy type of this
+transition map. Then we have a bijective correspondence
+\begin{equation}
+\left\{\begin{matrix}\mbox{isomorphism classes}\\
+\mbox{of $\CC^{n}$-bundles over $\sphere{k}$}\end{matrix}\right\}\stackrel{1:1}{\longleftrightarrow}\pi_{k-1}(\GL_{n}(\CC)).
+\end{equation}
+\end{construction}
+
+\begin{node}
+For $\sphere{2}$ we have
+$\Vect^{n}_{\CC}(\sphere{2})\stackrel{1:1}{\longleftrightarrow}\pi_{1}(\GL_{n}(\CC))$.
+
+\textsc{Claim 1}: there exists a deformation retraction $\GL_{n}(\CC)\to\U(n)$
+given by the polarization decomposition $A=DU$ where $D$ is diagonal,
+so $\pi_{1}(\GL_{n}(\CC))\iso\pi_{1}(\U(n))$.
+
+\textsc{Claim 2}: $\pi_{1}(\U(n))\iso\pi_{1}(\U(1))$, and
+$\pi_{1}(\U(1))\iso\pi_{1}(\sphere{1})\iso\ZZ$. Because there is a
+fiber bundle $\U(n-1)\to\U(n)\to\sphere{2n-1}$. There is also a morphism
+\begin{equation}
+\det\colon\U(n)\to\sphere{1},
+\end{equation}
+which gives us an isomorphism
+\begin{equation}
+(\det)_{*}\colon\pi(\U(n))\to\pi(\sphere{1}).
+\end{equation}
+
+Hence there are $\ZZ$-indexed family of vector bundles over $\sphere{2}$.
+\end{node}
+
+\subsection{K-Theory}
+
+\begin{node}
+We can relax the requirement for the vector bundle to be constant rank
+over different connected component. In other words, each connected
+component has a well-defined rank, but there is not necessarily a
+well-defined global rank.
+\end{node}
+
+\begin{node}
+For a given compact Hausdorff space $B$, we want to get an Abelian
+group out of isomorphism classes of vector bundles with addition given
+by the Whitney sum.
+\end{node}
+
+\begin{definition}
+Two vector bundles $E_{1}$, $E_{2}$ over $B$ are said to be
+\define{Stably Isomorphism} denoted $E_{1}\stablyiso E_{2}$ if there
+exists some $n\in\NN$ such that
+\begin{equation*}
+E_{1}\oplus\TrivialBundle{\CC}^{n}\iso E_{2}\oplus\TrivialBundle{\CC}^{n}.
+\end{equation*}
+\end{definition}
+
+\begin{example}
+Consider $B=\sphere{2}$ and $E=T\sphere{2}$ (which is nontrivial). But
+\begin{equation}
+E\oplus\TrivialBundle{\CC}^{1}\iso\TrivialBundle{\CC}^{3}\iso\TrivialBundle{\CC}^{2}\oplus\TrivialBundle{\CC}^{1}.
+\end{equation}
+To see this, $T\sphere{2}\oplus N\sphere{2}\iso T\RR^{3}|_{\sphere{2}}$.
+So $T\sphere{2}\stablyiso\TrivialBundle{\CC}^{2}$.
+\end{example}
+
+\begin{definition}
+For a compact Hausdorff space $B$, we define the \define{(Complex) K-Theory}
+of $B$, denoted $K(B)$, to be the equivalence classes of pairs
+$(E,E')$ of complex vector bundles over $B$ under the equivalence
+relation
+$(X,X')\sim(Y,Y')$ if $X\oplus Y'\stablyiso X'\oplus Y$.
+\end{definition}
+
+\begin{remark}
+Think of $(E,E')$ in $K(B)$ as something like $E-E'$, analogous to how
+we constructed $\ZZ$ from $\NN\times\NN/\sim$ interpreting
+$(a,b)\in\NN\times\NN$ as $a-b$.
+\end{remark}
+
+\begin{remark}
+We can check $\sim$ in the definition of $K(B)$ is actually an
+equivalence relation. Symmetry and reflexivity are
+obvious. Transitivity is a little tricky: if $(X,X')\sim(Y,Y')$ and
+$(Y,Y')\sim(Z,Z')$, then we have $X\oplus Y'\stablyiso X'\oplus Y$ and
+$Y\oplus Z'\stablyiso Y'\oplus Z$. Then adding $Z'$ to the first of
+these equations
+\begin{subequations}
+  \begin{align}
+X\oplus Y'\oplus Z' &\stablyiso Y\oplus X'\oplus Z'\\
+&\stablyiso X'\oplus Y\oplus Z'
+&\stablyiso X'\oplus Z\oplus Y'
+&\stablyiso Z\oplus X'\oplus Y'
+  \end{align}
+\end{subequations}
+and we just want to ``cancel'' $Y'$. Since $B$ is compact Hausdorff,
+there exists $X"$ such that $Y'\oplus Y''\stablyiso\TrivialBundle{C}^{N}$ then
+\begin{subequations}
+  \begin{align}
+X\oplus Y'\oplus Z'\oplus Y''
+&\stablyiso X \oplus Z'\oplus Y'\oplus Y''\\
+&\stablyiso Z\oplus X'\oplus Y'\oplus Y''\\
+&\stablyiso Z\oplus E\oplus\TrivialBundle{\CC}^{N}\\
+&\stablyiso Z\oplus E
+  \end{align}
+\end{subequations}
+but the right-hand side gives us
+\begin{subequations}
+  \begin{align}
+\stablyiso Z\oplus X'\oplus Y'\oplus Y''
+&\stablyiso Z\oplus X'\oplus\TrivialBundle{\CC}^{N}\\
+&\stablyiso Z\oplus X'
+  \end{align}
+\end{subequations}
+and the left-hand side
+\begin{subequations}
+  \begin{align}
+X \oplus Z'\oplus Y'\oplus Y''
+&\stablyiso X\oplus Z'\oplus\TrivialBundle{\CC}^{N}\\
+&\stablyiso X\oplus Z'
+  \end{align}
+\end{subequations}
+and then we have
+\begin{equation}
+X\oplus Z'\stablyiso Z\oplus X'.
+\end{equation}
+Hence $(X,X')\sim(Z,Z')$.
+\end{remark}
+
+\begin{remark}
+We should think of ``stably isomorphic'' as embedding the transition
+group $\U(n)$ into $\U(\infty)$.
+\end{remark}
+
+\begin{remark}
+The $K(B)$ is an Abelian group with addition given by
+\begin{equation}
+(X,X')+(Y,Y')=(X\oplus Y,X'\oplus Y'),
+\end{equation}
+and the identity element ``zero'' is given by the equivalence class
+$(X,X)$ for any vector bundle $X$ over $B$.
+\end{remark}
+
+\begin{remark}
+Every element in $K(B)$ can be represented by an element of the form
+$(X,\TrivialBundle{\CC}^{N})$ for the following reason: Given $(X,X')$
+there exists $X''$ such that $X'\oplus X''\stablyiso\TrivialBundle{\CC}^{N}$,
+then $(X,X')\sim(X\oplus X'',\TrivialBundle{\CC}^{N})$.
+\end{remark}
+
+\begin{remark}
+This $K(B)$ is really a \emph{ring} with multiplication given by the
+tensor product. The analogy guiding us is multiplying integers
+\begin{equation}
+(a-b)(c-d)=(ac+bd)-(bc+ad),
+\end{equation}
+so
+\begin{equation}
+(X,X')\times(Y,Y')=\bigl((X\otimes Y)\oplus(X'\otimes Y'),(X\otimes Y')\oplus(X'\otimes Y)\bigr).
+\end{equation}
+The multiplicative identity ``one'' is given by $(\TrivialBundle{\CC}^{1},0)$.
+\end{remark}
+
+\begin{remark}
+This $K(-)$ is really a contravariant functor. Given $f\colon B\to C$,
+\begin{equation}
+\begin{split}
+f^{*}\colon & K(C)\to K(B)\\
+& (X,Y)\mapsto(f^{*}X,f^{*}Y)
+\end{split}
+\end{equation}
+which sends the pair of vector bundles over $C$ to the pair of
+pullback bundles over $B$.
+\end{remark}
+
+\begin{fact}
+K-Theory is homotopy invariant: if $f,g\colon B\to C$ and $f\homotopic g$,
+then $f^{*}=g^{*}\colon K(C)\to K(B)$.
+\end{fact}
+
+\begin{definition}
+Just as cohomology had a notion of ``reduced cohomology'', K-theory
+has a notion of ``reduced K-theory''. Given a pointed compact
+Hausdorff space $(B,b_{0})$, there is a map
+\begin{equation}
+\begin{split}
+  \Phi\colon&K(B)\to\ZZ\\
+  &(X,Y)\mapsto\dim_{\CC}(p_{X}^{-1}(\{b_{0}\}))-\dim_{\CC}(p_{Y}^{-1}(\{b_{0}\}))
+\end{split}
+\end{equation}
+where $\dim_{\CC}(p_{X}^{-1}(\{b_{0}\}))$ is the dimension of the
+fiber in $X$ over $b_{0}$, and $\dim_{\CC}(p_{Y}^{-1}(\{b_{0}\}))$ is
+the dimension of the fiber in $Y$ over $b_{0}$. Using $\Phi$, we
+define the \define{Reduced K-Theory} of $B$ to be $\widetilde{K}(B):=\ker(\Phi)$.
+\end{definition}
+
+\begin{remark}
+We see $K(B)\iso\widetilde{K}(B)\oplus\ZZ$ where $\ZZ$ is given by the
+difference in rank of the vector bundles. Every element in
+$\widetilde{K}(B)$ can be represented by an element of the form
+$(X,\TrivialBundle{\CC}^{N})$ where $N=\dim_{\CC}(p_{X}^{-1}(\{b_{0}\}))$
+is the dimension of the fiber over the base-point $b_{0}\in B$.
+\end{remark}

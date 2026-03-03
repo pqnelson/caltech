@@ -1,0 +1,204 @@
+%%
+%% winter-lecture25.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-03T09:50:32-0800
+%% Last update 2026-03-03T09:50:32-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+Compact operators are the norm closure of finite-rank oeprators. What
+do they look like in the wild?
+\end{node}
+
+\begin{definition}
+Let $\mathcal{H}=L^{2}(\RR^{d})$.
+\begin{enumerate}
+\item An \define{Integral Operator} is given by
+  \begin{equation*}
+(Tf)(x)=\int_{\RR^{d}}K(x,y)f(y)\,\D y
+  \end{equation*}
+  where $K(x,y)$ is its \define{Kernel}.
+\item If $K\in L^{2}(\RR^{d}\times\RR^{d})$ is the kernel of an
+  integral operator $T$, then we say $T$ is a \define{Hilbert--Schmidt Operator}.
+\end{enumerate}
+\end{definition}
+
+\begin{fact}
+Integral operators on Hilbert spaces are linear.
+\end{fact}
+
+\begin{proposition}
+Hilbert--Schmidt operators are compact.
+\end{proposition}
+
+\begin{proof}
+We will prove it is bounded in order to prove it is compact. Remember,
+bounded is equivalent to continuous (in this setting).
+
+\textsc{Claim 1:} $T$ is bounded. By Fubini, $y\mapsto|K(x,y)|^{2}\in L^{1}$
+for almost every $x$ since
+\begin{equation}
+\iint_{\RR^{d}\times\RR^{d}}|K|^{2}=\int_{\RR^{d}}\underbrace{\left(\int_{\RR^{d}}|K|^{2}\,\D y\right)}_{\text{finite for a.e. }x}\D x
+\end{equation}
+Then by Cauchy-Schwarz,
+\begin{equation}
+|\int K(x,y)f(y)\,\D y|\leq(\int|K|^{2}\,\D
+y)^{1/2}(\int|f(y)|^{2}\,\D y)^{1/2},
+\end{equation}
+then squaring both sides gives us
+\begin{equation}
+\|Tf\|_{L^{2}}^{2}
+\leq\int[\int|K(x,y)|^{2}\,\D y\int|f(y)|^{2}\,\D y]\D x
+=\|K\|_{L^{2}(\RR^{d}\times\RR^{d})}^{2}\|f\|_{L^{2}(\RR^{d})}^{2}.
+\end{equation}
+Then
+\begin{equation}\label{eq:math-108b:winter2026:lecture25:star}
+\|T\|_{L^{2}}\leq\|K\|^{2}.
+\end{equation}
+Hence the operator is bounded.
+
+\textsc{Claim 2:} $T$ is compact. Let $\{\varphi_{k}\}_{k\in\NN}$ be
+an orthonormal basis for $L^{2}(\RR^{d})$. Then
+$\{\varphi_{k}(x)\varphi_{\ell}(y)\}_{k,\ell\in\NN}$ is an orthonormal
+basis for $L^{2}(\RR^{d}\times\RR^{d})$. We can expand $K(x,y)$ out in
+this basis as
+\begin{equation}
+K(x,y)=\sum^{\infty}_{k=1}\sum^{\infty}_{\ell=1}a_{k,\ell}\varphi_{k}(x)\varphi_{\ell}(y),
+\end{equation}
+with
+\begin{equation}
+\sum_{k,\ell}|a_{k,\ell}|^{2}<\infty
+\end{equation}
+since
+\begin{equation}
+\int|K|^{2}=\int|\sum_{k,\ell}a_{k,\ell}\varphi_{k}\varphi_{\ell}|^{2}=\sum_{k,\ell}|a_{k,\ell}|,
+\end{equation}
+and this must be finite. We just need to show $T$ is a limit of
+finite-rank operators. Define
+\begin{equation}
+K_{n}(x,y):=\sum^{n}_{k=1}\sum^{n}_{\ell=1}a_{k,\ell}\varphi_{k}(x)\varphi_{\ell}(y),
+\end{equation}
+and we find
+\begin{equation}
+\|K-K_{n}\|_{L^{2}}^{2}=\sum_{\substack{k\geq n\\\text{or }\ell\geq n}}|a_{k,\ell}|^{2}\xrightarrow{n\to\infty}0.
+\end{equation}
+So then using Equation~\eqref{eq:math-108b:winter2026:lecture25:star},
+\begin{equation}
+\|T-T_{n}\|\leq\|K-K_{n}\|\xrightarrow{n\to\infty}0,
+\end{equation}
+where
+\begin{equation}
+(T_{n}f)(x) = \int_{\RR^{d}}K_{n}(x,y)f(y)\,\D y
+\end{equation}
+is a finite-rank operator. Hence $T$ is the norm limit of a sequence
+of finite-rank operators and $T$ is bounded. This means $T$ is compact.
+\end{proof}
+
+\begin{remark}
+More generally, if we are working on a locally compact Hausdorff space
+$X$ equipped with a positive Borel measure, then we can define a
+notion of a Hilbert--Schmidt integral operator. In this case, if
+$L^{2}(X)$ is separable, and the kernel $K\in L^{2}(X\times X)$, then
+the operator $T\colon L^{2}(X)\to L^{2}(X)$ defined by
+\begin{equation}
+(Tf)(x)=\int_{X}K(x,y)f(y)\,\D y
+\end{equation}
+is compact.
+\end{remark}
+
+\begin{definition}
+We can define the \define{Hilbert--Schmidt Norm} for an integral
+operator $T$ on a Hilbert space $\mathcal{H}=L^{2}(\RR^{d})$ as
+\begin{equation}
+\|T\|_{\text{HS}}:=\|K\|_{L^{2}(\RR^{d}\times\RR^{d})}.
+\end{equation}
+\end{definition}
+
+\begin{remark}
+More generally, if $T$ is any linear operator on a Hilbert space
+$\mathcal{H}$, then we can define its Hilbert--Schmidt norm to be
+\begin{equation}
+\|T\|_{\text{HS}}^{2}:=\sum_{i}\|Te_{i}\|_{\mathcal{H}}^{2}
+\end{equation}
+where $\{e_{i}\}_{i\in I}$ is an orthonormal basis. This need not be a
+countable basis, we only require the sum contains at most countably
+many non-zero terms. This is independent of choice of orthonormal basis.
+
+Also, on a finite-dimensional Hilbert space, this just coincides with
+the Frobenius norm.
+\end{remark}
+
+\begin{fact}
+We have $\|T\|_{\text{op}}\leq\|T\|_{\text{HS}}$.
+\end{fact}
+
+\subsection{Banach Spaces}
+
+\begin{definition}
+A \define{Banach Space} is a complete normed vector space, where
+``complete'' as a metric space with the metric is the induced one $d(x,y):=\|x-y\|$.
+\end{definition}
+
+\begin{node}
+We have two aspects to Banach spaces: they are metric spaces, and they
+are measure spaces.
+
+Metric spaces had nowhere dense (closure has empty interior) and
+meager sets (countable unions of nowhere dense sets) as its ``small sets''.
+Residual (= co-meager) sets were ``large'' for metric spaces.
+
+Measure spaces had null sets be its ``small'' sets. And full measure
+(= co-null) sets were ``large''.
+
+How do these two notions of ``small'' sets interact with Banach
+spaces? Are all meager sets also null? Are all null sets also meager?
+\end{node}
+
+\begin{observation}
+Both null and meager sets are closed under countable unions. Is it too
+much to hope that they ``measure'' the ``same'' kind of smallness?
+\end{observation}
+
+\begin{example}[Open dense trap]
+Let $\{q_{n}\}_{n\in\NN}$ be an enumeration of $\QQ$. Fix
+$\varepsilon>0$. Let
+\begin{equation}
+U_{\varepsilon}=\bigcup_{n=1}^{\infty}(q_{n}-\varepsilon 2^{-n},q_{n}+\varepsilon2^{-n})
+\end{equation}
+be a union of countably many open intervals, each interval has size
+$2\cdot\varepsilon2^{-n}=\varepsilon2^{-n+1}$. We know
+$U_{\varepsilon}$ is dense in $\RR$ since $\QQ\subset U_{\varepsilon}$.
+We also know $U_{\varepsilon}$ is an open set. Its complement
+$U_{\varepsilon}^{\complement}$ is closed and has empty interior, so
+it is nowhere dense.
+
+Calculating the Lebegue measure $m(U_{\varepsilon})$ is part of
+homework 4.
+
+The moral; these two notions of smallness \underline{\emph{do not}} coincide.
+\end{example}
+
+\subsection*{Back to Banach spaces in general\dots}
+
+\begin{fact}
+In an infinite-dimensional Banach space, we cannot define a
+translation-invariant measure on them. But their topology
+survives. The baire category theorem governs those meager and residual sets.
+\end{fact}
+
+\begin{theorem}[Uniform boundedness principle]
+Let $X$ be a Banach space, let $Y$ be a normed vector space, let
+$\{T_{\alpha}\colon X\to Y\}_{\alpha\in A}$ be a family of continuous
+linear operators.
+
+If we have pointwise boundedness ($\forall x\in X\ldotp\sup_{\alpha\in A}\|T_{\alpha}x\|_{Y}<\infty$),
+then we have \define{Uniform Boundedness}, i.e., $\sup_{\alpha\in A}\|T_{\alpha}\|_{\text{op}}<\infty$.
+\end{theorem}
+
+Note the converse is true since
+$\|T_{\alpha}x\|_{Y}\leq\|T_{\alpha}\|_{\text{op}}\|x\|_{X}$. 

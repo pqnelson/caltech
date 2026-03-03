@@ -1,0 +1,283 @@
+%%
+%% winter-lecture24.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-28T08:24:03-0800
+%% Last update 2026-02-28T08:24:03-0800
+%% 
+
+\lecture[K-Theory]{}
+
+\begin{node}
+There is algebraic $K$-theory which is more complicated. We will be
+focusing on topological $K$-theory, which is a generalized cohomology
+theory in the sense that for each space $X$ there is a $K(X)$ such
+that each map $f\colon X\to Y$ between spaces becomes $f^{*}\colon K(Y)\to K(X)$
+(represented by the $\Omega$-spectrum $KU$ [resp., $KO$] for complex
+[resp., real] $K$-theory). We could take $K(X)=[X,KU]$ to be the
+homotopy equivalence classes of maps, but this is not the traditional
+(or a useful) way to think of it.
+
+The original definition: we are studying isomorphism classes of vector
+bundles over the space $X$ and applying an algebraic construction to
+take the ``formal differences'' (to obtain a group). This is analogous
+to constructing the integers $\ZZ$ from the natural numbers $\NN$ as
+an ordered pair of natural numbers $(m,n)$ interpreted as $m-n$.
+\end{node}
+
+\subsection{Vector bundles}
+
+\begin{node}
+We can think ofa vector bundle as a special case of fiber bundles, in
+the sense that all the fibers are \emph{vector spaces}. This is a
+``family'' version of linear algebra, where the family is parametrized
+by the base of the fiber bundle. More formally\dots
+\end{node}
+
+\begin{definition}
+A (Complex) \define{Vector Bundle} $\xi$ over $B$ [assume $B$ is connected]
+consists of the following data:
+\begin{enumerate}
+\item a total space $E$;
+\item a continuous map $p\colon E\to B$ called the \define{Projection Map};
+\item for each $b\in B$, the structure of a vector space over $\CC$ on
+  the fiber $F_{b}=p^{-1}(\{b\})$ (i.e., a scalar multiplication
+  $\CC\times F_{b}\to F_{b}$ and vector addition $F_{b}\times F_{b}\to F_{b}$
+  and a zero vector)
+\end{enumerate}
+such that
+\begin{itemize}
+\item\textsc{Local Triviality Condition}: For each $b\in B$ there
+  exists an open neighborhood $U\subset B$ of $b\in U$ and there
+  exists a homeomorphism $h\colon U\times\CC^{n}\to p^{-1}(U)$
+  suchthat for any $b'\in U$, the map sending
+\begin{equation}
+\begin{split}
+\CC^{n}\to p^{-1}(\{b'\})\\
+x\mapsto h(b',x)
+\end{split}
+\end{equation}
+is a vector space isomorphism (``a linear map''); such a pair $(U,b)$
+is called a \define{Local Chart} (or a \define{Trivialization Chart}).
+\end{itemize}
+Such a vector bundle is called a \define{$\CC^{n}$-bundle}.
+\end{definition}
+
+\begin{remark}
+If we replace $\CC$ by $\RR$, we get the definition of a real vector
+bundle, an $\RR^{n}$-bundle. More generally, we could take any field.
+\end{remark}
+
+\begin{remark}
+There is a slightly different perspective. In the definition, we could
+have an abstract linear structure on each fiber such that the
+trivialization respects this linear structure.
+
+But another way to think of it is you can think of the linear
+structure on each fiber $F_{b}$ is given by local charts. But if we
+have two trivialization charts $U_{\alpha}$ and $U_{\beta}$ which
+intersect on
+\begin{equation}
+U_{\alpha\beta}=U_{\alpha}\cap U_{\beta},
+\end{equation}
+then there is some requirement on the transition map for consistency.
+
+On $U_{\alpha\beta}$ there are two linear structures coming from the
+two trivializations
+\begin{subequations}
+\begin{equation}
+h_{\alpha}|_{U_{\alpha\beta}}\colon U_{\alpha\beta}\times\CC^{n}\to p^{-1}(U_{\alpha\beta})
+\end{equation}
+and
+\begin{equation}
+h_{\beta}|_{U_{\alpha\beta}}\colon U_{\alpha\beta}\times\CC^{n}\to p^{-1}(U_{\alpha\beta}).
+\end{equation}
+\end{subequations}
+These linear structures should be ``compatible'', in the sense: for
+each $b\in U_{\alpha\beta}$, there is a map $\CC^{n}\to\CC^{n}$ via
+composing
+\begin{equation}
+\{b\}\times\CC^{n}\xrightarrow{h_{\beta}}F_{b}\xrightarrow{h_{\alpha}^{-1}}\{b\}\times\CC^{n}
+\end{equation}
+this should be a linear map, moreover it should be a linear
+isomorphism. We define the \define{Transition Map}
+\begin{equation}
+\begin{split}
+\varphi_{\alpha\beta}\colon&U_{\alpha\beta}\to\GL_{n}(\CC)\\
+&b\mapsto h^{-1}_{\alpha}|_{\{b\}\times\CC^{n}}\circ h_{\beta}|_{\{b\}\times\CC^{n}}.
+\end{split}
+\end{equation}
+\end{remark}
+
+\begin{example}
+We have \define{Trivial Vector Bundles} look like $\CC^{n}\times B$
+where $p\colon\CC^{n}\times B\to B$ is just the usual projection map.
+\end{example}
+
+\begin{example}
+The M\"{o}bius strip 
+\begin{equation}
+M:=(I\times I)/((0,t)\sim(1,1-t)).
+\end{equation}
+The projection map $M\to I$ sends $(s,t)\mapsto s$. The fiber is $\RR$
+in this case.
+\end{example}
+
+\begin{definition}
+A \define{Section} of a vector bundle is a continuous map $s\colon B\to E$
+such that $p\circ s=\id_{B}$. A section sends $b\in B$ to $s(b)\in F_{b}$.
+\end{definition}
+
+\begin{remark}
+The \define{Zero Section} is the section which is homeomorphic to the
+base $B$.
+\end{remark}
+
+\begin{lemma}
+A line bundle (i.e., a $\CC^{1}$-bundle) is trivial if and only if it
+admits a nowhere zero section (i.e., a section $s\colon B\to E$ such
+that for each $b\in B$ we have $s(b)\neq \vec{0}_{b}\in F_{b}$).
+\end{lemma}
+
+\begin{proof}
+\forwardproof\ Obvious.
+
+\backwardproof\ The nowhere zero section gives a base vector: for each
+$x\in E$ with $x=(b,x_{b})$ then $x_{b}=\lambda_{b} s(b)$ for some $\lambda_{b}\in\CC$.
+Then we get an isomorphism for
+\begin{equation}
+\begin{split}
+B\times\CC^{1}\to E\\
+(b,\lambda)\mapsto(b,\lambda s_{b})
+\end{split}
+\end{equation}
+with inverse
+\begin{equation}
+\begin{split}
+E\to B\times\CC^{1}\\
+(b,x_{b})\mapsto(b,\lambda_{b}).
+\end{split}
+\end{equation}
+Hence the claim.
+\end{proof}
+
+\begin{lemma}
+A $\CC^{n}$-bundle is trivial if and only if there exists $n$ sections
+$s_{1}$, \dots, $s_{n}$ such that for any $b\in B$ the vectors
+$s_{1}(b)$, \dots, $s_{n}(b)$ are linearly independent in the fiber $F_{b}$.
+\end{lemma}
+
+\begin{proof}
+Same as the $\CC^{1}$ case.
+\end{proof}
+
+\begin{example}[Tangent bundles]
+Given a smooth manifold $M$, then its tangent bundle
+\begin{equation}
+TM=\{(b,v)\in M\times T_{b}M\}
+\end{equation}
+with projection map
+\begin{equation}
+\begin{split}
+p\colon & TM\to M\\
+& (b,v)\mapsto b
+\end{split}
+\end{equation}
+The local charts of $TM$ are given by local charts of $M$.
+\end{example}
+
+\begin{definition}\label{defn:pullback-bundle}
+Given a vector bundle $p\colon E\to B$ and a continuous map $f\colon A\to B$,
+the \define{Pullback Bundle} $p^{*}\colon f^{*}E\to A$ consists of
+\begin{equation}
+f^{*}E=\{(a,x)\in A\times E\mid f(a)=p(x)\}.
+\end{equation}
+Or, diagrammatically,
+\begin{equation}
+\vcenter{\xymatrix{f^{*}E\ar[d]_{p^{*}}\ar[r]\ar@{}[dr]|>{\txt{$\ulcorner$}} & E\ar[d]^{p}\\
+A\ar[r]^{f} & B}}
+\end{equation}
+The local chart of pullback bundle is obtained by pulling back local
+charts $U_{\alpha}$ of $p\colon E\to B$ to $f^{-1}(U_{\alpha})$.
+\end{definition}
+
+\begin{remark}
+Pullbacks are more natural than pushforwards because the dimension of
+the fiber for pullback is constant, but for pushforward this is not
+necessarily the case.
+\end{remark}
+
+\begin{slogan}
+Anything you can do in linear algebra has a vector bundle version.
+\end{slogan}
+
+\begin{recall}
+In linear algebra, we had the Hermitian bilinear form
+\begin{equation}
+\langle-,-\rangle\colon\CC^{n}\times\CC^{n}\to\CC
+\end{equation}
+such that
+\begin{enumerate}
+\item $\langle u,v_{1}+v_{2}\rangle=\langle u,v_{1}\rangle+\langle u,v_{2}\rangle$
+for all $u,v_{1},v_{2}\in\CC^{n}$
+\item it is conjugate-linear in one of the slots $\langle\alpha u,\beta v\rangle=\overline{\alpha}\beta\langle u,v\rangle$
+\item $\langle u,v\rangle=\overline{\langle v,u\rangle}$.
+\end{enumerate}
+We can also define the induced \define{Norm} $\|v\|=+\sqrt{\langle v,v\rangle}$.
+\end{recall}
+
+\begin{definition}
+A \define{Hermitian Bilinear Form} (resp., a norm) on a $\CC^{n}$-bundle is a
+Hermitian bilinear form (resp., a norm) on each fiber which varies continuously as we
+move a long $B$.
+
+A norm is a continuous map $\|-\|\colon E\to\RR$ such that for each
+fiber $F_{b}$ is restriction on $F_{b}$ is a norm.
+\end{definition}
+
+\begin{definition}
+A $\CC^{n}$-bundle with a Hermitian bilinear form is called a
+\define{Hermitian Bundle}.
+\end{definition}
+
+\begin{lemma}
+If the base $B$ of a $\CC^{n}$-bundle is paracompact (or more
+generally, compact and Hausdorff), then there exists a Hermitian
+bilinear form on the bundle.
+\end{lemma}
+
+Without loss of generality, we can assume such things exist for the
+rest of this course.
+
+\begin{node}
+In linear algebra, we had a notion of a ``subspace''. For vector
+bundles, the analogous concept is a ``subbundle''.
+\end{node}
+
+\begin{definition}
+Let $\xi$ and $\eta$ be two vector bundles such that the total space
+of $E(\xi)$ contains $E(\eta)$ as a subspace $E(\xi)\supset E(\eta)$.
+Then we say $\eta$ is a \define{Subbundle} of $\xi$ if for each $b\in B$
+we have $F_{b}(\eta)$ is a subspace of $F_{b}(\xi)$.
+\end{definition}
+
+\begin{node}
+In linear algebra, we have a notion of ``direct sums'' of vector
+spaces. For vector bundles, the counterpart is the ``Whitney sum''.
+\end{node}
+
+\begin{definition}
+Given two vector bundles $\xi_{1}$ with $p_{1}\colon E_{1}\to B_{1}$
+and $\xi_{2}$ with $P_{2}\colon E_{2}\to B_{2}$, the \define{Cartesian Product}
+$\xi_{1}\times\xi_{2}$ is the vector bundle $p_{1}\times p_{2}\colon E_{1}\times E_{2}\to B_{1}\times B_{2}$.
+\end{definition}
+
+\begin{definition}
+Given two vector bundles over the same base space $\xi_{1}$ with
+$p_{1}\colon E_{1}\to B$ and $\xi_{2}$ with $p_{2}\colon E_{2}\to B$,
+we define the \define{Whitney Sum} $\xi_{1}\oplus\xi_{2}$ to be the
+pullback bundle (\S\ref{defn:pullback-bundle}) $\Delta^{*}(\xi_{1}\times\xi_{2})$ where
+$\Delta\colon B\to B\times B$ is the diagonal function sending $b\mapsto(b,b)$.
+\end{definition}

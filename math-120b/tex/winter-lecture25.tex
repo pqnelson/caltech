@@ -1,0 +1,244 @@
+%%
+%% winter-lecture25.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-03T07:47:29-0800
+%% Last update 2026-03-03T07:47:29-0800
+%% 
+
+\lecture{}
+
+\begin{corollary}\label{cor:18.6}
+Let $A$ be a Dedekind domain, $\mathfrak{A}$ be a fractional ideal of
+$A$. Then we can uniquely factorize $\mathfrak{A}=\prod_{i}P_{i}^{e_{i}}$
+as a product of prime ideals $P_{i}\in\Spec(A)$ where $e_{i}\in\ZZ$.
+\end{corollary}
+
+\begin{proof}
+Apply Proposition~\ref{prop:18.5} to $(a)$, $I$ such that $a\mathfrak{A}=I$.
+\end{proof}
+
+\begin{proposition}\label{prop:18.7}
+Let $A$ be a Dedekind domain, let $K=\Frac(A)$, let $L/K$ be a finite
+separable extension, let $B$ be the integral closure of $A$ in
+$L$. Then $B$ is a Dedekind domain.
+\end{proposition}
+
+\begin{proof}
+By Corollary~\ref{cor:17.2} and Proposition~\ref{prop:17.3}, $L=\Frac(B)$
+and $B$ is Noetherian and $B$ is locally closed.
+
+
+Let us now consider the prime ideals $Q_{1}\subset Q_{2}$ of $B$. Then
+\begin{equation}
+Q_{1}\cap A\subset Q_{2}\cap A
+\end{equation}
+and they are both prime ideals in $A$ implies
+\begin{equation}
+Q_{1}\cap A=Q_{2}\cap A=:P.
+\end{equation}
+This follows by the definition of a Dedekind domain (where prime
+ideals are maximal). Now, there are two cases to consider.
+
+\textsc{Case 1}: $P=0$. Then $B_{Q_{i}}$ are integral extensions over
+$A_{P}=(A\setminus P)^{-1}A=K$ by Lemma~\ref{lemma:17.5}, and by
+Lemma~\ref{lemma:17.6} $B_{Q_{i}}$ is a field so $Q_{1}=Q_{2}=0$.
+
+\textsc{Case 2}: $P\neq0$. Then quotienting by $P$ or $PB$ (i.e.,
+$A/P$ and $B/PB$ respectively) gives the same result. Hence $Q_{1}=Q_{2}$.
+\end{proof}
+
+\begin{definition}
+We introduce the idiosyncratic term \define{AKLB Setup} for the setup
+as in Proposition~\ref{prop:18.7}, i.e., we specifically have: Let $A$ be a Dedekind domain, let $K=\Frac(A)$, let $L/K$ be a finite
+separable extension, let $B$ be the integral closure of $A$ in
+$L$. (Note: $L=\Frac(B)$ and $B$ is Noetherian and $B$ is locally
+closed by Corollary~\ref{cor:17.2} and Proposition~\ref{prop:17.3}.)
+
+\textsc{Caution}: the term ``AKLB setup'' is not a standard one found
+in the literature, it is used just for convenience to expedite writing
+may propositions. 
+\end{definition}
+
+\subsection{Splitting of prime ideals}
+
+\begin{convention}
+In this section, $P\in\Spec(A)$ and $Q\in\Spec(B)$ are prime ideals.
+\end{convention}
+
+\begin{node}
+The motivation for this section: for any prime ideal $P\in\Spec(A)$,
+how does $PB$ decompose? This is an interesting question, especially
+in Galois extensions.
+\end{node}
+
+\begin{lemma}\label{lemma:19.1}
+Let $A\subset B$ be an integral extension of integral domains. Then
+for any [proper] ideal $I\properideal A$ (respectively, non-trivial
+ideal $0\neq J\ideal B$), we have $IB\neq B$ (respectively, $J\cap A\neq\{0\}$).
+\end{lemma}
+
+\begin{proof}
+If $IB=B$, then there exists some linear combination
+\begin{equation}
+\sum^{n}_{i=1}a_{i}x_{i}=1
+\end{equation}
+with $a_{i}\in I$ and $x_{i}\in B$. Then the $A$-module $M=A[x_{1},\dots,x_{n}]$
+is a finite $A$-module, and so $IM=M$. By Nakayama's lemmea [``for any
+  ring $R$ and finite $R$-module $M$ and any ideal $I\ideal R$ such
+  that $IM=M$ there exists an $r\in R$ such that $rM=0$ and $r\equiv1\bmod{I}$''']
+there exists $0\neq r\in A$ such that $rM=0$, i.e., $M=0$. This
+contradicts $M=A[x_{1},\dots,x_{n}]$. Hence $IB\neq B$.
+
+For $0\neq x\in J$, there exists $f\in A[x]$ such that $f(x)=0$ but
+$f(0)\neq0$. Then $f(0)\in J\cap A$. Hence the ``respective'' claim.
+\end{proof}
+
+\begin{definition}
+For ideals $I\ideal A$ and $J\ideal A$, we define the predicate
+$J\divides I$ to mean there exists some ideal $K\ideal A$ such that $I=JK$.
+
+
+In particular, for any prime ideal $P\in\Spec(A)$, $P\divides I$ iff
+the prime factorization of $I$ includes $P$ as a factor.
+
+Also $I\divides J$ if and only if $J\subset I$ (check by multiplying
+by $J^{-1}$).
+\end{definition}
+
+\begin{fact}
+In the AKLB setup, the following all holds:
+\begin{enumerate}
+\item For any prime ideal $0\neq P\ideal A$, there exists a prime
+  ideal $Q$ of $B$ such that $Q\divides PB$ (in fact, $B\neq PB\subset Q$).
+\item If $0\neq Q\ideal B$ is a prime, then there exists a prime ideal $0\neq P\ideal A$
+  such that $Q\divides PB$ [Pf: $P=Q\cap A$]
+\item If $PQ\neq0$ and $Q\divides PB$, then $P=Q\cap A$
+  [Pf: By $P\subset Q\cap A\subset A$ and the maximality of $P$.]
+\end{enumerate}
+\end{fact}
+
+\begin{lemma}\label{lemma:19.2}
+In the AKLB setup, for any prime ideal $P\ideal A$ we have
+\begin{equation}
+PB=\prod_{Q\divides PB}Q^{e_{Q}}
+\end{equation}
+where $Q$ runs over the prime ideals of $B$ such that $Q\cap A=P$,
+and $e_{Q}\in\NN$ are positive integers. We call these $e_{Q}$ the
+\define{Ramification Index} of $Q$ and write
+\begin{equation}
+f_{Q};=[B/Q : A/P]
+\end{equation}
+for the degree of the field extension----we call $f_{Q}$ the
+\define{Residue} (or \define{Inertia Degree}) of this extension.
+\end{lemma}
+
+\begin{proof}
+By Proposition~\ref{prop:18.7}, $B$ is Dedekind, so $PB$ has a prime
+factorization by Proposition~\ref{prop:18.5}. If $Q$ appears in $PB$,
+then
+\begin{equation}
+Q\cap A\supset PB\cap A=P,
+\end{equation}
+and so
+\begin{equation}
+Q\cap A=P
+\end{equation}
+(since $A$ is Dedekind, $P\in\Spec(A)$, and prime ideals of $A$ are maximal).
+
+On the other hand, $Q\cap A=P$ if and only if $Q=PB$.
+\end{proof}
+
+\begin{definition}
+If $e_{Q}=1$ and $(B/Q)/(A/P)$ is a separable field extension, then we
+say $Q$ is \define{Unramified}. Otherwise, we say $Q$ is \define{Ramified}.
+\end{definition}
+
+\begin{definition}
+If every $Q\divides PB$ is unramified, then we say $P$ is
+\define{Unramified}. Otherwise we say $P$ is \define{Ramified}.
+\end{definition}
+
+\begin{lemma}\label{lemma:19.3}
+In the AKLB setup, for any nontrivial prime ideal $0\neq
+P\in\Spec(A)$,
+\begin{equation*}
+\dim_{A/P}(B/PB)=[L:K].
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+Let $\overline{\omega}_{1}$, \dots, $\overline{\omega}_{n}$ be some
+basis for $B/PB$ as a vector space over $A/P$ and let
+$\{\omega_{i}\}\subset B$ be a set of representatives for the
+equivalence classes $\{\overline{\omega}_{i}\}$. We will show that the
+$\{\omega_{i}\}$ forms a basis of $L$ over $K$.
+
+\textsc{Claim 1}: the $\{\omega_{i}\}$ are linearly independent.
+Suppose
+\begin{equation}
+\sum_{i}a_{i}\omega_{i}=0
+\end{equation}
+for some $a_{i}\in K$. Denote $\mathfrak{A}\subset K$ the fractional
+ideal enerated by these coefficients $\{a_{i}\}$. Then for any
+$\alpha\in\mathfrak{A}^{-1}\setminus\mathfrak{A}^{-1}P\neq\emptyset$,
+we have $\alpha a_{i}\in A$ for each $i$, but there exists some $i$
+such that $\alpha a_{i}\not\equiv0\bmod{P}$. Then
+\begin{subequations}
+  \begin{align}
+0 &= \alpha\sum_{i}a_{i}\omega_{i}\\
+&=\sum_{i}\underbrace{\alpha a_{i}}_{\neq0}\omega_{i}
+  \end{align}
+\end{subequations}
+which implies
+\begin{equation}
+0 = \sum_{i}\alpha a_{i}\overline{\omega}_{i}
+\end{equation}
+which is a contradiction since $\overline{\omega}_{i}$ is a
+basis. Hence the $\omega_{i}$ are linearly independent.
+
+\textsc{Claim 2}: the $\{\omega_{i}\}$ generate $L$. Let
+\begin{equation}
+M=\sum_{i}A\omega_{i}\subset B,
+\end{equation}
+let $N=B/M$. Since $B$ is a finite $A$-module, then $N$ isa finite
+$A$-module, and
+\begin{subequations}
+  \begin{align}
+N &= B/M\\
+&=(M+PB)/M\\
+&=P(B/M)\\
+&=PN,
+  \end{align}
+\end{subequations}
+so we can use Nakayama's lemma: there exists a nonzero $0\neq a\in A$
+such that $aN=0$---i.e., $aB\subset M$ since $B\subset
+a^{-1}M$. Therefore $L=KB$ by the same discussion as in
+Lemma~\ref{lemma:17.6}, and
+\begin{subequations}
+  \begin{align}
+    L &= KB\\
+    &= K/M\\
+    &=\sum_{i}K\omega_{i}.
+  \end{align}
+\end{subequations}
+Hence $\{\omega_{i}\}$ forms a basis.
+\end{proof}
+
+% lecture 25
+\begin{lemma}\label{lemma:19.4}
+In the AKLB setup, for any $0\neq Q\in\Spec(B)$ and $P=Q\cap A$, we
+have
+\begin{equation*}
+\dim_{A/P}(B/Q^{e_{Q}})=e_{Q}f_{Q}.
+\end{equation*}
+\end{lemma}
+
+\begin{corollary}\label{cor:19.5}
+In the same setup as Lemma~\ref{lemma:19.4}, we have
+\begin{equation*}
+\sum_{Q\divides PB}e_{Q}f_{Q}=[L:K].
+\end{equation*}
+\end{corollary}

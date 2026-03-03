@@ -1,0 +1,254 @@
+%%
+%% winter-lecture24.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-02-28T07:49:02-0800
+%% Last update 2026-02-28T07:49:02-0800
+%% 
+
+\lecture{}
+
+\begin{lemma}\label{lemma:17.6}
+If $A$ is an integral domain and $B$ is an integral extension of $A$,
+then $A$ is a field if and only if $B$ is a field.
+\end{lemma}
+
+\begin{proof}
+\forwardproof\ Assume $A$ is a field. Every $\alpha\in B$ is
+integral over $A$ (since $B$ is an integral extension of $A$). So then
+there is a monic polynomial for which $\alpha$ is a root
+\begin{equation}
+\alpha^{n}+a_{n-1}\alpha^{n-1}+\dots+a_{0}=0
+\end{equation}
+with the coefficients $a_{i}\in A$. Then
+\begin{equation}
+\alpha(\alpha^{n-1}+\dots+a_{1})=-a_{0},
+\end{equation}
+so
+\begin{equation}
+\alpha^{-1}=\frac{-1}{a_{0}}(\alpha^{n-1}+\dots+a_{1})\in A.
+\end{equation}
+Hence $\alpha^{-1}\in B$, so $B$ must be a field.
+
+\backwardproof\ Assume now that $B$ is a field. Let $\alpha\in A$
+be arbitrary. We will prove $\alpha^{-1}\in A$. By similar reasoning,
+we see $\alpha^{-1}\in B$ is algebraic over $A$, so then there is a
+monic polynomial $P\in A[x]$ for which $P(\alpha^{-1})=0$. Similar
+reasoning as before gives us $\alpha^{-1}\in A$.
+\end{proof}
+
+\begin{corollary}\label{cor:17.7}
+Let $A$ be an integral domain and let $B$ be an integral extension of $A$.
+If $P\in\Spec(A)$ is a prime ideal of $A$ and if $Q\in\Spec(B)$ is a
+prime ideal of $B$ lying over $P$ (i.e., $Q\cap A=P$), then $P$ is
+maximal if and only if $Q$ is maximal.
+\end{corollary}
+
+\begin{proof}
+Apply lemmas~\ref{lemma:17.5}, \ref{lemma:17.6} to $A_{P}$ and $B_{Q}$.
+\end{proof}
+
+\subsection{Dedekind Domains}
+
+\begin{convention}
+In this section discussing Dedekind domains, we will always have $A$
+be an integral domain, and $K=\Frac(A)$ its field of fractions.
+\end{convention}
+
+\begin{definition}
+We say $A$ is a \define{Dedekind Domain} if it is Noetherian,
+integrally closed, and every prime ideal is maximal.
+\end{definition}
+
+\begin{definition}
+A nonzero $A$-module $\mathfrak{A}\subset K$ is called a
+\define{Fractional Ideal} of $A$ if there exists an $a\in A$ such that
+$a\mathfrak{A}\subset A$ (in particular, $a\mathfrak{A}$ is an ideal
+of $A$).
+\end{definition}
+
+\begin{lemma}\label{lemma:18.1}
+Every finite $A$-submodule $\mathfrak{A}$ of $K$ is a fractional ideal
+of $A$.
+
+If $A$ is Noetherian, then the converse also holds.
+\end{lemma}
+
+\begin{proof}
+Since $\mathfrak{A}$ is a finite $A$-module, it has a finite basis
+$\{\alpha_{1},\dots,\alpha_{n}\}\subset K$. By clearing the
+denominators of $\alpha_{i}$, there exists an $a\in A$ [namely, the
+  product of all the denominators of the $\alpha_{i}$] such that
+$a\mathfrak{A}\subset A$. Hence $\mathfrak{A}$ is a fractional ideal
+of $A$.
+
+Assume $A$ is Noetherian, assume $\mathfrak{A}$ is a fractional ideal
+of $A$. Then, for some $a\in A$,
+\begin{equation}
+I:=a\mathfrak{A}
+\end{equation}
+is a finitely-generated ideal of $A$. Then $\mathcal{A}=a^{-1}I$ is a
+finite $A$-submodule of $K$.
+\end{proof}
+
+\begin{lemma}\label{lemma:18.2}
+For a Noetherian integral domain $A$ and a nonzero ideal $I\ideal A$,
+there exists prime ideals $P_{1}$, \dots, $P_{n}$ such that their
+product $P_{1}(\dots)P_{n}\subset I$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{I}$ be the set of ideals of $A$ for which the claim does
+not hold. Assume for contradiction $\mathcal{I}\neq\emptyset$.
+Since $A$ is Noetherian, there exists a maximal element in
+$\mathcal{I}$. Let us call such a maximal element
+$I\in\mathcal{I}$. Then $I$ cannot be prime. Then there exists $x,y\in A\setminus I$
+such that $xy\in I$. Since $I$ is maximal in $\mathcal{I}$, we must
+have $I+(x)\notin\mathcal{I}$ and similarly $I+(y)\notin\mathcal{I}$
+otherwise $I$ would not be maximal in $\mathcal{I}$ (we would have a
+bigger ideal, namely $I+(x)$ or $I+(y)$).
+So these ideals must satisfy the claim. Then
+\begin{equation}
+(I+(x))(I+(y))\in\mathcal{I},
+\end{equation}
+since $(I+(x))(I+(y))=I+(x)I+(y)I+(x)(y)=I+(xy)\supset P_{1}\dots P_{n}$ 
+which is a contradiction (since $I+(x)\supset P_{1}\dots P_{n}$ and
+$I+(y)\supset P_{1}\dots P_{n}$ and so $I\supset P_{1}\dots P_{n}$
+which contradicts $I\nsupset P_{1}\dots P_{n}$). Hence $\mathcal{I}=\emptyset$.
+\end{proof}
+
+\begin{lemma}\label{lemma:18.3}
+For a Dedekind domain $A$ and a nonzero prime ideal $P\in\Spec(A)$,
+there exists a nonzero element $x\in K\setminus A$ such that
+$xP\subset A$.
+\end{lemma}
+
+\begin{proof}
+For $0\neq a\in P$, by Lemma~\ref{lemma:18.2} there exists prime
+ideals $P_{1},\dots,P_{n}\in\Spec(A)$ such that
+\begin{equation}
+P_{1}\dots P_{n}\subset(a)\subset P.
+\end{equation}
+Assume that $n$ is taken to be minimal (i.e., any $n-1$ such ideals
+fail to satisfy the condition). Since $P$ is prime, by reindexing, we
+have $P_{n}\subset P$. Then by definition of a Dedekind domain, all
+prime ideals are maximal, so
+\begin{equation}
+P_{n}=P.
+\end{equation}
+By minimality of $n$,
+\begin{equation}
+P_{1}(\dots)P_{n-1}\nsubset P
+\end{equation}
+So there exists a
+\begin{equation}
+b\in P_{1}\dots P_{n-1}
+\end{equation}
+such that $b\notin(a)$. Then
+\begin{equation}
+x=\frac{b}{a}\notin A.
+\end{equation}
+Then
+\begin{subequations}
+  \begin{align}
+xP &= a^{-1}bP_{n}\\
+&\subset a^{-1}P_{1}(\dots)P_{n-1}P_{n}\\
+&\subset a^{-1}(a) = A,
+  \end{align}
+\end{subequations}
+as desired.
+\end{proof}
+
+\begin{proposition}\label{prop:18.4}
+Suppose $A$ is a Dedekind domain, suppose $\mathfrak{A}$ is a
+fractional ideal of $A$. Then there exists another fractional ideal
+denoted $\mathfrak{A}^{-1}$ such that $\mathfrak{A}\mathfrak{A}^{-1}=A$.
+\end{proposition}
+
+This means the fractional ideals of $A$ form a group when $A$ is a
+Dedekind domain. (Also note: by Lemma~\ref{lemma:18.3},
+$A\propersubset P^{-1}$ for any prime ideal $P$ of $A$.)
+
+\begin{proof}
+Let
+\begin{equation}
+\mathfrak{A}=\frac{1}{a}I
+\end{equation}
+for some $a\in A$ and ideal $I\ideal A$. We will show
+\begin{equation}
+I^{-1}:=\{x\in K\mid xI\subset A\}
+\end{equation}
+(and by the previous Lemma, $I^{-1}\neq0$), and $I^{-1}$ satisfies the
+claim---i.e., if we take $\mathfrak{A}^{-1}=aI^{-1}$. Without loss of
+generality, we may take $a=1$. We see $I^{-1}$ is a fractional field
+of $I$ [Pf: it is an $A$-submodule of $K$ and $bI^{-1}\subset A$ for
+  any $b\in I$, so it must be a fractional ideal of $A$.]
+
+Assume for contradiction $II^{-1}\propersubset A$. Then the ideal
+$II^{-1}$ is some maximal ideal $P$ of $A$. Then by
+Lemma~\ref{lemma:18.3}, there exists $x\in K\setminus A$ such that
+$xII^{-1}\subset xP\subset A$. But $xII^{-1}=(xI^{-1})I$ and
+$xI^{-1}\subset I^{-1}$. (For any $y\in xI^{-1}$, we have $yI\subset A$,
+so $y\in I^{-1}$.) By Lemma~\ref{lemma:18.1}, $I^{-1}$ isa finite
+$A$-submodule of $K$. Then we see $I^{-1}$ has a finite $A$-basis
+$\{\alpha_{i}\}$ over $A$. Since $xI^{-1}\subset I^{-1}$, we have
+\begin{equation}\label{eq:math120b:lec24:winter2026:char-poly}
+x\alpha_{i}=\sum_{j}a_{ij}\alpha_{j}
+\end{equation}
+for all $i$. This means $x$ satisfies the characteristic polynomial
+[Equation~\eqref{eq:math120b:lec24:winter2026:char-poly}] (over $A$),
+i.e., $x$ is integral over $A$. But since $A$ is a Dedekind domain
+(viz., $A$ is integrally closed) and $x\in K\setminus A$ we get a
+contradiction. Therefore $II^{-1}=A$, hence the claim.
+\end{proof}
+
+\begin{proposition}\label{prop:18.5}
+Let $A$ be a Dedekind domain, let $I\ideal A$ be an ideal of $A$.
+Then there exists prime ideals $P_{1}$, \dots, $P_{n}$ of $A$ and
+positive integers $e_{1}$, \dots, $e_{n}$ such that
+\begin{equation}
+I=P_{1}^{e_{1}}(\cdots)P_{n}^{e_{n}}
+\end{equation}
+and moreover these must be unique.
+\end{proposition}
+
+\begin{proof}
+\textsc{Claim 1: Existence}.
+Suppose that $\mathcal{I}$ is the set of ideals of $A$ with no such
+prime factorization. Assume for contradiction $\mathcal{I}\neq\emptyset$.
+By the same discussion as in the last proposition, we have
+a maximal element $I\in\mathcal{I}$. We have $I\propersubset IP^{-1}\subset A$
+where $P\ideal A$ is a maximal ideal containing $I\propersubset P$.
+Then $IP^{-1}$ has a prime factorization (since $I\in\mathcal{I}$ is
+maximal and $I\propersubset IP^{-1}$, so $IP^{-1}\notin\mathcal{I}$),
+and so
+\begin{subequations}
+  \begin{align}
+I &= (IP^{-1})P\\
+&=(P_{1}^{e_{1}}(\cdots)P_{n}^{e_{n}})P
+  \end{align}
+\end{subequations}
+is such a prime factorization. Hence contradiction.
+
+\textsc{Claim 2: Uniqueness}. Suppose
+\begin{equation}
+I=P_{1}(\cdots)P_{m}=Q_{1}(\cdots)Q_{n}
+\end{equation}
+are two such prime factorizations. Then
+\begin{equation}
+Q_{1}(\cdots)Q_{n}=I\subset P_{1},
+\end{equation}
+so by possibly reindexing the $Q_{i}$'s we have
+\begin{equation}
+Q_{1}\subset P_{1}.
+\end{equation}
+But since prime ideals are maximal ideals in a Dedekind domain, we
+must have
+\begin{equation}
+Q_{1}=P_{1}.
+\end{equation}
+Then by applying the same argument inductively, we can reindex to find
+$m=n$ and also $Q_{2}=P_{2}$, \dots, $Q_{m}=P_{n}$.
+\end{proof}

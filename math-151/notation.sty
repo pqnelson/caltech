@@ -117,4 +117,34 @@
 % Exterior algebra
 \let\ExteriorAlgebra\bigwedge % TODO: make this look prettier
 
+
+% groups
+\DeclareMathOperator\GL{GL}
+\DeclareMathOperator\U{U}
+
+% fiber bundles
+\newcommand\TrivialBundle[1]{\underline{#1}}
+
+\DeclareMathOperator\Vect{Vect}
+
+\newcommand\stablyiso{\mathrel{\approx_{s}}}
+
+% exterior product
+% https://tex.stackexchange.com/a/108974/14751
+\NewDocumentCommand{\extp}{e{^}}{%
+  \mathop{\mathpalette\extp@{#1}}\nolimits
+}
+\NewDocumentCommand{\extp@}{mm}{%
+  \bigwedge\nolimits\IfValueT{#2}{^{\extp@@{#1}#2}}%
+  \IfValueT{#1}{\kern-2\scriptspace\nonscript\kern2\scriptspace}%
+}
+\newcommand{\extp@@}[1]{%
+  \mkern
+    \ifx#1\displaystyle-1.8\else
+    \ifx#1\textstyle-1\else
+    \ifx#1\scriptstyle-1\else
+    -0.5\fi\fi\fi
+  \thinmuskip
+}
+
 \endinput
