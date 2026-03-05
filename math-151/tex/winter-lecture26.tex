@@ -1,0 +1,243 @@
+%%
+%% winter-lecture26.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-05T09:01:37-0800
+%% Last update 2026-03-05T09:01:37-0800
+%% 
+
+\lecture{}
+
+\begin{remark}
+Every element of $K(B)$ can be represented by
+$(E,\TrivialBundle{\CC}^{N})$ with no restriction on rank of $E$.
+\end{remark}
+
+\begin{node}
+Elements $(E,\TrivialBundle{\CC}^{N})$ and
+$(E',\TrivialBundle{\CC}^{N})$ in $\widetilde{K}(B)$ are the same if
+there exists $k\in\NN$ and $\ell\in\NN$ such that
+\begin{equation}\label{eq:math151b:lecture26:equivalence-relation-for-reduced-k-theory}
+E\oplus\TrivialBundle{\CC}^{k}\iso E'\oplus\TrivialBundle{\CC}^{\ell}.
+\end{equation}
+\end{node}
+
+\begin{node}
+We could view $\widetilde{K}(B)$ as equivalence classes of vector
+bundles over $B$ using Eq~\eqref{eq:math151b:lecture26:equivalence-relation-for-reduced-k-theory}
+as the equivalence relation.
+\end{node}
+
+\begin{claim}
+There is a bijection $\widetilde{K}(B)\stackrel{1:1}{\longleftrightarrow}[B,BU]$
+where $U=U(\infty)$ and $BU$ is the classifying space of $U$.
+\end{claim}
+
+\begin{recall}
+There is a ``universal'' $U$-bundle $U\into EU\onto BU$ such that $EU$
+is contractible and moreover it is ``universal'' in the sense that: for
+all compact Hausdorff spaces $X$ there is a bijection
+\begin{equation*}
+\begin{split}
+\left\{\begin{matrix}\mbox{isomorphism classes of}
+\mbox{$U$-bundles on }X
+\end{matrix}\right\}&\stackrel{1:1}{\longleftrightarrow} [X,BU]\\
+f^{*}(EU) & \mapsfrom [f]
+\end{split}
+\end{equation*}
+given by sending the homotopy class $[f]\in[X,BU]$ to the pullback
+bundle $f^{*}EU$ using any representating $f\in[f]$ (since the
+pullback bundle is unique under homotopy, this works).
+\end{recall}
+
+\begin{node}
+To prove the claim, we will need a notion of a frame bundle.
+\end{node}
+
+\begin{definition}
+Given a $\CC^{n}$-vector bundle $\pi\colon E\to B$, the
+\define{Associated Frame Bundle} $\AssocFrameBundle(E)$ is defined as
+\begin{equation}
+\AssocFrameBundle(E)=\{(b,v_{1},\dots,v_{n})\in
+B\times\underbrace{E\times\cdots\times E}_{n\text{ times}}\mid
+\{v_{1},\dots,v_{n}\}\mbox{ is a basis for fiber }
+\pi^{-1}(\{b\})\subset E\}
+\end{equation}
+with the projection map $p\colon\AssocFrameBundle(E)\to B$ given by
+sending $(b,v_{1},\dots,v_{n})\mapsto b$ to its first component.
+\end{definition}
+
+\begin{remark}
+The associated frame bundle is a fiber bundle with fiber
+$\GL_{n}(\CC)$ since any basis can be expressed as an element of
+$\GL_{n}(\CC)$ applied to the canonical basis. (This is actually a
+``principal $G=\GL_{n}(\CC)$-bundle'', i.e., there is a free and
+transitive action of $G$ ($=\GL_{n}(\CC)$) on each fiber $\GL_{n}(\CC)$
+by change of basis formula.) You can't fix an identity element on each
+fiber---that would be the same data as a preferred basis.
+\end{remark}
+
+\begin{construction}
+Given a fiber bundle $\pi\colon X\to B$ on $B$ with fiber $\GL_{n}(\CC)$ [and the
+action of $\GL_{n}(\CC)$ on each fiber], you can build a
+$\CC^{n}$-vector bundle in the following way: define the total space
+$E$ as
+\begin{subequations}
+  \begin{align}
+E &= X\otimes_{G}\CC^{n}\quad\mbox{where }G=\GL_{n}(\CC)\\
+&=\{(x,v)\in X\times\CC^{n}\}/(Ax,v)\sim(x,Av)\mbox{ for }A\in\GL_{n}(\CC).
+  \end{align}
+\end{subequations}
+Then $p\colon E\to B$ is given by $(x,v)\mapsto\pi(x)$. In this case,
+we see $\AssocFrameBundle(E)\iso X$.
+\end{construction}
+
+\begin{remark}
+Note: in this construction, you could use other groups $G$ instead of
+$\GL_{n}(\CC)$, if you have an action $\rho\colon G\to\CC^{n}$ and you
+then use $(Ax,v)\sim(x,\rho(A)v)$.
+\end{remark}
+
+\begin{remark}
+This construction gives a bijection between isomorphism classes of
+$\CC^{n}$-bundles over $B$ and isomorphism classes of $\GL_{n}(\CC)$
+fiber bundles over $X$.
+\end{remark}
+
+\begin{fact}
+If $E$ is a Hermitian vector bundle, then using the orthonormal basis
+with respect to the Hermitian inner product on $E$ (in the
+construction of the associated frame bundle, instead of ``just any old
+basis'') we will get a $\U(n)$-bundle instead of $\GL_{n}(\CC)$-bundle.
+\end{fact}
+
+\begin{recall}
+Now, we are in a position to prove the claim; what claim? Remember: There is a bijection $\widetilde{K}(B)\stackrel{1:1}{\longleftrightarrow}[B,BU]$
+where $U=U(\infty)$ and $BU$ is the classifying space of $U$.
+\end{recall}
+
+\begin{proof}[Sketchy proof sketch]
+We have equivalence relation
+$E\sim E'$ if and only if there are $k,\ell\in\NN$ such that
+$E\oplus\TrivialBundle{\CC}^{k}\iso E'\oplus\TrivialBundle{\CC}^{\ell}$.
+We can think of this as a stabilization relation, where we send the
+associated frame bundle's fiber $\U(m)\into\U(\infty)$ for $E$ and
+similarly $\U(n)\into\U(\infty)$ for $E'$.
+
+For any $\CC^{n}$-bundle $E$, you get a fiber bundle $U$ by the
+inverse limit
+\begin{equation}
+\AssocFrameBundle^{\infty}(E):=\varprojlim(\AssocFrameBundle(E)\into\AssocFrameBundle(E)\oplus\TrivialBundle{\CC}^{1}\into\AssocFrameBundle(E)\oplus\TrivialBundle{\CC}^{2}\into\AssocFrameBundle(E)\oplus\TrivialBundle{\CC}^{3}\into\dots)
+\end{equation}
+Then $E\sim E'$ if and only if $\AssocFrameBundle^{\infty}(E)\iso\AssocFrameBundle^{\infty}(E')$
+as $\U(\infty)$-fiber bundles. Therefore, we have the bijection
+\begin{equation}
+\widetilde{K}(B)\stackrel{1:1}{\longleftrightarrow}\left\{\begin{matrix}\mbox{isomorphism classes of}\\ 
+U(\infty)\mbox{-bundles over } B\end{matrix}\right\}\stackrel{1:1}{\longleftrightarrow}[B,BU].
+\end{equation}
+Hence the sketchy proof sketch.
+\end{proof}
+
+\begin{remark}
+The unreduced K-theory version has the bijective correspondence
+\begin{equation*}
+K(B)\stackrel{1:1}{\longleftrightarrow}[B,\ZZ\times BU].
+\end{equation*}
+\end{remark}
+
+\begin{example}
+The K-theory for a point $K(\point{*})\iso\ZZ$ since
+$(E,E')\mapsto\dim(E)-\dim(E')$ is the only thing we can really do here.
+\end{example}
+
+\begin{example}
+A zero-sphere is just two points, so $K(\sphere{0})\iso\ZZ\oplus\ZZ$.
+\end{example}
+
+\begin{example}
+For a 1-sphere, $K(\sphere{1})\iso\ZZ$. The reasoning is as follows:
+
+\textsc{Claim:} All complex vector bundles over $\sphere{1}$ are
+trivial (in the strict vector bundle sense).
+
+\begin{proof}
+It's because $\GL_{n}(\CC)$ is connected, so $\GL_{n}(\CC)\homotopic\U(n)$,
+in contrast to $\GL_{n}(\RR)$ which has two connected components (for
+orientation-reversing and orientation-preserving transformations,
+since $\det\colon\GL_{n}(\RR)\to\RR\setminus\{0\}$). Then since
+$\sphere{1}=I_{1}\cup I_{2}=I/0\sim 1$ gives the transition map at
+$0\in I$ to an element of $\GL_{n}(\CC)$ which can be homotoped to the
+identity matrix. This implies the $\CC^{n}$-bundle over $\sphere{1}$
+is trivial.
+\end{proof}
+\end{example}
+
+\begin{example}
+We see $K(\sphere{2})\iso\ZZ\oplus\ZZ\iso\widetilde{K}(\sphere{2})\oplus\ZZ$
+where $\widetilde{K}(\sphere{2})\stackrel{1:1}{\longleftrightarrow}[\sphere{2},BU]$.
+But
+\begin{subequations}
+  \begin{align}
+[\sphere{2},BU]
+&\iso[\Sigma\sphere{1},BU]\\
+&\iso[\sphere{1},\Omega BU]\mbox{ by adjoint property}\\
+&\iso[\sphere{1},\U(\infty)] \mbox{ by long exact sequence of homotopy
+  groups for fibration}\\
+&\iso\pi_{1}(\U(\infty)).
+  \end{align}
+\end{subequations}
+Then for the inclusion $\U(n)\into\U(n+1)$, there is a fiber bundle
+$\U(n)\into\U(n+1)\onto\sphere{2n+1}$ related to picking a basis in
+$\CC^{n}$. Then $i_{*}\colon\pi_{1}(\U(n))\into\pi_{1}(\U(n+1))$ is an
+isomorphism for all $n$, and since
+\begin{equation}
+\pi_{1}(\U(\infty))\iso\pi_{1}(\U(1))\iso\pi_{1}(\sphere{1})\iso\ZZ,
+\end{equation}
+we conclude $\widetilde{K}(\sphere{2})\iso\ZZ$.
+
+What is the generator for it? Well, we can find it by the following:
+recall the Clutching construction, we have the $\CC$-vector bundles
+over $\sphere{2}$ is in bijective correspondence with elements of $[\sphere{1},\GL_{1}(\CC)\iso\sphere{1}]$,
+and the generator of this is given by just the identity map on the
+circle.
+This equivalence class $[\id]\in[\sphere{1},\GL_{1}(\CC)]$ corresponds
+to the $\CC^{1}$-bundle denoted $H$, which corresponds to the
+tautological line bundle for $\sphere{2}\iso\CP^{1}$.
+
+(\textbf{Exercise:} prove $(H\otimes
+H)\oplus\TrivialBundle{\CC}^{1}\iso H\oplus H$. [Hint: look at
+  transition map])
+
+What is the ring structure of $K(\sphere{2})$? We see that this is
+given by
+\begin{equation}
+K(\sphere{2})\iso\ZZ[H]/(H^{2}-1)\quad\mbox{as rings}.
+\end{equation}
+We also have the isomorphism \emph{as groups}
+\begin{equation}
+K(\sphere{2})\iso\ZZ\oplus\ZZ\quad\mbox{as groups}
+\end{equation}
+where one $\ZZ$ is generated by $H$, and the other $\ZZ$ is generated
+by $1$ (the multiplicative unit).
+\end{example}
+
+\begin{proposition}
+Let $X$ be a compact Hausdorff space and $A\subset X$ is a closed
+subspace with the inclusion map $i\colon A\into X$ and the quotient
+map $q\colon X\onto X/A$. Then this gives us a sequence
+\begin{equation}
+\widetilde{K}(X/A)\xrightarrow{q^{*}}\widetilde{K}(X)\xrightarrow{i^{*}}\widetilde{K}(A),
+\end{equation}
+which is exact at $\widetilde{K}(X)$.
+\end{proposition}
+
+\begin{remark}
+This is the key step for proving we have a long exact sequence for K-theory.
+\end{remark}
+
+\begin{remark}
+Here the intuition is that $q^{*}$ ``fills'' $A$ with trivial bundle,
+and $i^{*}$ restricts attention to $A$.
+\end{remark}

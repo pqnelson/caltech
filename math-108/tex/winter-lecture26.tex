@@ -1,0 +1,267 @@
+%%
+%% winter-lecture26.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-05T09:48:03-0800
+%% Last update 2026-03-05T09:48:03-0800
+%% 
+
+\lecture{}
+
+We used the following fact last time (but we did not prove it):
+
+\begin{proposition}
+If $\{\varphi_{k}(x)\}$ is an orthonormal basis for $L^{2}(\RR^{d})$,
+then $\Phi_{k,\ell}(x,y)=\varphi_{k}(x)\varphi_{\ell}(y)$ is an
+orthonormal basis for $L^{2}(\RR^{d}\times\RR^{d})$.
+\end{proposition}
+
+\begin{proof}
+We need to prove orthonormality and completeness.
+
+\textsc{Claim 1: Orthonormality}. We can find this directly by
+\begin{subequations}
+  \begin{align}
+\iint\Phi_{k,\ell}(x,y)\overline{\Phi_{m,n}(x,y)}\,\D x\D y
+&=\iint\varphi_{k}(x)\varphi_{\ell}(y)\overline{\varphi_{m}(x)\varphi_{n}(y)}\,\D x\D y\\
+&=\int\varphi_{k}(x)\overline{\varphi_{m}(x)}\,\D x\int\varphi_{\ell}(y)\overline{\varphi_{n}(y)}\,\D y\mbox{ by Fubini}\\
+&=\delta_{m,k}\delta_{n,\ell}
+  \end{align}
+\end{subequations}
+by orthonormality of the $\varphi_{k}$.
+
+\textsc{Claim 2: Completeness}. Let $f\in L^{2}(\RR^{d}\times\RR^{d})$
+be orthogonal to all $\Phi_{k,\ell}$. We want to show $f=0$ almost
+everywhere.
+For each $\ell$, define $f_{\ell}\in L^{2}(\RR^{d})$ by
+\begin{equation}
+f_{\ell}(x)=\int_{\RR^{d}}f(x,y)\overline{\varphi_{\ell}(y)}\,\D y.
+\end{equation}
+By assumption, for any $k$,
+\begin{equation}
+\langle f_{\ell},\varphi_{k}\rangle_{L^{2}(\RR^{d})}=0
+\end{equation}
+and since $\{\varphi_{k}\}$ is a basis for $L^{2}(\RR^{d})$ this means
+that $f_{\ell}(x)=0$ for almost all $x\in\RR^{d}$. So then $y\mapsto f(x,y)$
+is orthogonal to every $\varphi_{\ell}(y)$, and since $\{\varphi_{\ell}(y)\}$
+is a basis, this means
+\begin{equation}
+f(x,y)=0\mbox{ for almost every }(x,y)\in\RR^{d}\times\RR^{d}.
+\end{equation}
+Hence $\Phi_{k,\ell}$ is complete.
+\end{proof}
+
+\begin{theorem}[Uniform boundedness principle]
+Let $X$ be a Banach space, let $Y$ be a normed vector space, let
+$\{T_{\alpha}\colon X\to Y\}_{\alpha\in A}$ be a family of continuous
+linear operators.
+
+If we have pointwise boundedness ($\forall x\in X\ldotp\sup_{\alpha\in A}\|T_{\alpha}x\|_{Y}<\infty$),
+then we have \define{Uniform Boundedness}, i.e., $\sup_{\alpha\in A}\|T_{\alpha}\|_{\text{op}}<\infty$.
+\end{theorem}
+
+\begin{proof}
+Let
+\begin{equation}
+E_{n}:=\{x\in X\mid\forall\alpha\in A\ldotp\|T_{\alpha}x\|\leq n\}.
+\end{equation}
+Then for any $x\in X$, there is a real number $M_{x}\in\RR$ such that
+\begin{equation}
+\sup_{\alpha\in A}\|T_{\alpha}x\|=M_{x}
+\end{equation}
+by hypothesis. If $n\geq M_{x}$, then $x\in E_{n}$. In other words,
+every $x\in X$ eventually lands in $E_{n}$. This gives us a decomposition
+\begin{equation}
+X=\bigcup_{n=1}^{\infty}E_{n}.
+\end{equation}
+Great.
+
+Now we claim these $E_{n}$ are closed subsets. We see
+\begin{subequations}
+  \begin{align}
+E_{n} &= \bigcap_{\alpha\in A}\{x\in X\mid \|T_{\alpha}x\|\leq n\}\\
+&=\bigcap_{\alpha\in A}T_{\alpha}^{-1}(\closure{B_{Y}(0,r=n)})
+  \end{align}
+\end{subequations}
+where $B_{Y}(y_{0},r)$ is the open ball in $Y$ centered at $y_{0}$ of
+radius $r>0$; now, since $T_{\alpha}$ is continuous, each
+$T_{\alpha}^{-1}(\closure{B_{Y}(0,r=n)})$ is closed (the preimage
+under a continuous map of a closed set is closed), and the arbitrary
+intersection of closed sets is closed. Therefore $E_{n}$ is closed.
+
+Now, using the Baire category theorem, $X$ cannot be meager (i.e., $X$
+cannot be written as a countable union of nowhere dense sets). Then it
+is impossible for all the $E_{n}$ to be nowhere dense. We saw
+$E_{n}=\closure{E_{n}}$ are closed subsets. For a closed set to be
+nowhere dense, it must have a empty interior. Since $E_{n}\subset E_{n+1}$
+is ascending, there must exist a positive integer $N\in\NN$ such that
+\begin{equation}
+\Interior(E_{N})\neq\emptyset
+\end{equation}
+since not all $E_{n}$ are nowhere dense.
+
+This means there exists a solid open ball
+\begin{equation}
+B_{X}(x_{0},r)\propersubset E_{N}
+\end{equation}
+for some $x_{0}\in X$ and $r>0$. (We want to move this ball to the origin.)
+
+If $x\in B_{X}(0,r)$, then
+\begin{equation}
+x+x_{0}\in B_{X}(x_{0},r)\propersubset E_{N},
+\end{equation}
+and by definition of $E_{N}$, we have bounds
+\begin{subequations}
+  \begin{align}
+\|T_{\alpha}(x+x_{0})\|\leq N\\
+\intertext{and}
+\|T_{\alpha}x_{0}\|\leq N.
+  \end{align}
+\end{subequations}
+Then by linearity of $T_{\alpha}$ and the triangle inequality, we have
+\begin{subequations}
+  \begin{align}
+\|T_{\alpha}x\|_{Y}
+&=\|T_{\alpha}(x+x_{0}-x_{0})\|_{Y}\\
+&=\|T_{\alpha}(x_{0}+x+(-x_{0}))\|_{Y}\\
+&\leq\|T_{\alpha}(x_{0}+x)\|_{Y}+\|T_{\alpha}(-x_{0}))\|_{Y}\mbox{ by triangle ineq.}\\
+&\leq N + N=2N.
+  \end{align}
+\end{subequations}
+But since $x\in B_{X}(0,r)$ we let $u$ be any unit vector $\|u\|\leq1$
+such that $ru\in B_{X}(0,r)$, then we must have (by the previous equation),
+\begin{equation}
+\|T_{\alpha}(ru)\|_{Y}\leq2N
+\end{equation}
+and by linearity
+\begin{equation}
+\|T_{\alpha}(ru)\|_{Y}=|r|\|T_{\alpha}(u)\|_{Y}\leq 2N
+\end{equation}
+so divide both sides by $r=|r|$ (since $r>0$),
+\begin{equation}
+\|T_{\alpha}(u)\|_{Y}\leq\frac{2N}{r}.
+\end{equation}
+But since this is for any $u\in B_{X}(0,1)$ and fixed $N\in\NN$ and $r>0$,
+and we see the left-hand side is just the operator norm
+\begin{equation}
+\|T_{\alpha}\|_{\text{op}}\leq\frac{2N}{r}
+\end{equation}
+and the right-hand side is ``some [positive finite] constant''. This
+means the operator norm of $T_{\alpha}$ is bounded for all $\alpha\in A$.
+Hence the claim.
+\end{proof}
+
+\begin{observation}
+In the proof, completeness of $X$ gave us the ball, linearity of
+$T_{\alpha}$ let us move it.
+\end{observation}
+
+\begin{definition}
+A map $f\colon X\to Y$ (between topological spaces) is \define{Open} if for every open subset
+$U\subset X$ its image $f(U)\subset Y$ is open.
+\end{definition}
+
+\begin{recall}
+We say $f\colon X\to Y$ is continuous if for every open subset
+$V\subset Y$ its preimage $f^{-1}(V)\subset X$ is open.
+\end{recall}
+
+\begin{example}[Continuous but not open]
+Consider $f\colon\RR\to\RR$ given by $f(x)=x^{2}$. Then $f$ maps the
+open interval $(-1,1)$ to the clopen interval $[0,1]$. But $[0,1)$ is
+not an open subset of $\RR$, so $f$ cannot possibly be open.
+\end{example}
+
+\begin{example}[Open but not continuous]
+Consider the function $g\colon\RR^{2}\to\RR$ given by
+$g(x,y)=\sgn(y)+x$ where
+\begin{equation}
+\sgn(y)=\begin{cases}-1 & \mbox{if }y<0\\
+0 & \mbox{if }y=0,\\
++1 & \mbox{if }y>0.
+\end{cases}
+\end{equation}
+Then $g$ is obviously not continuous in a neighborhood where $y=0$,
+because there is a discontinuous jump from $\sgn(y)$.
+
+But we claim $g$ is an open map. Let $U\subset\RR^{2}$ be any open
+set, let $z\in g(U)$. Then
+\begin{equation}
+z=x_{0}+\sgn(y_{0})
+\end{equation}
+for some $(x_{0},y_{0})\in U$. Then there is some $\varepsilon>0$ such
+that we have some line in $U$ containing $(x_{0},y_{0})$,
+\begin{equation}
+L:=(x_{0}-\varepsilon,x_{0}+\varepsilon)\times\{y_{0}\}\subset U.
+\end{equation}
+On $L$, we see $\sgn(y)=\sgn(y_{0})$ is constant, so
+\begin{equation}
+g|_{L}(x,y)=x+\sgn(y_{0}),
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+g(L)&=(x_{0}+\sgn(y_{0})-\varepsilon,x_{0}+\sgn(y_{0})+\varepsilon)\\
+&=(z-\varepsilon,z+\varepsilon)
+\end{split}
+\end{equation}
+This means $g(L)$ is an open subset of $\RR$, specifically an open
+neighborhood of $z\in g(U)$ and $g(L)\subset g(U)$. We let $z\in g(U)$
+be arbitrary and we can always find such lines $L$ for which
+$g(L)\subset g(U)$ is open, which means $g(U)$ must be open.
+\end{example}
+
+\begin{theorem}[Open Mapping Theorem]
+Let $X$ and $Y$ both be Banach spaces.
+Let $T\colon X\to Y$ be a bounded linear operator.
+If $T$ is surjective, then $T$ is an open map.
+\end{theorem}
+
+\begin{remark}
+Suffices to show $T(B_{X}(0,r=1))\supset B_{Y}(0,r)$ for some
+$r>0$. Then lienarity allows us to scale $B_{X}(0,1)$ and translate
+it, boundedness completes the proof.
+\end{remark}
+
+\begin{lemma}[Core Lemma]If $T\colon X\to Y$ is a surjective bounded linear operator
+between Banach spaces $X$ and $Y$, then there exists some $r>0$ such
+that
+\begin{equation}
+\closure{T(B_{x}(0,1))}\supset B_{Y}(0,r).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+\textsc{Step 1:} Since $T$ is surjective, every $y\in Y$ is hit by
+some $x\in X$. Since $X$ has a finite norm, $x$ lives in some open
+ball $B_{X}(0,n)$ for some $n\in\NN$. So
+\begin{equation}
+Y=\bigcup^{\infty}_{n=1}T(B_{X}(0,n))
+\end{equation}
+[$Y\subset\bigcup T(B(0,n))$ by surjectivity and $Y\supset\bigcup T(B(0,n))$
+  because duh]. But
+\begin{equation}
+Y=\bigcup_{n\in\NN}T(B_{n})\subset\bigcup_{n\in\NN}\closure{T(B_{n})}\subset Y
+\end{equation}
+where $B_{n}=B_{x}(0,n)$.
+
+\textsc{Step 2}: By hypothesis, $Y$ is Banach, so it is a
+\emph{complete} metric space, which is a countable union of closed
+sets. By  the Baire category theorem, at least one of these sets has a
+nonempty interior: there exits some $N\in\NN$ such that
+$\closure{T}(B_{N})$ contains some open ball $B_{Y}(y_{0},r)\subset\closure{T}(B_{N})$.
+
+\textsc{Step 3: Scaling}. By linearity,
+\begin{equation}
+\closure{T(B_{N})}=N\closure{T(B_{1})},
+\end{equation}
+then we can divide by $N$ to find
+\begin{equation}
+\closure{T(B_{1})}\supset B_{Y}(y_{1},r')
+\end{equation}
+where $y_{1}=y_{0}/N$ and $r'=r/N$.
+
+\textsc{Step 4:} We claim $B_{Y}(0,r'/2)\subset\closure{T(B_{1})}$.
+\end{proof}

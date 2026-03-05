@@ -1,0 +1,315 @@
+%%
+%% winter-lecture26.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-05T08:09:43-0800
+%% Last update 2026-03-05T08:09:43-0800
+%% 
+
+\lecture{}
+
+% lecture 25
+\begin{lemma}\label{lemma:19.4}
+In the AKLB setup, for any $0\neq Q\in\Spec(B)$ and $P=Q\cap A$, we
+have
+\begin{equation*}
+\dim_{A/P}(B/Q^{e_{Q}})=e_{Q}f_{Q}.
+\end{equation*}
+\end{lemma}
+
+% The proof was in lecture 26
+\begin{proof}
+First, for any $i,j\geq0$, we show that $Q^{i}/Q^{i+1}\iso Q^{j}/Q^{j+1}$
+as $(A/P)$-vector spaces.
+
+\textsc{Step 1: Construct the morphism and prove it is injective}. For any $\pi\in Q\setminus Q^{2}$, the $(A/P)$ linear map
+\begin{equation}
+\begin{split}
+\varphi\colon&B/Q\to Q^{i}/Q^{i+1}\\
+&x+Q\mapsto x\pi^{i}+Q^{i+1}
+\end{split}
+\end{equation}
+is clearly injective (since the preimage of zero is trivial).
+
+\textsc{Step 2: Surjectivity}.
+We will show $\varphi$ is surjective: consider the ideal (of $B$)
+\begin{equation}
+\pi B=\prod_{k}Q_{k}^{e_{k}}\subset Q,
+\end{equation}
+there exists a $k$ such that $Q_{k}=Q$ and $e_{k}=1$. Then
+\begin{equation}
+\Im(\varphi)=\pi^{i}B+Q^{i+1}
+=Q^{i}(Q+\prod_{Q_{k}\neq Q}Q_{k}^{e_{k}})
+\end{equation}
+and we have one of two cases:
+
+\textsc{Case 1:} $\prod_{Q_{k}\neq Q}Q_{k}^{e_{k}}=0$. Then $\pi B=Q$.
+Hence $\varphi$ is clearly surjective.
+
+\textsc{Case 2:} $\prod_{Q_{k}\neq Q}Q_{k}^{e_{k}}\neq0$.
+Then
+\begin{equation}
+Q+\prod_{Q_{k}\neq Q}Q_{k}^{e_{k}}=B,
+\end{equation}
+and clearly $\varphi$ is surjective.
+
+\textsc{Step 3: Check dimensions}.
+We see
+\begin{subequations}
+  \begin{align}
+\dim_{A/P}(Q^{i}/Q^{i+1}) &= \dim(B/Q)\\
+&= f_{Q},
+  \end{align}
+\end{subequations}
+and also
+\begin{subequations}
+  \begin{align}
+\dim_{A/P}(B/Q^{e_{Q}})
+&=\sum^{e_{Q}-1}_{i=0}\bigl(\dim_{A/P}(Q^{i}/Q^{e_{Q}})-\dim_{A/P}(Q^{i+1}/Q^{e_{Q}})\bigr)\\
+&=\sum^{e_{Q}-1}_{i=0}\dim_{A/P}(Q^{i}/Q^{i+1})\\
+&=e_{Q}f_{Q},
+  \end{align}
+\end{subequations}
+as desired.
+\end{proof}
+
+\begin{corollary}\label{cor:19.5}
+In the same setup as Lemma~\ref{lemma:19.4}, we have
+\begin{equation*}
+\sum_{Q\divides PB}e_{Q}f_{Q}=[L:K].
+\end{equation*}
+\end{corollary}
+
+\begin{proof}
+By Chinese remainder theorem, since
+\begin{equation}
+PB=\prod_{Q\divides PB}Q^{e_{Q}},
+\end{equation}
+we have
+\begin{equation}
+B/PB=\bigoplus_{Q\divides PB}B/Q^{e_{Q}}.
+\end{equation}
+By Lemmas~\ref{lemma:19.3} and \ref{lemma:19.4}, the claim holds.
+\end{proof}
+
+\begin{fact}\label{fact:math120b:winter2026:lecture26:fact1}
+For ideals $I$ and $J$ of a ring $A$, we see that
+\begin{equation*}
+\frac{A/I}{J(A/I)}\iso\frac{A/J}{I(A/J)}\iso\frac{A}{I+J}.
+\end{equation*}
+\end{fact}
+\begin{proof}[Proof hint]
+By considering the canonical quotient morphisms $A/I\onto A/(I+J)$
+and $A/J\onto A/(I+J)$.
+\end{proof}
+
+\begin{fact}\label{fact:math120b:winter2026:lecture26:fact2}
+For any ideal $I\ideal A$, the canonical quotient morphism $A\onto A/I$
+gives a bijection
+\begin{equation*}
+\left\{\begin{matrix}\mbox{ideals of }A\\
+\mbox{containing }I\end{matrix}\right\}\stackrel{1:1}{\longleftrightarrow}\{\mbox{ideals of }A/I\}
+\end{equation*}
+This bijective correspondence preserves inclusion, prime ideals,
+maximal ideals, etc.
+\end{fact}
+
+\begin{definition}
+Let $A\subset B$ be a ring extension. The \define{Conductor} of $A$ in
+$B$ is the ideal $C$ of $A$ (and of $B$) defined as
+\begin{subequations}
+\begin{equation}
+C:=\{x\in A \mid xB\subset A\}
+\end{equation}
+which also satisfies
+\begin{equation}
+C=\{x\in B\mid xB\subset A\}.
+\end{equation}
+\end{subequations}
+\end{definition}
+
+\begin{lemma}\label{lemma:19.6}
+In the AKLB setup, let $\theta\in B$ be such that $L=K(\theta)$ (by Theorem~\ref{thm:4.5}),
+let $f$ be the minimal polynomial of $\theta$ over $A$ (so $f\in A[x]$),
+let $C$ be the conductor of $A[\theta]$ in $B$. 
+If prime ideal $P$ of $A$ is coprime to $C$ (so $P+C=A$),
+then
+\begin{enumerate}
+\item $B/PB\iso A[\theta]/PA[\theta]$; and also
+\item $B/PB\iso (A/P)[x]/(f(A/P)[x])$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $i\colon A[\theta]\into B$ be the inclusion morphism and
+  $q_{PB}\colon B\onto B/PB$ be the canonical quotient map. We define
+  $\phi=q_{PB}\circ i\colon A[\theta]\to B/PB$.
+
+  We claim $\phi$ is surjective. This is because
+\begin{subequations}
+  \begin{align}
+B&=PB + CB\\
+\intertext{and}
+CB&=C\subset A\subset A[\theta]\\
+\intertext{gives us}
+B&=P\theta+A[\theta].
+  \end{align}
+\end{subequations}
+Hence $\phi$ is surjective.
+
+We claim $\phi$ is injective.
+Since
+\begin{equation}\label{eq:math120b:lec26:C-ker-contained-in-PC}
+C\ker(\phi)\subset CBP=PC
+\end{equation}
+and
+\begin{equation}\label{eq:math120b:lec26:PC-contained-in-PA-theta}
+PC\subset PA[\theta],
+\end{equation}
+we see
+\begin{subequations}
+  \begin{align}
+\ker(\phi)
+&=(PA[\theta]+C)\ker(\phi)\\
+&=PA[\theta]+C\quad\mbox{by Eq~\eqref{eq:math120b:lec26:C-ker-contained-in-PC}}\\
+&=PA[\theta]\quad\mbox{by Eq~\eqref{eq:math120b:lec26:PC-contained-in-PA-theta}}
+  \end{align}
+\end{subequations}
+Hence
+\begin{equation}
+B/PB\iso A[\theta]/\ker(\phi)\iso A[\theta]/PA[\theta].
+\end{equation}
+\item The result follows from applying Fact~\ref{fact:math120b:winter2026:lecture26:fact1}
+to the case where $I=(f(x))$ is principal, $J=PA[x]$, and the fact
+$A[\theta]\iso A[x]/(f(x))$. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Dedekind--Kummer]\label{thm:19.7}
+In the setup of Lemma~\ref{lemma:19.6}, let 
+\begin{subequations}
+\begin{equation}
+f(x)\equiv \varphi_{1}(x)^{e_{1}}(\cdots)\varphi_{r}(x)^{e_{r}}\bmod{P}
+\end{equation}
+(i.e., the prime factorization in $(A/P)[x]$), each
+$\varphi_{i}\in(A/P)[x]$ is rreducible. Then
+\begin{equation}
+Q_{i}=\varphi_{i}(\theta)B+PB
+\end{equation}
+are prime ideals of $B$ and
+\begin{equation}
+PB=Q_{1}^{e_{1}}(\cdots)Q_{r}^{e_{r}}
+\end{equation}
+is the prime factorization of $PB$ in $B$. Moreover,
+\begin{equation}
+f_{Q_{i}}=\deg(\varphi_{i})
+\end{equation}
+for each $i$.
+\end{subequations}
+\end{theorem}
+
+\begin{proof}
+For
+\begin{equation}
+\psi\colon B\onto B/PB
+\end{equation}
+and, by the last lemma, the codomain is isomorphic to
+\begin{equation}
+\psi\colon B\onto\frac{(A/P)[x]}{(f(A/P))[x]},
+\end{equation}
+the prime ideal of the codomain generated by $(\overline{\varphi_{i}(x)})$
+corresponds to
+\begin{equation}
+Q_{i}=\varphi_{i}(A)B+PB
+\end{equation}
+by Fact~\ref{fact:math120b:winter2026:lecture26:fact2}. Since
+\begin{equation}
+Q_{1}^{e_{1}}(\cdots)Q_{r}^{e_{r}}\subset\ker(\psi),
+\end{equation}
+we have
+\begin{equation}
+Q_{1}^{e_{1}}(\cdots)Q_{r}^{e_{r}}\subset PB
+\end{equation}
+and thus
+\begin{equation}
+PB=Q_{1}^{e'_{1}}(\cdots)Q_{r}^{e'_{r}}
+\end{equation}
+where each $e'_{i}\leq e_{i}$. Then
+\begin{subequations}
+  \begin{align}
+f_{i} &= \dim_{A/P}(B/Q_{i})\\
+&= \dim_{A/P}\left(\frac{(A/P)[x]}{\varphi_{i}(x)((A/P)[x])}\right)\\
+&= \deg(\varphi_{i}),
+  \end{align}
+\end{subequations}
+and so by Corollary~\ref{cor:19.5},
+\begin{subequations}
+  \begin{align}
+[L:K]
+&=\sum^{r}_{i=1}e'_{i}f_{i}\\
+&\leq\sum^{r}_{i=1}e_{i}f_{i}=\deg(f)=[L:K],
+  \end{align}
+\end{subequations}
+which forces $e'_{i}=e_{i}$ for each $i$.
+\end{proof}
+
+\begin{definition}
+In the AKLB setup, let $\hom_{K}(L,\closure{K})=\{\sigma_{1},\dots,\sigma_{n}\}$
+and let $\{b_{1},\dots,b_{n}\}\subset B$ be a basis of $L/K$ (called
+an \define{Integral Basis}). We define the \define{Discriminant}
+$D_{L/K}$ to be the ideal generated by
+\begin{equation}
+\{d(b_{1},\dots,b_{n})=\det\bigl((\sigma_{i}(b_{j}))\bigr)^{2}\mid
+(b_{1},\dots,b_{n})\mbox{ is an integral basis}\}.
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Dedekind's discriminant theorem]\label{thm:19.8}
+In the AKLB setup, a prime ideal $P$ of $A$ is unramified (\S\ref{lemma:19.2})
+if and only if $P\ndivides D_{L/K}$. In particular, there exists only
+finitely many ramified prime ideals.
+\end{theorem}
+
+\begin{proof}
+\forwardproof\ Homework.
+
+\backwardproof\ Assume $P\ndivides D_{L/K}$. By the proof of
+Proposition~\ref{prop:17.3}, for $\alpha\in B$ such that $L=K(\alpha)$
+and
+\begin{subequations}
+  \begin{align}
+D & := d(1,\alpha,\dots,\alpha^{n-1})\\
+&=\prod_{1\leq i<j\leq n}(\sigma_{j}(\alpha)-\sigma_{i}(\alpha))^{2}\\
+&=\det\begin{pmatrix}
+\sigma_{1}(1) & \sigma_{1}(\alpha) & \dots & \sigma_{1}(\alpha)^{n-1}\\
+\sigma_{2}(1) & \sigma_{2}(\alpha) & \dots & \sigma_{2}(\alpha)^{n-1}\\
+\vdots & \vdots & \ddots & \vdots\\
+\sigma_{n}(1) & \sigma_{n}(\alpha) & \dots & \sigma_{n}(\alpha)^{n-1}
+\end{pmatrix}^{2}.
+  \end{align}
+\end{subequations}
+Then
+\begin{equation}
+DB\subset A[\theta],
+\end{equation}
+that is to say, the conductor $C$ of $A[\theta]$ in $B$ divides
+$D$. In particular, $P$ and $C$ are corpime since $C\divides D$ but
+$P\ndivides D$. Then by Theorem~\ref{thm:19.7}, we have
+\begin{equation}
+PB=\prod_{Q\divides PB}Q.
+\end{equation}
+Also, by the proof of Lemma~\ref{lemma:19.6}, $A[\theta]\onto B/PB$ is
+surjective, and so
+\begin{equation}
+B/PB\iso\bigoplus_{Q\divides PB}B/Q
+\end{equation}
+is generated by $\theta\bmod{P}$, i.e., it is generated by the set
+\begin{equation}
+\{\alpha\bmod{Q}\mid Q\mbox{ divides }PB\}.
+\end{equation}
+Since $f$ (and thus $\alpha$) is separable, then so is $(B/Q)/(A/P)$.
+In other words, $P$ is unramified.
+\end{proof}
