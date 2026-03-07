@@ -1,0 +1,245 @@
+%%
+%% winter-lecture27.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-07T14:01:08-0800
+%% Last update 2026-03-07T14:01:08-0800
+%% 
+
+\lecture{}
+
+In this lecture, we take $L/K$ to be a Galois extension always.
+
+\begin{proposition}\label{prop:19.9}
+In the AKLB setup, if $P\ideal A$ is a prime ideal such that
+$PB=\prod^{r}_{i=1}Q_{i}^{e_{i}}$, then $\Gal(L/K)$ acts on
+$\{Q_{1},\dots,Q_{r}\}$ transitively ($\forall Q_{i},Q_{j}\ldotp\exists\sigma\in\Gal(L/Q)\ldotp\sigma(Q_{i})=Q_{j}$).
+\end{proposition}
+
+\begin{proof}
+Assume for contradiction there exists $Q$, $Q'$ such that $Q\divides PB$
+and $Q'\divides PB$ such that for all $\sigma\in\Gal(L/K)$ we have
+$\sigma(Q)\neq Q'$. By the Chinese remainder theorem,
+\begin{equation}
+B/PB\iso\bigoplus^{r}_{i=1}\bigoplus^{e_{i}}_{j=1}B/Q_{i}.
+\end{equation}
+Then there exists an $x\in B$ such that
+\begin{equation}
+x\equiv0\bmod{Q'}
+\end{equation}
+and for all $\sigma\in\Gal(L/K)$ we have
+\begin{equation}
+x\equiv1\bmod{\sigma(Q)}.
+\end{equation}
+Since $x\in Q'$ and $\sigma(x)\notin Q$, the norm is
+\begin{equation}\label{eq:math120b:lecture27:prop19.9:contradiction}
+N_{L/K}(x)=\prod_{\sigma\in\Gal(L/K)}\sigma(x)\in K\cap B=A.
+\end{equation}
+[Proof: $N_{L/K}(x)\in K$ follows from $N_{L/K}(x)\in L^{\Gal(L/K)}=K$, and $N_{L/K}(x)\in B$ by definition.]
+However, for any $\sigma\in\Gal(L/K)$, $\sigma(x)\notin Q$, so
+$N_{L/K}(x)\notin Q\cap A=P$ which contradicts Equation~\eqref{eq:math120b:lecture27:prop19.9:contradiction}.
+Hence the result.
+\end{proof}
+
+\begin{corollary}\label{cor:19.10}
+In the same setup, for any such $Q_{i}$ lying above $P$, every
+$e_{Q_{i}}$ (resp., $f_{Q_{i}}$) are equal to each other.
+
+In particular, $[L:K]=e_{Q}f_{Q}r$ where $r$ is the number of distinct
+prime factors $Q_{i}$.
+\end{corollary}
+
+\begin{proof}
+By Proposition~\ref{prop:19.9}, $PB=\sigma(PB)$ for every $\sigma\in\Gal(L/K)$,
+thus
+\begin{equation}
+Q^{e}\divides PB\iff\sigma(Q)^{e}\divides PB.
+\end{equation}
+That is to say, for any $\sigma\in\Gal(L/K)$ which acts on $\{Q_{i}\}$
+transitively, we have $e_{Q}=e_{\sigma(Q)}$.
+The claim for $f_{Q}$ follows from $\sigma(B/Q)=B/\sigma(Q)$. The last
+claim follows from Corollary~\ref{cor:19.5} $[L:K]=\sum_{Q\divides PB}e_{Q}f_{Q}$.
+\end{proof}
+
+\begin{lemma}\label{lemma:19.11}
+In the AKLB setup where $L/K$ is Galois, for any prime ideal $Q\ideal B$
+such that $P=Q\cap A$ we have $(B/Q)/(A/P)$ is a normal extension.
+\end{lemma}
+
+\begin{proof}
+For any $\alpha\in B$, the minimal polynomial $f\in A[x]$ of $\alpha$
+splits as $f(x)=\prod_{i}(x-\alpha_{i})$ where $\alpha_{i}\in B$. Then
+the minimal polynomial $g\in(A/P)[x]$ of $\overline{\alpha}\in B/Q$
+divides $\overline{f}$; i.e., $g$ splits as $\prod_{j}(x-\overline{\alpha}_{j})$
+where $\overline{\alpha}_{j}\in B/Q$.
+\end{proof}
+
+\begin{definition}
+In the AKLB setup when $L/K$ is Galois, let $Q\in\Spec(B)$ be a prime
+ideal of $B$. Then we define the \define{Decomposition Group}
+$D_{Q}(L/K)$ to be the stable subgroup
+\begin{subequations}
+\begin{equation}
+D_{Q}(L/K):=\{\sigma\in\Gal(L/K)\mid\sigma(Q)=Q\}.
+\end{equation}
+We similarly define the \define{Inertia Group} $I_{Q}(L/K)$ to be
+\begin{equation}
+I_{Q}(L/K):=\{\sigma\in\Gal(L/K)\mid\forall x\in B\ldotp\sigma(x)\equiv x\bmod{Q}\}.
+\end{equation}
+\end{subequations}
+These are both subgroups of $\Gal(L/K)$.
+
+We may consider the fixed fields $L^{D}$ called the
+\define{Decomposition Field}, and $L^{I}$ called the \define{Inertia Field}.
+\end{definition}
+
+\begin{proposition}\label{prop:19.12}
+$D_{Q}/I_{Q}\iso\Aut_{A/P}(B/Q)$.
+\end{proposition}
+
+\begin{proof}
+Let 
+\begin{equation}
+\phi\colon D_{Q}\to\Aut_{A/P}(B/Q)
+\end{equation}
+be defined by $\phi(\sigma)=\overline{\sigma}$, where
+\begin{equation}
+\overline{\sigma}(x+q)=\sigma(x)+Q.
+\end{equation}
+Since $\ker(\phi)=I_{Q}$, it suffices to check $\phi$ is
+surjective. Note for the separable closure $E:=\separableclosure{(A/P)}{B/Q}$,
+by Proposition~\ref{prop:4.6}~\ref{item:4.6:2} $E/(A/P)$ is (finite) Galois.
+(In fact, by Proposition~\ref{prop:2.8}, the restriction map
+$\Aut_{A/P}(B/Q)\to\Gal(E/(A/P))$ is surjective.) If
+$\sigma\in\Aut_{A/P}(B/Q)$ is such that $\sigma|_{E}=\id$, then
+$\sigma\in\Aut_{E}(B/Q)$. However, by Proposition~\ref{prop:6.4}
+$(B/Q)/E$ is purely inseperable and by Proposition~\ref{prop:6.7}
+\begin{equation}
+|\Aut_{E}(B/Q)|=[E:B/Q]_{s}=1.
+\end{equation}
+That is to say, $\sigma=\id$.
+
+Now, to show that $\phi\colon D_{Q}\to\Aut_{A/P}(B/Q)\iso\Gal(E/(A/P))$
+is surjective. By Theorem~\ref{thm:4.5}, there exists an
+$\overline{\alpha}\in E$ such that $E=(A/P)(\overline{\alpha})$. Then
+applying the Chinese remainder theorem to $B/PB$ we can take some
+$\alpha\in B$ such that
+\begin{equation}
+\alpha\equiv\overline{\alpha}\bmod{Q},
+\end{equation}
+but for any $\sigma\in\Gal(L/K)\setminus D_{Q}$,
+\begin{equation}
+\alpha\equiv0\bmod{\sigma(Q)}.
+\end{equation}
+It is natural to look towards the minimal polynomial. Let $f\in A[x]$
+and $g\in(A/P)[x]$ be the minimal polynomials for $\alpha$ and
+$\overline{\alpha}$ (respectively). Then for any
+$\overline{\tau}\in\Gal(E/(A/P))$,
+$\overline{\tau}(\overline{\alpha})$ is a root of $g$, and thus the
+root of $\overline{f}$ (by a discussion similar to the previous lemma).
+That is to say,
+\begin{equation}\label{eq:math120b:lecture27:prop19.12:contradiction}
+\exists\sigma\in\Gal(L/K)\ldotp\sigma(\alpha)\equiv\overline{\tau}(\overline{\alpha})\bmod{Q}.
+\end{equation}
+If $\sigma\notin D_{Q}$, then by the definition of $\alpha$,
+$\sigma(\alpha)\equiv0\bmod{Q}$. But this contradicts
+Equation~\eqref{eq:math120b:lecture27:prop19.12:contradiction}. Hence
+$\sigma\in D_{Q}$,
+and moreover this makes $\phi$ surjective.
+\end{proof}
+
+\begin{corollary}\label{cor:19.13}
+In the same setup,
+\begin{subequations}
+\begin{equation}
+|D_{Q}|=e_{Q}f_{Q}
+\end{equation}
+and
+\begin{equation}
+|I_{Q}|=e_{Q}[B/Q:A/P]_{i}
+\end{equation}
+and
+\begin{equation}
+r=[\Gal(L/K):D_{Q}].
+\end{equation}
+\end{subequations}
+In particular, if $(B/Q)/(A/P)$ is separable, then $|I_{Q}|=e_{Q}$
+and $f_{Q}=|D_{Q}/I_{Q}|$.
+\end{corollary}
+
+\begin{proof}
+Since a coset of $\Gal(L/K)/D_{Q}$ has the form $\{\sigma\mid\sigma(Q)=Q_{i}\}$
+for $i=1,\dots,r$. Hence $r=[G:D_{Q}]$. By Corollary~\ref{cor:19.10},
+$|D_{Q}|=e_{Q}f_{Q}$. [Proof: $[L:K]=|\Gal(L/K)|=efr=ef[\Gal(L/K):D_{Q}]$.]
+By Proposition~\ref{prop:19.12},
+\begin{subequations}
+  \begin{align}
+|I_{Q}| &= \frac{|D_{Q}|}{[B/Q:A/P]_{s}}\\
+&=\frac{e_{Q}[B/Q:A/P]}{[B/Q:A/P]_{s}}\\
+&=e_{Q}[B/Q:A/P]_{i}.
+  \end{align}
+\end{subequations}
+Hence the result.
+\end{proof}
+
+\begin{theorem}[Hilbert's ramification theory]\label{thm:19.14}
+Denote $B_{D}$ (respectively, $B_{I}$) the integral closures of $A$ in
+$L^{D}$ (resp., $L^{I}$) and $Q_{D}=Q\cap B_{D}$ (resp., $Q_{I}=Q\cap B_{I}$)
+are prime ideals of $B_{D}$ (resp., $B_{I}$). Then
+\begin{enumerate}
+\item In $L^{D}/K$, $e=f=1$ and $r=r_{Q}$ when $PB=Q_{1}^{e_{Q_{1}}}(\cdots)Q_{r}^{e_{Q_{r}}}$
+\item In $L/L^{D}$, $e=e_{Q}$ and $f=f_{Q}$ and $r=1$.
+\end{enumerate}
+Moreover, if $(B/Q)/(A/P)$ is separable, then
+\begin{enumerate}[resume]
+\item In $L^{I}/L^{D}$, $e=1$ and $f=f_{Q}$ and $r=1$
+\item In $L/L^{I}$, $e=e_{Q}$ and $f=1$ and $r=1$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+So our setup is something like
+\begin{equation}
+\vcenter{\xymatrix{
+              &               &                  & L\ar@{..}[dl]\ar@{..}[dr] &\\
+              &               & L^{I}\ar@{..}[dl]\ar@{..}[dr] &     & B\ar@{..}[dl]\\
+              & L^{D}\ar@{..}[dl]\ar@{..}[dr] &  & B_{I}\ar@{..}[dl]&\\
+K\ar@{..}[dr] &               & B_{D}\ar@{..}[ur] &                 &\\
+              & A\ar@{..}[ur] &                   &                 &}}
+\end{equation}
+For the first two claims, denote $e'$ and $f'$ for the ramification
+index and inertia index for $Q_{D}$ in $L^{D}/K$. Then the
+ramification index (resp., inertia index) of $L/L^{D}$ is $e_{Q}/e'$
+(resp., $f_{Q}/f'$). By Corollary~\ref{cor:19.13}, we have
+\begin{equation}
+e_{Q}f_{Q}=|D_{Q}|=[L:L^{D}]=(e_{Q}/e')(f_{Q}/f')=\frac{e_{Q}f_{Q}}{e'f'}.
+\end{equation}
+In other words, $e'=f'=1$. Also
+\begin{subequations}
+  \begin{align}
+r &=\frac{[L:K]}{[L:L^{D}]}\\
+&=(e_{Q}f_{Q}r_{Q})/(e_{Q}f_{Q})\\
+&=r_{Q}.
+  \end{align}
+\end{subequations}
+Hence the first two claims.
+
+The latter half follows from
+\begin{subequations}
+  \begin{align}
+    e_{Q} &= |I|\\
+    &=|\Gal(L/L^{I})|\\
+    &=[L:L^{I}],
+  \end{align}
+\end{subequations}
+and
+\begin{subequations}
+  \begin{align}
+[L^{I}:L^{D}] &= \frac{[L:L^{D}]}{[L:L^{I}]}\\
+&=f_{Q}.
+  \end{align}
+\end{subequations}
+Hence the theorem.
+\end{proof}

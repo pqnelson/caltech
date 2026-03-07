@@ -1,0 +1,177 @@
+%%
+%% winter-lecture27.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-07T15:21:18-0800
+%% Last update 2026-03-07T15:21:18-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+A topological space $Z$ is a \define{Baire space} if every countable
+intersection of open dense subsets of $Z$ is dense in
+$Z$. Equivalentls, every countable union of nowhere dense subsets has
+empty interior.
+\end{definition}
+
+\begin{fact}
+Every Banach space is a Baire space.
+\end{fact}
+
+\begin{lemma}[Approximation lemma]
+If $B_{Y}(0,r)\subset\closure{T(B_{X}(0,1))}$, then
+$B_{Y}(0,r/2)\subset T(B_{X}(0,1))$.
+\end{lemma}
+
+\begin{remark}
+Completeness of $X$ is the key point. We will build correction terms
+in $X$ where norms form a geometric series $\sum2^{-j}$, their sum
+stays in $X$ and error terms go to zero.
+\end{remark}
+
+\begin{proof}[Proof (Approximation lemma)]
+Fix $y\in B_{Y}(0,r/2)$. We will construct a series
+\begin{equation}
+\sum^{\infty}_{n=0}x_{n}=x
+\end{equation}
+with $\|x\|<1$ and $Tx=y$. For partial sums we write
+\begin{equation}
+s_{n}=\sum^{n}_{k=0}x_{k},
+\end{equation}
+with $e_{n}=y-Ts_{n}$ is the error after $n+1$ corrections.
+
+\textsc{Step 1}: By scaling the hypothesis, $B_{Y}(0,r)\subset\closure{T(B_{X}(0,1))}$,
+which implies $B_{Y}(0,r/2)\subset\closure{T(B_{X}(0,1/2))}$. Since
+$y\in B_{Y}(0,r/2)$, we choose $x_{0}\in B_{X}(0,1/2)$ such that
+\begin{equation}
+\|y-Tx_{0}\|<\frac{r}{4}.
+\end{equation}
+This says $\|e_{0}\|<r/4$.
+
+\textsc{Inductive Step}: Suppose we have $x_{0}$, \dots, $x_{n}$ which
+have been chosen such that $\|e_{n}\|<r/2^{n+2}$. Scaling the hypothesis
+$B_{Y}(0,r/2^{n+2})\subset\closure{T(B_{X}(0,1/2^{n+2}))}$. Since
+$e_{n}$ lies in this ball, we have chosen $e_{n}\in B_{X}(0,2^{-(n+2)})$
+with
+\begin{equation}
+\|e_{n}-Tx_{n+1}\|<r/2^{n+3}.
+\end{equation}
+If
+\begin{equation}
+s_{n+1}:=s_{n}+x_{n+1},
+\end{equation}
+then
+\begin{equation}
+e_{n+1}=y_{n}-Ts_{n+1}=e_{n}-Tx_{n+1},
+\end{equation}
+so $\|e_{n+1}\|<r/2^{n+3}$. From the construction,
+\begin{equation}
+\|x_{n}\|<2^{-(n+1)}\quad\mbox{for }n\geq0.
+\end{equation}
+Hence
+\begin{equation}
+\sum^{\infty}_{n=0}\|x_{n}\|<\sum^{\infty}_{n=0}2^{-n-1}=1.
+\end{equation}
+Since $X$ is Banach, this series $\sum x_{n}$ converges to some $x\in
+X$. Also,
+\begin{equation}
+\|x\|\leq\sum^{\infty}_{n=0}\|x_{n}\|<1,
+\end{equation}
+so $x\in B_{X}(0,r=1)$.
+
+Now, $s_{n}\to x$ in the $X$ norm, so continuity gives us $Ts_{n}\to Tx$.
+On the other hand,
+\begin{subequations}
+  \begin{align}
+\|y-Ts_{n}\| &= \|e_{n}\|\\
+&<\frac{r}{2^{n+2}}\xrightarrow{n\to\infty}0,
+  \end{align}
+\end{subequations}
+so $Ts_{n}\to y$ and therefore
+\begin{equation}
+Tx=y.
+\end{equation}
+We have shown $y\in T(B_{X}(0,r=1))$. Since $y\in B_{Y}(0,r/2)$
+was arbitrary, $B_{Y}(0,r/2)\subset T(B_{X}(0,r=1))$ as desired.
+\end{proof}
+
+\begin{theorem}[Open mapping theorem]
+Let $X$ and $Y$ be Banach spaces. Let $T\colon X\to Y$ be a surjective bounded
+linear operator. Then $T$ is an open map.
+\end{theorem}
+
+\begin{proof}
+By the Approximation Lemma, there exists a $\delta>0$ such that
+$B_{Y}(0,\delta)\subset T(B_{X}(0,1))$. Let $U\subset X$ be an
+arbitrary open set, let $y\in T(U)$, then consider $x\in U$ such that $Tx=y$
+[such an $x$ exists since $T$ is surjective]. Since $U$ is open, there
+exists $\varepsilon>0$ such that $B_{X}(x,\varepsilon)\subset U$. By linearity,
+\begin{subequations}
+  \begin{align}
+T(B_{X}(x,\varepsilon))
+&=T(x+B_{X}(0,\varepsilon))\\
+&=Tx + T(B(0,\varepsilon))\\
+&=Tx + \varepsilon T(B(0,1))\\
+&=y + \varepsilon T(B(0,1)).
+  \end{align}
+\end{subequations}
+Then $T(B_{X}(x,\varepsilon))\supset y+\varepsilon B_{Y}(0,\delta)$
+since $B_{Y}(0,\delta)\subset T(B_{X}(0,1))$; i.e.,
+\begin{equation}
+B_{Y}(y,\varepsilon\delta)\subset T(B_{X}(x,\varepsilon)).
+\end{equation}
+Since $B_{X}(x,\varepsilon)\subset U$ we obtain
+\begin{equation}
+B_{Y}(y,\varepsilon\delta)\subset T(U).
+\end{equation}
+Since $y\in T(U)$ was arbitrary, we do this for every such $y\in T(U)$,
+which gives us an open ball $B_{Y}(y,\widetilde{\varepsilon})\subset T(U)$
+so $T(U)$ must be open.
+\end{proof}
+
+\begin{theorem}[Bounded inverse theorem]
+Let $X$ and $Y$ be Banach spaces. If $T\colon X\to Y$ is a bijective
+bounded linear operator, then $T^{-1}\colon Y\to X$ is automatically bounded.
+\end{theorem}
+
+\begin{proof}
+Since $T$ is a surjective bounded linear operator between Banach
+spaces, by the open mapping theorem we see $T$ is open. Let $U\subset X$
+be an arbitrary open subset. Then
+\begin{equation}
+(T^{-1})^{-1}(U)=T(U)
+\end{equation}
+is open in $Y$ (since $T$ is an open map), so $T^{-1}$ is continuous
+(since the preimage of open sets in $Y$ are open in $X$ under
+$T^{-1}$). Hence the claim.
+\end{proof}
+
+\begin{example}
+Let $X=c_{c}(\NN)$ be the set of compactly supported sequences:
+$(a_{n})\in X$ iff $\exists N\in\NN\forall n\in\NN\ldotp n\geq N\implies a_{n}=0$.
+We equip $X$ with the norm $\|(a_{n})\|=\sup_{n}|a_{n}|$.
+Then $X$ is not complete. In particular, the sequence $a_{n}=1/n$ is
+not in $X$ but it is the limit of the sequence
+\begin{equation}
+a^{(N)}_{n}=\begin{cases}
+1/n & \mbox{if }n<N\\
+0 & \mbox{if }n\geq N.
+\end{cases}
+\end{equation}
+Then
+\begin{equation}
+\lim_{N\to\infty}(a^{(N)}_{n})=(a_{n}).
+\end{equation}
+Consider $T\colon X\to X$ defined by $T(a_{n})=(\frac{1}{n}a_{n})$.
+This is a linear operator. We see it is bounded because
+$\|Ta\|_{\infty}\leq\|a\|_{\infty}$ so the operator norm $\|T\|_{\text{op}}\leq1$.
+We see $T$ is bijective on $c_{c}(\NN)$ and we find
+\begin{equation}
+T^{-1}((b_{1},b_{2},b_{3},\dots))=(b_{1},2b_{2},3b_{3},\dots,nb_{n},\dots).
+\end{equation}
+Then $\|T^{-1}\|_{\text{op}}=\infty$. So the bounded inverse theorem
+\emph{fails} and we only removed the ``Banach'' property.
+\end{example}

@@ -1,0 +1,203 @@
+%%
+%% winter-lecture27.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-07T14:44:19-0800
+%% Last update 2026-03-07T14:44:19-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+We will try to get to proving the Bott periodicity theorem. There are
+two proofs:
+\begin{enumerate}
+\item Bott's approach using infinite-dimensional Morse theory, and
+\item Hatcher's approach using K-Theory and clutching construction.
+\end{enumerate}
+We will probably flesh out Hatcher's proof.
+\end{node}
+
+\begin{remark}
+In a principal $G$-bundle, we think of the fiber $G$ as a $G$-torsor
+(i.e., we forgot about the identity element).
+\end{remark}
+
+\begin{proposition}
+Given $A\stackrel{i}{\into}X\xrightarrow{q}X/A$ when $X$ is comapct
+Hausdorff and $A\subset X$ is closed, we have
+\begin{equation}
+\widetilde{K}(X/A)\xrightarrow{q^{*}}\widetilde{K}(X)\xrightarrow{i^{*}}\widetilde{K}(A)
+\end{equation}
+is exact.
+\end{proposition}
+
+\begin{proof}
+We want to show $\ker(i^{*})=\Im(q^{*})$.
+
+\textsc{Claim 1}: $\ker(i^{*})\supset\Im(q^{*})$. That is to say,
+$i^{*}\circ q^{*}=0$. We start with a bundle $E\to X/A$, then the
+pullback bundle $q^{*}E\to X$ has the property that $(q^{*}E)|_{A}$ is
+trivial over $A$. Then $i^{*}(q^{*}E)=q^{*}E|_{A}$ which is a trivial
+bundle. Then $[i^{*}(q^{*}E),\CC^{N}]=0\in\widetilde{K}(A)$ where $N=\dim(E)$.
+
+\textsc{Claim 2}: $\ker(i^{*})\subset\Im(q^{*})$. Start with $E\to X$
+which is in $\ker(i^{*})$. Then $i^{*}E=E|_{A}$ is stably trivial,
+i.e., there exists some $n\in\NN$ such that
+\begin{equation}
+E|_{A}\oplus\TrivialBundle{\CC}^{n}|_{A}\iso\TrivialBundle{\CC}^{N}|_{A},
+\end{equation}
+so replacing $E$ by $E\oplus\TrivialBundle{\CC}^{n}|_{E}$ we can
+assume without loss of generality $E|_{A}$ is trivial in the sense
+that there exists a local trivialization of $E|_{A}$,
+\begin{equation}
+h\colon A\times\CC^{n}\to E|_{A}.
+\end{equation}
+Define $E/h$ to be the quotient space of $E$ by the relation
+$\forall x,y\in A\forall v\in\CC^{n}\ldotp h(x,v)\sim h(y,v)$,
+that is to say we identify all the fibers. Then there is a projection
+\begin{equation}
+p\colon E/h\to X/A
+\end{equation}
+such that the fiber over each point is $\CC^{n}$ and $q^{*}(E/h)\iso E$.
+We just need to show $p\colon E/h\to X/A$ is a vector bundle. We need
+to prove local triviality, the tricky bit is the point $A/A$. In
+particular, we want local trivial charts containing the point $A/A\in X/A$.
+
+\textsc{Sketchy proof sketch}. We know $E|_{A}$ is trivial. Then there
+exists nowhere dependent sections $s_{1}$, \dots, $s_{n}$ of
+$E|_{A}$. We want to find an open neighborhood $U\supset A$. Since $A$
+is closed, we can extend $s_{1}$, \dots, $s_{n}$ to sections of $E$
+over $X$---you need to use compactness arguments. Note that being
+linearly independent is an \emph{open condition} (i.e., the sections
+$s_{1}$, \dots, $s_{n}$ gives us a matrix
+$A=(s_{1}|\dots|s_{n})\in\GL_{n}(\CC)$ whose column vectors are the
+sections, and then linear independence is equivalent to $\det(A)\neq0$).
+Since the $s_{1}$, \dots, $s_{n}$ are linearly independent over $A$,
+then there exists some open neighborhod $U\supset A$ such that these
+sections are still linearly independent over $U$. This means $E|_{U}$
+is trivial as well, and this gives the trivial chart in the quotient
+we wanted.
+\end{proof}
+
+\begin{node}
+Exactness in the middle gives us everything we want. Consider the
+Puppe sequence of cofibrations---recall, given a CW complex $i\colon A\into X$
+we have the Puppe sequence look like
+\begin{equation}
+A\stackrel{i}{\into}X\xrightarrow{q}\to X/A\to\Sigma A\to\Sigma X\to\Sigma(X/A)\to\Sigma^{2}(A)\to\dots
+\end{equation}
+such that every 3 adjacent sequential terms looks like $U\into V\to V/U$
+for some CW pair $(U,V)$.
+
+Therefore, applying this to $[-,BU]$ gives us a long exact sequence of
+the form
+\begin{equation}
+\dots\to\widetilde{K}(\Sigma X)\to\widetilde{K}(\Sigma A)\to\widetilde{K}(X/A)\to\widetilde{K}(X)\to\widetilde{K}(A)
+\end{equation}
+which looks like the long exact sequence for a cohomology theory.
+
+Recall for the usual cohomology theory,
+\begin{equation}
+\widetilde{H}^{n}(\Sigma X)\iso\widetilde{H}^{n-1}(X).
+\end{equation}
+We want to mimic this behaviour. If we denote the usual $K$-theory as
+\begin{equation}
+\widetilde{K}^{0}(X):=\widetilde{K}(X),
+\end{equation}
+then $\widetilde{K}(\Sigma X)$ should be thought of as $\widetilde{K}^{-1}(X)$.
+\end{node}
+
+\begin{definition}
+Let $X$ be a compact Hausdorff space.
+For $n\in\NN_{0}$, the \define{$(-n)^{\text{th}}$ Reduced K-Theory} of $X$
+is $\widetilde{K}^{-n}(X):=\widetilde{K}(\Sigma^{n}X)$.
+\end{definition}
+
+\begin{question}
+What happens for the positive degree? That is to say, what are the
+$\widetilde{K}^{n}(X)$ for $n\in\NN$?
+\end{question}
+
+\begin{theorem}[Bott periodicity for topological complex K-Theory]
+We have $\widetilde{K}(X)\iso\widetilde{K}(\Sigma^{2}X)$ with an
+explicit map called the \define{Bott Map}
+\begin{equation}
+\begin{split}
+\beta\colon&\widetilde{K}(X)\to\widetilde{K}(\Sigma^{2}X)\iso\widetilde{K}(\sphere{2}\smashtimes X)\\
+&E\mapsto(H-1)\boxtimes E
+\end{split}
+\end{equation}
+\end{theorem}
+
+\begin{node}
+From this perspective, there are only 2 nontrivial pieces of
+information: $\widetilde{K}^{0}(X)$ and $\widetilde{K}^{1}(X)$. Then
+we can define
+\begin{equation}
+\widetilde{K}^{n}(X)=\begin{cases}\widetilde{K}^{0}(X) & \mbox{if $n$
+  is even}\\
+\widetilde{K}^{1}(X) & \mbox{if $n$ is odd}
+\end{cases}
+\end{equation}
+for any $n\in\ZZ$.
+\end{node}
+
+\subsection{Examples of relative exact sequences}
+
+\begin{node}
+If $A\into X$ where $A$ is a sub-CW complex of $X$, and if $A$ is
+contractible, then
+\begin{equation}
+\widetilde{K}(\Sigma A)=0\to\widetilde{K}(X/A)\to\widetilde{K}(X)\to\widetilde{K}(A)\iso\widetilde{K}(\point{*})=0,
+\end{equation}
+so $q^{*}\colon\widetilde{K}(X/A)\to\widetilde{K}(X)$ is an isomorphism.
+\end{node}
+
+\begin{proof}
+Contractible $A$ has $\widetilde{K}(A)\iso\widetilde{K}(\point{*})=0=0$.
+Since $A$ is contractible, $\Sigma A$ is contractible, so $\widetilde{K}(\Sigma A)=0$.
+Hence the claim.
+\end{proof}
+
+\begin{remark}
+This result still holds in the more general setting where $A\into X$
+is a closed subspace and $A$ is contractible, then we always have this
+isomorphism on $\widetilde{K}$ even though $X/A$ is not necessarily
+homotopy equivalent to $X$.
+\end{remark}
+
+\begin{example}
+The wedge product $X\wedgetimes Y$ satisfies
+\begin{equation}
+\widetilde{K}(X\wedgetimes Y)\iso\widetilde{K}(X)\oplus\widetilde{K}(Y).
+\end{equation}
+\end{example}
+
+\begin{definition}
+The smash product $X\smashtimes Y$ and external product
+$\boxtimes$. Given pointed spaces $(X,x_{0})$ and $(Y,y_{0})$ we can
+form the product $(X\times Y,x_{0}\times y_{0})$, but this is not the
+product object in the category of pointed topological spaces $\TOP_{*}$.
+This product object is described by the more natural notion of the
+\define{Smash Product}
+\begin{equation}
+X\smashtimes Y:=\frac{X\times Y}{(\{x_{0}\}\times Y)\cup(X\times\{y_{0}\})}.
+\end{equation}
+\end{definition}
+
+\begin{example}
+$\sphere{1}\smashtimes\sphere{1}\iso\sphere{2}$
+\end{example}
+
+\begin{example}
+$\sphere{i}\smashtimes\sphere{j}\iso\sphere{i+j}$
+\end{example}
+
+\begin{example}
+$\sphere{i}\smashtimes X\iso\Sigma X$ is the reduced suspension of $X$.
+The intuition is that we think of $\sphere{1}$ as the unit interval
+with the endpoints identified $\sphere{1}\iso I/(0\sim 1)$. 
+\end{example}
