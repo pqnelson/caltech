@@ -1,0 +1,103 @@
+%%
+%% winter-lecture28.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-10T09:09:01-0700
+%% Last update 2026-03-10T09:09:01-0700
+%% 
+
+\lecture[Artin--Schreier Theorem]{}
+
+Today and next lecture are student presentations on topics.
+
+\begin{node}
+When is it possible to have an algebraic closure of a field which is a
+finite extension? The Artin--Schreier theorem says the only way to do
+this is by adjoining a quadratic extension to a field. For example
+$\CC=\RR(\I)$.
+\end{node}
+
+\begin{theorem}[Artin--Schreier]
+Let $L/F$ be a field extension.
+If $L$ is an algebraically closed field with $1<[L:F]<\infty$, then
+$L=F(\I)$ where $\I=\sqrt{-1}$ and $\Char(F)=0$.
+\end{theorem}
+
+Before proving this, let us see a quick consequence.
+
+\begin{corollary}
+If $\RR/K$ is finite, then $K=\RR$.
+\end{corollary}
+
+\begin{proof}
+We see $\CC/K$ is finite by Artin--Schreier, so $\CC=K(\I)$, so
+\begin{equation}
+2=[\CC:K]=2[\RR:K],
+\end{equation}
+which implies $K=\RR$.
+\end{proof}
+
+\subsection{Proof of the Artin--Schreier Theorem}
+
+\begin{recall}
+The theorem statement: Let $L/F$ be a field extension.
+If $L$ is an algebraically closed field with $1<[L:F]<\infty$, then
+$L=F(\I)$ where $\I=\sqrt{-1}$ and $\Char(F)=0$.
+\end{recall}
+
+\begin{claim}
+$L/K$ is Galois.
+\end{claim}
+
+\begin{proof}
+We see that $L/K$ is normal (since $L$ is algebraically closed).
+
+To prove $L/K$ is separable, either $\Char(F)=0$ or $\Char(F)=p>0$.
+
+\textsc{Case 1}: If $\Char(F)=0$, then it's perfect and we are good.
+
+\textsc{Case 2}: If $\Char(F)=p>0$, then we will show $F^{p}=F$. If
+$a\in F\setminus F^{p}$, $x^{p^{m}}-a$ is irreducible for all
+$m\in\NN$. This means $F$ has extension of degree $p^{m}$ for all
+$m\in\NN$ which contradicts $[L:F]<\infty$. Hence $L$ mst be separable.
+\end{proof}
+
+\begin{claim}
+There is no odd prime number $p$ such that $p\divides[L:F]$.
+\end{claim}
+
+\begin{proof}
+Assume for contradiction there exists some odd prime $p$ such that
+$p\divides[L:F]$. Then since $|\Gal(L/F)|=[L:F]$, there is a subgroup
+of $\Gal(L/F)$ of order $p$ (hence cyclic). Then there exists a
+intermediate subextension $L/K/F$ such that $\Gal(L/K)$ is cyclic of
+order $p$. We see
+\begin{equation}
+\Char(F)=\Char(K)\neq p.
+\end{equation}
+If not, by Proposition~\ref{prop:11.3} we have $L=K(\alpha)$ where
+$\alpha$ is a root of $x^{p}-x-a\in K[x]$. Then
+$\{1,\alpha,\dots,\alpha^{p-1}\}$ is a basis of $L/K$. For any $b\in
+L$, we have
+\begin{equation}
+b=b_{0}+b_{1}\alpha+\dots+b_{p-1}\alpha^{p-1}.
+\end{equation}
+Then we can write
+\begin{equation}
+b^{p}-b=\sum^{p-1}_{j=0}(b^{p}_{j}(\alpha+a)^{j}-b_{j}\alpha^{j}).
+\end{equation}
+Look at the coefficient of $\alpha^{p-1}$: $b^{p}_{p-1}-b_{p-1}$.
+Since $L$ is algebraically closed, we can pick $b$ such that
+$b^{p}-b=a\alpha^{p-1}$. Then
+\begin{equation}
+b^{p}_{p-1}-b_{p-1}-a=0.
+\end{equation}
+But this is a contradiction, hence $\Char(F)\neq p$.
+\end{proof}
+
+\begin{claim}
+$[L:F]=2$.
+\end{claim}
+

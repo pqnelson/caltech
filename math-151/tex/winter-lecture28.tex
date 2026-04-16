@@ -1,0 +1,315 @@
+%%
+%% winter-lecture28.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-03-10T09:52:04-0700
+%% Last update 2026-03-10T09:52:04-0700
+%% 
+
+\lecture{}
+
+\begin{recall}
+We defined the smash product $X\smashtimes Y=(X\times Y)/(X\wedgetimes Y)$.
+We saw $\sphere{1}\smashtimes X\iso\Sigma X$.
+\end{recall}
+
+\begin{definition}
+Given pointed compact Hausdorff spaces $(X,x_{0})$ and $(Y,y_{0})$, we
+have the projections
+\begin{subequations}
+  \begin{align}
+\operatorname{pr}_{X}\colon (X\times Y,x_{0}\times y_{0})\to(X,x_{0})\\
+\intertext{and}
+\operatorname{pr}_{Y}\colon (X\times Y,x_{0}\times y_{0})\to(Y,y_{0})
+  \end{align}
+\end{subequations}
+which then induce a map called the \define{External Product}:
+\begin{equation}
+\begin{split}
+\widetilde{K}(X)\otimes\widetilde{K}(Y)&\to\widetilde{K}(X\times Y)\\
+a\otimes b&\mapsto\operatorname{pr}^{*}_{X}(a)\operatorname{pr}^{*}_{Y}(b),
+\end{split}
+\end{equation}
+where we just us the usual multiplication in the K-theory on the
+right-hand side. Note that
+\begin{subequations}
+  \begin{align}
+\operatorname{pr}^{*}_{X}\colon\widetilde{K}(X)\to\widetilde{K}(X\times Y)\\
+\intertext{and}
+\operatorname{pr}^{*}_{Y}\colon\widetilde{K}(Y)\to\widetilde{K}(X\times Y)
+  \end{align}
+\end{subequations}
+are the pullbacks of the projection operators, at the level of K-theory.
+\end{definition}
+
+\begin{remark}
+I have seen the nLab claim the ``external product'' to be defined on
+vector bundles $E_{1}\to X_{1}$ and $E_{2}\to X_{2}$ by
+$E_{1}\boxtimes E_{2}\to X_{1}\times X_{2}$ to be the usual tensor
+product of the two pullback bundles induced by pulling-back the projections
+$\operatorname{pr}_{i}\colon X_{1}\times X_{2}\to X_{i}$.
+\end{remark}
+
+\begin{node}
+Now, consider the long exact sequence obtained by
+\begin{equation}
+\begin{split}
+X\smashtimes Y & \stackrel{i}{\into} X\times
+Y\xrightarrow{q}X\wedgetimes Y\\
+x & \mapsto x\times y_{0}\\
+y & \mapsto x_{0}\times y
+\end{split}
+\end{equation}
+We get a long exact sequence
+\begin{equation}
+\widetilde{K}^{1}(X\smashtimes Y)\to\widetilde{K}^{0}(X\wedgetimes
+Y)\xrightarrow{q^{*}}\widetilde{K}^{0}(X\times
+Y)\xrightarrow{i^{*}}\widetilde{K}^{0}(X\wedgetimes Y)\to0.
+\end{equation}
+We want to prove
+\begin{equation}
+\widetilde{K}^{0}(X\times Y)\iso\widetilde{K}^{0}(X\smashtimes
+Y)\oplus\underbrace{\widetilde{K}^{0}(X\wedgetimes Y)}_{\iso\widetilde{K}(X)\oplus\widetilde{K}(Y)}
+\end{equation}
+Note that
+\begin{equation}
+\operatorname{pr}_{X}\circ i|_{X}\iso\id_{X},\quad\mbox{and}\quad
+\operatorname{pr}_{X}\circ i|_{Y}\iso\id_{Y}.
+\end{equation}
+Then these combine to give the induced morphism
+\begin{equation}
+i^{*}\circ(\operatorname{pr}_{X}^{*}\oplus\operatorname{pr}_{Y}^{*})\colon
+\widetilde{K}(X)\oplus\widetilde{K}(Y)\iso\widetilde{K}(X\wedgetimes Y)\to
+\widetilde{K}(X\times Y)\to\widetilde{K}(X\smashtimes Y)
+\end{equation}
+And the claim is that this is the identity morphism.
+
+Then
+\begin{equation}
+\operatorname{pr}_{X}^{*}\oplus\operatorname{pr}_{Y}^{*}\colon\widetilde{K}^{0}(X\wedgetimes Y)\to\widetilde{K}^{0}(X\times Y)
+\end{equation}
+is a section, so
+\begin{equation}
+i^{*}\circ(\operatorname{pr}_{X}^{*}\oplus\operatorname{pr}_{Y}^{*})=\id.
+\end{equation}
+We have
+\begin{subequations}
+  \begin{align}
+(\Sigma i)^{*}\colon K^{1}(X\times Y)\to\widetilde{K}^{1}(X\wedgetimes Y)\\
+    \intertext{and}
+    \boundary\colon K^{1}(X\wedgetimes Y)\to K^{0}(X\smashtimes Y).
+  \end{align}
+\end{subequations}
+We claim the connecting morphism $\boundary=0$ is just the zero map,
+so we trim the long exact sequence into the short exact sequence
+\begin{equation}
+0\to\widetilde{K}^{0}(X\smashtimes
+Y)\xrightarrow{q^{*}}\widetilde{K}^{0}(X\times
+Y)\xrightarrow{i^{*}}\widetilde{K}(X\wedgetimes Y)\to0.
+\end{equation}
+This is because $i^{*}$ is surjective, so $\Sigma i^{*}$ is
+surjective, so we must have $\boundary=0$.
+\end{node}
+
+\begin{node}
+Under this decomposition,
+\begin{equation}
+\operatorname{pr}_{X}^{*}\operatorname{pr}_{Y}^{*}\colon\widetilde{K}(X)\oplus\widetilde{K}(Y)\to\widetilde{K}(X\times Y),
+\end{equation}
+and
+\begin{equation}
+K(X\times Y)\iso\underbrace{\widetilde{K}(X\smashtimes Y)}_{\sim\ker(i^{*})}\oplus\underbrace{\widetilde{K}(X)\oplus\widetilde{K}(Y)}_{\sim\Im(i^{*})}
+\end{equation}
+and $\operatorname{pr}_{X}^{*}\operatorname{pr}_{Y}^{*}$ lands in
+$\widetilde{K}(X\smashtimes Y)$. That is to say,
+\begin{equation}
+i^{*}(\operatorname{pr}_{X}^{*}(-)\operatorname{pr}_{Y}^{*}(-))=0
+\end{equation}
+which is the same as saying
+\begin{equation}
+X\times\{y_{0}\}\into X\wedgetimes Y\stackrel{i}{\into}X\times Y\to0,
+\end{equation}
+so we get the external product
+\begin{equation}
+\boxtimes\colon\widetilde{K}(X)\otimes\widetilde{K}(Y)\to\widetilde{K}(X\smashtimes Y).
+\end{equation}
+For the usual K-theory $K(X)$ (= $\widetilde{K}(X)\oplus\ZZ$), we have
+the multiplication
+\begin{equation}
+K(X)\otimes K(Y)\to K(X\times Y),
+\end{equation}
+which is a ring morphism.
+\end{node}
+
+\begin{theorem}[Fundamental product]
+Let $X$ be a compact Hausdorff space. Then we have a ring morphism
+\begin{equation}
+\begin{split}
+\mu\colon K(X)\times K(\sphere{2})&\to K(X\times\sphere{2})\\
+a\otimes b&\mapsto(\operatorname{pr}_{1}^{*}a)(\operatorname{pr}_{2}^{*}b)
+\end{split}
+\end{equation}
+is an isomorphism, where $K(\sphere{2})\iso\ZZ[H]/\bigl((H-1)^{2}\bigr)\iso\ZZ[\mathbf{1}]\oplus\ZZ[H]$.
+\end{theorem}
+
+\begin{claim}
+Bott periodicity follows from the fundamental product theorem.
+\end{claim}
+
+\begin{proof}
+We have
+\begin{equation}
+\mu\colon(\widetilde{K}(X)\oplus\ZZ)\otimes(\widetilde{K}(\sphere{2})\oplus\ZZ)\xrightarrow{\iso}\widetilde{K}(X\times\sphere{2})\oplus\ZZ.
+\end{equation}
+Then
+\begin{equation}
+\mu\colon(\widetilde{K}(X)\otimes\widetilde{K}(\sphere{2}))\oplus\underbrace{(\ZZ\otimes\widetilde{K}(\sphere{2}))}_{\iso\widetilde{K}(\sphere{2})}\oplus\underbrace{(\widetilde{K}(X)\otimes\ZZ)}_{\iso\widetilde{K}(X)}\oplus\ZZ\to\widetilde{K}(X\times\sphere{2})\oplus\ZZ,
+\end{equation}
+then $\mu$ induces an isomorphism between each component. For example,
+$\widetilde{K}(\sphere{2})$ is sent to a trivial bundle over $X$ and
+identity on itself, and so on.
+\end{proof}
+
+\begin{node}
+We will follow a proof by Atiyah and Bott~\cite{atiyah1964periodicity},
+which Hatcher's proof is close in spirit to. See also Husemoller's
+\textit{Fiber Bundles} (third ed., Springer, Chapter 11).
+\end{node}
+
+\subsection{General Clutching Construction}
+
+\begin{node}
+Recall the usual clutching construction says vector bundles over
+$\sphere{2}$ may be viwede as vector bundles over the hemispheres
+(each of which is contractible), so all the important information
+comes from the equator. The general version is as follows.
+\end{node}
+
+\begin{claim}
+There is a bijective correspondence
+\begin{equation}
+\left\{\begin{matrix}\CC^{n}\mbox{-vector bundles}\\
+\mbox{over }X\times\sphere{2}
+\end{matrix}\right\}/\sim\quad\stackrel{1:1}{\longleftrightarrow}\quad\{(E,f)\}
+\end{equation}
+where $E$ is a $\CC^{n}$-bundle over $X$, with pullback bundle
+\begin{equation}
+\vcenter{\xymatrix{p^{*}E\ar[d]\ar[r] & E\ar[d]\\
+X\times\sphere{1}\ar[r] & X}}
+\end{equation}
+and $f$ is a bundle isomorphism
+\begin{equation}
+\vcenter{\xymatrix{p^{*}E\ar[rr]^{f}\ar[dr]& & p^{*}E\ar[dl]\\
+& X\times\sphere{1} &}}.
+\end{equation}
+We recover the usual clutching construction when $X=\{x\}$ is a point.
+\end{claim}
+
+The proof is roughly the same as before.
+
+\begin{proof}
+Given a pair $(E,f)$ we will produce an isomorphism class
+\begin{equation}
+[E,f]\mapsfrom(E,f)
+\end{equation}
+as follows:
+$[E,f]$ is found by gluing two copies of $E\times\disk{2}_{\pm}\to X\times\disk{2}_{\pm}$
+along the ``equator'' $E\times\sphere{1}$ using the automorphism $f$
+\begin{equation}
+(E\times\disk{2}_{+})\sqcup(E\times\disk{2}_{-})/(e,z)\sim f(e,z)
+\end{equation}
+where $e\in E$ and $z\in\sphere{1}$. The isomorphism class $[E,f]$
+depends only on the homotopy class of $f$ among bundle automorphisms
+of $E\times\sphere{1}$ (this is homework).
+
+Now, to prove this is a bijection, we can construct the inverse map as
+follows: Given a $\CC^{n}$-bundle $\pi\colon E'\to X\times\sphere{2}$
+over $X\times\sphere{2}=(X\times\disk{2}_{+})\cup(X\times\disk{2}_{-})$,
+we get $E'_{+}\to X\times\disk{2}_{+}$ and $E'_{-}\to X\times\disk{2}_{-}$
+by restriction of $\pi$. Let
+\begin{equation}
+\begin{split}
+i\colon &X\into X\times\disk{2}_{+}\\
+&x\mapsto(x,p)
+\end{split}
+\end{equation}
+for some fixed $p\in\disk{2}_{+}$, and
+\begin{equation}
+\begin{split}
+r\colon&X\times\disk{2}_{+}\to X\\
+&(x,d)\mapsto x
+\end{split}
+\end{equation}
+for the retraction. Then
+\begin{equation}
+i\circ r\homotopic \id_{X\times\disk{2}_{+}},
+\end{equation}
+so we get
+\begin{equation}
+E'^{+}\iso(i\circ r)^{*}E'^{+}\iso (r^{*}\circ i^{*})E'^{+}
+\end{equation}
+We call $i^{*}E'$ a $\CC^{n}$-bundle $E\to X$, then
+\begin{equation}
+E'^{+}\iso(E\times\disk{2}_{+}\to X\times\disk{2}_{+}).
+\end{equation}
+We have a bundle isomorphism $\varphi_{+}$
+\begin{equation}
+\vcenter{\xymatrix{E'_{+}\ar[dr]\ar[rr]^{\varphi_{+}} & & E\times\disk{2}_{+}\ar[dl]\\
+& X\times\disk{2}_{+} &}}
+\end{equation}
+and similarly, we can construct
+\begin{equation}
+\vcenter{\xymatrix{E'_{-}\ar[dr]\ar[rr]^{\varphi_{-}} & & E\times\disk{2}_{-}\ar[dl]\\
+& X\times\disk{2}_{-} &}}
+\end{equation}
+Then we get the clutching map $f$ by composing the two trivializations
+over $X\times\sphere{1}$
+\begin{equation}
+\vcenter{\xymatrix{E\times\sphere{1}\ar[r]^{(\varphi_{-})^{-1}}\ar[dr]
+    & E'|_{\sphere{1}} \ar[d] \ar[r]^{\varphi_{+}} & E\times\sphere{1}\ar[dl]\\
+& X\times\sphere{1} &}}
+\end{equation}
+where $f=\varphi_{+}\circ\varphi_{-}^{-1}$.
+\end{proof}
+
+\begin{remark}
+We can view the clutching map $f\colon E\times\sphere{1}\to E\times\sphere{1}$
+as an $\sphere{1}$-parametrized family of $\CC^{n}$-bundle
+automorphisms $E\to E$ so we may write $f$ as
+\begin{equation}
+f_{z}\colon E\to E
+\end{equation}
+for $z\in\sphere{1}$.
+\end{remark}
+
+\begin{node}
+\textbf{Outline of proof of fundamental product theorem}.
+\begin{enumerate}
+\item Up to homotopy, we cna assume $f_{z}$ takes the form of a
+  Laurent polynomial in $z$,
+\begin{equation}
+f_{z}(x)=\sum_{|k|<n}a_{k}(x)z^{k},
+\end{equation}
+by Fourier analysis.
+\item (In the K-theory world) We can assume $f_{z}$ is a polynomial in
+  $z$ by shifting the negative powers of $z$ away
+\item Using $K(\sphere{2})\iso\ZZ[H]/(H-1)^{2}$ we can reduce to the
+  case where $f_{z}$ is linear
+\begin{equation}
+f_{z}(x)=a_{0}(x)+a_{1}(x)z=a(x)+b(x)z.
+\end{equation}
+\item Given $[E,a(x)+zb(x)]$, this is the same (up to trivialization)
+  to some splitting
+\begin{subequations}
+\begin{equation}
+E_{+}\oplus E_{-}\iso E
+\end{equation}
+and
+\begin{equation}
+[E,a(x)+zb(x)]\iso\underbrace{[E_{+},a(x)]}_{\sim K(X)\otimes\ZZ[\mathbf{1}]}+\underbrace{[E_{-},zb(x)]}_{\sim K(X)\otimes\ZZ[H]}
+\end{equation}
+\end{subequations}
+\end{enumerate}
+\end{node}
