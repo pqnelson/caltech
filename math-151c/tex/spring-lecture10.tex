@@ -1,0 +1,157 @@
+%%
+%% spring-lecture10.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-23T12:27:54-0700
+%% Last update 2026-04-23T12:27:54-0700
+%% 
+
+\lecture[Geodesics]{}
+
+\begin{node}
+In Euclidean space, to connect two points $A$ and $B$ in a path of
+minimal length, we just take a straight line. But on a manifold,
+``straight line'' is no longer a sensible notion. However,
+\emph{curves} are a sensible notion, as is ``minimal length''.
+
+If there always exists
+at least one such curve for any two points on a manifold, then we call
+it ``complete''.
+
+So on Euclidean space $(\RR^{n},g_{0})$ we always have a curve
+\begin{equation}
+\gamma\colon[0,1]\to\RR^{n}
+\end{equation}
+such that $\gamma(0)=A$ and $\gamma(1)=B$. Moreover, $\gamma$ is a
+path of minimum length if and only if $\gamma$ is a straight line
+(``if and only if'' $\gamma'(t)=\gamma(1)-\gamma(0)$ for all $t\in[0,1]$).
+Saying a curve ``has constant velocity vector'' makes sense now:
+$\gamma'(t)$ is a vector field on the curve $\gamma$.
+\end{node}
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian manfiold. Let $I\subset\RR$ be an
+interval. Let $\gamma\colon I\to M$ be a smooth curve. We say $\gamma$
+is a \define{Geodesic} if its acceleration vanishes identically:
+\begin{equation}
+\frac{D\gamma'}{\D t}=0.
+\end{equation}
+(This implicitly depends on the connection by relying on $D/\D t$, we
+have decided to set it to the Levi-Civita connection by convention.)
+\end{definition}
+
+\begin{remark}[Form of geodesic equations in a local chart]
+Let $(M,g)$ be a Riemannian manifold. Let
+$(U,\varphi=(\xi^{1},\dots,\xi^{n}))\in\smoothstr{M}$ be a local
+chart. Consider a curve
+\begin{equation}
+\gamma\colon I\to M
+\end{equation}
+such that $\gamma(I)\subset U$. Then
+\begin{equation}
+\frac{D\gamma'}{\D t}=\left.\sum^{n}_{k=1}((\gamma^{k})''(t)+\sum^{n}_{i,j=1}\Gamma^{k}_{ij}(\gamma^{i})'(t)(\gamma^{j})'(t))\frac{\partial}{\partial\xi^{k}}\right|_{\gamma(t)}
+\end{equation}
+where $\gamma^{i}=(\xi^{i}\circ\gamma)\colon I\to\RR$ for every $i=1,\dots,n$.
+Here
+\begin{equation}
+\Gamma^{k}_{ij}=\Gamma^{k}_{ij}(\gamma(t)).
+\end{equation}
+Therefore $\gamma$ isa geodesic if and only if
+\begin{equation}
+0=\left.\sum^{n}_{k=1}((\gamma^{k})''(t)+\sum^{n}_{i,j=1}\Gamma^{k}_{ij}(\gamma^{i})'(t)(\gamma^{j})'(t))\frac{\partial}{\partial\xi^{k}}\right|_{\gamma(t)}
+\end{equation}
+for every $k=1,\dots,n$ and every $t\in I$.
+\end{remark}
+
+\begin{theorem}
+Let $(M,g)$ be a Riemannian manifold. Then for every $x_{0}\in M$,
+there exists an open neighborhood $U\subset M$ of $x_{0}\in U$ and
+there exists an $\varepsilon>0$ such that for every $(x,v)\in TU$ with
+$|v|_{g}<\varepsilon$, there exists a unique geodesic
+\begin{equation}
+\alpha_{x,v}\colon(-1,1)\to M
+\end{equation}
+such that
+\begin{enumerate}
+\item $\alpha_{x,v}(0)=x$ and
+\item $\alpha_{x,v}'(0)=v$.
+\end{enumerate}
+Moreover, the map $\psi\colon TU\times(-1,1)\to M$ given by
+\begin{equation}
+\psi\bigl((x,v),t\bigr)=\alpha_{x,v}(t)
+\end{equation}
+is smooth.
+\end{theorem}
+
+\begin{remark}
+If you find yourself ina situation when you found a geodesic on a
+smaller interval, say $\alpha_{x,v}\colon(-1/2,1/2)\to M$, then you
+just picked the wrong initial velocity $v$. To obtain a desirable
+$\widetilde{\alpha}_{x,v}\colon(-1,1)\to M$ we just define it by
+$t\mapsto\alpha_{x,v}(t/2)$ to get the desired result.
+\end{remark}
+
+\begin{remark}
+If you have two geodesics that are both defined at time $t=0$, and
+both geodesics have the same initial conditions, then they agree
+everywhere they overlap.
+\end{remark}
+
+\begin{definition}[Maximal geodesic]
+A geodesic $\gamma\colon I\to M$ with $0\in I$ is called
+\define{Maximal} if for every
+$\widetilde{\gamma}\colon\widetilde{I}\to M$ with $0\in\widetilde{I}$
+such that they have the same initial conditions
+$\widetilde{\gamma}(0)=\gamma(0)$ and $\widetilde{\gamma}'(0)=\gamma'(0)$
+we have $\widetilde{I}\subset I$.
+\end{definition}
+
+\begin{remark}
+Given $x\in M$ and $v\in T_{x}M$, there always exists a maximal
+geodesic
+\begin{equation}
+\gamma_{x,v}\colon I\to M
+\end{equation}
+with $0\in I$ and initial conditions $\gamma_{x,v}(0)=x$ and
+$\gamma'_{x,v}(0)=v$. (This interval $I$ could be small if $v$ is
+chosen to be ``too big. Just pick $v$ with a smaller magnitude $v/N$.)
+\end{remark}
+
+\begin{remark}
+Maximality is proven by Zorn's lemma.
+\end{remark}
+
+\begin{definition}[Exponential map]
+Let $(M,g)$ be a Riemannian manifold. Cosnider the open set
+$\Omega=\{(x,v)\in TM\mid \gamma_{x,v}\mbox{ exists at time }t=1\}$.
+The \define{Exponential Map} $\exp\colon\Omega\to M$ is given by
+\begin{equation}
+\exp(x,v):=\gamma_{x,v}(1),
+\end{equation}
+for any $(x,v)\in\Omega$.
+
+Note: this is a smooth map.
+\end{definition}
+
+\begin{notation}
+We will switch notations, writing $\exp(x,v)$ as $\exp_{x}(v)$ when convenient.
+\end{notation}
+
+\begin{xca}
+Show the differential of $\exp(x,0)$ is $\D(\exp_{x})_{0}=\id$.
+\end{xca}
+
+\begin{remark}
+This exponential map originates from Lie groups. For example, take
+$\SO(n)$. This is naturally a smooth submanifold of
+$\RR^{n^{2}}$. We see
+\begin{equation}
+\begin{split}
+T_{\id}\SO(n) &= \operatorname{Lie}(\SO(n))\\
+&=\{A\in M_{n}(\RR)\mid A^{\mathsf{T}}=-A\}.
+\end{split}
+\end{equation}
+Then $\exp_{\id}(B)$ is just the matrix exponential of $B\in T_{\id}\SO(n)$.
+\end{remark}

@@ -1,0 +1,196 @@
+%%
+%% spring-lecture04.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-09T10:40:40-0700
+%% Last update 2026-04-09T10:40:40-0700
+%% 
+
+\lecture[Riemannian manifolds]
+
+% START bit from previous lecture which fits more logically here
+\begin{definition}[Riemannian metric]
+Let $M$ be a smooth $n$-manifold. A \define{Riemannian Metric} on $M$
+is a $(0,2)$-tensor $g$ on $M$ which is:
+\begin{enumerate}
+\item \textbf{Symmetric}: for each $x\in M$, for each $v,w\in T_{x}M$, $g(x)[v,w]=g(x)[w,v]$
+\item \textbf{Nondegenerate}: for each $x\in M$, for each $v\in T_{x}M$,
+  if we have for every $w\in T_{x}M$ that $g(x)[v,w]=0$, then $v=0$
+\item \textbf{Positive}: for each $x\in M$ and for each $v\in T_{x}M$,
+  we have $g(x)[v,v]\geq0$ and (by nondegeneracy) $g(x)[v,v]=0$ if only
+  if $v=w$.
+\end{enumerate}
+If we relax the ``positive'' condition, then we get a semi-Riemannian
+metric.
+\end{definition}
+% END bit from previous lecture which fits more logically here
+
+\begin{definition}
+A \define{Riemannian Manifold} $(M,g)$ consists of a smooth manifold
+$M$ and a Riemannian metric $g$ on $M$.
+\end{definition}
+
+\begin{definition}[Local coefficients]
+Let $(M,g)$ be a Riemannian manifold. Let
+$(U,\varphi=(\xi^{1},\dots,\xi^{n}))\in\smoothstr{M}$ be a local
+chart. Then the \define{Local Coefficients} of $g$ on $(U,\varphi)$ is
+given by
+\begin{equation}
+g_{ij}(x):=g(x)\left[\frac{\partial}{\partial\xi^{i}}(x),\frac{\partial}{\partial\xi^{j}}(x)\right]
+\end{equation}
+for any $x\in U$, and for any $i,j=1,\dots,n=\dim(M)$. Observe
+$g_{ij}\colon U\to\RR$ are all smooth functions.
+\end{definition}
+
+\begin{remark}
+The Euclidean metric on $\RR^{n}$ is given by
+\begin{equation}
+g_{0}:=\sum_{i}(\D x_{i})^{2}.
+\end{equation}
+We can generalize this! Let $(M,g)$ be a Riemannian manifold, let
+$(U,\varphi=(\xi^{1},\dots,\xi^{n}))\in\smoothstr{M}$ be a local
+chart. Then for every $i=1,\dots,n$ the differential 1-form
+$\D\xi^{i}\in\Omega^{1}(U)$ is given by
+\begin{equation}
+\D\xi^{i}(x)[v]=v_{i}
+\end{equation}
+where
+\begin{equation}
+v=\sum^{n}_{i=1}v_{i}\frac{\partial}{\partial\xi^{i}}(x).
+\end{equation}
+This is just the dual basis for the cotangent space. With this
+notation, we have
+\begin{equation}
+g=\sum^{n}_{i,j=1}g_{ij}\,\D\xi^{i}\otimes\D\xi^{j}
+\end{equation}
+on $U$. This means
+\begin{equation}
+g(x)[v,w]=\sum^{n}_{i,j=1}g_{ij}(x)v_{i}w_{j}=\sum g(x)[\frac{\partial}{\partial\xi^{i}}(x),\frac{\partial}{\partial\xi^{j}}(x)]v_{i}w_{j}.
+\end{equation}
+This is completely formal, we will forget about it in practice.
+\end{remark}
+
+\begin{remark}
+We should remember that second countable plus locally Euclidean
+implies paracompactness.
+\end{remark}
+
+\begin{example}
+$(\RR^{n},g_{0})$ is a Riemannian manifold with
+\begin{equation}
+g_{0}(x)[v,w]=\sum^{n}_{i}v_{i}w_{i}
+\end{equation}
+for any $x\in\RR^{n}$ and $v,w\in T_{x}\RR^{n}$. This $g_{0}$ is
+called the \define{Standard Riemannian Metric} on $\RR^{n}$.
+\end{example}
+
+\begin{example}[Conformally equivalent metrics]
+Given a Riemannian manifold $(M,g)$ and a smooth $f\colon M\to(0,+\infty)$,
+then the $(0,2)$-tensor $fg$ on $M$ given by
+\begin{equation}
+(fg)(x)[v,w]=f(x)g(x)[v,w]
+\end{equation}
+is also a Riemannian metric on $M$. If we write $h=fg$ for this
+metric, then $h$ and $g$ are said to be \define{Conformally Equivalent}.
+If $f$ vanishes at finitely many points, then $h$ and $g$ are
+\define{Weakly Conformally Equivalent}.
+\end{example}
+
+\begin{example}[Pullback metric]
+Let $(N,h)$ be a Riemannian manifold. Let $M$ be a smooth manifold.
+Let $f\colon M\to N$ be a smooth immersion. Then the $(0,2)$-tensor
+$f^{*}h$ given by
+\begin{equation}
+(f^{*}h)(x)[v,w]:=h(f(x))[\D f(x)[v],\D f(x)[w]],
+\end{equation}
+for any $x\in M$ and $v,w\in T_{x}M$, is a Riemannian metric on
+$M$ called the \define{Pullback Metric} of $h$ along $f$.
+If $f$ is not an immersion, then you can get degeneracies. This
+is a great way to construct metrics.
+\end{example}
+
+\begin{example}
+All submanifolds $M$ of $\RR^{n}$ ar eembeddings, and this is one way
+to get a matric by using the inclusion $i\colon M\into\RR^{n}$, $i(x)=x$.
+Then inclusion $i$ is an embedding (since $M$ is a smooth submanifold
+of $\RR^{n}$) so $g=i^{*}g_{0}$ is a Riemannian metric on $M$, meaning
+\begin{equation}
+g(x)[v,w]:=g_{0}(x)[v,w]
+\end{equation}
+for any $x\in M$ and $v,w\in T_{x}M\subset T_{x}\RR^{n}\iso\RR^{n}$.
+\end{example}
+
+\begin{question}
+If we have a smooth submanifold $M$ of $\RR^{n}$, it is naturally a
+Riemannian manifold with the pullback metric. If we have a Riemannian
+manifold $(M,g)$, is it a submanifold of some $\RR^{n}$?
+\end{question}
+
+\begin{theorem}[Nash's embedding]
+Let $(M,g)$ be a Riemannian manifold. Then there exists an embedding
+$f\colon M\into\RR^{k}$ (for sufficiently large $k$) such that $f^{*}g_{0}=g$.
+\end{theorem}
+
+The currently known upper bounds on $k$ is: if $M$ is compact, then
+$k\leq n^{2}$. If $M$ is noncompact, then $k\leq n^{3}$.
+
+(The proof is long and complicated. It would take a week to discuss.)
+
+\begin{question}
+Is every smooth manifold a Riemannian manifold?
+\end{question}
+
+\begin{theorem}
+Every smooth $n$-manifold admits at least one Riemannian metric.
+\end{theorem}
+
+\begin{proof}
+Since $M$ is second-countable and locally Euclidean, we see $M$ is
+paracompact. Since $M$ is paracompact, Hausdorff, and
+second-countable, there exists a countable atlas
+$\{(U_{k},\varphi_{k})\}_{k\in\NN}$ and a locally finite partition of
+unity subordinated to the open cover $\{U_{k}\}_{k\in\NN}$ (i.e., a
+family of smooth maps $\rho_{k}\colon U_{k}\to[0,1]$ where $k\in\NN$
+such that
+\begin{enumerate}
+\item $\rho_{k}$ is compactly supported in $U_{k}$, i.e.,
+  $\supp(\rho_{k})\subset U_{k}$ is compact;
+\item for all $x\in M$, $\rho_{k}(x)\neq0$ for only finitely many $k\in\NN$
+\item for all $x\in M$, $\sum_{k\in\NN}\rho_{k}(x)=1$.
+\end{enumerate}
+This is the notion of a partition of unity.) Then we define the
+$(0,2)$-tensor $g$ on $M$ by
+\begin{equation}
+g(x)=\sum_{k\in\NN}\rho_{k}(x)(\varphi^{*}_{k}g_{0})(x).
+\end{equation}
+It's not hard to prove $g$ is a Riemannian metric, which proves the result.
+\end{proof}
+
+\begin{xca}
+Work out the details of the proof.
+\end{xca}
+
+%% START stuff from next lecture placed here for logical coherence
+\begin{definition}[Isometry]
+Let $(M,g)$ and $(N,h)$ be Riemannian manifolds. A diffeomorphism
+$f\colon M\to N$ is called an \define{Isometry} if $f^{*}h=g$. In
+other words, for all $x\in M$ and for all $v,w\in T_{x}M$ we have
+\begin{equation}
+h(f(x))[\D f(x)[v],\D f(x)[w]]=g(x)[v,w].
+\end{equation}
+\end{definition}
+
+\begin{node}
+Just to review, we have a little table of isomorphisms
+\begin{center}
+\begin{tabular}{c|c}
+Category & Isomorphism \\\hline
+Topological Manifolds & Homeomorphisms\\
+Smooth Manifolds & Diffeomorphisms\\
+Riemannian Manifolds & Isometries
+\end{tabular}
+\end{center}
+\end{node}
+%% END stuff from next lecture placed here for logical coherence

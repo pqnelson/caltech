@@ -1,0 +1,172 @@
+%%
+%% spring-lecture05.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-09T11:06:05-0700
+%% Last update 2026-04-09T11:06:05-0700
+%% 
+
+\lecture[]
+
+\subsection{Length, volume, integration}
+
+\begin{node}
+When people speak of ``geometric properties'' (as opposed to
+``topological properties''), we need to involve some ``measure'' (in
+the ``measure theoretic'' sense). This
+distinguishes geometric from topological properties. ``Measure''
+invariably involves metrics.
+\end{node}
+
+\begin{definition}[Length of smooth curve]
+Let $(M,g)$ be a Riemannian manifold. Let $\gamma\colon[a,b]\to M$ be
+a smooth curve.\footnote{How can $\gamma$ be considered smooth on
+$[a,b]$? This $[a,b]$ is not a manifold. The problem? The boundary!
+The easiest way is that $\gamma$ can be extended to
+$\widetilde{\gamma}\colon(a',b')\to M$ where $[a,b]\subset(a',b')$ and $\widetilde{\gamma}|_{[a,b]}=\gamma$.}
+The \define{Length} of $\gamma$ is given by
+\begin{equation}
+\length_{g}(\gamma)=\int^{b}_{a}\sqrt{g(\gamma(t))[\gamma'(t),\gamma'(t)]}\,\D t.
+\end{equation}
+It is not uncommon to see this written as
+$\int^{b}_{a}|\gamma'(t)|\,\D t$.
+\end{definition}
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian manifold. For every pair of points $x,y\in M$,
+let
+\begin{equation}
+\mathcal{C}(x,y)=\{\gamma\colon[a,b]\to M\mbox{ smooth}\mid\gamma(a)=x,\gamma(b)=y\}.
+\end{equation}
+We define the \define{Riemannian Distance} between $x$ and $y$ by
+\begin{equation}
+d_{g}(x,y):=\inf_{\gamma\in\mathcal{C}(x,y)}\length_{g}(\gamma).
+\end{equation}
+(If $M$ is disconnected and $x$ and $y$ live on different components,
+then $d_{g}(x,y)=+\infty$.)
+\end{definition}
+
+\begin{proposition}
+If $M$ is connected, then $(M,d_{g})$ is a metric space.
+\end{proposition}
+
+\begin{xca}
+Prove this!
+\end{xca}
+
+\begin{node}
+The next notions are measure theoretic, but it is the most formal way
+to describe these notions.
+\end{node}
+
+\begin{definition}[Volume measure]
+Let $(M,g)$ be a Riemannian manifold. Let $\mathcal{B}(M)$ be the
+Borel $\sigma$-algebra of $M$ (since $M$ is a topological space, we
+can take the smallest $\sigma$-algebra containing the topology [i.e.,
+  the Borel $\sigma$-algebra]).
+Let $\{(U_{k},\varphi_{k})\}_{k\in\NN}\subset\smoothstr{M}$ be a
+countable smooth atlas, and let $\{\rho_{k}\}_{k\in\NN}$ be a
+locally-finite partition of unity subordinated to the open cover
+$\{U_{k}\}_{k\in\NN}$. Then for any $A\in\mathcal{B}(M)$, we define
+the
+\begin{equation}
+  \mu_{g}(A):=\sum_{k\in\NN}\int_{\varphi_{k}(A\cap U_{k})}(\rho_{k}\circ\varphi^{-1}_{k})\sqrt{\det(g^{(k)}_{ij})}\,\D\mathcal{L}^{n}
+\end{equation}
+The completion of $\mu_{g}$ is a Radon measure on $M$ called the
+\define{Volume Measure} and is denoted by $\vol_{g}$.
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}
+\item If $A\propersubset U_{k}$, then all other $U_{j}$ contributions
+  vanish and $\mu_{g}(A)=\int_{\varphi_{k}(A\cap U_{k})}(\rho_{k}\circ\varphi^{-1}_{k})\sqrt{\det(g^{(k)}_{ij})}\,\D\mathcal{L}^{n}$
+\item We pullback integration from $\RR^{n}$ to the manifold
+\item $\varphi_{k}(A\cap U_{k})$ is a Borel set in $\RR^{n}$, so we
+  can integrate on it.
+\item We should check $\mu\colon\mathcal{B}(M)\to[0,+\infty]$ is a
+  Radon measure on $M$ (suffices to prove $\mu$ is an outer measure,
+  which implies $\mu$ is a Borel measure; we need to prove more for
+  establishing it is a Radon measure, though).
+\item For measure theoretic reasons, we will want to work with the
+  completion of $\mu$ to define a measure on
+  $\mathcal{B}(M)\cup\{\mbox{null sets}\}$.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}
+Some people want to relate this to integration of differential
+forms. For \emph{orientable} manifolds, the top-form may be identified
+as the volume measure. Actually \emph{proving} this claim is quite
+tedious.
+
+However, for non-orientable manifolds, our definition is the only game
+in town.
+\end{remark}
+
+\begin{definition}[Volume of regions]
+Let $(M,g)$ be a Riemannian manifold. Let $D\subset M$ be a ``region''
+(i.e., a relatively compact\footnote{A set is ``relatively compact''
+if its closure is compact.} open subset of $M$). Then the
+\define{Volume} of $D$ is
+\begin{equation}
+\vol(D):=\vol_{g}(D)=\int_{D}\D\vol_{g}<+\infty.
+\end{equation}
+The ``relative compactness'' condition ensures the integral is finite.
+\end{definition}
+
+\subsection{Connections on smooth manifolds}
+
+\begin{node}
+We can differentiate a function $f$ with respect to a vector field $X$
+by taking its directional derivative. For us to extend this procedure
+from a function $f$ to a vector field, we need something more: a connection.
+\end{node}
+
+\begin{definition}
+Let $M$ be a smooth manifold. A \define{Connection} on $TM$ (or,
+abusing language, ``on $M$'') is an $\RR$-linear operator
+\begin{equation}
+\begin{split}
+\nabla\colon&\Vect{M}\times\Vect{M}\to\Vect{M}\\
+&(X,Y)\mapsto\nabla_{X}Y
+\end{split}
+\end{equation}
+(we are differentiating $Y$ with respect to $X$) such that
+\begin{enumerate}
+\item for all $f\in C^{\infty}(M)$, we have $\nabla_{fX}Y=f\nabla_{X}Y$
+\item \textbf{Leibniz rule}: for all $f\in C^{\infty}(M)$, we have $\nabla_{X}(fY)=(Xf)Y+f\nabla_{X}Y$
+\end{enumerate}
+This is also called the \define{Covariant Derivative}.
+\end{definition}
+
+\begin{remark}
+\textit{A priori} there is no canonical way to construct a connection:
+we can have many. But there is an obvious way to do it on a Riemannian manifold.
+\end{remark}
+
+\begin{definition}[Torsion-free]
+Let $M$ be a smooth manifold.
+Let $\nabla$ be a connection on $M$.
+We say $\nabla$ is \define{Torsion-Free} if for all vector fields
+$X,Y\in\Vect{M}$ we have
+\begin{equation}
+\nabla_{X}Y-\nabla_{Y}X=[X,Y].
+\end{equation}
+This is because the \define{Torsion} $\tau$ is defined as a
+$(0,2)$-tensor satisfying (up to an overall sign):
+\begin{equation}
+\tau(X,Y) = \nabla_{X}Y-\nabla_{Y}X - [X,Y]
+\end{equation}
+\end{definition}
+
+\begin{example}
+In $\RR^{n}$, vector fields look like $X=(\id,v)\colon\RR^{n}\to\RR^{n}\times\RR^{n}$
+and $Y=(\id,w)\colon\RR^{n}\to\RR^{n}\times\RR^{n}$. Then if we define
+\begin{equation}
+\nabla_{X}^{0}Y=(\id,\sum^{n}_{i=1}v_{i}\partial_{i}w),
+\end{equation}
+then this is called the \define{Euclidean Connection} on $\RR^{n}$. It
+is torsion-free. (Later, we will see it is also the Levi-Civita connection.)
+\end{example}

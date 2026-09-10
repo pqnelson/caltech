@@ -1,0 +1,168 @@
+%%
+%% spring-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-30T12:14:05-0700
+%% Last update 2026-04-30T12:14:05-0700
+%% 
+
+\lecture{}
+
+\begin{definition}
+Given a variation field $V\in\Vect{\gamma}$, the \define{First Variation}
+of the energy $E_{g}$ at $\gamma$ along $V$ is defined as
+\begin{equation}
+\D E_{g}(\gamma)[V]=\left.\frac{\D}{\D s}E_{g}(\gamma_{s})\right|_{s=0},
+\end{equation}
+where $\gamma_{s}:=F(-,s)$.
+\end{definition}
+
+\begin{remark}
+If $\gamma\colon[a,b]\to M$ is a smooth curve, and if
+$V\in\Vect{\gamma}$ is a variation field, then the endpoints are fixed $V(a)=V(b)=0$.
+Indeed,
+\begin{equation}
+V(t)=\frac{\partial F}{\partial s}(t,0),
+\end{equation}
+so
+\begin{equation}
+V(a)=\frac{\partial F}{\partial s}(a,0)=\frac{\partial}{\partial s}(\gamma_{s}(a))=0,
+\end{equation}
+since $\gamma_{s}(a)=a$ for all $s$. Similar reasoning shows $V(b)=0$.
+\end{remark}
+
+\begin{theorem}
+Let $(M,g)$ be a Riemannian manifold, let $\gamma\colon[a,b]\to M$ be
+a smooth curve, let $V\in\Vect{\gamma}$ be a vector field along the
+curve. Then
+\begin{equation}
+\D E_{g}(\gamma)[V] =
+-\int^{b}_{a}g_{\gamma(t)}\left(V(t),\frac{D\gamma_{s}'}{\D t}(t)\right)\,\D t
+\end{equation}
+for every variation field $V$ along $\gamma$.
+\end{theorem}
+
+\begin{proof}
+Note that
+\begin{equation}
+\gamma'_{s}(t)=\frac{\partial F}{\partial t}(t,s).
+\end{equation}
+As the Levi-Civita connection is metric-compatible, we have the
+following facts:
+\begin{equation}\label{eq:math151c:lecture12:fact1}
+\frac{\partial}{\partial t}(g_{\gamma_{s}(t)}(\partial_{s}F(s,t),\gamma'_{s}(t)))
+= g_{\gamma_{s}(t)}\left(\frac{D}{\D t}\left(\frac{\partial F}{\partial s}\right)(s,t),\gamma'_{s}(t)\right)+g_{\gamma_{s}(t)}\left(\frac{\partial F}{\partial s}(s,t),\frac{D\gamma'_{s}}{\D t}(t)\right)
+\end{equation}
+(exercise: perform this  calculation!), and
+\begin{equation}\label{eq:math151c:lecture12:fact2}
+\frac{\partial}{\partial s}(g_{\gamma_{s}(t)}(\gamma'_{s}(t),\gamma'_{s}(t)))
+=2g_{\gamma_{s}(t)}\left(\frac{D}{\D t}\left(\frac{\partial F}{\partial s}\right)(s,t)  ,\gamma'_{s}(t)\right)
+\end{equation}
+These are by metric-compatibility of the connection. (We have not yet
+used the torsion-free property.) Moreover, as the Levi-Civita
+connection is torsion-free, we have
+\begin{equation}\label{eq:math151c:lecture12:fact3}
+\left(\frac{D}{\D t}\frac{\partial F}{\partial s}\right)(t,s)-
+\left(\frac{D}{\D s}\frac{\partial F}{\partial t}\right)(t,s)
+=\D F_{(t,s)}\left(\left[\left.\frac{\partial}{\partial t}\right|_{(t,s)},\left.\frac{\partial}{\partial s}\right|_{(t,s)}\right]\right)=0.
+\end{equation}
+Then
+\begin{subequations}
+  \begin{align}
+\frac{\D}{\D s}E_{g}(\gamma_{s})
+&=\frac{1}{2}\frac{\D}{\D s}\int^{b}_{a}g_{\gamma_{s}(t)}(\gamma'_{s}(t),\gamma'_{s}(t))\,\D t\quad\mbox{by defn}\\
+&=\frac{1}{2}\int^{b}_{a}\frac{\partial}{\partial s}g_{\gamma_{s}(t)}(\gamma'_{s}(t),\gamma'_{s}(t))\,\D t\\
+&=\frac{1}{2}\int^{b}_{a}2g_{\gamma_{s}(t)}\left(\left(\frac{D}{\D s}\frac{\partial F}{\partial t}\right)(t,s),\gamma'_{s}(t)\right)\,\D t\quad\mbox{by Fact~\eqref{eq:math151c:lecture12:fact2}}\\
+&=\int^{b}_{a}g_{\gamma_{s}(t)}\left(\left(\frac{D}{\D t}\frac{\partial F}{\partial s}\right)(t,s),\gamma'_{s}(t)\right)\,\D t\quad\mbox{by Fact~\eqref{eq:math151c:lecture12:fact3}}\\
+&=\int^{b}_{a}\frac{\partial}{\partial t}\left(g_{\gamma_{s}(t)}\left(\frac{\partial F}{\partial s}(t,s),\gamma'_{s}(t)\right)\right)\D t\nonumber\\
+&\phantom{=\quad}-\int^{b}_{a}g_{\gamma_{s}(t)}\left(\frac{\partial F}{\partial s}(t,s)\frac{D\gamma'_{s}}{\D t}(t)\right)\D t\quad\mbox{by Fact~\eqref{eq:math151c:lecture12:fact1}}\\
+&=\left(g_{\gamma_{s}(b)}\left(\frac{\partial F}{\partial s}(b,s),\gamma'_{s}(b)\right)-
+g_{\gamma_{s}(a)}\left(\frac{\partial F}{\partial s}(a,s),\gamma'_{s}(a)\right)\right)\D t\nonumber\\
+&\phantom{=\quad}-\int^{b}_{a}g_{\gamma_{s}(t)}\left(\frac{\partial F}{\partial s}(t,s)\frac{D\gamma'_{s}}{\D t}(t)\right)\D t\quad\mbox{by fundamental theorem of calculus},
+  \end{align}
+\end{subequations}
+Then
+\begin{equation}
+\begin{split}
+  \frac{\D}{\D s}E_{g}(\gamma_{s})&=g_{\gamma(b)}(V(b),\gamma'_{s}(b))
+  -g_{\gamma(a)}(V(a),\gamma'_{s}(a))%
+  \nonumber\\
+&\phantom{=\quad}-\int^{b}_{a}g_{\gamma(t)}\left(V(t),\frac{D\gamma'}{\D t}(t)\right)\,\D t
+\end{split}
+\end{equation}
+since $\partial_{s}F(t,s)|_{s=0}=V(t)$.
+\end{proof}
+
+\begin{remark}
+Observe that metric-compatibility was used as a way to perform
+``integration by parts''. This is how we use the condition in practice.
+\end{remark}
+
+\begin{corollary}
+Let $(M,g)$ be a Riemannian manifold. We have $\gamma\colon[a,b]\to M$
+is a geodesic if and only if it is a critical point of the energy,
+i.e., for every valuation field $V\in\Vect{\gamma}$ we have $\D E_{g}(\gamma)[V]=0$.
+\end{corollary}
+
+\begin{theorem}
+Let $(M,g)$ be a Riemannian manifold, let $\gamma\colon[a,b]\to M$ be
+a smooth immersion. Then $\length_{g}$ is smooth [in the sense of
+ Frechet derivatives of maps between Banach spaces] at $\gamma$ and
+\begin{equation}
+\D\length_{g}(\gamma)[V]
+=\left.\frac{\D}{\D s}\length_{g}(\gamma_{s})\right|_{s=0}
+=-\int^{b}_{a}g_{\gamma(t)}\left(V(t),\left(\frac{D}{\D t}\frac{\gamma'}{|\gamma'|_{g}}\right)(t)\right) \D t
+\end{equation}
+for every variation field $V$ along $\gamma$.
+\end{theorem}
+
+The proof is nearly identical to the previous theorem's proof.
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian manifold, let $\gamma\colon[a,b]\to M$
+be a smooth curve on $M$. We say $\gamma$ is a \define{Constant-Speed}
+curve if $|\gamma'|_{g}$ is constant on $[a,b]$.
+\end{definition}
+
+\begin{corollary}
+Let $(M,g)$ be a Riemannian manifold and let $\gamma\colon[a,b]\to M$
+be a smooth immersion. Then $\gamma$ is a geodesic if and only if it
+is a constant-speed critical point of the length.
+\end{corollary}
+
+\begin{proof}
+\forwardproof\ Assume $\gamma$ is a geodesic. Then
+\begin{subequations}
+  \begin{align}
+\frac{\D}{\D t}\left(|\gamma(t)|_{g}^{2}\right)
+&=\frac{\D}{\D t}(g_{\gamma(t)}(\gamma'(t),\gamma'(t)))\\
+&=2g_{\gamma(t)}\left(\frac{D\gamma'}{\D t}(t),\gamma'(t)\right)\\
+&=2g_{\gamma(t)}\left(0,\gamma'(t)\right)=0.
+  \end{align}
+\end{subequations}
+Therefore $|\gamma'|_{g}$ must be cosntant automatically. Then
+\begin{equation}
+\D\length_{g}(\gamma)[V]=\frac{1}{c}\D E_{g}(\gamma)[V]=0
+\end{equation}
+since $\gamma$ is a critical point of the energy.
+
+\backwardproof\ Run the forward proof ``in reverse''.
+\end{proof}
+
+\begin{lemma}[Gauss]
+Let $(M,g)$ be a Riemannian manifold, let $x\in M$, let $r\in(0,\operatorname{inj}_{x}(M))$.
+For every tangent vector $v,w\in B_{r}(0)\subset T_{x}M$, we have
+\begin{equation}
+g_{\exp_{x}(v)}((\D\exp_{x})_{v}(v),(\D\exp_{x})_{v}(w))=g_{x}(v,w).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+\begin{remark}
+This is a sort of ``conformality'' result concerning the Gauss map.
+\end{remark}

@@ -1,0 +1,194 @@
+%%
+%% spring-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-23T12:49:06-0700
+%% Last update 2026-04-23T12:49:06-0700
+%% 
+
+\lecture[Variational properties of geodesics]
+
+\begin{theorem}
+Let $(M,g)$ be a Riemannian manifold. Then the following facts hold:
+\begin{enumerate}
+\item $\exp\colon\Omega\subset TM\to M$ is smooth
+\item For every $x\in M$, $\D(\exp_{x})_{0}=\id_{T_{x}M}$
+\item The map $\Phi\colon\Omega\to M\times M$ given by
+  $\Phi(x,v)=(x,\exp_{x}(v))$ is a local diffeomorphism at $(x,0)$ for
+  every $x\in M$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item This follows immediately from the local existence and uniqueness
+  of geodesics.
+\item If this is the identity, then $\exp_{x}\colon T_{x}M\to M$, but
+\begin{equation}
+\D(\exp_{x})_{0}\colon T_{0}(T_{x}M)\to T_{\exp_{x}(0)}M=T_{x}M
+\end{equation}
+since $\exp_{x}(0)=x$ and $T_{0}(T_{x}M)\iso T_{x}M$ canonically, so
+$\D(\exp_{x})_{0}$ can be viewed as an endomorphism of $T_{x}M$.
+We really have $\exp_{x}\colon V_{x}\to M$ where $V_{x}\subset T_{x}M$
+is an open set.
+
+Choose any $v\in V_{x}$ and let $s\in(0,1)$ be sufficiently small such
+that $sv\in V_{x}$. Let $I\subset\RR$ be the domain of $\gamma_{x,v}$
+(the maximal geodesic with $\gamma_{x,v}(0)=x$ and $\gamma'_{x,v}(0)=v$).
+Define the interval $\widetilde{I}=\{t\in\RR\mid st\in I\}$. Note that
+$1\in\widetilde{I}$ (we know $1\in I$ since $st\in I$ so $1\in\widetilde{I}$),
+and that the smooth curve
+\begin{equation}
+\alpha_{x,v,s}\colon\widetilde{I}\to M
+\end{equation}
+given by $\alpha_{x,v,s}(t)=\gamma_{x,v}(st)$ for every
+$st\in\widetilde{I}$ is a geodesic with initial conditions
+$\alpha_{x,v,s}(0)=x$ and
+$\alpha'_{x,v,s}(0)=sv=s\gamma'_{x,v}(0)$. Therefore,
+\begin{equation}
+\alpha_{x,v,s}(t)=\gamma_{x,sv}(t)
+\end{equation}
+for every $t\in\widetilde{I}$. (Then we found how
+$\gamma_{x,v}(st)=\gamma_{x,sv}(t)$ rescaling from $I$ to
+$\widetilde{I}$ rescales the initial condition for velocity from $v$
+to $sv$.)
+
+Now, we're ready! Then we have
+\begin{subequations}
+  \begin{align}
+\D(\exp_{x})_{0}(v) &= \left.\frac{\D}{\D s}\exp_{x}(sv)\right|_{s=0}\\
+&=\left.\frac{\D}{\D s}\gamma_{x,sv}(1)\right|_{s=0}\\
+&=\left.\frac{\D}{\D s}\alpha_{x,v,s}(1)\right|_{s=0}\\
+&=\left.\frac{\D}{\D s}\gamma_{x,v}(s)\right|_{s=0}\\
+&=\gamma'_{x,v}(0)=v.
+  \end{align}
+\end{subequations}
+Hence $\D(\exp_{x})_{0}$ is the identity.
+\item We have $\Phi\colon\Omega\subset TM\to M\times M$ and
+\begin{equation}
+\D\Phi_{(x,0)}\colon T_{(x,0)}\Omega\to T_{(x,x)}(M\times M)\iso T_{x}M\times T_{x}M.
+\end{equation}
+So $\D\Phi_{(x,0)}$ is an endomorphism of $T_{x}M\times T_{x}M$. For
+every $(w_{1},w_{2})\in T_{x}M\times T_{x}M$, consider a curve
+\begin{equation}
+(x,v)\colon(-\varepsilon,\varepsilon)\to\Omega
+\end{equation}
+such that
+\begin{subequations}
+\begin{equation}
+(x,v)(0)=(x(0),v(0))=(x,0)
+\end{equation}
+and
+\begin{equation}
+(x,v)'(0)=(x'(0),v'(0))=(w_{1},w_{2}).
+\end{equation}
+\end{subequations}
+Then
+\begin{subequations}
+  \begin{align}
+\D\Phi_{(x,0)}(w_{1},w_{2})
+&=\left.\frac{\D}{\D t}\Phi(x(t),v(t))\right|_{t=0}\\
+&=\left.\frac{\D}{\D t}\bigl(x(t),\exp_{x(t)}(v(t))\bigr)\right|_{t=0}\quad\mbox{by def.~of }\Phi\\
+&=\left(\left.\frac{\D x(t)}{\D t}\right|_{t=0},\left.\frac{\D}{\D t}\exp_{x(t)}(v(t))\right|_{t=0}\right)\\
+&=\left(x'(0),\left.\frac{\D}{\D t}\exp(x(t),v(t))\right|_{t=0}\right)\\
+&=\left(x'(0),\left.\frac{\D}{\D t}\exp(x(t),v(0))\right|_{t=0}+\left.\frac{\D}{\D t}\exp(x(0),v(t))\right|_{t=0}\right)\\
+&=(x'(0),x'(0)+\D(\exp_{x})_{0}(w_{2}))\\
+&=(w_{1},w_{1}+w_{2}).
+  \end{align}
+\end{subequations}
+Since this is invertible, it follows that $\Phi$ is a local diffeomorphism.
+  \qedhere
+\end{enumerate}
+\end{proof}
+
+The third item from the previous theorem has an immediately
+consequence:
+
+\begin{corollary}
+Let $(M,g)$ be a Riemannian manifold. For every $x_{0}\in M$, there
+exists $\varepsilon>0$ and an open neighborhood $U\subset M$ of
+$x_{0}\in U$ such that the following all hold:
+\begin{enumerate}
+\item For every $x,y\in U$ there exists a unique $v_{y}\in T_{x}M$
+  such that $|v_{y}|_{g}<\varepsilon$ and $\exp_{x}(v_{y})=y$
+\item The map $(x,y,t)\mapsto\gamma_{x,v_{y}}(t)$ is smooth where defined
+\item For every $x\in U$, the map $\exp_{x}\colon B_{\varepsilon}(0)\subset T_{x}M\to M$
+  is a diffeomorphism onto its image.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+\begin{node}
+It would be nice to speak of ``open balls'' in a manifold in general,
+since open balls are the nicest guys in topology. We have a notion of
+distance to construct balls on manifolds, but that's \emph{not} the
+``good way'' to construct a \emph{useful} notion of an open ball. No!
+The ``correct'' way is to look at (3) of this previous corollary and
+use the image of an open ball $B_{\varepsilon}(0)\subset T_{x}M$ as
+the open ball in $M$.
+\end{node}
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian manifold. Let $x\in M$.
+\begin{enumerate}
+\item The \define{Injectivity Radius} is the number
+  $\inj_{x}(M)=\sup\{r>0\mid \exp_{x}\colon B_{r}(0)\to M\mbox{ is a diffeomorphism onto its image}\}$.
+  This is a positive number.
+\item For every $r\in(0,\inj_{x}(M))$, the \define{Geodesic Ball} at
+  $x$ of radius $r$ is the open subset
+  $B^{M}_{r}(x):=\exp_{x}(B_{r}(0))\subset M$.
+\item For every $r\in(0,\inj_{x}(M))$, the \define{Geodesic Sphere} at
+  $x$ of radius $r$ is the open subset
+  $S^{M}_{r}(x):=\exp_{x}(\boundary B_{r}(0))=\boundary B^{M}_{r}(x)\subset M$.
+\end{enumerate}
+\end{definition}
+
+\subsection{Variational Properties of Geodesics}
+
+\begin{node}
+What are ``variational properties''? Well, geodesics arise as critical
+points of functionals of curves on manifolds. Length is not a ``nice''
+functional due to the presence of the squareroot in the integrand. We
+construct a related (but nicer) functional.
+\end{node}
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian manifold. Let $\gamma\colon[a,b]\to M$
+be a smooth curve. The \define{Energy} of $\gamma$ is given by the
+functional
+\begin{equation}
+E_{g}(\gamma):=\frac{1}{2}\int^{b}_{a}g_{\gamma(t)}(\gamma'(t),\gamma'(t))\,\D t.
+\end{equation}
+\end{definition}
+
+\begin{node}
+Now, what does it mean for $\gamma$ to be a ``critical point'' of
+$E_{g}$? Well, its first variation must vanish.
+\end{node}
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian manifold. Let $\gamma\colon[a,b]\to M$ be a
+smooth curve. We say $V\in\Vect{\gamma}$ is a \define{Variational Field}
+if there exists a smooth map
+$F\colon[a,b]\times(-\varepsilon,\varepsilon)\to M$
+such that
+\begin{enumerate}
+\item For any $s\in(-\varepsilon,\varepsilon)$, the map
+  $\gamma_{s}:=F(-,s)\colon[a,b]\to M$ is a smooth curve on $M$ (so
+  $\gamma_{s}(t)=F(t,s)$) with $\gamma_{s}(a)=\gamma(a)$ and
+  $\gamma_{s}(b)=\gamma(b)$ the endpoints fixed
+\item $\gamma_{0}=\gamma$ --- so $\gamma_{s}$ is a variation of $\gamma$
+\item We have for every $t\in[a,b]$,
+  \begin{equation}
+\begin{split}
+V(t) &:= \left.\frac{\partial}{\partial s}F(t,s)\right|_{s=0}\\
+&=\D F_{(t,0)}\bigl((0,1)\bigr).
+\end{split}
+  \end{equation}
+\end{enumerate}
+\end{definition}

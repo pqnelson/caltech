@@ -1,0 +1,190 @@
+%%
+%% spring-lecture03.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-09T10:16:20-0700
+%% Last update 2026-04-09T10:16:20-0700
+%% 
+
+\lecture[Tangent bundle and tensors]
+
+% START bit from previous lecture which fits more logically here
+\begin{node}
+A bundle over a smooth manifold is a way to attach smoothly something
+to every point. The ``thing attached'' is called the
+\define{Fibre}. What kind of thing attached gives us the species of
+bundle: vector spaces give vector bundles, Lie groups $G$ gives us
+principal $G$-bundles, etc. For us, we attach to each point its
+tangent space.
+\end{node}
+
+\begin{definition}[Tangent bundle]
+Let $M$ be a smooth $n$-manifold. The \define{Tangent Bundle} of $M$
+is the set
+\begin{subequations}
+  \begin{align}
+TM & :=\bigsqcup_{x\in M}T_{x}M\\
+&=\{(x,v)\mid x\in M, v\in T_{x}M\}.
+  \end{align}
+\end{subequations}
+\end{definition}
+
+%% \begin{proposition}
+%% Let $M$ be a smooth manifold. Then $TM$ can be made into a smooth $2n$-manifold.
+%% \end{proposition}
+
+% END bit from previous lecture which fits more logically here
+
+\begin{theorem}% Theorem 1.2
+Let $M$ be a smooth manifold. Then $TM$ can be made into a smooth $2n$-manifold.
+\end{theorem}
+
+\begin{proof}
+Let
+$\{(U_{\alpha},\varphi_{\alpha}=(\xi^{1}_{\alpha},\dots,\xi^{n}_{\alpha}))\}_{\alpha\in A}\subset\smoothstr{M}$
+be a smooth atlas on $M$. Define 
+\begin{equation}
+\widetilde{U}_{\alpha}:=\{(x,v)\in TM\mid x\in U_{\alpha}\}\subset TM
+\end{equation}
+for each $\alpha\in A$. Define also
+\begin{equation}
+\widetilde{\varphi}_{\alpha}\colon\widetilde{U}_{\alpha}\to\RR^{2n}
+\end{equation}
+by
+\begin{equation}
+\widetilde{\varphi}_{\alpha}(x,v)=(\varphi_{\alpha}(x),v_{1},\dots,v_{n})
+\end{equation}
+for all $(x,v)\in\widetilde{U}_{\alpha}$ with $v=\sum_{i}v_{i}\frac{\partial}{\partial\xi^{i}_{\alpha}}(x)$.
+(We choose the topology on $TM$ to make the
+$\widetilde{\varphi}_{\alpha}$ heomeomorphisms onto their images.)
+Endow $TM$ with the unique topology such that the family
+$\{\widetilde{\varphi}_{\alpha}\}_{\alpha\in A}$ is made of
+homeomorphisms onto their image. We just need to check that
+$\{(\widetilde{U}_{\alpha},\widetilde{\varphi}_{\alpha})\}_{\alpha\in A}$
+is a smooth atlas on the topological $2n$-manifold we generated.
+\end{proof}
+
+\begin{definition}[Smooth vector field]
+Let $M$ be a smooth manifold. A \define{Vector Field} $X$ on $M$ is a
+smooth map $X\colon M\to TM$ such that for each $x\in M$ we have
+$X(x)\in T_{x}M$.
+
+(Equivalently, it's a smooth section of the tangent bundle, but we
+don't have a notion of "section of a bundle'' yet.)
+\end{definition}
+
+\begin{notation}
+The set of all vector fields on $M$ is denoted $\Vect{M}$.
+\end{notation}
+
+\begin{node}
+We will want to consider the variation of one vector field along
+another. Well, differentiating vector fields is very complicated. It
+will require a contion of connection (or covariant derivative). If we
+try writing
+\begin{equation}
+\frac{\D X}{\D x}(x_{0})=\lim_{x\to x_{0}}\frac{X(x)-X(x_{0})}{x-x_{0}},
+\end{equation}
+then what does $X(x)-X(x_{0})$ even mean? They are vectors living in
+different vector spaces. And how do we even make sense of the denominator?
+\end{node}
+
+\begin{node}
+We can move a vector field $X$ along the flow of another ector field
+$Y$ to try to construct a notion of differentiation. (This will give
+us the ``Lie derivative'' of a vector field.)
+\end{node}
+
+\begin{definition}[Derivation]
+Let $M$ be a smooth manifold. A \define{Derivation} on $M$ is a map
+$D\colon C^{\infty}(M)\to C^{\infty}(M)$ which is $\RR$-linear and
+satisfies the Leibniz rule $D(fg)=D(f)\,g+f\,D(g)$ for any $f,g\in C^{\infty}(M)$.
+\end{definition}
+
+\begin{notation}
+The set of all derivations on $M$ is denoted $\Der(M)$.
+\end{notation}
+
+\begin{proposition}
+There exists a canonical isomorphism $\Phi\colon\Vect{M}\to\Der(M)$.
+\end{proposition}
+
+(``Canonical'' means we do not need to work with a basis.)
+
+\begin{node}
+For the special case $X\colon\RR^{N}\to T\RR^{N}$, $x\mapsto(x,v(x))$,
+and $f\colon\RR^{N}\to\RR$ smooth, we see
+\begin{equation}
+(Xf)(x)=X(x)\cdot\nabla f(x)
+\end{equation}
+for any $x\in\RR^{N}$. This is just the directional derivative. This
+gives us the derivation associated with $X$ in $\RR^{N}$.
+\end{node}
+
+\begin{corollary}
+Let $M$ be a smooth manifold. Let $X,Y\in\Vect{M}$. Then there exists
+a unique vector field $Z\in\Vect{M}$ such that
+\begin{equation}
+Zf=X(Yf)-Y(Xf)
+\end{equation}
+for every $f\in C^{\infty}(M)$ (under the identification
+$X\iso\Phi(X)$, etc.).
+\end{corollary}
+
+\begin{proof}
+Suffices to check $Z$ is a derivation.
+
+First, $\RR$-linearity:
+\begin{subequations}
+  \begin{align}
+Z(af+bg) &= X(Y(af+bg))-Y(X(af+bg))\\
+&= X(aYf+bYg)-Y(aXf+bXg)\\
+&= aX(Yf)+bX(Yg)-aY(Xf)-bY(Xg)\\
+&= aZf + bZg.
+  \end{align}
+\end{subequations}
+Second, Leibniz rule:
+\begin{subequations}
+  \begin{align}
+Z(fg) &= X(Y(fg))-Y(X(fg))\\
+&=X((Yf)g+f(Yg))-Y((Xf)g+f(Xg))\\
+&=X((Yf)g)+X(f(Yg))-Y((Xf)g)-Y(f(Xg))\\
+&=(X(Yf))g+(Xg)(Yf)+fX(Yg)+(Xf)(Yg)\nonumber\\
+&\qquad-(Xf)(Yg)-(Y(Xf))g-(Yf)(Xg)-fY(Xg)\\
+&=(X(Yf))g+(Xg)(Yf)-(Yf)(Xg)+fX(Yg)+\nonumber\\
+&\qquad+(Xf)(Yg)-(Xf)(Yg)-(Y(Xf))g-fY(Xg)\\
+&=(X(Yf))g+0+fX(Yg)+0-(Y(Xf))g-fY(Xg)\\
+&=(Zf)g+f\,Zg.
+  \end{align}
+\end{subequations}
+Hence the claim.
+\end{proof}
+
+\begin{definition}
+This vector field $Z$ from the previous corollary is called the
+\define{Lie Bracket} of $X$ and $Y$, and denoted $Z=[X,Y]$.
+\end{definition}
+
+\begin{xca}
+Do this on $\RR^{n}$ and check this works and makes sense.
+\end{xca}
+
+\begin{definition}[Cotangent bundle, tensor bundles]
+Let $M$ be a smooth $n$-manifold.
+\begin{enumerate}
+\item We define the \define{Cotangent Bundle} $T^{*}M=\bigsqcup_{x\in M}T^{*}_{x}M$
+  and it can be made into a smooth $2n$-manifold. Here $T^{*}_{x}M$ is
+  the dual space to $T_{x}M$ consisting of linear functionals.
+\item We define the \define{Tensor Bundle} of degree $(p,q)$ on $M$ to
+  be the set $T^{p}_{q}M=\bigsqcup_{x\in M}(T_{x}M)^{\otimes p}\otimes(T^{*}_{x}M)^{\otimes q}$
+  where $(T_{x}M)^{\otimes0}=\RR$ and $(T^{*}_{x}M)^{\otimes 0}=\RR$,
+  so we recover $T^{1}_{0}M=TM$ and $T^{0}_{1}M=T^{*}M$. 
+\item A section of $T^{p}_{q}M$ (which is a map $s\colon M\to T^{p}_{q}M$
+  such that $s(x)\in (T_{x}M)^{\otimes p}\otimes(T^{*}_{x}M)^{\otimes q}$)
+  is called a \define{$(p,q)$-Tensor} on $M$. In particular, vector
+  fields are $(1,0)$-tensors, and by convention $(0,0)$-tensors are
+  smooth functions.
+\end{enumerate}
+\end{definition}

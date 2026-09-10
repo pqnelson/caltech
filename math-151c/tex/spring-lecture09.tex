@@ -1,0 +1,194 @@
+%%
+%% spring-lecture09.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-19T14:26:59-0700
+%% Last update 2026-04-19T14:26:59-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+Let $f\colon M\to N$ be a smooth map between two smooth manifolds. 
+If we want to differentiate $f$, what do we do? Well, we usually look
+at $\D f\colon TM\to TN$. So if we want to differentiate $f$ to higher
+orders, what do we do? Higher derivatives (of mappings between two
+smooth manifolds) is not a ``canonical'' operation. It requires a
+choice. And that choice is determined by the connection.
+\end{node}
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian manifold. Let $\nabla$ be the Levi--Civita
+connection on $M$, let $f\colon M\to\RR$ be smooth. Then the
+\define{Hessian} of $f$ is the $(0,2)$-tensor given by
+\begin{equation*}
+\nabla^{2}f := \nabla(\D f).
+\end{equation*}
+This is also denoted $\operatorname{Hess}(f)$.
+\end{definition}
+
+\begin{remark}
+This notion generalizes for \emph{any} connection on $M$. But without
+a torsion-free connection, $\nabla^{2}f$ may not be a symmetric tensor.
+We can prove this claim, for any $X,Y\in\Vect{M}$:
+\begin{subequations}
+  \begin{align}
+\nabla^{2}f(X,Y)
+&=(\nabla\,\D f)(X,Y) = (\nabla_{X}\,\D f)(Y)\\
+&=X(\D f(Y))-\D f(\nabla_{X}Y)\\
+&=X(Y(f))-\D f(\nabla_{X}Y)\\
+\intertext{then using $\nabla_{X}Y=\nabla_{Y}X+[X,Y]$,}
+&=X(Y(f))-\D f(\nabla_{Y}X)-\D f([X,Y])\\
+&=X(Y(f))-\D f(\nabla_{Y}X)-X(Y(f))+Y(X(f))\\
+&=Y(X(f))-\D f(\nabla_{Y}X)\\
+&=\nabla^{2}f(Y,X).
+  \end{align}
+\end{subequations}
+Observe we only needed the torsion-free condition to write $\nabla_{X}Y=\nabla_{Y}X+[X,Y]$.
+\end{remark}
+
+\subsection{Parallel Transport and Geodesics}
+
+\begin{node}
+If I give you the notion of parallel transport, you can produce a way
+to differentiate vector fields in a unique way.
+\end{node}
+
+\begin{definition}
+Let $M$ be a smooth manifold. Let $I\subset R$ be an interval. Let
+$\gamma\colon I\to M$ be a smooth curve. We define a \define{Vector
+  Field Along the Curve $\gamma$} to be a smooth map $X\colon I\to TM$
+such that for each $t\in I$ we have $X(t)\in T_{\gamma(t)}M$.
+
+We denote by $\Vect{\gamma}$ the set of all vector fields along $\gamma$.
+
+Note: $X\in\Vect{\gamma}$ does not need to be tangent to $\gamma$, it
+needs to be tangent to $M$.
+\end{definition}
+
+\begin{node}
+If we are given a vector field along a curve, how could we develop a
+way to differentiate it along the curve?
+\end{node}
+
+\begin{theorem}
+Let $(M,g)$ be a Riemannian manifold. Let $\nabla$ be the Levi-Civita
+connection on $M$. Let $\gamma\colon I\to M$ be a smooth curve. There
+exists a unique $\RR$-linear operator
+\begin{equation}
+\frac{D}{\D t}\colon\Vect{\gamma}\to\Vect{\gamma}
+\end{equation}
+such that
+\begin{enumerate}
+\item Leibniz rule: For every smooth $f\colon I\to\RR$ we have
+  \begin{equation}
+\frac{D}{\D t}(f X)=f'X+f\frac{DX}{\D t}
+  \end{equation}
+  on $I$; and
+\item If for some $t_{0}\in I$ there exists an open neighborhood
+  $J\subset I$ of $t_{0}\in J$ and an open neighborhoods $U$ of
+  $\gamma(t_{0})\in U\subset M$ such that $\gamma(J)\subset U$ and
+  there exists an extension $\widetilde{X}\in\Vect{U}$ of $X$ to $U$
+  (so $\widetilde{X}_{\gamma(t)}=X(t)$ for every $t\in J$),
+  then
+  \begin{equation}
+\frac{DX}{\D t}(t_{0})=(\nabla_{\gamma'(t_{0})}\widetilde{X})_{\gamma(t_{0})}.
+  \end{equation}
+\end{enumerate}
+\end{theorem}
+
+(We need to check independence of choice of $J$ and choice of $U$.)
+
+\begin{proof}
+We prove uniqueness. Assume that $\frac{D}{\D t}$ exists and fix some
+$t_{0}\in I$. Let
+$(U,\varphi=(\xi^{1},\dots,\xi^{n}))\in\smoothstr{M}$ be any local
+chart at $\gamma(t_{0})\in U$. Let $J\subset I$ be an open interval
+such that $\gamma(J)\subset U$ (which can always be done) and also contains
+$t_{0}\in J$. On $(U,\varphi)$ we have
+\begin{equation}
+X=\sum^{n}_{i=1}X^{i}(t)v_{i}(t)
+\end{equation}
+where $X^{i}\colon J\to\RR$ are smooth functions and
+$v_{i}\in\Vect{\gamma}$ is given by
+\begin{equation}
+v_{i}(t) = \left.\frac{\partial}{\partial\xi^{i}}\right|_{\gamma(t)}
+\end{equation}
+for any $t\in J$.
+
+We have by property (1) [Leibniz rule] and $\RR$-linearity:
+\begin{equation}\label{eq:math151c:spring:lecture9:eq1}
+\begin{split}
+\frac{D X}{\D t}(t_{0})
+&=\sum^{n}_{i=1}((X^{i})'(t_{0})v_{i}(t_{0})+X^{i}(t_{0})+X^{i}(t)\frac{Dv_{i}}{\D t}(t_{0}))\\
+&=\sum^{n}_{i=1}((X^{i})'(t_{0})v_{i}(t_{0})+X^{i}(t_{0})+X^{i}(t)(\nabla_{\gamma'(t_{0})}\frac{\partial}{\partial\xi^{i}})_{\gamma(t_{0})})
+\end{split}
+\end{equation}
+by property (2). For every $j=1,\dots,n$ let
+\begin{equation}
+\gamma^{j}\colon J\to\RR
+\end{equation}
+be a smooth function given by $\gamma^{j}=\xi^{j}\circ\gamma$. Then
+\begin{subequations}
+  \begin{align}
+\gamma'(t_{0}) &= \sum^{n}_{j=1}\left.(\D\xi^{j})_{\gamma(t_{0})}(\gamma'(t_{0}))\frac{\partial}{\partial\xi^{j}}\right|_{\gamma(t_{0})}\\
+&=\sum^{n}_{j=1}\left.(\xi^{j}\circ\gamma')(t_{0})\frac{\partial}{\partial\xi^{j}}\right|_{\gamma(t_{0})}\\
+&=\sum^{n}_{j=1}(\gamma^{j})(t_{0})\left.\frac{\partial}{\partial\xi^{j}}\right|_{\gamma(t_{0})}.
+  \end{align}
+\end{subequations}
+By plugging this back into
+Equation~\eqref{eq:math151c:spring:lecture9:eq1},
+\begin{equation}\label{eq:math151c:spring:lecture9:existence-of-d-dt}
+\frac{DX}{\D t}(t_{0}) = \left.\sum^{n}_{k=1}((X^{k})'(t_{0})+\sum^{n}_{i,j=1}\Gamma^{k}_{ij}(\gamma(t_{0}))(\gamma^{j})'(t_{0})X^{i}(t_{0}))\frac{\partial}{\partial\xi^{k}}\right|_{\gamma(t_{0})}.
+\end{equation}
+Hence the uniqueness of $\frac{D}{\D t}$.
+
+To prove existence, we can take
+Equation~\eqref{eq:math151c:spring:lecture9:existence-of-d-dt} and
+then verify the two properties are satisfied.
+\end{proof}
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian manifold. Let $I\subset\RR$ be an
+interval. Let $\gamma\colon I\to M$ be a smooth curve.
+We say $X\in\Vect{\gamma}$ is \define{Parallel} if
+\begin{equation}
+\frac{DX}{\D t}=0
+\end{equation}
+everywhere along $\gamma$.
+
+(Compare this to the intuition for a vector field on $\RR^{n}$ to be
+parallel, it just needs to be constant.)
+\end{definition}
+
+\begin{proposition}
+Let $(M,g)$ be a Riemannian manifold. Let $\gamma\colon I\to M$ be a
+smooth curve. Let $t_{0}\in I$. For every $v\in T_{\gamma(t_{0})}M$,
+there exists a unique parallel vector field $X_{\gamma,v,t_{0}}\in\Vect{\gamma}$
+such that $X_{\gamma,v,t_{0}}(t_{0})=v$.
+\end{proposition}
+
+\begin{proof}
+This follows by writing the problem as a system of ODEs, then the
+standard existence and uniqueness results for ODEs gives us our results.
+\end{proof}
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian $n$-manifold. Let $\gamma\colon I\to M$ be
+a smooth curve. Let $t_{0}\in I$. For every $t\in I$, the
+\define{Parallel Transport} from $\gamma(t_{0})$ to $\gamma(t)$ along
+$\gamma$ is the linear map $P_{t_{0},t}\colon T_{\gamma(t_{0})}M\to T_{\gamma(t)}M$
+given by
+\begin{equation}
+P_{t_{0},t}(v):=X_{\gamma,v,t_{0}}(t)
+\end{equation}
+for all $v\in T_{\gamma(t_{0})}M$.
+
+If $\gamma$ is a loop with basepoint $x\in M$ (equivalently, if
+$\gamma\colon[a,b]\to M$ is injective on $(a,b)$ and $\gamma(a)=\gamma(b)=x$),
+then the \define{Parallel Transport Along $\gamma$} is simply given by
+$P_{\gamma}:=P_{a,b}\colon T_{x}M\to T_{x}M$.
+\end{definition}
+

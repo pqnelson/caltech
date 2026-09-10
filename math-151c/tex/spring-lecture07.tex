@@ -1,0 +1,202 @@
+%%
+%% spring-lecture07.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-16T07:55:17-0700
+%% Last update 2026-04-16T07:55:17-0700
+%% 
+
+\lecture[Levi-Civita Connection]{}
+
+\begin{definition}
+Let $(M, g)$ be a Riemannian manifold, let $\nabla$ be a connection on
+$M$. We say the connection $\nabla$ is \define{Metric-Compatible} (or
+``compatible with the metric $g$'') if for all vector fields
+$X,Y,Z\in\Vect{M}$ we have $Xg(Y,Z)=g(\nabla_{X}Y,Z)+g(Y,\nabla_{X}Z)$
+which should be viewed as a sort of Leibniz rule.
+\end{definition}
+
+\begin{theorem}[Fundamental theorem of Riemannian geometry]\label{thm:fundamental:riemannian-geometry}
+Let $(M, g)$ be a Riemannian manifold. There exists a unique
+torsion-free connection $\nabla$ on $M$ which is compatible with the
+metric $g$.
+\end{theorem}
+
+\begin{proof}
+\textsc{Claim 1: Uniqueness.} Assume we have such a connection
+$\nabla$. Let $X,Y,Z\in\Vect{M}$ be arbitrary vector fields on $M$. We
+have (by metric compatibility):
+\begin{subequations}
+  \begin{align}
+X(g(Y,Z)) &= g(\nabla_{X}Y,Z) + g(Y,\nabla_{X}Z)\\ 
+Y(g(Z,X)) &= g(\nabla_{Y}Z,X) + g(Z,\nabla_{Y}X)\\ 
+Z(g(X,Y)) &=g(\nabla_{Z}X,Y) + g(X,\nabla_{Z}Y), 
+  \end{align}
+\end{subequations}
+Then we have (underlining terms we want to eventually cancel out):
+\begin{multline}\label{eq:fundamental-thm-riemannian-geometry:step-1}
+X(g(Y,Z))+Y(g(Z,X))-Z(g(X,Y))\\
+=g(\nabla_{X}Y,Z) + \underline{g(Y,\nabla_{X}Z)} + \underline{g(\nabla_{Y}Z,X)} + g(Z,\nabla_{Y}X)
+- g(\nabla_{Z}X,Y) - g(X,\nabla_{Z}Y)
+\end{multline}
+Using torsion-free, we have
+\begin{subequations}
+  \begin{align}
+\nabla_{Y}X &= \nabla_{X}Y + [Y,X]\\
+\nabla_{Z}X &= \nabla_{X}Z + [Z,X]\\
+\nabla_{Z}Y &= \nabla_{Y}Z + [Z,Y]
+  \end{align}
+\end{subequations}
+which we use to rewrite Equations~\eqref{eq:fundamental-thm-riemannian-geometry:step-1}
+leaving only the first term untouched:
+
+\begin{subequations}
+  \begin{align}
+&X(g(Y,Z))+Y(g(Z,X))-Z(g(X,Y))\nonumber\\
+&=g(\nabla_{X}Y,Z) + \underline{g(Y,\nabla_{X}Z)} + \underline{g(\nabla_{Y}Z,X)} + g(Z,\nabla_{X}Y + [Y,X])\nonumber\\
+&\phantom{=\quad}- g(\nabla_{X}Z + [Z,X],Y) - g(X,\nabla_{Y}Z + [Z,Y])\\
+&=g(\nabla_{X}Y,Z) + \underline{g(Y,\nabla_{X}Z)} + \underline{g(\nabla_{Y}Z,X)} + g(Z,\nabla_{X}Y) + g(Z,[Y,X])\nonumber\\
+&\phantom{=\quad}- g(\nabla_{X}Z, Y) - g([Z,X],Y) - g(X,\nabla_{Y}Z) - g(X, [Z,Y])\\
+&=2g(\nabla_{X}Y,Z) + g(Z,[Y,X]) - g([Z,X],Y)  - g(X, [Z,Y]),
+  \end{align}
+\end{subequations}
+where we use the fact the metric is symmetric in its arguments and linear.
+Then we obtain
+\begin{equation}\label{eq:fundamental-thm-riemannian-geometry:key-result}
+\begin{split}
+g(\nabla_{X}Y,Z) &= \frac{1}{2}\biggl(X(g(Y,Z))+Y(g(Z,X))-Z(g(X,Y))\\
+&\phantom{=\frac{1}{2}\biggl(}- g(Z,[Y,X]) + g([Z,X],Y)  + g(X, [Z,Y])\biggr)
+\end{split}
+\end{equation}
+Therefore $\nabla_{X}Y$ is uniquely determined by the metric $g$.
+
+\textsc{Claim 2: Existence.} It is sufficient to check the right-hand
+side of
+Equation~\eqref{eq:fundamental-thm-riemannian-geometry:key-result} is
+$C^{\infty}(M)$-linear in $Z$, and using
+Equation~\eqref{eq:fundamental-thm-riemannian-geometry:key-result} as
+a definition we obtain a torsin-free connection which is compatible
+with $g$.
+\end{proof}
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian manifold.
+The connection $\nabla$ given by the previous theorem (i.e., the
+unique torsion-free connection compatible with the metric) is called
+the \define{Levi-Civita Connection}.
+\end{definition}
+
+\begin{definition}
+Let $(M,g)$ be a Riemannian $n$-manifold. Let $\nabla$ be a connection
+on $M$. Let $(U,\varphi=(\xi^{1},\dots,\xi^{n}))\in\smoothstr{M}$ be a
+chart in the smooth structure of $M$. We define the
+\define{Christoffel Symbols} of $\nabla$ in the local chart
+$(U,\varphi)$ to be the smooth functions $\Gamma^{k}_{ij}\in C^{\infty}(U)$
+satisfying
+\begin{equation}
+\nabla_{\partial/\partial\xi^{i}}\frac{\partial}{\partial\xi^{j}}=\sum^{n}_{k=1}\Gamma^{k}_{ij}\frac{\partial}{\partial\xi^{k}}.
+\end{equation}
+\end{definition}
+
+\begin{node}
+Christoffel symbols are a reasonable thing to look for: covariant
+differentiation of a vector field \emph{is} a vector field; and if we
+have a basis for vector fields (the coordinate vector fields), then it is
+reasonable to check that the covariant derivative of the coordinate
+vector field with respect to itself results in a linear combination of
+the coordinate vector fields. The coefficients of this linear
+combination are precisely the Christoffel symbols.
+\end{node}
+
+\begin{remark}
+We want, in our chart $(U,\varphi)$, for every vector fields $X,Y\in\Vect{M}$
+where
+\begin{equation}
+X=\sum^{n}_{i=1}X^{i}\frac{\partial}{\partial\xi^{i}},\quad\mbox{and}\quad
+Y=\sum^{n}_{j=1}Y^{j}\frac{\partial}{\partial\xi^{j}}.
+\end{equation}
+Then
+\begin{subequations}
+  \begin{align}
+\nabla_{X}Y &= \nabla_{\sum_{i}X^{i}\partial/\partial\xi^{i}}\sum^{n}_{j=1}Y^{j}\frac{\partial}{\partial\xi^{j}}\\
+&=\sum^{n}_{i=1}X^{i}\nabla_{\partial/\partial\xi^{i}}\left(\sum^{n}_{j=1}Y^{j}\frac{\partial}{\partial\xi^{j}}\right)\quad\mbox{by $C^{\infty}$-linearity of first argument of $\nabla$}\\
+&=\sum^{n}_{i,j=1}X^{i}\nabla_{\partial/\partial\xi^{i}}\left(Y^{j}\frac{\partial}{\partial\xi^{j}}\right)
+\quad\mbox{by additivity of second argument of $\nabla$}\\
+&=\sum_{i,j}X^{i}\frac{\partial Y^{j}}{\partial\xi^{i}}\frac{\partial}{\partial\xi^{j}}+X^{i}Y^{j}\nabla_{\partial/\partial\xi^{i}}\frac{\partial}{\partial\xi^{j}}
+\quad\mbox{by Leibniz rule}\\
+&=\sum_{i,j}\left(X^{i}\frac{\partial Y^{j}}{\partial\xi^{i}}\frac{\partial}{\partial\xi^{j}}+\sum_{k}X^{i}Y^{j}\Gamma^{k}_{ij}\frac{\partial}{\partial\xi^{k}}\right)\quad\mbox{by def.\ of Christoffel symbols}\\
+&=\sum_{k=1}^{n}\left(\sum^{n}_{i}X^{i}\frac{\partial Y^{k}}{\partial\xi^{i}}+\sum^{n}_{i,j=1}\Gamma^{k}_{ij}X^{i}Y^{j}\right)\frac{\partial}{\partial\xi^{k}}
+  \end{align}
+\end{subequations}
+where we reindex to get the last line.
+
+Observe, we are just taking the first derivatives of $Y$, and in this
+sense the connection $\nabla$ is a first-order differential
+operator. The first term $X^{i}\partial Y^{k}/\partial\xi^{i}$ is the
+``Euclidean'' or ``flat part''. Compare it to the Euclidean
+connection's $\sum_{k}\langle\nabla Y^{k},X\rangle\partial/\partial\xi^{k}$.
+The Christoffel symbols are a perturbation of the intuitive thing,
+which is bilinear in both $X$ and $Y$.
+\end{remark}
+
+\begin{node}
+On a submanifold of $\RR^{k}$, what happens? There is an intuitive way
+to get a connection. Recall the tangent space for a smooth submanifold
+$M$ of $\RR^{k}$ will be canonically identified with a linear subspace
+of $\RR^{k}$. If you differentiate a tangent vector field on $M$ in
+this way, you could ``leave'' the tangent space.
+
+There is a solution: take the projection (of the result) back onto the
+tangent space. That is \emph{precisely} what the Levi-Civita term is
+doing! Let us make this intuition more precise.
+\end{node}
+
+\begin{example}
+Let $M\subset\RR^{k}$ be a smooth submanifold. Then we can define
+\begin{equation}\label{eq:spring-lecture07:math151c:induced-connection-from-nash-embedding}
+(\nabla_{X}Y)(x)=\pi_{x}\bigl((\nabla^{0}_{X}Y)(x)\bigr)
+\end{equation}
+where $\pi_{x}\colon\RR^{k}\to T_{x}$ is the projection done pointwise
+for $x\in M$, and $\nabla^{0}$ is the Euclidean connection on
+$\RR^{k}$. Is the Levi-Civita connection for the induced metric on $M$
+the same thing as the induced connection from this equation?
+\end{example}
+
+\begin{xca}
+Check this is true! (Check Equation~\eqref{eq:spring-lecture07:math151c:induced-connection-from-nash-embedding}
+is torsion-free and compatible with the metric on $M$ induced by $\RR^{k}$)
+\end{xca}
+
+\begin{node}
+We can extend covariant differentiation of \emph{vector fields} to
+covariant differentiation of \emph{tensors}. Recall tensors are
+sections of tensor bundles. A first step is to ask for covariant
+differentiation of 1-forms, then extend by Leibniz rule for tensor products.
+\end{node}
+
+\begin{definition}[Extension of $\nabla$ to $T^{*}M$]
+Let $\nabla$ be a connection on a smooth manifold $M$, let
+$\omega\in\Omega^{1}(M)$ be a covector field (``one-form''). Then for
+every $X\in\Vect{M}$, we define the \define{Covariant Derivative} of
+$\omega$ with respect to $X$, denoted $\nabla_{X}\omega$, to be the
+one-form such that for every $Y\in\Vect{M}$ we have
+\begin{equation}
+(\nabla_{X}\omega)[Y]:=\nabla_{X}(\omega[Y])-\omega(\nabla_{X}Y),
+\end{equation}
+but since $\omega[Y]\in C^{\infty}(M)$, this is really equivalent to
+\begin{equation}
+(\nabla_{X}\omega)[Y]:=X(\omega[Y])-\omega(\nabla_{X}Y).
+\end{equation}
+This defines a connection on $T^{*}M$. We can check: 
+\begin{enumerate}
+\item $\nabla_{X}\omega$ is $C^{\infty}(M)$-linear in $X$:
+  $\nabla_{fX}\omega=f\nabla_{X}\omega$ for any $f\in C^{\infty}(M)$; and
+\item $\nabla_{X}\omega$ is $\RR$-linear in $\omega$:
+  $\nabla_{X}(a\phi+b\omega)=(a\nabla_{X}\phi)+(b\nabla_{X}\omega)$
+  for any $a,b\in\RR$ and $\phi,\omega\in T^{*}M$; and
+\item Leibniz rule: $\nabla_{X}(f\omega)=X(f)\omega+f\nabla_{X}\omega$
+  for any $f\in C^{\infty}(M)$
+\end{enumerate}
+\end{definition}

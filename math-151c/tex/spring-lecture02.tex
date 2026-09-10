@@ -1,0 +1,155 @@
+%%
+%% spring-lecture02.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-09T09:56:56-0700
+%% Last update 2026-04-09T09:56:56-0700
+%% 
+
+\lecture[Smooth functions and differentials]{}
+
+\begin{definition}[Smooth function]
+Let $M$ and $N$ be smooth manifolds, let $f\colon M\to N$ be any
+continuous function. We say $f$ is \define{Smooth} if for any local
+charts $(U,\varphi)\in\smoothstr{M}$ and $(V,\psi)\in\smoothstr{N}$
+such that for any $x\in U$ and $f(x)\in V$ and $f(U)\subset V$ we have
+\begin{equation}
+\psi\circ f\circ\varphi^{-1}\colon\varphi(U)\to\psi(f(V))
+\end{equation}
+is smooth (in the sense of calculus).
+\end{definition}
+
+\begin{node}
+We n eed a way to infinitesimally perturb a point of a manifold in
+order to determine the first variation for a function. For calculus,
+this is precisely the derivative
+\begin{equation}
+\frac{\D f}{\D x}(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h},
+\end{equation}
+but what does $f(x+h)-f(x)$ even mean for functions on manifolds? Or
+dividing by $h$? What even is $h$?
+\end{node}
+
+\begin{definition}[Tangent vectors]
+Let $M$ be a smooth $n$-manifold, let $x\in M$. We define the
+\define{Set of Curves Passing Through $x$}
+\begin{equation}
+\mathcal{C}(M,x)=\{\gamma\colon I\to M\mid 0\in I, x=\gamma(0)\}
+\end{equation}
+where $I$ is an open interval $(a,b)\subset\RR$.
+
+On $\mathcal{C}(M,x)$ we can define the following equivalence
+relation: $\gamma_{1}\sim\gamma_{2}$ if there exists some local chart
+$(U,\varphi)$ containing $x\in U$ such that
+$(\varphi\circ\gamma_{1})'(0)=(\varphi\circ\gamma_{2})'(0)$ their
+velocity vectors at $x$ are the same in the local chart.
+
+Using these notions, we define the \define{Tangent Space} of $M$ at
+$x$ to be
+\begin{equation}
+T_{x}M:=\{[\gamma]\mid \gamma\in\mathcal{C}(M,x)\}
+\end{equation}
+the collection of equivalence classes of $\mathcal{C}(M,x)$ under the
+previous paragraph's equivalence relation. We call the elements of
+$T_{x}M$ \define{Tangent Vectors}.
+\end{definition}
+
+\begin{xca}
+Prove this equivalence relation $\gamma_{1}\sim\gamma_{2}$ is
+independent of choice of chart $(U,\varphi)$.
+\end{xca}
+
+\begin{node}
+We want to think of $T_{x}M$ as the set of velocity vectors of curves
+passing through $x$, but wherre do the velocity vectors live? If we
+have a submanifold of $\RR^{N}$, then they live in the ``obvious''
+tangent vector space. Here, we \emph{borrow} the vector space from the
+local charts.
+\end{node}
+
+\begin{remark}
+When we have a local chart $(U,\varphi)$ at a point $x\in M$, there
+are preferred tangent vectors. If $M$ is a smooth $n$-manifold, then
+we may write the components of $\varphi$ as
+\begin{equation}
+\varphi=(\xi^{1},\dots,\xi^{n}),
+\end{equation}
+where each $\xi^{i}$ is a smooth function $\xi^{i}\colon U\to\RR$.
+Then we define the \define{$i^{\text{th}}$ Coordinate Tangent Vector}
+at $x$ in the local chart $(U,\varphi)$ to be
+\begin{equation}
+\frac{\partial}{\partial\xi^{i}}(x)=[t\mapsto\varphi^{-1}(\varphi(x)+te_{i})]
+\end{equation}
+the equivalenc e class of curves $t\mapsto\varphi^{-1}(\varphi(x)+te_{i})$
+where $e_{i}\in\RR^{n}$ is the $i^{\text{th}}$ standard basis vector
+of $\RR^{n}$.
+\end{remark}
+
+\begin{definition}[Differential]
+Let $M$ and $N$ be smooth manifolds. Let $f\colon M\to N$ be a smooth map.
+Given a point $x\in M$, the \define{Differential} of $f$ at $x$ is the
+linear map
+\begin{equation}
+\D f(x)\colon T_{x}M\to T_{f(x)}N
+\end{equation}
+given by
+\begin{equation}
+\D f(x)[v]=[f\circ\gamma]
+\end{equation}
+where $v=[\gamma]$. Note the square brackets on the left-hand side
+mean $\D f(x)$ is a linear operator, but the square brackets on the
+right-hand side refer to the equivalence class of curves.
+
+Alternate notation you may find: $(\D f)_{x}(v)=[f\circ\gamma]$.
+\end{definition}
+
+\begin{node}
+Why is this useful/ We can extend all the results from calculus to
+manifolds. For example, the inverse function theorem (if $\D f$ is
+invertible at $x$, then there is a neighborhood where $f$ is
+invertible), etc.
+\end{node}
+
+\begin{definition}[Immersion, submersion, local diffeomorphism, embeddings]
+Let $M$ and $N$ be smooth manifolds. Let $f\colon M\to N$ be a smooth map.
+Let $x\in M$ be any point.
+\begin{enumerate}
+\item We say $f$ is a \define{Immersion} at $x$ if and only if $\D f(x)$
+is injective; we say $f$ is an ``immersion'' if it is an immersion at
+every point of $M$
+\item We say $f$ is a \define{Submersion} at $x$ if and only if $\D f(x)$
+is surjective; we say $f$ is a ``submersion'' if it is a submersion at
+every point of $M$
+\item We say $f$ is a \define{Local Diffeomorphism} at $x$ if and only
+  if $\D f(x)$ is invertible. (This secrtetly contains the inverse
+  function theorem)
+\item We say $f$ is an \define{Embedding} if and only if $f$ is an
+  immersion (at every point) and $f$ is a homeomorphism onto its image.
+\end{enumerate}
+Note: ``$f$ is a homeomorphism onto its image'' is a global condition.
+\end{definition}
+
+\begin{definition}[Diffeomorphism]
+Let $f\colon M\to N$ be a function between two smooth manifolds. We
+say $f$ is a \define{Diffeomorphism} if $f$ is smooth, invertible, and
+has a smooth inverse. We write $M\iso N$ to indicate $M$ is
+diffeomorphic to $N$ (i.e., there exists a diffeomorphism $f\colon M\to N$)
+and it forms an equivalence relation.
+\end{definition}
+
+\begin{proposition}
+Let $M$ be a smooth $n$-manifold. Let $f\colon M\to\RR^{k}$ be an
+embedding. Then $f(M)\subset\RR^{k}$ is a smooth $n$-submanifold of
+$\RR^{k}$ and $M\iso f(M)$.
+\end{proposition}
+
+\begin{theorem}[Whitney's embedding theorem]
+Every smooth $n$-manifold is an $n$-submanifold of $\RR^{2n}$.
+\end{theorem}
+
+\begin{node}
+If you want a smooth immersion, then you can make $M$ an
+$n$-submanifold of $\RR^{2n-1}$.
+\end{node}

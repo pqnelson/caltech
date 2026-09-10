@@ -1,0 +1,67 @@
+%%
+%% notation.sty
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-09T09:28:54-0700
+%% Last update 2026-04-09T09:28:54-0700
+%% 
+\DeclareMathOperator\id{id}
+\let\iso\cong
+
+\def\D{\mathrm{d}} % differential
+\def\I{\mathrm{i}} % = \sqrt{-1}
+
+
+% sets
+\let\kk\Bbbk
+\def\AA{\mathbb{A}}
+\def\CC{\mathbb{C}}
+\def\FF{\mathbb{F}}
+\def\HH{\mathbb{H}}
+\def\NN{\mathbb{N}}
+\def\QQ{\mathbb{Q}}
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+
+% set theory
+\let\propersubset\subset
+\let\subset\subseteq
+\let\propersupset\supset
+\let\supset\supseteq
+\let\nsubset\nsubseteq
+\let\nsupset\nsupseteq
+
+\let\og@im\Im
+\let\Im\relax
+\DeclareMathOperator\Im{Im}
+
+% morphisms
+\let\og@hom\hom
+\let\hom\relax
+
+\DeclareMathOperator\hom{Hom}
+\DeclareMathOperator\Aut{Aut}
+\DeclareMathOperator\End{End}
+\DeclareMathOperator\Map{Map}
+
+% common spaces
+\newcommand\sphere[1]{S^{#1}}
+\newcommand\smoothstr[1]{\mathcal{S}(#1)}
+\newcommand\Vect[1]{\mathfrak{X}(#1)}
+\DeclareMathOperator\Der{Der}
+
+\DeclareMathOperator\supp{supp} % support
+\DeclareMathOperator\length{length}
+\DeclareMathOperator\vol{vol} % volume measure
+
+% Lie Groups
+\DeclareMathOperator\SO{SO} % special orthogonal group
+
+
+\DeclareMathOperator\inj{inj} % injectivity radius
+
+\let\boundary\partial
+
+\endinput

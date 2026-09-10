@@ -1,0 +1,193 @@
+%%
+%% spring-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-16T08:46:53-0700
+%% Last update 2026-04-16T08:46:53-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+We will be sloppy with our notation, writing $g(X,Y)$ like
+differential geometers do, instead of $g[X,Y]$ like analysts do.
+\end{node}
+
+\begin{lemma}
+Let $M$ be a smooth $n$-manifold. Let
+$(U,\varphi=(\xi^{1},\dots,\xi^{n}))\in\smoothstr{M}$ be a local chart
+of $M$. Then the coordinate vector fields $\partial/\partial\xi^{i}$
+have a vanishing Lie bracket with each other:
+\begin{equation}
+\left[\frac{\partial}{\partial\xi^{i}},\frac{\partial}{\partial\xi^{j}}\right]=0
+\end{equation}
+for all $i,j=1,\dots,n$.
+\end{lemma}
+
+\begin{proof}
+Let $f\in C^{\infty}(M)$ be any smooth function on $M$. Then we see locally
+\begin{equation}
+\left[\frac{\partial}{\partial\xi^{i}},\frac{\partial}{\partial\xi^{j}}\right](f)=
+\frac{\partial}{\partial\xi^{i}}\left(\frac{\partial f}{\partial\xi^{j}}\right)
+-\frac{\partial}{\partial\xi^{j}}\left(\frac{\partial f}{\partial\xi^{i}}\right).
+\end{equation}
+But we see
+\begin{equation}
+\frac{\partial}{\partial\xi^{i}}\left(\frac{\partial f}{\partial\xi^{j}}\right)
+=\frac{\partial}{\partial\xi^{i}}\left(\frac{\partial(f\circ\varphi^{-1})}{\partial\xi^{j}}\circ\varphi\right).
+\end{equation}
+Let us define
+\begin{equation}
+g:=\frac{\partial(f\circ\varphi^{-1})}{\partial\xi^{j}}\circ\varphi
+\end{equation}
+\begin{subequations}
+  \begin{align}
+\frac{\partial}{\partial\xi^{i}}\left(\frac{\partial f}{\partial\xi^{j}}\right)
+&=\frac{\partial}{\partial\xi^{i}}g\\
+&=\left(\frac{\partial}{\partial\xi^{i}}[g\circ\varphi^{-1}]\right)\circ\varphi\\
+&=\left(\frac{\partial}{\partial\xi^{i}}\left[\left(\frac{\partial(f\circ\varphi^{-1})}{\partial\xi^{j}}\right)\circ\varphi^{-1}\circ\varphi\right]\right)\circ\varphi\\
+&=\left(\frac{\partial}{\partial\xi^{i}}\left[\frac{\partial(f\circ\varphi^{-1})}{\partial\xi^{j}}\right]\right)\circ\varphi\\
+&=\left(\frac{\partial}{\partial\xi^{j}}\left[\frac{\partial(f\circ\varphi^{-1})}{\partial\xi^{i}}\right]\right)\circ\varphi\quad\mbox{by Scharz's theorem}\\
+&=\dots\quad\mbox{same reasoning unrolled backwards}\\
+&=\frac{\partial}{\partial\xi^{j}}\left(\frac{\partial f}{\partial\xi^{i}}\right).
+  \end{align}
+\end{subequations}
+Hence the Lie bracket vanishes.
+\end{proof}
+
+\begin{proposition}
+Let $(M,g)$ be a Riemannian manifold. Let $(U,\varphi=(\xi^{1},\dots,\xi^{n}))\in\smoothstr{M}$
+be a local chart on $M$. Then the Christoffel symbols for the
+Levi-Civita connection compatible with $g$ in $(U,\varphi)$ are given by:
+\begin{equation}
+\Gamma^{k}_{ij}=\frac{1}{2}\sum^{n}_{\ell=1}g^{k\ell}\left(\frac{\partial g_{j\ell}}{\partial\xi^{i}}
+  +\frac{\partial g_{\ell i}}{\partial\xi^{j}}
+  -\frac{\partial g_{ij}}{\partial\xi^{\ell}}\right)
+\end{equation}
+for all $i,j,k=1,\dots,n$ where $(g^{ij})$ is the matrix inverse of
+the matrix $(g_{ij})$: $\sum^{n}_{\ell=1}g^{i\ell}g_{\ell j}=\delta^{i}_{j}$
+for every $i,j=1,\dots,n$.
+\end{proposition}
+
+\begin{proof}
+Note that the Lie bracket of two coordinate vector fields vanish:
+\begin{equation}
+\left[\frac{\partial}{\partial\xi^{i}},\frac{\partial}{\partial\xi^{j}}\right]=0,
+\end{equation}
+for all $i,j=1,\dots,n$. Then applying this to Theorem~\ref{thm:fundamental:riemannian-geometry},
+\begin{equation}
+g(\nabla_{\partial/\partial\xi^{i}}\frac{\partial}{\partial\xi^{j}},\frac{\partial}{\partial\xi^{\ell}})=\frac{1}{2}\left(\frac{\partial g_{j\ell}}{\partial\xi^{i}}
++\frac{\partial g_{i\ell}}{\partial\xi^{j}}-\frac{\partial g_{ij}}{\partial\xi^{\ell}}\right).
+\end{equation}
+But the $\partial/\partial\xi^{i}$ are not necessarily an orthonormal
+basis for vector fields, so we need
+\begin{subequations}
+  \begin{align}
+\nabla_{\partial/\partial\xi^{i}}\frac{\partial}{\partial\xi^{j}}
+&=\sum^{n}_{k=1}\left(\sum^{n}_{\ell=1}g^{k\ell}g(\nabla_{\partial/\partial\xi^{i}}\frac{\partial}{\partial\xi^{j}},\frac{\partial}{\partial\xi^{\ell}}\right)\frac{\partial}{\partial\xi^{k}}
+\quad\mbox{by linear algebra}\\
+&=\sum^{n}_{k=1}\left(\frac{1}{2}\sum^{n}_{\ell=1}%
+g^{k\ell}\left(\frac{\partial g_{i\ell}}{\partial\xi^{j}}
+  +\frac{\partial g_{j\ell}}{\partial\xi^{i}}
+  -\frac{\partial g_{ij}}{\partial\xi^{\ell}}\right)\right)%
+  \frac{\partial}{\partial\xi^{k}}\\
+&=\sum^{n}_{k=1}\Gamma^{k}_{ij}\frac{\partial}{\partial\xi^{k}},
+  \end{align}
+\end{subequations}
+which implies the claim.
+\end{proof}
+
+\begin{remark}
+If $V$ is a vector space with basis $e_{1}$, \dots, $e_{n}$ and an
+inner product $\langle-,-\rangle$, then we can consider the matrix
+\begin{equation}
+G=(G)_{ij}=\langle e_{i},e_{j}\rangle
+\end{equation}
+with matrix inverse $G^{-1}=(g^{ij})$. Then for any $v\in V$, we can
+express
+\begin{equation}
+v=\sum^{n}_{k=1}\left(\sum^{n}_{\ell=1}g^{k\ell}\langle v,e_{\ell}\rangle\right)e_{k}.
+\end{equation}
+This is precisely what we're doing for $V=T_{x}M$ with inner product
+$\langle-,-\rangle=g(x)$ and basis $e_{i}=\partial/\partial\xi^{i}$.
+\end{remark}
+
+\begin{remark}
+If you have any connection (not necessarily the Levi-Civita
+connection) $\nabla$ on a smooth manifold $M$, then it extends
+naturally to a connection on the tensor bundle $T^{p}_{q}M$ for every
+$p,q\in\NN_{0}$. The construction consists of two steps:
+\begin{enumerate}
+\item\textsc{Extension to $T^{*}M$}: For any $\omega\in T^{*}M=\Omega^{1}(M)$,
+for any $X\in\Vect{M}$, define
+$(\nabla_{X}\omega)(Y):=X(\omega(Y))-\omega(\nabla_{X}Y)$ for all $Y\in\Vect{M}$.
+Exercise: check this is a connection on $T^{*}M$.
+\item\textsc{Extension to tensor products}: For any
+  $T\in\Gamma(T^{p}_{q}M)$ and $S\in\Gamma(T^{a}_{b}M)$, for any $X\in\Vect{M}$
+  define
+  \begin{equation}
+\nabla_{X}(T\otimes S)=(\nabla_{X}T)\otimes S+T\otimes(\nabla_{X}S).
+  \end{equation}
+  Not every tensor is a tensor product of vector fields and one-forms
+  (they are called \define{Simple Tensors}). Locally, we can do this,
+  but not globally.
+\end{enumerate}
+\end{remark}
+
+\begin{notation}
+Let $T\in\Gamma(T^{p}_{q}M)$ be a tensor, then the map $\nabla T$
+is given by
+\begin{equation}
+\nabla T(\omega_{1},\dots,\omega_{p},X,Y_{1},\dots,Y_{q})=(\nabla_{X}T)(\omega_{1},\dots,\omega_{p},Y_{1},\dots,Y_{q}),
+\end{equation}
+which is a $(p,q+1)$ tensor on $M$.
+\end{notation}
+
+\begin{xca}
+Check that $\nabla T$ is $C^{\infty}(M)$-linear in all its arguments.
+\end{xca}
+
+\begin{theorem}
+Let $(M,g)$ be a Riemannian manifold, let $\nabla$ be the Levi-Civita
+connection on $M$. Then
+\begin{equation}
+\nabla g=0,
+\end{equation}
+i.e., for any $X\in\Vect{M}$ we have $\nabla_{X}g=0$.
+\end{theorem}
+
+We only require $\nabla$ to be a metric-compatible connection, not
+necessarily torsion-free. \emph{Every} metric-compatible connection
+satisfies this condition.
+
+\begin{proof}
+Choose any local chart $(U,\varphi=(\xi^{1},\dots,\xi^{n}))\in\smoothstr{M}$
+on $M$ and note that on this chart
+\begin{equation}
+g=\sum^{n}_{i,j=1}g_{i,j}\,\D\xi^{i}\otimes\D\xi^{j}.
+\end{equation}
+Let us note also that
+\begin{equation}
+X=\sum^{n}_{k=1}X^{k}\frac{\partial}{\partial\xi^{k}}.
+\end{equation}
+Then in our local chart,
+\begin{equation}
+\nabla_{X}g=\sum^{n}_{k=1}X^{k}\sum^{n}_{i,j=1}\nabla_{\partial/\partial\xi^{k}}(g_{ij}\,\D\xi^{i}\otimes\D\xi^{j}).
+\end{equation}
+We just need to prove
+\begin{equation}
+\nabla_{\partial/\partial\xi^{k}}(g_{ij}\,\D\xi^{i}\otimes\D\xi^{j})=0
+\end{equation}
+for all $i,j,k$. We find
+\begin{subequations}
+  \begin{align}
+\nabla_{\partial/\partial\xi^{k}}(\D\xi^{i})
+&=\sum^{n}_{\ell=1}(\nabla_{\partial/\partial\xi^{k}}(\D\xi^{i}))\left(\frac{\partial}{\partial\xi^{\ell}}\right)\D\xi^{\ell}\\
+&=\sum^{n}_{\ell=1}\left(\frac{\partial}{\partial\xi^{k}}\underbrace{\left(\D\xi^{i}\left(\frac{\partial}{\partial\xi^{\ell}}\right)\right)}_{=\delta^{i}_{\ell}}-\D\xi^{i}(\nabla_{\partial/\partial\xi^{i}}\frac{\partial}{\partial\xi^{\ell}})\right)\,\D\xi^{\ell}\\
+&=\sum^{n}_{\ell=1}\left(0-\D\xi^{i}(\nabla_{\partial/\partial\xi^{i}}\frac{\partial}{\partial\xi^{\ell}})\right)\,\D\xi^{\ell}\\
+&=\sum^{n}_{\ell=1}-\Gamma^{i}_{k\ell}\,\D\xi^{\ell}.
+  \end{align}
+\end{subequations}
+\end{proof}

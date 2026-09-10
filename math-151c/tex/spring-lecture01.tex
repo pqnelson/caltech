@@ -1,0 +1,183 @@
+%%
+%% spring-lecture01.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-09T09:29:10-0700
+%% Last update 2026-04-09T09:29:10-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+This term will be about Riemannian geometry.
+\end{node}
+
+\begin{node}
+What is Riemannian geometry? The study of spaces where we can compute
+lengths and angles. We will blast through a review (of smooth
+manifolds) quickly. We equip a manifold with a Riemannian
+structure. Using length and angles, we can introduce a notion of curvature.
+\end{node}
+
+\subsection{Topological and smooth manifolds}
+
+\begin{definition}[Topological manifold]
+A \define{Topological Manifold} consists of a Hausdorff,
+second-countable topological space $M$ equipped with an open cover
+$\{U_{\alpha}\}_{\alpha\in A}$ and a set of continuous maps
+$\varphi_{\alpha}\colon U_{\alpha}\to\RR^{m}$ which are homeomorphisms
+into their image $\varphi_{\alpha}(U_{\alpha})$ which is an open
+subset of $\RR^{m}$. (The $m$ is fixed for $M$ and it will not vary
+chart to chart). Here the $m$ is the \define{Dimension} of $M$ (as a
+topological manifold) and we will say that $M$ is a ``topological $m$-manifold''.
+\end{definition}
+
+\begin{definition}
+We call the collection $\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha\in A}$
+a \define{Topological Atlas} on $M$.
+
+We call an individual pair $(U_{\alpha},\varphi_{\alpha})$ a
+\define{Local Chart}.
+\end{definition}
+
+\begin{node}
+We define smooth manifolds by borrowing smoothness from $\RR^{n}$.
+\end{node}
+
+\begin{definition}[Smooth atlas]
+Let $M$ be a topological manifold, let
+$\mathcal{A}=\{(U_{\alpha},\varphi_{\alpha}\}_{\alpha\in A}$ be a
+topological atlas on $M$. We say the atlas $\mathcal{A}$ is
+\define{Smooth} if for every $\alpha,\beta\in A$ such
+that\footnote{This non-disjointness of patches condition is, strictly
+speaking, un-necessary because the only possible transition map would
+be the identity map, which is always arbitrarily smooth.}
+$U_{\alpha}\cap U_{\beta}\neq\emptyset$ we have
+\begin{equation}
+\varphi_{\beta}\circ\varphi_{\alpha}^{-1}\colon\varphi_{\alpha}(U_{\alpha}\cap U_{\beta})\to\varphi_{\beta}(U_{\alpha}\cap U_{\beta})
+\end{equation}
+is smooth in the sense of calculus (since it is a function between two
+open subsets of $\RR^{n}$).
+
+We call the functions $\varphi_{\beta}\circ\varphi_{\alpha}^{-1}$ the
+\define{Transition Functions} of the atlas $\mathcal{A}$.
+\end{definition}
+
+\begin{definition}[Smooth manifold]
+A \define{Smooth $n$-Manifold} is a topological $n$-manifold $M$
+equipped with one smooth atlas.
+
+We can speak of other regularity classes: replace ``smooth'' [i.e.,
+  $C^{\infty}$] with ``$C^{k}$'' everywhere to get $C^{k}$ atlases and
+$C^{k}$ manifolds. When $k=0$, we see $C^{0}$ manifolds are just
+topological manifolds.
+\end{definition}
+
+\begin{node}
+Is every topological manifold a smooth manifold? No! This was proven
+in the 1980s by Donaldson and Simon. There are 4-dimensional examples
+of such spaces.
+\end{node}
+
+\begin{definition}[Compatibility]
+Let $M$ be a smooth manifold with a smooth atlas with a smooth atlas
+$\mathcal{A}=\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha\in A}$. Let
+$\varphi\colon U\to\RR^{n}$ be another chart of $M$. We say
+$(U,\varphi)$ is \define{Compatible} with the atlas $\mathcal{A}$ if
+for each $\alpha\in A$ such that $U_{\alpha}\cap U\neq\emptyset$ we
+have the transition function $\varphi\circ\varphi_{\alpha}^{-1}\colon\varphi_{\alpha}(U_{\alpha}\cap U)\to\varphi(U_{\alpha}\cap U)$
+is smooth.
+
+Again, we can replace ``smooth'' with ``$C^{k}$''.
+\end{definition}
+
+\begin{node}
+If a chart $(U,\varphi)$ is compatible with an atlas $\mathcal{A}$,
+then we can form an enlarged atlas $\mathcal{A}'=\mathcal{A}\cup\{(U,\varphi)\}$.
+\end{node}
+
+\begin{remark}
+This is actually a little too slick. We can speak of two charts being
+$C^{k}$ compatible (for $k\in\NN_{0}\cup\{\infty,\omega\}$), which is
+an equivalence relation. Then we can speak of two $C^{k}$ atlases
+$\mathcal{A}_{1}$ and $\mathcal{A}_{2}$ being $C^{k}$-equivalent if all their
+charts are compatible (or equivalently, if
+$\mathcal{A}_{1}\cup\mathcal{A}_{2}$ forms a $C^{k}$ atlas). This
+gives us an equivalence relation of $C^{k}$ atlases. Moreover, the
+collection of all possible $C^{k}$ atlases forms a poset under
+inclusion, and we can use Zorn's lemma to get the maximal atlas for
+any given $C^{k}$ atlas.
+\end{remark}
+
+\begin{definition}[Smooth structure]
+Let $M$ be a smooth manifold. The \define{Smooth Structure} of $M$ is
+the unique maximal smooth atlas containing the one you endowed $M$
+with.
+
+(Technically, this is the $C^{\infty}$ differential structure of
+$M$. You could consider different $C^{k}$ differential structures, for $k>0$.)
+\end{definition}
+
+\begin{notation}
+We write $\smoothstr{M}$ for the smooth structure of $M$.
+\end{notation}
+
+\begin{remark}
+Every topological 2-manifold, and every topological 3-manifold, admits
+a unique smooth structure.
+\end{remark}
+
+\begin{remark}
+There are topological 4-manifolds that are \emph{non-smoothable}
+(i.e., cannot be endowed with any smooth atlas). This is due to
+Donaldson's work from the 1980s.
+\end{remark}
+
+\begin{remark}
+There are uncountably many distinct smooth structures on $\RR^{4}$, a
+result due to Taubes from the 1980s.
+\end{remark}
+
+\begin{remark}
+\textsc{Smooth Poincar\'{e} Conjecture} remains an open problem: How
+many distinct smooth structures are there on $\sphere{4}$?
+\end{remark}
+
+\begin{definition}[Embedded smooth manifolds of $\RR^{k}$]
+A subset $M\subset\RR^{k}$ is called a \define{Smooth $n$-Submanifold of $\RR^{k}$}
+if for every $x\in M$ there exists an open subset $V\subset\RR^{k}$,
+an open subset $U\subset M$, and a smooth $\varphi\colon U\to\RR^{k}$
+such that
+\begin{enumerate}
+\item $\varphi\colon U\to M\cap V$ is a homeomorphism
+\item $\D\varphi(y)\colon\RR^{n}\to\RR^{k}$ is injective for each
+  $y\in U$.
+\end{enumerate}
+When $k=n+1$, then $M$ is called a \define{Hypersurface} of $\RR^{k}$.
+\end{definition}
+
+\begin{proposition}
+Every smooth $n$-submanifold of $\RR^{k}$ is a smooth $n$-manifold.
+\end{proposition}
+
+This is a consequence of either the implicit function theorem, or the
+inverse function theorem.
+
+\begin{node}
+So the induced topology of $M$ is automatically Hausdorff and
+second-countable. The charts are formed from $\varphi\colon U\to M\cap V$
+by taking $(M\cap V,\varphi^{-1})$. These are all smooth.
+\end{node}
+
+\begin{example}
+Let $f\colon U\subset\RR^{n}\to\RR$ be a smooth function. Then the
+graph of $f$,
+\begin{equation}
+\Gamma(f)=\{(x_{1},\dots,x_{n},f(x_{1},\dots,x_{n}))\in U\times\RR\}\subset\RR^{n+1}
+\end{equation}
+is a smooth submanifold of $\RR^{n+1}$ always coverable by a single chart.
+\end{example}
+
+\endinput
