@@ -1,0 +1,245 @@
+%%
+%% spring-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-30T10:08:15-0700
+%% Last update 2026-04-30T10:08:15-0700
+%% 
+
+\lecture{}
+
+\begin{proposition}\label{prop:4.19}
+Let $\FF$ be a field such that $\Char(\FF)=p>0$. Let $G$ be a finite
+group that has a Sylow $p$-subgroup $H$. Then
+\begin{equation}
+\Jacobson(\FF[G])=\sum_{x\in H\setminus\{1\}}(x-1)\FF[G].
+\end{equation}
+(Note: if $\Char(\FF)\ndivides|G|$ [i.e., there does not exist a Sylow
+  $p$-subgroup $H$], then $\Jacobson(\FF[G])=0$ by Theorem~\ref{thm:3.23}.)
+\end{proposition}
+
+\begin{proof}
+Denote $A=\FF[G]$, then by Proposition~\ref{prop:1.4}, the canonical
+mapping $\phi\colon G\to G/H$
+extends to a surjective algebra morphism $\phi\colon\FF[G]\to\FF[G/H]$.
+
+If $y_{1}$, \dots, $y_{m}$ is a collection of left coset
+representatives of $H$ (i.e., $G=\bigsqcup^{m}_{i=1}Hy_{i}$), then for
+every $y\in G$ we have $\phi(y)=y_{i}$ iff $y\in Hy_{i}$
+[Pf: $y\in Hy_{i}=y_{i}(y_{i}^{-1}Hy_{i})=y_{i}H$ so $H$ is a noral subgroup.]
+Then for
+\begin{equation}
+z=\sum_{y\in G}ya_{y}\in\ker(\phi)\subset\FF[G]
+\end{equation}
+where $a_{y}\in\FF$ are coefficients, then
+\begin{equation}
+0=\phi(z)=\sum^{m}_{i=1}\phi(y_{i})\left(\sum_{x\in H}a_{xy_{i}}\right)
+\end{equation}
+[Pf: $z=\sum^{m}_{i=1}\sum_{x\in H}xy_{i}a_{xy_{i}}$ which is mapped
+  to $\sum_{i,x}\phi(xy_{i})a_{xy_{i}}$ by $\phi(xy_{i})=\phi(y_{i})$.]
+This means
+\begin{equation}
+\sum_{x\in H}a_{xy_{i}}=0
+\end{equation}
+for $i=1,\dots,m$. Then we can move $a_{y_{i}}$ over to one side to
+obtain
+\begin{equation}
+a_{y_{i}}=-\sum_{x\in H\setminus\{1\}}a_{xy_{i}}.
+\end{equation}
+Using this we write
+\begin{subequations}
+  \begin{align}
+z &=\sum_{i}\sum_{x\in H}xy_{i}a_{xy_{i}}\\
+&=\sum_{i}\left(\left(\sum_{x\in H\setminus\{1\}}xy_{i}a_{xy_{i}}\right)+y_{i}a_{y_{i}}\right)\\
+&=\sum_{i}\left(\left(\sum_{x\in H\setminus\{1\}}xy_{i}a_{xy_{i}}\right)-\sum_{x\in H\setminus\{1\}}y_{i}a_{y_{i}}\right)\\
+&=\sum_{x\in H\setminus\{1\}}(x-1)\left(\sum_{i}y_{i}a_{xy_{i}}\right)\\
+  \end{align}
+\end{subequations}
+which implies $z\in\sum_{x\in H\setminus\{1\}}(x-1)A$. That is to say,
+$\ker(\phi)\subset J$.
+
+The proof that $\ker(\phi)\supset J$ is ``easy''.
+
+In particular, $J$ is an ideal of $A$ such that
+$A/J\iso\FF[G/H]$. Since $H$ is a Sylow $p$-subgroup of $G$,
+$p\ndivides|G/H|$ and so we can use Maschke's theorem. So $A/J$ is
+semisimple by Maschke's Theorem~\ref{thm:3.23}. This means that
+$J\supset\Jacobson(A)$ by Lemma~\ref{lemma:2.28}~(2).
+
+We want to show $J\subset\Jacobson(A)$. We will prove $J^{k}=0$ for
+some $k\in\NN$. Then by Corollary~\ref{cor:4.14}, $J\subset\Jacobson(A)$.
+
+We denote by
+\begin{equation}
+B:=\sum_{x\in H\setminus\{1\}}(x-1)\FF
+\end{equation}
+is a subspace of $A$ closed under multiplication [Pf: $(x-1)(y-1)=(xy-1)-(x-1)-(y-1)$].
+If $|H|=p^{\ell}$, then
+\begin{equation}
+(x-1)^{p^{\ell}}=x^{p^{\ell}}-1=0
+\end{equation}
+for any $x\in H$. This means $B$ is spanned by nilpotent
+elements. Then by Proposition~\ref{prop:4.18}, $B^{k}=0$ for some $k\in\NN$.
+Since $J=BA$ and $BA=AB$ [Pf:
+  $(x-1)y=y(y^{-1}xy-1)=y(\widetilde{x}-1)$ where
+  $\widetilde{x}=y^{-1}xy\in H$],
+then $J^{k}=(BA)^{k}=B^{k}A^{k}=0\cdot A^{k}=0$. Hence the claim.
+\end{proof}
+
+\begin{corollary}\label{cor:4.20}
+Let $\FF$ be a field, let $\Char(\FF)=p>0$. Let $H$ be a finite
+$p$-group. Then
+\begin{equation*}
+\Jacobson(\FF[H])=\sum_{x\in H\setminus\{1\}}(x-1)\FF.
+\end{equation*}
+\end{corollary}
+
+\begin{proof}
+This follows by Proposition~\ref{prop:4.19} and $(x-1)y=(xy-1)-(y-1)$.
+\end{proof}
+
+\subsection{Ideals in Artinian algebras}
+
+We will have some useful results about the lattice of ideals of
+algebras, in particular: if $A$ is semisimple, then $I(A)$ is a
+distributive lattice. Recall we introduced distributive lattices in Lemma~\ref{lemma:2.7}.
+
+\begin{lemma}\label{lemma:4.21}
+Let $A$ be a semisimple algebra.
+\begin{enumerate}
+\item If $M$ is a right ideal of $A$ and $N$ is a left ideal of $A$,
+  then $MN=M\cap N$.
+\item The lattice of two-sided ideals $I(A)$ of $A$ is distributive.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item We see $MN\subset M\cap N$ is obvious.
+
+Since $A$ is semisimple, then by Proposition~\ref{prop:2.15} $A=M\oplus P$
+for some right ideal $P$ and
+\begin{equation}
+N=AN=MN+PN\subset MN+P.
+\end{equation}
+By the modular law, we have $N\cap M\subset(MN+P)\cap N$ and
+\begin{equation}
+(MN+P)\cap N=MN+(P\cap M)=MN.
+\end{equation}
+Hence the first claim.
+\item Let $I,J,K\in I(A)$ be ideals of $A$. Then
+\begin{subequations}
+  \begin{align}
+I\cap(J+K) &= I(J+K)\\
+&=IJ+IK\\
+&=(I\cap J)+(I\cap K).
+  \end{align}
+\end{subequations}
+Hence the claim.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}\label{lemma:4.22}
+If $A$ is an algebra such that $A/\Jacobson(A)$ is semisimple, then
+there exists surjective lattice morphisms
+\begin{subequations}
+\begin{equation}
+\rho\colon I(A)\to I(A/\Jacobson(A)),
+\end{equation}
+and (when viewing $\Jacobson(A)$ as an $A$-bimodule),
+\begin{equation}
+\sigma\colon I(A)\to S(\Jacobson(A)),
+\end{equation}
+\end{subequations}
+such that if $I,J\in I(A)$ are two-sided ideals of $A$ such that
+$\rho(I)=\rho(J)$ and $\sigma(I)=\sigma(J)$ then $I=J$.
+\end{lemma}
+
+(Do such algebras $A$ even exist? Yes, any left or right Artinian
+algebra $A$ satisfies the hypotheses.)
+
+\begin{proof}
+\textsc{Step 1: Construct $\rho$}. Let $\rho\colon A\to A/\Jacobson(A)$
+be the quotient morphism. For $I\in I(A)$, $\rho(I)\in I(A/\Jacobson(A))$
+by surjectivity of $\rho$. If $I,J\in I(A)$, then $\rho(I+J)=\rho(I)+\rho(J)$
+and
+\begin{equation}
+\rho(I\cap J)\subset\rho(I)\cap\rho(J)=\rho(I)\rho(J)=\rho(IJ)\subset\rho(I\cap J)
+\end{equation}
+by Lemma~\ref{lemma:4.21}, which means $\rho(I\cap J)=\rho(I)\cap\rho(J)$.
+By the correspondence theorem, $\rho\colon I(A)\to I(A/\Jacobson(A))$
+is surjective.
+
+\textsc{Step 2: Construct $\sigma$}. Let
+\begin{equation}
+\sigma\colon I(A)\to S(\Jacobson(A))
+\end{equation}
+sending $I\mapsto I\cap\Jacobson(A)$. We will prove this is a lattice
+morphism. We see
+\begin{equation}
+\sigma(I\cap J)=\sigma(I)\cap\sigma(J).
+\end{equation}
+We see $\sigma(I+J)\supset\sigma(I)+\sigma(J)$. We will prove
+$\sigma(I+J)\subset\sigma(I)+\sigma(J)$. If $x+y\in\Jacobson(A)$
+for some $x\in I$ and $y\in J$, so $x+y\in\sigma(I+J)$, then
+\begin{equation}
+\rho(x)=-\rho(y)\quad\mbox{and}\quad\rho(x)\in\rho(I)\cap\rho(J)=\rho(I\cap J),
+\end{equation}
+then there exists $z\in I\cap J$ such that
+$\rho(x)=-\rho(y)=\rho(z)$. Then $x-y\in I\cap\Jacobson(A)=\sigma(I)$
+and in the same manner $y+z\in J\cap\Jacobson(A)=\sigma(J)$ and thus
+\begin{equation}
+x+y=(x-z)+(y+z)\in\sigma(I)+\sigma(J).
+\end{equation}
+Hence $\sigma$ is a lattice morphism. Moreover, since all
+sub-bimodules of $\Jacobson(A)$ is also an ideal of $A$, $\sigma$ is surjective.
+
+\textsc{Step 3:} Now, assume that $\rho(I)=\rho(J)$ and $\sigma(I)=\sigma(J)$.
+If $x\in I$, then there exists a $y\in J$ such that $\rho(x)=\rho(y)$.
+Hence $x-y\in(I+J)\cap\Jacobson(A)$, but
+\begin{subequations}
+  \begin{align}
+(I+J)\cap\Jacobson(A) 
+    &=\sigma(I+J)\\
+    &=\sigma(I)+\sigma(J)\\
+    &=\sigma(J)\subset J,
+  \end{align}
+\end{subequations}
+which means $x=(x-y)+y\in J$ since $x-y\in J$ and $y\in J$. Similarly,
+if $x\in J$, then $x\in I$. Since $x$ was arbitrary, we conclude $I=J$.
+\end{proof}
+
+% This was proven at the start of the next lecture, but it is cleaner
+% to put it here
+\begin{proposition}\label{prop:4.23}
+For any Artinian algebra $A$, the lattice of two-sided ideals $I(A)$
+of $A$ is distributive if and only if the lattice of submodules
+$S(\Jacobson(A))$ of the Jacobson ideal $\Jacobson(A)$ is distributive.
+\end{proposition}
+
+\begin{proof}
+\forwardproof\ Obvious since $S(I(A))\subset I(A)$ is a sublattice.
+
+\backwardproof\ For $I,J,K\in I(A)$ recall $\sigma\colon I(A)\to S(\Jacobson(A))$
+sends $I$ to $\sigma(I)=I\cap\Jacobson(A)$ in Lemma~\ref{lemma:4.22},
+and $\rho\colon I(A)\to I(A/\Jacobson(A))$. Then
+\begin{subequations}
+  \begin{align}
+\sigma(I\cap(J+K))
+&=\sigma(I)\cap(\sigma(J)+\sigma(K))\quad\mbox{by lattice morphism}\\
+&=(\sigma(I)\cap\sigma(J))+(\sigma(I)\cap\sigma(K))\quad\mbox{by distributivity}\\
+&=\sigma((I\cap J)+(I\cap K))\quad\mbox{by lattice morphism.}
+  \end{align}
+\end{subequations}
+Similarly
+\begin{equation}
+\rho(I\cap(J+K))=\dots=\rho((I\cap J)+(I\cap K)).
+\end{equation}
+Then by Lemma~\ref{lemma:4.22},
+\begin{equation}
+I\cap(J+K)=(I\cap J)+(I\cap K),
+\end{equation}
+as desired.
+\end{proof}

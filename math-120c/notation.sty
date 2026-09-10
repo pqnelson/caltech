@@ -1,0 +1,100 @@
+%%
+%% notation.sty
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-04T08:37:35-0700
+%% Last update 2026-04-04T08:37:35-0700
+%%
+
+\DeclareMathOperator\id{id}
+\let\iso\cong
+
+\def\D{\mathrm{d}} % differential
+\def\I{\mathrm{i}} % = \sqrt{-1}
+
+% generators of quaternions
+\newcommand\quat[1]{\mathbf{#1}}
+\newcommand\generalizedquat[3]{\left(\frac{#1,#2}{#3}\right)}
+
+% sets
+\let\kk\Bbbk
+\def\AA{\mathbb{A}}
+\def\CC{\mathbb{C}}
+\def\FF{\mathbb{F}}
+\def\HH{\mathbb{H}}
+\def\NN{\mathbb{N}}
+\def\QQ{\mathbb{Q}}
+\def\RR{\mathbb{R}}
+\def\ZZ{\mathbb{Z}}
+
+% set theory
+\let\propersubset\subset
+\let\subset\subseteq
+\let\propersupset\supset
+\let\supset\supseteq
+\let\nsubset\nsubseteq
+\let\nsupset\nsupseteq
+
+\let\og@im\Im
+\let\Im\relax
+\DeclareMathOperator\Im{Im}
+
+% morphisms
+\let\og@hom\hom
+\let\hom\relax
+
+\DeclareMathOperator\hom{Hom}
+\DeclareMathOperator\Aut{Aut}
+\DeclareMathOperator\End{End}
+\DeclareMathOperator\Map{Map}
+\let\Hom\hom
+% oppositve
+\newcommand\op[1]{#1^{\text{op}}}
+
+\newcommand\ideal{\mathrel{\trianglelefteq}}
+\def\properideal{\mathrel{\lhd}}
+\DeclareMathOperator\Annihilator{Ann}
+
+% canonical matrices
+\newcommand\canMat{\mathcal{E}}
+\DeclareMathOperator\diag{diag}
+\DeclareMathOperator\tr{tr}
+
+
+\let\closure\overline
+
+\DeclareMathOperator\Char{char}
+
+\DeclareMathOperator\Rad{rad}
+
+% divides and ndivides
+% https://tex.stackexchange.com/a/117035/14751
+\def\localbig#1#2{%
+  \sbox\z@{$\m@th#1
+    \sbox\tw@{$#1()$}%
+    \dimen@=\ht\tw@\advance\dimen@\dp\tw@
+    \nulldelimiterspace\z@\left#2\vcenter to1.2\dimen@{}\right.
+  $}\box\z@}
+
+\newcommand{\divides}{\mathrel{\mathpalette\dividesaux\relax}}
+\newcommand{\ndivides}{\mathrel{\mathpalette\ndividesaux\relax}}
+
+\newcommand{\dividesaux}[2]{\mbox{$\m@th#1\localbig{#1}|$}}
+\newcommand{\ndividesaux}[2]{%
+  \mkern.5mu
+  \ooalign{%
+    \hidewidth$\m@th#1\localbig{#1}|$\hidewidth\cr
+    $\m@th#1\nmid$\cr%
+  }%
+}
+
+\DeclareMathOperator\Jacobson{\textup{\textbf{J}}}
+
+% category theory
+\newcommand\cat[1]{\operatorname{\textup{\textbf{#1}}}}
+\newcommand\MatRep{\cat{MatRep}}
+\newcommand\Mod{\cat{Mod}}
+
+\endinput

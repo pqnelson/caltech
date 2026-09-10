@@ -1,0 +1,257 @@
+%%
+%% spring-lecture01.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-04T08:31:56-0700
+%% Last update 2026-04-04T08:31:56-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+The subject of this course is associative algebras.
+The textbook for the class is Richard S.~Pierce's \textit{Associative Algebras}
+(Springer, 1982)~\cite{pierce1982associative}.
+\end{node}
+
+\begin{node}
+Unless otherwise stated, $R$ is a commutative unital ring.
+\end{node}
+
+\begin{definition}
+An \define{$R$-Algebra} (also called an ``algebra over $R$'') is a
+unital right $R$-module $A$ equipped with an associative bilinear
+product
+\begin{equation}
+\begin{split}
+&A\times A\to A\\
+&(x,y)\mapsto xy
+\end{split}
+\end{equation}
+specifically such that
+\begin{enumerate}
+\item Associativity: $\forall x,y,z\in A\ldotp(xy)z=x(yz)$
+\item Left distributive over addition: $\forall x,y,z\in A\ldotp x(y+z)=xy+xz$
+\item Right distributive over addition: $\forall x,y,z\in A\ldotp (x+y)z=xz+yz$
+\item Compatibility with scalar multiplication: $\forall x,y\in A\forall r\in R\ldotp (xy)r=x(yr)=(xr)y$
+\item Unitality: $\exists 1_{A}\in A\ldotp\forall x\in A\ldotp 1_{A}x=x1_{A}=x$
+\end{enumerate}
+Informally ``algebra = ring + module''.
+\end{definition}
+
+\begin{note}
+The ring morphism $R\to Z(A)$ sending $a\mapsto 1_{A}a$ determines the
+structure of an $R$-algebra on $A$.
+\end{note}
+
+\begin{note}
+Since $R$ is commutative, we define $rx:=(1_{A}r)x=(1_{A}x)r=xr$,
+which makes $A$ into a left $R$-module, so $(r_{1}r_{2})x=r_{1}(r_{2}x)$.
+\end{note}
+
+\begin{node}
+If $A$ is an $R$-algebra and $M$ is a right (resp., left) $A$-module, 
+then $M$ is a right (resp., left) $R$-module by $mr:=m(1_{A}r)$
+(resp., $rm:=(1_{A}r)m$).
+\end{node}
+
+\begin{remark}
+For an example of a nonassociative unital algebra, the Octonions.
+
+For an example of a nonassociative nonunital algebra, any Lie algebra.
+\end{remark}
+
+\begin{definition}
+Let $A$ and $B$ be $R$-algebras. A \define{$R$-Algebra Morphism}
+from $A$ to $B$ is a $R$-linear function $\phi\colon A\to B$ such that
+\begin{enumerate}
+\item Multiplicative: $\forall x,y\in A\ldotp\phi(xy)=\phi(x)\phi(y)$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+For $R$-algebras $A$ and $B$, we define an \define{$A$-$B$-Bimodule}
+$M$ is simultaneously a left $A$-module and a right $B$-module such
+that
+\begin{enumerate}
+\item $\forall a\in A\ldotp\forall b\in B\ldotp\forall u\in M\ldotp (xu)y=x(uy)$
+\item $\forall u\in M\ldotp\forall r\in R\ldotp rm=mr$ --- i.e., $(1_{A}r)m=m(1_{B}r)$
+\end{enumerate}
+We follow Pierce and call use the term \define{$A$-Bimodule} as a
+synonym for an $A$-$A$-Bimodule.
+\end{definition}
+
+\begin{node}
+For more conventions, see Pierce~\cite[\S1.1]{pierce1982associative}.
+\end{node}
+
+\begin{definition}\label{defn:1.2}
+Let $G$ be a monoid. We denote by $R[G]$ the \define{Monoid Algebra}
+of $G$ over $R$ consisting of the set
+\begin{equation}
+R[G]=\{\xi\in R^{G}=\Map(G,R)\mid\xi(x)=0\mbox{ for almost all }x\in G\}
+\end{equation}
+(where $\Map(G,R)$ is the collection of set-theoretic functions from the set
+underlying $G$ to the set underlying $R$) equipped with
+\begin{enumerate}
+\item addition defined by: $\forall\xi,\eta\in R[G]\ldotp\forall a,b\in R\ldotp (\xi a+\eta b)(x)=\xi(x)a+\eta(x)b$
+\item multiplication: $\forall\xi,\eta\in R[G]\ldotp (\xi\eta)(x)=\sum_{\substack{y,z\in G\\ yz=x}}\xi(y)\eta(z)$
+\end{enumerate}
+We usually just write an element $\xi\in R[G]$ as something like
+\begin{equation}
+\xi = \sum_{g\in G}g\xi_{g}
+\end{equation}
+where only finitely many of the coefficients $\xi_{g}\in R$ are
+nonzero (so the sums all make sense).
+\end{definition}
+
+\begin{lemma}\label{lemma:1.3}
+For a (possibly non-associative) $R$-algebra $A$, if $X\subset A$
+generate $A$ as an $R$-module and the associative (resp., unital) law
+holds in $X$, then $A$ is associative (resp., unital).
+\end{lemma}
+
+\begin{proof}
+It follows directly from $A=\sum_{x\in X}xR$,
+since
+\begin{subequations}
+  \begin{align}
+\left((\sum_{i}x_{i}a_{i})(\sum_{j}x_{j}b_{j})\right)(\sum_{k}c_{k}x_{k})
+&=\sum_{i,j,k}(x_{i}x_{j})x_{k}(a_{i}b_{j}c_{k})\\
+&=\sum_{i,j,k}x_{i}(x_{j}x_{k})(a_{i}b_{j}c_{k})\\
+&=(\sum_{i}x_{i}a_{i})\left((\sum_{j}x_{j}b_{j})(\sum_{k}c_{k}x_{k})\right).
+  \end{align}
+\end{subequations}
+Hence the claim for associativity. The argument for unital is similar.
+\end{proof}
+
+\begin{proposition}\label{prop:1.4}
+\begin{enumerate}
+\item\label{item:1.4:1} $R[G]$ is an $R$-algebra
+\item\label{item:1.4:2} As an $R$-module, $R[G]$ is free with basis $G$
+\item\label{item:1.4:3} If $A$ is an $R$-algebra, and if $\phi\colon G\to A$ is a module
+  morphism, then $\phi$ extends uniquely to the $R$-algebra morphism
+  $\widetilde{\phi}\colon R[G]\to A$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\ref{item:1.4:1} and \ref{item:1.4:2}: Checking multiplication is a
+closed bilinear map is routine. For $x\in G$, set $\chi_{x}\in R[G]$
+such that
+\begin{equation}
+\chi_{x}(y)=\delta_{x,y}=\begin{cases}1 & x=y\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+then these form a basis for $R[G]$. Hence $R[G]$ is free and its basis
+$\{\chi_{g}\mid g\in G\}=X$. (We need to check associative and unital
+laws hold for $X$ to apply Lemma~\ref{lemma:1.3}.) Moreover, we have
+\begin{equation}
+\chi_{x}\chi_{y}=\chi_{xy}
+\end{equation}
+[Pf: $(\chi_{x}\chi_{y})(z)=\sum_{z_{1}z_{2}=z}\chi_{x}(z_{1})\chi_{y}(z_{2})=\delta_{z,xy}$]
+and also $\chi_{1}$ is a unity in $X$. So by Lemma~\ref{lemma:1.3},
+$R[G]$ is an $R$-algebra, where $\chi_{1}=1_{R[G]}$.
+
+\ref{item:1.4:3} For any $R$-algebra $A$ and any $R$-algebra morphism
+\begin{equation}
+\widetilde{\phi}\colon R[G]\to A
+\end{equation}
+is uniquely determined by $\widetilde{\phi}|_{G}$. So we may take 
+\begin{equation}
+\widetilde{\phi}|_{G}=\phi.
+\end{equation}
+By $\phi(xy)=\phi(x)\phi(y)$ and $\phi(1)=1$, we see $\phi$ is a
+monoid morphism. Hence $\widetilde{\phi}$ is a Ring morphism.
+\end{proof}
+
+\begin{example}\label{ex:1.5}
+Let $X$ be a set of symbols (e.g., $X=\{x_{0},x_{1},\dots\}$, possibly
+finite or infinite). Let $G_{X}$ be the free monoid on $X$. By
+Proposition~\ref{prop:1.4}, every mapping $X\to A$ uniquely extends to
+$R[G_{X}]\to A$. If we replace $G_{X}$ by the free \emph{commutative}
+monoid $H_{X}$, then $R[X]:=R[H_{X}]$ is the ring of polynomials with
+unknowns in $X$.
+\end{example}
+
+\begin{definition}\label{defn:1.6}
+\begin{enumerate}
+\item 
+Let $A$ be an $R$-algebra. Let $M$ and $N$ be right (resp., left)
+$A$-modules. We define the \define{Module of $A$-module morphisms from
+  $M$ to $N$}, denoted $\hom_{A}(M,N)$, for the $R$-module of all
+$A$-module morphisms where addition is given pointwise
+\begin{subequations}
+\begin{equation}
+(\phi+\psi)(u)=\phi(u)+\psi(u)
+\end{equation}
+and (right) scalar multiplication is given by
+\begin{equation}
+(\phi a)(u)=\phi(u)a.
+\end{equation}
+\end{subequations}
+\item 
+When $M=N$, then $\hom_{A}(M,N)=:\End_{A}(M)$ is the
+\define{Endomorphism Algebra} of $M$ with multiplication $(\phi\psi)(u):=(\phi\circ\psi)(u)=\phi(\psi(u))$
+\end{enumerate}
+\end{definition}
+
+\begin{note}
+\begin{enumerate}
+\item For any right $A$-module $M$, we see $\End_{A}(M)$ has an $A$-bimodule
+structure. 
+\item For any left $A$-module $M$, we see $\End_{A}(M)$ has an
+$A$-bimodule structure.
+\item If $A$ and $B$ are $R$-algebras and if $M$ is an
+  $A$-$B$-bimodule, then for any $x\in A$ we define
+  \begin{equation}
+\lambda_{x}(u):=xu
+  \end{equation}
+  and $\lambda_{x}\in\End_{B}(M)$ [Pf: for any $y\in B$, $u\in M$,
+    $x\in A$, we have $\lambda_{x}(uy)=x(uy)=(xu)y=\lambda_{x}(u)y$].
+  Similarly,
+\begin{equation}
+\rho_{y}(u):=uy
+\end{equation}
+is in $\rho_{y}\in\End_{A}(M)$ for any $y\in B$. Also
+\begin{equation}
+\begin{split}
+\lambda\colon &A\to\End_{B}(M)\\
+&x\mapsto\lambda_{x}
+\end{split}
+\end{equation}
+[Pf: show $\lambda_{xr}=\lambda_{x}r$ since $\lambda_{xr}(u)=(xr)u=x(ru)=(xu)r=\lambda_{x}(u)r$].
+Similarly,
+\begin{equation}
+\begin{split}
+\rho\colon&B\to\End_{A}(M)\\
+&y\mapsto\rho_{y}
+\end{split}
+\end{equation}
+is an $R$-algebra \underline{anti}morphism (i.e., a morphism $\op{B}\to\End_{A}(M)$).
+\end{enumerate}
+\end{note}
+
+\begin{node}
+If $M$ is a left $A$-module, then $M$ is an $A$-$R$-bimodule (with
+$R$-action given by $m\cdot r=(1_{A}r)m$). We have a bijection
+\begin{equation}
+\begin{split}
+\{\mbox{left $A$-modules}\}&\stackrel{1:1}{\longleftrightarrow}\{\mbox{representation of $A$}\}\\
+M&\mapsto\lambda\\
+[M_{\phi}]&\mapsfrom\phi
+\end{split}
+\end{equation}
+where $[M_{\phi}]$ is defined by $x\cdot u=\phi(x)u$, and a
+\define{Representation} of an $R$-algebra $A$ is an $R$-module $M$
+equipped with an $R$-algebra morphism $A\to\End_{A}(M)$.
+\end{node}
+
+\begin{definition}
+Let $\phi,\psi\colon A\to\End_{A}(M)$ be representations of $A$ on
+$M$. We say $\theta\in\End_{R}(M)$ is an \define{Intertwiner} of
+$\phi$, $\psi$ if $\theta\phi(x)=\psi(x)\theta$.
+\end{definition}

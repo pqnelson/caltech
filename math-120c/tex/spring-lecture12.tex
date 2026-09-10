@@ -1,0 +1,260 @@
+%%
+%% spring-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-30T10:41:23-0700
+%% Last update 2026-04-30T10:41:23-0700
+%% 
+
+\lecture[Indecomposable modules]{}
+
+\begin{definition}
+Let $A$ be an algebra. An $A$-module $M$ is called
+\define{Indecomposable} if $M\neq0$ and if we cannot decompose it into
+a nontrivial direct sum: $M=P\oplus Q$ then either
+$P=0$ or $Q=0$.
+
+Otherwise, if there exists such a $P$ and $Q$ such that $M=P\oplus Q$,
+we say that $M$ is \define{Decomposable}.
+\end{definition}
+
+(Simple modules are indecomposable; we should view indecomposable
+modules as a generalization of simple modules. The main result of this
+focus will be the Krull--Schmidt theorem.)
+
+\begin{caution}
+By convention, the zero module is neither decomposable nor indecomposable.
+\end{caution}
+
+\begin{proposition}\label{prop:5.1}
+Let $A$ be an algebra, $M$ be an $A$-module.
+If $M$ is Noetherian or Artinian, then $M$ is a finite direct sum of
+indecomposable submodules.
+\end{proposition}
+
+\begin{proof}
+Without loss of generality assume $M\neq0$. If $N$ is a minimal
+nonzero direct summand of $M$, then $N$ is indecomposable. We claim
+such an $N$ exists [Pf: If $M$ is Artinian, then obviously; if $M$ is
+Noetherian, then $N$ is a complement of a maximal proper direct
+summand of $M$.]
+By repeating this process, $M$ decomposes as
+\begin{equation}
+M=N_{1}\oplus M_{1}=N_{1}\oplus N_{2}\oplus M_{2}=\dots
+\end{equation}
+whree $N_{1}$ is the minimal direct summand of $M$ and $M_{1}$ is the
+``remainder', $N_{2}$ is the minimal direct summand of $M_{1}$ and
+$M_{2}$ is its ``remainder'', and so on. Since
+\begin{equation}
+M_{1}\supset M_{2}\supset\dots\quad\mbox{(descending)}
+\end{equation}
+and
+\begin{equation}
+N_{1}\subset N_{1}\oplus N_{2}\subset\dots\quad\mbox{(ascending)}
+\end{equation}
+there exists some $k$ such taht $M=N_{1}\oplus\cdots\oplus N_{k}$.
+\end{proof}
+
+\begin{definition}
+We say the algebra $A$ is a \define{Local Algebra} if $A/\Jacobson(A)$
+is a division algebra.
+\end{definition}
+
+\begin{node}
+If $A$ is a local algebra, then $1_{A}\neq0$ (i.e., $A$ is nontrivial).
+\end{node}
+
+\begin{node}
+The next proposition (and its corollary) give a sort of analog to
+how we characterize simple modules via Schur's lemma.
+\end{node}
+
+\begin{proposition}\label{prop:5.2}
+For a nonzero algebra $A$, the following are equivalent:
+\begin{enumerate}
+\item $A$ is a local algebra
+\item $A\setminus A^{\times}\subset\Jacobson(A)$
+\item $A\setminus A^{\times}$ is closed under addition.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$(1)\implies(2)$ For any $x\notin\Jacobson(A)$, there exists some
+$y\in A$ such that $xy-1\in\Jacobson(A)$ and also $yx-1\in\Jacobson(A)$.
+By Proposition~\ref{prop:4.9},
+\begin{equation}
+xy=1+(xy-1)\in A^{\times},
+\end{equation}
+and in a similar manner
+\begin{equation}
+yx=1+(yx-1)\in A^{\times}.
+\end{equation}
+So $x\in A^{\times}$. [Pf: $xy(xy)^{-1}=1$ and $(yx)^{-1}yx=1$ are the
+right and left inverses.] Hence $x\notin\Jacobson(A)$ implies $x\in A^{\times}$.
+
+\bigbreak
+$(2)\implies(3)$ For $x\in\Jacobson(A)$, if $x\in A^{\times}$ then by
+Proposition~\ref{prop:4.9} $0=1+x(-x)^{-1}\in A^{\times}$ which is a
+contradiction because $A\neq0$. So if $x\in\Jacobson(A)$, then
+$x\notin A^{\times}$ (i.e., $A\setminus A^{\times}\supset\Jacobson(A)$),
+so by hypothesis (2) $A\setminus A^{\times}=\Jacobson(A)$ is closed
+under addition since it is a two-sided ideal.
+
+\bigbreak$(3)\implies(1)$
+For $x\notin\Jacobson(A)$, by Proposition~\ref{prop:4.9} there exists
+$y,z\in A$ such that $1+xy\notin A^{\times}$ and $1+zx\notin A^{\times}$.
+This means $xy\in A^{\times}$ and $zx\in A^{\times}$ by hypothesis (3)
+[Pf: let $w_{1}=1+xy$ and $w_{2}=1+zx$, then $w_{1}-w_{2}\in A^{\times}$
+therefore $xy\in A^{\times}$ and $zx\in A^{\times}$ otherwise $1\in A\setminus A^{\times}$ by (3)].
+Thus $x\in A^{\times}$ in the same manner. Therefore
+$A\setminus\Jacobson(A)\subset A^{\times}$ and so $A/\Jacobson(A)$ is
+a division algebra.
+\end{proof}
+
+\begin{corollary}\label{cor:5.3}
+\begin{enumerate}
+\item If all non-units of $A$ are nilpotent, then $A$ is a local algebra
+\item If $N$ is an $A$-module such that $\End_{A}(N)$ is a local
+algebra, then $N$ is indecomposable.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $0\neq x\notin A^{\times}$ be a non-unit of $A$. Suppose $k\in\NN$
+is the smallest positive number such that $x^{k}=0$. Then $xy\notin A^{\times}$
+for any $y\in A$, otherwise $x^{k-1}(xy)=0$ so $x^{k-1}=0$ which
+contradicts the minimality of $k$. Then any element in $xA$ are
+nilpotent, so $x\in xA\subset\Jacobson(A)$ by Corollary~\ref{cor:4.10}~(2).
+This means $A\setminus A^{\times}\subset\Jacobson(A)$ thus $A$ is
+local by Proposition~\ref{prop:5.2}.
+\item Assume $\End_{A}(N)$ is local. Without loss of generality
+$\id_{N}\neq0$ so $N\neq0$. If $N=P\oplus Q$, then we can consider
+projections $\pi\colon N\to P$ and $\rho\colon N\to Q$. Then
+$\pi+\rho=\id_{N}$ and since $\End_{A}(N)$ is local either $\pi$ or
+$\rho$ is in $(\End_{A}N)^{\times}$ by Proposition~\ref{prop:5.2}. But
+$\pi^{2}=\pi$ and $\rho^{2}=\rho$ so it follows that either
+$\pi=\id_{N}$ or $\rho=\id_{N}$ (since
+$\pi\circ\pi^{-1}=\id=(\pi^{2})\circ\pi^{-1}=\pi$ and similarly for
+$\rho$). This means either $Q=0$ or $P=0$ (respectively), which
+implies $N$ is indecomposable.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{xca}[{Pierce~\cite[\S5.2 Ex~1]{pierce1982associative}}]
+Prove an algebra $A$ is local if and only if $A$ has a unique maximal
+right ideal.
+\end{xca}
+
+\subsection{Fitting's Lemma}
+
+\begin{lemma}
+Let $A$ be an algebra, let $M$ be an $A$-module.
+For $\phi\in\End_{A}M$, the following all holds:
+\begin{enumerate}
+\item If $M$ is Noetherian and $\phi$ is surjective, then
+  $\phi\in\Aut_{A}(M)$ is an automorphism.
+\item If $M$ is Artinian and $\phi$ is injective, then
+  $\phi\in\Aut_{A}(M)$ is an automorphism.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item Since $0\subset\ker(\phi)\subset\ker(\phi^{2})\subset\dots$,
+  there exists an $n\in\NN$ such that $\ker(\phi^{n})=\ker(\phi^{n+1})=\dots$.
+  In particular, the preimage of
+\begin{subequations}
+  \begin{align}
+(\phi^{n})^{-1}(\ker(\phi)) &= (\phi^{n+1})^{-1}(0)\\
+&=\ker(\phi^{n+1})\\
+    &=\ker(\phi^{n})\\
+    &=(\phi^{n})^{-1}(0).
+  \end{align}
+\end{subequations}
+Since $\phi$ is surjective by hypothesis, then so too is
+$\phi^{n}$. And so
+\begin{subequations}
+  \begin{align}
+\ker(\phi) &=\phi^{n}(\phi^{n})^{-1}(\ker(\phi))\quad\mbox{by surjectivity}\\
+&=\phi^{n}(\phi^{n})^{-1}(0)\\
+&=(0)
+  \end{align}
+\end{subequations}
+hence $\phi$ is injective, so $\phi$ is an automorphism.
+\item Homework.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[Fitting's lemma]\label{lemma:5.5}
+Let $A$ be an algebra. Let $M$ be an $A$-module which is both Artinian
+and Noetherian. For any $\phi\in\End_{A}M$ there exists a
+decomposition of $M=P\oplus Q$ such that
+\begin{enumerate}
+\item $\phi(P)\subset P$ and
+\item $\phi(Q)\subset Q$ and
+\item $\phi|_{P}\in\Aut_{A}P$ and $\phi|_{Q}$ is nilpotent.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We see
+$M\supset\phi(M)\supset\phi^{2}(M)\supset\dots$ is a descending chain
+and $0\subset\ker(\phi)\subset\ker(\phi^{2})\subset\dots$ is an
+ascending chain. The Artinian and Noetherian conditions on $M$ implies
+there exists an $m\in\NN$ such that $\phi^{m}(M)=\phi^{n}(M)$ and
+$\ker(\phi^{m})=\ker(\phi^{n})$ for all $n\geq m$. Denote
+\begin{equation}
+P=\phi^{m}(M)\quad\mbox{and}\quad Q=\ker(\phi^{m}).
+\end{equation}
+then
+\begin{equation}
+\phi(P)=P,
+\end{equation}
+and
+\begin{subequations}
+  \begin{align}
+\phi(Q) &=\phi(\ker(\phi^{m}))\\
+&=\phi(\ker(\phi^{m+1}))\\
+&\subset\ker(\phi^{m})=Q
+  \end{align}
+\end{subequations}
+so $\phi(Q)\subset Q$, and also
+\begin{equation}
+\phi^{m}(Q)=\phi^{m}(\ker(\phi^{m}))=0,
+\end{equation}
+which implies $\phi|_{Q}$ is nilpotent. Moreover
+\begin{equation}
+P\cap Q=0,
+\end{equation}
+since $\phi|_{P\cap Q}$ is injective and nilpotent.
+
+Finally, we need to check $M=P\oplus Q$. We see that
+\begin{subequations}
+  \begin{align}
+M &= (\phi^{m})^{-1}(\phi^{m}(M))\\
+&=(\phi^{m})^{-1}(\phi^{2m}(M))\\
+&=(\phi^{m})^{-1}(\phi^{2m}(M)+0)\\
+&=\phi^{m}(M)+\ker(\phi^{m})\\
+&=P+Q.
+  \end{align}
+\end{subequations}
+Hence the claim.
+\end{proof}
+
+\begin{corollary}\label{cor:5.6}
+Let $A$ be an algebra. Let $M$ be a Noetherian and Artinian $A$-module.
+Then $\End_{A}M$ is local if and only if $M$ is indecomposable.
+\end{corollary}
+
+\begin{proof}
+\forwardproof\ By Corollary~\ref{cor:5.3}~(2).
+
+\backwardproof\ By Lemma~\ref{lemma:5.5} every element of $\End_{A}M$ is either
+nilpotent or a unit. Then by Corollary~\ref{cor:5.3}~(1) $\End_{A}M$
+is local.
+\end{proof}
+
+

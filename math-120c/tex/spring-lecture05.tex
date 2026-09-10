@@ -1,0 +1,214 @@
+%%
+%% spring-lecture05.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-09T12:13:15-0700
+%% Last update 2026-04-09T12:13:15-0700
+%% 
+
+\lecture{}
+
+\begin{definition}
+For submodules $N\in S(M)$ and $P\in S(M)$, we say $P$ is a
+\define{Complement} of $N$ if $N+P=M$ and $N\cap P=0$ (so $M=N\oplus P$).
+\end{definition}
+
+\begin{lemma}\label{lemma:2.14}
+Let $M=\sum_{i\in J}N_{i}$ where each $N_{i}$ is a simple module. If
+$P\in S(M)$, then there exists a subset $I\subset J$ such that
+\begin{equation}
+M=\left(\bigoplus_{i\in I}N_{i}\right)\oplus P.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By Zorn's lemma: there exists $I\subset J$ such that $\{N_{i}\}_{i\in I}\cup\{P\}$
+is maximal with respect to independence, i.e., $(\sum_{i\in I}N_{i})+P=(\bigoplus_{i\in I}N_{i})\oplus P$.
+Let
+\begin{equation}
+M_{1}:=\left(\sum_{i\in I}N_{i}\right)+P.
+\end{equation}
+This maximality of $I$ implies $M_{1}\cap N_{j}\neq0$ for all $j\in J$.
+But since the $N_{j}$ are simple, $N_{j}\subset M_{1}$ for all $j\in J$.
+Then
+\begin{equation}
+M=\sum_{j\in J}N_{j}\subset M_{1}\subset M, 
+\end{equation}
+we see $M=M_{1}$.
+\end{proof}
+
+\begin{proposition}\label{prop:2.15}
+Let $M$ be a right $A$-module. The following are equivalent:
+\begin{enumerate}
+\item $M$ is semisimple
+\item $\displaystyle M=\sum_{\substack{N\in S(M)\\ N\text{ is simple}}}N$
+\item $S(M)$ is a complemented lattice (i.e., for every $N\in S(M)$,
+  $N$ has a complement in $S(M)$).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$(1)\implies(2)$ clear
+
+$(2)\implies(1)$ and $(2)\implies(3)$ by Lemma~\ref{lemma:2.14} (so
+  $(1)\iff(2)$ and $(2)\implies (3)$).
+
+$(3)\implies(2)$ First (3) is generalized to any submodule $P\in S(M)$
+(i.e., $S(P)$ is a complemented lattice). If $M_{1}\in S(P)\subset S(M)$,
+then there exists $M_{2}\in S(M)$ such that $M=M_{1}\oplus M_{2}$.
+Then by the modular law
+\begin{equation}
+P=(M_{1}\oplus M_{2})\cap P=M_{1}\oplus(M_{2}\cap P),
+\end{equation}
+and since $M_{2}\cap P\in S(P)$, we see $S(P)$ is complemented.
+
+Let $Q\in S(M)$ bebe a nontrivial proper submodule $Q\neq0$ and $Q\neq M$.
+Let $u\in M\setminus Q$. Then by  Zorn's lemma, we may assume $Q$ is
+maximal with respect to $u\notin Q$. Then by hypothesis (3),
+$M=Q\oplus N$ where since $Q$ is nontrivial proper, we see $N\in S(M)$
+is nontrivial proper.
+
+Further, $u=w+v$ where $w\in Q$ and $v\in N$. If $N_{1}\in S(N)\setminus\{0,N\}$
+is a nontrivial proper submodule of $N$, then $N=N_{1}\oplus N_{2}$
+for some $N_{2}\neq0,N$. Then by maximality of $Q$, for only one of
+$i=1$ or $i=2$ we have $u\in Q\oplus N_{i}$ and $u\in Q\oplus N_{i'}$ 
+where $i'$ is the other possible value. [Pf: $M=Q\oplus N=Q\oplus(N_{1}\oplus N_{2})$
+and $M=(Q\oplus N_{i})\oplus N_{i\pm 1}$.]
+But it contradicts the maximality of $Q$ (i.e., $u\notin Q\oplus N_{i'}\propersupset Q$).
+That is, $N$ is simple. Therefore by transfinite induction we obtain (2).
+\end{proof}
+
+\begin{corollary}\label{cor:2.16}
+Let $M=\bigoplus_{i\in J}N_{i}$ be semisimple (so each $N_{i}$ is simple).
+The following all hold:
+\begin{enumerate}
+\item For all $P\in S(M)$, both $P$ and $M/P$ are semisimple.
+\item $S(M)$ is distributive if and only if for all $i\neq j$ we have
+  $N_{i}\not\iso N_{j}$
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(1) By Proposition~\ref{prop:2.15}~(3) $M=P\oplus(M/P)$ and both $P$
+  and $M/P$ are semisimple by (2).
+
+(2) \forwardproof\ [Contrapositive] Observe for an $A$-module $N\neq0$
+  and $Q=N\oplus N$, we have $S(Q)$ is not distributive. Let
+  $N_{1}=N\oplus0\subset Q$ and $N_{2}=0\oplus N\subset Q$, and
+  $N_{3}=\{(u,u)\in Q\mid u\in N\}\subset Q$. Then $N_{1}+N_{2}=Q$
+  and $N_{1}\cap N_{3}=N_{2}\cap N_{3}=0$, so $N_{3}\iso N_{1}$
+  and $N_{3}\cap(N_{1}+N_{2})=N_{3}$ but $(N_{3}\cap N_{1})+(N_{3}\cap N_{2})=0\neq N_{3}$
+  so the distributive law does not hold. This observation proves the claim.
+
+\backwardproof\ For any subset $I\subset J$, define
+\begin{equation}
+N(I) :=\sum_{i\in I}N_{i}.
+\end{equation}
+We will prove $\{N(I)\mid I\subset J\}$ is a distributive lattice.
+Since $M=\bigoplus_{i\in J}N_{i}$, for any $I_{1}\subset I$ and
+$I_{2}\subset I$ we have
+\begin{equation}
+N(I_{1}\cup I_{2})=N(I_{1})+N(I_{2})
+\end{equation}
+and
+\begin{equation}
+N(I_{1}\cap I_{2})=N(I_{1})\cap N(I_{2}).
+\end{equation}
+Then
+\begin{subequations}
+  \begin{align}
+N(I_{1})\cap(N(I_{2})+N(I_{3}))
+&= N\bigl(I_{1}\cap(I_{2}\cup I_{3})\bigr)\\
+&= N\bigl((I_{1}\cap I_{2})\cup(I_{1}\cap I_{3})\bigr)\\
+&=[N(I_{1})\cap N(I_{2})]+[N(I_{1})\cap N(I_{3})].
+  \end{align}
+\end{subequations}
+Hence $\{N(I)\mid I\subset J\}$ is a distributive lattice.
+
+We will show $S(M)=\{N(I)\mid I\subset J\}$. For any $P\in S(M)$, set
+\begin{equation}
+I=\{i\in J\mid P\cap N_{i}\neq\emptyset\}.
+\end{equation}
+In other words, $i\in I$ if and only if $N_{i}\subset P$;
+equivalently, $N(I)\subset P$.
+
+If
+\begin{equation}\label{eq:math120c:spring2026:lecture5:cor2.16:big-if}
+P\cap N(J\setminus I)=0,
+\end{equation}
+then by the modular law
+\begin{subequations}
+  \begin{align}
+P &= (N(I)+N(J\setminus I))\cap P\\
+&= N(I)+(N(J\setminus I)\cap P)\\
+&= N(I) + 0 = N(I),
+  \end{align}
+\end{subequations}
+and so
+\begin{equation}
+S(M)=\{N(I)\mid I\subset J\}.
+\end{equation}
+Now we just need to prove Equation~\eqref{eq:math120c:spring2026:lecture5:cor2.16:big-if}.
+
+Assume that $P\cap N(J\setminus I)\neq0$ and choose the subset
+$K\subset J\setminus I$ with the smallest cardinality such that $P\cap N(K)\neq0$.
+Then you can easily check that $2\leq|K|<\infty$.
+[Pf: Since $|K|=\min\{n\mid u=u_{i_{1}}+\dots+u_{i_{n}}\in P\cap\bigoplus^{n}_{j}N_{i_{j}},i_{j}\notin I\}<\infty$
+but if $|K|=1$, then there exists $i\notin I$ such that $0\neq u=u_{i}\in P\cap N_{i}$
+which contradicts $I=\{i\in J\mid P\cap N_{i}\neq\emptyset\}$.]
+For $i\in K$, let $\pi_{i}\colon N(K)\to N_{i}$ be the
+projection. Since
+\begin{equation}
+\ker(\pi|_{P\cap N(K)})\subset P\cap N(K\setminus\{i\}),
+\end{equation}
+and the minimality of $K$, we find that
+\begin{equation}
+\ker(\pi|_{P\cap N(K)})=0.
+\end{equation}
+That is to say $P\cap N(K)\iso N_{i}$. But this contradicts $|K|\geq2$
+and $N_{i}\not\iso N_{j}$ for $i\neq j$.
+\end{proof}
+
+\begin{node}
+Next, we will prove the uniqueness of the decomposition of semisimple
+modules. This consists of two lemmas and one proposition.
+\end{node}
+
+\begin{lemma}\label{lemma:2.17}
+Let $M=\bigoplus_{i\in J}N_{i}$ where each $N_{i}$ is simple and $N$
+is simple such that there exists a nonzero $\phi\colon N\to M$.
+Then there exists a $j\in J$ such that
+$M\iso\phi(N)\oplus(\bigoplus_{i\neq j}N_{i})$ and $\phi(N)\iso N_{j}$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lemma:2.14}, there exists a subset $J'\subset J$ such
+that
+\begin{equation}
+M\iso\phi(N)\oplus\left(\bigoplus_{i\in J'}N_{i}\right).
+\end{equation}
+By Lemma~\ref{lemma:2.11},
+\begin{subequations}
+  \begin{align}
+\bigoplus_{i\notin J'}N_{i} &\iso \frac{M}{\bigoplus_{i\in J'}N_{i}}\\
+&\iso\phi(N)\\
+&\iso N.
+  \end{align}
+\end{subequations}
+Hence the claim.
+\end{proof}
+
+\begin{node}
+  \begin{enumerate}
+  \item In the next Lemma and Proposition, $\{N_{i}\mid i\in J\}$
+is the set of representatives of simple $A$-modules.
+\item For an $A$-module
+$M$, we denote for $i\in J$,
+\begin{equation}
+M(i):=\sum_{\substack{N\in S(M)\\ N\iso N_{i}}}N.
+\end{equation}
+  \end{enumerate}
+\end{node}
+

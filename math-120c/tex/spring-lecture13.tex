@@ -1,0 +1,223 @@
+%%
+%% spring-lecture13.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-30T11:31:04-0700
+%% Last update 2026-04-30T11:31:04-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+We will prove the Krull--Schmidt theorem (the most important theorem
+in this part of the course) and then pivot to representation theory of
+algebras. 
+\end{node}
+
+\begin{lemma}\label{lemma:5.7}
+For any short exact sequence of $A$-modules
+\begin{equation}
+0\to N\xrightarrow{\phi}M\xrightarrow{\psi}P\to0,
+\end{equation}
+the following are equivalent:
+\begin{enumerate}
+\item There exists a $\chi\colon P\to M$ such that $\psi\circ\chi=\id_{P}$
+\item There exists a $\theta\colon M\to N$ such that $\theta\circ\phi=\id_{N}$
+\end{enumerate}
+In these cases,
+$M=\Im(\chi)\oplus\ker(\psi)=\Im(\phi)\oplus\ker(\theta)$. We call such
+an exact sequence \define{Split}, $\psi$ is a ``split surjection'',
+$\phi$ is a ``split injection''.
+\end{lemma}
+
+\begin{proof}
+$(2)\implies(1)$ is homework.
+
+$(1)\implies(2)$ For any $u\in M$,
+\begin{equation}
+u=\chi(\psi(u))+(u-\chi(\psi(u)))
+\end{equation}
+and
+\begin{equation}
+\psi(u-\chi(\psi(u)))=\psi(u)-\psi(\chi(\psi(u)))=0,
+\end{equation}
+so $M=\Im(\chi)+\ker(\psi)$.
+
+We want to show $\Im(\chi)\cap\ker(\psi)=0$ (to make it a direct
+sum). Since $\psi\circ\chi=\id$,
+\begin{equation}
+\ker(\psi)\cap\Im(\chi)=0
+\end{equation}
+[Pf: otherwise there's a nonzero $0\neq x\in P$ such that $x=\psi(\chi(x))=0$
+  which is a contradiction].
+Now because
+\begin{equation}\label{eq:prop5.7:pf:star}
+\Im(\phi)=\ker(\psi)\quad\mbox{and $\phi$ is injective},
+\end{equation}
+the mapping
+\begin{equation}
+\theta\colon M\to N
+\end{equation}
+such that $\theta(u)=\phi^{-1}(u-\chi(\psi(u)))$ is a morphism an
+satisfies for every $v\in N$,
+\begin{subequations}
+  \begin{align}
+\theta(\phi(v)) &= \phi^{-1}(\phi(v)-\chi(\psi(\phi(v))))\\
+&=v-\phi^{-1}(\chi(\psi(\phi(v))))+\ker(\phi)\\
+&=v-\phi^{-1}(\chi(\psi(\phi(v))))+0\\
+&=v\quad\mbox{by Eq~\eqref{eq:prop5.7:pf:star}}
+  \end{align}
+\end{subequations}
+so $\theta\circ\phi=\id_{N}$.
+\end{proof}
+
+\begin{lemma}\label{lemma:5.8}
+Let $M=M_{1}\oplus M_{2}=N_{1}\oplus N_{2}$ be decompositions of the
+$A$-module $M$. Assume there exists $\phi\in\Aut_{A}(M)$ such that we
+can write it in matrix form
+\begin{equation}
+\phi=[\phi_{i,j}]=\begin{bmatrix}\phi_{1,1} & \phi_{1,2}\\\phi_{2,1} & \phi_{2,2}
+\end{bmatrix}
+\end{equation}
+If $\phi_{1,1}\colon M_{1}\to N_{1}$ is an isomorphism, then
+$M_{2}\iso N_{2}$.
+\end{lemma}
+
+\begin{proof}
+For
+\begin{equation}
+\phi'=\begin{bmatrix}\id_{N_{1}} & 0\\
+-\phi_{21}\circ\phi_{11}^{-1} & \id_{N_{2}}
+\end{bmatrix}
+\end{equation}
+and
+\begin{equation}
+\phi''=\begin{bmatrix}\id_{M_{1}} & -\phi_{11}^{-1}\circ\phi_{12}\\
+0 & \id_{M_{2}}
+\end{bmatrix}
+\end{equation}
+these are automorphisms of $M$. Then $\phi'\circ\phi\circ\phi''$ is an
+automorphism equal to
+\begin{equation}
+\phi'\circ\phi\circ\phi''=\begin{bmatrix}\phi_{11} & 0\\
+0 & \psi\end{bmatrix}
+\end{equation}
+where
+\begin{equation}
+\psi=\phi_{22}-\phi_{21}\circ\phi_{11}^{-1}\circ\phi_{12}\colon
+M_{2}\to N_{2}
+\end{equation}
+is an isomorphism.
+\end{proof}
+
+\begin{proposition}[Krull--Schmidt]\label{prop:5.9}
+Let $M=\bigoplus^{r}_{i=1}M_{i}$ and $N=\bigoplus^{s}_{j=1}N_{j}$ be
+such that $\End_{A}M_{i}$ and $\End_{A}N_{j}$ are local algebras. If
+$M\iso N$, then $r=s$ and there exists a permutation $\sigma\in S_{r}$
+such that $M_{i}=N_{\sigma(i)}$.
+\end{proposition}
+
+\begin{corollary}\label{cor:5.10}
+\begin{enumerate}
+\item If $M$ is Artininan and Noetherian, then it has the unique
+  decomposition into indecomposible modules.
+\item If $A$ is right Artinian, then every finitely-generated
+  $A$-module uniquely decomposes into a finite direct sum of
+  indecomposable modules.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+\begin{enumerate}
+\item By Proposition~\ref{prop:5.1}, Corollary~\ref{cor:5.6}, and Proposition~\ref{prop:5.9}.
+\item By Corollary~\ref{cor:4.16} and Corollary~\ref{cor:5.10}~(1).\qedhere
+\end{enumerate}
+\end{proof}
+
+\subsection{Representations of Algebras}
+
+\begin{definition}
+Let $\FF$ be a field, let $A$ be an $\FF$-algebra. A \define{(Matrix) Representation}
+of $A$ is an $\FF$-algebra morphism $\theta\colon A\to M_{n}(\FF)$.
+
+The \define{Degree} of the representation $\theta\colon A\to M_{n}(\FF)$
+is $\deg(\theta)=n$.
+\end{definition}
+
+\begin{node}
+We will just speak of ``representations'' of $A$, understanding that
+we mean ``matrix representations'' of $A$. In particular, they are
+\define{Finite-Dimensional} representations because
+$\dim_{\FF}(M_{n}(\FF))=n^{2}<\infty$. 
+\end{node}
+
+\begin{definition}
+Let $\theta\colon A\to M_{n}(\FF)$ be a representation of $A$. We say
+the representation $\theta$ is \define{Faithful} if $\ker(\theta)=0$
+(so $\dim_{\FF}A\leq n^{2}$). In particular, if $\dim_{\FF}A=\infty$,
+there are no faithful matrix representations of $A$.
+\end{definition}
+
+\begin{definition}
+Let $\theta$, $\phi$ be representations of $A$ with $m=\deg(\phi)$ and
+$n=\deg(\theta)$. Let $\alpha\in M_{n,m}(\FF)$ be an $n\times m$
+matrix. We say $\alpha$ is an \define{Intertwiner} if for all $x\in A$
+we have $\theta(x)\alpha=\alpha\phi(x)$. In this case, we write
+\begin{equation}
+\alpha\colon\theta\to\phi.
+\end{equation}
+We should intuitively think of an intertwiner as a triple
+$(\theta,\alpha,\psi)$ since the same matrix may intertwine different
+representations. 
+\end{definition}
+
+\begin{fact}
+The $\FF$-matrix representations of $A$ and their intertwiners form a
+category which we will denote by $\MatRep_{\FF}(A)$. This is a
+subcategory of functors from the delooping $\cat{B}A$ of $A$ to the
+category $\cat{Mat}_{\FF}$ whose objects are $M_{n}(\FF)$ matrix
+algebras, and morphisms are $\FF$-linear transformations
+(multiplication by an $m\times n$ matrix).
+
+More generally, we can replace $\cat{Mat}_{\FF}$ with any other
+suitable category, and we get other types of reprensetations for
+an associative algebra.
+\end{fact}
+
+\begin{definition}
+Let $\theta$, $\phi$ be $\FF$-matrix representations of $A$. We say
+$\theta$ and $\phi$ are \define{Equivalent} if they are isomorphic in
+the category theoretic sense, i.e., there exists intertwiners
+$\alpha\colon\theta\to\phi$ and $\beta\colon\phi\to\theta$ such that
+$\alpha\circ\beta=\id_{\phi}$ and $\beta\circ\alpha=\id_{\theta}$.
+
+In this case, we write $\theta\iso\phi$ to indicate they are equivalent.
+\end{definition}
+
+\begin{xca}
+Prove $\theta\iso\phi$ iff $\deg\theta=\deg\phi$ and there exists a
+nonsingular intertwiner $\alpha\colon\theta\to\phi$.
+\end{xca}
+
+\begin{definition}
+Let $\theta$ be an $\FF$-representation of $A$, write
+$M_{\theta}=\bigoplus n\FF$ (where $n=\deg(\theta)$) equipped with the 
+$A$-action
+\begin{equation}
+[a_{1},\dots,a_{n}]x:=[a_{1},\dots,a_{n}]\theta(x)
+\end{equation}
+where $[a_{1},\dots,a_{n}]\in M_{\theta}$ is a row vector, $x\in A$.
+This defines an $A$-module such that
+$\dim_{\FF}M_{\theta}=\deg(\theta)$ and $\Annihilator(M_{\theta})=\ker(\theta)$.
+
+The correspondence $M\colon\theta\mapsto M_{\theta}$ sending
+$\FF$-representations [of a fixed algebra $A$] to $A$-modules, and
+$\alpha\mapsto\mu_{\alpha}$ where $\alpha\colon\theta\to\psi$ is an
+intertwiner and the linear operator $\mu_{\alpha}\colon M_{\theta}\to M_{\psi}$ sends
+$[a_{1},\dots,a_{n}]\mapsto[a_{1},\dots,a_{n}]\alpha$ --- this forms a
+functor $\MatRep_{\FF}(A)\to\Mod(A)$ from the category of matrix
+representations of $A$ to the category of $A$-modules.
+\end{definition}
+

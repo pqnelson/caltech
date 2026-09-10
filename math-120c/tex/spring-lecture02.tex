@@ -1,0 +1,335 @@
+%%
+%% spring-lecture02.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-04T09:28:20-0700
+%% Last update 2026-04-04T09:28:20-0700
+%% 
+
+\lecture{}
+
+\begin{definition}
+Any $R$-algebra $A$ is the $A$-bimodule by its product.
+\begin{enumerate}
+\item The \define{Left Regular Representation} of $A$ is $A$ and $\lambda\colon A\to\End_{A}(A)$.
+\item The \define{Right Regular Representation} of $A$ is the
+  $A$-module $A$ and $\rho\colon A\to\End_{A}(A)$
+\end{enumerate}
+\end{definition}
+
+\begin{node}
+Note: $\lambda$ and $\rho$ are bijective.
+Let us check this for $\lambda$. We see $\ker(\lambda)=\{x\in A\mid xA=0\}=\{0\}$
+since $1_{A}\in A$ which means for any $x\in\ker(\lambda)$ we have $x1_{A}=x=0$.
+\end{node}
+
+\begin{node}
+Any $A$-algebra endomorphism $\phi\in\End_{A}(A)$ is determined by
+$\phi(1)$. Specifically, for any $x\in A$ we have $\phi(x)=\phi(1_{A}x)=\phi(1_{A})x=\lambda_{\phi(1)}(x)$,
+so $\phi=\lambda_{\phi(1)}$.
+\end{node}
+
+\subsection{Matrix Algebras}
+
+\begin{definition}
+Let $A$ be an $R$-algebra, let $n\in\NN$. The \define{$n\times n$
+Matrix Algebra} over $R$ denoted $M_{n}(A)$ consists of all $n\times n$
+matrices with entries in $A$ equipped with matrix addition and matrix
+multiplication. Scalar multiplication is componentwise multiplication
+by $R$.
+\end{definition}
+
+\begin{notation}
+We write $\canMat_{i,j}$ for the \define{Canonical Matrix} which has
+its only nonzero entry located in row $i$ and column $j$ where it is
+equal to $1$, and zero at all other entries. Then $\canMat_{i,j}\in M_{n}(A)$
+and also
+\begin{equation}
+\canMat_{i,j}\canMat_{k,\ell}=\delta_{j,k}\delta_{i,\ell}.
+\end{equation}
+\end{notation}
+
+\begin{notation}
+We also write $M_{m,n}(A)$ for the set of $m\times n$ matrices over $A$.
+This \emph{is not} an algebra over $A$ \emph{unless} $m=n$. But
+$M_{m,n}(A)$ is always an $A$-bimodule. If $\alpha=(x_{i,j})\in M_{m,n}(A)$
+and $y\in A$, then $y\alpha=(yx_{i,j})\in M_{m,n}(A)$. Similarly,
+$\alpha y\in M_{m,n}(A)$.
+
+We identify $M_{n,n}(A)=M_{n}(A)$ is the free $A$-bimodule with basis
+$\{\canMat_{i,j}\mid 1\leq i,j\leq n\}$. Also observe $(\alpha y)\beta=\alpha(y\beta)$
+for any $\alpha,\beta\in M_{n}(A)$ and $y\in A$.
+\end{notation}
+
+\begin{caution}
+If $A$ is not commutative, then $M_{n}(A)$ is not an $A$-algebra.
+\end{caution}
+
+\begin{definition}
+A \define{Division Algebra} over $R$ consists of an $R$-algebra $D$
+such that for any nonzero $x\in D$ there exists an $x^{-1}\in D$ such
+that $x\cdot x^{-1}=x^{-1}x=1_{D}$. 
+\end{definition}
+
+\begin{definition}
+Let $A$ be an $R$-algebra. We say $A$ is \define{Simple} if it has no
+nontrivial two-sided ideals.
+\end{definition}
+
+\begin{lemma}
+If $D$ is a division algebra, then $M_{n}(D)$ is simple.
+\end{lemma}
+
+\begin{proof}
+Let $I\neq0$ be a two-sided ideal of $M_{n}(D)$. Then there exists
+$\beta\in I$ nonzero $\beta\neq0$ with entries $\beta=(y_{i,j})$. So
+there is a nonzero entry $y_{r,s}\neq0$. Then for any
+$\alpha=(x_{i,j})\in M_{n}(D)$ we have
+\begin{subequations}
+  \begin{align}
+\alpha&=\sum_{i,j}\canMat_{i,j}x_{i,j}\\
+&=\sum_{i,j}(\canMat_{i,r}\beta\canMat_{s,j})y_{r,s}^{-1}x_{i,j}\\
+&=\sum_{i,j}(y_{r,s}\canMat_{i,j})y_{r,s}^{-1}x_{i,j}
+  \end{align}
+\end{subequations}
+Therefore $\alpha\in I$. But since $\alpha$ was arbitrary, this means
+$I=M_{n}(D)$. 
+\end{proof}
+
+\begin{xca}[Pierce]
+Prove this lemma generalizes from division algebras $A$ to any simple
+algebra $A$.
+\end{xca}
+
+\begin{example}
+Let $R=\FF$ be a field, and $A$ be a vector space over $\FF$ with
+basis $x_{1}$, \dots, $x_{n}$. Then a (possibly non-associative
+non-unital) $\FF$-algebra structure on $A$ is definedby specifying
+\begin{equation}
+x_{i}x_{j}=\sum^{n}_{k=1}x_{k}{a_{i,j}}^{k}
+\end{equation}
+where (for all $i,j,k=1,\dots,n$) the coefficients
+${a_{i,j}}^{k}\in\FF$ are called the 
+\define{Structure Constants}. We can express properties of the algebra
+in terms of these structure constants.
+\begin{enumerate}
+\item\textsc{Associativity}: if for any $i$, $j$, $k$ we have $(x_{i}x_{j})x_{k}=x_{i}(x_{j}x_{k})$
+  then
+  \begin{equation}
+\sum_{r}{a_{i,j}}^{r}{a_{r,k}}^{s}=\sum_{r}{a_{j,k}}^{r}{a_{i,r}}^{s}
+  \end{equation}
+  for any $i$, $j$, $k$, $s$.
+\item\textsc{Unital}: (possibly reindexing to make $x_{1}=1_{A}$) for
+  any $j=1,\dots,n$ we have $x_{1}x_{j}=x_{j}x_{1}=x_{j}$. This means
+  $\lambda_{x_{1}}=\rho_{x_{1}}=\id_{A}$ so ${a_{1,j}}^{k}={a_{j,1}}^{k}=\delta_{j,k}$
+  for any $j,k=1,\dots,n$.
+\item\textsc{Morphisms in terms of structure constants}. Let
+  $(A,{a_{i,j}}^{k})$ and $(A,{b_{i,j}}^{k})$ be two algebras with the
+  same underlying vector space. The following are equivalent:
+\begin{enumerate}
+\item They are isomorphic;
+\item there exists a $\gamma\in\Aut_{\FF}(A)$ such that
+\begin{equation}
+\gamma(x_{i})=\sum_{r}x_{r}{c_{i}}^{r}\gamma(x_{i}x_{j})
+\end{equation}
+\item for all $i$, $j$, $k$ we have
+  \begin{equation}
+\sum_{r}{c_{r}}^{k}{b_{i,j}}^{r}=\sum_{s,t}{a_{s,t}}^{k}{c_{i}}^{s}{c_{j}}^{t}.
+  \end{equation}
+\end{enumerate}
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+Let $\FF$ be a field such that $\Char(\FF)\neq2$. Let $a,b\in\FF$ be
+fixed nonzero elements of $\FF$. Then the \define{(Generalized) Quaternion Algebra}
+is the 4-dimensionalalgebra over $\FF$ denoted $\generalizedquat{a}{b}{\FF}$
+with the basis $1$, $\quat{i}$, $\quat{j}$, $\quat{k}$ and product
+\begin{equation}
+\quat{i}^{2}=a,\quad\quat{j}^{2}=b,\quad\quat{i}\quat{j}=-\quat{j}\quat{i}=\quat{k}
+\end{equation}
+(and we can then infer $\quat{k}^{2}=-ab$, $\quat{i}\quat{k}=-\quat{k}\quat{i}=\quat{j}a$, and $\quat{j}\quat{k}=-\quat{k}\quat{j}=-\quat{i}b$).
+\end{definition}
+
+\begin{example}
+The standard quaternions are a special case of the generalized
+quaternions $\HH=\generalizedquat{-1}{-1}{\RR}$.
+\end{example}
+
+\begin{definition}
+Let $A$ be an $R$-algebra. 
+\begin{enumerate}
+\item The \define{Center} of $A$ is the $R$-subalgebra of $A$ denoted
+  $Z(A)=\{z\in A\mid\forall x\in A\ldotp xz=zx\}$.
+\item If $R=\FF$ is a field, we say $A$ is \define{Central} if $Z(A)=R$.
+  (There is a complicated generalization to the setting of commutative
+  rings $R$ which are not necessarily fields.)
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}\label{lemma:1.10}
+For any $A=\generalizedquat{a}{b}{\FF}$, $A$ is central and simple.
+\end{lemma}
+
+\begin{proof}
+Let $x=c_{0}+\quat{i}c_{1}+\quat{j}c_{2}+\quat{k}c_{3}\in A$ where $c_{0},\dots,c_{3}\in\FF$.
+Let us also introduce the notation
+\begin{equation}
+[x,y]:=xy-yx
+\end{equation}
+for the commutator of any $x,y\in A$.
+
+\textsc{Claim 1} (central): $x\in Z(A)$ if and only if $c_{1}=c_{2}=c_{3}=0$.
+We see
+\begin{subequations}
+  \begin{align}
+[\quat{i},x] &=\quat{j}(2ac_{3})+\quat{k}(2c_{2})\\
+[\quat{j},x] &=\quat{i}(2ac_{3})+\quat{k}(-2c_{1})\\
+[\quat{k},x] &=\quat{j}(2ac_{2})+\quat{k}(-2c_{1}),
+  \end{align}
+\end{subequations}
+and then $x\in Z(A)$ if and only if the right-hand side of these
+commutators vanish (if and only if $c_{1}=c_{2}=c_{3}=0$ as desired).
+
+\textsc{Claim 2} (simple): Let $I$ be an ideal of $A$ and $0\neq x\in I$.
+We will show $I=A$. Then
+\begin{subequations}
+  \begin{align}
+[\quat{j},[\quat{i},x]] &=\quat{i}(-4bc_{2})\\
+[\quat{k},[\quat{j},x]] &=\quat{j}(4abc_{3})\\
+[\quat{i},[\quat{k},x]] &=\quat{i}(-4ac_{1}).
+  \end{align}
+\end{subequations}
+If there exists a nonzero $c_{i}\neq0$ for some $i\neq0$, then $I$ contains a unit (so
+$I=A$). If all $c_{i}=0$ for $i\neq0$, then $c_{0}=x\in I$ is a unit; i.e., $I=A$.
+\end{proof}
+
+\begin{notation}
+We denote $A=\generalizedquat{a}{b}{\FF}=\FF\oplus A_{+}$ where
+\begin{equation}
+A_{+}=\quat{i}\FF\oplus\quat{j}\FF\oplus\quat{k}\FF.
+\end{equation}
+For any $x\in A$, we can decompose it as $x=c+z$ where $c\in\FF$ and
+$z\in A_{+}$.
+\end{notation}
+
+\begin{definition}
+Using the preceding notation, for any $x=c+z\in A=\generalizedquat{a}{b}{\FF}$,
+we define its \define{Conjugate} to be the element $x^{*}:=c-z$ where
+$c\in\FF$ and $z\in A_{+}$.
+\end{definition}
+
+\begin{note}
+For any $x,y\in\generalizedquat{a}{b}{\FF}$ and $d\in\FF$ we have
+\begin{subequations}
+\begin{equation}
+(x+y)^{*}=x^{*}+y^{*},
+\end{equation}
+and
+\begin{equation}
+(xy)^{*}=y^{*}x^{*},
+\end{equation}
+and it is convolutory
+\begin{equation}
+(x^{*})^{*}=x
+\end{equation}
+and leaves the ``non-imaginary part'' fixed
+\begin{equation}
+d^{*}=d.
+\end{equation}
+\end{subequations}
+\end{note}
+
+\begin{definition}
+Let $A=\generalizedquat{a}{b}{\FF}$ be the generalized quaternion
+algebra over $\FF$. Let $x\in A$. We define the \define{Norm} of $x$
+to be the element $\nu(x)$ of $\FF$ equal to
+\begin{equation}
+\nu(x):=xx^{*}.
+\end{equation}
+More explicitly, if $x=c_{0}+\quat{i}c_{1}+\quat{j}c_{2}+\quat{k}c_{3}$,
+\begin{equation}
+\nu(x)=c_{0}^{2}-ac_{1}^{2}-bc_{2}^{2}-abc_{3}^{2}
+\end{equation}
+and also $\nu(x)=x^{*}x=\nu(x^{*})$.
+\end{definition}
+
+\begin{node}
+Observe for any $x,y\in A$ we have
+\begin{subequations}
+  \begin{align}
+\nu(xy) &= xy(xy)^{*}\\
+&= xy(y^{*}x^{*})\\
+&= x(yy^{*})x^{*}\\
+&= xx^{*}\nu(y)\\
+&= \nu(x)\nu(y).
+  \end{align}
+\end{subequations}
+Also for any $d\in\FF$, we see $\nu(d)=d^{2}$.
+\end{node}
+
+\begin{lemma}\label{lemma:1.11}
+Let $A=\generalizedquat{a}{b}{\FF}$. Then the following are equivalent:
+\begin{enumerate}
+\item $A$ is a division algebra
+\item If $x\neq0$ is an element of $A$, then $\nu(x)\neq0$
+\item If $c_{0}^{2}=ac_{1}^{2}+bc_{2}^{2}$, then $c_{0}=c_{1}=c_{2}=0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+$(1)\implies(2)$ If $x\neq0$, then
+  $\nu(x)\nu(x^{-1})=\nu(xx^{-1})\nu(1)=1$, which means $\nu(x)\neq0$.
+
+$(2)\implies(1)$ For any nonzero $x\in A$, we have
+\begin{subequations}
+  \begin{align}
+(x^{*}\nu(x)^{-1})x &= xx^{*}\nu(x)^{-1}\\
+    &=\nu(x)\nu(x)^{-1}\\
+    &=1,
+  \end{align}
+\end{subequations}
+so $x^{-1}=x^{*}\nu(x)^{-1}$.
+
+$(2)\implies(3)$. Suppose $c_{0}^{2}=ac_{1}^{2}+bc_{2}^{2}$ and
+assume for contradiction not all of these coefficients are zero, i.e.,
+at least one of these $c_{i}\neq0$. Then
+$x=c_{0}+\quat{i}c_{1}+\quat{j}c_{2}+\quat{k}0\neq0$ and
+$\nu(x)=0$ which is a contradiction.
+
+$(3)\implies(2)$ [Trick: we prove (3) implies the contrapositive of (2)] For
+$x=d_{0}+\quat{i}d_{1}+\quat{j}d_{2}+\quat{k}d_{3}\in A$
+such that $\nu(x)=0$, we see
+\begin{equation}
+d_{0}^{2}-bd_{2}^{2}=a(d_{1}^{2}-bd_{3}^{2}).
+\end{equation}
+Then
+\begin{subequations}
+  \begin{align}
+a(d_{1}^{2}-bd_{3}^{2})^{2}&=(d_{0}^{2}-bd_{2}^{2})(d_{1}^{2}-bd_{3}^{2})\\
+&=(d_{0}d_{1}+bd_{2}d_{3})^{2}+b(d_{0}d_{3}+d_{1}d_{2})^{2}.
+  \end{align}
+\end{subequations}
+Writing
+\begin{equation}
+c_{0}:=(d_{0}d_{1}+bd_{2}d_{3})^{2},\quad\mbox{and}\quad c_{1}:=b(d_{0}d_{3}+d_{1}d_{2})^{2},
+\end{equation}
+then $c_{0}=ac_{1}^{2}+bc_{2}^{2}$, so $c_{0}=c_{1}=c_{2}=0$ (which
+means $d_{1}=d_{3}=0$). Then
+\begin{equation}
+d_{0}^{2}-bd_{2}^{2}=0,
+\end{equation}
+which means
+\begin{equation}
+d_{0}^{2}=a0^{2}+bd_{2}^{2},
+\end{equation}
+or equivalently $d_{0}=d_{2}=0$. Hence $x=0$.
+\end{proof}
+
+\begin{remark}
+Observe: this implies $\HH=\generalizedquat{-1}{-1}{\RR}$ forms a
+division algebra since $c_{0}^{2}=-c_{1}^{2}-c_{2}^{2}$ implies
+$c_{0}=c_{1}=c_{2}=0$ for any $c_{0},c_{1},c_{2}\in\RR$.
+\end{remark}

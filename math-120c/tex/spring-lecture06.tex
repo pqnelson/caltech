@@ -1,0 +1,287 @@
+%%
+%% spring-lecture06.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-16T10:03:40-0700
+%% Last update 2026-04-16T10:03:40-0700
+%% 
+
+\lecture{}
+\begin{node}
+For the rest of this lecture (and maybe next time), let $\{N_{i}\mid i\in J\}$
+be a set of representatives of the isomorphism classes of simple right $A$-modules.
+\end{node}
+
+\begin{node}
+For any $A$-module $M$, we write
+\begin{equation*}
+M(i)=\sum_{\substack{N\in S(M)\\N\iso N_{i}}}N
+\end{equation*}
+\end{node}
+
+\begin{lemma}\label{lemma:2.18}
+Let $M$, $M'$ be semisimple modules. Let $\phi\colon M\to M'$ be a
+morphism of $A$-modules.
+\begin{enumerate}
+\item $M=\bigoplus_{i\in J}M(i)$
+\item $\phi(M(i))\subset M'(i)$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item Since $M$ is semisimple, we can write $M=\bigoplus_{i\in J}M_{i}$
+where $M_{i}=\bigoplus_{j\in K}N_{ij}$ where $N_{ij}\iso N_{i}$. Since
+$M_{i}\subset M(i)$, we show that these $M_{i}\supset M(i)$. Let
+$N_{i}\iso N\in S(M)$. [NB: $N$ might not be in $M_{i}$] We claim
+$M\iso M_{i}\oplus M'_{i}$ where $M'_{i}=\bigoplus_{j\neq i}M_{j}$. We
+have the projection $\pi\colon M\to M'_{i}$. If $\pi|_{N}\neq0$, then
+by Lemma~\ref{lemma:2.17} $M'_{i}$ contains $N$ as its summand. But
+this is a contradiction because $M'_{i}$ does not contain factors of
+$M_{i}$ (which are isomorphic to $N_{i}$). Hence $\pi_{i}|_{N}=0$
+(i.e., $N\in M_{i}$).
+\item For $N_{i}\iso N\in S(M)$ by Schur's Lemma~\ref{lemma:2.11},
+  $\phi(N)=0$ or $\phi(N)\iso N$. In both cases, $\phi(N)\subset M'(i)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{proposition}\label{prop:2.19}
+Let $M=\bigoplus_{i\in J}M(i)$ where each
+\begin{subequations}
+  \begin{align}
+M(i) &= \bigoplus\alpha_{i}N_{i}\\
+&=\underbrace{(N_{i}\oplus\cdots\oplus N_{i})}_{\alpha_{i}\text{ times}}.
+  \end{align}
+\end{subequations}
+Let $M'=\bigoplus_{i\in J}M'(i)$ where $M'(i)=\bigoplus\beta_{i}N_{i}$.
+Then $M\iso M'$ if and only if for each $i\in J$ we have the cardinal numbers $\alpha_{i}=\beta_{i}$.
+\end{proposition}
+
+\begin{proof}
+\backwardproof\ Obvious.
+
+\forwardproof\ Let $\phi\colon M\to M'$ be an isomorphism. Then by
+Lemma~\ref{lemma:2.18} (2) $\phi(M(i))=M'(i)$ for any $i\in J$.
+For fixed $i\in J$, we will show $\alpha_{i}=\beta_{i}$ by induction.
+
+\textsc{Case 1}: If $\alpha_{i}=0$, then $M'(i)=\phi(M(i))=\phi(0)=0$
+which means $\beta_{i}=0$.
+
+\textsc{Case 2}: Suppose $\alpha_{i}=m\geq1$. Then
+\begin{equation}
+M(i)=N_{i1}\oplus\cdots\oplus N_{im},
+\end{equation}
+where each $N_{ij}\iso N_{i}$. We see
+\begin{equation}
+M'(i)=\bigoplus_{k\in I}N'_{ik}
+\end{equation}
+where each $N'_{ik}\iso N_{i}$ and $|I|\leq\beta_{i}$. By Lemma~\ref{lemma:2.17},
+there exists some $\ell\in I$ such that
+\begin{subequations}
+  \begin{align}
+\phi(N_{im}\oplus\underline{\left(\bigoplus_{k\neq\ell}N'_{ik}\right)}
+&=M'(i)\\
+&=\phi(M(i))\\
+&=\phi(N_{im})\oplus\underline{\left(\bigoplus_{k\neq\ell}\phi(N_{ik})\right)}
+  \end{align}
+\end{subequations}
+By comparing the underlined parts, they must be equal. The left-hand
+side contains $\beta_{i}-1$ summands, which means $\beta_{i}=m=\alpha_{i}$.
+
+\textsc{Case}: If $\beta_{i}=m\geq1$, then $\alpha_{i}=\beta_{i}$ by
+similar reasoning as the preceding case.
+
+\textsc{Case}: both $\alpha_{i}$ and $\beta_{i}$ are infinite. By
+Proposition~\ref{prop:2.10}, $M(i)=\bigoplus_{k\in K}u_{k}A$ where
+$|K|=\alpha_{1}=\infty$. In a similar manner,
+$M'(i)=\bigoplus_{\ell\in L}u'_{\ell}A$ where $|L|=\beta_{1}=\infty$.
+We define the map
+\begin{equation}
+\lambda\colon K\to\{\mbox{finite subsets of }L\}
+\end{equation}
+by
+\begin{equation}
+\phi(u_{k})\in\sum_{\ell\in\lambda(k)}u'_{\ell}A.
+\end{equation}
+Since $\phi$ is an isomorphism (in particular, it is surjective),
+\begin{equation}
+\bigcup_{k\in K}\lambda(k)=L,
+\end{equation}
+and so
+\begin{subequations}
+  \begin{align}
+\beta_{i} &=|L|\leq\sum_{k\in K}|\lambda(k)|\\
+&\leq\aleph_{0}\cdot|K|=|K|=\alpha_{i},
+  \end{align}
+\end{subequations}
+so $\beta_{i}\leq\alpha_{i}$.
+
+In the same manner, $\alpha_{i}\leq\beta_{i}$ by considering
+$\phi^{-1}$ and taking the argument in reverse.
+\end{proof}
+
+\begin{definition}
+We say a module $M$ is \define{Artinian} (resp., \define{Noetherian})
+if $M$ satisfies the descending (resp., ascending) chain condition:
+if $M_{0}\supset M_{1}\supset M_{2}\supset\dots$, then there exists
+some $n\in\NN$ such that $M_{n}=M_{n+1}=M_{n+2}=\dots$. (The ascending
+case reverses subsets into supersets: given $M_{0}\supset M_{1}\supset M_{2}\supset\dots$,
+there exists some $n\in\NN$ such that $M_{n}=M_{n+1}=M_{n+2}=\dots$.)
+
+In other words, every nonempty $\emptyset\neq P\subset S(M)$ has a minimal (resp., maximal) element.
+\end{definition}
+
+\begin{fact}
+Let $M'$, $M''$ be modules. There is an isomorphism 
+\begin{equation}
+\frac{M'+M''}{M''}\iso\frac{M'}{M''\cap M'}
+\end{equation}
+and it is called the \define{Noetherian Isomorphism}.
+\end{fact}
+
+\begin{lemma}\label{lemma:2.21}
+Let $M',M'',N\in S(M)$ be such that $M'\subset M''$. Then there exists
+an exact sequence
+\begin{equation}
+0\to\frac{M''\cap N}{M'\cap N}\to\frac{M''}{M'}\to\frac{M''+N}{M'+N}\to0.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+We see
+\begin{subequations}
+  \begin{align}
+\frac{M''+N}{M'+N} &= \frac{M''+(M'+N)}{M'+N}\quad\mbox{since $M'\subset M''$}\\
+&\iso\frac{M''}{(M'+N)\cap M''}\quad\mbox{by Noetherian isomorphism}\\
+&\iso\frac{M''/M'}{(M'+(M''\cap N))/M'}\quad\mbox{by modularity},
+\intertext{and}
+\frac{M'+(M''\cap N)}{M''} &\iso\frac{M''\cap N}{M'\cap(M''\cap N)}\quad\mbox{by Noetherian isomorphism}\\
+&\iso\frac{M''\cap N}{M'\cap N},
+  \end{align}
+\end{subequations}
+which is the first term in the short exact sequence. Hence the claim.
+\end{proof}
+
+\begin{lemma}\label{lemma:2.22}
+If $0\to N\to M\to P$ is exact, then $M$ is Artinian (resp.,
+Noetherian) if and only if $N$ and $P$ are both Artinian (resp., Noetherian).
+\end{lemma}
+
+\begin{proof}
+We may assume that $N\in S(M)$ and $P=M/N$.
+
+\forwardproof\ Since $S(N)\subset S(M)$ is a sublattice and by the
+correspondence theorem
+\begin{equation}
+S(P)\iso\{Q\in S(M)\mid P\subset Q\}\subset S(M).
+\end{equation}
+If $M$ is Artinian (resp., Noetherian), then so are $N$ and $P$ by the
+observation above about the lattice structures.
+
+\backwardproof\ Assume $N$ and $P$ are Artinian (resp., Noetherian). If
+$M_{0}\supset M_{1}\supset\dots$ is an infinite descending sequence in
+$S(M)$, then by Lemma~\ref{lemma:2.21},
+\begin{equation}
+M_{0}\cap N\supset M_{1}\cap N\supset\dots,
+\end{equation}
+so
+\begin{equation}
+\frac{M_{0}\cap N}{N}\supset\frac{M_{1}\cap N}{N}\supset\dots
+\end{equation}
+is also an infinite descending chain. But this contradicts $N$ and $P$
+are Artinian. (The proof for Noetherian is similar.)
+\end{proof}
+
+\begin{lemma}\label{lemma:2.23}
+Let $M$ be an Artinian and Noetherian module. Then there exists a
+chain
+\begin{equation*}
+0=M_{0}\subset\cdots\subset M_{n}=M
+\end{equation*}
+such that each $M_{i+1}/M_{i}$ is simple.
+\end{lemma}
+
+\begin{proof}
+We can inductively define the sequence of modules as follows: if
+$M_{0}$, \dots, $M_{i}$ has been obtained and $M_{i}\neq M$, then by
+Lemma~\ref{lemma:2.22} we see $M/M_{i}$ is both Artinian and
+Noetherian. Then $M/M_{i}$ (being Artinian) has a minimal nonzero
+submodule denoted $M_{i+1}/M_{i}$ which is the next submodule in this
+sequence. But since $M$ is Noetherian, this inductive process halts
+after some finite $n\in\NN$ steps.
+\end{proof}
+
+\begin{definition}
+For a module $M$, a chain as in Lemma~\ref{lemma:2.23} is called a
+\define{Composition Series} of $M$ and each quotient $M_{i+1}/M_{i}$
+is called a \define{Composition Factor} of $M$.
+\end{definition}
+
+\begin{theorem}[Jordan--H\"{o}lder]\label{thm:2.24}
+If $0=M_{0}\subset M_{1}\subset\cdots\subset M_{n}=M$ and
+$0=M'_{0}\subset M'_{1}\subset\cdots\subset M'_{k}=M$ are two
+composition series of $M$, then $k=n$ and there exists a permutation $\pi\in S_{n}$
+such that $M'_{j+1}/M'_{j}\iso M_{\pi(j)+1}/M_{\pi(j)}$ for each $j<n$.
+\end{theorem}
+
+\begin{proof}
+By induction on $n$.
+
+\textsc{Base case}: $n=0$ is obvious.
+
+\textsc{Inductive case} ($n>0$): Suppose the claim holds for all
+$k<n$. We have 
+\begin{equation}
+0=M'_{0}\cap M_{n-1}\subset M'_{1}\cap M_{n-1}\subset\cdots\subset
+M'_{k}\cap M_{n-1}=M_{n-1}
+\end{equation}
+and
+\begin{equation}
+M_{n-1}=M_{0}+M_{n-1}\subset M_{1}+M_{n-1}\subset\cdots\subset M'_{k}+M_{n-1}=M_{n}=M.
+\end{equation}
+By Lemma~\ref{lemma:2.21}, there exists an exact sequence
+\begin{equation}
+0\to\frac{M'_{j+1}\cap M_{n-1}}{M'_{j}\cap M_{n-1}}\to \frac{M'_{j+1}}{M'_{j}}\to\frac{M'_{j+1}+M_{n-1}}{M'_{j}+M_{n-1}}\to0
+\end{equation}
+for any $j<k$. Since the middle term is simple, only one of the other
+terms is isomorphic to $M'_{j+1}/M'_{j}$ while the other term
+vanishes. Also, since $M_{n}/M_{n-1}$ is simple, there exists a unique
+$i<k$ such that
+\begin{subequations}
+  \begin{align}
+M_{n-1} &= M'_{i}+M_{n-1}\\
+&\subset M'_{i+1}+M_{n-1}=M_{n},
+  \end{align}
+\end{subequations}
+which is to say
+\begin{equation}
+\frac{M_{n}}{M_{n-1}}\iso\frac{M'_{i+1}+M_{n-1}}{M'_{i}+M_{n-1}}\iso\frac{M'_{i+1}}{M'_{i}}
+\end{equation}
+by Lemma~\ref{lemma:2.21}, and
+\begin{equation}
+0=M'_{0}\cap M_{n-1}\propersubset\cdots\propersubset M'_{i}\cap
+M_{n-1}=M'_{i+1}\cap M_{n-1},
+\end{equation}
+\begin{equation}
+M'_{i+1}\cap M_{n-1}\propersubset\cdots\propersubset M'_{k}\cap M_{n-1}=M_{n-1}
+\end{equation}
+is a composition series for $M_{n-1}$ with length $k-1$. By the
+inductive hypothesis, $n-1=k-1$ (i.e., $n=k$) and there exists a
+permutation
+\begin{equation}
+\pi'\colon\{0,1,\dots,i-1,i+1,\dots,k\}\to\{0,1,\dots,n-2\}
+\end{equation}
+such that $M'_{j+1}/M'_{j}\iso M_{\pi(j)+1}/M_{\pi(j)}$ for all $j\neq i$.
+Then $\pi$ is obtained by extending $\pi'$ by $\pi(i)=n-1$.
+\end{proof}
+
+\begin{corollary}\label{cor:2.25}
+Let $\ell(M)$ be the length of composition series of $M$. If $M$, $N$,
+$P$ are Artinian and Noetherian and we have a short exact sequence
+\begin{equation}
+0\to N\to M\to P\to 0,
+\end{equation}
+then $\ell(M)=\ell(N)+\ell(P)$.
+\end{corollary}

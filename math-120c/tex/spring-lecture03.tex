@@ -1,0 +1,273 @@
+%%
+%% spring-lecture03.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-04T10:52:42-0700
+%% Last update 2026-04-04T10:52:42-0700
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $x=c_{0}+z\in A=\generalizedquat{a}{b}{\FF}$ be an element of the
+generalized quaternions where $z=\quat{i}c_{1}+\quat{j}c_{2}+\quat{k}c_{3}$.
+Let $y=d_{0}+w\in A$ where $w=\quat{i}d_{1}+\quat{j}d_{2}+\quat{k}d_{3}$.
+We define the bilinear form $\beta$ on $A$ by
+\begin{equation}
+\begin{split}
+\beta(x,y) &= \frac{1}{2}(\nu(x+y)-\nu(x)-\nu(y))\\
+&=c_{0}d_{0}-ac_{1}d_{1}-bc_{2}d_{2}+abc_{3}d_{3}.
+\end{split}
+\end{equation}
+We see that $\beta$ is symmetric [$\forall x,y\in A\ldotp\beta(x,y)=\beta(y,x)$] and
+nondegenerate [$\forall x\in A\ldotp(\forall y\in A\ldotp\beta(x,y)=0)\implies x=0$].
+
+Also observe on ``purely imaginary'' guys, we have $\beta(z,w)=\frac{-1}{2}(zw-wz)$ and $\nu(z)=-z^{2}$.
+\end{definition}
+
+\begin{note}
+To see this, observe
+\begin{subequations}
+  \begin{align}
+\beta(x,y) &= \frac{1}{2}((x+y)(x+y)^{*}-xx^{*}-yy^{*})\\
+&=\frac{1}{2}(xy^{*}+yx^{*})\\
+&=\frac{1}{2}((c_{0}+z)(d_{0}-w)+(d_{0}+w)(c_{0}-z))\\
+&=c_{0}d_{0}-\frac{1}{2}(zw+wz)\\
+&=c_{0}d_{0}-\frac{1}{2}(\quat{i}^{2}2c_{1}d_{1}+\quat{j}^{2}2c_{2}d_{2}+\quat{k}^{2}2c_{3}d_{3})\\
+&=c_{0}d-{0}-ac_{1}d_{1}-bc_{2}d_{2}+abc_{3}d_{3}.
+  \end{align}
+\end{subequations}
+Moreover, identifying $\FF$ with $1_{A}\FF=Z(A)$ allows us to relate
+the norm with the bilinear form as $\nu(x)=\beta(x,x)$.
+\end{note}
+
+\begin{puzzle}
+When are two generalized quaternion algebras isomorphic
+$\generalizedquat{a}{b}{\FF}\iso\generalizedquat{a'}{b'}{\FF}$ as $\FF$-algebras?
+\end{puzzle}
+
+\begin{lemma}\label{lemma:1.12}
+Let $A=\generalizedquat{a}{b}{\FF}$ and $A'=\generalizedquat{a'}{b'}{\FF}$
+be equipped with norms $\nu$ and $\nu'$ respectively. Then $A\iso A'$
+as $\FF$-algebras if and only if there exists a bijective $\FF$-linear
+map $\phi\colon A_{+}\to A'_{+}$ such that for all $z\in A_{+}$ we
+have $\nu'(\phi(z))=\nu(z)$.
+\end{lemma}
+
+\begin{proof}
+\forwardproof\ For $x=c_{0}+z$,
+\begin{subequations}
+  \begin{align}
+x^{2}&=c^{2}+z^{2}+z(2c)\\
+&=(c^{2}-\nu(z))+z(2c)
+  \end{align}
+\end{subequations}
+where $c^{2}-\nu(z)\in\FF$ and $z(2c)\in A_{+}$.
+Then $x^{2}\in\FF$ if and only if $z=0$ or $c=0$; and
+\begin{equation}\label{eq:spring-lec3:star:math120c}
+(x\neq0\land x\in A_{+})\iff(x\notin Z(A)\land x^{2}\in Z(A)).
+\end{equation}
+Since every algebra isomorphism
+\begin{equation}
+\phi\colon A\to A'
+\end{equation}
+satisfies $\phi(Z(A))=Z(A')$, we have $\phi(A_{+})=A'_{+}$ by~\eqref{eq:spring-lec3:star:math120c}.
+If $z\in A_{+}$, then since
+\begin{equation}
+\beta(z,w)=\frac{-1}{2}(zw+wz)\quad\mbox{and}\quad\nu(z)=-z^{2},
+\end{equation}
+we see
+\begin{equation}
+\nu'(\phi(z))=-\phi(x)^{2}=\phi(-z^{2})=\phi(\nu(z))=\nu(z)
+\end{equation}
+for all $z\in A_{+}$.
+In other words, $\phi$ preserves the norm (hence proving the forward
+direction).
+
+\backwardproof\ Conversely, let $\phi\colon A\to A'$ be a bijective
+linear map such that for all $z\in A_{+}$ we have $\nu'(\phi(z))=\nu(z)$.
+To show that $A\iso A'$ as $\FF$-algebas, it sufices to check that
+$\{1,\phi(\quat{i}),\phi(\quat{j}),\phi(\quat{k})\}$ satisfies the
+defining relations of the generalized quaternion algebra.
+The first three relations are easily checked
+\begin{equation}
+\phi(\quat{i})^{2}=-\nu'(\phi(\quat{i}))=\nu'(\quat{i})=a',
+\end{equation}
+and in a similar manner,
+\begin{equation}
+\phi(\quat{j})^{2}=b'.
+\end{equation}
+Then
+\begin{subequations}
+  \begin{align}
+\phi(\quat{i})\phi(\quat{j})+\phi(\quat{j})\phi(\quat{i})
+&=-2\beta'(\phi(\quat{i}),\phi(\quat{j}))\\
+&=-2\beta(\quat{i},\quat{j})\\
+&=\phi(\quat{i})\phi(\quat{j})+\phi(\quat{j})\phi(\quat{i})\\
+&=0,
+  \end{align}
+\end{subequations}
+and so
+\begin{equation}
+\phi(\quat{j})\bigl(\phi(\quat{i})\phi(\quat{j})\bigr)=-\phi(\quat{j})^{2}\phi(\quat{i})=-b'\phi(\quat{i}).
+\end{equation}
+On the other hand
+\begin{equation}
+\bigl(\phi(\quat{i})\phi(\quat{j})\bigr)\phi(\quat{j})=\phi(\quat{i})\phi(\quat{j})^{2}=b'\phi(\quat{i})\neq-b'\phi(\quat{i}),
+\end{equation}
+which implies $\phi(\quat{i})\phi(\quat{j})\notin Z(A')=\FF$, and
+\begin{equation}
+\bigl(\phi(\quat{i})\phi(\quat{j})\bigr)^{2}=-a'b'\in Z(A'),
+\end{equation}
+hence $\phi(\quat{i})\phi(\quat{j})\in A'_{+}$.
+
+We want to show
+$\{\phi(\quat{i}),\phi(\quat{j}),\phi(\quat{k})\}$ is a basis for
+$A'_{+}$. Suffices to show they are linearly independent. If
+\begin{equation}
+0=z'=c_{1}\phi(\quat{i})+c_{2}\phi(\quat{j})+c_{3}\phi(\quat{i})\phi(\quat{j}),
+\end{equation}
+then
+\begin{equation}
+0=\phi(\quat{i})0=\phi(\quat{i})z'=\underbrace{a'c_{1}}_{\in\FF}+\underbrace{\phi(\quat{i})\phi(\quat{j})c_{2}+\phi(\quat{j})a'c_{3}}_{\in A'_{+}},
+\end{equation}
+so $c_{1}=0$ and similarly multiplying by $\phi(\quat{j})z'=0$ gives
+$c_{2}=c_{3}=0$. Thus they are linearly independent and form a basis.
+
+Then
+\begin{equation}
+\Psi\colon A\to A'
+\end{equation}
+such that $\Psi(1)=1$, $\Psi(\quat{i})=\phi(\quat{i})$,
+$\Psi(\quat{j})=\phi(\quat{j})$, and
+$\Psi(\quat{k})=\phi(\quat{i})\phi(\quat{j})$, then this is clearly an
+isomorphism of $\FF$-algebras.
+\end{proof}
+
+\begin{corollary}\label{cor:1.13}
+We have $A=\generalizedquat{a}{b}{\FF}\iso A'=\generalizedquat{a'}{b'}{\FF}$
+if and only if the quadratic forms $ax_{1}^{2}+bx_{2}^{2}+abx_{3}^{2}$
+and $a'x_{1}^{2}+b'_{1}x_{2}^{2}+a'b'x_{3}^{2}$ (i.e., there is an
+invertible $3\times3$ matrix $\delta\in M_{3}(A_{+})$ such that $\diag(a,b,ab)=\delta^{\mathsf{T}}\diag(a',b',a'b')\delta$).
+\end{corollary}
+
+\begin{proof}
+This follows from the matrix representations of $\nu=\diag(a,b,ab)$
+and $\nu'=\diag(a',b',a'b')$ and $\phi=\delta$, since
+\begin{equation}
+\nu'(\phi(z))=(\delta\vec{c})^{\mathsf{T}}\diag(a',b',a'b')(\delta\vec{c})
+\end{equation}
+and
+\begin{equation}
+\nu(z)=\vec{c}^{\mathsf{T}}\diag(a,b,ab)\vec{c}
+\end{equation}
+and $\nu(z)=\nu'(\phi(z))$.
+\end{proof}
+
+\subsection{Modules}
+
+\begin{convention}
+Unless otherwise noted, $A$ is a nontrivial $R$-algebra. We fix $R$ as
+well, and ``algebra'' means ``$R$-algebra''.
+
+Here ``$A$-module'' means ``right $A$-module''.
+
+``Ideal of $A$'' means two-sided ideal, and we denote it as $I\ideal A$.
+\end{convention}
+
+\begin{node}
+Let $\theta\colon A\to B$ be an $R$-algebra morphism, let $M$ be a
+$B$-module. We can define $A$-module structure on $M$ by
+\begin{equation}
+\forall u\in M\ldotp\forall x\in A\ldotp ux := u\theta(x).
+\end{equation}
+We denote this induced$A$-module structure on $M$ as $M_{A}$ or $MA$.
+
+When $\theta\colon A\into B$ is a subalgebra, this induced $A$-module
+structure morphism $M\to M_{A}$ is sometimes called the
+\define{Forgetful Functor}.
+
+When $\theta\colon A\to B$ and $B=A/I$ for some ideal $I\ideal A$, the
+$A$-action on $M$ is $ux=u(x+I)$.
+\end{node}
+
+\begin{lemma}\label{lemma:2.1}
+Let $\theta\colon A\to B$ be an $R$-algebra morphism. Let $M$, $N$ be
+$B$-modules. Then the following all hold:
+\begin{enumerate}
+\item $(M\oplus N)_{A}\iso M_{A}\oplus N_{A}$;
+\item $\hom_{B}(M,N)\subset\hom_{A}(M_{A},N_{A})$, and if $\theta$ is
+  surjective then this is an equality;
+\item If $N\subset M$ is a submodule, then $N_{A}\subset M_{A}$ is a
+  submodule. If $\theta$ is surjective, and writing $S(M):=\{\mbox{submodules of }M\}$,
+  then $S(M)=S(M_{A})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Homework.
+\end{proof}
+
+\begin{definition}\label{defn:2.2}
+Let $M$ be an $A$-module, let $X\subset M$ be a subset.
+We define the \define{Annihilator} of $X$ to be the set
+$\Annihilator(X)=\{a\in A\mid\forall x\in X\ldotp xa=0\}$.
+\end{definition}
+
+\begin{lemma}\label{lemma:2.3}
+Let $M$, $M'$, $\{M_{i}\}_{i\in J}$ be $A$-modules.
+Let $X\subset M$, $Y\subset M$ be subsets of $M$. Then the following
+all hold:
+\begin{enumerate}
+\item $\Annihilator(X)$ is a right-ideal of $A$. If $X$ is a
+  submodule, then $\Annihilator(X)\ideal A$.
+\item If $X\subset Y$, then $\Annihilator(X)\supset\Annihilator(Y)$
+\item If $M\iso M'$, then $\Annihilator(M)=\Annihilator(M')$
+\item If $M=\sum_{i\in J}M_{i}$, then $\Annihilator(M)=\bigcap_{i\in J}\Annihilator(M_{i})$;
+\item If $M$ is a right ideal of $A$, then $\Annihilator(A/M)$ is the
+  largest ideal of $A$ contained in $M$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Items (1)--(4) are obvious.
+
+(5) By (1), writing
+\begin{equation}
+X=A/M\subset A/M,
+\end{equation}
+we find $\Annihilator(A/M)\properideal A$ and since
+\begin{equation}
+\Annihilator(A/M)=\{x\in A\mid Ax\subset M\}
+\end{equation}
+and $1_{A}\in A$, so $\Annihilator(A/M)\subset M$. If $K\ideal A$ is
+another ideal such that $K\subset M$, then $AK\subset M$ which means $K\subset\Annihilator(A/M)$.
+\end{proof}
+
+\begin{proposition}\label{prop:2.4}
+For any surjective algebra morphism $\theta\colon A\to B$ and for any
+$A$-module $N$, then the following are equivalent:
+\begin{enumerate}
+\item there exists a $B$-module $M$ such that $N=M_{A}$,
+\item $\ker(\theta)\subset\Annihilator(N)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\forwardproof\ Obvious.
+
+\backwardproof\ Since $\theta$ is surjective, for any $y\in B$ there
+exists some $x\in A$ such that $y=\theta(x)$, then $uy:=u\theta(x)=ux$
+defines a $B$-module on $N=:M$, so $M_{A}=N$.
+\end{proof}
+
+\begin{definition}
+Let $M$ be an $A$-module. We say $M$ is \define{Faithful} if $\Annihilator(M)=0$.
+\end{definition}
+
+\begin{corollary}
+For an ideal $I$ of $A$ and an $(A/I)$-module $N$, we have $N$ is
+faithful (i.e., $\Annihilator(N)=0$) if and only if $\Annihilator(N_{A})=I$.
+\end{corollary}

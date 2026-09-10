@@ -1,0 +1,319 @@
+%%
+%% spring-lecture10.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-28T10:27:49-0700
+%% Last update 2026-04-28T10:27:49-0700
+%% 
+
+\lecture[Jacobson ideal]
+
+% Pierce, section 4.3
+
+\begin{lemma}\label{lemma:4.8}
+Let us write ${}_{A}A$ for treating $A$ as a left $A$-module, and
+$A_{A}$ for treating $A$ as a right $A$-module. Then $\Rad({}_{A}A)=\Rad(A_{A})$.
+\end{lemma}
+
+\begin{proof}
+By the left version of Proposition~\ref{prop:4.2} and Lemma~\ref{lemma:4.5},
+we can take $P=\Rad({}_{A}A)\subset A_{A}$ satisfies Nakayama's lemma
+for modules $\forall N\subset M\ldotp P+N=M\implies N=M$. Then using
+Lemma~\ref{lemma:4.6}, $\Rad({}_{A}A)\subset\Rad(A_{A})$. In exactly
+the same manner, $\Rad(A_{A})\subset\Rad({}_{A}A)$.
+\end{proof}
+
+\begin{definition}
+For any algebra $A$, we have the \define{Jacobson Ideal} of $A$ be $\Jacobson(A):=\Rad(A_{A})$.
+\end{definition}
+
+\begin{proposition}\label{prop:4.9}
+The Jacobson ideal of $A$ is a two-sided ideal $\Jacobson(A)\in I(A)$
+such that
+\begin{equation*}
+\Jacobson(A)=\{x\in A\mid\forall y\in A\ldotp 1+xy\in A^{\times}\}
+\end{equation*}
+\end{proposition}
+
+\begin{proof}
+This follows from Lemma~\ref{lemma:4.6} and Lemma~\ref{lemma:4.8}.
+\end{proof}
+
+\begin{fact}
+\begin{equation*}
+\begin{split}
+\Jacobson(A) &= \bigcap\{M\properideal A\mid M\mbox{ is a maximal right ideal of }A\}\\
+&= \bigcap\{M\properideal A\mid M\mbox{ is a maximal left ideal of }A\}
+\end{split}
+\end{equation*}
+\end{fact}
+
+\begin{corollary}\label{cor:4.10}
+Let $M$ be a right (or left) $A$-module.
+\begin{enumerate}
+\item If $1+x\in A^{\times}$ is a unit for all $x\in M$, then $M\subset\Jacobson(A)$.
+If also $\Rad(A/M)=0$, then $M=\Jacobson(A)$.
+\item If every $x\in M$ is nilpotent, then $M\subset\Jacobson(A)$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+\begin{enumerate}
+\item Follows from Proposition~\ref{prop:4.9} and Lemma~\ref{lemma:2.28}.
+\item If $x^{n}=0$, then
+\begin{equation}
+(1+x)^{n}\left(\sum^{n-1}_{j=0}(-x)^{j}\right)=\left(\sum_{j}(-x)^{j}\right)(1+x)^{n}=1,
+\end{equation}
+so $1+x\in A^{\times}$ is a unit. The result follows from the first
+claim in this corollary.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}\label{lemma:4.11}
+\begin{enumerate}
+\item If $\theta A\to B$ is a surjective algebra morphism, then $\theta(\Jacobson(A))\subset\Jacobson(B)$
+\item $\Jacobson(A\times B)=\Jacobson(A)\times\Jacobson(B)$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item Follows from Lemma~\ref{lemma:4.1} (the image of the radical is
+  contained in the raical) and Lemma~\ref{lemma:2.1} that
+  $\Rad(B_{A})=\Rad(B_{B})$ which implies the result.
+\item By (1), the inclusion morphisms gives us $\Jacobson(A\times B)\subset\Jacobson(A)\times\Jacobson(B)$.
+
+
+For $x\in\Jacobson(A)$ and $y\in\Jacobson(B)$, by
+Proposition~\ref{prop:4.9} $1_{A}+x\in A^{\times}$ and $1_{B}+y\in B^{\times}$,
+so $(1_{A}+x,1_{B}+y)\in(A\times b)^{\times}$ and
+\begin{subequations}
+  \begin{align}
+(1_{A}+x,1_{B}+y) &= (1_{A},1_{B})+(x,y)\\
+&=1_{A\times B}+(x,y).
+  \end{align}
+\end{subequations}
+Since $\Jacobson(A)\times\Jacobson(B)\in I(A\times B)$, by
+Corollary~\ref{cor:4.10}~(1) we have
+$\Jacobson(A)\times\Jacobson(B)\subset\Jacobson(A\times B)$ which
+proves the claim.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{example}[Homework]\label{ex:4.12}
+If $M$ is a semisimple $A$-module, then the Jacobson ideal for the
+endomorphism algebra of $M$ vanishes: $\Jacobson(\End_{A}(M))=0$.
+
+Further, if $M$ is finitely-generated, then $\End_{A}(M)$ is semisimple.
+\end{example}
+
+\begin{proposition}\label{prop:4.13}
+If $A$ is right or left Artinian, thene there exists some $k\in\NN$
+such that $\Jacobson(A)^{k}=0$ (i.e., every $x\in\Jacobson(A)$
+satisfies $x^{k}=0$).
+\end{proposition}
+
+\begin{proof}
+We have the chain of ideals $\Jacobson(A)\supset\Jacobson(A)^{2}\supset\Jacobson(A)^{3}\supset\dots$.
+Since $A$ is Artinian, there exists a $k\in\NN$ such that
+$\Jacobson(A)^{k}=\Jacobson(A)^{k+1}=\Jacobson(A)^{k+2}=\dots$.
+
+Assume for contradiction $\Jacobson(A)^{k}\neq0$. Let
+\begin{equation}
+S=\{\mbox{nonzero right ideals }M\ideal A\mid M\Jacobson(A)=M\}\subset S(A)
+\end{equation}
+we can take $M$ the minimal element of $S$. Then since
+\begin{equation}
+0\neq M=M\Jacobson(A)=M\Jacobson(A)^{2}=\dots=M\Jacobson(A)^{k},
+\end{equation}
+there must be some $x\in M$ such that
+\begin{equation}
+x\Jacobson(A)^{k}\neq0.
+\end{equation}
+But $x\Jacobson(A)^{k}$ is a right ideal and so
+\begin{equation}
+x\Jacobson(A)^{k}\Jacobson(A)=x\Jacobson(A)^{k+1}=x\Jacobson(A)^{k},
+\end{equation}
+so $x\Jacobson(A)\in S$.
+
+By minimality of $M$,
+\begin{equation}
+M=x\Jacobson(A)^{k}\subset xA\subset M,
+\end{equation}
+so $M$ is finitely-generated. By Corollary~\ref{cor:4.7}, $M=0$ which
+gives us our contradiction.
+\end{proof}
+
+\begin{corollary}\label{cor:4.14}
+For any right (resp., left) Artinian algebra $A$ and right (resp.,
+left) ideal $M$ of $A$, the following are equivalent:
+\begin{enumerate}
+\item $M\subset\Jacobson(A)$
+\item $\exists k\in\NN\ldotp M^{k}=0$
+\item every element $x\in M$ is niplotent
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+$(1)\implies(2)$ by Proposition~\ref{prop:4.13}.
+
+$(2)\implies(3)$ obviously.
+
+$(3)\implies(1)$ by Corollary~\ref{cor:4.10}~(2).
+\end{proof}
+
+\begin{proposition}\label{prop:4.15}
+For any left (resp., right) Artinian algebra $A$, every Artinian
+$A$-module is Noetherian.
+\end{proposition}
+
+\begin{proof}
+Let us write $J=\Jacobson(A)$. Let $M$ be an arbitrary Artinian
+$A$-module.
+
+Since $A$ is Artinian, there exists
+some $k\in\NN$ such that $J^{k}=0$ by Proposition~\ref{prop:4.13}. In
+particular, we may take the smallest $n\leq k$ such that $MJ^{n}=0$.
+
+We will prove the claim ($MJ^{n}=0$ implies $M$ is Noetherian) by induction on $n$.
+
+\textsc{Case 1} ($n=0$): Then $M=0$, hence $M$ is Noetherian.
+
+\textsc{Case 2} ($n=1$): We see $MJ=0$, which implies $M$ is an
+$(A/J)$-module. Since $A/J$ is semisimple (by Corollary~\ref{cor:4.3}~(1)),
+every $(A/J)$-module is semisimply by Proposition~\ref{prop:3.2}~(2).
+Therefore $M_{A/J}$ (which is $M$ viewed as an $(A/J)$-module) is
+Noetherian by Proposition~\ref{prop:2.26}. Since $S(M_{A})=S(M_{A/J})$,
+and $S(M_{A/J})$ is Noetherian, it follows that $S(M_{A})$ is
+Noetherian. Hence $M$ is Noetherian.
+
+\textsc{Case 3} ($n>1$): Assume $MJ^{n}=0$. Let $0\neq N=MJ^{n-1}\subset M$
+be a submodule of $M$. (Note $N\neq0$ by minimality of $n$.) Then $N$
+is Artinian and $NJ=0$. By the $n=1$ case, $N$ is Noetherian. Also
+$M/N$ is Artinian, so $(M/N)J^{n-1}=0$, so by the inductive hypothesis
+$M/N$ is Noetherian. Therefore $M$ is Noetherian by Lemma~\ref{lemma:2.22}.
+\end{proof}
+
+\begin{corollary}\label{cor:4.16}
+Let $A$ be a left (resp., right) Artinian algebra, let $M$ be an
+$A$-module. The following are equivalent:
+\begin{enumerate}
+\item $M$ is Artinian
+\item $M$ is Noetherian
+\item $M$ is finitely-generated
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+$(1)\implies(2)$ by Proposition~\ref{prop:4.15}.
+
+$(2)\implies(3)$ by Proposition~\ref{prop:2.26}.
+
+$(3)\implies(1)$ Write $M=\sum^{n}_{i=1}u_{i}A$. There exists a
+surjective $A$-module morphism
+\begin{equation}
+\begin{split}
+\bigoplus nA\to M\\
+(x_{i})\mapsto\sum u_{i}x_{i}.
+\end{split}
+\end{equation}
+Since $A$ is Artinian, $\bigoplus nA$ and $M$ are Artinian by
+Lemma~\ref{lemma:2.22}. Hence the claim.
+\end{proof}
+
+\begin{note}
+These previous few results implies that Artinian algebras are Noetherian.
+\end{note}
+
+\begin{recall}
+For $\alpha\in M_{n}(\FF)$ with components $\alpha=(\alpha_{i,j})$,
+that the trace is $\tr(\alpha)=\sum^{n}_{i=1}\alpha_{i,i}$ the sum of
+the diagonal components. This mapping
+\begin{equation}
+\tr\colon M_{n}(\FF)\to\FF
+\end{equation}
+is $\FF$-linear.
+
+If $\alpha$ is a nilpotent matrix, then $\tr(\alpha)=0$.
+If $\lambda$ is an eigenvalue of $\alpha$, so $\alpha v=\lambda v$,
+then $\alpha^{n}v=\lambda^{n}v=0$, which implies $\lambda=0$.
+\end{recall}
+
+\begin{lemma}\label{lemma:4.17}
+There does not exist a set of niplotent matrices that spans
+$M_{n}(\FF)$ as an $\FF$-space.
+\end{lemma}
+
+\begin{proof}
+If there exists nilpotent $\alpha_{1},\dots,\alpha_{r}\in M_{n}(\FF)$
+and there exists $b_{1},\dots,b_{r}\in\FF$ such that
+\begin{equation}
+\canMat_{1,1}=\sum^{r}_{i=1}\alpha_{i}b_{i},
+\end{equation}
+then
+\begin{subequations}
+  \begin{align}
+1 &=\tr(\canMat_{1,1})\\
+&=\tr\left(\sum^{r}_{i=1}\alpha_{i}b_{i}\right)\\
+&=\sum^{r}_{i=1}\tr(\alpha_{i})b_{i}\\
+&=0,
+  \end{align}
+\end{subequations}
+which is a contradiction. Hence the claim.
+\end{proof}
+
+\begin{proposition}\label{prop:4.18}
+Let $A$ be a finite-dimensional $\FF$-algebra, let $B$ be an
+$\FF$-subspace of $A$ that is closed under multiplication and spanned
+by a set of nilpotent elements (of $A$). Then $B^{k}=0$ for some $k\in\NN$.
+\end{proposition}
+
+\begin{proof}
+There are two simplifications which occur for this proof.
+  
+First simplification: we may assume that $\FF$ is algebraically closed. In fact, let
+$x_{1}$, \dots, $x_{r}$ be an $\FF$-basis for $A$ (as a vector space)
+such that
+\begin{equation}
+x_{j}x_{k}=\sum^{r}_{i=1}c^{i}_{jk}x_{i}
+\end{equation}
+for some coefficients $c^{i}_{jk}\in\FF$. Then for an
+$\closure{\FF}$-algebra $A'_{\FF}=\bigoplus_{i} x_{i}\closure{\FF}$ and
+multiplication is given by the structure constants $c^{i}_{jk}$. Then
+$A$ is a subalgebra of $A'_{\FF}$. The $B'=B\closure{\FF}$ satisfies
+the same condition as $B$ and $(B')^{k}=0$ implies $B^{k}=0$.
+
+Second simplification: $B$ is an ideal of $A$. This is because $B$ is
+an ideal of $B+1_{A}\FF$, and $B+1_{A}\FF$ is an ideal of $A$.
+
+\textsc{Claim:} if $A$ is semisimple, then $B=0$.
+
+We will stipulate the claim holds, prove it is sufficient to finish
+our proof, then we will prove the claim. If $A$ is not
+semisimple, then we can replace $A$ by $A/\Jacobson(A)$ (which
+\emph{is} semisimple since $\dim_{\FF}(A)$ is finite which implies $A$
+is right Artinian and then we use Corollary~\ref{cor:4.3}~(1)) and we replace $B$ by the ideal
+$(B+\Jacobson(A))/\Jacobson(A)$ of $A/\Jacobson(A)$. If the claim
+holds, then $B+\Jacobson(A)=\Jacobson(A)$, which implies
+$B\subset\Jacobson(A)$ and so $B^{k}=0$ for some $k$ by
+Proposition~\ref{prop:4.13}.
+
+Let us now prove the claim. By Corollary~\ref{cor:3.22},
+\begin{equation}
+A=\prod^{t}_{i=1}A_{i}
+\end{equation}
+where each $A_{i}\iso M_{n_{i}}(\FF)$. For the projection morphism
+\begin{equation}
+\pi_{i}\colon A\to A_{i},
+\end{equation}
+we see $\pi_{i}(B)$ is an ideal of the simple algebra $A_{i}$. This
+means $\pi_{i}(B)=0$ or $\pi_{i}(B)=A_{i}$. But $\pi_{i}(B)=A_{i}$ is
+impossible because $\pi_{i}(B)$ is nilpotent. Therefore $\pi_{i}(B)=0$
+for every $i$. Then
+\begin{equation}
+B\subset\bigcap^{t}_{i=1}\ker(\pi_{i})=0,
+\end{equation}
+which proves the claim.
+\end{proof}

@@ -1,0 +1,282 @@
+%%
+%% spring-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-28T08:28:38-0700
+%% Last update 2026-04-28T08:28:38-0700
+%% 
+
+\lecture{}
+
+\begin{proposition}\label{prop:3.12}
+Let $A$ be a simple algebra. The following are equivalent:
+\begin{enumerate}
+\item $A$ is semisimple
+\item $A$ is right Artinian (i.e., $A$ is a right Artinian $A$-module)
+\item $A$ has a right minimal ideal.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$(1)\implies(2)$ is Definition~\ref{defn:3.1} (which implies $A$ is
+  finitely-generated), then Proposition~\ref{prop:2.29} gives the
+  result.
+
+$(2)\implies(3)$ is the  definition of Artinian.
+
+$(3)\implies(1)$ Let $N$ be a right minimal ideal of $A$. Then
+\begin{equation}
+AN=\sum_{x\in A}xN
+\end{equation}
+is a nonzero two-sided ideal of $A$. This must mean
+\begin{equation}
+A=AN.
+\end{equation}
+By Lemma~\ref{lemma:3.6}, for each $x\in A$ we have $xN$ is a simple
+$A$-module, and then $A$ is semisimple by Proposition~\ref{prop:2.15}.
+\end{proof}
+
+\begin{proposition}\label{prop:3.13}
+Let $A$ be a semisimple algebra. Then the following are equivalent:
+\begin{enumerate}
+\item $A$ is a simple algebra
+\item All right minimal ideals of $A$ are isomorphic to each other
+\item All simple $A$-modules are isomorphic to each other.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$(2)\iff(3)$ by Proposition~\ref{prop:3.2}~(2).
+
+$(1)\implies(2)$
+For any minimal right ideals $N_{1}$, $N_{2}$ of $A$ we have
+$AN_{1}=AN_{2}=A$ by the discussion from the previous Proposition. In particular,
+\begin{subequations}
+  \begin{align}
+N_{1}N_{2} &= (N_{1}A)N_{2}\\
+&=N_{1}(AN_{2})\\
+&=N_{1}A\\
+&=N_{1}\neq0,
+  \end{align}
+\end{subequations}
+and thus (from last lecture) we have $N_{1}\iso N_{2}$ by Proposition~\ref{prop:3.8}.
+
+$(2)\implies(1)$
+Let $J$ be the nonzero two-sided ideal of $A$, so $0\neq J\in I(A)$.
+Since $A$ is semisimple, there exists a minimal right ideal $N$ of $A$
+such that $N\subset J$. By hypothesis (2) and using
+Proposition~\ref{prop:3.8} and Proposition~\ref{prop:2.15} shows that
+\begin{equation}
+A=\sum_{x\in A}xN\subset J,
+\end{equation}
+which means $J=A$. Hence $A$ is a simple algebra.
+\end{proof}
+
+\begin{corollary}\label{cor:3.14}
+Let $A$ be a semisimple algebra. Let $N$ be a minimal right ideal of
+$A$. For any $A$-module $M$, there exists a unique cardinal number
+$\alpha$ such that $M\iso\bigoplus\alpha N$ is the direct sum of
+$\alpha$ copies of $N$.
+\end{corollary}
+
+\begin{proof}
+By Propositions~\ref{prop:3.12} for semisimple,~\ref{prop:3.13} for
+simple and isomorphic, and Proposition~\ref{prop:3.2}~(2),
+and Proposition~\ref{prop:2.15}.
+\end{proof}
+
+\begin{corollary}\label{cor:3.15}
+Let $A$ be a finite-dimensional simple $\FF$-algebra (where $\FF$ is
+some field). Let $M_{1}$, $M_{2}$ be $A$-modules. Then $M_{1}\iso M_{2}$
+as $A$-modules if and only if $\dim_{\FF}(M_{1})=\dim_{\FF}(M_{2})$.
+\end{corollary}
+
+\begin{proof}
+Since $A$ is finite-dimensional, $A$ is right Artinian by
+Proposition~\ref{prop:3.12} and has a minimal right ideal $N$ (such
+that $\dim_{\FF}N$ is finite). By Corollary~\ref{cor:3.14},
+$M_{1}\iso\bigoplus\alpha N$ and $M_{2}\iso\bigoplus\beta N$ so
+$M_{1}\iso M_{2}$ if and only if $\alpha=\beta$ if and only if
+\begin{equation}
+\dim_{\FF}M_{1}=\alpha\dim_{\FF}N=\beta\dim_{\FF}N=\dim_{\FF}M_{2}.
+\end{equation}
+Hence the claim.
+\end{proof}
+
+\begin{example}\label{ex:3.16}
+For a division algebra $D$, let $A=M_{n}(D)$ be a matrix algebra, let
+$N_{i}=\canMat_{i,i}A$ for $i=1,\dots,n$ and the canonical matrix
+$\canMat_{i,i}$ (with its only nonzero entry being 1 at row $i$
+and column $i$).
+\begin{enumerate}
+\item These $N_{i}$ are minimal right ideals of $A$
+\item $A=\bigoplus^{n}_{i}N_{i}$
+\item For all $i,j$ we have $N_{i}\iso N_{j}$
+\item $A$ is simple and semisimple
+\item $\End_{A}(N_{i})\iso D$
+\end{enumerate}
+\end{example}
+
+\begin{proof}
+Homework.
+\end{proof}
+
+\begin{notation}
+Let $A$ be an $R$-algebra. Let $M_{1}$, \dots, $M_{n}$ be $A$-modules.
+We denote by $[\hom_{A}(M_{j},M_{i})]$ for the matrix
+\begin{equation}
+[\hom_{A}(M_{j},M_{i})]:=\begin{bmatrix}\hom_{A}(M_{1},M_{1}) & \dots
+& \hom_{A}(M_{1},M_{n}\\
+\vdots & \ddots & \vdots\\
+\hom_{A}(M_{n},M_{1}) & \dots & \hom_{A}(M_{n},M_{n})
+\end{bmatrix}
+\end{equation}
+Further, if $[\varphi_{i,j}]\in[\hom_{A}(M_{j},M_{i})]$, we see that
+$[\hom_{A}(M_{j},M_{i})]$ forms an $R$-algebra by
+$[\phi_{i,j}][\psi_{j,k}]=[\chi_{i,k}]$ where
+\begin{equation}
+\chi_{i,k}=\sum^{n}_{j=1}\phi_{i,j}\circ\psi_{j,k}
+\end{equation}
+is ``just'' matrix multiplication.
+\end{notation}
+
+\begin{proposition}\label{prop:3.17}
+$[\hom_{A}(M_{j},M_{i})]\iso\End_{A}(\bigoplus^{n}_{i=1}M_{i})$ as $R$-algebras.
+\end{proposition}
+
+\begin{proof}
+Let $M=\bigoplus^{n}_{i=1}M_{i}$, let $\pi_{j}\colon M\to M_{j}$ be
+the projection morphism for $j=1,\dots,n$. Let $\kappa_{j}\colon M_{j}\into M$
+be the inclusion morphism. Then we have
+\begin{equation}
+\sum^{n}_{j=1}\kappa_{j}\circ\pi_{j}=\id_{M}
+\end{equation}
+and
+\begin{equation}
+\pi_{i}\circ\kappa_{j}=\delta_{ij}\id_{M_{j}}
+\end{equation}
+(so $\pi_{i}\circ\kappa_{j}$ is the zero map for $i\neq j$). Let us
+define the mappings
+\begin{equation}
+\begin{split}
+\alpha\colon&\End_{A}(M)\to[\hom_{A}(M_{j},M_{i})]\\
+&\phi\mapsto[\pi_{i}\circ\kappa_{j}\circ\phi]
+\end{split}
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+\beta\colon&[\hom_{A}(M_{j},M_{i})]\to\End_{A}(M)\\
+&[\phi_{i,j}]\mapsto\sum^{n}_{i,j=1}\kappa_{i}\circ\phi_{i,j}\circ\pi_{j}.
+\end{split}
+\end{equation}
+Then by direct calculation, we can verify
+\begin{equation}
+\alpha\circ\beta=\id\quad\mbox{and}\quad\beta\circ\alpha=\id.
+\end{equation}
+Further, $\alpha$ is a morphism since
+\begin{subequations}
+  \begin{align}
+\alpha(\phi\psi) &= [\pi_{i}\phi\psi\kappa_{k}] = [\pi_{i}(\sum_{j}\kappa_{j}\pi_{j})\psi\kappa_{k}]\\
+&=[\sum_{j}(\pi_{i}\phi\kappa_{j})(\pi_{j}\psi\kappa_{k})]\\
+&=\alpha(\phi)\alpha(\psi)
+  \end{align}
+\end{subequations}
+by matrix multiplication.
+\end{proof}
+
+\begin{corollary}\label{cor:3.18}
+Let $A$ be an $R$-algebra. Let $M_{1}$, \dots, $M_{n}$, $M$ be
+$A$-modules. Then:
+\begin{enumerate}
+\item $\End_{A}(\bigoplus nM)\iso M_{n}(\End_{A}(M))$
+\item If $M$ is a free $A$-module with $n$ generators, then
+  $\End_{A}(M)\iso M_{n}(A)$
+\item If $\hom_{A}(M_{j},M_{i})=0$ for all $i\neq j$, then
+  $\End_{A}(\bigoplus^{n}_{i=1}M_{i})\iso\prod^{n}_{i=1}\End_{A}(M_{i})$
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(1) and (3) are obvious.
+
+(2) Since $M$ is free, $M\iso\bigoplus nA$ and the result follows by Definition~\ref{defn:1.6}.
+\end{proof}
+
+\begin{theorem}[Wedderburn's structure theorem]\label{thm:3.19}
+Let $A$ be a right or left semisimple $R$-algebra. Then the following
+all hold:
+\begin{enumerate}
+\item There exists natural numbers $n_{1},\dots,n_{r}\in\NN$ and
+  $R$-division algebras
+  $D_{1}$, \dots, $D_{r}$ such that $A\iso M_{n_{1}}(D_{1})\times\cdots\times M_{n_{r}}(D_{r})$
+\item The pairs $(n_{i},D_{i})$ are uniquely determined (up to
+  isomorphism) by $A$
+\item Conversely for any $n_{1}$, \dots, $n_{r}\in\NN$ and for any
+  division algebras (over $R$) $D_{1}$, \dots, $D_{r}$, we have
+  $M_{n_{1}}(D_{1})\times\cdots\times M_{n_{r}}(D_{r})$ is a right
+  \emph{and} left $R$-algebra (i.e., the class of right
+  semisimple algebras and left semisimple algebras coincide).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) $A\iso\bigoplus^{r}_{i=1}M_{i}$ where ach $M_{i}\iso\bigoplus n_{i}N_{i}$
+and $N_{i}$ are minimal right ideals of $A$ such that $N_{i}\not\iso N_{j}$
+for $i\neq j$. By Lemma~\ref{lemma:2.18}~(2) [if $\phi\colon A\to B$ and
+  $A=\bigoplus M_{i}$ and $B\iso\bigoplus M'_{i}$, then
+  $\phi(M_{i})\subset M'_{i}$], we have $\hom_{A}(M_{i},M_{j})=0$ for
+$i\neq j$. The isomorphism follows from
+\begin{subequations}
+  \begin{align}
+A&\iso\End_{A}(A)\quad\mbox{by Def~\ref{defn:1.6}}\\
+&\iso\prod^{r}_{i=1}\End_{A}(M_{i})\quad\mbox{by Cor~\ref{cor:3.18}~(3)}\\
+&\iso\prod^{r}_{i=1}M_{n_{i}}(D_{i})\quad\mbox{by Cor~\ref{cor:3.18}~(1) where }
+D_{i}=\End_{A}(N_{i}).
+  \end{align}
+\end{subequations}
+We see $D_{i}$ is a division algebra by
+Corollary~\ref{cor:2.12}. Hence the claim for the right case. The left
+case is similar.
+
+(2) Suppose $A=A_{1}\times\cdots\times A_{s}$ where each $M_{i}\iso M_{k_{i}}(C_{i})$
+is a matrix algebra for some $k_{i}\in\NN$ and $C_{i}$ is a division
+algebra over $R$. By Example~\ref{ex:3.16} and Lemma~\ref{lemma:3.4}
+$A_{i}$ is semisimple so $A_{i}\iso\bigoplus k_{i}P_{i}$ as
+$A$-modules, where $P_{i}$ is a minimal right ideal such that
+$P_{i}\subset A_{i}$ and
+\begin{equation}
+C_{i}\iso\End_{A_{i}}(P_{i})\iso\End_{A}(P_{i}).
+\end{equation}
+Since $P_{i}P_{j}\subset A_{i}A_{j}=0$ (since
+$A_{i}=0\times\cdots\times0\times A_{i}\times0\times\cdots\times0$ and
+$A_{j}=0\times\cdots\times0\times A_{j}\times0\times\cdots\times0$,
+so their product $A_{i}A_{j}=0$ if $i\neq j$) by Proposition~\ref{prop:3.8},
+$P_{i}\not\iso P_{j}$ if $i\neq j$.
+By applying Proposition~\ref{prop:2.19} to
+\begin{equation}
+A=\bigoplus^{r}_{i=1}\left(\bigoplus
+n_{i}N_{i}\right)=\bigoplus^{s}_{i=1}\left(\bigoplus k_{i}P_{i}\right),
+\end{equation}
+we must have $(n_{i},N_{i})\iso(k_{j},P_{j})$ so
+\begin{equation}
+D_{i}=\End_{A}(N_{i})\iso\End_{A}(P_{j})=C_{j},
+\end{equation}
+proving the claim up to permutation.
+
+(3) By Example~\ref{ex:3.16} and its left version, $M_{n_{i}}(D_{i})$
+are left and right semisimple $R$-algebras, and thus $\prod^{r}_{i=1}M_{n_{i}}(D_{i})$
+is a left and right algebra by Corollary~\ref{cor:3.5}.
+\end{proof}
+
+\begin{corollary}\label{cor:3.20}
+We have $A$ be a right or left Artinian simple algebra if and only if
+there exists a unique $n\in\NN$ and a unique division algebra $D$ such
+that $A\iso M_{n}(D)$.
+\end{corollary}
+
+\begin{proof}
+By Proposition~\ref{prop:3.12}, Proposition~\ref{prop:3.13}, and Theorem~\ref{thm:3.19}.
+\end{proof}

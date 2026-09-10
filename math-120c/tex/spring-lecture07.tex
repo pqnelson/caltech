@@ -1,0 +1,274 @@
+%%
+%% spring-lecture07.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-04-16T10:59:59-0700
+%% Last update 2026-04-16T10:59:59-0700
+%% 
+
+\lecture{}
+
+\begin{proposition}\label{prop:2.26}
+For semisimple $M$, the following are equivalent:
+\begin{enumerate}
+\item $M$ Is finitely-generated as an $A$-module;
+\item $M=N_{1}\oplus\cdots\oplus N_{n}$ where each $N_{i}$ is simple;
+\item $M$ is Artinian;
+\item $M$ is Noetherian;
+\item There exists some finite $m<\infty$ such that if
+  $0=M_{0}\propersubset\cdots\propersubset M_{k}$ is a finite chain of strictly
+  increasing submodules (of $M$), then $k\leq m$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Homework.
+\end{proof}
+
+\begin{definition}\label{defn:2.27}
+Let $M$ be an $A$-module. We define the \define{Radical} of $M$
+to be
+\begin{equation}
+\Rad(M):=\begin{cases}\bigcap\{N\in S(M)\mid M/N\mbox{is simple}\}&\\
+M &\mbox{if above is empty}
+\end{cases}
+\end{equation}
+\end{definition}
+
+\begin{lemma}\label{lemma:2.28}
+\begin{enumerate}
+\item $\Rad(M)\in S(M)$ --- the radical of $M$ is a submodule of $M$
+\item For $N\in S(M)$, if $\Rad(M/N)=0$, then $\Rad(M)\subset N$
+\item $\Rad(M/\Rad(M))=0$
+\item If $M$ is semisimple, then $\Rad(M)=0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proposition}\label{prop:2.29}
+$M$ is finitely-generated semisimple if and only if $M$ is Artinian
+  and $\Rad(M)=0$.
+\end{proposition}
+
+\subsection{Structure of Semisimple Algebras}
+
+\begin{definition}\label{defn:3.1}
+Let $A$ be an algebra over $R$. We say $A$ is \define{Semisimple} (as
+an algebra) if $A$ is a semisimple right $A$-module (usually denoted $A_{A}$).
+
+\textsc{Note}: since $A=1_{A}A$ by Proposition~\ref{prop:2.26},
+$A=N_{1}\oplus\cdots\oplus N_{m}$ for some minimal right ideals
+$N_{1}$, \dots, $N_{m}$.
+\end{definition}
+
+\begin{proposition}\label{prop:3.2}
+\begin{enumerate}
+\item $A$ is semisimple if and only if $A$ is right Noetherian (as an
+  $A$-module) and $\Rad(A_{A})=0$
+\item If $A$ is semisimple, then every $A$-module $N$ is
+  semisimple. Moreover, the simple $A$-modules are isomorphic to
+  minimal right ideals of $A$ and all minimal right ideals of $A$ are
+  simple $A$-modules.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item By Proposition~\ref{prop:2.29}.
+\item The first half follows from the fact that any free $A$-module is
+  isomorphic to the direct sum of copies of $A$, and every $A$-module
+  is a $\Hom$ of free $A$-modules, and Corollary~\ref{cor:2.16}~(1)
+  [implies every $P\in S(M)$ has $P$ be isomorphic to $M/P$].
+
+The second part is by Proposition~\ref{prop:2.10}, $N$ is a simple
+$A$-module iff there exists a maximal right ideal $M$ of $A$ such that
+$N\iso A/M$. Since $A$ is semisimple, by
+Proposition~\ref{prop:2.15}~(3) [its lattice of submodules is
+  complemented], $M$ has its complement in $S(A)$, which is minimal
+and isomorphic to $A/M\iso N$. [If $N'$ is complement of $M$ in $A$,
+  then $A=M\oplus N'$ and moreover $N'\iso A/M\iso N$.]\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}\label{cor:3.3}
+If $A$ is semisimple, then every homomorphic image of $A$ is semisimple.
+\end{corollary}
+
+\begin{proof}
+Let $\theta\colon A\to B$ be an algebra morphism. Without loss of
+generality, $\theta$ is surjective (otherwise we could just look at
+$\theta\colon A\to\theta(A)$ and call $B:=\theta(A)$). By
+Proposition~\ref{prop:3.2}~(2), $B$ is semisimple as an $A$-module. So
+as an $A$-module, $B$ decomposes as a direct sum of simple
+$A$-modules,
+\begin{equation}
+B=\bigoplus_{i\in J}N_{i},
+\end{equation}
+where each $N_{i}$ is a simple $A$-module. Since 
+\begin{equation}
+\Annihilator(N_{i})\supset\Annihilator(B_{A})=\ker(\theta)
+\end{equation}
+and
+\begin{equation}
+\Annihilator(B_{A})=\{x\in A\mid Bx=B\theta(x)=0\},
+\end{equation}
+then by Proposition~\ref{prop:2.4} and Lemma~\ref{lemma:2.1}~(3),
+there exists a $B$-module $M_{i}$ such that $N_{i}=(M_{i})_{A}$ by
+Proposition~\ref{prop:2.4} and $S(N_{i})=S(M_{i})$ by Lemma~\ref{lemma:2.1}~(3).
+NB: $N_{i}$ is simple as $B$-modules. Hence the claim(/) because $B$
+is a semisimple algebra.
+\end{proof}
+
+\begin{lemma}\label{lemma:3.4}
+Let 
+\begin{equation}
+A=A_{1}\times A_{2}=\{(a_{1},a_{2})\mid a_{1}\in A_{1},a_{2}\in A_{2}\}
+\end{equation}
+be the direct product of algebras. Let $M$ be a right ideal of $A$.
+\begin{enumerate}
+\item $M$ is a right ideal of $A$
+\item $\End_{A_{1}}(M)=\End_{A}(M)$
+\item $\hom_{A_{1}}(M,A_{1})=\hom_{A}(M,A_{1})=\hom_{A}(M,A)$
+\item $S(M_{A_{1}})=S(M_{A})$
+\item If $M$ is a minimal right ideal of $A_{1}$, then $M$ is a
+  minimal right ideal of $A$
+\item If $N$ is a minimal right ideal of $A$, then $N$ is a minimal
+  right ideal of either $A_{1}$ or $A_{2}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1)--(5) omitted since $MA_{2}\subset A_{1}A_{2}=\{(a_{1},0)(0,a_{2})\}=0$.
+
+(6) For a minimal ideal $N$ of $A$, since
+\begin{equation}
+NA_{i}\subset N\cap A_{i}\subset A_{i},
+\end{equation}
+we have either
+\begin{equation}
+N=NA_{i}\quad\mbox{or}\quad NA_{i}=N\cap A_{i}=0
+\end{equation}
+(by the minimality of $N$). Since
+\begin{equation}
+0\neq N=NA_{1}+NA_{2},
+\end{equation}
+one of the summands must vanish $NA_{i}=0$ and the other
+\begin{equation}
+0\neq N=NA_{i'}=N\cap A_{i'}.
+\end{equation}
+Then $N$ must be a minimal ideal of $A_{i'}$.
+\end{proof}
+
+\begin{corollary}\label{cor:3.5}
+Let $A_{1}$, $A_{2}$ be semisimple algebras. Then their direct product $A_{1}\times A_{2}$
+is a semisimple algebra.
+\end{corollary}
+
+\begin{proof}
+For $A_{i}=\bigoplus N_{i,j}$ where $N_{i,j}$ are minimal right ideals
+of $A_{i}$ (and these are minimal right ideals of $A$ by
+Lemma~\ref{lemma:3.4}~(5)). Then
+\begin{equation}
+A_{1}\times A_{2}=\left(\bigoplus N_{ij}\times
+0\right)\oplus\left(\bigoplus0\times N_{j,k}\right)
+\end{equation}
+Hence the claim.
+\end{proof}
+
+\begin{lemma}\label{lemma:3.6}
+Let $N$ be a minimal right ideal of $A$, let $x\in A$. Then either
+$xN=0$ or $xN\iso N$.
+\end{lemma}
+
+\begin{proof}
+Apply Schur's Lemma~\ref{lemma:2.11} to $N\to xN$, $y\mapsto xy$.
+\end{proof}
+
+\begin{lemma}\label{lemma:3.7}
+Let $N$ be a right ideal of $A$ such that $N^{k}=0$, let $P$ be a
+simple $A$-module. Then $PN=0$ and $N\subset\Rad(A)$.
+\end{lemma}
+
+\begin{proof}
+Since $P$ is simple, $PN\in S(P)$ and thus $PN=0$ or $PN=P$. But since
+$N^{k}=0$, $PN=P$ is impossible since
+\begin{subequations}
+  \begin{align}
+0 &= PN^{k}\\
+&= (PN)N^{k-1}\\
+&= PN^{k-1}\\
+&= (PN)N^{k-2}\\
+&=\cdots=P.
+  \end{align}
+\end{subequations}
+In particular, for $P=A/M$ where $M$ is a maximal right ideal, then
+\begin{equation}
+(A/M)N=0.
+\end{equation}
+That is to say,
+\begin{equation}
+N\subset\bigcap\{\mbox{maximal right ideals of }A\}=\Rad(A).
+\end{equation}
+Hence the result.
+\end{proof}
+
+\begin{proposition}\label{prop:3.8}
+For minimal right ideals $N_{1}$, $N_{2}$, the following are equivalent:
+\begin{enumerate}
+\item $N_{1}\iso N_{2}$ as $A$-modules
+\item $N_{1}N_{2}\neq0$
+\item $\exists x\in A\ldotp N_{1}=xN_{2}$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$(1)\implies(2)$ For $\phi\colon N_{1}\to N_{2}$ being the stipulated isomorphism,
+\begin{subequations}
+  \begin{align}
+N_{1}N_{2} &\iso\phi(N_{1}N_{2})\\
+&\iso\phi(N_{1})N_{2}\\
+&\iso N_{1}N_{2}
+&\neq0\mbox{ by previous lemma.}
+  \end{align}
+\end{subequations}
+
+$(2)\implies(3)$ If $N_{1}N_{2}\neq0$, then there exists some $x\in N_{1}$
+such that $xN_{2}\neq0$. Since $N_{1}$ is simple and $0\neq xN_{2}\subset N_{1}$,
+then we must have $xN_{2}=N_{1}$.
+
+$(3)\implies(1)$ Follows from Lemma~\ref{lemma:3.6}.
+\end{proof}
+
+\begin{lemma}\label{lemma:3.9}
+Let $A$ be a semisimple algebra. Suppose
+\begin{equation}
+A=N_{1}\oplus\cdots\oplus N_{m}
+\end{equation}
+where each $N_{i}$ is a minimal right ideal (of $A$). If $N$ is a
+minimal right ideal of $A$, then there exists an $i$ such that $N\iso N_{i}$.
+\end{lemma}
+
+\begin{proof}
+By Proposition~\ref{prop:2.15}, $N$ has a complement $M$ in $A$, so:
+\begin{equation}
+A=N\oplus M.
+\end{equation}
+By Corollary~\ref{cor:2.16}, $M$ is also semisimple as an $A$-module.
+By Proposition~\ref{prop:2.19} or Theorem~\ref{thm:2.24}, there exists
+an $N_{i}$ such that $N\iso N_{i}$.
+\end{proof}
+
+\begin{corollary}\label{cor:3.10}
+If $A$ is a semisimple algebra, then the set of isomorphism classes of
+simple $A$-modules must be finite.
+\end{corollary}
+
+\begin{proof}
+Write $A=N_{1}\oplus\cdots\oplus N_{m}$ and use Lemma~\ref{lemma:3.9}.
+\end{proof}
+
+\begin{definition}
+We say an algebra $A$ is \define{Simple} if $A\neq0$ and $I(A)=\{0,A\}$
+is the set of \emph{two-sided} ideals of $A$.
+\end{definition}
