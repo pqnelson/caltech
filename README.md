@@ -19,3 +19,9 @@ Math 120C, I have split these courses up into their own folders.
   - Math 151C [Riemannian geometry] taught by Riccardo Canioto (MWF, 10:00-10:55am)
   - Math 108C [Complex analysis] taught by Riccardo Canioto (MWF, 11:00-11:55am)
   - Math 130C [sheaf cohomology] taught by Thomas Graber (MWF, 1:00-1:55pm)
+- Fall 2026 Quarter
+  - ME 101A [fluid mechanics] taught by Jane Bae (MWF, 10:00-10:55am)
+  - Math 110A [analysis] taught by Nikolai Makarov (MWF, 11:00-11:55am)
+  - Math 157A [characteristic classes] taught by Xingzhe Li (MWF, 1:00-1:55pm)
+  - Math 140A [probability] taught by Omer Tamuz (MWF, 2:00-2:55pm)
+

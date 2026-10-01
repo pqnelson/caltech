@@ -1,0 +1,329 @@
+%%
+%% fall-lecture01.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-01T08:50:05-0700
+%% Last update 2026-10-01T08:50:05-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+Jane Bae is the professor. There is no required text, but there are
+books on reserve in the library. The syllabus listed several dozen
+books as references, most I have. Two which I do not have: Panton's
+book on incompressible flows~\cite{panton2024incompressible}
+(specifically the 1995 edition), and Frank White's book on viscous flows~\cite{white1991viscous}.
+\end{node}
+
+\begin{node}[Overview]
+\begin{enumerate}
+\item Difference between slids and liquids.
+\item Two different views of fluids (microscopic versus
+  continuous). Most of this class will focus on the continuum.
+\item Dilute gas limit (physical length scales are large enough for continuum?)
+\item Criterion for fluid being homogeneous enough (``has enough
+  statistical continuity'')
+\end{enumerate}
+\end{node}
+
+\begin{node}
+Broadly speaking, we all learn there are three\footnote{There are more
+phases of matter, but we will not consider situations where plasmas
+occur.} phases of matter: solids, liquids, and gases. Liquids and
+gases behave similarly in many regards, so we group them together
+under the term ``fluid''. So what's the difference between a solid and
+a fluid?
+
+Any small change in force exerted on a solid---any stress results in a
+strain---there will be a deformationj. The shear stress $\tau$ is
+proportional to strain $\gamma$ in Hookean solids
+\begin{equation}
+\tau\sim\gamma.
+\end{equation}
+In contrast, a fluid has the strain change over time:
+\begin{equation}
+\tau\sim\frac{\D\gamma}{\D t}.
+\end{equation}
+There are some exceptions (e.g., with bulk forces).
+\end{node}
+
+\begin{node}
+What's the difference between liquids and gases? There are three main
+differences:
+\begin{enumerate}
+\item Gases are much more compressible. Compressibility $\kappa$ is defined as
+  directly proportional to the partial derivative of density $\rho$
+  with respect to pressure $p$ at constant temperature $T$:
+  \begin{equation}
+\kappa=\frac{1}{\rho}\left(\frac{\partial\rho}{\partial p}\right)_{T}.
+  \end{equation}
+  For example, $\kappa_{\text{water}}\sim10^{-5}~\mathrm{atm}^{-1}$
+  whereas $\kappa_{\text{air}}\sim1~\mathrm{atm}^{-1}$.
+\item Liquids form a free surface, whereas gases tend to be space-filling.
+\item Liquids are a ``partially ordered system'', the molecular
+  spacing $\sigma_{\text{liquid}}\sim\bigOh(1d)$ molecular diameters $d$
+  in a liquid. A gas has very little correlation, $\sigma_{\text{gas}}\gtrsim\bigOh(10d)$
+\end{enumerate}
+Because of this, it is easier to develop a molecular model of a gas,
+which fortunately generalizes to liquids.
+\end{node}
+
+\subsection{Molecular models of gases}
+
+\begin{node}
+The continuum approach: we have macroscopic quantities like velocity,
+density, pressure, etc. These are treated as fields. Velocity is a
+time-dependent vector field $\vec{v}(\vec{x},t)$. Similarly,
+density is a time-dependent scalar field $\rho(\vec{x},t)$, and
+pressure is a time-dependent scalar field $p(\vec{x},t)$.
+\end{node}
+
+\begin{node}
+The microscopic approach has individual molecules. Each molecule has
+its positive and velocity. We have the velocity vectors $\vec{v}_{1}$,
+$\vec{v}_{2}$, \dots, $\vec{v}_{N}$ for $N$ particles. When $N\gg1$,
+we can give up and try treat it as a continuum.
+
+Well, there are three questions we must ask when we want to try to use
+the continuum approach:
+\begin{enumerate}
+\item Is the fluid dilute enough?
+\item Are the physical length scales large enough?
+\item Is the fluid homogeneous?
+\end{enumerate}
+The answer to all three questions must be ``Yes'' for us to use the
+continuum approach.
+\end{node}
+
+\subsection*{Dilute gas limit}
+
+\begin{node}[Dilute gas limit]
+Recall Avogadro's law: the volume occupied by a mole of gas at fixed
+temperature $T$ and pressure $p$ is constant. We denote the
+\define{Number Density} by
+\begin{equation}
+n:=\frac{(\mbox{number of molecules})}{(\mbox{unit volume})}.
+\end{equation}
+We can use this to write the mass density $\rho$ as
+\begin{equation}
+\rho = m\cdot n
+\end{equation}
+where $m$ is the molecular mass.
+\end{node}
+
+\begin{definition}
+The \define{Mean Molecular Spacing} is the length $\delta := n^{-1/3}$.
+Since
+\begin{equation}
+n^{-1}=\frac{\mbox{(unit volume)}}{\mbox{(number of molecules)}}\approx\mbox{volume per molecule},
+\end{equation}
+we see that $n^{-1/3}$ gives a length scale on the order of magnitude
+of the space between molecules.
+\end{definition}
+
+\begin{definition}
+We define the \define{Molecular size} is the term used by engineers to
+refer to the ``kinetic diameter'' $d$ of a molecule, which is the size
+of a sphere which leads to a scattering between molecules.
+\end{definition}
+
+\begin{definition}
+A \define{Dilute Gas} is defined as a substance where $\delta\gg d$
+the mean molecular spacing is much greater than the molecular size.
+Older textbooks use
+\begin{equation}
+\frac{\delta}{d}>7,
+\end{equation}
+but this is a heuristic (other textbooks use 8 or 6). If this fails,
+then the molecules are ``correlated'' (i.e., too densely packed together).
+\end{definition}
+
+\begin{example}
+  Air has
+  \begin{equation}
+d\approx3.7\times10^{-10}~\mathrm{m},
+  \end{equation}
+  and at STP
+\begin{equation}
+n_{0}\approx2.7\times10^{25}~\mathrm{m}^{-3},
+\end{equation}
+so the mean molecular spacing at STP is
+\begin{equation}
+\delta_{0}\approx3.3\times10^{-9}~\mathrm{m}.
+\end{equation}
+Then we can calculate:
+\begin{subequations}
+  \begin{align}
+\frac{\delta}{d}
+&=\frac{1}{n^{1/3}d}\\
+&=\left(\frac{n_{0}}{n}\right)^{1/3}\left(\frac{1}{n_{0}^{1/3}d}\right)\\
+&\approx\left(\frac{n_{0}}{n}\right)^{1/3}\cdot9.
+  \end{align}
+\end{subequations}
+Then air is a dilute gas when $\delta/d\gg1$, which is to say
+\begin{equation}
+\frac{n}{n_{0}}>2.12
+\end{equation}
+or so.
+\end{example}
+
+\subsection*{Physical length scale is large enough}
+
+\begin{definition}
+We define the \define{Mean Free Path} $\lambda$ which is the average
+distance between collisions (``how far can a molecule go before
+hitting another molecule?'').
+\end{definition}
+
+\begin{node}[Derivation of mean free path]
+If we imagine molecules as spheres with radius $d/2$ half the kinetic
+diameter, then they collide if any other sphere [molecule] is within a
+radius $d$. We can schematically draw this in two dimensions:
+\begin{center}
+\includegraphics{img/img.0}
+\end{center}
+If any molecule's center comes within the dashed circle, then a
+collision must occur. What happens in three dimensions? Well, then we
+work with the cross-section area $\sigma$ of a sphere of radius $d$, which is
+the same as the area of a circle of radius $d$,
+\begin{equation}
+\sigma = \pi d^{2}.
+\end{equation}
+Then consider the molecule traveling a distance $\langle v\rangle t$
+(using the average velocity) will have a mean free path
+\begin{equation}
+\lambda = \frac{\begin{pmatrix}\mbox{distance}\\ \mbox{traveled}
+  \end{pmatrix}}{\begin{pmatrix}\mbox{volume of}\\ \mbox{interaction}
+  \end{pmatrix}\begin{pmatrix}\mbox{number of}\\ \mbox{molecules
+      per}\\ \mbox{unit volume}
+\end{pmatrix}}
+= \frac{(\langle v\rangle t)}{(\pi d^{2}\cdot \langle v\rangle t)(n)} = \frac{1}{\pi d^{2}n}.
+\end{equation}
+This expression is a coarse approximation since we used the average
+molecular velocity, and we implicitly assumed that the molecule hits
+stationary targets. The frequency of collisions depends on the average
+relative velocity of randomly moving molecules. This will change the
+volume of interaction by a factor of $\sqrt{2}\approx1.41$.
+
+The relative velocity between two molecules
+\begin{equation}
+\langle\vec{v}_{\text{rel}}^{2}\rangle=\langle(\vec{v}_{1}-\vec{v}_{2})^{2}\rangle=\langle\vec{v}_{1}^{2}+\vec{v}_{2}^{2}-2\vec{v}_{1}\cdot\vec{v}_{2}\rangle.
+\end{equation}
+But in equilibrium, $\vec{v}_{1}$ and $\vec{v}_{2}$ are random and
+uncorrelated, so
+\begin{equation}
+\langle\vec{v}_{1}\cdot\vec{v}_{2}\rangle=0,
+\end{equation}
+and the relative speed is
+\begin{equation}
+v_{\text{rel}}=\sqrt{\langle\vec{v}_{\text{rel}}^{2}\rangle}=\sqrt{\langle\vec{v}_{1}^{2}+\vec{v}_{2}^{2}\rangle}=\sqrt{2}v.
+\end{equation}
+Then the volume of interaction is
+\begin{equation}
+\begin{pmatrix}\mbox{volume of}\\ \mbox{interaction}
+  \end{pmatrix}=(\pi d^{2})(\sqrt{2}vt),
+\end{equation}
+which changes the mean-free path to
+\begin{equation}
+\lambda=\frac{1}{\sqrt{2}\pi d^{2}n}.
+\end{equation}
+\end{node}
+
+\begin{xca}
+(I thought this would be a good exercise---I do not have access to the
+  class's problem sheets.)
+Recall, in an ideal gas, we have:
+\begin{equation}
+pV = n_{\text{moles}}RT,
+\end{equation}
+and then Avogadro's number $N_{A}$ and the number of moles
+$n_{\text{moles}}$ of substance gives us the number density:
+\begin{equation}
+n = \frac{n_{\text{moles}}N_{A}}{V}.
+\end{equation}
+Show that the mean free path for an ideal gas is then
+\begin{equation}
+\lambda = \frac{RT}{\sqrt{2}\pi d^{2}N_{A}p}.
+\end{equation}
+\end{xca}
+
+\begin{definition}
+The \define{Knudsen Number} $\Kn$ is defined to be the dimensionless
+quantity $\Kn := \lambda/L$ where $\lambda$ is the mean free path and
+$L$ is the length scale of the problem.
+\end{definition}
+
+\begin{node}
+If $\Kn\ll1$, then we can use the continuum approach. (Usually,
+$\Kn<0.1$ is the heuristic used.)
+
+If $\Kn\geq0.1$, then the molecular/microscopic approach should be preferred.
+\end{node}
+
+\begin{remark}
+In some older texts on gas dynamics, they demand even more: they
+insist that $\Kn<0.001$ or so. Just be aware that the heuristic used
+depends on the physical situation under consideration.
+\end{remark}
+
+\begin{example}
+For air, let us consider when $L>10\lambda_{\text{air}}$. We
+find that
+\begin{subequations}
+  \begin{align}
+10\lambda_{\text{air}} &= \frac{10}{\sqrt{2}\pi d^{2}n}\\
+&=\frac{10}{\sqrt{2}\pi d^{2}n_{0}}\left(\frac{n_{0}}{n}\right)\\
+&=\left(\frac{n_{0}}{n}\right)(6.1\times10^{-7}~\mathrm{m}),
+  \end{align}
+\end{subequations}
+or
+\begin{equation}
+\frac{L}{d}=1654\left(\frac{n_{0}}{n}\right).
+\end{equation}
+\end{example}
+
+\subsection*{Meaningful statistics}
+
+\begin{node}
+  If we use the continuum approach, then (for example) mass density is
+  \begin{equation}
+\rho(\vec{x},t)=\frac{M}{V}
+  \end{equation}
+  as $V\to 0$ (where $M$ is the mass contained in the ``test region'' $V$).
+\end{node}
+
+\begin{node}
+If we look at the probability density $P(N)$ describing the
+probability of having $N$ molecules in volume $V$, then it is a
+Poisson-distributed random variable:
+\begin{equation}
+P(N) = \frac{(nV)^{N}\exp(-nV)}{N!}.
+\end{equation}
+Its expected value is $nV$ and its variance is $nV$. Using the
+``plus-or-minus $3\sigma$'' heuristic for describing ``most'' of the
+molecules, we expect
+\begin{equation}
+N\sim nV\pm 3\sqrt{nV}.
+\end{equation}
+However, if $nV-3\sqrt{nV}\leq0$, then things go awry. This only
+happens when $nV$ is ``small'' (say, $nV=1$ or smaller). For $nV\gg1$,
+we'll be safe. So we have the last criterion be:
+\begin{equation}
+nV\gg1.
+\end{equation}
+We will continue discussing this heuristic next time.
+\end{node}
+
+\begin{xca}
+Is the Poisson distribution applicable to this situation or not?
+\end{xca}
+
+\begin{remark}
+The reference for the first and second lecture seems to be based
+heavily on Bird~\cite[Ch~1]{bird1976molecular}.
+\end{remark}
+
+\endinput
