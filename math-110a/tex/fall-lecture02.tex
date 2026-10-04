@@ -1,0 +1,123 @@
+%%
+%% fall-lecture02.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-04T12:45:16-0700
+%% Last update 2026-10-04T12:45:16-0700
+%% 
+
+\lecture{}
+
+\subsection{Continuous maps}
+
+\begin{definition}
+Let $(X,\tau_{X})$, $(Y,\tau_{Y})$ be topological spaces.
+Let $f\colon X\to Y$ be a function. Let $x_{0}\in X$ and
+$y_{0}=f(x_{0})\in Y$. We say that $f$ is \define{Continuous at the Point}
+$x_{0}$ if for any neighborhood $V\subset Y$ of $y_{0}\in V$ there
+exists a neighborhood $x_{0}\in U\subset X$ such that $f(U)\subset V$.
+\end{definition}
+
+\begin{example}
+If $X$ and $Y$ are metric spaces, then for every $\varepsilon>0$ there
+is a $\delta>0$ such that
+\begin{equation}
+\forall x\in X\ldotp d(x,x_{0})<\delta\implies \rho(f(x),f(x_{0}))<\varepsilon
+\end{equation}
+is the usual notion of continuity.
+\end{example}
+
+\begin{definition}
+We say $f\colon X\to Y$ is \define{Continuous} if $f$ is continuous at
+every point of $X$.
+\end{definition}
+
+\begin{theorem}
+We have $f$ is (globally) continuous if and only if the pre-image of
+every open set is open: $V\subset Y$ is open implies $f^{*}V\subset X$
+is open.
+\end{theorem}
+
+\subsection{Product topology}
+
+\begin{node}
+We have a family $(Y_{\lambda},\tau_{\lambda})$ of topological spaces
+where $\lambda\in\Lambda$ is an element of an indexing set. We can
+consider the \emph{set}
+\begin{equation}
+Y=\prod_{\lambda\in\Lambda}Y_{\lambda}.
+\end{equation}
+Elements of $Y$ are generalized sequences
+\begin{equation}
+\vec{y}=(y_{\lambda})_{\lambda\in\Lambda}
+\end{equation}
+where $y_{\lambda}\in Y_{\lambda}$. We write $\vec{Y}=\prod_{\lambda\in\Lambda}Y_{\lambda}$. Now, we have described the set, we
+want to describe the topology.
+
+We denote the coordinate projections
+\begin{equation}
+\pi_{\lambda}\colon\vec{Y}\to Y_{\lambda},
+\end{equation}
+where $\pi_{\lambda}(\vec{y})=y_{\lambda}$.
+\end{node}
+
+\begin{definition}
+The \define{Product Topology} $\tau$ on $\vec{Y}$ is the weakest
+topology that makes all coordinate projections $\pi_{\lambda}$
+continuous. (We know the discrete topology is one such topology, and
+we can just use Zorn's lemma.)
+\end{definition}
+
+\begin{node}
+As a special case: all $(Y_{\lambda},\tau_{\lambda})$ are the same
+sapce $(Y,\tau_{Y})$. The notation for the product
+$\vec{Y}=Y^{\Lambda}$; so if $\Lambda=\NN$, then we have sequences of
+elements of $Y$. We think of elements of $\vec{Y}$ as functions
+$\vec{y}\colon\Lambda\to Y$ sending $\lambda\mapsto y_{\lambda}$.
+\end{node}
+
+\begin{node}
+We have a change of notation: write $X$ instead of $\Lambda$ and
+$Y^{X}$ for the set of maps $X\to Y$. We have the product topology on
+the set of maps. The base for the product topology is
+\begin{equation*}
+\{f\mid \exists n\in\NN\ldotp f(x_{1})\in U_{1},\dots,f(x_{n})\in
+U_{n}, U_{i}\in\tau_{Y}\}
+\end{equation*}
+So only finitely many elements $f(x_{1})$, \dots, $f(x_{n})$ belong to
+open sets.
+\end{node}
+
+\begin{example}
+Consider $X=\NN$ as the indexing set, and $Y=\{0,1\}$ is a 2-element
+set. We give $Y$ the discrete topology $\tau=\powerset{Y}$. Then
+$Y^{X}=\{0,1\}^{\NN}$ is the set of maps. This is the set of sequences
+$y_{1}$, $y_{2}$, \dots, where each $y_{k}\in\{0,1\}$.
+
+Now, consider the Cantor set formed by $K_{1}=[0,1]$,
+$K_{2}=[0,1/3]\cup[2/3,1]$, \dots. Then
+\begin{equation}
+K=\bigcap_{j\in\NN}K_{j}
+\end{equation}
+is the Cantor set. We can assign a finite binary sequence (of length
+$j$) to each component of $K_{j}$. This gives us a bijection
+\begin{equation}
+\{0,1\}^{\NN}\to(K,\tau_{K})
+\end{equation}
+where $\tau_{K}$ is the relative topology of the Cantor set relative
+to the standard topology on $\RR$. Moreover, this is a homeomorphism!
+\end{example}
+
+\subsection{Pointwise convergence}
+
+\begin{theorem}
+Let $f_{1}\colon X\to Y$, $f_{2}\colon X\to Y$, \dots, be a sequence
+of maps in $Y^{X}$. We give $Y^{X}$ the product topology. Then
+$f_{n}\to f$ converges in the product topology on $Y^{X}$ if and only
+if for every $x\in X$ we see the sequence $f_{n}(x)\to f(x)$ converges
+in $Y$.
+\end{theorem}
+
+% p.5
