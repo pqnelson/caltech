@@ -1,0 +1,199 @@
+%%
+%% fall-lecture03.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-04T11:22:43-0700
+%% Last update 2026-10-04T11:22:43-0700
+%% 
+
+\lecture[Continuum description]{}
+
+\begin{node}
+We will be studying integral form of equations of motion. This
+involves a rather lengthy calculation (possibly several).
+\end{node}
+
+\begin{definition}
+We define the \define{Control Volume} (often abbreviated as ``CV'') to
+be a closed region in space with boundary kinematics specified (e.g.,
+a region fixed over time, or moves in a specific way).
+\end{definition}
+
+\begin{definition}
+A \define{System} is a connected material ``continuum''.
+\end{definition}
+
+\begin{node}[Setup and assumptions]
+Consider a system described by a volume $V_{s}(t)$ with
+boundary $\boundary V_{s}(t)$, which evolves over time. Consider also a control
+volume $V_{c}$ with boundary $\boundary V_{c}$ assumed to be
+stationary.
+
+Now we assume that at time $t_{0}$ that
+\begin{equation}
+V_{c}=V_{s}(t_{0}),\quad\mbox{and}\quad\boundary V_{c}=\boundary V_{s}(t_{0}).
+\end{equation}
+That is to say, the system and control volume initially coincide as
+the same region at initial time $t_{0}$.
+\end{node}
+
+\begin{node}
+Let $B(t)$ be the amount of some quantity $b(\vec{x},t)$ per unit
+mass for the system. Then we can describe the amount $B_{c}(t)$ contained in the
+control volume (which will vary with respect to time if the system
+flows into or out of the control volume) which satisfies
+\begin{equation}
+B_{c}(t_{0})=B(t_{0})
+\end{equation}
+and
+\begin{equation}
+B_{c}(t)=\int_{V_{c}}\rho b(\vec{x},t)\,\D^{3}x.
+\end{equation}
+Similarly, the quantity $B(t)$ for the system may be computed as:
+\begin{equation}
+B(t)=\int_{V_{s}(t)}\rho b(\vec{x},t)\,\D^{3}x.
+\end{equation}
+Then at time $t+\D t$, we can compute
+\begin{equation}
+B_{c}(t+\D t)=\int_{V_{c}}\rho b(\vec{x},t+\D t)\,\D^{3}x,
+\end{equation}
+and
+\begin{equation}
+B(t+\D t)=\int_{V_{s}(t+\D t)}\rho b(\vec{x},t + \D t)\,\D^{3}x.
+\end{equation}
+Then if we describe $B_{\text{in}}$ as the amount of $b$ contained in
+$V_{s}(t+\D t)\setminus V_{c}$, and if $B_{\text{out}}$ describes the
+amount of $b$ contained in $V_{c}\setminus V_{s}(t+\D t)$, then we
+find
+\begin{equation}
+B_{c}(t+\D t)=B(t+\D t)+B_{\text{in}}-B_{\text{out}}
+\end{equation}
+by the conservation of mass. Then
+\begin{equation}
+B_{c}(t+\D t)-B_{c}(t)=B(t+\D t)-B(t)+B_{\text{in}}-B_{\text{out}},
+\end{equation}
+or
+\begin{equation}\label{eq:fall:lec03:first-major-step}
+B_{c}(t+\D t)-B_{c}(t)+B_{\text{out}}-B_{\text{in}}=B(t+\D t)-B(t).
+\end{equation}
+This is the first major step in our calculation.
+\end{node}
+
+\begin{node}
+Now, suppose in 3-dimensions, we look at $\boundary V_{c}$ and
+specifically at some small area $\D A$ on $\boundary V_{c}$ with
+outward-pointing unit normal vector $\UnitNormalVec{n}$. Then the
+velocity vector $\vec{u}$ (which has an angle $\alpha$ with $\UnitNormalVec{n}$) going out gives us
+\begin{subequations}
+  \begin{align}
+\D B_{\text{out}} &= \begin{pmatrix}\mbox{amount of $b$
+    that}\\\mbox{crosses $\D A$ in time $\D t$}
+\end{pmatrix}\\
+&= \rho b \underbrace{\vec{u}\cdot\UnitNormalVec{n}\,\D A\,\D
+  t}_{\text{volume of cylinder}}|_{|\alpha|<\pi/2}
+  \end{align}
+\end{subequations}
+The angle $\alpha$ between $\vec{u}$ and $\UnitNormalVec{n}$ must be
+less than $|\alpha|<90^{\circ}$ for this to be outgoing. Similarly,
+for incoming molecules, we must use the inward-pointing unit normal
+vector (which, in our notation, is just $-\UnitNormalVec{n}$):
+\begin{equation}
+\D B_{\text{in}}=-\rho b \vec{u}\cdot\UnitNormalVec{n}\,\D A\,\D t|_{|\alpha|>\pi/2}
+\end{equation}
+where the leading minus sign comes from the fact that we are using the
+inward-pointing unit normal vector. Then
+\begin{subequations}
+  \begin{align}
+B_{\text{out}}-B_{\text{in}} &= \oint_{\boundary V_{c}}\D B_{\text{out}}-\D B_{\text{in}}\\
+&=\oint_{\boundary V_{c}}\rho b \vec{u}\cdot\UnitNormalVec{n}\,\D A\,\D t|_{|\alpha|<\pi/2}-(-\rho b \vec{u}\cdot\UnitNormalVec{n})\,\D A\,\D t|_{|\alpha|>\pi/2}\\
+&=\oint_{\boundary V_{c}}\rho b \vec{u}\cdot\UnitNormalVec{n}\,\D A\,\D t.
+  \end{align}
+\end{subequations}
+This is the second major step in our calculation.
+\end{node}
+
+\begin{node}
+We can now recall
+Eq~\eqref{eq:fall:lec03:first-major-step}
+\begin{equation}
+\underbrace{B_{c}(t+\D t)-B_{c}(t)}_{=\D B_{c}(t)}+B_{\text{out}}-B_{\text{in}}=\underbrace{B(t+\D t)-B(t)}_{=\D B(t)}.
+\end{equation}
+We ``divide through by $\D t$'' (wink wink) and use the second major
+result to get
+\begin{equation}
+\frac{D B}{D t}=\frac{\partial B_{c}}{\partial t}+\oint_{\boundary V_{c}}\rho b \vec{u}\cdot\UnitNormalVec{n}\,\D A
+\end{equation}
+where $D/D t$ is the ``material derivative'' which accounts for
+advective contributions.
+\end{node}
+
+\begin{theorem}[Reynolds transport]
+For a possibly moving control volume $V_{c}(t)$, we have
+\begin{equation}
+\frac{D}{D t}\int_{V_{s}(t)}\rho b\,\D V_{s} =
+\frac{\D}{\D t}\int_{V_{c}(t)}\rho b\,\D V_{c} +
+\oint_{\boundary V_{c}(t)}\rho b(\vec{u}-\vec{u}_{c})\cdot\UnitNormalVec{n}\,\D A_{c}
+\end{equation}
+where $\vec{u}_{c}$ is the velocity of $V_{c}$ the control volume,
+or intuitively
+\begin{equation}
+  \begin{pmatrix}\mbox{Rate of change}\\
+    \mbox{in $B$ for}\\
+    \mbox{the system}
+  \end{pmatrix}=
+  \begin{pmatrix}\mbox{Rate of change}\\
+    \mbox{in $B$ for}\\
+    \mbox{the CV}
+  \end{pmatrix} + 
+  \begin{pmatrix}\mbox{Net flux of $B$}\\
+    \mbox{across the control volume}
+  \end{pmatrix}
+\end{equation}
+\end{theorem}
+
+\begin{remark}
+If $V_{c}$ is stationary (i.e., it is not moving in time),
+then we have
+\begin{equation}
+\frac{\D}{\D t}\int_{V_{c}}\rho b\,\D V_{c}
+=\int_{V_{c}}\frac{\partial(\rho b)}{\partial t}\,\D V_{c}.
+\end{equation}
+This should be obvious to everyone who remembers basic vector
+calculus. 
+\end{remark}
+
+\begin{example}
+Suppose we wanted to look at mass. Then we have $b=1$, so
+\begin{equation}
+B=\int_{V}\rho\,\D V
+\end{equation}
+is the mass of the system. Physics tells us that mass is conserved, so
+\begin{equation}
+\frac{D B}{D t}=0
+\end{equation}
+must be satisfied. This gives us the condition (which is \emph{always}
+true at this level of approximation\footnote{For quantum field theory,
+it's not true. But no one is concerned about fluids at that scale.})
+\begin{equation}
+0=\partial_{t}\int_{V_{c}}\rho\,\D V_{c}+\oint_{\boundary V_{c}}\rho\vec{u}\cdot\UnitNormalVec{n}\,\D A.
+\end{equation}
+\end{example}
+
+\begin{node}
+If we further assume a \define{Steady Flow} (so partial derivatives
+with respect to time vanish), then we have mass conservation give us:
+\begin{equation}
+0=\oint_{\boundary V_{c}}\rho\vec{u}\cdot\UnitNormalVec{n}\,\D A.
+\end{equation}
+\end{node}
+
+\begin{node}
+A weaker assumption than stead flow is that we have an
+\define{Incompressible Flow} (where the amount of fluid in a fixed
+control volume is constant, so $\rho$ is effectively constant), we have
+\begin{equation}
+0=\oint_{\boundary V_{c}}\vec{u}\cdot\UnitNormalVec{n}\,\D A.
+\end{equation}
+\end{node}
