@@ -1,0 +1,159 @@
+%%
+%% fall-lecture05.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-08T10:29:13-0700
+%% Last update 2026-10-08T10:29:13-0700
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $(X,\topology)$ be a topological space. Let $U\subset X$ and
+$G\subset X$ be arbitrary subsets such that
+$U\subset G$. Then we write $U\Subset G$ if $\closure{U}\subset G$.
+\end{definition}
+
+\begin{lemma}[Urysohn]
+Let $(X,\topology)$ be a normal space. Let $F_{0}$ and $F_{1}$ be two
+disjoint subsets of $X$. Then there exists a continuous function
+$f\colon X\to[0,1]$ such that $f|_{F_{0}}=0$ and $f|_{F_{1}}=1$.
+\end{lemma}
+
+\begin{proof}[Proof (for metric spaces)]
+Set
+\begin{equation}
+f(x)=\frac{\rho(x,F_{0})}{\rho(x,F_{0})+\rho(x,F_{1})},
+\end{equation}
+which is continuous, the denominator is never zero, and takes values
+in $[0,1]$. This satisfies the lemma.
+\end{proof}
+
+\begin{proof}[Proof (arbitrary spaces)]
+Consider the following situation: we have a closed set $F$, and an
+open set $G$ and $F\subset G$. Then $G^{\complement}=X\setminus G$
+is closed. Then we use the $T_{4}$ axiom to find a neighborhood $U$ of
+$FR$ and a neighborhood $V$ of $G^{\complement}$. This means we have
+by separation $F\Subset U\Subset G$. We will form a family $U_{q}$ of
+subsets where $q\in\QQ\cap(0,1)$. We define $U_{1/2}:=U$.
+
+Now, we iterate this construction using $F=F_{0}$ and $G=U_{1/2}$ to
+get $U_{1/3}$; and similarly for $F=U_{1/2}$ and $G=G$ we obtain
+$U_{2/3}$. After one step we get
+\begin{equation}
+F_{0}\Subset U_{1/3}\Subset U_{1/2}\Subset U_{2/3}\Subset G.
+\end{equation}
+The book-keeping with the indices may be understood as follows. The
+first step, we have $0/1$ and $1/1$, then obtain
+\begin{equation}
+\frac{0+1}{1+1}=\frac{1}{2},
+\end{equation}
+which is why we named $U_{1/2}:=U$. The second step, we have the
+indices $(0/1, 1/2, 1/1)$ and we obtain
+\begin{equation}
+\frac{0+1}{1+2}=\frac{1}{3},\quad\mbox{and}\quad\frac{1+1}{2+1}=\frac{2}{3}.
+\end{equation}
+The third step $(0/1, 1/3)$ gives $1/4$, $(1/3,1/2)$ gives us $2/5$,
+$(1/2,2/3)$ gives us $3/5$, $(2/3,1/1)$ gives us $3/4$. And so on
+\textit{ad infinitum}. This sequence of indices are the \define{Farey sequence}
+of rational numbers written in reduced form.
+
+We claim: given disjoint closed subsets $F_{0}$, $F_{1}$, there exists
+a family $U_{q}$ of neighborhoods where $q\in\QQ\cap(0,1)$ and for any
+$r<s$ we have $F_{0}\Subset U_{r}\Subset U_{s}\Subset F_{1}$. (We
+should think of this like a topographic map $U_{r}$ has height $r\in\QQ\cap(0,1)$.)
+
+Define
+\begin{equation}
+f(x):=\inf\{r\in\QQ\cap(0,1)\mid x\in U_{r}\}.
+\end{equation}
+We claim
+\begin{enumerate}
+\item $f=0$ on $F_{0}$ [Pf: let $x\in F_{0}$ be arbitrary, then $x\in U_{r}$
+  for all $r\in\QQ\cap(0,1)$. Therefore $f(x)=\inf(\QQ\cap(0,1))=0$.]
+\item $f=1$ on $F_{1}$ [Pf: similar to (1)]
+\item $f$ is continuous.
+\end{enumerate}
+Now, for continuity, look at the preimages of open sets. The preimage
+of $f^{-1}((-\infty,\alpha))=\{x\in X\mid f(x)<\alpha\}$. But
+$f(x)=\alpha$ iff $\inf\{r\mid x\in U_{r}\}=\alpha$ iff $x\in U_{r}$
+for some $r<\alpha$ iff $x\in\bigcup U_{r}$ which is open. Similarly,
+$f^{-1}((\alpha,+\infty))=\bigcup_{r>\alpha}(\closure{U_{r}})^{\complement}$
+which is open.
+
+Lemma 1: Half-lines $(-\infty, a)$ and $(b,+\infty)$ where $a,b\in\QQ$
+generate the standard topology on $\RR$.
+
+Lemma 2: If $f\colon(X,\topology_{X})\to(Y,\topology_{Y})$ is a map
+between topological spaces and $\mathcal{E}\subset\powerset{Y}$ [is a
+  family of subsets of $Y$] generates $\topology_{Y}$ the topology of
+$Y$, then $f$ is continuous iff for any $V\in\mathcal{E}$ we have its preimage
+$f^{-1}V\in\topology_{X}$ is open.
+
+If you believe these lemmas, then Urysohn's lemma follows immediately.
+\end{proof}
+
+\begin{problem}
+Given a topological space, can its topology be described by a metric?
+\end{problem}
+
+\begin{notation}
+We write $(M)$ for the metrizable topological spaces.
+\end{notation}
+
+\begin{node}
+We know that metrizable spaces are first-countable. And we know
+metrizable spaces are normal. But there are first-countable normal
+spaces which are not metrizable.
+\end{node}
+
+\begin{node}
+We can prove that regular Lindel\"{o}f spaces are metrizable, which is
+stronger than the result we want to prove today. We want to prove that
+second-countable normal spaces are metrizable. This is sufficient, but
+there are stronger conditions. There are necessary and sufficient
+conditions for metrizable spaces, but they are inelegant.
+
+Note: metrizable spaces are not always second-countable normal spaces.
+\end{node}
+
+\begin{node}[Strategy] The proof strategy consists of two steps:
+\begin{enumerate}
+\item Define \define{Hilbert cube} $H=[0,1]^{\NN}$ the product space
+  of countably many intervals; we claim $H$ is metrizable.
+\item If $X$ is a second-countable normal space, then there exists a
+  map $f\colon X\to H$ which is an emedding (i.e., an injective
+  continuous map---equivalently, $f\colon X\to f(X)$ is a
+  homeomorphism when we give $f(X)$ the relative topology). Then
+  $f(X)$ is metrizable, hence $X$ must be metrizable.
+\end{enumerate}
+We will need the Baer sets $G_{\delta}$.
+\end{node}
+
+\begin{definition}
+Let $(X,\topology)$ be a topological space. Let $E\subset X$ be a
+subset. We say that $E$ is \define{$G_{\delta}$} if we can represent
+$E$ as the countable intersection of open sets.
+\end{definition}
+
+\begin{example}
+If $X$ is a metric space, then all closed sets are $G_{\delta}$ (just
+take all $\varepsilon=1/n$ neighborhoods of the closed set).
+\end{example}
+
+\begin{example}
+Let $(X,\topology)$ be a topological space. Let $f\colon X\to[0,1]$
+be a continuous function. Then $f^{-1}(\{0\})$ the preimage of $0$ is
+closed $G_{\delta}$.
+
+This is because $\RR$ is a metric space, therefore $\{0\}$ is a closed
+$G_{\delta}$ subset of $\RR$. Then we can lift it using the
+preimage. This is because the preimage preserves open sets and
+intersections. Therefore the $G_{\delta}$ condition is preserved.
+\end{example}
+
+\begin{lemma}
+Second-countable normal spaces have closed subsets be $G_{\delta}$.
+\end{lemma}

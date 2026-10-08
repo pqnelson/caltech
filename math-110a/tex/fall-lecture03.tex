@@ -1,0 +1,159 @@
+%%
+%% fall-lecture03.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-08T09:29:44-0700
+%% Last update 2026-10-08T09:29:44-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+The problem set will be Folland, Chapter 4, problems: 6, 14, 20, 26, 32.
+Today we will cover roughly Folland~\S4.3.
+\end{node}
+
+\begin{recall}
+We saw how sequences were inadequate to fully describe topologies. But
+there is hope for ``generalized sequences'' (nets) could do this.
+\end{recall}
+
+\begin{definition}
+A \define{Directed Set} $(\Lambda,\lesssim)$ is a paritally ordered
+set [i.e., transitive $\lambda_{1}\lesssim\lambda_{2}$ and
+  $\lambda_{2}\lesssim\lambda_{3}$ implies $\lambda_{1}\lesssim\lambda_{3}$,
+  and reflexive $\lambda\lesssim\lambda$] satisfying:
+\begin{enumerate}
+\item for every $\lambda_{1}$, $\lambda_{2}\in\Lambda$, there exists a
+  $\lambda\in\Lambda$ such that $\lambda_{1}\lesssim\lambda$ and
+  $\lambda_{2}\lesssim\lambda$ [i.e., $\lambda$ is even bigger than
+  both $\lambda_{1}$ and $\lambda_{2}$]. 
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+We see $\Lambda=\NN$ with the usual ordering is a directed set.
+\end{example}
+
+\begin{example}
+Let $(A,\lesssim)$ and $(B,\lesssim)$ be two directed sets.
+We see that $\Lambda=A\times B$ with $(a,b)\lesssim(a',b')$ iff
+$a\lesssim a'$ and $b\lesssim b'$. This is a directed set.
+\end{example}
+
+\begin{example}
+Let $(X,\topology)$ be a topological space. Let $x\in X$ be a point.
+Define $\Lambda$ as some ``neighborhood base'' at $x$ (so $\Lambda$ is
+a collection of neighborhoods of $x$ such that for every neighborhood
+$U$ of $x$, there exists a $V\in\Lambda$ such that $V\subset U$). Then
+$\lambda_{1}\lesssim\lambda_{2}$ iff $U_{\lambda_{2}}\subset U_{\lambda_{1}}$
+(this is directed by reverse inclusion).
+\end{example}
+
+\begin{definition}
+Let $(X,\topology)$ be a topological space. A \define{Net} is a map
+$\Lambda\to X$ where $\Lambda$ is a directed set. The notation for a
+net is usually written as $\{x_{\lambda}\}_{\lambda\in\Lambda}$.
+\end{definition}
+
+\begin{definition}
+Let $(X,\topology)$ be a topological space.
+Let $\{x_{\lambda}\}_{\lambda\in\Lambda}$ be a net on $X$. We say
+$x_{\lambda}$ \define{Converges to} $x$ (and write it as
+``$x_{\lambda}\to x$'') if for every neighborhood $U\ni x$ of $x$,
+there exists a $\lambda_{0}\in\Lambda$ such that for all
+$\lambda\in\Lambda$ we have $\lambda\geq\lambda_{0}$ implies
+$x_{\lambda}\in U$.
+\end{definition}
+
+\begin{remark}
+Observe that a net defined on the directed set $\NN$ is precisely the
+usual notion of a sequence we all know and love. Moreover, we recover
+the usual notion of convergence of sequences when we look at
+``convergence of nets''.
+\end{remark}
+
+\begin{theorem}
+For any topological space $(X,\topology)$, for any subset $E\subset X$,
+for any point $x\in X$, we have $x\in\closure{E}$ if and only
+if there exists a net $\{x_{\lambda}\}_{\lambda\in\Lambda}$ in $E$
+such that $x_{\lambda}\to x$ (the net converges to $x$).
+\end{theorem}
+
+\begin{theorem}
+If $f\colon X\to Y$ is a function between topological spaces,
+then $f$ is continuous at $x\in X$ if and only if $x_{\lambda}\to x$
+implies $f(x_{\lambda})\to f(x)$.
+\end{theorem}
+
+\begin{theorem}
+We have $f_{\lambda}\to f$ is a convergent net in $\Maps(X,Y)=Y^{X}$ the
+space of maps if and only if for all $x\in X$ we have
+$f_{\lambda}(x)\to f(x)$ converges pointwise.
+\end{theorem}
+
+\subsection{Countability axioms of topological spaces}
+
+\begin{definition}
+A topological space $(X,\topology)$ is \define{First Countable}
+if every point has a countable neighborhood base. We indicate this by
+writing $(X,\topology)\in(A1)$.
+\end{definition}
+
+\begin{example}
+Every metric space is first-countable. Just consider the open balls
+$B(x,1/n)$ for $n\in\NN$ as the base.
+\end{example}
+
+\begin{remark}
+First-countability is a \emph{local} property, i.e., considered about
+a point (for every point).
+\end{remark}
+
+\begin{theorem}
+Let $(X,\topology)$ be a \emph{first-countable} space. Let $E\subset X$.
+Let $x\in X$. Then $x\in\closure{E}$ if and only if there exists a
+(``standard'') sequence $(x_{n})\subset E$ such that $x_{n}\to x$.
+\end{theorem}
+
+\begin{definition}
+We call the topological space $(X,\topology)$ \define{Second Countable}
+if there exists a countable base for the topology. We sometimes write
+this as $(X,\topology)\in(A2)$.
+\end{definition}
+
+\begin{theorem}
+Second-countable spaces are first-countable.
+\end{theorem}
+
+\begin{lemma}
+A subset $\beta\subset\topology$ (of a topology $\topology$) is a base
+if and only if $\beta$ contains a neighborhood base at every point.
+\end{lemma}
+
+\begin{example}
+Let $X=\ell^{\infty}(\NN)$ consist of bounded sequences
+$(a_{1},a_{2},\dots)$. Let us use the sup-metric
+\begin{equation}
+\rho(a,b)=\sup_{n}|a_{n}-b_{n}|.
+\end{equation}
+Then $(X,\rho)$ is a metric space, so it is first-countable. But it is
+\emph{not} second-countable!
+\end{example}
+
+\begin{proof}
+We want to show $\ell^{\infty}$ does not have a countable base for its
+metric topology. Consider, for every $A\subset\NN$, the indicator
+function on $A$. The set $2^{\NN}$ is uncountable (duh). Then the set
+of $(x_{n})$ where $x_{n}=\mathbf{1}_{A}(n)$ for each $A\subset\NN$,
+and the distance between any two such $A,B\subset\NN$ where $A\neq B$
+is $1$. Then we have an uncountable set of elements of $\ell^{\infty}$
+which are a distance 1 far from each other. This cannot happen for
+second-countable spaces: if $\ell^{\infty}$ were second-countable,
+there would be a countable dense set, rom which you can find distinct
+arbitrarily close points from the dense set $\{\mathbf{1}_{A}\mid A\subset\NN\}$,
+which gives an injective function from an uncountable set to a
+countable set, which is a contradiction.
+\end{proof}

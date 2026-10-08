@@ -13,7 +13,7 @@
 \subsection{Continuous maps}
 
 \begin{definition}
-Let $(X,\tau_{X})$, $(Y,\tau_{Y})$ be topological spaces.
+Let $(X,\topology_{X})$, $(Y,\topology_{Y})$ be topological spaces.
 Let $f\colon X\to Y$ be a function. Let $x_{0}\in X$ and
 $y_{0}=f(x_{0})\in Y$. We say that $f$ is \define{Continuous at the Point}
 $x_{0}$ if for any neighborhood $V\subset Y$ of $y_{0}\in V$ there
@@ -43,7 +43,7 @@ is open.
 \subsection{Product topology}
 
 \begin{node}
-We have a family $(Y_{\lambda},\tau_{\lambda})$ of topological spaces
+We have a family $(Y_{\lambda},\topology_{\lambda})$ of topological spaces
 where $\lambda\in\Lambda$ is an element of an indexing set. We can
 consider the \emph{set}
 \begin{equation}
@@ -64,15 +64,15 @@ where $\pi_{\lambda}(\vec{y})=y_{\lambda}$.
 \end{node}
 
 \begin{definition}
-The \define{Product Topology} $\tau$ on $\vec{Y}$ is the weakest
+The \define{Product Topology} $\topology$ on $\vec{Y}$ is the weakest
 topology that makes all coordinate projections $\pi_{\lambda}$
 continuous. (We know the discrete topology is one such topology, and
 we can just use Zorn's lemma.)
 \end{definition}
 
 \begin{node}
-As a special case: all $(Y_{\lambda},\tau_{\lambda})$ are the same
-sapce $(Y,\tau_{Y})$. The notation for the product
+As a special case: all $(Y_{\lambda},\topology_{\lambda})$ are the same
+sapce $(Y,\topology_{Y})$. The notation for the product
 $\vec{Y}=Y^{\Lambda}$; so if $\Lambda=\NN$, then we have sequences of
 elements of $Y$. We think of elements of $\vec{Y}$ as functions
 $\vec{y}\colon\Lambda\to Y$ sending $\lambda\mapsto y_{\lambda}$.
@@ -84,7 +84,7 @@ $Y^{X}$ for the set of maps $X\to Y$. We have the product topology on
 the set of maps. The base for the product topology is
 \begin{equation*}
 \{f\mid \exists n\in\NN\ldotp f(x_{1})\in U_{1},\dots,f(x_{n})\in
-U_{n}, U_{i}\in\tau_{Y}\}
+U_{n}, U_{i}\in\topology_{Y}\}
 \end{equation*}
 So only finitely many elements $f(x_{1})$, \dots, $f(x_{n})$ belong to
 open sets.
@@ -92,7 +92,7 @@ open sets.
 
 \begin{example}
 Consider $X=\NN$ as the indexing set, and $Y=\{0,1\}$ is a 2-element
-set. We give $Y$ the discrete topology $\tau=\powerset{Y}$. Then
+set. We give $Y$ the discrete topology $\topology=\powerset{Y}$. Then
 $Y^{X}=\{0,1\}^{\NN}$ is the set of maps. This is the set of sequences
 $y_{1}$, $y_{2}$, \dots, where each $y_{k}\in\{0,1\}$.
 
@@ -104,10 +104,16 @@ K=\bigcap_{j\in\NN}K_{j}
 is the Cantor set. We can assign a finite binary sequence (of length
 $j$) to each component of $K_{j}$. This gives us a bijection
 \begin{equation}
-\{0,1\}^{\NN}\to(K,\tau_{K})
+\{0,1\}^{\NN}\to(K,\topology_{K})
 \end{equation}
-where $\tau_{K}$ is the relative topology of the Cantor set relative
-to the standard topology on $\RR$. Moreover, this is a homeomorphism!
+where $\topology_{K}$ is the relative topology of the Cantor set relative
+to the standard topology on $\RR$. It assigns $(0,1)$ to $K_{2}$ ---
+$0$ to the ``left component'' and $1$ to the ``right component''. Then
+it uses $0$ as the prefix to the subsequence assigned to $K_{3}$'s
+left component $(00,01)$ and $1$ as the prefix to the subsequence
+assigned to $K_{3}$'s right component $(10,11)$. Then it uses these as
+prefixes again, \textit{ad infinitum}.
+Moreover, this is a homeomorphism!
 \end{example}
 
 \subsection{Pointwise convergence}
@@ -119,5 +125,56 @@ $f_{n}\to f$ converges in the product topology on $Y^{X}$ if and only
 if for every $x\in X$ we see the sequence $f_{n}(x)\to f(x)$ converges
 in $Y$.
 \end{theorem}
+
+\begin{aside}[Convergence of generalized sequences (a.k.a, ``nets'')]
+For metric spaces, we have many examples where topology is described
+in terms of sequences. For example:
+\begin{enumerate}
+\item Let $(X,d)$ be a metric space. Let $E\subset X$ be some subset
+  of $X$. We have $x\in\closure{E}$ if and only if there exists a
+  sequence $(x_{n})\subset E$ such that $x_{n}\to x$
+\item A function $f\colon(X,d)\to(Y,\rho)$ between metric spaces is
+  continuous at $x\in X$ if and only if for any sequence $x_{n}\to x$
+  we have $f(x_{n})\to f(x)$
+\item If $d$ and $\rho$ are metrics on $X$, then they have the same
+  topologies if and only if they (the metrics) have the same
+  convergent sequences.
+\end{enumerate}
+Do these statements extend to general topological spaces?
+\end{aside}
+
+\begin{example}
+The first claim: \textit{For any topological space $(X,\topology)$, for any
+  point $x\in X$, for any subset $E\subset X$, $x\in\closure{E}$ if
+  and only if for any sequence $(x_{n})\subset E$ we have $x_{n}\to x$}.
+No, this is famously not true in general.
+\end{example}
+
+\begin{example}
+The second claim: \textit{$f\colon X\to Y$ is continuous at $x\in X$ if and
+only if for any sequence $(x_{n})$ such that $x_{n}\to x$ we have
+$f(x_{n})\to f(x)$.} Is this true in general?
+
+\forwardproof\ This is trivially true for topological spaces.
+
+\backwardproof\ Generally, this direction is \emph{not true}. We will
+conclude this class by giving a counter-example.
+
+Let $X$ be an uncountable set with the co-countable topology. Let
+$x_{n}\to x$ converge in the co-countable topology. Let
+$A=\{x_{1},x_{2},\dots\}\setminus\{x\}$ be the image of this sequence,
+excluding the point where it converges. Then $A$ is countable,
+therefore $A$ is closed, so its complement $X\setminus A$ is open. In
+particular, $x\in X\setminus A$. So $X\setminus A$ is an open
+neighborhood of $x\in X\setminus A$. Since $x_{n}\to x$, there exists
+an $N\in\NN$ such that $x_{n}=x$ for all $n\geq N$. The conclusion is
+that $x_{n}\to x$ in the co-countable topology if and only if
+$x_{n}=x$ for all $n\geq N$.
+
+But this criteria ($x_{n}=x$ for all $n\geq N$) is convergence in the
+\emph{discrete} topology! So we have two very different topologies
+(discrete and co-countable) which have the same set of convergent
+sequences. 
+\end{example}
 
 % p.5

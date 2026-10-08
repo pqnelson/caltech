@@ -7,10 +7,17 @@
 %% Started on  2026-10-04T12:19:06-0700
 %% Last update 2026-10-04T12:19:06-0700
 %%
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{notation}[2026/10/04 notation for Math 110A]
+
+\DeclareMathOperator\Maps{Maps}
+\newcommand*\topology{\tau}
 
 \let\TopEquiv\approx
 \newcommand*\powerset[1]{\mathcal{P}(#1)}
 \DeclareMathOperator\Interior{Int}
+\DeclareMathOperator\Clos{clos}
+\newcommand*\closure[1]{\overline{#1}}
 %\newcommand*\Interior[1]{
 
 \let\propersubset\subset
@@ -19,6 +26,7 @@
 \let\supset\supseteq
 
 \def\NN{\mathbb{N}}
+\def\QQ{\mathbb{Q}}
 \def\RR{\mathbb{R}}
 \def\ZZ{\mathbb{Z}}
 
