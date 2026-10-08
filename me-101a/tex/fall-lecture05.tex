@@ -1,0 +1,226 @@
+%%
+%% fall-lecture05.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-08T08:43:28-0700
+%% Last update 2026-10-08T08:43:28-0700
+%% 
+
+\lecture[]{}
+
+\subsection{``Einstein'' summation convention}
+
+\begin{remark}
+Just an aside to the reader (probably ``future me''): Engineers use
+\textbf{Euclidean summation convention} (where we sum over \emph{any} repeated
+indices, without caring if they ``live upstairs'' [are superscripts]
+or ``live downstairs'' [are subscripts]) but insist this is ``Einstein
+summation convention'' (which requires one index to live upstairs and
+the other index to live downstairs). This is unfortunate.
+\end{remark}
+
+\begin{node}
+Vectors $\vec{a}\in\RR^{3}$ may be written as
+\begin{equation}
+\vec{a} = \begin{bmatrix}a_{1}\\
+a_{2}\\
+a_{3}
+\end{bmatrix}
+\end{equation}
+Similarly for $\vec{b}$ we may write it out as a column vector. Then
+we have
+\begin{equation}
+\vec{a}\cdot\vec{b}=\sum^{3}_{i=1}a_{i}b_{i}
+\end{equation}
+and the convention adopted is to simply omit the sum
+\begin{equation}
+\vec{a}\cdot\vec{b}=\sum^{3}_{i=1}a_{i}b_{i}=a_{i}b_{i}.
+\end{equation}
+When two indices are repeated, they are summed over. The choice of
+index is irrelevant, it becomes a ``dummy variable'' (like the
+variable of integration).
+\end{node}
+
+\begin{example}
+The gradient of $f$
+\begin{subequations}
+  \begin{align}
+\vec{\nabla}f &= \partial_{x}f\,\vec{e}_{x} +
+\partial_{y}f\,\vec{e}_{y} + \partial_{z}f\,\vec{e}_{z}\\
+&= \partial_{i}f\,\vec{e}_{i}.
+  \end{align}
+\end{subequations}
+\end{example}
+
+\begin{example}
+The Laplacian of a scalar function $f$ is
+\begin{equation}
+\nabla^{2}f = \partial_{i}\partial_{i}f.
+\end{equation}
+\end{example}
+
+\begin{example}
+The divergence of a vector
+\begin{equation}
+\vec{\nabla}\cdot\vec{f}=\partial_{i}f_{i}.
+\end{equation}
+Observe that $\partial_{j}f_{i}$ is a $3\times3$ matrix.
+\end{example}
+
+\begin{example}
+The Kronecker delta
+\begin{equation}
+\delta_{i,j} = \begin{cases}1 & \mbox{if }i=j\\
+0 & \mbox{if }i\neq j
+\end{cases}
+\end{equation}
+\end{example}
+
+\begin{example}
+Matrix multiplication $\vec{b}=M\vec{a}$ in index notation
+\begin{equation}
+b_{i}=M_{ij}a_{j}.
+\end{equation}
+\end{example}
+
+\begin{example}
+Coordinate transformations from $\widehat{x}_{i}$ to $\widehat{x}'_{i}$
+is handled by a rotation matrix $R_{ij}$ giving us
+\begin{equation}
+\vec{x}'=R\vec{x}
+\end{equation}
+or
+\begin{equation}
+x'_{i}=R_{ij}x_{j}
+\end{equation}
+This has the property
+\begin{equation}
+RR^{\mathsf{T}}=I
+\end{equation}
+which in index notation
+\begin{equation}
+R_{ik}(R^{\mathsf{T}})_{kj}=R_{ik}R_{jk}=\delta_{i,j}.
+\end{equation}
+\end{example}
+
+\begin{example}
+The Levi--Civita symbol
+\begin{equation}
+\varepsilon_{ijk} = \begin{cases}
+  0 & \mbox{if $i$, $j$, $k$ repeat}\\
+  1 & \mbox{if $(i,j,k)$ is an even permutation}\\
+  -1 & \mbox{if $(i,j,k)$ is an odd permutation}
+\end{cases}
+\end{equation}
+Then the cross product
+\begin{equation}
+(\vec{a}\times\vec{b})_{k}=\varepsilon_{ijk}a_{i}b_{j}.
+\end{equation}
+\end{example}
+
+\begin{example}
+The divergence theorem in vector notation
+\begin{equation}
+\oint_{A}\vec{f}\cdot\UnitNormalVec{n}\,\D A =
+\iiint_{V}\vec{\nabla}\cdot\vec{f}\,\D V
+\end{equation}
+becomes, in index notation,
+\begin{equation}
+\oint_{A}f_{i}\widehat{n}_{i}\,\D A =
+\iiint_{V}\partial_{i}f_{i}\,\D V.
+\end{equation}
+\end{example}
+
+\subsection{Equations of motion in differential form}
+
+\begin{node}[Mass conservation]
+We see the conservation from Reynolds transport theorem, Eq~\eqref{eq:fall:lec3:mass-conservation},
+\begin{equation}
+0=\partial_{t}\int_{V_{c}}\rho\,\D V_{c}+\oint_{\boundary V_{c}}\rho\vec{u}\cdot\UnitNormalVec{n}\,\D A.
+\end{equation}
+In index notation
+\begin{equation}
+0=\partial_{t}\int_{V_{c}}\rho\,\D V_{c}+\oint_{\boundary V_{c}}\rho(u_{i}\widehat{n}_{i})\,\D A.
+\end{equation}
+Then using the divergence theorem, we have
+\begin{equation}
+0=\partial_{t}\int_{V_{c}}\rho\,\D V_{c}+\int_{V_{c}}\partial_{i}(\rho u_{i})\,\D V_{c}.
+\end{equation}
+For a \emph{stationary} control volume, this becomes
+\begin{equation}
+0=\int_{V_{c}}(\partial_{t}\rho + \partial_{i}(\rho u_{i}))\,\D V_{c}.
+\end{equation}
+But we had the control volume be \emph{completely arbitrary}. This is
+a standard trick in PDEs to assert the integrand \emph{must} be
+identically zero, giving us the equation:
+\begin{equation}
+0=\partial_{t}\rho + \partial_{i}(\rho u_{i}).
+\end{equation}
+This is the \define{Continuity Equation}. We could think of it as a
+``pointwise'' conservation of mass. We can also think of it as using
+an ``infinitesimal'' control volume.
+
+However, this is just 1 equation in 4 unknowns (three from the
+velocities $u_{i}$, and one from the density $\rho$). So this will not
+have a unique solution (it could have a 3-parameter family of solutions).
+\end{node}
+
+\begin{node}[Momentum equations]
+The idea is the same as before. Re-written using index notation,
+\begin{equation}
+\partial_{t}\iiint_{V_{c}}\rho u_{i}\,\D V_{c} + \oint_{\boundary V_{c}}\rho u_{i}u_{j}\widehat{n}_{j}\,\D A_{i}
+=\iiint_{V_{c}}\gamma_{i}\,\D V_{c}+\oint_{\boundary V_{c}}f_{i}\,\D A_{c},
+\end{equation}
+which is really 3 equations (one for each $i=1,2,3$). Then using the
+divergence theorem,
+\begin{subequations}
+  \begin{align}
+&\partial_{t}\iiint_{V_{c}}\rho u_{i}\,\D V_{c} + \iiint_{V_{c}}\partial_{j}(\rho u_{i}u_{j})\,\D A_{i}\nonumber\\
+&=\iiint_{V_{c}}\gamma_{i}\,\D V_{c} + \oint_{\boundary V_{c}}f_{i}\,\D A_{c}\\
+\intertext{but assuming all surface forces are of the form $f_{i}=\sigma_{ij}n_{j}$,}
+&=\iiint_{V_{c}}\gamma_{i}\,\D V_{c} + \oint_{\boundary V_{c}}\sigma_{ij}n_{j}\,\D A_{c}\\
+&=\iiint_{V_{c}}(\gamma_{i} + \partial_{j}\sigma_{ij})\,\D V_{c}.
+  \end{align}
+\end{subequations}
+We can collect terms on one side, pulling everything into one big integral:
+\begin{equation}
+\iiint_{V_{c}}[\partial_{t}(\rho u_{i})+\partial_{j}(\rho u_{i}u_{j})
+  - \gamma_{i} - \partial_{j}\sigma_{ij}]\,\D V_{c}=0.
+\end{equation}
+Since the control volume was chosen arbitrarily, this means we must
+have the integrand must vanish:
+\begin{equation}
+\partial_{t}(\rho u_{i}) + \partial_{j}(\rho u_{i}u_{j}) = \gamma_{i} + \partial_{j}\sigma_{ij}.
+\end{equation}
+This is the conservation of (linear) momentum equation in differential form.
+\end{node}
+
+\begin{definition}
+The \define{Stress Tensor} $\sigma_{ij}$ is a symmetric tensor (has 6
+independent components in $\RR^{3}$) and can be decomposed as
+\begin{equation}
+\sigma_{ij}=-p\delta_{i,j}+\tau_{ij}
+\end{equation}
+where $\tau_{ij}$ describes deviatory stresses, and $-p\delta_{i,j}$
+is the pressure contribution to stresses.
+\end{definition}
+
+\begin{remark}
+This means the differential form of the conservation of linear
+momentum consists of 3 equations and 10 unknowns (3 from velocities
+$u_{i}$, 1 from density $\rho$, and 6 from stresses $\sigma_{i,j}$).
+So we have more unknowns than equations, which means this is an
+under-determined system.
+\end{remark}
+
+\begin{definition}
+We say an equation is in \define{Conservative Form} if we can write it as
+\begin{equation}
+\partial_{t}\xi + \vec{\nabla}\cdot\vec{f}(\xi)=0.
+\end{equation}
+If the body force has the form of $\vec{\gamma}=-\rho\vec{\nabla}V$
+where $V$ is a potential, then the conservation of momentum has
+conservative form.
+\end{definition}

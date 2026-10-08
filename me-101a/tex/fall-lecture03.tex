@@ -131,7 +131,7 @@ advective contributions.
 
 \begin{theorem}[Reynolds transport]
 For a possibly moving control volume $V_{c}(t)$, we have
-\begin{equation}
+\begin{equation}\label{eq:fall:lec3:reynolds-transport-theorem}
 \frac{D}{D t}\int_{V_{s}(t)}\rho b\,\D V_{s} =
 \frac{\D}{\D t}\int_{V_{c}(t)}\rho b\,\D V_{c} +
 \oint_{\boundary V_{c}(t)}\rho b(\vec{u}-\vec{u}_{c})\cdot\UnitNormalVec{n}\,\D A_{c}
@@ -176,7 +176,7 @@ is the mass of the system. Physics tells us that mass is conserved, so
 must be satisfied. This gives us the condition (which is \emph{always}
 true at this level of approximation\footnote{For quantum field theory,
 it's not true. But no one is concerned about fluids at that scale.})
-\begin{equation}
+\begin{equation}\label{eq:fall:lec3:mass-conservation}
 0=\partial_{t}\int_{V_{c}}\rho\,\D V_{c}+\oint_{\boundary V_{c}}\rho\vec{u}\cdot\UnitNormalVec{n}\,\D A.
 \end{equation}
 \end{example}

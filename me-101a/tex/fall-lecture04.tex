@@ -1,0 +1,206 @@
+%%
+%% fall-lecture04.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-08T07:54:02-0700
+%% Last update 2026-10-08T07:54:02-0700
+%% 
+
+\lecture{}
+
+\begin{node}[Conservation of linear momentum]
+Taking $b=\vec{u}$ a vector (or, the components of the vector),
+Newton's second Law tells us that the force on the system $\vec{F}$
+satisfies
+\begin{equation}
+\vec{F}=\frac{\D\vec{p}}{\D t}=\frac{D\vec{p}}{D t}=\frac{D}{Dt}\iiint_{V_{s}}\rho\vec{u}\,\D V_{s}
+\end{equation}
+Now we can use Reynolds transport theorem to get
+\begin{equation}
+\vec{F}=\frac{\partial}{\partial t}\iiint_{V_{c}}\rho\vec{u}\,\D V_{c}
+-\oint_{\boundary V_{c}}\rho\vec{u}(\vec{u}\cdot\UnitNormalVec{n})\,\D A_{c}
+\end{equation}
+where we treat $\vec{F}$ as the force acting on the control volume,
+since we are stipulating the initial conditions that
+$V_{c}(t_{0})=V_{s}(t_{0})$ initially.
+\end{node}
+
+\begin{definition}
+We decompose force $\vec{F}$ into a sum of \define{Surface Forces}
+(e.g., pressure forces, viscuous forces, etc.) and \define{Body Forces}
+(e.g., gravity, etc.)
+\begin{equation}
+\vec{F}=\vec{F}_{\text{surface}}+\vec{F}_{\text{body}}.
+\end{equation}
+The surface forces are written as
+\begin{equation}
+\vec{F}_{\text{surface}}=\oint_{\boundary V_{c}}\vec{f}\,\D A_{c}
+\end{equation}
+where $\vec{f}$ is the force per unit area, and the body forces are
+written as
+\begin{equation}
+\vec{F}_{\text{body}}=\iiint_{V_{c}}\vec{\gamma}\,\D V_{c}.
+\end{equation}
+For example, $\vec{\gamma}=\rho\vec{g}$ for gravitational forces.
+\end{definition}
+
+\begin{example}
+Suppose we have a chamber with an inlet and an outlet (a
+``nozzle''). Our control volume is drawn in dashed red line:
+\begin{center}
+\includegraphics{img/img.2}
+\end{center}
+We assume:
+\begin{enumerate}
+\item incompressibility ($\rho$ is constant),
+\item we can neglect wall stress (from ``hitting'' the wall),
+\item we can ignore gravity.
+\end{enumerate}
+We have mass conservation gives us
+\begin{subequations}
+  \begin{align}
+0 &= \oint_{\boundary V_{c}}\rho\vec{u}\cdot\UnitNormalVec{n}\,\D A_{c}\\
+&=\oint_{\text{inlet}}\rho\vec{u}\cdot\UnitNormalVec{n}\,\D A_{c} + \oint_{\text{wall}}\rho\vec{u}\cdot\UnitNormalVec{n}\,\D A_{c} + \oint_{\text{outlet}}\rho\vec{u}\cdot\UnitNormalVec{n}\,\D A_{c}\\
+&=\oint_{\text{inlet}}\rho\vec{u}\cdot\UnitNormalVec{n}\,\D A_{c} + 0 + \oint_{\text{outlet}}\rho\vec{u}\cdot\UnitNormalVec{n}\,\D A_{c}\\
+&=-\rho_{1}A_{1}u_{1}+\rho_{2}A_{2}u_{2}\\
+&=\rho(-A_{1}u_{1}+A_{2}u_{2}),
+  \end{align}
+\end{subequations}
+which implies
+\begin{equation}
+A_{1}u_{1}=A_{2}u_{2}.
+\end{equation}
+Now, we can use the conservation of linear momentum to write
+\begin{subequations}
+  \begin{align}
+\vec{F} &= \mbox{(inlet)} + \begin{pmatrix}\mbox{pressure forces from}\\
+  \mbox{wall adjacent to}\\
+  \mbox{inlet}
+\end{pmatrix} + \begin{pmatrix}\mbox{forces from}\\
+  \mbox{outlet}
+\end{pmatrix}\\
+&= -p_{1}A_{1}-p_{1}(A_{2}-A_{1})+p_{2}A_{2}\\
+&= -\rho u_{1}^{2}A_{1} + \rho u_{2}^{2}A_{2}\quad\mbox{by RTT},
+\end{align}
+\end{subequations}
+which gives us
+\begin{equation}
+p_{2}-p_{1}=\rho u_{2}(u_{2}-u_{1}).
+\end{equation}
+Although this is a highly simplified and highly idealized situation,
+we can remove each assumption to obtain successive approximations
+until we get a suitable approximation.
+\end{example}
+
+\begin{node}[Conservation of angular momentum]
+Schematically, we have the following situation:
+\begin{center}
+\includegraphics{img/img.3}
+\end{center}
+We have an origin $O$, we have a control volume CV. Then we set
+$b=\vec{r}\times\vec{u}$ to track the angular momentum. We use Euler's
+equations of motion (the generalization of Newton's equations for
+angular momentum)
+\begin{equation}
+\vec{M} = \frac{D}{D t}\iiint_{V_{s}}\rho\vec{r}\times\vec{u}\,\D V_{s}
+\end{equation}
+where $\vec{M}$ is the torque. Then
+\begin{equation}
+\vec{M}=\frac{\partial}{\partial t}\iiint_{V_{c}}\rho\vec{r}\times\vec{u}\,\D V_{c}
++ \oint_{\boundary V_{c}}\rho(\vec{r}\times\vec{u})(\vec{u}\cdot\UnitNormalVec{n})\,\D A_{c}.
+\end{equation}
+We can partition the torque $\vec{M}$ into the sum of surface torques
+and body torques
+\begin{equation}
+\vec{M}=\vec{M}_{\text{surface}}+\vec{M}_{\text{body}}
+\end{equation}
+where
+\begin{equation}
+\vec{M}_{\text{surface}}=\oint_{\boundary V_{c}}\vec{r}\times\vec{f}\,\D A_{c}
+\end{equation}
+and
+\begin{equation}
+\vec{M}_{\text{body}}=\iiint_{V_{c}}\vec{r}\times\vec{\gamma}\,\D V_{c}
+\end{equation}
+using the surface and body force densities.
+\end{node}
+
+\begin{node}[Conservation of energy]
+We have
+\begin{subequations}
+  \begin{align}
+b &=
+\begin{pmatrix}\mbox{kinetic}\\
+\mbox{energy}
+\end{pmatrix} + \begin{pmatrix}
+\mbox{specific internal}\\
+\mbox{energy}
+\end{pmatrix}\\
+&=\frac{1}{2}\vec{u}\cdot\vec{u} + e\\
+&=\varepsilon
+  \end{align}
+\end{subequations}
+where $\varepsilon$ is the energy per unit mass. The we see the volume
+integral over the system
+\begin{equation}
+B = \iiint_{V_{s}}\rho b\,\D V_{s} = E.
+\end{equation}
+Then we use Thermodynamics to write
+\begin{subequations}
+  \begin{align}
+\begin{pmatrix}\mbox{change in energy}\\
+\mbox{stored in the system}
+\end{pmatrix} &= \begin{pmatrix}\mbox{Heat transfer}\\
+\mbox{to system by}\\
+\mbox{environment}
+\end{pmatrix} + \begin{pmatrix}\mbox{work done by}\\
+  \mbox{surroundings to}\\
+  \mbox{system}
+\end{pmatrix}\\
+\D E &= \D Q + \D W.
+\end{align}
+\end{subequations}
+Then we translate to fluid mechanics using the Reynolds transport
+theorem
+\begin{subequations}
+  \begin{align}
+\frac{D E}{D t} &= \frac{D Q}{D t} + \frac{D W}{D t}\\
+&=\frac{\partial}{\partial t}\iiint_{V_{c}}\rho\varepsilon\,\D V_{c}
++\oint_{\boundary V_{c}}\rho\varepsilon(\vec{u}\cdot\UnitNormalVec{n})\,\D A_{c}.
+  \end{align}
+\end{subequations}
+We can say a little about the work done, since it is related to force:
+\begin{equation}
+\frac{D W}{D t} = \iiint_{V_{c}}\vec{\gamma}\cdot\vec{u}\,\D V_{c}
++\oint_{\boundary V_{c}}\vec{f}\cdot\vec{u}\,\D A_{c}.
+\end{equation}
+Similarly, the heat transfer can be written as the sum
+\begin{equation}
+\frac{D Q}{D t} = \iiint_{V_{c}}\rho \mathcal{Q}\,\D V_{c}
+-\oint_{\boundary V_{c}}\vec{q}\cdot\UnitNormalVec{n}\,\D A_{c},
+\end{equation}
+where $\vec{q}=-\kappa\vec{\nabla}T$ is the heat flux vector, and
+$\mathcal{Q}$ is the heat source strength per unit mass.
+The heat contributions are exogeneous quantities given as a sort of
+``source terms'' to the equations.
+
+Altogether, we get
+\begin{equation}
+\iiint\vec{\gamma}\cdot\vec{u}+\rho\mathcal{Q}\,\D V_{c}
++\oint_{\boundary V_{c}}\vec{f}\cdot\vec{u}-\vec{q}\cdot\UnitNormalVec{n}\,\D A_{c}
+=\frac{\partial}{\partial t}\iiint_{V_{c}}\rho\varepsilon\,\D V_{c}
++\oint_{\boundary V_{c}}\rho\varepsilon(\vec{u}\cdot\UnitNormalVec{n})\,\D A_{c}.
+\end{equation}
+This is the conservation of energy.
+\end{node}
+
+\begin{node}[Recap]
+We used the Reynolds transport theorem \emph{and} some physics to
+obtain the integral conservation equations of mass, momnetum, and
+energy for finite control volumes. We looked at 4 different
+properties: mass, linear momentum, angular momentum, and energy. Next
+time, we will transform these into differential form, a first step
+towards the Navier--Stokes equations.
+\end{node}
