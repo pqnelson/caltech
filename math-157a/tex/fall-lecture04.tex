@@ -1,0 +1,142 @@
+%%
+%% fall-lecture04.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-13T13:05:04-0700
+%% Last update 2026-10-13T13:05:04-0700
+%% 
+
+\lecture{}
+
+\begin{corollary}[{\cite[Th~3.3]{milnor1974characteristic}}]
+Let $\xi$ be a sub-bundle of $\eta$. Then $\xi\oplus\xi^{\perp}\iso\eta$.
+\end{corollary}
+
+\begin{example}
+Let $M$ be a smooth manifold. Suppose $M\into K$ is an embedding,
+where $K$ is a Riemannian manifold. Then $\T M$ is a sub-bundle of $\T K|_{M}$
+(if $i\colon M\into K$ is the embedding, $i^{*}\T K =: TK|_{M}$). Then
+$(\T M)^{\perp}=NM$ is the normal bundle of $M$.
+\end{example}
+
+\begin{example}
+For $K=\sphere{2}$ and $M=\sphere{1}$ is the equator of $K$, then
+$NM\iso\sphere{1}\iso\RR$ is trivial because we have a nowhere
+vanishing section (take the tangent vector pointing Northwards, its
+span is precisely $\RR$). Observe $\T\sphere{2}|_{\sphere{1}}=\T\sphere{1}\oplus(\sphere{1}\times\RR)$.
+\end{example}
+
+\begin{node}
+Let $V$, $W$ be finite-dimensional [real] vector spaces. We have
+constructions like the vector space of linear transformations $\hom(V,W)$,
+the tensor product $V\otimes W$,
+the space of linear functionals $V^{*}$,
+and the exterior power $\extp^{k}V$.
+These constructions may be generalized to vector
+bundles. We get $\hom(\xi,\eta)$, $\xi\otimes\eta$, $\extp^{k}\xi$.
+\end{node}
+
+\begin{notation}
+We denote by $\cat{C}$ the category
+\begin{itemize}
+\item \textsc{Objects}: all finite-dimensional vector spaces over $\RR$
+\item \textsc{Morphisms}: all $\RR$-linear isomorphisms between vector spaces
+\end{itemize}
+\end{notation}
+
+\begin{definition}
+A \define{Continuous Covariant Functor} $T\colon\cat{C}\times\cat{C}\to\cat{C}$
+is an assignment
+\begin{enumerate}
+\item for any objects $V,W\in\cat{C}$ we have $T(V,W)\in\cat{C}$ is a
+  finite-dimensional [real] vector space
+\item for any morphisms $f\colon V\to V'$ and $g\colon W\to W'$ in $\cat{C}$
+we have a morphism $T(f,g)\colon T(V,W)\to T(V',W')$
+\end{enumerate}
+such that
+\begin{enumerate}
+\item $T(\id_{V},\id_{W})=\id_{T(V,W)}$
+\item $T(f_{1}\circ f_{2},g_{1}\circ g_{2})=T(f_{1},g_{1})\circ T(f_{2},g_{2})$
+\item $T(f,g)$ depends continuously on $f$ and $g$. (This makes sense
+  since the set of all isomorphisms between two real vector spaces has
+  a natural topology on it.)
+\end{enumerate}
+We can extend this definition to $T\colon\cat{C}\times(\cdots)\times\cat{C}\to\cat{C}$
+any $k$-ary such assignment.
+\end{definition}
+
+\begin{theorem}
+Let $\xi_{1}$, \dots, $\xi_{k}$ be real vector bundles over the same
+base space $B$. Let $T\colon\cat{C}\times(\cdots)\times\cat{C}\to\cat{C}$
+be a $k$-ary continuous covariant functor. Then we can define a new
+bundle with fiber $F_{b}=T(F_{b}(\xi_{1}),\dots,F_{b}(\xi_{k}))$.
+\end{theorem}
+
+\begin{xca}
+Prove this is a vector bundle.
+\end{xca}
+
+\begin{xca}
+What constructions can be defined using continuous covariant functors?
+\end{xca}
+
+\subsection{Grassmannians and universal bundles}
+
+\begin{node}
+Let $G_{n}(\RR^{\infty})$ consist of all $n$-planes passing through
+the origin in $\RR^{\infty}$. In particular, for $n=1$, this is just
+$G_{1}(\RR^{\infty})=\RP^{\infty}$. This is going to be the universal
+base space.
+\end{node}
+
+\begin{node}
+Then $\gamma^{n}$ is an $\RR^{n}$-bundle over $G_{n}(\RR^{\infty})$.
+We have
+\begin{equation}
+\gamma^{n}=\{(x,v)\in G_{n}(\RR^{\infty}\times\RR^{\infty}\mid x\in X\},
+\end{equation}
+and $\pi(x,v)=x$.
+\end{node}
+
+\begin{definition}
+The \define{Grassmann Manifold} $G_{n}(\RR^{n+k})$ is the set of all
+$n$-dimensional planes passing through the origin of $\RR^{n+k}$,
+equipped with ``some topology'' (which we will now determine).
+\end{definition}
+
+\begin{definition}
+An \define{$n$-Frame} in $\RR^{n+k}$ is an $n$-tuple that is linearly
+independent $(v_{1},\dots,v_{n})\in(\RR^{n+k})^{n}$ and for all $i\neq j$
+we have $v_{i}$ is linearly independeot of $v_{j}$.
+\end{definition}
+
+\begin{definition}
+We define the \define{Stiefel Manifold}
+$V_{n}(\RR^{n+k})$ to be the set of all $n$-frames in
+$\RR^{n+k}$, considered as a subspace of $(\RR^{n+k})^{n}$ endowed
+with the subspace topology from the standard topology on $(\RR^{n+k})^{n}$.
+\end{definition}
+
+\begin{fact}
+We can obtain $q\colon V_{n}(\RR^{n+k})\to G_{n}(\RR^{n+k})$ which is
+a quotient map sending $(v_{1},\dots,v_{n})\mapsto\Span(v_{1},\dots,v_{n})$.
+So
+\begin{equation}
+G_{n}(\RR^{n+k})\iso V_{n}(\RR^{n+k})/\GL_{n}(\RR)
+\end{equation}
+[where we mod out by a change of coordinates]. Then we can equip
+$G_{n}(\RR^{n+k})$ with the quotient topology:
+$U\subset G_{n}(\RR^{n+k})$ is open if and only if $q^{-1}(U)$ is open.
+\end{fact}
+
+\begin{lemma}
+$G_{n}(\RR^{n+k})$ is a compact topological manifold of dimension $nk$.
+Moreover, the orthogonal complement operation
+\begin{align*}
+\perp\colon & G_{n}(\RR^{n+k})\to G_{k}(\RR^{n+k})\\
+& Y\mapsto Y^{\perp}
+\end{align*}
+is a homeomorphism. (These are 2 claims.)
+\end{lemma}

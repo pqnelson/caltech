@@ -1,0 +1,83 @@
+%%
+%% notation.sty
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-13T11:02:35-0700
+%% Last update 2026-10-13T11:02:35-0700
+%%
+
+\def\D{\mathrm{d}} % differential
+
+% topological spaces
+\newcommand\disk[1]{D^{#1}}
+\newcommand\point[1]{\mathrm{pt}}
+\newcommand\sphere[1]{S^{#1}}
+\newcommand\torus[1]{T^{#1}}
+
+% topology
+\def\homotopic{\simeq}
+% for homotopy \rel{A}
+\newcommand\rel{\nonscript\mskip-\medmuskip\mkern5mu
+  \mathbin{\rm rel}\penalty900\mkern5mu\nonscript\mskip-\medmuskip}
+
+% Set theory
+\let\propersubset\subset
+\let\subset\subseteq
+\let\propersupset\supset
+\let\supset\supseteq
+\let\nsubset\nsubseteq
+\let\nsupset\nsupseteq
+
+\DeclareMathOperator\id{id}
+\let\into\hookrightarrow
+
+\DeclareMathOperator\Support{Supp}
+
+% sets
+\def\NN{\mathbb{N}}
+\def\CC{\mathbb{C}}
+\def\CP{\CC\PP}
+\def\FF{\mathbb{F}}
+\def\HH{\mathbb{H}}
+\def\HP{\HH\PP}
+\def\OO{\mathbb{O}}
+\def\OP{\OO\PP}
+\def\PP{\mathbb{P}}
+\def\QQ{\mathbb{Q}}
+\def\RR{\mathbb{R}}
+\def\RP{\RR\PP}
+\def\ZZ{\mathbb{Z}}
+
+\let\iso\cong % isomorphism
+
+\DeclareMathOperator\T{T} % tangent space
+
+% exterior product
+% https://tex.stackexchange.com/a/108974/14751
+\NewDocumentCommand{\extp}{e{^}}{%
+  \mathop{\mathpalette\extp@{#1}}\nolimits
+}
+\NewDocumentCommand{\extp@}{mm}{%
+  \bigwedge\nolimits\IfValueT{#2}{^{\extp@@{#1}#2}}%
+  \IfValueT{#1}{\kern-2\scriptspace\nonscript\kern2\scriptspace}%
+}
+\newcommand{\extp@@}[1]{%
+  \mkern
+    \ifx#1\displaystyle-1.8\else
+    \ifx#1\textstyle-1\else
+    \ifx#1\scriptstyle-1\else
+    -0.5\fi\fi\fi
+  \thinmuskip
+}
+
+% linear algebra
+\DeclareMathOperator\Pfaff{Pf}
+\DeclareMathOperator\Span{span}
+\DeclareMathOperator\GL{GL}
+
+% category theory
+\newcommand*\cat[1]{\mathbf{#1}}
+
+\endinput

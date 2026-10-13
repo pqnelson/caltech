@@ -1,0 +1,199 @@
+%%
+%% fall-lecture01.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-13T11:04:01-0700
+%% Last update 2026-10-13T11:04:01-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+This quarter will focus on topological aspects of characteristic
+classes. Next quarter will focus on geometric aspects of
+characteristic classes. The textbook we will loosely follow is Milnor
+and Stasheff~\cite{milnor1974characteristic}.
+\end{node}
+
+\begin{node}
+The easiest way to construct a space out of old spaces $B$ and $Y$ is
+to use their Cartesian product $B\times Y$. For example, the torus is
+$T^{2}=S^{1}\times S^{1}$. But not all spaces can be written as the
+trivial product---the M\"{o}bius band is one counter-example. But we
+can \emph{informally} write the M\"{o}bius strip as the \emph{twisted}
+interval bundle $S^{1}\widetilde{\times}I$ over $S^{1}$ (the base
+space is still $S^{1}$ but we now have some twisting). It is locally
+trivial $p^{-1}U\iso U\times I$ for sufficiently small open sets
+$U$. This is generalized by the notion of fiber bundles.
+\begin{enumerate}
+\item We have a projection map $\pi\colon E\to B$
+\item Locally trivializable: we can write $B=\bigcup_{k}U_{k}$ using a
+  local cover, there exists a homeomorphism
+  $\varphi_{k}\colon\pi^{-1}U_{k}\to U_{k}\times Y$ where $Y$ is the fiber
+\item Gluings are given by the transition maps for any $U_{i}\cap U_{j}\neq\emptyset$,
+  writing $U_{ij}=U_{i}\cap U_{j}$, then
+\begin{equation}
+\vcenter{\xymatrix{ & \ar[dl]^{\varphi_{i}}\pi^{-1}(U_{ij})\ar[dr]^{\varphi_{j}} & \\
+U_{ij}\times Y\subset U_{i}\times Y\ar[rr]^{\varphi_{j}\circ\varphi_{i}^{-1}}& &
+U_{ij}\times Y\subset U_{j}\times Y}}
+\end{equation}
+is a fiber-wise homeomorphism where $\varphi_{j}\circ\varphi_{i}^{-1}|_{U_{ij}}=\id$.
+\end{enumerate}
+We usually look at $Y=\RR^{n}$ or $Y=\CC^{n}$ for real (resp.,
+complex) fiber bundles.
+\end{node}
+
+\begin{node}
+An important class of examples: Let $M$ be a smooth $n$-manifold, then
+the tangent bundle $\T M$ is $2n$-dimensional. For example, $\T S^{2}$,
+there is a natural map
+\begin{equation}
+\pi\colon TS^{2}\to S^{2}
+\end{equation}
+sending $(x,v)\mapsto x$. This gives us a vector bundle.
+\end{node}
+
+\begin{node}
+There are many different ways to study vector bundles. We usually
+write it like
+\begin{equation}
+\vcenter{\xymatrix{Y\ar[r]& E\ar[d]\\
+& B}}
+\end{equation}
+We can think of it as a continuous family of vector spaces
+parametrized by the base space $B$. Then the operations for the direct
+sum $Y_{1}\oplus Y_{2}$, tensor product $Y_{1}\otimes Y_{2}$,
+$\hom(Y_{1},Y_{2})$, dual space $Y^{*}$, and linear functions
+$\extp^{k}Y$ on vector spaces can be extended to  vector bundles.
+\end{node}
+
+\begin{node}
+Studying vector bundles can give you some information about the base
+manifold. This perspective will be implicit throughout the entire class.
+\end{node}
+
+\subsection{Characteristic classes}
+
+\begin{node}
+The main characteristic classes are the Stiefel--Whitney class, the
+Pontryogin class, and the Chern class. These are the most important ones.
+\end{node}
+
+\begin{node}
+Consider a real rank-$r$ bundle $E$ over $B$. Then the
+Stiefel--Whiteney classes are
+\begin{equation}
+w_{i}(\T B)\in H^{i}(B,\ZZ_{2})
+\end{equation}
+for $i=0,\dots,r$. The $\ZZ_{2}$ coefficients means we can ignore
+orientation. 
+\end{node}
+
+\begin{node}
+The Pontryogin class $p_{i}\in H^{4i}(B,\ZZ)$ where $i=0,\dots,[r/2]$.
+\end{node}
+
+\begin{node}
+The Chern class needs a complex structure, so let $V$ be a complex
+rank-$r$ bundle over $B$ (so the fiber is $\CC^{r}$), then the Chern
+class is
+\begin{equation*}
+C_{i}\in H^{2i}(B,\ZZ),
+\end{equation*}
+for $i=0,\dots,r$.
+\end{node}
+
+\begin{example}
+The top Stiefel--Whitney class. Consider the tangent bundle $\T M$,
+consider $w_{n}(\T M)\in H^{n}(M;\ZZ_{2})$. We know we have
+$[M]_{2}\in H_{n}(M;\ZZ_{2})$ mod-2 fundamental class which is
+nonzero. We have
+\begin{equation}
+\langle w_{n}(\T M),[M]_{2}\rangle=\chi(M)\bmod{2}
+\end{equation}
+is the Euler class module 2. For example, $M=\RP^{2}$, so
+$[M]_{2}=[\RP^{2}]_{2}$, so $\chi(\RP^{2})=1$. Then $w_{2}(\RP^{2})\neq0$.
+\end{example}
+
+\begin{example}
+Let $E$ be a holomorphic $r$-bundle over $M$ a closed oriented surface
+of genus $g$ (``oriented'' may not be needed?). Then we have the first
+Chern class $c_{1}\in H^{2}(M,\ZZ)$. The important conclusion (the
+Hurewicz--Riemann--Roch theorem) is that
+\begin{equation}
+\dim_{\CC}H^{0}(M,E)-\dim_{\CC}H^{1}(M,E)=\langle c_{1}[M]\rangle+r(1-g),
+\end{equation}
+where $H^{0}(M,E)$ describes the space of holomorphic sections,
+$H^{1}(M,E)$ is the sheaf cohomology (viz., a nonzero integer
+dimension). Then
+\begin{equation}
+\dim_{\CC}H^{0}(M,E)\geq\langle c_{1},[M]\rangle+r(1-g).
+\end{equation}
+So this gives you information about this bundle (viz., the existence
+of holomorphic sections).
+\end{example}
+
+\begin{node}[Classifying spaces]
+We want to classify all rank-$r$ vector bundles over a fixed base
+space $B$. If $X$ is a CW complex, we know we have a bijection
+\begin{equation}
+H^{i}(X,\ZZ)\stackrel{1:1}{\longleftrightarrow}[X,K(\ZZ,i)]
+\end{equation}
+where $K(\ZZ,i)$ is an Eilenberg--MacLane space, and $[X,Y]$ is the
+set of homotopy equivalence classes of maps from $X$ to $Y$. Then we
+want some analogous space replacing $K(\ZZ,i)$ for vector bundles,
+which will turn out to be
+\begin{equation}
+\left\{\begin{matrix}
+\mbox{isomorphism classes of}\\
+\mbox{real rank-$k$ vector}\\
+\mbox{bundles over $X$}\end{matrix}\right\}\stackrel{1:1}{\longleftrightarrow}[X,G_{k}(\RR)]
+\end{equation}
+where $G_{k}(\RR)=\bigcup_{n=k}G_{k}(\RR^{n})$ is the
+infinite-dimensional Grassmannian manifold. For $k=1$, we see
+$G_{1}(\RR)=\bigcup_{N=1}G_{1}(\RR^{N})\iso\RP^{\infty}$.
+\end{node}
+
+\begin{node}[Chern--Weil Theory]
+We will try to represent characteristic classes using curvature of
+vector bundle. For example, the Gauss--Bonnet theorem: a closed
+oriented surface $M$ has
+\begin{equation}
+\int_{M}\kappa=2\pi\chi(M)
+\end{equation}
+where $\kappa$ is the Gaussian curvature, and $\chi(M)$ is the Euler
+characteristic of $M$. This can be generalized to the
+Chern--Gauss--Bonnet's theorem
+\begin{equation}
+\chi(M) = \frac{1}{(2\pi)^{n}}\int_{M}\Pfaff(\Omega)
+\end{equation}
+where $\Pfaff(\Omega)$ is the Pfaffian of $\Omega$, and $\Omega$ is
+the curvature 2-form, $M$ is an $2n$-manifold. Then $\Omega$ can be
+written with its components $\Omega_{ij}$ which are 2-forms. Here
+\begin{equation}
+\Omega_{ij}(X,Y)=\langle R(X,Y)e_{j},e_{i}\rangle.
+\end{equation}
+For $n=1$, $\Omega$ is a $2\times 2$ anti-symmetric matrix and
+$\Pfaff(\Omega)=\Omega_{12}=\kappa\,\D A$ is the Gaussian curvature
+multiplied by the area 2-form $\D A$. Then we recover the
+Gauss--Bonnet theorem.
+
+For $n=4$, we can compute
+\begin{equation}
+\Pfaff(\Omega)=\Omega_{12}\wedge\Omega_{34}-\Omega_{13}\wedge\Omega_{24}+\Omega_{14}\wedge\Omega_{23}.
+\end{equation}
+If $M$ has constant sectional curvature $K$, then we find
+\begin{equation}
+\Pfaff(\Omega)=3K^{2}\,\D A,
+\end{equation}
+and
+\begin{equation}
+\chi(M)=\frac{1}{4\pi^{2}}\int_{M}3 K^{2}\,\D A.
+\end{equation}
+For $\sphere{4}$, $\chi(\sphere{4})=2$ and we can conclude
+\begin{equation}
+\frac{4\pi^{2}}{3}2=\int K^{2}\,\D A.
+\end{equation}
+\end{node}

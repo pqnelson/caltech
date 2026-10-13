@@ -1,0 +1,223 @@
+%%
+%% fall-lecture02.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-13T11:39:11-0700
+%% Last update 2026-10-13T11:39:11-0700
+%% 
+
+\lecture{}
+
+% Section 2: Formal construction and fundamental examples
+% Subsection 2.1: Vector bundles
+
+\subsection{Vector bundles}
+
+\begin{definition}[Real vector bundle]
+Let $n\in\NN$ be a natural number.
+A \define{Real Vector Bundle} of rank $n$, $\xi$, consists of
+\begin{enumerate}
+\item a topological space $E=E(\xi)$ called the ``total space'',
+\item a ``base space'' $B$ and a continuous projection map $\pi\colon E\to B$,
+\item for each $b\in B$, each fiber $F_{b}=\pi^{-1}\{b\}$ has a real
+  vector space structure
+\end{enumerate}
+such that
+\begin{enumerate}
+\item Local triviality: for all $b\in B$ there exists an open subset
+  $U\subset B$ such that $b\in U$ and there exists a continuous
+  $h\colon U\times\RR^{n}\to\pi^{-1}(U)$ such that $h$ is a
+  homeomorphism and for all $b'\in U$ we have $h(b',-)\colon\RR^{n}\to F_{b}$
+  is a vector space isomorphism. We call such an $h$ a \define{Local Trivialization}
+  of $\xi$.
+\end{enumerate}
+The pair $(U,h)$ is a \define{Local Coordinate System} for $\xi$
+around $b$.
+\end{definition}
+
+\begin{remark}
+Replace $\RR^{n}$ by $\CC^{n}$, we get the definition of a complex
+vector bundle.
+\end{remark}
+
+\begin{remark}
+When $n=1$, rank-$n$ bundles are just called \define{Line Bundles}.
+\end{remark}
+
+\begin{node}
+We also have a notion of $C^{\infty}$-vector bundle (pronounced
+``smooth vector bundle''). Just replace ``continuous'' by ``smooth',
+and ``homeomorphism'' by ``diffeomorphism'', and require $B$ to be a
+smooth manifold.
+\end{node}
+
+\begin{example}[Trivial bundle]
+The trivial bundle $B\times\RR^{n}=E$, the projection map $\pi(b,v)=b$.
+The local triviality condition si satisfied by taking $U:=B$,
+$h:=\id$. The vector space structure on each fiber looks like:
+\begin{equation}
+c_{1}(b,v_{1})+c_{2}(b,v_{2})=(b,c_{1}v_{1}+c_{2}v_{2})
+\end{equation}
+for any $c_{1},c_{2}\in\RR$.
+\end{example}
+
+\begin{example}[Tangent bundle of smooth manifold]
+Let $M$ be a smooth $n$-manifold. Then
+\begin{equation}
+\T M=\{(x,v)\mid x\in M,v\in \T_{x}M\}.
+\end{equation}
+Then the projection map is $\pi(x,v)=x$.
+
+How to check it is locally trivial/ We need a smooth chart of $\T M$.
+First, choose $(U,\varphi)$ to be a chart of $M$. Then
+$(\pi^{-1}(U),\Phi)$ where for any tangent vector
+$v=(x,\sum_{j}\xi^{j}\partial_{j}|_{x})$ we have
+\begin{equation}
+\Phi(v)=(\varphi(\pi(v)),\vec{\xi})
+\end{equation}
+where $\vec{\xi}=(\xi^{1},\dots,\xi^{n})$ are the coefficients. The
+local trivialization $(U,h)$ where $h\colon U\times\RR^{n}\to\pi^{-1}(U)$.
+Well, $h(x,\xi)=v$. We need to prove it is a diffeomorphism (but
+that's obvious).
+\end{example}
+
+\begin{definition}
+Let $M$ be a smooth $n$-manifold.
+We say $M$ is \define{Parallelizable} if $\T M$
+is trivializable (i.e., globally trivial $\T M=M\times\RR^{n}$).
+\end{definition}
+
+\begin{example}
+Recall, for any $n$-manifold, there is the Whitney embedding
+$M\into\RR^{n}$ where $N>n$ is some suitably bigger number. THen we
+have the \define{Normal Bundle}
+\begin{equation}
+NM = \{(x,v)\mid x\in M,v\in(\T_{x}M)^{\perp}\}.
+\end{equation}
+\end{example}
+
+\begin{example}[Canonical line bundle of $\RP^{n}$]
+Recall $\RP^{n}$ is the set of lines passing through the origin in
+$\RR^{n}$. We have
+\begin{align*}
+q\colon & \sphere{n}\to\RP^{n}\\
+& x\mapsto[x]=\{\pm x\}.
+\end{align*}
+Then the canonical line bundle
+\begin{equation}
+E(\gamma^{1}_{n}):=\{([x],v)\mid [x]\in\RP^{n},v\in\RR^{n+1},\exists\lambda\in\RR\setminus\{0\}\ldotp
+v=\lambda x\}.
+\end{equation}
+We will still need to check it has a local triviality. First, choose
+some open set for any $[x]\in\RP^{n}$, we have $\{\pm x\}\subset\sphere{n}$,
+then choose some small open neighborhood $U\subset\RP^{n}$ such that
+$q^{-1}U$ is some suitable small neighborhood . Then, letting $U_{1}=q(U)$,
+\begin{align*}
+h\colon & U_{1}\times\RR\to\pi^{-1}(U_{1})\\
+& ([x],t)\mapsto([x],tx)
+\end{align*}
+where $x\in U_{+}$ is in one of the connected components of $U$.
+\end{example}
+
+\begin{definition}[Cross section]
+Let $\xi$ be a bundle $E(\xi)$ with base $B$.
+A \define{Cross Section} of $\xi$ is a continuous map $s\colon B\to E(\xi)$
+such that $\pi\circ s=\id$.
+\end{definition}
+
+\begin{remark}
+If $B$ is a smooth manifold, and if $E=\T B$ is the tangent bundle,
+then a cross section is just a vector field.
+\end{remark}
+
+\begin{definition}
+A cross section is \define{Nowhere Zero} if for all $b\in B$ we have $s(b)\neq0$.
+\end{definition}
+
+\begin{theorem}
+A line bundle $\xi$ is trivial if and only if it has a nowhere zero section.
+\end{theorem}
+
+\begin{proof}
+\forwardproof\ We see $E(\xi)\iso B\times\RR$ and then we just take $s(b)=(b,1)$
+which is the desired nowhere zero section.
+
+\backwardproof\ Assume we are given a nowhere zero cross section
+$s\colon B\to E(\xi)$ where for each $b\in B$ we have $s(b)=(b,e(b))$
+where $e(b)\neq0$. For each $v\in\pi^{-1}(b)$, we can write
+$v=\lambda^{v}_{b}\cdot e(b)$ [where $\lambda^{v}_{b}\in\RR$ is just
+the nonzero coefficient],
+then $E(\xi)\to B\times\RR^{n}$ maps $v\mapsto(b,\lambda^{v}_{b})$.
+\end{proof}
+
+\begin{example}
+The tangent bundle $\T\sphere{1}$ is a trivial bundle; i.e.,
+$\sphere{1}$ is trivializable. Then
+\begin{equation}
+s\bigl((x_{1},x_{2})\bigr)=\bigl((x_{1},x_{2}),(-x_{2},x_{1})\bigr)
+\end{equation}
+is the desired nowhere zero section.
+\end{example}
+
+\begin{non-example}
+The canonical line bundle $\gamma^{1}_{n}$ is nontrivial for every $n\geq1$.
+Assume for contradiction $s\colon\RP^{n}\to E(\gamma^{1}_{n})$ is the
+nowhere vanishing section. Then
+\begin{align*}
+\sphere{n} & \xrightarrow{q}\RP^{n}\xrightarrow{s} E(\gamma^{1}_{n})\\
+x&\mapsto [x]\mapsto([x],t(x)x),
+\end{align*}
+where $t(x)$ is continuous and non-vanishing. But $\sphere{n}$ is
+connected and
+\begin{subequations}
+\begin{equation}
+x\mapsto([x],t(x)x),
+\end{equation}
+and
+\begin{equation}
+-x\mapsto([x],t(-x)(-x)),
+\end{equation}
+\end{subequations}
+are mapped to the same point. This means
+\begin{equation}
+t(x)=-t(-x),
+\end{equation}
+so $t$ is an odd function. Then by the intermediate value theorem,
+there must be an $x_{0}\in\sphere{n}$ such that $t(x_{0})=0$,
+contraditing the non-vanishing assumption.
+\end{non-example}
+
+\begin{definition}
+A set of cross sections $\{s_{1},\dots,s_{n}\}$ is \define{Nowhere Dependent}
+if $s_{1}(b)$, \dots, $s_{n}(b)$ are linearly independent for each
+$b\in B$. (This is a generalization of nowhere vanishing.)
+\end{definition}
+
+\begin{theorem}
+An $\RR^{n}$-vector bundle is trivial if and only if there exists
+sections $s_{1}$, \dots, $s_{n}$ which is nowhere dependent.
+\end{theorem}
+
+(The proof is similar to the previous theorem's proof.)
+
+\begin{example}
+The tangent bundle $\T\sphere{3}$ is trivial. Writing $x=(x_{1},x_{2},x_{3},x_{4})\in\sphere{3}\subset\RR^{4}$,
+then
+\begin{subequations}
+  \begin{align}
+s_{1}(x) &= (x, (-x_{2},x_{1},-x_{4},x_{3}))\\
+s_{2}(x) &= (x, (-x_{3},x_{2},+x_{1},-x_{4}))\\
+s_{3}(x) &= (x, (-x_{4},x_{3},-x_{2},x_{3}))
+  \end{align}
+\end{subequations}
+and you cancheck they are linearly independent.
+\end{example}
+
+\begin{theorem}
+The only parallelizable spheres are $\sphere{0}$, $\sphere{1}$,
+$\sphere{3}$, $\sphere{}$. In particular, $\T\sphere{2}$ is not trivial.
+\end{theorem}
+
+(This is a corollary of the hairy ball theorem.)
