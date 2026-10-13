@@ -1,0 +1,155 @@
+%%
+%% fall-lecture06.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-13T10:01:26-0700
+%% Last update 2026-10-13T10:01:26-0700
+%% 
+
+\lecture{}
+
+Our goal is to prove the following statement:
+
+\begin{node}
+Second-countable normal spaces are metrizable.
+\end{node}
+
+\begin{lemma}\label{lemma:fall:lec6:l1}
+The Hilbert cube $H:=[0,1]^{\NN}$ is metrizable.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Elements of $H$ are sequences $\NN\to[0,1]$ in the interval $[0,1]$ so
+$\vec{x}=(x(1),x(2),x(3),\dots)$ and each $x_{n}(j)\in[0,1]$. Then
+$x_{n}$ converges pointwise to $x$ iff for every $j\in\NN$ we have
+$x_{n}(j)\to x(j)$. Then we need to use the fact that $H$ is
+first-countable: a neighborhood base at $x$ is given by
+\begin{equation}
+U_{n,m}:=\{y\mid |y(1)-x(1)|<\frac{1}{n},\dots,|y(m)-x(m)|<\frac{1}{n}\}
+\end{equation}
+are open sets and obviously $\{U_{m,n}\mid m,n\in\NN\}$ is countable.
+
+Now we define a metric
+\begin{equation}
+\rho(x,y)=\max_{j}\frac{|x(j)-y(j)|}{2^{j}},
+\end{equation}
+and the proof (that this is a metric) is obvious.
+
+Now we claim: $x_{n}\to x$ pointwise iff $\rho(x_{n},x)\to0$. Now, we
+have two topologies on $H$ (the product topology and the metric
+topology) which have the same set of convergent sequences, which means
+they must be the same topology.
+\end{proof}
+
+\begin{lemma}\label{lemma:fall:lec6:l2}
+Second-countable normal spaces have their closed sets be $G_{\delta}$.
+\end{lemma}
+
+\begin{proof}
+Let $(X,\tau)$ be a second-countable normal space. Let $E\subset X$ be
+a closed subset. Then $X\setminus E$ is second-countable. Therefore
+$X\setminus E$ is Lindel\"{o}f in the relative topology by Theorem~\ref{thm:math110a:fall:second-countable-spaces-are-lindelof}.
+For every $x\in X\setminus E$ we can separate $x$ and $E$ by disjoint
+neighborhoods $x\in V$ and $E\subset U$ where $U\cap
+V=\emptyset$. Then
+\begin{subequations}
+  \begin{align}
+X\setminus E &= \bigcup_{x\in X\setminus E}V(x)\\
+&=\bigcup_{n} V(x_{n})
+  \end{align}
+\end{subequations}
+by Lindel\"{o}f there is a countable subcover (which is the second
+line); then its complement
+\begin{equation}
+E = \bigcap_{n\in\NN}V(x_{n})^{\complement}\supset\bigcap_{n}U_{x_{n}}
+\end{equation}
+since $U_{x_{n}}\subset V(x_{n})^{\complement}$. But we also see that
+\begin{equation}
+E\subset\bigcap_{n}U_{x_{n}}
+\end{equation}
+since each $U_{x_{n}}$ is a neighborhood of $E$. Therefore we conclude
+that the arbitrary closed subset is a countable intersection of open sets
+\begin{equation}
+E=\bigcap_{n\in\NN}U_{x_{n}}
+\end{equation}
+which is $G_{\delta}$.
+\end{proof}
+
+\begin{remark}
+We can weaken the previous lemma from normal spaces $(T_{4})$ to
+$T_{3}$ spaces.
+\end{remark}
+
+\begin{lemma}[Central point]\label{lemma:fall:lec6:l3}
+If $(X,\tau)$ is normal and if $E\subset X$ is a closed $G_{\delta}$
+set, then there exists a continuous function $f\colon X\to[0,1]$ such
+that $f^{-1}(\{0\})=E$ is the zero set of $f$.
+\end{lemma}
+
+\begin{proof}
+We see that 
+\begin{equation}
+X\setminus E=\bigcup_{n}F_{n}
+\end{equation}
+is the union of closed sets $F_{n}$ (because of the $G_{\delta}$ hypothesis),
+and that for each $n$ we have:
+\begin{equation}
+F_{n}\cap E=\emptyset.
+\end{equation}
+Then by Urysohn's lemma, there are continuous functions $f_{n}\colon X\to[0,1]$
+such that $f_{n}|_{E}=0$ and $f_{n}|_{F_{n}}=1$. Then we set
+\begin{equation}
+f(x) := \sum_{n}\frac{f_{n}(x)}{2^{n}},
+\end{equation}
+which is a continuous function, and $f|_{E}=0$ and $f|_{X\setminus E}>0$.
+\end{proof}
+
+\begin{theorem}[Urysohn metrizability]
+Second-countable normal spaces are metrizable.
+\end{theorem}
+
+\begin{proof}
+Let $(X,\tau)$ be a second-countable normal space. We will prove it is
+metrizable. We have a countable base $\{U_{j}\}$. We write
+$E_{j}:=X\setminus U_{j}$ which are closed $G_{\delta}$ sets by
+Lemma~\ref{lemma:fall:lec6:l2}. Then by Lemma~\ref{lemma:fall:lec6:l3}
+there are continuous functions $f_{j}\colon X\to[0,1]$ such that
+$f^{-1}\{0\}=E_{j}$, and we combine the $f_{j}$'s to get the function
+to the Hilbert cube:
+\begin{equation}
+f=(f_{1},f_{2},\dots)\colon X\to H.
+\end{equation}
+Then we claim:
+\begin{enumerate}
+\item $f$ is continuous (since for all $j$, $f_{j}=\pi_{j}\circ f$ and
+  the definition of product topology),
+\item $f$ is injective,
+\item $f\colon X\to f(X)$ is a bijection.
+\end{enumerate}
+We need to prove the inverse map $f^{-1}$ is continuous to obtain a
+homeomorphism onto its image (which is obvious). Then $f$ is a
+homeomorphism onto its image, and its image $f(X)$ is metrizable,
+therefore $X$ is metrizable.
+
+\textsc{Claim 2: $f$ is injective}. Let $x\neq y$ be distinct
+points. We will show $f(x)\neq f(y)$. We can separate $x$ and $y$:
+there exists disjoint neighborhoods $V_{1}\ni x$ and $V_{2}\ni y$.
+There exists base elements $U_{\ell}\subset V_{1}$ containing $x\in U_{\ell}$.
+We write $E_{\ell}=X\setminus U_{\ell}$ which is a closed set,
+therefore $G_{\delta}$. Then there exists an $f_{\ell}\colon X\to[0,1]$
+where $f_{|ell}=0$ on $E_{\ell}$. This implies
+$x\in U_{\ell}$, which implies $f_{\ell}(x)>0$, and together with
+$y\notin U_{\ell}$ implies $f_{\ell}(y)=0$. Hence we obtain injectivity.
+
+\textsc{Claim 3: $f$ is an open map}. Let $A\subset X$ be an open set.
+We will show $f(A)$ is open in the relative topology in $f(X)$. It
+suffices to show for any $j$ that $f(U_{j})$ is open in $f(X)$ (since
+they cover $f(X)$). Then
+\begin{equation}
+f(U_{j})=f(X)\cap\{y\mid\pi_{j}y>0\}
+\end{equation}
+by the proof of claim 2, and it is the intersection of open sets with
+$f(X)$, so it is relatively open. Hence the claim, hence the proof.
+\end{proof}
