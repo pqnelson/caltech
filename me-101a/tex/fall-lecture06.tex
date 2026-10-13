@@ -1,0 +1,274 @@
+%%
+%% fall-lecture06.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-13T07:55:03-0700
+%% Last update 2026-10-13T07:55:03-0700
+%% 
+
+\lecture[]{}
+
+\begin{node}
+We are in the middle of deriving the equations of motion in
+differential form. Recall, we derived the equations of motion for mass
+(a.k.a., the ``continuity equation''):
+\begin{equation}
+\partial_{t}\rho+\partial_{i}(\rho u_{i})=0,
+\end{equation}
+and the conservation of linear momentum
+\begin{equation}
+\partial_{t}(\rho u_{i})+\partial_{j}(\rho u_{i}u_{j})-\gamma_{i}-\partial_{j}
+\end{equation}
+\end{node}
+
+\begin{definition}
+We say a fluid is \define{Inviscid} if
+$\sigma_{ij}=-p\delta_{i,j}$. Physically this corresponds to no viscosity.
+\end{definition}
+
+\begin{example}[Bernoulli's principle for potential flows]
+Assume steady flow (\S\ref{defn:steady-flow}), and we assume inviscid
+flow. We assume body forces are the gradient of some potential
+\begin{equation}
+\gamma_{i}=-\rho\partial_{i}V.
+\end{equation}
+We further assume incompressibility
+\begin{equation}
+\rho=\mbox{constant}.
+\end{equation}
+The continuity equation becomes
+\begin{equation}
+\partial_{i}u_{i}=0.
+\end{equation}
+What happens to the conservation of linear momentum? We see, by steady flow
+assumption,
+\begin{equation}
+\partial_{t}(\rho u_{i})=0
+\end{equation}
+which simplifies the conservation of linear momentum to (also pulling
+density out in front of derivatives by incompressibility):
+\begin{equation}
+\rho\partial_{j}(u_{i}u_{j})-\gamma_{i}-\partial_{j}(-p\delta_{i,j})=0,
+\end{equation}
+then thhis simplifies further to
+\begin{equation}
+\rho\partial_{j}(u_{i}u_{j})+\rho\partial_{i}V+\partial_{i}p=0..
+\end{equation}
+Now the potential flow assumption:\footnote{This is just to expedite
+the calculations, I do not believe it is physically necessary for
+Bernoulli's principle.} there is some ``potential''
+[scalar function] $\varphi$ such that
+\begin{equation}
+u_{i}=\partial_{i}\varphi.
+\end{equation}
+(Potential flow is equivalent to the velocity is irrotational.) We
+plug this into the continuity equation to obtain
+\begin{equation}
+0=\partial_{i}u_{i}=\partial_{i}(\partial_{i}\varphi),
+\end{equation}
+which is just Laplace's equation
+\begin{equation}
+0=\nabla^{2}\varphi.
+\end{equation}
+The conservation of linear momentum equation becomes
+\begin{equation}
+\rho\partial_{j}\bigl((\partial_{i}\varphi)(\partial_{j}\varphi)\bigr)+\rho\partial_{i}V+\partial_{i}p=0.
+\end{equation}
+Then we use the product rule (of differentiation) and $\partial_{j}^{2}\varphi=0$
+\begin{equation}
+\rho(\partial_{j}\partial_{i}\varphi)(\partial_{j}\varphi)+\rho\partial_{i}V+\partial_{i}p=0.
+\end{equation}
+We assume
+$\partial_{i}\partial_{j}\varphi=\partial_{j}\partial_{i}\varphi$ then
+use the product rule again to find
+\begin{equation}
+\frac{1}{2}\rho\partial_{i}\bigr((\partial_{j}\varphi)(\partial_{j}\varphi)\bigr)+\rho\partial_{i}V+\partial_{i}p=0.
+\end{equation}
+Since $\rho$ is a constant, we can rewrite this as
+\begin{equation}
+\partial_{i}\left[\frac{\rho}{2}(\partial_{j}\varphi)(\partial_{j}\varphi)+\rho V+p\right]=0.
+\end{equation}
+Now, plugging $u_{j}=\partial_{j}\varphi$ back into this equation,
+\begin{equation}
+\partial_{i}\left[\frac{\rho}{2}u_{j}u_{j}+\rho V+p\right]=0.
+\end{equation}
+Then by the fundamental theorem of calculus,
+\begin{equation}
+\frac{\rho}{2}u_{j}u_{j}+\rho V+p=\mbox{constant}.
+\end{equation}
+This is precisely Bernoulli's principle.
+\end{example}
+
+\begin{definition}
+We say a fluid is \define{Potential Flow} if there exists a scalar
+function $\varphi$ such that the velocity vector field $u_{i}$ may be
+written as $u_{i}=\partial_{i}\varphi$.
+\end{definition}
+
+\begin{node}[Conservation of energy]
+Recall, we have
+\begin{equation}
+\varepsilon=e+\frac{1}{2}u_{i}u_{i},
+\end{equation}
+and the conservation of energy looks like
+\begin{equation*}
+\partial_{t}\int_{V_{c}}\rho\varepsilon\,\D V
++\oint_{\boundary V_{c}}\rho\varepsilon(\vec{u}\cdot\UnitNormalVec{n})\,\D A
+=\int_{V_{c}}\vec{\gamma}\cdot\vec{u}\,\D V
++\oint_{\boundary V_{c}}\vec{f}\cdot\vec{u}\,\D A
+-\oint_{\boundary V_{c}}\vec{q}\cdot\UnitNormalVec{n}\,\D A
++\int_{V_{c}}\rho Q\,\D V.
+\end{equation*}
+Then, using $f_{i}=\sigma_{ji}\widehat{n}_{j}$, using similar
+reasoning as the other equations of motion,
+\begin{equation}
+\partial_{t}(\rho\varepsilon)+\partial_{j}(\rho u_{j}\varepsilon)
+=\gamma_{j}u_{j}+\partial_{j}(u_{i}\sigma_{ji})-\partial_{j}q_{j}+\rho Q.
+\end{equation}
+This is 1 equation in 14 unknowns.
+\end{node}
+
+\subsection{Eulerian versus Lagrangian description of fluids}
+
+\begin{node}
+The Eulerian specification of a fluid flow has a fixed reference frame
+(system of coordinates) and the fluid just ``flows along''. That is to
+say, we look at the fluid flowing through the point $\vec{x}$.
+In a fixed coordinate system, the observables look like $f(\vec{x},t)$.
+\end{node}
+
+\begin{node}
+In the Lagrangian specification of a fluid flow, we follow a ``fluid parcel''
+along its trajectory. (What is a ``fluid parcel''? Intuitively, it is
+an ``infinitesimal volume'' of fluid which we can treat as a point
+located at its center of mass.)
+How do we specify a fluid parcel? We can use its initial position
+$\vec{x}_{0}$ at time $t=t_{0}$ to specify the fluid parcel. The
+trajectory is described using the function $\vec{x}(\vec{a},t)$ where
+\begin{equation}
+\vec{x}_{0}=\vec{x}(\vec{x}_{0},t_{0})
+\end{equation}
+is the initial position.
+
+Note that we do not need to use the initial position $\vec{x}_{0}$ at
+time $t_{0}$ as the first argument in the Lagrangian description of
+fluid flow $\vec{x}(-,t)$. We could use \emph{any} parameter which
+uniquely identifies each fluid parcel. For details about this, see
+Lamb~\cite[\S16]{lamb1930hydrodynamics},
+Batchelor~\cite[\S2.1]{batchelor1973introduction}.
+\end{node}
+
+\begin{node}
+We can relate these two specifications using the velocity vector field
+$\vec{u}(\vec{x},t)$ as
+\begin{equation}
+\vec{u}(\vec{x}(\vec{x}_{0},t),t)=\partial_{t}\vec{x}(\vec{x}_{0},t).
+\end{equation}
+This means any observable $f=f(\vec{x}(t),t)$ satisfies (by the chain rule):
+\begin{subequations}
+  \begin{align}
+\frac{\D}{\D t}f 
+&=\left.\partial_{t}f\right|_{\vec{x}~\text{fixed}}+\frac{\partial f}{\partial x_{j}}\frac{\partial x_{j}(t)}{\partial t}\\
+&=\partial_{t}f|_{\vec{x}}+(\partial_{j}f)u_{j}\\
+&=:\frac{D f}{D t}.
+  \end{align}
+\end{subequations}
+For this reason, it is convenient to introduce the following.
+\end{node}
+
+\begin{definition}
+Suppose a fluid follows the velocity vector field $\vec{u}(\vec{x},t)$
+in the Eulerian specification. Then we define the \define{Material Derivative}
+to be the differential operator
+\begin{equation}
+\frac{D}{D t}=\frac{\partial}{\partial t}+\sum_{j}u_{j}\frac{\partial}{\partial x_{j}}.
+\end{equation}
+In the Lagrangian specification of a fluid flow, this becomes ``just''
+the total time derivative $\D/\D t$.
+\end{definition}
+
+\begin{xca}
+Show the material derivative obeys the usual identities of the
+derivative (the product rule and it is $\RR$-linear). Does it satisfy
+the chain rule?
+\end{xca}
+
+\begin{example}
+We see that
+\begin{equation*}
+\frac{D u_{i}}{D t}=\partial_{t}u_{i}+u_{j}\partial_{j}u_{i}.
+\end{equation*}
+\end{example}
+
+\begin{example}
+We see that
+\begin{equation*}
+\frac{D\rho}{D t}=\partial_{t}\rho + u_{j}\partial_{j}\rho.
+\end{equation*}
+\end{example}
+
+\begin{node}[Continuity equation revisited]
+We had the Continuity equation:
+\begin{equation}
+\partial_{t}\rho+\partial_{i}(u_{i}\rho)=0.
+\end{equation}
+We see that 
+\begin{equation}
+\partial_{t}\rho+\partial_{i}(u_{i}\rho)=\frac{D}{D t}\rho+\rho\partial_{i}u_{i}=0,
+\end{equation}
+or equivalently
+\begin{equation}
+\frac{1}{\rho}\frac{D\rho}{D t}=-\partial_{i}u_{i}.
+\end{equation}
+\end{node}
+
+\begin{definition}
+We define the \define{Dilitation} of a fluid flow to be the quantity
+$\partial_{i}u_{i}$. 
+\end{definition}
+
+\begin{remark}
+It is not immediately obvious, but it is equal to
+the material derivative of the determinant of the Jacobian matrix of the Lagrangian specification
+of the fluid flow:
+\begin{equation*}
+\frac{D}{D t}\det J(\vec{a},t)=(\vec{\nabla}\cdot\vec{u})\det\frac{\partial\vec{x}(\vec{a},t)}{\partial\vec{a}}.
+\end{equation*}
+See Childress~\cite[\S1.2]{childress2009introduction},
+Lamb~\cite[\S6]{lamb1930hydrodynamics}, Batchelor~\cite[Eq~(2.2.3)~\textit{et~seq.}]{batchelor1973introduction}.
+\end{remark}
+
+\begin{node}
+Let us consider some ``quantity'' $f(\vec{x},t)$. Then we see
+\begin{subequations}
+  \begin{align}
+\partial_{t}(\rho f)+\partial_{j}\bigl((\rho u_{j})f\bigr)
+&=\rho\partial_{t}f+f\partial_{t}\rho+\rho u_{j}\partial_{j}f+f\partial_{j}(\rho u_{j})\\
+&=f[\partial_{t}\rho+\partial_{j}(\rho u_{j})]+\rho\frac{D f}{D t}\\
+&=f[0] + \rho\frac{D f}{D t}\quad\mbox{by continuity equation}\\
+&=\rho\frac{D f}{D t}.
+  \end{align}
+\end{subequations}
+We see that the conservation of linear momentum has $f=u_{i}$, 
+the conservation of energy had $f=\varepsilon$.
+\end{node}
+
+\begin{node}
+The conservation of linear momentum equation is
+\begin{equation*}
+\rho\frac{D u_{i}}{D t}=\gamma_{i}+\partial_{j}\sigma_{ij}.
+\end{equation*}
+\end{node}
+
+\begin{node}
+The conservation of energy is then
+\begin{equation*}
+\rho\frac{D\varepsilon}{D t}=\gamma_{i}u_{i}+\partial_{j}(u_{i}\sigma_{ij})-\partial_{i}q_{i}+\rho Q.
+\end{equation*}
+\end{node}
+
+\begin{remark}
+References on the Eulerian and Lagrangian specifications which are also useful include Childress~\cite[Ch~1]{childress2009introduction}.
+\end{remark}

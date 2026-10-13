@@ -1,0 +1,241 @@
+%%
+%% fall-lecture07.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-13T09:04:08-0700
+%% Last update 2026-10-13T09:04:08-0700
+%% 
+
+\lecture{}
+
+\subsection{Stress tensor}
+
+\begin{node}
+How do we \emph{physically} think of the stress tensor $\sigma_{ji}$?
+If we imagine a small cube whose faces have the outward pointing unit
+normal be $\pm\widehat{e}_{j}$ where $\widehat{e}_{j}$ are the unit
+vectors along each axis. Then a force $\vec{f}=f_{i}\widehat{e}_{i}$
+acting on the face of the cube with outward-pointing normal
+$\UnitNormalVec{n}=\widehat{e}_{j}$ describes a stress which is
+precisely the component $\sigma_{ji}$.
+\end{node}
+
+\begin{puzzle}
+How does the stress tensor $\sigma_{ji}$ behave if we were to change
+coordinates $x\to x'$? (This is addressed by Cauchy's stress theorem.)
+\end{puzzle}
+
+\begin{node}[Cauchy stress theorem]
+Suppose we have a tetrahedron formed by vertices $B_{1}$, $B_{2}$,
+$B_{3}$ (which respectively lie along the orthogonal axes $x_{1}$, $x_{2}$, $x_{3}$),
+and the origin $O$. Suppose we have $\UnitNormalVec{n}$ be the
+outward-pointing unit normal vector on the triangle with vertices
+$\Delta B_{1}B_{2}B_{3}$.
+
+Suppose the face $\Delta B_{1}B_{2}B_{3}$ has area $\delta A$;
+the face $\Delta OB_{2}B_{3}$ has area $n_{1}\,\delta A$;
+the face $\Delta OB_{1}B_{3}$ has area $n_{2}\,\delta A$;
+the face $\delta OB_{1}B_{2}$ has area $n_{3}\,\delta A$.
+
+Then we can compute the stresses on each of these faces under the
+force $\vec{f}$ acting on the tetrahedron. If we look at the face
+$\Delta OB_{2}B_{3}$, the contribution to the surface force is
+$-\sigma_{1}in_{1}\,\delta A$. The face $\Delta OB_{1}B_{3}$
+contributes $-\sigma_{2i}n_{2}\,\delta A$, and the face $\Delta OB_{1}B_{2}$
+contributes $-\sigma_{3i}n_{3}\,\delta A$. The final face $\Delta B_{1}B_{2}B_{3}$
+contributes $f_{i}\,\delta A$.
+
+We want to determine $f_{i}$ in terms of $\sigma_{ji}$. We can take a
+step back and treat this tetrahedron as a control volume, then plug
+this into the conservation of linear momentum (in integral form) to
+obtain
+\begin{equation}
+\frac{D}{D t}\int_{V}\rho u_{i}\,\D V = \int_{V}\gamma_{i}\,\D V +
+\underbrace{(f_{i}-\sigma_{ji}n_{j})\,\delta A}_{\text{surface force}}
+\end{equation}
+Now we can offer an ``order of magnitude'' proof. We know that
+\begin{equation}
+  \begin{pmatrix}\mbox{surface}\\
+    \mbox{force terms}
+  \end{pmatrix}\sim\delta A,
+\end{equation}
+and we know that the volume grows like
+\begin{equation}
+\delta V\sim(\delta A)^{3/2/}.
+\end{equation}
+So the volume integrals scale like $\delta V$. Then we shrink the
+tetrahedron (i.e., take the $\delta V\to0$ limit), the first two terms
+vanish faster than the surface terms, so we get as $\delta A\to 0$
+\begin{equation}
+0 = 0 + (f_{i}-\sigma_{ji}n_{j})\delta A\iff f_{i}=\sigma_{ji}n_{j}.
+\end{equation}
+So the surface stress does not require different definitions for
+different coordinate systems. The plane not aligned with the
+coordinate system (i.e., the face $\Delta B_{1}B_{2}B_{3}$) has its
+stress satisfy this relationship.
+
+See Batchelor~\cite[p.~9]{batchelor1973introduction}, Lamb~\cite[\S2]{lamb1930hydrodynamics}.
+\end{node}
+
+\begin{node}[Symmetry of the stress tensor]
+We have claimed (and frequently used without proof) the stress tensor
+is symmetric,
+\begin{equation}
+\sigma_{ij}=\sigma_{ji}.
+\end{equation}
+We can look at Newton's second Law for angular momentum (which is not
+at all obvious \emph{why} we should look at angular momentum, this
+took many years before people realized this):
+\begin{equation}
+\frac{D}{Dt}\int_{V}\rho(\vec{x}\times\vec{u})\,\D V
+=\int_{V}\rho(\vec{x}\times\vec{\gamma})\,\D V
++\oint_{\boundary V}\vec{x}\times(\sigma\UnitNormalVec{n})\,\D A.
+\end{equation}
+We again use an ``order of magnitude proof''. Taking the $V\to 0$ limit, 
+we see the left-hand side scales like $V^{4/3}$ and the volume
+integral on the right hand side scaled like $V^{4/3}$. Then the flux
+integral on the right hand side scales differently since it can be
+written as
+\begin{subequations}
+  \begin{align}
+\oint_{A}\varepsilon_{ijk}x_{j}f_{k}\,\D A
+&=\oint_{A}\varepsilon_{ijk}x_{j}\sigma_{\ell k}n_{\ell}\,\D A\\
+&=\int_{V}\partial_{\ell}[\varepsilon_{ijk}x_{j}\sigma_{\ell k}]\D V\quad\mbox{by divergence thm}\\
+&=\int_{V}\varepsilon_{ijk}[(\partial_{\ell}x_{j})\sigma_{\ell k}+x_{j}\partial_{\ell}\sigma_{\ell k}]\D V\quad\mbox{by product rule}\\
+&=\int_{V}\varepsilon_{ijk}[\underbrace{\delta_{j,\ell}\sigma_{\ell k}}_{\sim\bigOh(V)}+\underbrace{x_{j}(\partial_{\ell}\sigma_{\ell k})}_{\sim\bigOh(V^{4/3})}]\D V
+  \end{align}
+\end{subequations}
+So the limit $V\to 0$ requires
+\begin{equation}
+\int_{V}\varepsilon_{ijk}\sigma_{jk}\,\D V=0\iff\sigma_{jk}-\sigma_{kj}=0.
+\end{equation}
+Hence $\sigma_{jk}=\sigma_{kj}$ as desired.
+\end{node}
+
+\subsection{Fundamental property of a fluid}
+
+\begin{fact}
+A fluid at mechanical equilibrium (i.e., velocity $\vec{u}=0$ or
+  $\vec{u}$ is constant or experiences solid body rotation [fluid in a
+  container that's rotating---the cup is rotating]), we have the
+stress tensor expressed in terms of mechanical pressure $p$:
+\begin{equation}
+\sigma_{ij}=-p\delta_{i,j}.
+\end{equation}
+For dilute gases $p>0$, but for liquids it is possible that $p<0$ (but
+not necessarily so).
+\end{fact}
+
+\begin{definition}
+An \define{Ideal Fluid} is a fluid which has no viscosity; i.e., has
+no shear components. Even when the fluid is in motion, we have
+\begin{equation*}
+\sigma_{ij}=-p\delta_{i,j}.
+\end{equation*}
+\end{definition}
+
+\begin{node}
+For non-ideal fluids in motion, we can write
+\begin{equation}
+\sigma_{ij}=-p\delta_{i,j}+\tau_{ij}
+\end{equation}
+where $-p\delta_{i,j}$ is the ``isotropic part' and $\tau_{ij}$ is the
+``deviatory part'' (describing deviation from an ideal fluid).
+\end{node}
+
+\begin{node}
+We can plug $\sigma_{ij}=-p\delta_{i,j}+\tau_{ij}$ into the
+conservation equations in differential form. For example, the
+conservation of linear momentum becomes:
+\begin{equation}
+\partial_{t}(\rho u_{i}) + \partial_{j}(\rho u_{i}u_{j})
+=\underbrace{-\partial_{i}p+\partial_{j}\tau_{ij}}_{=\partial_{j}\sigma_{ij}}+\gamma_{i}.
+\end{equation}
+The conservation of energy in differential form:
+\begin{equation}\label{eq:fluids:fall-lec7:eq-2}
+\partial_{t}(\rho\varepsilon)+\partial_{j}(\rho u_{j}\varepsilon)
+=\underbrace{-\partial_{i}(pu_{i})+\partial_{j}(\tau_{ij}u_{i})}_{=\partial_{j}(\sigma_{ij}u_{i})}
++\gamma_{i}u_{i}-\partial_{i}q_{i}+\rho Q.
+\end{equation}
+\end{node}
+
+\subsection{Variants of the energy equations}
+
+\begin{node}[Kinetic energy]
+We can consider the ``kinetic energy'' (exc;uding the internal energy)
+$KE=\frac{1}{2}u_{i}u_{i}$. Recall the momentum equations look like
+\begin{equation}
+\rho\frac{D u_{i}}{D t}=-\partial_{i}p+\partial_{j}\tau_{ij}+\gamma_{i},
+\end{equation}
+then multiply both sides by $u_{i}$ (contracting the indices),
+\begin{equation}
+\rho u_{i}\frac{D u_{i}}{D t}=-u_{i}\partial_{i}p+u_{i}\partial_{j}\tau_{ij}+u_{i}\gamma_{i},
+\end{equation}
+which can be rewritten as
+\begin{equation}\label{eq:fluids:fall-lec7:eq-3}
+\rho\frac{D}{Dt}\left(\frac{1}{2}u_{i}u_{i}\right)
+=-u_{i}\partial_{i}p+u_{i}\partial_{j}\tau_{ij}+u_{i}\gamma_{i}.
+\end{equation}
+\end{node}
+
+\begin{node}
+If we subtract Equation~\ref{eq:fluids:fall-lec7:eq-3} from Eq~\eqref{eq:fluids:fall-lec7:eq-2},
+we get the \define{Internal Energy Equation}:
+\begin{equation}
+\rho\frac{D e}{D t}=-p\partial_{i}u_{i}+\tau_{ij}\partial_{j}u_{i}-\partial_{i}q_{i}
++\rho Q.
+\end{equation}
+\end{node}
+
+\begin{definition}
+We recall the \define{[Specific] Enthalpy} is defined to be
+\begin{equation}
+h := e + \frac{p}{\rho}.
+\end{equation}
+We also recall the \define{Total Enthalpy} is defined to be
+\begin{equation}
+h_{0} := h + \frac{1}{2}u_{i}u_{i}
+\end{equation}
+which is the total energy plus $p/\rho$.
+\end{definition}
+
+\begin{node}
+We need to perform a few calculations. We see that
+\begin{equation}
+\frac{D p}{D t}=\partial_{t}p+u_{i}\partial_{i}p,
+\end{equation}
+and
+\begin{equation}
+\frac{1}{\rho}\frac{D\rho}{D t}=-\partial_{i}u_{i}.
+\end{equation}
+This gives us
+\begin{equation}
+\frac{p}{\rho}\frac{D\rho}{D t}=-p\partial_{i}u_{i}.
+\end{equation}
+Then we find (by the product and chain rules):
+\begin{subequations}
+  \begin{align}
+\rho\frac{D(p/\rho)}{D t}
+&=\frac{\rho}{\rho}\frac{D p}{D t}+\rho p\frac{-1}{\rho^{2}}\frac{D\rho}{D t}\\
+&=\frac{D p}{D t}-\frac{p}{\rho}\frac{D\rho}{D t}\\
+&=\partial_{t}p+\partial_{i}(pu_{i}).
+  \end{align}
+\end{subequations}
+\end{node}
+
+\begin{node}
+We can add this to the internal energy equation to find
+\begin{subequations}
+  \begin{align}
+\rho\frac{D h}{D t}
+&=\rho\frac{D}{D t}[e + \frac{p}{\rho}]\\
+&=\rho\frac{D e}{D t}+\rho\frac{D}{D t}\left(\frac{p}{\rho}\right)\\
+&=-p\partial_{i}u_{i}+\tau_{ij}\partial_{j}u_{i}-\partial_{i}q_{i}+\rho Q
++\partial_{t}p+\partial_{i}(pu_{i}).
+  \end{align}
+\end{subequations}
+This describes how enthalpy changes over time. We can obtain a similar
+equation for the total enthalpy.
+\end{node}
