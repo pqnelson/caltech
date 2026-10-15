@@ -1,0 +1,308 @@
+%%
+%% fall-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-15T08:56:47-0700
+%% Last update 2026-10-15T08:56:47-0700
+%% 
+
+\lecture{}
+
+(Emma Lenz is lecturing today, the professor was out of town.)
+
+\begin{recall}
+We have derived the equations of motion for various quantities. Let us
+review them, so they are all in one handy location.
+\begin{itemize}
+\item Momentum $\displaystyle{\rho\frac{D u_{i}}{D t} = -\partial_{i}p+\partial_{j}\tau_{ij}+\gamma_{i}}$
+\item Kinetic energy $\displaystyle{\rho\frac{D(\frac{1}{2}u_{i}u_{i})}{D t} = -u_{i}\partial_{i}p+u_{i}\partial_{j}\tau_{ij}+u_{i}\gamma_{i}}$
+\item Total energy (which is basically the first Law of Thermodynamics)
+\begin{equation*}
+\rho\frac{D\varepsilon}{Dt}=-\partial_{i}(pu_{i})+\partial_{j}(\tau_{ij}u_{i})+\gamma_{i}u_{i}-\partial_{i}q_{i}+Q\rho
+\end{equation*}
+where $\varepsilon=e+\frac{1}{2}u_{i}u_{i}$, and $e$ is thhe internal energy
+\item Energy dissipation (obtained by subtracting the kinetic energy
+  from the total energy):
+\begin{align*}
+\rho\frac{De}{Dt} &= \rho\frac{D}{Dt}(\varepsilon-\frac{1}{2}u_{i}u_{i})\\
+&=-p\partial_{i}u_{i}+\tau_{ij}\partial_{j}u_{i}-\partial_{i}q_{i}+\rho Q
+\end{align*}
+\item Enthalpy $h=e+(p/\rho)$:
+\begin{align*}
+\rho\frac{Dh}{Dt} &= \rho\frac{D e}{Dt}+\rho\frac{D(p/\rho)}{Dt}\\
+&=\tau_{ij}\partial_{j}u_{i}-\partial_{i}q_{i}+\rho Q+\partial_{t}p+u_{i}\partial_{i}p
+\end{align*}
+\item Total Enthalpy (a.k.a., ``Stagnation Enthalpy'') $h_{0}=h+\frac{1}{2}u_{i}u_{i}$
+\begin{align*}
+\rho\frac{Dh_{0}}{Dt} &= \rho\frac{D h}{Dt}+\rho\frac{D(\frac{1}{2}u_{i}u_{i})}{Dt}\\
+&=\partial_{t}p+\partial_{j}(\tau_{ij}u_{i})+u_{i}\gamma_{i}-\partial_{i}q_{i}+\rho Q
+\end{align*}
+\end{itemize}
+A lot of these are just different ways to express the conservation of energy.
+\end{recall}
+
+\subsection{Fluid statics}
+
+\begin{definition}
+We call the situation where the fluid's velocity vector field vanishes
+everywhere $\vec{u}=0$ \define{Fluid Statics}.
+\end{definition}
+
+\begin{node}
+Observe in fluid statics $\tau_{ij}=0$ since nothing is moving, so
+nothing can generate shear.
+\end{node}
+
+\begin{node}
+The conservation of linear momentum becomes
+\begin{subequations}
+\begin{equation}
+\underbrace{\rho\frac{D u_{i}}{D t}}_{=0} = -\partial_{i}p+\underbrace{\partial_{j}\tau_{ij}}_{=0}+\gamma_{i},
+\end{equation}
+which can be re-arranged to
+\begin{equation}
+\partial_{i}p=\gamma_{i}.
+\end{equation}
+\end{subequations}
+In other words, the pressure gradient $\partial_{i}p$ balances body
+forces $\gamma_{i}$.
+\end{node}
+
+\begin{node}
+When the external force is the Earth's gravitational field,
+$\vec{\gamma}=\rho\vec{g}=-\rho g\widehat{k}$, then we have
+\begin{equation}
+\partial_{z}p=-\rho(z,p) g
+\end{equation}
+and the other two equations vanish $\partial_{x}p=\partial_{y}p=0$.
+\end{node}
+
+\begin{node}[Ideal gases]
+For ideal gases,
+\begin{equation}
+\rho=\frac{p}{RT}
+\end{equation}
+which gives us
+\begin{equation}
+\partial_{z}p=-\frac{pg}{RT},
+\end{equation}
+or
+\begin{equation}
+\frac{\D p}{p}=\frac{-g\,\D z}{RT(z)}.
+\end{equation}
+We only need to know the temperature $T(z)$ to infer anything
+further. For Earth's atmosphere, $T$ linearly decreases in the
+troposphere until it gets to the tropopause, and then is constant (and
+then increases, and then\dots).
+\end{node}
+
+\begin{node}
+(This was not discussed in class.) If we take $T(z)=T_{0}-T'z$, then
+(assuming $T_{0}>T'z$):
+\begin{equation}
+\int^{z}_{0}\frac{-g}{R(T_{0}-T'z')}\D z'=\frac{-g\ln(1 - (T'/T_{0})z)}{T'R},
+\end{equation}
+which gives us
+\begin{equation}
+\ln(p(z)/p(0))=\frac{-g\ln\left(1 - \frac{T'z}{T_{0}}\right)}{T'R},
+\end{equation}
+or equivalently,
+\begin{equation}
+p(z) = p_{0}\left(1 - \frac{T'z}{T_{0}}\right)^{g/(T'R)}\sim p_{0}(1-cz)^{b}
+\end{equation}
+where $c$, $b$ are positive real constants.
+\end{node}
+
+\subsection{Uniform acceleration}
+
+\begin{example}[Linear acceleration]
+If we have a box half full of liquid (or any fluid, really), then we
+can draw the free body diagram for a fluid parcel at time $t=0$
+(before a uniform linear acceleration is applied):
+\begin{center}
+\includegraphics{img/img.10}
+\end{center}
+Now, if the container is uniformly accelerating ``forward'' with
+acceleration $a$, then at a later time we would expect the following
+free body diagram:
+\begin{center}
+\includegraphics{img/img.11}
+\end{center}
+where $\gamma_{\text{eff}}$ is the effective force acting on the fluid parcel.
+This must be balanced by the pressure gradient, which has changed accordingly.
+\end{example}
+
+\begin{example}[Uniform solid body rotation]
+Now, consider the situation where the container is a
+cylinder. Initially, at time $t=0$, it is at rest and the cross
+section looks something like:
+\begin{center}
+  \includegraphics{img/img.12}
+\end{center}
+Then we can consider the situation where it rotates with constant
+angular velocity $\omega$ about the $z$-axis. This will have the free
+body diagram:
+\begin{center}
+  \includegraphics{img/img.13}
+\end{center}
+Again, the pressure gradient balances the effective force
+$\vec{\gamma}_{\text{eff}}$. In cylindrical coordinates, the forces
+acting on the fluid parcel are:
+\begin{equation}
+\partial_{z}p\widehat{z}+\partial_{r}p\widehat{r}=-\rho g\widehat{z}+\rho\omega^{2}r\widehat{r}
+\end{equation}
+This example has a particularly fascinating application building
+telescopes using reflective fluids [instead of glass] rotating around
+at a constant angular velocity $\omega$ (namely, at different angular speeds
+$\omega$, the focal length of the telescope changes).
+\end{example}
+
+\subsection{Euler and Bernoulli equations}
+
+\begin{assume}
+The assumptions for the Euler equations:
+\begin{enumerate}
+\item No shear stress $\tau_{ij}=0$
+\item No heat transfer $q_{i}=0$
+\item The fluid is an ideal inviscid fluid
+\end{enumerate}
+\end{assume}
+
+\begin{node}
+The equations of motion simplify considerably, and we refer to them as
+\define{Euler's Equations}.\footnote{Observe the continuity equation
+and the conservation of linear momentum gives us 4 equations in 5
+unknowns. Usually an extra equation is given relating pressure to
+density, justified by Thermodynamics.} The continuity equation
+becomes
+\begin{equation}
+\frac{D\rho}{Dt}=-\rho\partial_{i}u_{i}.
+\end{equation}
+The linear momentum equation becomes
+\begin{subequations}
+\begin{equation}
+\rho\frac{D u_{i}}{D t}=-\partial_{i}p+\gamma_{i}
+\end{equation}
+or equivalently,
+\begin{equation}
+\partial_{t}(\rho u_{i})=-\partial_{j}(\rho u_{i}u_{j})-\partial_{i}p-\gamma_{i}.
+\end{equation}
+\end{subequations}
+The conservation of energy becomes
+\begin{equation}
+\rho\frac{D\varepsilon}{D t}=-\partial_{i}(pu_{i})+\gamma_{i}u_{i}+\rho Q.
+\end{equation}
+The conservation of total enthalpy becomes:
+\begin{equation}
+\rho\frac{D h_{0}}{D t}=-\partial_{t}p+\rho Q+\gamma_{i}u_{i}.
+\end{equation}
+We can use these to deduce Bernoulli's principle.
+\end{node}
+
+\subsection*{Deriving Bernoulli's principle from Euler's equations}
+
+\begin{assume}
+We will assume:
+\begin{enumerate}
+\item No shear stress $\tau_{ij}=0$
+\item No heat transfer $q_{i}=0$
+\item The fluid is an ideal inviscid fluid
+\item Steady flow: $\partial_{t}\mbox{(anything)}=0$
+\item No heat source $Q=0$
+\end{enumerate}
+Observe the first three assumptions merely allow us to use Euler's
+equations.
+
+We will also define a force potential $V$ [scalar function] such that
+the body force satisfies:
+\begin{equation}
+\vec{\gamma}=-\rho\vec{\nabla}V.
+\end{equation}
+\end{assume}
+
+\begin{node}[Bernoulli's principle for (possibly compressible) flows]
+From the total Enthalpy equation
+\begin{subequations}
+  \begin{align}
+\rho\frac{Dh_{0}}{Dt}
+&=-\partial_{t}p+\rho Q+\gamma_{i}u_{i}\\
+&=0+\rho Q +\gamma_{i}u_{i}\quad\mbox{by steady flow}\\
+&=0+\gamma_{i}u_{i}\quad\mbox{by no heat source}\\
+&=(-\rho\partial_{i}V)u_{i}\\
+&=-\rho\left(\frac{DV}{Dt}-\partial_{t}V\right)
+  \end{align}
+\end{subequations}
+where the last line takes advantage of steady flow. Then we rearrange
+terms to find:
+\begin{subequations}
+  \begin{align}
+\rho\left(\frac{Dh_{0}}{Dt}+\frac{DV}{Dt}\right)
+&=\rho\frac{D}{Dt}(h_{0}+V)\\
+&=\rho\frac{D}{Dt}(h_{0}+\frac{1}{2}u_{i}u_{i}+V)\quad\mbox{by steady flow}\\
+&=0.
+  \end{align}
+\end{subequations}
+Since $\rho$ is nonzero, we can divide it out, and conclude
+\begin{equation}
+\frac{D}{Dt}(h_{0}+\frac{1}{2}u_{i}u_{i}+V)=0.
+\end{equation}
+What does it mean for a material derivative of a function to be zero?
+Along the path line [trajectory], the quantity is constant.
+\end{node}
+
+\begin{definition}
+\define{Stream Lines} are curves which are tangent to the velocity vector.
+They satisfy
+\begin{equation*}
+\frac{\D x}{u}=\frac{\D y}{v}=\frac{\D z}{w}
+\end{equation*}
+where $u=\widehat{x}\cdot\vec{u}$, $v=\widehat{y}\cdot\vec{u}$, $w=\widehat{z}\cdot\vec{u}$.
+\end{definition}
+
+\begin{definition}
+\define{Path Lines} are physical trajectories of ``fluid parcels''.
+\end{definition}
+
+\begin{fact}
+In a steady flow, stream lines coincide with path lines.
+\end{fact}
+
+\begin{node}[Bernoulli's principle for incompressible flows]
+Furthermore, for incompressible flows, we have
+\begin{equation}
+\frac{\D\rho}{Dt}=0\quad\mbox{implies}\quad\vec{\nabla}\cdot\vec{u}=0.
+\end{equation}
+If we add this to our running list of assumptions, then we infer
+\begin{equation}
+\frac{De}{Dt}=0,
+\end{equation}
+so the internal energy $e$ is constant along stream lines. So we find
+\begin{equation}
+h + \frac{1}{2}u_{i}u_{i}+V=\left(e +
+\frac{p}{\rho}\right)+\frac{1}{2}u_{i}u_{i}+V=\mbox{constant along streamlines},
+\end{equation}
+which implies (since $e$ is constant along streamlines)
+\begin{equation}
+\frac{p}{\rho}+\frac{1}{2}u_{i}u_{i}+V=\mbox{constant along streamlines}.
+\end{equation}
+Rearranging terms (and since $\rho$ is constant along stream lines, by
+continuity equation)
+\begin{equation}
+p+\frac{1}{2}\rho u_{i}u_{i}+\rho V=\mbox{constant along streamlines}.
+\end{equation}
+When gravity is the only external force, $\vec{\gamma}=\rho\vec{g}$
+and $V=gz$ gives us
+\begin{equation}
+p+\frac{1}{2}\rho u_{i}u_{i}+\rho gz=\mbox{constant along streamlines}.
+\end{equation}
+This is the familiar form of Bernoulli's equations for incompressible flows.
+\end{node}
+
+\begin{remark}
+Importantly, we have demonstrated the ``basic process'' for deducing
+Bernoulli's principle from the equations of motion. We can
+\emph{generalize} Bernoulli's principle to other settings by
+performing the same calculations with weaker assumptions.
+\end{remark}

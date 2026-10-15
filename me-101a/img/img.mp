@@ -52,4 +52,110 @@ beginfig(3)
   label.rt(btex CV etex, z1 + (u,0));
 endfig;
 
+% lecture 8 (fall 2026)
+beginfig(10) % box half full of liquid at rest
+  numeric w,h;
+  path p[];
+  w := 6u;
+  h := 3u;
+  z0 = (0.5w,0.25h);
+  p0 = (0,0.5h)--(0,0)--(w,0)--(w,0.5h)--cycle;
+  p1 = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  fill p0 withcolor 0.7[blue,white];
+  draw p1 withpen pencircle scaled 2;
+  label(btex $\bullet$ etex, z0);
+  drawarrow z0--(z0 + (0,0.6h));
+  label.rt(btex $\partial_{z}p$ etex, z0 + (0,0.6h));
+  drawarrow z0--(z0 + (0,-0.6h));
+  label.bot(btex $\gamma=\rho g$ etex, z0 + (0,-0.6h));
+  % oh, and the wheels
+  draw fullcircle scaled u shifted (0.5u,-0.5u);
+  draw fullcircle scaled u shifted (w-0.5u,-0.5u);
+  % might as well note the time explicitly
+  label.rt(btex $t = 0$ etex, (w,h));
+endfig;
+beginfig(11) % box half full of liquid at motion
+  numeric w,h;
+  path p[];
+  w := 6u;
+  h := 3u;
+  z0 = (0.5w,0.25h);
+  p0 = (0,0.75h)--(0,0)--(w,0)--(w,0.25h)--cycle;
+  p1 = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  fill p0 withcolor 0.7[blue,white];
+  draw p1 withpen pencircle scaled 2;
+  label(btex $\bullet$ etex, z0);
+  % pressure gradient
+  drawarrow z0--(z0 + (2u,0.6h));
+  label.lft(btex $\partial_{z}p$ etex, z0 + (2u - 5,0.5h));
+  % gravity force
+  drawarrow z0--(z0 + (0,-0.6h));
+  label.lrt(btex $\gamma=\rho g$ etex, z0 + (0,-0.6h));
+  % acceleration on the parcel
+  drawarrow z0--(z0 - (2u,0));
+  label.top(btex $\rho a$ etex, (z0 - (2u,0)));
+  % effective force on the parcel
+  drawarrow z0--(z0 - (2u,0.6h));
+  label.bot(btex $\gamma_{\rm eff}$ etex, (z0 - (2u,0.6h)));
+  % acceleration vector on the container
+  drawarrow (w,0.5h)--(w + 2u,0.5h);
+  label.top(btex $a$ etex, (w + 2u,0.5h));
+  % oh, and the wheels
+  draw fullcircle scaled u shifted (0.5u,-0.5u);
+  draw fullcircle scaled u shifted (w-0.5u,-0.5u);
+endfig;
+
+beginfig(12) % cylinder cross section at rest
+  path p[];
+  numeric w,h;
+  w = 4u;
+  h = 6u;
+
+  z0 = (0.5w,0.25h);
+  p0 = (0,0.5h)--(0,0)--(w,0)--(w,0.5h)--cycle;
+  p1 = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  fill p0 withcolor 0.7[blue,white];
+  draw p1 withpen pencircle scaled 2;
+  label(btex $\bullet$ etex, z0);
+  drawarrow z0--(z0 + (0,0.6h));
+  label.rt(btex $\partial_{z}p$ etex, z0 + (0,0.6h));
+  drawarrow z0--(z0 + (0,-0.6h));
+  label.bot(btex $\gamma=\rho g$ etex, z0 + (0,-0.6h));
+  % might as well note the time explicitly
+  label.rt(btex $t = 0$ etex, (w,h));
+endfig;
+
+beginfig(13) % cylinder cross section at constant rotation
+  path p[];
+  numeric w,h;
+  w = 4u;
+  h = 6u;
+
+  p2 = fullcircle xscaled w yscaled u;
+  drawarrow (subpath (0.05length(p2),0.95length(p2)) of p2) shifted (0.5w,h+u);
+  label.rt(btex $\omega$ etex, (w, h+u));
+  
+  z0 = (0.75w,0.125h);
+  p0 = (0,0.5h)--(0,0)--(w,0)--(w,0.5h)..(0.5w,0.25h)..cycle;
+  p1 = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  fill p0 withcolor 0.7[blue,white];
+  draw p1 withpen pencircle scaled 2;
+  label(btex $\bullet$ etex, z0);
+  % gravity
+  drawarrow z0--(z0 + (0,-0.6h));
+  label.bot(btex $\gamma=\rho g$ etex, z0 + (0,-0.6h));
+  % centrifugal force
+  drawarrow z0--(z0 + (w,0));
+  label.rt(btex $\rho\omega^{2}r$ etex, z0 + (w, 0));
+  % effective force
+  drawarrow z0--(z0 + (w, -0.6h));
+  label.lrt(btex $\gamma_{\rm eff}$ etex, z0 + (w, -0.6h));
+  % parallelogram law
+  draw (z0 + (w, 0)) -- (z0 + (w, -0.6h)) dashed evenly;
+  draw (z0 + (0, -0.6h)) -- (z0 + (w, -0.6h)) dashed evenly;
+  % pressure gradient
+  drawarrow z0--(z0 - (w, -0.6h));
+  label.top(btex $\partial_{z}p$ etex, z0 - (w, -0.6h));
+endfig;
+
 end;
