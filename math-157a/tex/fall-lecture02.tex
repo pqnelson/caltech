@@ -84,6 +84,27 @@ that's obvious).
 \end{example}
 
 \begin{definition}
+Let $\xi$ and $\eta$ be vector bundles over the same base space $B$
+(both $\xi$ and $\eta$ real vector bundles, or more generally
+both with fibers are vector spaces over the same field).
+We say $\xi$ is \define{Isomorphic}
+to $\eta$, denoted $\xi\iso\eta$, if there exists a homeomorphism
+$f\colon E(\xi)\to E(\eta)$ between the total spaces such that each
+vector space $F_{b}(\xi)$ is mapped isomorphically onto the
+corresponding vector space $F_{b}(\eta)$.
+
+\textbf{Note:} both $\xi$ and $\eta$ are vector bundles over
+\emph{the same} base space $B$. This is how Milnor and
+Stasheff~\cite[Ch~2]{milnor1974characteristic} define it. But I am not
+sure how I feel about it: does this correspond to the notion of an
+isomorphism in the category of vector bundles? (That is to say, using
+Definition~\ref{defn:bundle-map} of bundle maps, and a bundle
+isomorphism is a bundle map with an inverse bundle map, we could have
+homeomorphic base spaces $B(\xi)\iso B(\eta)$ which are not
+necessarily identical---is this a ``bad thing''?)
+\end{definition}
+
+\begin{definition}
 Let $M$ be a smooth $n$-manifold.
 We say $M$ is \define{Parallelizable} if $\T M$
 is trivializable (i.e., globally trivial $\T M=M\times\RR^{n}$).

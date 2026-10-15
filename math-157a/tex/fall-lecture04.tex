@@ -140,3 +140,41 @@ Moreover, the orthogonal complement operation
 \end{align*}
 is a homeomorphism. (These are 2 claims.)
 \end{lemma}
+
+We need to prove: (1) $G_{n}(\RR^{n+k})$ is Hausdorff, (2)
+$G_{n}(\RR^{n+k})$ is compact, (3) $G_{n}(\RR^{n+k})$ is locally
+Euclidean of dimension $nk$.
+
+\begin{proof}
+\textsc{Step 1: Hausdorff}.
+We can take $X,Y\in G_{n}(\RR^{n+k})$ two distinct ``points''. Choose
+a point $w\in X\setminus Y$. For any $Z\in G_{n}(\RR^{n+k})$, define
+the distance function
+\begin{equation}
+\rho_{w}(Z)=(\dist(w,Z))^{2}.
+\end{equation}
+Then $\rho_{w}(X)=0$ and $\rho_{w}(Y)>0$. Then define the [open] neighborhood
+of $X$,
+\begin{equation}
+U=\{Z\in G_{n}(\RR^{n+k})\mid\rho_{w}(Z)<a/2\}\ni X,
+\end{equation}
+and the [open] neighborhood of $Y$,
+\begin{equation}
+V=\{Z\in G_{n}(\RR^{n+k})\mid\rho_{w}(Z)>a/2\}\ni Y,
+\end{equation}
+where $a=\rho_{w}(Y)>0$. We need to show that $U$ and $V$ really are
+open, but they are neighborhoods since $U\cap V=\emptyset$. Suffices
+to show $\rho_{w}(Z)$ is continuous in $Z$. If we write
+\begin{equation}
+Z=\Span(z_{1},\dots,z_{n})
+\end{equation}
+using some orthogonal basis $z_{1}$, \dots, $z_{n}$ for $Z$, then
+\begin{subequations}
+  \begin{align}
+\rho_{w}(Z) &= |w|^{2}-|\Proj_{Z}(w)|^{2}\\
+&=|w|^{2}-\sum^{n}_{j=1}\langle w,z_{j}\rangle^{2}.
+  \end{align}
+\end{subequations}
+Then $\rho_{w}\circ q$ is continuous [where
+  $q\colon(z_{1},\dots,z_{n})\mapsto Z$ is the quotient map], which means $\rho_{w}$ is continuous.
+\end{proof}

@@ -147,12 +147,27 @@ h\colon & (f^{-1}U)\times\RR^{n}\to\pi'^{-1}(f^{-1}U)\\
 and we just need to prove $h'$ is a homeomorphism.
 \end{node}
 
-\begin{definition}
+\begin{definition}\label{defn:bundle-map}
 Let $\xi$, $\eta$ be real vector bundles. A \define{Bundle Map} is a
 continuous map $g\colon E(\xi)\to E(\eta)$ such that $g$ maps
 $F_{b}(\xi)$ to $F_{b'}(\eta)$. (\textsc{Caution}:
 \cite[Ch~3]{milnor1974characteristic} seems to have a typo, saying $g$
 maps $F_{b}(\eta)$ to $F_{b'}(\xi)$ which is \textbf{wrong}.)
+
+More explicitly, if $\pi_{1}\colon E(\xi)\to B(\xi)$ and
+$\pi_{2}\colon E(\eta)\to B(\eta)$ are vector bundles, then a bundle
+map is a pair of [continuous] maps $f\colon E(\xi)\to E(\eta)$ and $g\colon B(\xi)\to B(\eta)$
+such that
+\begin{enumerate} 
+\item the diagram
+\begin{equation}
+\vcenter{\xymatrix{E(\xi)\ar[r]^{f}\ar[d]_{\pi_{1}} & E(\eta)\ar[d]^{\pi_{2}}\\
+B(\xi)\ar[r]^{g}&B(\eta)}}
+\end{equation}
+commutes; and 
+\item for every $x\in B(\xi)$, the map $\pi_{1}^{-1}(\{x\})\to\pi_{2}^{-1}(\{g(x)\})$
+[induced by $f$] is a linear map between vector spaces.
+\end{enumerate}
 \end{definition}
 
 \begin{remark}
@@ -160,15 +175,22 @@ Suppose $g$ is a bundle map such that $g$ is the identity on the base.
 \end{remark}
 
 \begin{node}[Base map]
-Let $g$ be a bundle map from $\xi$ to $\eta$. Then we can define the
-\define{Base Map} $\overline{g}\colon B(\xi)\to B(\eta)$ which is such that
+Let $f$ be a bundle map from $\xi$ to $\eta$. Then we can define the
+\define{Base Map} $\overline{f}\colon B(\xi)\to B(\eta)$ which is such that
 \begin{equation}
 \vcenter{\xymatrix{
-E(\xi)\ar[r]^{g}\ar[d]^{\pi_{\xi}} & E(\eta)\ar[d]^{\pi_{\eta}}\\
-B(\xi)\ar[r]^{\overline{g}} & B(\eta)
+E(\xi)\ar[r]^{f}\ar[d]_{\pi_{\xi}} & E(\eta)\ar[d]^{\pi_{\eta}}\\
+B(\xi)\ar[r]^{\overline{f}} & B(\eta)
 }}
 \end{equation}
-commutes. Moreover, $\overline{g}$ is a continuous map.
+commutes. Moreover, $\overline{f}$ is a continuous map.
+
+In other words, $f\colon E(\xi)\to E(\eta)$ determines
+$\overline{f}\colon B(\xi)\to B(\eta)$ since $\pi_{\eta}$ is
+surjective and $\overline{f}=\pi_{2}\circ f$ is the composition of
+continuous maps. For this reason, it is common to just refer to $f$ as
+the bundle map (since the base map $\overline{f}$ is determined
+completely by $f$).
 \end{node}
 
 \begin{lemma}

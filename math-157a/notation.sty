@@ -22,6 +22,9 @@
 \newcommand\rel{\nonscript\mskip-\medmuskip\mkern5mu
   \mathbin{\rm rel}\penalty900\mkern5mu\nonscript\mskip-\medmuskip}
 
+\let\closure\overline
+\let\boundary\partial
+
 % Set theory
 \let\propersubset\subset
 \let\subset\subseteq
@@ -34,6 +37,11 @@
 \let\into\hookrightarrow
 
 \DeclareMathOperator\Support{Supp}
+
+% image of a map
+\let\og@Im\Im
+\let\Im\relax
+\DeclareMathOperator\Im{Im}
 
 % sets
 \def\NN{\mathbb{N}}
@@ -76,8 +84,17 @@
 \DeclareMathOperator\Pfaff{Pf}
 \DeclareMathOperator\Span{span}
 \DeclareMathOperator\GL{GL}
+\DeclareMathOperator\Orth{O} % orthogonal group
+\DeclareMathOperator\dist{dist} % distance
+\DeclareMathOperator\Proj{Proj} % projection
 
 % category theory
 \newcommand*\cat[1]{\mathbf{#1}}
+
+
+% redefine \hom
+\let\og@hom\hom
+\let\hom\relax
+\DeclareMathOperator\hom{Hom}
 
 \endinput

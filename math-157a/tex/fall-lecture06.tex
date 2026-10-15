@@ -1,0 +1,181 @@
+%%
+%% fall-lecture06.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-15T11:55:28-0700
+%% Last update 2026-10-15T11:55:28-0700
+%% 
+
+\lecture{}
+
+% This was the end of Lecture 5, but the proof began in Lecture 6
+\begin{lemma}
+Let $\xi$ be an $\RR^{n}$ bundle over a \emph{compact} base $B$. Then
+for $k$ large enough, we can find a map $f\colon B\to G_{n}(\RR^{n+k})$
+such that $\xi\iso f^{*}\gamma^{n}(\RR^{n+k})$.
+\end{lemma}
+
+\begin{proof}
+The first key observation: it suffices to construct a continuous map
+$\widehat{f}\colon E(\xi)\to\RR^{n+k}$ such that $\widehat{f}$ is
+linear and injective on each fiber (since $\RR^{n}$ is the fiber of
+$\xi$, $\RR^{n}$ is mapped to $\RR^{n}\subset\RR^{n+k}$). Then
+construct $f\colon B\to G_{n}(\RR^{n+k})$ such that for all $b\in B$
+we have $f(b)=\Im(\widehat{f}|_{\pi^{-1}(b)})$ is the image of
+$\widehat{f}$ restricted to the fiber $\pi^{-1}(\{b\})$, and we can
+check $f$ is continuous. We see
+\begin{equation}
+\vcenter{\xymatrix{%
+\xi\ar[d] & \gamma^{n}\ar[d] & & e\ar@{|->}[d] & (f(\pi(e)),\widehat{f}(e))\ar@{|->}[d]\\
+B\ar[r]^{f} & G_{n}(\RR^{n+k}) & & \pi(e)\ar@{|->}[r] & f(\pi(e))}}
+\end{equation}
+which suggests $e\mapsto(f(\pi(e)),\widehat{f}(e))$ is the map we are
+trying to construct. The requirement is that $\widehat{f}(e)\in
+f(\pi(e))$ to get a bundle map, since if $\pi(e)=b$ then $f\pi(e))=\Im(\widehat{f}|_{\pi^{-1}(b)})$.
+Then we can use our previous lemma and find $\xi\iso f^{*}\gamma^{n}$.
+We just deferred the hardest work (constructing $\widehat{f}$).
+
+\textsc{Construct $\widehat{f}$.} We assumed $B$ is compact, so we can
+find an open cover $\{U_{1},\dots,U_{r}\}$ of $B$ such that
+$\xi|_{U_{i}}$ is trivial for each $i$. We can verify $B$ is normal,
+so we can find $\{V_{1},\dots,V_{r}\}$ which is an open cover and for
+all $i$, $\closure{V}_{i}\subset U_{i}$., Then we can find another
+open cover $\{W_{1},\dots,W_{r}\}$ such that for all $i$ we have
+$\closure{W}_{i}\subset V_{i}$. Then using Urysohn's lemma,
+we can choose cutoff functions
+\begin{equation}
+\lambda_{i}\colon B\to\RR
+\end{equation}
+such that $\lambda_{i}|_{\closure{W}_{i}}=1$ (it is 1 on $\closure{W}_{i}$) and $\lambda_{i}|_{V_{i}^{\complement}}=0$
+(it vanishes outside of $V_{i}$). We have the local trivialization
+\begin{equation}
+h_{i}\colon U_{i}\times\RR^{n}\to\pi^{-1}(U_{i}).
+\end{equation}
+We can look at some point in $\pi^{-1}(U_{i})$, then map into
+\begin{align}
+g_{i}\colon & \pi^{-1}(U_{i})\xrightarrow{h_{i}^{-1}}U_{i}\times\RR^{n}\xrightarrow{p}\RR^{n}\\
+& h_{i}(b,v)\mapsto (b,v)\mapsto v.\nonumber
+\end{align}
+We can look at the fiber and find $g_{i}$ is linear and injective on
+each fiber; i.e., $g_{i}(b,-)$ is injective and linear for each $b\in B$.
+Now we want to go from local to global using the cut-off functions $\lambda_{i}$.
+We define
+\begin{equation}
+g'_{i}(e)=\begin{cases}0 & \mbox{if }\pi(e)\notin U_{i}\\
+\lambda_{i}(\pi(e))g_{i}(e) & \mbox{if }\pi(e)\in U_{i}.
+\end{cases}
+\end{equation}
+The key thing is that $g'_{i}$ is continuous. Use
+$\Support(\lambda_{i})\propersubset\closure{V}_{i}\subset U_{i}$ and
+$g'_{i}$ is bounded, so it does not blow up on $\boundary V_{i}$.
+Then $\widehat{f}\colon E(\xi)\to\RR^{nr}$ defined by
+$f(e)=(g'_{1}(e), g'_{2}(e),\dots, g'_{r}(e))$ since we do not have
+control on the overlaps we put the $g'_{i}$ into different components
+of an $r$-tuple. Look at the base point $\pi(e)=b$, which belongs to
+some $b\in U_{i}$, and this means $g'_{i}$ is linear and
+injective. This concludes the proof.
+\end{proof}
+
+\begin{definition}
+We define, as a set,
+\begin{equation*}
+\RR^{\infty}=\{(x_{1},x_{2},\dots,x_{n},\dots)\mid\mbox{only at most finitely many entries are nonzero}\}
+\end{equation*}
+and we can give it the \define{Direct Limit Topology} by considering
+$\RR^{1}\subset\RR^{2}\subset\dots$, then
+\begin{equation*}
+\varinjlim_{i}\RR^{i}=\RR^{\infty},
+\end{equation*}
+and $U\subset\RR^{\infty}$ is open if and only if for all $i\in\NN$ we
+have $U\cap\RR^{i}$ is open in $\RR^{i}$.
+\end{definition}
+
+\begin{definition}
+We define the \define{Infinite Grassmann Manifold} $G_{n} := G_{n}(\RR^{\infty})$
+as the set $G_{n}=\{\mbox{all $n$-dimensional subspaces of }\RR^{\infty}\}$
+equipped with the topology obtained from the sequence
+$G_{n}(\RR^{n})\subset G_{n}(\RR^{n+1})\subset\dots\subset G_{n}(\RR^{n+k})\subset\dots$
+taking the directed limit $\varinjlim_{k}G_{n}(\RR^{n+k})$ and using
+the direct limit topology: $U\subset G_{n}$ is open iff for all $k$ we
+have $U\cap G_{n}(\RR^{n+k})$ is open.
+\end{definition}
+
+\begin{remark}
+As a special case when $n=1$, we see
+$G_{1}(\RR^{\infty})=\RP^{\infty}$ is the infinite-dimensional real
+projective space, obtained by taking the direct limit of $\RP^{1}\subset\RP^{2}\subset\dots$.
+\end{remark}
+
+\begin{definition}
+The \define{Universal Bundle} $\gamma^{n}$ over $G_{n}$ is the
+$\RR^{n}$-bundle over $G_{n}$ consisting of
+\begin{equation*}
+\gamma^{n}=\{(X,v)\in G_{n}\times\RR^{\infty}\mid v\in X\}.
+\end{equation*}
+This is more commonly called the \define{Tautological Bundle}.
+\end{definition}
+
+\begin{lemma}
+$\gamma^{n}$ is a bundle (i.e., satisfies the local triviality condition).
+\end{lemma}
+
+\begin{proof}
+The proof is similar to the $\gamma^{n}(\RR^{n+k})$ proof, except
+instead of $h\colon U\times\RR^{n}\to\pi^{-1}(U)$, we have a bunch of
+these maps $h_{i}\colon U_{i}\times\RR^{n+i}\to\pi^{-1}(U_{i})$ for $i\in\NN$.
+Then we just take the direct limit
+$\varinjlim_{k}(U_{k}\times\RR^{n+i})$ and the key step is to check they
+are compatible.
+\end{proof}
+
+\begin{remark}
+Milnor and Stasheff~\cite[Lem~5.4]{milnor1974characteristic} offers a
+different proof of this lemma.
+\end{remark}
+
+\begin{lemma}[Universal property]
+Given an $\RR^{n}$-bundle $\xi$ over a \emph{paracompact} base $B$,
+there exists a map $f\colon B\to G$ such that $f^{*}\gamma\iso\xi$.
+\end{lemma}
+
+\subsection{Notes to self}
+
+I need to review paracompact spaces and their properties, since it has
+been a while since I looked at them.
+
+\begin{definition}
+Recall, a topological space $X$ is \define{Paracompact} if $X$ is a
+Hausdorff space and for every open cover $\{U_{\alpha}\}$ of $X$ there
+exists an open cover $\{V_{\beta}\}$ such that
+\begin{enumerate}
+\item $\{V_{\beta}\}$ is a \emph{refinement} of $\{U_{\alpha}\}$: each
+  $V_{\beta}$ is contained in some $U_{\alpha}$; and
+\item $\{V_{\beta}\}$ is \emph{locally finite}: for any point $x\in X$
+  there is a neighborhood $N\ni x$ which intersects with only finitely
+  many of the $V_{\beta}$.
+\end{enumerate}
+\end{definition}
+
+\begin{node}
+Almost all familiar topological spaces are
+paracompact. Second-countable spaces are paracompact.
+\end{node}
+
+\begin{theorem}[Stone]
+Every metric space is paracompact.
+\end{theorem}
+
+\begin{theorem}[Morita]
+If a regular topological space is the countable union of compact subsets,
+then it is paracompact.
+\end{theorem}
+
+\begin{corollary}
+The direct limit $K_{1}\subset K_{2}\subset\dots$ of compact spaces is paracompact.
+\end{corollary}
+
+\begin{theorem}[Dieudonn\'{e}]
+Every paracompact space is normal.
+\end{theorem}

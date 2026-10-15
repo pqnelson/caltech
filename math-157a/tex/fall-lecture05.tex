@@ -1,0 +1,132 @@
+%%
+%% fall-lecture05.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-15T11:30:01-0700
+%% Last update 2026-10-15T11:30:01-0700
+%% 
+
+\lecture{}
+
+\begin{proof}[Proof (Grassmann manifold is compact)]
+We see
+\begin{equation}
+V_{n}^{0}(\RR^{n+k})=\{(v_{1},\dots,v_{n})\in(\RR^{n+k})^{n}\mid\forall i,j\ldotp\langle v_{i},v_{j}\rangle=\delta_{i,j}\}
+\end{equation}
+the subspace of orthonormal frames, then apply the quotient map to it:
+\begin{align}
+q\colon & V^{0}_{n}(\RR^{n+k})\to G_{n}(\RR^{n+k})\\
+& (v_{1},\dots,v_{n})\mapsto\Span(v_{1},\dots,v_{n}).\nonumber
+\end{align}
+So it suffices to check $V^{0}_{n}(\RR^{n+k})$ is compact. Recall,
+\begin{subequations}
+  \begin{align}
+G_{n}(\RR^{n+k}) &= V^{0}_{n}(\RR^{n+k})/\GL_{n}(\RR)\\
+&= V^{0}_{n}(\RR^{n+k})/\Orth(n)
+  \end{align}
+\end{subequations}
+where $\Orth(n)$ is the group of $n\times n$ orthogonal matrices. We
+just need to check $V^{0}_{n}(\RR^{n+k})$ is compact. By the
+Heine--Borel theorem, we just need to check $V^{0}_{n}(\RR^{n+k})$ is
+closed and bounded (since it's a subset of $\RR^{n^{2}+nk}$). The
+trick is to use the metric on $(\RR^{n+k})^{n}$, so
+\begin{equation}
+|(v_{1},\dots,v_{n})|^{2}=\sum^{n}_{j=1}|v_{j}|^{2}=n,
+\end{equation}
+which proves boundedness. We can look at the $n^{2}$ maps
+$(v_{1},\dots,v_{n})\mapsto\langle v_{i},v_{j}\rangle=\delta_{i,j}$
+which are continuous and the codomain is just the closed set
+$\{0,1\}$, so the preimage must be closed. This proves compactness.
+\end{proof}
+
+\begin{proof}[Proof (Grassmann manifold is locally Euclidean)]
+Let $X_{0}\in G_{n}(\RR^{n+k})$ be an arbitrary (but fixed) $n$-plane
+passing through the origin in $\RR^{n+k}$. This gives a splitting
+$\RR^{n+k}\iso X_{0}\oplus X_{0}^{\perp}$ and we can consider the
+projection $p\colon\RR^{n+k}\to X_{0}$. We can choose
+\begin{subequations}
+  \begin{align}
+    U
+&=\{Y\in G_{n}(\RR^{n+k})\mid p(Y)=X_{0}\}\\
+&=\{Y\in G_{n}(\RR^{n+k})\mid Y\cap X_{0}^{\perp}=\{0\}\,\}
+  \end{align}
+\end{subequations}
+Essentially, $U$ consists of all $n$-planes that are ``graphical''
+over $X_{0}$. (By ``graphical'', we mean: for every $Y\in U$, there
+exists a linear transformation $f_{Y}\colon X_{0}\to X_{0}^{\perp}$
+such that $Y=\{(x,f_{Y}(x))\mid x\in X_{0}\}$.) This means we can find
+a bijection
+\begin{equation}
+U\stackrel{1:1}{\longleftrightarrow}\hom(X_{0},X_{0}^{\perp})\iso\{\mbox{$n\times k$ matrices}\}
+\iso\RR^{nk}.
+\end{equation}
+We need to prove this bijection is continuous, in the sense that
+$f_{Y}$ is continuous as we vary $Y$. Given $X_{0}$, find an
+orthonormal basis $(x_{1},\dots,x_{n})$ of $X_{0}$. Then there exists
+a basis $(y_{1},\dots,y_{n})$ of $Y$ such that $p(y_{i})=x_{i}$. We
+can then write $f_{Y}\colon X_{0}\to X_{0}^{\perp}$ sending $x_{i}\mapsto(x_{i},f_{Y}(x_{i}))=(x_{i},y_{i}-x_{i})$,
+and then observe this choice of basis with respect to $Y$, then use
+the quotient topology to find $f_{Y}$ is continuous with respect to
+$Y$, and this bijection is continuous.
+
+We still need to show that $Y\mapsto Y^{\perp}$ is a
+homeomorphism. Fixing $X_{0}\in G_{n}(\RR^{n+k})$. Let
+$(\overline{x}_{1},\dots,\overline{x}_{k})$ be a basis for
+$X_{0}^{\perp}$. Let $Y\in U$, let $(y_{1},\dots, y_{n})$ be a basis
+for $Y$. We have
+\begin{equation}
+\vcenter{\xymatrix{q^{-1}Y\in q^{-1}U\ar@{|->}[d]_{q}\ar@{|->}[r]^{h}& V_{k}(\RR^{n+k})\ar@{|->}[d]^{q}\\
+Y\in U\ar@{|->}[r]^{\perp}& Y^{\perp}\in G_{k}(\RR^{n+k})}}
+\end{equation}
+Then we see $Y\cap X_{0}^{\perp}=\{0\}$, so
+$(y_{1},\dots,y_{n},\overline{x}_{1},\dots,\overline{x}_{k})$ is a
+basis for $\RR^{n+k}$. Then using Gram--Schmidt to make this basis
+orthonormal (which is a continuous procedure), we get
+$(y'_{1},\dots,y'_{n},y'_{n+1},\dots,y'_{n+k})$
+where $(y'_{1},\dots,y'_{n})$ is an orthonormal basis for $Y$ and
+$(y'_{n+1},\dots,y'_{n+k})$ is an orthonormal basis
+for $Y^{\perp}$.
+
+Define $h(y_{1},\dots,y_{n})=(y'_{n+1},\dots,y'_{n+k})$ and so
+\begin{equation}
+(q\circ h)(y_{1},\dots,y_{n})=\Span(y'_{n+1},\dots,y'_{n+k})=Y^{\perp}.
+\end{equation}
+This $h$ is also a continuous map. Hence we obtain the desired
+homeomorphism, proving the Grassmann manifold is locally Euclidean
+(justifying the ``manifold'' in ``Grassmann manifold'').
+\end{proof}
+
+\begin{definition}
+We define the \define{Tautological $\RR^{n}$-Bundle over $G_{n}(\RR^{n+k})$}
+to be the [real] vector bundle $\gamma^{n}(\RR^{n+k})$ with total
+space
+\begin{equation}
+E(\gamma^{n}(\RR^{n+k}))=\{(X,v)\in
+G_{n}(\RR^{n+k})\times\RR^{n+k}|mid v\in X\}.
+\end{equation}
+This is given the subspace topology of the product topology, and the
+projection map is:
+\begin{align}
+\pi\colon & E(\gamma^{n}(\RR^{n+k}))\to G_{n}(\RR^{n+k})\\
+&(x,v)\mapsto x.\nonumber
+\end{align}
+We need to prove this is locally trivial [to prove it is well-defined].
+\end{definition}
+
+\begin{lemma}
+The bundle $\gamma^{n}(\RR^{n+k})$ satisfies the locally triviality condition.
+\end{lemma}
+
+\begin{proof}
+Let $X_{0}\in G_{n}(\RR^{n+k})$, choose $U\ni X_{0}$ as before. Then
+we want to define
+\begin{align}
+h\colon & U\times\RR^{n}\to\pi^{-1}(U)\\
+&(Y,x)\mapsto(Y,y),\nonumber
+\end{align}
+where $y\in Y$ is the unique point such that $p(y)=x$. This $h$ is a
+homeomorphism. Hence the claim.
+\end{proof}
+
