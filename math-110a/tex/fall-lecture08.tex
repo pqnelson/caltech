@@ -1,0 +1,176 @@
+%%
+%% fall-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-15T10:17:56-0700
+%% Last update 2026-10-15T10:17:56-0700
+%% 
+
+\lecture[Complete Metric Spaces]{}
+
+\begin{node}
+The second problem set: Folland Chapter~4 problems 37, 43, 49, 52, 77.
+\end{node}
+
+\begin{definition}
+Let $(X,\rho)$ be a metric space (with metric topology). We say it is
+\define{Complete} if for any Cauchy sequence $(x_{n})$ [i.e., any
+  sequence such that $\forall m,n\in\NN\ldotp\rho(x_{m},x_{n})\to0$ as $m,n\to\infty$]
+has a limit $x_{n}\to x$.
+\end{definition}
+
+\begin{example}
+The real line $\RR$ with the standard topology is complete. But the
+subspace $\QQ$ is not complete.
+\end{example}
+
+\begin{example}
+The circle $S^{1}$ is complete, but when we remove a point
+$S^{1}\setminus\{\mbox{pt}\}$ it is not complete. So what? Well,
+$S^{1}\setminus\{\mbox{pt}\}$ is homeomorphic to $\RR$ with the
+standard topology (which \emph{is} complete). This tells us that
+``completeness'' \emph{is not a topological property}.
+\end{example}
+
+\begin{theorem}[Banach's fixedpoint]
+Let $(X,\rho)$ be a complete metric space, let $T\colon X\to X$ be a
+strict contraction [there exists some $\alpha\in(0,1)$ such that for
+  all $x,y\in X$ we have $\rho(T(x),T(y))<\alpha\rho(x,y)$].
+Then there exists a unique fixedpoint $x_{*}\in X$ such that $T(x_{*})=x_{*}$.
+\end{theorem}
+
+[Observe the orbit of a point is a Cauchy sequence in $X$.]
+
+This is useful when it comes to studying differential equations.
+
+\begin{definition}
+Let $(X,\rho)$ be a metric space.
+Then the \define{Completion} of $X$ is $(\widetilde{X},\widetilde{\rho})$
+where $\widetilde{X}$ is the set of all equivalence classes of Cauchy
+sequences where $(x_{n})\sim(y_{n})$ iff $\rho(x_{n},y_{n})\to0$ (so
+eventually, there is some $N$ such that $x_{n}=y_{n}$ for all $n\geq N$). We
+define the metric $\widetilde{\rho}$ on $\widetilde{X}$ by
+\begin{equation}
+\widetilde{\rho}([(x_{n})],[(y_{n})]):=\lim_{n\to\infty}\rho(x_{n},y_{n}),
+\end{equation}
+where $[(x_{n})]$, $[(y_{n})]$ are the equivalence classes of Cauchy
+sequences with representatives $(x_{n})$ and $(y_{n})$ respectively.
+
+We also have the isometry $X\into\widetilde{X}$ sending $x\mapsto[(x_{n}=x)]$
+points to the constant sequence.
+
+We need to prove this is all well-defined (especially: the limit in
+the definition of $\widetilde{\rho}$ exists, and that the image of
+$X\into\widetilde{X}$ is dense in $\widetilde{X}$). We claim that
+$(\widetilde{X},\widetilde{\rho})$ is a complete metric space.
+\end{definition}
+
+\subsection*{Compactness of metric space}
+
+\begin{node}
+Recall in $\RR^{n}$, we have $X\subset\RR^{n}$ is compact if and only
+if $X$ is closed and bounded [Heine--Borel theorem]. The extension of
+this statement to general metric spaces is the following theorem.
+\end{node}
+
+\begin{theorem}[Hausdorff]
+Let $(X,\rho)$ be a metric space. Then the following are equivalent:
+\begin{enumerate}
+\item $X$ is compact
+\item $X$ is sequentially compact
+\item $X$ is complete and ``totally bounded'' (see next definition).
+\end{enumerate}
+In particular, for metric spaces, ``compactness'' coincides with
+``sequential compactness''.
+\end{theorem}
+
+\begin{definition}
+Let $(X,\rho)$ be a metric space. We say $X$ is \define{Totally Bounded}
+if for each $\varepsilon>0$ there exists a finite cover of $X$ by open
+balls of radius $\varepsilon$.
+\end{definition}
+
+\begin{proof}[Hausdorff theorem]
+$(1)\implies(2)$ Assume $X$ is compact.
+Let $(x_{n})$ be a sequence in $X$.
+[We want to find a convergent subsequence.]
+Assume for contradiction there is no convergent subsequence, then
+$(x_{n})$ has no limit points. So for every $x\in X$, there is an open
+neighborhood $U_{x}\ni x$ such that $x_{n}\notin U_{x}$ for $n>N_{x}$ (for
+some $N_{x}\in\NN$ which depends on $x$). Then as we vary $x$, we get
+an open cover $\{U_{x}\}_{x\in X}$ and by compactness there is a
+finite subcover $U_{x_{1}}$, \dots, $U_{x_{n}}$. Then for large $N\geq\max(N_{x_{1}},\dots,N_{x_{n}})$,
+we have $x_{m}\notin U_{x_{i}}$ for all $i=1,\dots,n$. So $x_{m}\notin U_{x_{1}}\cup(\cdots)\cup U_{x_{n}}$
+which is equivalent to $x_{m}\notin X$, which is our desired contradiction.
+
+$(2)\implies(3)$ Assume $(X,\rho)$ is sequentially compact.
+
+\textsc{Claim 2.1: $X$ is complete}. Let $(x_{n})$ be a Cauchy
+sequence in $X$. Then by sequential compactness, there is a convergent
+subsequence $x_{n_{k}}\to x$. Then by the triangle inequality and
+Cauchy property, we see that $x_{n}\to x$.
+
+\textsc{Claim 2.2: $X$ is totally bounded}.
+Assume for contradiction that $X$ is not totally bounded (but still
+sequentially compact). Then there exists an $\varepsilon>0$ such that
+there are infinitely many points which are a distance greater than
+$\varepsilon$ from each other. (This is by induction: take $x_{1}$,
+then a point $x_{2}$ such that $\rho(x_{1},x_{2})>\varepsilon$; then
+take $x_{3}$ such that $\rho(x_{1},x_{3})>\varepsilon$ and
+$\rho(x_{2},x_{3}>\varepsilon$; \dots) Then this $X$ cannot be sequentially
+compact, because we just constructed a sequence $(x_{n})$ with no
+convergent subsequence. Hence our contradiction.
+
+$(3)\implies(1)$ Assume $(X,\rho)$ is both complete and totally bounded.
+(Note: total boundedness implies separability since total boundedness
+implies the existence of a countable dense set.) Then recall
+separability is equivalent to second-countability for metric spaces,
+and second-countability is equivalent to Lindel\"{o}f for metric
+spaces. This means that we have for any open cover of $X$ a countable open subcover for $X$.
+Great, enough recalling.
+
+We want to prove every open cover has a finite subcover. Let
+$X=\bigcup_{n}\mathcal{G}_{n}$ be a countable open cover of $X$.
+Without loss of generality, we can assume the sequence of open sets
+$\mathcal{G}_{n}$ is increasing [if not, just define
+  $U_{n}=\bigcup^{n}_{k=1}\mathcal{G}_{k}$ and use the $U_{n}$ as the
+  open cover which is increasing].
+We want to prove after finitely many steps, $\mathcal{G}_{N}=X$ for
+some $N\in\NN$.
+
+Consider instead the [decreasing] sequence of $F_{n}=X\setminus\mathcal{G}_{n}$
+closed sets. Then $F_{n}$ is monotone decreasing and
+\begin{equation}
+\bigcap_{n}F_{n}=\emptyset.
+\end{equation}
+We want to find an $N\in\NN$ such that $F_{N}=\emptyset$.
+
+Assume for contradiction there is no $N$ such that $F_{N}=\emptyset$.
+We can prove that $X$ is sequentially compact (which we defer to the end of the proof).
+If for all $n$ we have $F_{n}\neq\emptyset$, then take $x_{n}\in F_{n}$.
+Then $x_{n+1}\in F_{n+1}\subset F_{n}$,
+and $x_{n+2}\in F_{n+2}\subset F_{n+1}\subset F_{n}$. So this gives us
+a sequence $(x_{n})$ such that $\forall n\in\NN\ldotp x_{n}\in F_{n}$.
+Then by sequential compactness, there is a subsequence $x_{n_{k}}\to x$
+where $x\in\bigcap_{n}F_{n}$. But this means $\bigcap F_{n}\neq\emptyset$.
+But this contradicts the property $\bigcap F_{n}=\emptyset$. Hence we
+reject our assumption and conclude there is an $N\in\NN$ such that
+$F_{N}=\emptyset$. 
+
+\textbf{Deferred proof} ($X$ is sequentially compact)
+Let $(x_{n})$ be a sequence in $X$. Take $\varepsilon=1/2$. Then by
+total boundedness, $X$ can be covered by finitely-many radius-$1/2$ open balls
+and (by pidgeon hole principle, at least) one of these open balls must contain
+infinitely many elements of the sequence.
+Take one of these open balls $B(r=1/2, x)$ containing infinitely many
+points of the sequence. We then iterate, with $\varepsilon=2^{-2}$,
+cover $X$ be radius-$2^{-2}$ balls, then looking at the balls covering
+$B(r=2^{-1},x)$ we see there are finitely many such radius-$2^{-2}$
+balls and one of them must contain infinitely many terms in the
+sequence. We can iterate as needed, and this gives us a way to
+construct a subsequence $x_{n_{k}}$ of $x_{n}$ which is Cauchy (hence,
+by completeness of $X$, converges to some
+point of $X$). This proves subsequential compactness of $X$.
+\end{proof}
