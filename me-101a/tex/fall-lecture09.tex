@@ -1,0 +1,345 @@
+%%
+%% fall-lecture09.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-17T09:16:53-0700
+%% Last update 2026-10-17T09:16:53-0700
+%% 
+
+\lecture{}
+
+\subsection{Bernoulli's equation}
+
+\begin{node}
+Last time, we saw for compressible fluids:
+\begin{subequations}
+\begin{equation}
+h+\frac{1}{2}u_{i}u_{i}+V=\mbox{constant along stream lines}.
+\end{equation}
+For incompressible fluids, we derived (by multiplying through by
+density $\rho$):
+\begin{equation}
+p+\frac{1}{2}\rho u_{i}u_{i}+\rho V = \mbox{constant along stream lines}.
+\end{equation}
+\end{subequations}
+\end{node}
+
+\begin{example}
+Suppose we have a tank of fluid which has a ``spout'' at the
+bottom. It looks something like:
+\begin{center}
+\includegraphics{img/img.14}
+\end{center}
+We assume:
+\begin{enumerate}
+\item The fluid is a steady, inviscid, incompressible flow (so we can
+  use Bernoulli's equation);
+\item There is no heat source $Q=0$ or heat flow $q_{i}=0$;
+\item The only body force is gravity.
+\end{enumerate}
+We also assume the vertical distance from the top of the fluid to the
+spout is $h$. This suggests a natural coordinate system where the $z$
+axis is parallel to the vertical walls, and the spout is located at
+$z=0$ (so the top of the fluid initially is at $z=h$).
+
+We further assume the pressure at the top of the fluid $p_{\text{top}}$ is
+$1~\mathrm{atm}$, and the pressure of the fluid at the spout $p_{\text{spout}}$ is
+initially $1~\mathrm{atm}$:
+\begin{equation}
+p_{\text{top}}(t_{0})=p_{\text{spout}}(t_{0})=1~\mathrm{atm},
+\end{equation}
+where $t_{0}$ is the initial time.
+
+Then Bernoulli's principle allows us to conclude that
+\begin{equation}
+\underbrace{p_{\text{top}}+\frac{1}{2}\overbrace{u_{i}u_{i}}^{=0}+\rho gh}_{\text{top}}=\underbrace{p_{\text{spout}}+\frac{1}{2}u_{2}^{2}+\rho g 0}_{\text{spout}}
+\end{equation}
+which can be rearranged to give us
+\begin{equation}
+gh=\frac{1}{2}u_{2}^{2},
+\end{equation}
+or more simply
+\begin{equation}
+u_{2}=\pm\sqrt{2gh}.
+\end{equation}
+This should look familiar, since it's the velocity of a point particle
+experiencing constant acceleration after traveling a distance $h$.
+\end{example}
+
+\subsection{Velocity Gradient Tensor}
+
+\begin{definition}
+We define the \define{Velocity Gradient Tensor} $a_{ij}:=\partial_{j}u_{i}$
+which has 9 independent components in three-dimensions (and $n^{2}$
+independent components in $n$-dimensions).
+\end{definition}
+
+\begin{node}
+Suppose we have two fluid parcels located at nearby points $P$ and $Q$
+at time $t_{0}$, separated by the displacement vector $\delta\vec{x}$
+initially, with velocities $\vec{u}_{P}$ at $P$ and $\vec{u}_{Q}$ at
+$Q$:
+\begin{center}
+\includegraphics{img/img.15}
+\end{center}
+Then translating $\vec{u}_{P}$ to the base point $Q$, we see that
+\begin{equation}
+\vec{u}_{P}-\vec{u}_{Q}\approx\tens{a}\,\delta\vec{x},
+\end{equation}
+the difference
+between the two velocity vectors is (to first order) the velocity
+gradient tensor multiplied [as a matrix] by the displacement vector.
+This is all working with $\|\delta\vec{x}\|$ ``sufficiently small''.
+\end{node}
+
+\begin{node}
+We can always decompose a square matrix as the sum of a symmetric
+matrix with an antisymmetric matrix. We have
+\begin{subequations}
+  \begin{align}
+a_{ij} &= \frac{1}{2}(a_{ij}+a_{ji}) + \frac{1}{2}(a_{ij}-a_{ji})\\
+&= \frac{1}{2}(\partial_{j}u_{i}+\partial_{i}u_{j}) + \frac{1}{2}(\partial_{j}u_{i}-\partial_{i}u_{j})\\
+&=S_{ij}+\Omega_{ij}
+  \end{align}
+\end{subequations}
+where $S_{ij}:=\frac{1}{2}(\partial_{j}u_{i}+\partial_{i}u_{j})$ is
+the \define{Rate of Strain Tensor}, and $\Omega_{ij}:=\frac{1}{2}(\partial_{j}u_{i}-\partial_{i}u_{j})$
+is the \define{Rate of Rotation Tensor}.
+\end{node}
+
+\begin{remark}
+Observe $S_{ij}$ is the rate of deformation of a fluid elemeent. So
+$S_{ij}\,\delta x_{j}$ gives a purely straining motion in the velocity.
+\end{remark}
+
+\begin{remark}
+Eigenvector decomposition of $S_{ij}$ gives hte principal axes.
+If we had a fluid parcel which is a sphere, then $S_{ij}$ will produce
+an ellipsoid using the eigenvectors of $S_{ij}$ as the axes, and look
+like $\lambda_{1}x_{1}^{2}+\lambda_{2}x_{2}^{2}+\lambda_{3}x_{3}^{2}=(r')^{2}$
+where $x_{1}$, $x_{2}$, $x_{3}$ are taken to be the points in the
+initial sphere.
+\end{remark}
+
+\begin{remark}
+We see the trace of the rate-of-strain tensor is
+\begin{subequations}
+  \begin{align}
+    \tr(S_{ij}) &= S_{11}+S_{22}+S_{33}\\
+    &= S_{kk}\\
+&= \partial_{k}u_{k} = \vec{\nabla}\cdot\vec{u}.
+  \end{align}
+\end{subequations}
+For incompressible flows, this is zero, so
+\begin{equation}
+\tr(S_{ij})=0\quad\mbox{for incompressible flows}.
+\end{equation}
+\end{remark}
+
+\begin{node}[Rotation matrix and vorticity]
+The rotation matrix $\overline{\overline{\Omega}}$ has components
+\begin{subequations}
+  \begin{align}
+\Omega_{ij}&=\frac{1}{2}\begin{pmatrix}
+0 & (\partial_{2}u_{1}-\partial_{1}u_{2}) & (\partial_{3}u_{1}-\partial_{1}u_{3})\\
+(\partial_{1}u_{2}-\partial_{2}u_{1}) & 0 & (\partial_{3}u_{2}-\partial_{2}u_{3})\\
+(\partial_{1}u_{3}-\partial_{3}u_{1}) & (\partial_{2}u_{3}-\partial_{3}u_{2}) & 0
+\end{pmatrix}\\
+&=\frac{1}{2}\begin{pmatrix}
+0 & -(\partial_{1}u_{2}-\partial_{2}u_{1}) & (\partial_{3}u_{1}-\partial_{1}u_{3})\\
+(\partial_{1}u_{2}-\partial_{2}u_{1}) & 0 & -(\partial_{2}u_{3}-\partial_{3}u_{2})\\
+-(\partial_{3}u_{1}-\partial_{1}u_{3}) & (\partial_{2}u_{3}-\partial_{3}u_{2}) & 0
+\end{pmatrix}
+  \end{align}
+\end{subequations}
+which has 3 independent components. We see these are just the
+components of the vorticity
+\begin{equation}
+\vec{\omega}=\vec{\nabla}\times\vec{u}.
+\end{equation}
+More explicitly:
+\begin{equation}
+\Omega_{ij} = \frac{1}{2}\begin{pmatrix}0 & -\omega_{3} & \omega_{2} \\
+  \omega_{3} & 0 & -\omega_{1}\\
+  -\omega_{2} & \omega_{1} & 0
+\end{pmatrix}
+\end{equation}
+or
+\begin{equation}
+\Omega_{ij}=\frac{-1}{2}\varepsilon_{ijk}\omega_{k}.
+\end{equation}
+What happens to fluid velocity $\delta\vec{u}$ of nearby fluid parcels
+separated by displacement vector $\delta\vec{x}$? Wee see
+\begin{equation}
+\Omega_{ij}\,\delta
+x_{j}=\frac{-1}{2}\varepsilon_{ijk}\omega_{k}\,\delta x_{j}=\frac{1}{2}(\vec{\omega}\times\delta\vec{x})_{i},
+\end{equation}
+which describes rigid body rotation.
+\end{node}
+
+\begin{example}[Couette flow]
+Consider the ``planar Couette flow'':
+We have two walls parallel to each other (separated by a distance $h$)
+and fluid filling the gap between the walls. The top wall moves at
+constant velocity $\vec{u}_{0}$, but the bottom walls remains stationary.
+This means there is only shear stress.
+\begin{center}
+\includegraphics{img/img.16}
+\end{center}
+We can determine the pressure gradient, which is typically sketched
+out using the blue arrows in the figure.
+
+A fluid parcel located initially at position $(x_{0},y_{0})$ will have
+velocity $u(y)=u_{0}y/h$ and $v=0$. So the $y$ position remains fixed
+for fluid parcels. We see that the velocity gradient tensor is
+\begin{equation}
+\overline{\overline{\tens{a}}} = \begin{pmatrix}0 & u_{0}/h\\
+0 & 0
+\end{pmatrix} = \frac{1}{2}\frac{u_{0}}{h}\begin{pmatrix}0 & 1\\1 & 0
+\end{pmatrix} + \frac{1}{2}\frac{u_{0}}{h}\begin{pmatrix}0 & 1\\-1 & 0
+\end{pmatrix}
+\end{equation}.
+Then a fluid parcel which is initiall a box will be transformed into a
+rhombus. The $\overline{\overline{\Omega}}$ will merely rotate the
+box, the $\overline{\overline{\tens{S}}}$ will shear the box.
+\end{example}
+
+\begin{remark}
+There is \emph{a lot} more which could be said regarding Couette
+flows. We could spend the rest of our lives studying it, and still
+have more to discover.
+\end{remark}
+
+\subsection{Constitutive relationship}
+
+\begin{puzzle}
+How does the rate of strain tensor $S_{ij}$ relate to the stress
+tensor $\sigma_{ij}=-p\delta_{i,j}+\tau_{ij}$? (The answer to this
+question is precisely ``by using a constitutive relationship'', but
+let us spell out what this means.)
+\end{puzzle}
+
+\begin{node}\index{Newtonian fluids}
+Newtonian fluids have a linear relationship between $\tau_{ij}$ and
+the velocity. In this situation, there is a fourth-order tensor
+$A_{ijkl}$ such that
+\begin{subequations}
+  \begin{align}
+\tau_{ij} &= A_{ijkl}\partial_{l}u_{k}\\
+&=A_{ijkl}(S_{kl}+\Omega_{kl}.
+  \end{align}
+\end{subequations}
+\end{node}
+
+\begin{node}
+Assuming the fluid is isotropic (which is a fairly benign assumption:
+most fluids we encounter in this class \emph{will} be
+isotropic\footnote{An example of a non-isotropic fluid would be some
+kind of polymer whose behaviour changes depending on its
+orientation.}). Then $A_{ijkl}$ is an isotropic fourth-order tensor,
+which means we can write it as
+\begin{equation}
+A_{ijkl}=c_{1}\delta_{ij}\delta_{kl}+c_{2}\delta_{ik}\delta_{jl}+c_{3}\delta_{il}\delta_{jk}
+\end{equation}
+for some coefficients $c_{1}$, $c_{2}$, $c_{3}$.
+\end{node}
+
+\begin{node}
+Now, since $\tau_{ij}=\tau_{ji}$ is symmetric, we can infer that
+\begin{equation}
+A_{ijkl}=A_{jikl}
+\end{equation}
+is symmetric in its first two indices. This forces $c_{2}=c_{3}$. We
+call this coefficient the \define{Coefficient of Viscosity} and denote it:
+\begin{equation}
+\mu:=c_{2}=c_{3},
+\end{equation}
+and the remaining coefficient is called (creatively) the
+\define{Second Coefficient of Viscosity} and denote it:
+\begin{equation}
+\lambda:=c_{1}.
+\end{equation}
+Then we can write
+\begin{equation}
+A_{ijkl}=\lambda\delta_{ij}\delta_{kl}+\mu(\delta_{ik}\delta{jl}+\delta_{il}\delta_{jk}).
+\end{equation}
+\end{node}
+
+\begin{node}
+We also can see that $A_{ijkl}$ is symmetric in its \emph{last two} indices:
+\begin{equation}
+A_{ijkl}=A_{ijlk}.
+\end{equation}
+Then
+\begin{equation}
+A_{ijkl}=\lambda\delta_{ij}\delta_{kl}+2\mu\delta_{ik}\delta_{jl}.
+\end{equation}
+Now, let us see what this means for the stress tensor $\tau_{ij}$:
+\begin{subequations}
+  \begin{align}
+\tau_{ij} &= A_{iijkl}\partial_{\ell}u_{k}\quad\mbox{but only
+  symmetric part of $\partial_{\ell}u_{k}$ survives}\\
+&=A_{ijkl}S_{kl}\\
+&=\lambda\delta_{ij}\tr(S_{kl})+2\mu S_{ij}.
+  \end{align}
+\end{subequations}
+\end{node}
+
+\begin{remark}
+We can derive the full expression from physical arguments alone. Our
+derivation used linear algebraic arguments.
+\end{remark}
+
+\begin{remark}
+The tensor $\tau_{ij}$ has the same principal axes as $S_{ij}$.
+\end{remark}
+
+\begin{remark}
+Since the trace of the rate-of-strain tensor is the divergence of the
+velocity vector
+\begin{equation}
+S_{kk}=\vec{\nabla}\cdot\vec{u},
+\end{equation}
+this means that trace of $\tau_{ij}$ is:
+\begin{subequations}
+  \begin{align}
+\tau_{ii} &= 3\lambda\tr(S_{kl})+2\mu S_{ii}\\
+&=(3\lambda+2\mu)(\vec{\nabla}\cdot\vec{u}),
+  \end{align}
+\end{subequations}
+so the average
+\begin{equation}
+\frac{1}{3}\tau_{ii}=\frac{1}{3}\tr(\tau_{ij})=\left(\lambda+\frac{2}{3}\mu\right)(\vec{\nabla}\cdot\vec{u}).
+\end{equation}
+This motivates the quantity $(\lambda+\frac{2}{3}\mu)$ which is
+defined to be the \define{Bulk Viscosity} or \define{Volume Viscosity}
+which we denote by
+\begin{equation}
+\mu_{V} := \left(\lambda+\frac{2}{3}\mu\right).
+\end{equation}
+Then we see (plugging these quantities back into the definition of
+$\sigma_{ij}$) that the full Cauchy stress tensor is
+\begin{subequations}
+  \begin{align}
+\sigma_{ij} &= -p\delta_{i,j}+\tau_{ij}\\
+&=-p\delta_{i,j}+A_{ijkl}S_{kl}\\
+&=-p\delta_{i,j}+\lambda(\vec{\nabla}\cdot\vec{u})\delta_{i,j}+2\mu S_{i,j}\\
+&=-\left[p -\left(\lambda+\frac{2}{3}\mu\right)(\vec{\nabla}\cdot\vec{u})\right]\delta_{i,j}+2\mu\left(S_{ij}-\frac{1}{3}(\vec{\nabla}\cdot\vec{u})\delta_{i,j}\right)
+  \end{align}
+\end{subequations}
+where, in the last line, the first term in square brackets is called
+the \define{Mechanical Pressure}
+\begin{equation}
+p_{\text{mech}} := p -\left(\lambda+\frac{2}{3}\mu\right)(\vec{\nabla}\cdot\vec{u})
+\end{equation}
+and we refer to $p$ as the \define{Thermodynamic Pressure}.
+\end{remark}
+
+\begin{remark}
+For a more thorough discussion of this constitutive relation business, see~\cite[\S3.3]{batchelor1973introduction}.
+For more about ``mechanical pressure'' versus ``thermodynamic
+pressure'', see~\cite[\S2-4.3]{white1991viscous}.
+\end{remark}
+
