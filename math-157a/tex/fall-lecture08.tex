@@ -1,0 +1,144 @@
+%%
+%% fall-lecture08.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-17T12:21:54-0700
+%% Last update 2026-10-17T12:21:54-0700
+%% 
+
+\lecture{}
+
+% 3. Characteristic classes
+% 3.1. Stiefel--Whitney classes
+% 3.1.1. Axiomatic definition
+
+\subsection{Axiomatic definition of Stiefel--Whitney classes}
+
+We will characterize axiomatically the Stiefel--Whitney classes
+$w_{i}(\xi)$ of real vector bundles $\xi$.
+We defer proving existence and uniqueness until later on.
+
+\begin{axiom}\label{axiom1}
+Let $\xi$ be an $\RR^{n}$-bundle $E\to B$. Then the
+\define{Stiefel--Whitney Classes} are a sequence of cohomology classes
+$w_{i}(\xi)\in H^{i}(B;\ZZ_{2})$ for $i=0,1,2,\dots$ such that
+$w_{0}(\xi)=1\in H^{0}(B;\ZZ_{2})$ is the multiplicative identity [so
+  if there are multiple components, $w_{0}(\xi)=(1,1,\dots,1)$].
+
+Furthermore, $w_{i}(\xi)=0$ for all $i>n$.
+\end{axiom}
+
+\begin{axiom}[Pullback operation]\label{axiom2}
+If we have $f\colon A\to B$ continuous and $\xi$ is an
+$\RR^{n}$-bundle over $B$, then $w_{i}(f^{*}\xi)=f^{*}w_{i}(\xi)$ for
+every $i$.
+\end{axiom}
+
+\begin{definition}
+We define the \define{Total Stiefel--Whitney Classes} of $\xi$ to be
+\begin{equation*}
+w(\xi)=\sum^{n}_{i=0}w_{i}(\xi)\in H^{*}(B;\ZZ_{2}).
+\end{equation*}
+\end{definition}
+
+\begin{axiom}[Whitney sum]\label{axiom3}
+Let $\xi$, $\eta$ be bundles over $B$. Then
+$w(\xi\oplus\eta)=w(\xi)\smile w(\eta)$ using the cup product of total
+Stiefel--Whitney classes; or explicitly, the $i^{\text{th}}$
+coefficient is:
+\begin{equation*}
+w_{i}(\xi\oplus\eta)=\sum^{i}_{k=0}w_{k}(\xi)\smile w_{i-k}(\eta).
+\end{equation*}
+\end{axiom}
+
+\begin{axiom}\label{axiom4}
+Recall $\gamma^{1}_{1}$ is the tautological line bundle over $\RP^{1}$
+(by axiom 1, $w_{k}(\gamma^{1}_{1})=0$ for all $k>1$). We require
+$w_{1}(\gamma^{1}_{1})\neq0$ be nontrivial in $H^{1}(\RP^{1};\ZZ_{2})\iso\ZZ_{2}$.
+(This means, informally, that $w_{1}$ ``detects the M\"{o}bius twist'').
+\end{axiom}
+
+\subsection{Consequences}
+
+\begin{proposition}
+Let $\xi$, $\eta$ be $\RR^{n}$-bndles. If $\xi\iso\eta$ are isomorphic
+real bundles, then $w(\xi)=w(\eta)$.
+\end{proposition}
+
+\begin{proof}
+Use Axiom~\ref{axiom2}, the bundle isomorphism reduces to identity map
+on the base maps, so $\xi=\id^{*}\eta$. Then
+$w_{i}(\xi)=\id^{*}w_{i}(\eta)=w_{i}(\eta)$ for each $i$.
+\end{proof}
+
+\begin{proposition}
+If $\xi$ is the trivial vector bundle, then $w_{i}(\xi)=0$ for each
+$i\geq1$ (i.e., $w(\xi)=1$).
+\end{proposition}
+
+\begin{proof}
+Using Axiom~\ref{axiom2}, $\xi\iso\RR^{n}\times B$, then
+\begin{equation}
+\vcenter{\xymatrix{\xi\ar[r]\ar[d] & \RR^{n}\ar[d]\\
+B\ar[r]^{f} & \{\mbox{pt}\}}}
+\end{equation}
+We want to show $f^{*}(\RR^{n}\times\{\mbox{pt}\})\iso\xi$. Since
+\begin{equation}
+f^{*}(\RR^{n}\times\{\mbox{pt}\})=\{(b,v)\in B\times\RR^{n}\mid f(b)=\pi(v)\},
+\end{equation}
+but $f(b)=\mbox{pt}=\pi(v)$ always, so
+$f^{*}(\RR^{n}\times\{\mbox{pt}\})\iso B\times\RR^{n}\iso\xi$. Then
+$w_{i}(\xi)\iso w_{i}(\RR^{n}\times B)\iso f^{*}w_{i}(\RR^{n}\times\{\mbox{pt}\})\in H^{i}(\{\mbox{pt}\},\ZZ_{2})$
+which vanishes for $i>0$.
+\end{proof}
+
+\begin{proposition}
+Let $\xi$ be a trivial vector bundle over $B$, let $\eta$ be a vector
+bundle over $B$. Then $w(\xi\oplus\eta)=w(\eta)$.
+\end{proposition}
+
+\begin{proposition}
+Let $\xi$ be a Euclidean $\RR^{n}$-bundle.
+\begin{enumerate}
+\item Suppose there exists a nowhere vanishing section of $\xi$. Then $w_{n}(\xi)=0$.
+\item If there exists $k$ nowhere dependent sections of $\xi$, then $w_{n-k+1}(\xi)=\dots=w_{n}(\xi)=0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Suffices to prove the second claim. We can use these $k$ sections to
+form a trivial rank $k$ sub-bundle $\eta$ of $\xi$. Then since $\xi$
+is Euclidean, we see $\xi=\eta\oplus\eta^{\perp}$, so by the previous
+Proposition
+\begin{equation}
+w(\xi)=w(\eta)\smile w(\eta^{\perp})=w(\eta^{\perp}).
+\end{equation}
+Since $\eta^{\perp}$ is rank-$(n-k)$, we see $w_{i}(\eta^{\perp})=0$
+for all $i>n-k$ by Axiom~\ref{axiom1}.  Hence the claim.
+\end{proof}
+
+\begin{node}[Complementary bundles]
+Consider the following special case: $\xi$ and $\eta$ are bundles over
+$B$ such that $\xi\oplus\eta$ is a trivial vector bundle. Then
+$w(\xi)w(\eta)=1$. But if we know $\xi$ and $w(\xi)$ and $w(\xi)w(\eta)=1$, can we recover
+$w(\eta)$?
+
+Well, $w_{1}(\xi)+w_{1}(\eta)=0$ and
+$w_{2}(\xi)+w_{1}(\xi)w_{1}(\eta)+w_{2}=0$ and so on. Then we can
+determine by reduction $w_{i}(\eta)$. But this might require
+infinitely many $w_{i}(\eta)\neq0$ [consider the case $w(\xi)=1+a$,
+  then $w(\eta)=\sum^{\infty}_{n=0}a^{n}$]. Let us formalize this
+observation. First, we introduce:
+\end{node}
+
+\begin{definition}
+We define $H^{\pi}(B,\ZZ_{2})$ the ring of all formal infinite series
+$a=\sum^{\infty}_{i=0}a_{i}$ where $a_{i}\in H^{i}(B,\ZZ_{2})$. Here
+addition is just componentwise addition, multiplication requires care: $(ab)_{k}=\sum^{k}_{i}a_{i}b_{k-i}$.
+\end{definition}
+
+\begin{proposition}
+$\{a\in H^{\pi}(B,\ZZ_{2})\mid a_{0}=1\}$ is a commutative group under multiplication.
+\end{proposition}
