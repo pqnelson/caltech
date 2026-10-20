@@ -1,0 +1,340 @@
+%%
+%% fall-lecture10.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-20T07:34:24-0700
+%% Last update 2026-10-20T07:34:24-0700
+%% 
+
+\lecture{}
+
+\begin{recall}
+We introduced the quantities $\lambda$ and $\mu$ and found
+\begin{equation}\label{eq:lec10:stress-tensor}
+\sigma_{ij}=-\left[p -\left(\lambda+\frac{2}{3}\mu\right)(\vec{\nabla}\cdot\vec{u})\right]\delta_{i,j}+2\mu\left(S_{ij}-\frac{1}{3}(\vec{\nabla}\cdot\vec{u})\delta_{i,j}\right).
+\end{equation}
+\end{recall}
+
+\begin{node}
+Note that $\lambda$ and $\mu$ are not necessarily constant. In fact,
+they are functions of the pressure and temperature
+$\lambda=\lambda(p,T)$ and $\mu=\mu(p,T)$.
+\end{node}
+
+\begin{node}
+We plug this expression for the stress tensor,
+Eq~\eqref{eq:lec10:stress-tensor}, into the conservation of linear
+momentum, and we find
+\begin{subequations}\label{eq:lec10:linear-momentum-conservation}
+  \begin{align}
+\rho\frac{D u_{i}}{D t} &= -\partial_{i}p + \partial_{j}\tau_{ij}+\gamma_{i}\\
+&=-\partial_{i}p+\partial_{j}(\lambda S_{kk})+\partial_{j}(2\mu S_{ij})+\gamma_{i}
+  \end{align}
+\end{subequations}
+where recall our convention has $\tr(S_{ij})=S_{kk}$.
+\end{node}
+
+\begin{node}
+The conservation of energy $e$ is
+\begin{equation}\label{eq:lec10:total-energy-conservation}
+\rho\frac{D\varepsilon}{D t}
+=-\partial_{i}(pu_{i})+\partial_{i}(\lambda
+S_{kk}u_{i})+\partial_{j}(2\mu S_{ij}u_{j})+\gamma_{i}u_{i}
+-q_{i}u_{i}+\rho Q.
+\end{equation}
+\end{node}
+
+\begin{definition}
+These two Equations~\eqref{eq:lec10:linear-momentum-conservation} and~\eqref{eq:lec10:linear-momentum-conservation}
+plus the conservation of mass equation
+are called the \define{Navier--Stokes Equations for Compressible Fluids},
+which are 5 equations (1 for mass, 3 for linear momentum, and 1 for energy)
+in 6 unknowns ($\rho$, $u_{1}$, $u_{2}$, $u_{3}$, $p$, $e$).
+\end{definition}
+
+\begin{definition}
+We typically adjoin one extra equation called the \define{Equation of State}
+to the Navier--Stokes equations for compressible fluids, which is
+usually an equation from thermodynamics.
+\end{definition}
+
+\begin{example}
+The ideal gas Law is an equation of state
+\begin{equation}
+p=\rho R T.
+\end{equation}
+But this  introduces a new unknown, temperature $T$. So we also add to
+it the thermodynamic relation
+\begin{equation}
+e = c_{V}T,
+\end{equation}
+which gives us two equations of state (technically, I guess).
+\end{example}
+
+\begin{example}
+We also have the Fourier heat conduction Law
+\begin{equation}
+q_{i}=-\kappa\partial_{i}T.
+\end{equation}
+This is a \emph{constitituve law} for heat flux $q_{i}$, since there
+are no time derivatives of unknown quantities.
+\end{example}
+
+\subsection{Incompressible Navier--Stokes equations}
+
+\begin{remark}
+The compressible Navier--Stokes equations are difficult to solve
+analytically. Typically, we make the extra assumption that the fluid
+is incompressible, which simplifies a lot of difficulties.
+\end{remark}
+
+\begin{assume}
+The fluid is incompressible: $\rho$ is constant.
+\end{assume}
+
+\begin{proposition}
+The conservation of mass becomes
+\begin{equation}\label{eq:lec10:incompressible:conservation-of-mass}
+\partial_{i}u_{i}=0.
+\end{equation}
+That is to say, the divergence of the velocity vector field vanishes.
+\end{proposition}
+
+\begin{node}
+The conservation of linear momentum simplifies to
+\begin{equation*}\label{eq:lec10:incompressible:conservation-of-linear-momentum}
+\rho\frac{D u_{i}}{D t}=-\partial_{i}p+\mu\partial_{j}^{2}u_{i}+\gamma_{i}.
+\end{equation*}
+\end{node}
+
+\begin{definition}
+The conservation of mass
+Equation~\eqref{eq:lec10:incompressible:conservation-of-mass} and the
+conservation of linear momentum Equations~\eqref{eq:lec10:incompressible:conservation-of-linear-momentum}
+are 4 equations in 4 unknowns. These equations are called the
+\define{Navier--Stokes Equations for Incompressible Fluids}.
+\end{definition}
+
+\begin{node}
+The dynamic viscosity $\mu$ is usually a function of pressure and time
+$\mu=\mu(p,T)$. However, using the ideal gas Law, for incompressible
+flows the dynamic viscosity is a function of temperature alone:
+\begin{equation}
+\mu=\mu(T).
+\end{equation}
+So we need to solve
+\begin{subequations}
+\begin{equation}
+e=c_{V}T
+\end{equation}
+and the conservation of internal energy
+\begin{equation}
+\rho(\partial_{t}e+\partial_{i}(u_{i}e))=\dots.
+\end{equation}
+\end{subequations}
+\end{node}
+
+\begin{node}
+We frequently assume $\mu$ is constant, especially if temperatuer $T$
+does not change too much. So frequently the assumption of
+incompressibility comes with the assumption of constant viscosity $\mu$.
+\end{node}
+
+\begin{note}
+The pressure only appears in the conservation of momentum
+equations. If we take the divergence of the momentum equations, we
+have
+\begin{subequations}
+\begin{equation}
+\partial_{i}[\rho\partial_{t}u_{i}+\rho u_{j}\partial_{j}u_{i}]=-\partial_{i}\partial_{j}p+\partial_{i}[\mu\partial_{j}^{2}u_{i}+\gamma_{i}]
+\end{equation}
+which can be rewritten as
+\begin{equation}
+\rho\partial_{t}(\partial_{i}u_{i})+\rho\partial_{i}\partial_{j}(u_{i}u_{j})
+=-\partial_{i}\partial_{i}p+\mu\partial_{j}^{2}(\partial_{i}u_{i})+\partial_{i}\gamma_{i}.
+\end{equation}
+But conservation of mass makes $\partial_{i}u_{i}=0$, simplifying this
+to
+\begin{equation}
+-\rho\partial_{i}\partial_{j}+\partial_{i}\gamma_{i}=\partial_{i}\partial_{i}p=\nabla^{2}p.
+\end{equation}
+\end{subequations}
+This gives us a Poisson equation for pressure. This allows us to
+devise an expansion for pressure in terms of velocity, which is very
+important in Computational Fluid Dynamics.
+\end{note}
+
+\subsection{Special cases of Navier--Stokes equations}
+
+\begin{node}[Incompressible Newtonian fluid with parallel shear flow]
+Assume only one component of the fluid velocity is nonzero $u_{1}=u$, $u_{2}=u_{3}=0$.
+This simplifies a lot of the math considerably.
+\end{node}
+
+\begin{example}[Couette flow]
+Recall~(\S\ref{ex:fall:lec09:couette-flow}) the Coeutte flow in
+2-dimensions where the top wall had constant velocity $u_{w}$. We saw
+how this had velocity $u(y)=u_{w}y/h$. 
+\end{example}
+
+\begin{example}
+If the wall is ``very far away'' $h\to\infty$, we see that $u(x,y)$ is
+a parabola. But conservation of mass gives us
+\begin{equation}
+\partial_{i}u_{i}=\partial_{x}u(x,y)=0,
+\end{equation}
+so $u=u(y)$ is a function of $y$ alone, by incompressibility.
+\end{example}
+
+\begin{node}
+In these situations, the strain rate tensor $S_{ij}$ has only two
+nonzero components
+\begin{equation}
+\S_{ij}=\begin{pmatrix}0 & \frac{1}{2}\partial_{y}u & 0\\
+\frac{1}{2}\partial_{y}u & 0 & 0\\
+0 & 0 & 0
+\end{pmatrix}.
+\end{equation}
+Similarly, we find
+\begin{equation}
+\tau_{ij} = \begin{pmatrix}0 & \mu\partial_{y}u & 0\\
+\mu\partial_{y}u & 0 & 0\\
+0 & 0 & 0
+\end{pmatrix}.
+\end{equation}
+Thus the stress tensor is
+\begin{equation}
+\sigma_{ij} = \begin{pmatrix}-p & \mu\partial_{y}u & 0\\
+\mu\partial_{y}u & -p & 0\\
+0 & 0 & -p
+\end{pmatrix}.
+\end{equation}
+\end{node}
+
+\begin{remark}
+There are few nice analytic solutions to the Navier--Stokes equations,
+and they happen under the parallel shear incompressible flow.
+\end{remark}
+
+\subsection{Boundary conditions}
+
+\begin{node}
+We have a system of partial differential equations. We need boundary
+and initial conditions to solve them.
+\end{node}
+
+\begin{definition}
+Fluid dynamics uses the term \define{Interface} for boundary between
+the fluid and some other medium or material (like a solid wall, or
+another fluid when the two fluids are immiscible [like oil and water]).
+\end{definition}
+
+\begin{node}[Solid boundary]
+We picture the velocity of the fluid matches the velocity of the solid
+at the interface. For example, if the wall is stationary, then the
+fluid on the surface is stationary. More explicitly: the surface has
+outward normal unit vector $\UnitNormalVec{n}$, the surface moves with
+velocity $v_{\text{wall}}$, and the velocity vector
+field for the fluid $\vec{u}$ has its tangential part equal the
+velocity of the wall:
+\begin{subequations}
+\begin{equation}
+  \vec{u}|_{\text{wall}}
+  -(\vec{u}|_{\text{wall}}\cdot\UnitNormalVec{n})\UnitNormalVec{n}
+  =\vec{v}_{\text{wall}},
+\end{equation}
+and the fluid's velocity in the ``normal direction of the wall'' vanishes:
+\begin{equation}
+\vec{u}|_{\text{wall}}\cdot\UnitNormalVec{n}=0.
+\end{equation}
+\end{subequations}
+This is called the \define{No-Slip Boundary Condition}. It was first
+observed by Reynolds (but I cannot track the original publication:
+people erroneously cite~\cite{reynolds1876force}, but that's clearly
+wrong if you read the paper; it is clearly present in a later
+publication~\cite[\S20]{reynolds1886theory}, but there may be an
+earlier publication).
+\end{node}
+
+\begin{node}[Maxwell boundary conditions]
+The no-slip boundary condition is admittedly a ``simplifying assumption''.
+If we were to ``zoom in'' on the wall, microscopically it would be
+``jagged'' and we could try applying geometric optics to determine how
+a fluid parcel would scatter off the wall:
+\begin{center}
+  \includegraphics{img/img.17}
+\end{center}
+We can model this using a Maxwell-type condition relating the velocity
+for the fluid at the wall $\vec{u}|_{\text{wall}}$ to its normal
+derivative (in this case, for sake of simplicity, the outward-pointing
+normal direction is taken to be the $y$-axis):
+\begin{equation}
+\vec{u}|_{\text{wall}} =
+\frac{2-\beta}{\beta}\lambda\left.\frac{\partial u}{\partial y}\right|_{\text{wall}},
+\end{equation}
+where $\lambda$ is the mean-free path, $\beta$ is the fraction of
+molecules that reflect randomly.
+
+For an idealized smooth wall which
+could be engineered by an Ideal Engineer, we would have
+$\beta\approx1$. But in this case, we would have
+\begin{equation}
+\vec{u}|_{\text{wall}} \approx\lambda\left.\frac{\partial u}{\partial y}\right|_{\text{wall}},
+\end{equation}
+and since $\lambda\ll L$ this reduces to
+\begin{equation}
+\vec{u}|_{\text{wall}} \approx0.
+\end{equation}
+Thus we recover the ``no-slip boundary conditions'' as a limiting case
+of the Maxwell boundary conditions under a highly idealized setting.
+\end{node}
+
+\begin{remark}
+Under our assumptions, this Maxwell relation is Reynolds number
+independent; if we have water and a hydrophobic surface, then we need
+to be more careful.
+\end{remark}
+
+\begin{example}
+If we have 2 immiscible fluids which do not mix (e.g., oil and water),
+then we typically assume:
+\begin{enumerate}
+\item $\vec{u}_{(1)}=\vec{u}_{(2)}$ at the interface (i.e., in
+  tangential directions, and the velocity vectors are the interface
+  vanish in the normal directions); \emph{and also}
+\item $[\sigma_{ij}n_{j}]_{(1)}=[\sigma_{ij}n_{j}]_{(2)}$ at the
+  interface (which intuitively corresponds to ``net force is zero'').
+\end{enumerate}
+\end{example}
+
+\begin{remark}
+In CFD (analytical or theoretical solutions), another type of boundary
+conditions is the \define{Inflow/Outflow conditions}. For example, if
+we look at a pipe segment, we need to impose some boundary conditions
+on the inflow, and we need to impose some boundary conditions on the
+outflow. One popular choice is to just impose periodic boundary
+conditions, so $\vec{u}|_{\text{inflow}}=\vec{u}|_{\text{outflow}}$.
+\end{remark}
+
+\begin{remark}
+For more on the boundary conditions,
+see Batchelor~\cite[\S1.9]{batchelor1973introduction}.
+It is discussed also in White~\cite{white1991viscous} (in \S1-4 and
+again briefly in \S2-6), which discusses the Maxwell boundary
+conditions among others.
+
+Childress~\cite[\S\S2.6,6.2]{childress2009introduction} offers a
+disappointing overview of only the no-slip boundary conditions, but
+it's all a Mathematician needs to start solving the equations of motion.
+Similarly, Landau and Lifshitz~\cite{landau1987fluid} assert a
+boundary condition for ideal fluids in Eq~(2.12) and for viscuous
+fluids in Eq~(15.11) are just the no-slip conditions without any
+inspection or real
+justification. Lamb~\cite[\S79]{lamb1930hydrodynamics} acknowledges
+the no-slip boundary condition should be modified when working with
+viscous fluids, but it amounts to a stray sentence and little more.
+
+Maxwell proposed his boundary conditions in 1879 according to White~\cite[\S1-4.2]{white1991viscous}.
+\end{remark}

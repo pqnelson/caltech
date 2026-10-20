@@ -230,4 +230,35 @@ beginfig(16) % planar Couette flow
   label.top(btex $y$ etex, z7);
 endfig;
 
+% lecture 10 (Fall 2026)
+% Emacs Lisp code for generating the wall:
+% (defun generate-node (x y d)
+%   (cons (+ x (- (random d) d d))
+%         (+ y (- (random d) d d))))
+%
+% (list (generate-node 6 6 2)
+%       (generate-node 12 -6 2)
+%       (generate-node 18 6 2)
+%       (generate-node 24 -6 2)
+%       (generate-node 30 6 2)
+%       (generate-node 36 -6 2)
+%       (generate-node 42 6 2)
+%       (generate-node 48 -6 2)
+%       (generate-node 54 6 2)
+%       (generate-node 60 -6 2)
+%       )
+beginfig(17)
+  path wall;
+  path particle;
+  path trajectory;
+  z0 = (0,0);
+  z1 = (66,0);
+  wall = z0--(2, 2)--(8, -9)--(15, 2)--(21, -9)--(26, 2)--(32, -9)--(39, 2)--(45, -9)--(51, 3)--(56, -9)--z1;
+  fill wall--(z1 + (0, -u))--(z0 + (0, -u))--cycle withcolor 0.8white;
+  draw wall;
+  particle = fullcircle scaled u shifted (u,4u);
+  trajectory = ((u,4u)--(2.5u,4u-1.5u)) cutbefore particle;
+  fill particle withcolor blue;
+  drawarrow trajectory;
+endfig;
 end;

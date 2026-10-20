@@ -1,0 +1,241 @@
+%%
+%% fall-lecture10.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-20T09:22:58-0700
+%% Last update 2026-10-20T09:22:58-0700
+%% 
+
+\lecture[Baire's category theorem]{}
+
+We will need the following lemma.
+
+\begin{lemma}[Previous Lecture]
+Let $(X,\rho)$ be a complete metric space, let $\{A_{n}\}$ be a family
+of closed subsets of $X$ which is monoton decreasing [so $A_{1}\supset A_{2}\supset\dots$],
+and assume every $A_{n}\neq\emptyset$ is non empty and $\diam(A_{n})\to0$.
+Then $\bigcap_{n\in\NN}A_{n}\neq\emptyset$.
+\end{lemma}
+
+\begin{proof}
+For each $n$, pick $x_{n}\in A_{n}$ which gives us a Cauchy sequence
+$(x_{n})$ which converges to some $x\in A_{n}$ for each $n\in\NN$.
+\end{proof}
+
+\begin{theorem}[Baire category]
+Let $(X,\rho)$ be a complete metric space.
+Let $F_{n}\subset X$ be a countable family of closed nowhere dense
+subsets (so $\Interior(F_{n})=\emptyset$).
+Then $\Interior(\bigcup_{n\in\NN}F_{n})=\emptyset$.
+\end{theorem}
+
+\begin{proof}
+Assume for contradiction
+\begin{equation}
+\Interior\left(\bigcup_{n\in\NN}F_{n}\right)\neq\emptyset.
+\end{equation}
+Then there is a nonempty open set $O\subset\Interior(\bigcup_{n}F_{n})$.
+Then there exists a point $x_{1}\in O\setminus F_{1}$ (otherwise
+$O\setminus F_{1}=\emptyset$ and so $O\subset F_{1}$ which leads to
+contradiction). Then there exists a small open ball
+$B_{1}=B(x,r=r_{1})\Subset O\setminus F_{1}$ where $0<r_{1}<1/2$.
+
+Then we repeat this construction, replacing $O$ with $B_{1}$ and use
+$F_{2}$ now: we get $x_{2}\in B_{1}\setminus F_{2}$ and an open ball
+$B_{2}=B(x_{2},r_{2})$ where $0<r_{2}<2^{-2}$ and
+$B_{2}\subset B_{1}\setminus F_{2}\subset\bigcup_{n\geq3}F_{n}$.
+
+We have a monotone decreasing sequence of open balls $\{B_{n}\}$ and
+we apply our Lemma using $A_{n}=\closure{B_{n}}$. Then by our Lemma,
+we get
+\begin{equation}
+\bigcap_{n\in\NN}\closure{B_{n}}\neq\emptyset,
+\end{equation}
+since $\diam(B_{n})=2\cdot2^{-n}\to0$.
+Then we see this implies
+\begin{subequations}
+  \begin{align}
+\emptyset &= O\setminus\bigcup_{n\in\NN}F_{n}\\
+&=\bigcap_{n\in\NN}(O\cap F_{n})\\
+&\supset\bigcap_{n\in\NN}\closure{B_{n}}\neq\emptyset,
+  \end{align}
+\end{subequations}
+since $\closure{B_{n}}\subset O\cap F_{n}$. So we get
+$\emptyset\not\subset\emptyset$ which is our contradiction.
+\end{proof}
+
+\begin{theorem}[Restatement of Baire category]
+Let $(X,\rho)$ be a complete metric space. Then a countable
+intersection of open dense sets is open.
+\end{theorem}
+
+\begin{remark}
+The assumption is metrical, the conclusion is topological.
+\end{remark}
+
+\begin{remark}
+The theorem applies to metric spaces which are not complete but are
+homeomorphic to complete spaces (e.g., $S^{1}\setminus\{\mbox{pt}\}\iso\RR$
+and $\RR$ is complete, so Baire's theorem applies to
+$S^{1}\setminus\{\mbox{pt}\}$ despite the fact that
+$S^{1}\setminus\{\mbox{pt}\}$ is not a complete metric space). So the
+hypothesis really requires only ``complete metrizability'' (i.e., a
+metrizable topological space whose metric is complete). But there are
+\emph{even weaker versions} of Baire's theorem!
+\end{remark}
+
+\begin{definition}
+We define \define{Baire Spaces} to be a topological space which
+satisfies Baire's theorem.
+\end{definition}
+
+\begin{theorem}
+Let $X$ be a compact Hausdorff space. Then a countable intersection of
+open dense sets is dense.
+\end{theorem}
+
+(The proof is the same as before.)
+
+\begin{remark}
+Locally compact Hausdorff spaces are Baire spaces. To see this, just
+use the one-point compactification.
+\end{remark}
+
+\begin{remark}[Terminology]
+What's so ``categorical'' about this anyways? Well, sadly, this is
+poor choice of terminology on the part of Baire.
+
+Let $(X,\topology)$ be a topological space. Let $E\subset X$ be a
+subset of $X$. We say that $E$ is \define{Category One} if
+$E=\bigcup_{n\in\NN}E_{n}$ is the countable union of nowhere dense
+sets $E_{n}\subset X$ [so $\Interior{\closure{E_{n}}}=\emptyset$].
+
+We say $E$ is \define{Category Two} if it is not Category One.
+
+This permits us to restate Baire's category theorem in the following
+equivalent ways:
+\begin{enumerate}
+\item If $(X,\rho)$ is complete, then $X$ is category 2 in itself
+\item If $(X,\rho)$ is complete, then nonempty open subsets of $X$ is category 2 in $X$
+\item If $(X,\rho)$ is complete, then residual sets are dense in $X$
+  (``residual'' means its complement is category 1 in $X$).
+\end{enumerate}
+Note that Category 1 sets are also called \define{Meager}.
+\end{remark}
+
+\begin{node}
+We should think of ``residual sets'' as ``very large''.
+\end{node}
+
+There are three famous applications of Baire's category theorem.
+
+\begin{example}[Application 1: Existence of Liouville numbers]
+We say $x\in\RR$ is \define{Liouville} (and write $x\in\mathcal{L}$)
+if $x\in\RR\setminus\QQ$ is irrational and for every $n\in\NN$ there
+exists a $(p/q)\in\QQ$ such that
+\begin{equation}
+\left|x-\frac{p}{q}\right|<\frac{1}{q^{n}}.
+\end{equation}
+So Liouville numbers are ``irrational but almost rational''.
+
+Compare this to algebraic numbers: $x\in\RR$ is algebraic of degree
+$n\in\NN$ if there
+exists a nonzero polynomial with integer coefficients $f\in\ZZ[z]$
+such that $f(x)=0$. In this case, there exists some positive constant
+$c>0$ such that for every $(p/q)\in\QQ$ we have
+\begin{equation}
+\left|x-\frac{p}{q}\right|\geq\frac{c}{q^{n}}.
+\end{equation}
+So this is\dots not good. And it begs the question: do Liouville
+numbers even exist?
+\end{example}
+
+\begin{theorem}
+The set $\mathcal{L}$ of Liouville numbers is residual in $\RR$.
+But the Hausdorff dimension $\dim(\mathcal{L})=0$.
+\end{theorem}
+
+[The Hausdorff dimension is the sum of diameters of the smallest
+  covering by open balls. When the Hausdorff dimension is zero, we
+  should think of it as ``metrically small''. It is quite common to
+  find ``large sets which are metrically small'' in analysis.]
+
+\begin{proof}
+Let $\mathcal{L}=(\RR\setminus\QQ)\cap\left(\bigcap_{n\in\NN}G_{n}\right)$
+where $G_{n}=\cup_{p,q}(\frac{p}{q}-q^{-n},\frac{p}{q}+q^{-n})$. But
+$G_{n}$ is open and dense, and
+$\mathcal{L}^{\complement}=\QQ\cup(\bigcup_{n\in\NN}G_{n}^{\complement})$
+where $G_{n}^{\complement}$ is closed nowhere-dense. Then apply
+Baire's theorem. We get the result.
+\end{proof}
+
+\begin{example}[Application 2: Existence of nowhere differentiable functions]
+The claim is that the  set of nowhere differentiable functions is
+residual in $C[0,1]$ (continuous functions on the closed unit interval).
+So almost all continuous functions are differentiable. But we can
+explicitly construct the Weierstrass function
+\begin{equation}
+f(x)=\sum^{\infty}_{n=1}2^{-n}\cos(2^{n}x),
+\end{equation}
+which is not differentiable.
+\end{example}
+
+\begin{example}[Application 3: Sets of discontinuity]
+Let $f\colon\RR\to\RR$. Define the set
+\begin{equation}
+\Dis(f)=\RR\setminus\{x\in\RR\mid\mbox{$f$ is continuous at $x$}\}.
+\end{equation}
+Questions:
+\begin{enumerate}
+\item Is there a function $f$ such that $\Dis(f)=\QQ$? [Ans: yes]
+\item Can $\Dis(f)=\RR\setminus\QQ$ for some $f$? [Ans: no]
+\end{enumerate}
+For the first question, consider
+\begin{equation}
+f(x)=\begin{cases}0 & x\in\RR\setminus\QQ\\
+2^{-q} & x=\frac{p}{q}\in\QQ
+\end{cases}
+\end{equation}
+\end{example}
+
+\begin{theorem}
+If $f$ is continuous on a dense set, then $f$ is continuous on a
+residual set.
+\end{theorem}
+
+\begin{example}[Application 4: what Baire was trying to do]
+The class $\Baire(0)=C(\RR)$ is just continuous functions. The class
+\begin{equation}
+\Baire(1)=\{f\mid\exists(f_{n})\subset\Baire(0)\ldotp f_{n}\to f\mbox{ pointwise},
+\forall n\in\NN\ldotp f_{n}\in\Baire(0)\}.
+\end{equation}
+We can inductively define the classes, for any $k\in\NN$,
+\begin{equation}
+\Baire(k+1)=\{f\mid\exists(f_{n})\subset\Baire(k)\ldotp f_{n}\to f\mbox{ pointwise},
+\forall n\in\NN\ldotp f_{n}\in\Baire(k)\}.
+\end{equation}
+\end{example}
+
+\begin{theorem}
+If $f$ is $\Baire(1)$, then $\Dis(f)$ is a Category~1 set.
+\end{theorem}
+
+\begin{lemma}
+If $f\colon\RR\to\RR$ is differentiable, then $f'\in\Baire(1)$ [i.e.,
+  $f'$ is continuous on a residual set].
+\end{lemma}
+
+\begin{question}
+Suppose we have a differentiable function $f\colon\RR\to\RR$, how can
+we reconstruct $f$ from $f'(x)$ alone?
+
+For example, if $f(x)=x^{2}\sin(1/x)$, then
+\begin{equation}
+f'(x)=\begin{cases}2x\sin(1/x)-\cos(1/x) & \mbox{if }x\neq0\\
+0 & x=0.
+\end{cases}
+\end{equation}
+Given this information about $f'(x)$ alone, how can we recover $f(x)$?
+\end{question}
