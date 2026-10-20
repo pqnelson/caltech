@@ -1,0 +1,171 @@
+%%
+%% fall-lecture10.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-20T11:53:55-0700
+%% Last update 2026-10-20T11:53:55-0700
+%% 
+
+\lecture{}
+
+\begin{node}[Recap---where are we?]
+We saw (\S\ref{ex:w-ts-is-one}) that $\forall n\geq0\ldotp w(\T\sphere{n})=1$.
+We are interested in $w(\T\RP^{n})$.
+We proved (\S\ref{thm:lec09:structure-theorem}) $\T\RP^{n}\iso\hom(\gamma^{1}_{n},(\gamma^{1}_{n})^{\perp})$
+but do not know how to compute $w\bigl(\hom(\gamma^{1}_{n},(\gamma^{1}_{n})^{\perp})\bigr)$.
+\end{node}
+
+\begin{theorem}
+Let us denote $\varepsilon^{1}$ to be hte trivial line bundle over $\RP^{n}$.
+Then
+\begin{equation}
+\T\RP^{n}\oplus\varepsilon^{1}\iso\underbrace{\gamma^{1}_{n}\oplus\dots\oplus\gamma^{1}_{n}}_{(n+1)\text{~times}}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+We have
+\begin{equation}
+\T\RP^{n}\oplus\varepsilon^{1}=\hom(\gamma^{1}_{n},(\gamma^{1}_{n})^{\perp})\oplus\hom(\gamma^{1}_{n},\gamma^{1}_{n}).
+\end{equation}
+We will use three facts (which we will not prove) in this proof:
+
+\textsc{Fact 1}: $\RP^{n}\times\RR=\varepsilon^{1}\iso\hom(\gamma^{1}_{n},\gamma^{1}_{n})$
+are isomorphic as bundles, with the isomorphism given by
+$([x],t)\mapsto(x\mapsto tx)$.
+
+\textsc{Fact 2}: $\hom(\xi,\eta)\oplus\hom(\xi,\eta')\iso\hom(\xi,\eta\oplus\eta')$
+as bundles.
+
+\textsc{Fact 3}: $(\gamma^{1}_{n})^{*}\iso\gamma^{1}_{n}$.
+
+Then
+\begin{subequations}
+  \begin{align}
+\T\RP^{n}\oplus\varepsilon^{1}
+&=\hom(\gamma^{1}_{n},(\gamma^{1}_{n})^{\perp})\oplus\hom(\gamma^{1}_{n},\gamma^{1}_{n})\\
+&=\hom(\gamma^{1}_{n},(\gamma^{1}_{n})^{\perp}\oplus\gamma^{1}_{n})\quad\mbox{by \textsc{Fact 2}}\\
+&=\hom(\gamma^{1}_{n},\RP^{n}\times\RR^{n+1})\\
+&=\hom(\gamma^{1}_{n},\bigoplus^{n+1}_{j=1}\varepsilon^{1})\\
+&=\bigoplus^{n+1}_{j=1}\hom(\gamma^{1}_{n},\varepsilon^{1})\quad\mbox{by \textsc{Fact~2}}\\
+&=\bigoplus^{n+1}_{j=1}(\gamma^{1}_{n})^{*}\\
+&=\bigoplus^{n+1}_{j=1}\gamma^{1}_{n}\quad\mbox{using \textsc{Fact 3} and Riesz representation theorem}.
+  \end{align}
+\end{subequations}
+We want to use Riesz representation theorem, but this requires a
+Euclidean metric.
+
+Then
+\begin{subequations}
+  \begin{align}
+w(\T\RP^{n})
+&=w(\T\RP^{n}\oplus\varepsilon^{1})\quad\mbox{by Axiom~\ref{axiom3}}\\
+&=w(\gamma^{1}_{n})^{n+1}\quad\mbox{by Axiom~\ref{axiom3}}\\
+&=(1+a)^{n+1}\quad\mbox{by Axiom~\ref{axiom4}}\\
+&=1+\binom{n+1}{1}a+\binom{n+1}{2}a^{2}+\dots+\binom{n+1}{n}a^{n},
+  \end{align}
+\end{subequations}
+since $a^{n+1}=0$.
+\end{proof}
+
+\begin{corollary}[Stiefel]
+$w(\T\RP^{n})=0$ if and only if $n+1$ is a power of $2$.
+\end{corollary}
+
+\begin{proof}
+\backwardproof\ Assume $n+1=2^{\ell}$, then
+\begin{equation}
+(1+a)^{n+1}=(1+a)^{2^{\ell}}=1+a^{n+1}=1.
+\end{equation}
+
+\forwardproof\ Proof by contrapositive: assume $n+1$ is not a power of
+2. Then $n+1=m2^{k}$ where $m>1$ odd. Then expand
+\begin{subequations}
+  \begin{align}
+w(\T\RP^{n}) &= (1+a)^{m2^{k}}=(1+a^{2^{k}})^{m}\\
+&=1+ma^{2^{k}} + \bigOh(a^{2^{k}+1}).
+  \end{align}
+\end{subequations}
+Since $2^{k}<n+1$, $a^{2^{k}}\neq0$, so $w(\T\RP^{n})\neq1$.
+\end{proof}
+
+\begin{remark}
+If we assume that $\RP^{n}$ is parallelizable [so $\T\RP^{n}$ is
+  trivial], then $w(\T\RP^{n})=1$. By our corollary, $n+1$ must be a
+power of 2. But the converse is not true: for example
+$w(\T\RP^{15})=1$ since $\T\RP^{15}$ is a pullback bundle of
+$\T\sphere{15}$, but $\RP^{15}$ is 
+not parallelizable. How do we know? Well, we use the quotient map $f\colon\sphere{15}\to\RP^{15}$
+then $\T\sphere{15}\iso f^{*}\T\RP^{15}$ but $\T\sphere{15}$ is not
+trivial.
+
+The only parallelizable real projective spaces are $\RP^{1}$,
+$\RP^{3}$, and $\RP^{7}$.
+\end{remark}
+
+\begin{remark}
+Recall if we have a smooth manifold $M$, then $w_{1}(\T M)=0$ iff $M$
+is orientable. [Homework: prove this.]
+
+This can be generalized to bundles: $\xi$ is orientable if and only if
+$w_{1}(\xi)=0$.
+
+Now, $w_{1}(\T\RP^{n})=(n+1)a$, we can infer immediately $\RP^{n}$ is
+orientable if and only if $n$ is odd.
+\end{remark}
+
+\subsection{Stiefel--Whitney Numbers}
+
+\begin{recall}
+Let $M$ be a closed smooth manifold and $\dim(M)=n$.
+Then $H_{n}(M;\ZZ_{2})\iso\ZZ_{2}\oplus\dots\oplus\ZZ_{2}$ where there
+are $|\pi_{0}(M)|$ summands (i.e., as many summands as there are
+connected components of $M$).
+\end{recall}
+
+\begin{node}
+We also recall we have the mod-2 ``fundamental class'' $[M]_{2}\in H_{n}(M;\ZZ_{2})$
+which is just $[M]_{2}=(1,1,\dots,1)$.
+\end{node}
+
+\begin{node}
+We have the ``evaluation map''
+\begin{align}
+\eval\colon & H^{n}(M;\ZZ_{2})\to\ZZ_{2}\\
+&\alpha\mapsto\langle\alpha,[M]_{2}\rangle\nonumber.
+\end{align}
+\end{node}
+
+\begin{puzzle}
+How do we turn $w_{k}(M)$ into some [hopefully useful] number?
+\end{puzzle}
+
+\begin{definition}
+Let $M$ be a smooth $n$-manifold.
+Let $r_{1}$, \dots, $r_{n}\geq0$ be non-negative integers such that
+$\sum^{n}_{k=1}kr_{k}=n$ (i.e.,
+$r_{1}+2r_{2}+3r_{3}+\dots+nr_{n}=n$).
+Observe that $w_{1}^{r_{1}}(\T M)w_{2}^{r_{2}}(\T M)(\dots)w_{n}^{r_{n}}(\T M)\in H^{n}(M;\ZZ_{2})$.
+We define the \define{Steifel--Whitney Number} associated with
+$(r_{1},\dots,r_{n})$ to be equal to
+$\langle w_{1}^{r_{1}}(\T M)w_{2}^{r_{2}}(\T M)(\dots)w_{n}^{r_{n}}(\T M),[M]_{2}\rangle\in\ZZ_{2}$.
+\end{definition}
+
+\begin{remark}
+Recall in Lecture~1, $\langle w_{n}(\T M),[M]_{2}\rangle=\chi(M)\bmod{2}$
+is the Euler characteristic modulo~2.
+\end{remark}
+
+\begin{definition}
+Let $M$, $M'$ be two smooth $n$-manifolds.
+We say $M$ and $M'$ \define{Have the Same Stiefel--Whitney Numbers}
+if
+$\langle w_{1}^{r_{1}}(\T M)w_{2}^{r_{2}}(\T M)(\dots)w_{n}^{r_{n}}(\T M),[M]_{2}\rangle=\langle w_{1}^{r_{1}}(\T M')w_{2}^{r_{2}}(\T M')(\dots)w_{n}^{r_{n}}(\T M'),[M']_{2}\rangle$.
+\end{definition}
+
+\begin{example}
+If $M$ is parallelizable, then $w_{0}(\T M)=1$ and $w_{i}(\T M)=0$ for
+all $i\geq1$, which requires $r_{i}=0$ for all $i\geq1$.
+\end{example}
