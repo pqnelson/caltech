@@ -1,0 +1,137 @@
+%%
+%% fall-lecture09.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-20T10:02:59-0700
+%% Last update 2026-10-20T10:02:59-0700
+%% 
+
+\lecture{}
+
+\begin{recall}
+We introduced te 4 axioms describing Stiefel--Whitney classes, and
+started discussing immediate consequences.
+\end{recall}
+
+\begin{lemma}[Whitney duality theorem]
+Let $M$ be a smooth manifold embedded inside $M\subset\RR^{N}$ (where
+$\RR^{N}$ is treated as a smooth manifold with the standard Riemann
+metric). Then $w(NM)=\overline{w(\T M)}$.
+\end{lemma}
+
+\begin{proof}
+Since $\T M\oplus NM\iso M\times\RR^{N}$ and $w(M\times\RR^{N})=1$.
+\end{proof}
+
+\begin{example}
+Consider $w(\T\sphere{n})=1$ for $n\geq0$. There are two ways to prove it:
+\begin{enumerate}
+\item $\T\sphere{n}\oplus N\sphere{n}\iso\sphere{n}\times\RR^{n+1}$ if
+  we view $\sphere{n}\subset\RR^{n+1}$ and we know $N\sphere{n}$ is a
+  trivial rank-$1$ bundle, then the result follows immediately by the
+  duality theorem.
+\item Suppose $n\geq1$. We consider $f\colon\sphere{n}\to\RP^{n}$ the
+  quotient map sending $x\mapsto\{\pm x\}$. We can form a bundle map
+  \begin{align}
+\widetilde{f}\colon & \T\sphere{n}\to\T\RP^{n}\\
+& (x,v)\mapsto(\{\pm x\},\D f_{x}(v))\nonumber,
+  \end{align}
+  which needs to be shown (on the level of fibers) is a linear
+  isomorphism. We need to check $\D f_{x}(v)$ has an inverse. But $f$
+  is a local diffeomorphism, so locally there exist a $g\colon\RP^{n}\to\sphere{n}$
+  such that
+  \begin{equation}
+(f\circ g)|_{V}=\id_{\RP^{n}}|_{V},\quad\mbox{and}\quad(g\circ f)|_{U}=\id_{\sphere{n}}|_{U}
+  \end{equation}
+  for suitably small neighborhoods $U\subset\sphere{n}$ and $V\subset\RP^{n}$.
+  Then we see $\D f\circ\D g=\id$ and $\D g\circ\D f=\id$ which
+  establishes $f$ is a linear isomorphism on the level of fibers. Then
+  Axiom~\ref{axiom2} for Stiefel--Whitney classes on the pullback
+  bundle gives us $w_{n}(\T\sphere{n})=f^{*}w_{n}(\T\RP^{n})$ where
+  \begin{equation}
+f^{*}\colon H^{n}(\RP^{n};\ZZ_{2})\to H^{n}(\sphere{n};\ZZ_{2}).
+  \end{equation}
+  Recall $H(\RP^{n};\ZZ_{2})\iso\ZZ_{2}[a]/(a^{n+1})$ where $a$ is a
+  nontrivial generator. Suffices to examine $H^{1}(\RP^{n};\ZZ_{2})\to H^{1}(\sphere{n};\ZZ_{2})$.
+  If $n\geq2$, then $a\mapsto0$ and $f^{*}$ is trivial so
+  $w_{n}(\T\sphere{n})=0$. For $n=1$, look at the map
+  $f\colon\sphere{1}\to\RP^{1}$, and it can be shown $\deg(f)=2$, then
+  we see $f^{*}\colon H^{1}(\RP^{1};\ZZ_{2})\to H^{1}(\sphere{1};\ZZ_{2})$
+  sends $a\mapsto2a$ but this means $w_{n}(\T\sphere{1})=0$.
+\end{enumerate}
+\end{example}
+
+\begin{remark}
+We know that $w(\T\sphere{n})=1$. If this is true; if $\T\sphere{n}$
+is trivial, then $w(\T\sphere{n})=1$. But the question is the inverse:
+if $w(\T\sphere{n})=1$, then is $\T\sphere{n}$ trivial?
+(Counter-example: $\sphere{2}$ is not parallelizable, so
+$\T\sphere{2}$ is a counter-example.)
+\end{remark}
+
+\begin{fact}
+Let $M$ be a smooth manifold. If we look at $w_{1}(M)=0\iff M\mbox{ is orientable}$.
+Let us stipulate this fact. For $w_{1}(\T\sphere{n})=0$, we see every
+sphere is orientalble.
+\end{fact}
+
+\begin{example}
+Recall $\gamma^{1}_{n}$ is the tautological line bundle over
+$\RP^{n}$. We claim that $w(\gamma^{1}_{n})=1+a$ where $a\in H^{1}(\RP^{n};\ZZ_{2})$ is a generator.
+\end{example}
+
+\begin{proof}
+We want to build a relation between $\gamma^{1}_{1}$ and
+$\gamma^{1}_{n}$ then use Axiom~\ref{axiom4}. Recall
+\begin{equation}
+\vcenter{\xymatrix{\gamma_{1}^{1}\ar@{.>}[r]\ar[d] & \gamma^{1}_{n}\\
+\RP^{1}\ar[r]^{g} & \RP^{n}}}
+\end{equation}
+we want to find that dotted arrow in the commutative diagram. We could
+embed
+\begin{equation}
+\vcenter{\xymatrix{
+\sphere{1}\ar@{^{(}->}[r]\ar[d] & \sphere{n}\ar[d] & (x,y)\mapsto(x,y,0,0,\dots,0)\\
+\RP^{1}\ar[r]^{g} & \RP^{n} & }}
+\end{equation}
+We can think of
+\begin{subequations}
+  \begin{align}
+\RP^{1} &= \{\mbox{lines in $\RR^{2}$ passing through the origin}\}\\
+&\subset\{\mbox{lines in $\RR^{n+1}$ passing through the origin}\}=\RP^{n}.
+  \end{align}
+\end{subequations}
+Then we find $\widehat{g}$ and $\gamma^{1}_{1}\iso g^{*}\gamma^{1}_{n}$
+which implies $w_{1}(\gamma^{1}_{1})=g^{*}w_{1}(\gamma^{1}_{n})$.
+By Axiom~\ref{axiom4}, $w_{1}(\gamma^{1}_{1})\neq0$ which implies
+$g^{*}w_{1}(\gamma^{1}_{n})\neq0$ and so $w_{1}(\gamma^{1}_{n})\neq0$.
+Therefore $w_{1}(\gamma^{1}_{n})=a$ must be the generator of $H(\RP^{n};\ZZ_{2})$.
+Further we can infer $w_{k}(\gamma^{1}_{n})=0$ for $k>1$ since it is a
+line bundle. Then $w(\gamma^{1}_{n})=1+a$.
+\end{proof}
+
+\begin{node}
+We can build $\gamma^{1}_{n}$ as a subbundle of
+$\RP^{n}\times\RR^{n+1}$. We can give $\RP^{n}\times\RR^{n+1}$ a
+Euclidean norm. Then we can consider $(\gamma^{1}_{n})^{\perp}$. We
+know
+\begin{equation}
+(1+a)w_{1}\bigl((\gamma_{n}^{1})^{\perp}\bigr)=w_{1}(\gamma^{1}_{n})w_{1}\bigl((\gamma_{n}^{1})^{\perp}\bigr)=w_{1}(\RP^{n}\times\RR^{n+1})=1.
+\end{equation}
+Then
+\begin{equation}
+w_{1}\bigl((\gamma_{n}^{1})^{\perp}\bigr)=\overline{w_{1}(\gamma^{1}_{n})}=1+a+a^{2}+\dots+a^{n}
+\end{equation}
+since the coefficients are $\ZZ_{2}$ and $a^{n+1}=0$. If we did this
+for universal line bundle, then we would get an infinite series.
+\end{node}
+
+\begin{theorem}[Structure]
+We see $\T\RP^{n}\iso\hom(\gamma_{n}^{1},(\gamma_{n}^{1})^{\perp})$
+are isomorphic as real vector bundles over $\RP^{n}$. Note that
+$\hom(\gamma_{n}^{1},(\gamma_{n}^{1})^{\perp})$ is the vector bundle
+construction analogous to the $\hom(V,W)$ vector spaces of linear
+transformations.
+\end{theorem}
