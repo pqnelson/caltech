@@ -1,0 +1,237 @@
+%%
+%% fall-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-22T12:17:17-0700
+%% Last update 2026-10-22T12:17:17-0700
+%% 
+
+\lecture[Banach spaces]{}
+
+\begin{definition}
+Let $X$ be a vector space over $\RR$ or $\CC$. A \define{Norm} on $X$
+is a map $\|-\|\colon X\to\RR$ such that
+\begin{enumerate}
+\item \textsc{Triangle inequality}: for all $x,y\in X$, $\|x+y\|\leq\|x\|+\|y\|$
+\item \textsc{Homogenous}: for all $\lambda\in\FF$ and for all $x\in X$,
+  $\|\lambda x\|=|\lambda|\cdot\|x\|$
+\item \textsc{Positive-definite}: for all $x\in X$, $\|x\|\geq0$ and
+  $\|x\|=0\iff x=0$.
+\end{enumerate}
+We call the pair $(X,\|-\|)$ a \define{Normed Vector Space}.
+\end{definition}
+
+\begin{definition}
+Let $(X,\|-\|)$ be a normed vector space. We can construct the function
+\begin{align}
+\rho\colon & X\times X\to\RR\\
+& (x,y)\mapsto\rho(x,y)=\|x-y\|\nonumber
+\end{align}
+which is a metric on $X$. It induces the \define{Norm Topology} on $X$.
+Without loss of generality, we consider $(X,\|-\|)$ as a metric space
+with this metric $\rho$ and equipped with the norm topology.
+\end{definition}
+
+\begin{definition}
+We say $(X,\|-\|)$ a \define{Banach Space} if it is a complete metric
+space under $\rho$.
+\end{definition}
+
+\begin{remark}
+What do we do with an \emph{incomplete} normed space $(X,\|-\|)$?
+Well, recall, we can always embed a metric space into a complete space
+(by taking its completion). We can do likewise here, and embed any
+normed space into a Banach space.
+\end{remark}
+
+\begin{definition}
+Let $(X,\|-\|)$ be a normed space, let $(x_{n})$ be a sequence on $X$.
+A series $\sum^{\infty}_{n}x_{n}$ is called \define{Absolutely Continuous}
+if $\sum\|x_{n}\|<\infty$.
+\end{definition}
+
+\begin{theorem}
+A normed space $(X,\|-\|)$ is complete if and only if every absolutely
+continuous series converges.
+\end{theorem}
+
+\begin{proof}
+\forwardproof\ Assume $(X,\|-\|)$ is complete. Let $\sum x_{n}$
+be an arbitrary series on $X$. Assume $\sum\|x_{n}\|<\infty$. Consider
+the partial sums
+\begin{equation}
+S_{n}=\sum^{n}_{k=1}x_{k}.
+\end{equation}
+Then $S_{n}$ forms a Cauchy sequence since
+\begin{equation}
+\|S_{n}-S_{m}\|\leq\sum^{n}_{k=m+1}\|x_{k}\|\xrightarrow{m,n\to\infty}0
+\end{equation}
+by absolute continuity. Then, by completeness of $X$, $S_{n}$ must
+converge. Hence $\sum x_{n}$ must converge.
+
+\backwardproof\ Assume every absolutely continuous series
+converges. Let $(x_{n})$ be a Cauchy sequence in $X$. [We want to show
+$(x_{n})$ converges to some point in $X$.]
+Choose numbers $n_{1}<n_{2}<\dots$ such that for all $n>n_{j}$ and
+$m>n_{j}$ we have $\|x_{n}-x_{m}\|\leq2^{-j}$. Set $y_{1}=x_{n_{1}}$,
+$y_{2}=x_{n_{2}}-x_{n_{1}}$, \dots, $y_{k+1}=x_{n_{k+1}}-x_{n_{k}}$,
+\dots. Then
+\begin{equation}
+\sum^{k}_{j=1}y_{j}=x_{n_{k}}
+\end{equation}
+because this is a telescoping series. We see $\sum_{j}^{\infty}\|y_{j}\|<\infty$ is finite
+since
+\begin{subequations}
+  \begin{align}
+\sum_{j}\|y_{j}\| &= \|x_{n_{1}}\| + \sum_{j=2}\|x_{n_{j+1}}-x_{n_{j}}\|\\
+&\leq\sum_{j}2^{-j}=1.
+  \end{align}
+\end{subequations}
+Then this estimates $\sum_{j}\|y_{j}\|<\infty$ which means the partial
+sums $\sum y_{j}$ converges. This means $\lim_{n_{k}\to\infty} x_{n_{k}}$ exists
+and since $(x_{n})$ is Cauchy it follows that $x_{n}$ has a
+limit. Hence every Cauchy sequence converges.
+\end{proof}
+
+\begin{example}[Banach spaces]
+If $K$ is a compact set, then $C(K)$ the space of continuous
+real-valued functions is a vector space over $\RR$ and we can define
+$\|f\|=\max_{K}|f|$. This is a complete spacde, hence Banach. (This is
+especially interesting when $K$ is also Hausdorff.)
+\end{example}
+
+\begin{example}
+The space of sequences whose limit at infinity is zero $(C_{0})$ is a
+subspace of sequences where there exists a limit at infinity $(C)$. We
+can identify $(C)$ with $C(\widehat{\NN})$ the continuous functions on
+the one-point compactification of $\NN$ where $(x_{n})$ converges
+$x_{n}\to x_{\infty}$ to the value assigned at infinity. This can be
+viewed as a special case of the previous example since $\widehat{\NN}$
+is compact. Here $(C_{0})$ is a closed subset of $(C)$.
+\end{example}
+
+\begin{example}
+The space $\ell^{1}(\NN)$ consists of absolutely convergent sequences
+\begin{equation}
+\ell^{1}(\NN)=\{(x_{n})\mid\sum|x_{n}|<\infty\}.
+\end{equation}
+The norm here is
+\begin{equation}
+\|(x_{n})\|=\sum_{n}|x_{n}|.
+\end{equation}
+The claim is that it is a Banach space.
+\end{example}
+
+\begin{example}
+The space 
+\begin{equation}
+\ell^{2}=\{(x_{n})\mid \sum_{n}|x_{n}|^{2}<\infty\}.
+\end{equation}
+The norm
+\begin{equation}
+\|(x_{n})\|=\left(\sum_{n}|x_{n}|^{2}\right)^{1/2}.
+\end{equation}
+It is similar to the Euclidean norm.
+\end{example}
+
+\begin{example}
+More generally, 
+\begin{equation}
+\ell^{\infty}=\{(x_{n})\mid\max_{n}|x_{n}|<\infty\}.
+\end{equation}
+Its norm is
+\begin{equation}
+\|(x_{n})\|=\sup_{n}|x_{n}|.
+\end{equation}
+\end{example}
+
+\begin{non-example}
+The space $C^{1}[a,b]$ of continuously differentiable functions on the
+closed interval $[a,b]$. It is a subspace of $C[a,b]$ (the space of
+continuous real-valued functions on the interval), but it is not
+closed under norm. Although $C[a,b]$ \emph{is} complete, the subspace
+$C^{1}[a,b]$ \emph{is not} complete. (What is the completion of $C^{1}[a,b]$?
+It is precisely $C[a,b]$ since $C^{1}[a,b]$ is a dense subset.)
+\end{non-example}
+
+\subsection{Linear maps}
+
+\begin{definition}
+Let $(X,\|-\|_{X})$ and $(Y,\|-\|_{Y})$ be normed spaces. Let $T\colon X\to Y$
+be a linear map. We say $T$ is \define{Bounded} if there exists a
+$C>0$ such that for all $x\in X$ we have $\|Tx\|_{Y}\leq C\|x\|_{X}$
+(``it takes bounded sets to bounded sets'').
+\end{definition}
+
+\begin{notation}
+We denote by $\mathcal{L}(X,Y)$ the set of all bounded linear maps
+from $X$ to $Y$.
+\end{notation}
+
+\begin{example}
+The differentiation operator $f\mapsto f'$ is an unbounded operator.
+\end{example}
+
+\begin{theorem}
+Let $T\colon X\to Y$ be a linear operator. The following are equivalent:
+\begin{enumerate}
+\item $T$ is continuous
+\item $T$ is continuous at 0
+\item $T$ is bounded.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+Let $X$ and $Y$ be normed vector spaces. Then $\mathcal{L}(X,Y)$ is a
+vector space with norm
+\begin{subequations}
+  \begin{align}
+\|T\|_{\text{op}} &= \inf\{C\in[0,+\infty)\mid\forall x\in X\ldotp\|Tx\|_{Y}\leq C\|x\|_{X}\}\\
+&= \sup_{x\neq0}\frac{\|Tx\|_{Y}}{\|x\|_{X}}\\
+&= \sup_{\|x\|=1}\|Tx\|_{Y}.
+  \end{align}
+\end{subequations}
+This is called the \define{Operator Norm}. (We have the useful
+estimate $\|Tx\|_{Y}\leq\|T\|_{\text{op}}\|x\|_{X}$.)
+\end{theorem}
+
+\begin{theorem}
+If $Y$ is a Banach space, then $\mathcal{L}(X,Y)$ is a Banach space.
+\end{theorem}
+
+\begin{proof}
+Assume $Y$ is complete. Let $(T_{n})$ be a Cauchy sequence of linear
+operators from $X$ to $Y$ (i.e., in $\mathcal{L}(X,Y)$). For every
+$x\in X$,
+the sequence $(T_{n}x)$ is a Cauchy sequence in $Y$. (Really? Yes,
+observe $\|T_{n}x\|\leq\|T_{n}\|_{\text{op}}\|x\|_{X}$ which implies $\|T_{n}x-T_{m}x\|\leq\|T_{n}-T_{m}\|_{\text{op}}\|x\|_{X}$.)
+Since $Y$ is complete, $T_{n}x\to Tx$ pointwise defines the function $T$.%$T\in\mathcal{L}(X,Y)$.
+Then the claim is that $T_{n}\to T$ in operator norm (this is called
+\define{Strong Operator Convergence} that $\|T_{n}-T\|_{\text{op}}\to0$).
+There are several steps we need to prove:
+\begin{enumerate}
+\item $T\colon X\to Y$ is a linear map
+\item $T$ is bounded using operator norm
+\end{enumerate}
+\textsc{Claim}: $T_{n}\to T$ in operator norm. Let $\varepsilon>0$,
+then there exists $N\in\NN$ such that for all $m,n\in\NN$ such that
+$m\geq N$ and $n\geq N$ we have $\|T_{n}-T_{m}\|_{\text{op}}<\varepsilon$
+by $(T_{n})$ being Cauchy. Then for every $x\in X$ such that
+$\|x\|_{X}\leq1$ we have $\|T_{n}x-Tx\|\leq\varepsilon$ for all $n\geq N$.
+Then take the supremum over $x\in X$ in unit ball $\|x\|_{X}\leq1$ and
+it gives us $\|T_{n}-T\|_{\text{op}}<\varepsilon$.
+\end{proof}
+
+\begin{theorem}
+Let $X$, $Y$, $Z$ be normed spaces.
+Let $T\colon X\to Y$ and $S\colon Y\to Z$ be bounded linear maps.
+Then $\|S\circ T\|_{\text{op}}\leq\|S\|_{\text{op}}\|T\|_{\text{op}}$.
+In particular, if $X$ is a Banach space, then $\mathcal{L}(X,X)$ is a
+Banach algebra.
+\end{theorem}
+
+(Next time, the three fundamental principles of functional analysis:
+the Hahn--Banach theorem [about continuous extensions of linear
+  forms], the Open Mapping Theorem, and the Banach--Steinhaus Theorem [a.k.a., Uniform Boundedness Principle].)

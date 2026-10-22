@@ -1,0 +1,351 @@
+%%
+%% fall-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-22T11:28:51-0700
+%% Last update 2026-10-22T11:28:51-0700
+%% 
+
+\lecture{}
+
+\begin{node}
+We will study a number of examples of incompressible viscuous fluids
+in 2-dimensions.
+\end{node}
+
+\subsection{Incompressible 2-dimensional Navier--Stokes equations}
+
+\begin{assume}
+Parallel viscuous flow (so the velocity vector looks like $\vec{u}=u\widehat{x}$).
+\end{assume}
+
+\begin{assume}
+Viscosity is constant $\mu=\mbox{const.}$
+\end{assume}
+
+\begin{node}
+The continuity equation becomes
+\begin{equation}
+\partial_{x}u+\partial_{y}v=0.
+\end{equation}
+\end{node}
+
+\begin{node}[Momentum equations]
+The momentum equations become
+\begin{subequations}
+  \begin{align}
+\partial_{t}u+u\partial_{x}u+v\partial_{y}u &= \frac{-1}{\rho}\partial_{x}p+\nu(\partial_{x}^{2}u+\partial_{y}^{2}u)\\
+\partial_{t}v+u\partial_{x}v+v\partial_{y}v &= \frac{-1}{\rho}\partial_{x}p+\nu(\partial_{x}^{2}v+\partial_{y}^{2}v)
+  \end{align}
+\end{subequations}
+where $\nu := \mu/\rho$ is called the \define{Kinematical Viscosity}.
+
+Observe: the continuity equation plus the momentum equations are 3
+equations in 3 unknowns.
+\end{node}
+
+\begin{node}
+Under the assumptions of parallel viscous flow: $v=0$, $u=u(y,t)$, and
+we have the equations of motion become
+\begin{subequations}
+  \begin{align}
+\partial_{t}u &= \frac{-1}{\rho}\partial_{x}p+\nu\partial_{y}^{2}u\\
+0 &=\frac{-1}{\rho}\partial_{y}p.
+  \end{align}
+\end{subequations}
+The $\partial_{t}v=\dots$ equation for conservation of linear momentum
+reduces to the tautology $0=0$.
+\end{node}
+
+\subsection{Rayleigh Problem}
+
+\begin{problem}
+We have one infinitely long wall located at $y=0$. The fluid occupies
+some region $y>0$. The wall is stationary at time $t=0$. At time
+$t>0$, the wall's velocity becomes constant $\vec{u}_{\text{wall}}=u_{0}\widehat{x}$
+moving in the $x$-direction. (The intuition is that the fluid near the
+wall slowly accelerates until it reaches velocity
+$\vec{u}=\vec{u}_{\text{wall}}$, and a boundary layer propagates in
+the fluid moving in the $x$-direction.)
+\end{problem}
+
+\begin{node}
+There is no length scale in this problem. (We need at least two
+distinct points to form a length scale.)
+\end{node}
+
+\begin{node}
+There is no time scale in this problem.
+\end{node}
+
+\begin{node}[Boundary conditions]
+We have the two boundary conditions given by the ``no-slip''
+condition:
+\begin{equation}
+u(y=0,t)=u_{\text{wall}}.
+\end{equation}
+We also have the condition that $\vec{u}$ vanishes ``at infinity'':
+\begin{equation}
+\lim_{y\to\infty}u(y,t)=0.
+\end{equation}
+\end{node}
+
+\begin{node}[Similarity solution]
+Since there is no time or length scale, we can form a self-similar
+solution. This means we use the ans\"{a}tz
+\begin{equation}
+u(y,t)=u_{\text{wall}}f(\eta)
+\end{equation}
+where $f$ is some function to be determined (solving our differential
+equation), and
+\begin{equation}
+\eta=\frac{y}{2\sqrt{\nu t}}.
+\end{equation}
+Observe $\eta$ is dimensionless.
+
+Now, the momentum equation gives us
+\begin{equation}
+\partial_{t}(u_{\text{wall}}f(\eta))=\nu\partial_{y}(u_{\text{wall}}f(\eta)),
+\end{equation}
+since $\partial_{x}p=0$ in this case. Then we obtain
+\begin{equation}
+f''(\eta)+2\eta f'(\eta)=0.
+\end{equation}
+Let $g(\eta)=f'(\eta)$, then this is the first-order differential
+equation $g'(\eta)+2\eta g(\eta)=0$, or
+\begin{equation}
+\ln(g(\eta)/g(0))=-\eta^{2}\implies f'(\eta)=f'(0)\exp(-\eta^{2}),
+\end{equation}
+which has general solution
+\begin{equation}
+f(\eta)=C_{2}+\frac{\sqrt{\pi}C_{1}}{2}\erf(\eta)
+\end{equation}
+where $\erf(z)=(2/\sqrt{\pi})\int^{z}_{0}\exp(-x^{2})\,\D x$ is the
+error function.
+Then by the $u(y=0)=u_{\text{wall}}$ boundary condition gives us
+$f(0)=1$ (i.e., $C_{2}=1$). Then $u(y=\infty)=0$ boundary condition
+gives us $f(\eta)=1-\erf(\eta)=\erfc(\eta)$:
+\begin{equation}
+u(y,t)=u_{\text{wall}}\erfc\left(\frac{y}{2\sqrt{\nu t}}\right).
+\end{equation}
+\end{node}
+
+\subsection{Couette--Poiseuille Problem}
+
+\begin{problem}[Couette problem]
+We have 2 parallel, infinitely long walls separated by a distance $h$.
+We choose coordinates such that the walls lie along [bottom] $y=0$ and
+[top] $y=h$. This is assumed to be a steady problem (i.e., $u=u(y)$)
+and the bottom wall is stationary and the top wall moves at constant
+velocity $U$.
+\end{problem}
+
+\begin{problem}[Poiseuille]
+We also know pressure gradient is constant $\partial_{x}p=\mbox{const}$.
+\end{problem}
+
+\begin{node}
+The continuity equation
+\begin{equation}
+\partial_{x}u+\partial_{y}v=0.
+\end{equation}
+This implies $u=u(y)$ is a function of $y$ alone.
+\end{node}
+
+\begin{node}
+The $y$-component of the momentum conservation equation gives us
+\begin{equation}
+0=\frac{-1}{\rho}\partial_{y}p.
+\end{equation}
+This implies
+\begin{equation}
+\partial_{y}p=0,
+\end{equation}
+which has its solution be
+\begin{equation}
+p=p(x).
+\end{equation}
+That is to say, pressure is a function of $x$ alone.
+\end{node}
+
+\begin{node}
+The $x$-component of the conservation of linear momentum equation is
+\begin{equation}
+\partial_{t}u+v\partial_{y}u=\frac{-1}{\rho}\partial_{x}p+\nu(\partial_{x}^{2}u+\partial_{y}^{2}u).
+\end{equation}
+But the only nonzero terms surviving gives us
+\begin{equation}
+0=\frac{-1}{\rho}\partial_{x}p+\nu\partial_{y}^{2}u.
+\end{equation}
+Then we have
+\begin{equation}
+\frac{1}{\rho}\partial_{x}p=\nu\partial_{y}^{2}u.
+\end{equation}
+\end{node}
+
+\begin{node}[Poiseuille problem]
+When $\partial_{x}p$ is constant and we have boundary conditions
+\begin{equation}
+u(y=0)=0,\quad\mbox{and}\quad u(y=h)=0.
+\end{equation}
+Then our differential equation becomes
+\begin{equation}
+\mbox{(constant)}=\nu\partial_{y}^{2}u.
+\end{equation}
+The general solution looks like
+\begin{equation}
+u = \frac{1}{2\mu}(\partial_{x}p)y^{2}+A_{1}y+A_{2},
+\end{equation}
+where $A_{1}$ and $A_{2}$ are constants to be determined. We see
+\begin{equation}
+u(y=0)=A_{2}=0\implies A_{2}=0.
+\end{equation}
+Similarly,
+\begin{equation}
+u(h)=\frac{1}{2\mu}(\partial_{x}p)h^{2}+A_{1}h=0,
+\end{equation}
+which implies
+\begin{equation}
+A_{1}=\frac{-1}{2\mu h}(\partial_{x}p)h^{2}=\frac{-1}{2\mu}(\partial_{x}p)h.
+\end{equation}
+Therefore
+\begin{equation}
+u(y) = \frac{1}{2\mu}(\partial_{x}p)(y^{2}-yh).
+\end{equation}
+The velocity profile is a parabola in the Poiseuille problem.
+\end{node}
+
+\begin{node}[Couette flow]
+At the other extreme, when $\partial_{x}p=0$, we see that
+\begin{equation}
+\partial_{y}^{2}u=0\implies u=A_{1}y+A_{2}.
+\end{equation}
+Now we impose the boundary conditions $u(0)=A_{2}=0$ and
+\begin{equation}
+u(h)=A_{1}h=U\implies A_{1}=\frac{U}{h}.
+\end{equation}
+This means the general solution to the Couette flow looks like
+\begin{equation}
+u(y)=U\frac{y}{h}.
+\end{equation}
+\end{node}
+
+\begin{remark}
+A few things to think about and compute:
+\begin{enumerate}
+\item $\tau_{12}|_{\text{wall}}$ tells us the shear stress of the
+  wall, it tells us the wall drag. It's also called the ``skin stress''.
+  Explicitly, $\tau_{12}|_{\text{wall}}=\mu\partial_{y}u|_{\text{wall}}$
+\item The dissipation function $\Phi:=\tau_{ij}\partial_{j}u_{i}$ may
+  be computed in this situation as $\Phi=\mu(\partial_{y}u)^{2}$. 
+\end{enumerate}
+\end{remark}
+
+\subsection{Oscillating boundary layer}
+
+(This is also called the ``Stokes boundary layer problem'')
+
+\begin{problem}
+We have one infinitely long wall located at $y=0$. The wall moves at
+velocity
+\begin{equation}
+u_{\text{wall}}=u_{0}\cos(\omega t),
+\end{equation}
+where $\omega\neq0$ is some constant. Assume there is no pressure
+gradient in this problem. Solve for $u(y,t)$.
+\end{problem}
+
+\begin{node}
+The equations of motion (specifically the conservation of linear
+momentum in the $x$-direction) is:
+\begin{equation}
+\partial_{x}u + 0 = 0 + \nu(0 + \partial_{y}^{2}u).
+\end{equation}
+We have the boundary conditions
+\begin{subequations}
+\begin{equation}
+u(y=0,t)=u_{\text{wall}}=u_{0}\cos(\omega t),
+\end{equation}
+and
+\begin{equation}
+\lim_{y\to\infty}u(y,t)=0.
+\end{equation}
+\end{subequations}
+\end{node}
+
+\begin{node}
+We know by linearity that
+\begin{equation}
+u = \Re\left(\E^{\I \omega t}f(y)\right),
+\end{equation}
+where $f(-)$ is ``some function'', is the general form of the solution.
+\end{node}
+
+\begin{node}
+We can also use Fourier analysis, where $f(y)$ here is the Fourier
+mode at the particular frequency. If we apply the Fourier transform
+for time, then the partial differential equation becomes
+\begin{equation}
+\I\omega\widehat{u}=\nu\partial_{y}^{2}\widehat{u}.
+\end{equation}
+This has its solution be
+\begin{equation}
+\widehat{u}(y)=A\exp\left(-(1+\I)\frac{y}{\delta}\right)+B\exp\left((1+\I)\frac{y}{\delta}\right)
+\end{equation}
+where $\delta=\sqrt{2\nu/\omega}$, and $A$ and $B$ are constants to be
+determined (by the boundary conditions).
+\end{node}
+
+\begin{node}
+We can perform the inverse Fourier transform, then impose the boundary
+conditions, which will give us the solution:
+\begin{equation}
+u(y,t)=u_{0}\E^{-y/\delta}\cos\left(\omega t-\frac{y}{\delta}\right).
+\end{equation}
+\end{node}
+
+\begin{remark}
+The factor $\E^{-y/\delta}$ tells us the how the magnitude of the
+oscillation decays as we move away from the wayy. The $\delta$ gives
+us an effective boundary length (i.e., a length scale).
+\end{remark}
+
+\begin{remark}
+We also have a phase $-y/\delta$ in the cosine of the solution, which
+gets more noticeable as we move away from the wall.
+\end{remark}
+
+\begin{remark}
+Compare this to the Yayleigh problem when the boundary layer
+(where $0<u(y,t)<u_{\text{wall}}$) propagates to infinity. But here,
+the boundary layer does not.
+
+Also the Rayleigh problem had
+\begin{equation}
+\frac{u}{y}\sim\nu\frac{u}{\delta_{R}^{2}}
+\end{equation}
+where $\delta_{R}\sim\sqrt{\nu t}$. But here with the oscillating
+wall, we have instead
+\begin{equation}
+\omega u\sim\nu\frac{u}{\delta^{2}},
+\end{equation}
+where $\delta=\sqrt{2\nu/\omega}$.
+\end{remark}
+
+\subsection{Stokes flow (low Reynolds number)}
+
+\begin{problem}
+The Stokes flow assumes $u_{j}\partial_{j}u_{i}\ll\nu\partial_{j}^{2}u_{i}$,
+so we can ignore the small nonlinear terms. The momentum equations
+become a linear system of partial differential equations.
+\end{problem}
+
+\begin{node}
+Further, people tend to assume steady flow or $\partial_{t}u$
+contributions are sufficiently small.
+
+This generally makes the left-hand side of the conservation of linear
+momentum identically zero.
+\end{node}
