@@ -1,0 +1,94 @@
+%%
+%% fall-lecture11.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-24T12:04:41-0700
+%% Last update 2026-10-24T12:04:41-0700
+%% 
+
+\lecture{}
+
+\begin{theorem}[Pontryagin]
+Let $B$ be a compact $(n+1)$-dimensional smooth manifold with boundary
+$M=\boundary B$. Then the Stiefel--Whitney numbers of $M$ are all
+zero. (Note: neither $B$ nor $M$ are required to be connected.)
+\end{theorem}
+
+\begin{proof}[Sketchy proof sketch]
+It amounts to looking at the long exact sequence for cohomology, then
+using exactness to get this vanishing.
+\end{proof}
+
+\begin{theorem}[Thom]
+Let $M$ be a closed $n$-dimensional smooth manifold suchthat all the
+Stiefel--Whitney numbers of $M$ are zero. Then $M$ is the boundary of
+some compact smooth $(n+1)$-manifold $B$: $M=\boundary B$.
+\end{theorem}
+
+\begin{remark}
+Thom's theorem requires more machinery and is beyond the scope of this
+course, but its proof can be found in the
+textbook~\cite[Th~4.10]{milnor1974characteristic}. %60
+\end{remark}
+
+\begin{definition}
+Let $M_{1}$ and $M_{2}$ be closed $n$-dimensional smooth manifolds.
+We say $M_{1}$ and $M_{2}$ \define{belong to the Cobordism Class} if
+there exists a smooth $(n+1)$-manifold $W$ whose boundary is their
+disjoint union $M_{1}\sqcup M_{2}=\boundary W$. 
+\end{definition}
+
+\begin{remark}
+(1) Note we do not require $M_{1}$, $M_{2}$, or $W$ to be connected.
+
+(2) We do not require $M_{1}$, $M_{2}$, or $W$ to be orientable.
+\end{remark}
+
+\begin{remark}
+There is a stronger notion of an \define{Oriented Cobordism Class}: 
+we say the \emph{orientable} smooth $n$-dimensional manifolds
+$M_{1}$ and $M_{2}$ belong to the same oriented cobordism class
+if there exists an \emph{orientable} smooth $(n+1)$-manifold $W$ such
+that $\boundary W = M_{1}\sqcup(-M_{2})$.
+\end{remark}
+
+\begin{xca}
+Prove ``\dots belong to the same unoriented cobordism class'' is an
+equivalence relation. Is the same true for ``\dots belong to the same
+oriented cobordism class''?
+\end{xca}
+
+\begin{corollary}
+Let $M_{1}$, $M_{2}$ be smooth $n$-dimensional manifolds.
+Then $M_{1}$ and $M_{2}$ belong to the same unoriented cobordism
+class if and only if all the Stiefel--Whitney numbers of $M_{1}$ and
+$M_{2}$ agree.
+\end{corollary}
+% TODO
+(I'm omitting the proof, it is in my notebook on page 106--107.)
+
+\begin{example}
+Let $M_{1}=\sphere{2}$, let $M_{2}=\torus{2}$. Notice
+$w(\T\sphere{2})=1$. What is $w(\T M_{2})=w_{0}+w_{1}+w_{2}$? We know
+$w_{0}=1$. Since $\torus{2}$ is orientable, $w_{1}=0$ and we know
+$\chi(\torus{2})=0$ so $w_{2}=0$. This means $w(\T M_{2})=1$.
+
+There are multiple possible $W$ such that $\boundary W=M_{1}\sqcup M_{2}$.
+For example, just take the disjoint union of the ball $B^{3}$ and the
+solid torus $\sphere{1}\times\disk{2}$. Then $\boundary(B^{3}\sqcup\sphere{1}\times\disk{2})=M_{1}\sqcup M_{2}$.
+This is boring, it's disconnected. What's a \emph{connected} manifold
+$W$ such that $\boundary W=M_{1}\sqcup M_{2}$?
+
+Well, we could take the solid torus $\sphere{1}\times\disk{2}$, then
+surgically remove a suitably small open ball $B^{3}\subset\sphere{1}\times\disk{2}$.
+This would work.
+\end{example}
+
+\begin{question}
+Can you find examples $M_{1}$ and $M_{2}$ such that if such a $W$
+(satisfying $\boundary W=M_{1}\sqcup M_{2}$) exists, then $W$
+\emph{must} be connected? (The Stiefel--Whitney numbers for $M_{1}$,
+$M_{2}$ may not all be zero, unlike the preceding example.)
+\end{question}
