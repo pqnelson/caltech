@@ -33,6 +33,20 @@
 
 \let\tens\mathsf % tensors use sans-serif font
 
+\let\divides\div % oblus
+\let\div\relax
+
+\newcommand\curl[1]{\vec{\nabla}\times#1}
+\newcommand\div[1]{\vec{\nabla}\cdot#1} % divergence
+\newcommand\gradient[1]{\vec{\nabla}#1}
+\newcommand\vorticity{\vec{\omega}}
+
+
+\newcommand\Rey{\mathrm{Re}} % Reynolds number
+\newcommand\Fr{\mathrm{Fr}} % Froude number
+\newcommand\Mach{\mathrm{M}} % Mach number
+\newcommand\We{\mathrm{We}} % Weber number
+\newcommand\Eu{\mathrm{Eu}} % Euler number
 % special functions
 \DeclareMathOperator\erf{erf}
 \DeclareMathOperator\erfc{erfc}

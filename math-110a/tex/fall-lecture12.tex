@@ -1,0 +1,178 @@
+%%
+%% fall-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-24T11:23:43-0700
+%% Last update 2026-10-24T11:23:43-0700
+%% 
+
+\lecture[Banach's theorems]{}
+
+\begin{node}
+Problem set 3, Chapter 5 problems 28 [prove Baire theorem holds for locally
+  compact Hausdorff spaces], 32 [a vector space with two
+  norms such that one norm is not greater than the second: if the
+  space is complete with respect to both norms, then the norms are
+  equivalent], 35 [let $T\colon X\to Y$ be a bounded linear operator
+  between Banach spaces, then $X/\ker(T)\iso T(X)$ iff $T(X)$ is a
+  closed subset of $Y$], 42, 56 [if $E$ is a subset of a Hilbert
+  space, then $(E^{\perp})^{\perp}$ is the smallest closed subspace
+  containing $E$].
+\end{node}
+
+\begin{theorem}[Open mapping]
+Let $X$ and $Y$ be Banach spaces. Let $T\colon X\to Y$ be a lienar map.
+If $T$ is bounded and surjective, then there exists a $\delta>0$ such
+that $TB_{1}\supset B_{\delta}$ the image of the unit ball contains
+some open ball of radius $\delta$.
+\end{theorem}
+
+\begin{proof}
+Since $T$ is surjective (by hypothesis), we can write
+\begin{equation}
+Y = \bigcup_{n\in\NN}TB_{n}
+\end{equation}
+where $B_{n}$ is the open ball in $X$ centered at the origin of radius $n$.
+So $Y$ is the union of open balls of radius $n\in\NN$. Since $Y$ is a
+Banach space, we can apply Baire's theorem [which does a lot of the
+``heavy lifting'' for this proof] to infer
+\begin{equation}\label{eq:fall-lec12:math110a:open-mapping-theorem:eq1}
+\Interior(\closure{TB_{1}})\neq\emptyset
+\end{equation}
+(otherwise $Y$ would give us a category 1 situation, and Baire's
+theorem asserts $Y$ is emphatically \emph{not} category~1).
+
+We assert the Lemma (which we will prove afterwards): There exists a
+$\delta>0$ such that $\closure{TB_{1}}\supset B_{\delta}$.
+
+Now, we will prove $\forall y\in B_{\delta}\ldotp y\in TB_{1}$ which
+implies $B_{\delta}\subset TB_{1}$. Let $y\in B_{\delta}$.
+By our Lemma, $y\in\closure{TB_{1}}$. Then there exists an $x_{1}\in B_{1}$
+such that $\|y-Tx_{1}\|<\delta/2$. Setting $y_{1}:=y-Tx_{1}$, so
+$y_{1}\in B_{\delta/2}$, then we apply our Lemma again,
+$y_{1}\in\closure{TB_{1/2}}$, so there exists $x_{2}\in B_{1/2}$ such
+that $\|y_{1}-Tx_{2}\|<\delta/2^{2}$. Observe
+\begin{equation}
+y_{1}-Tx_{2}=y-Tx_{1}-Tx_{2}.
+\end{equation}
+We iterate with the inductive procedure: for $n\in\NN$, we see there
+exists an $x\in B_{2^{-n}}$ such that $\|y-\sum^{n}_{k}Tx_{k}\|<\delta/2^{n}$.
+Then we define
+\begin{equation}
+x=\lim_{n\to\infty}\sum^{n}_{k=1}x_{k},
+\end{equation}
+which is a convergent series (since $X$ is complete). We see that
+\begin{equation}
+\|x\|<\sum^{\infty}_{n=1}2^{-n}=1,
+\end{equation}
+and so $y=Tx\in TB_{1}$. This means that $y\in B_{\delta}$ as desired.
+\end{proof}
+
+\begin{lemma}
+There exists a $\delta>0$ such that $\closure{TB_{1}}\supset B_{\delta}$.
+\end{lemma}
+
+\begin{proof}
+We use Eq~\eqref{eq:fall-lec12:math110a:open-mapping-theorem:eq1},
+then there exists a ball
+\begin{equation}\label{eq:fall-lec12:math110a:open-mapping-theorem:eq2}
+B(y_{0},4\varepsilon)\subset\closure{TB_{1}},
+\end{equation}
+for some $y_{0}\in Y$ and $\varepsilon>0$. There exists an $x_{1}\in B_{1}$
+such that
+\begin{equation}
+\|y_{0}-Tx_{1}\|<2\varepsilon,
+\end{equation}
+because $y_{0}\in\closure{TB_{1}}$. We denote $y_{1}:=Tx_{1}$,
+so $\|y_{0}-y_{1}\|<2\varepsilon$, and then we find
+\begin{equation}\label{eq:fall-lec12:math110a:open-mapping-theorem:eq3}
+B(y_{1},2\varepsilon)\subset B(y_{0},4\varepsilon)\subset\closure{TB_{1}},
+\end{equation}
+by Eq~\eqref{eq:fall-lec12:math110a:open-mapping-theorem:eq2}.
+If $\|y\|<2\varepsilon$ [$\iff y\in B_{2\varepsilon}$], then we write
+\begin{equation}
+y = 0 + y = -Tx_{1} + y_{1} + y = -Tx_{1} + (y + y_{1}),
+\end{equation}
+but $y+y_{1}\in B(y_{1},2\varepsilon)\subset\closure{TB_{1}}$ by Eq~\eqref{eq:fall-lec12:math110a:open-mapping-theorem:eq3}.
+Then $y\in\closure{T(-x+B_{1})}$. Therefore
+$B_{2\varepsilon}\subset\closure{TB_{2}}$ since $\closure{T(-x+B_{1})}\subset\closure{TB_{2}}$.
+Hence $B_{\varepsilon}\subset\closure{TB_{1}}$ and setting
+$\varepsilon=\delta$ gives the Lemma.
+\end{proof}
+
+\begin{corollary}
+If $T\colon X\to Y$ is a bounded linear bijection between Banach
+spaces, then $T$ is an isomorphism; i.e., $T^{-1}\in\mathcal{L}(Y,X)$
+is a bounded linear mapping.
+\end{corollary}
+
+\begin{proof}
+If $T$ is bijective, then $T^{-1}$ is continuous if and only if $T$ is
+an open map.
+\end{proof}
+
+\begin{node}
+Recall, if $f\colon X\to Y$ is a function, then the \define{Graph} of
+$f$ is the set
+\begin{equation}
+\Gamma(f) := \{(x,y)\in X\times Y\mid y=f(x)\}\subset X\times Y.
+\end{equation}
+\end{node}
+
+\begin{theorem}[Closed graph]
+Let $X$, $Y$ be Banach spaces.
+Let $T\colon X\to Y$ be a linear map. If $\Gamma(T)\subset X\times Y$
+is a closed subset (under the product topology), then $T$ is bounded
+[i.e., continuous].
+\end{theorem}
+
+\begin{proof}
+We claim that $X\times Y$ is a Banach space (i.e., complete).
+Then $\Gamma(T)$ is complete because it is closed by hypothesis.
+We have the following commutative diagram:
+\begin{equation}
+\vcenter{\xymatrix{ & \ar[dl]_{\pi_{X}}\Gamma(T)\subset X\times Y\ar[dr]^{\pi_{Y}}&\\
+X\ar[rr]^{T} & & Y}}
+\end{equation}
+Then $\pi_{X}|_{\Gamma(T)}$ is a surjection and bounded. Then
+$\pi_{X}^{-1}$ is bounded by the Open Mapping Theorem. Then
+$T=\pi_{Y}\circ\pi_{X}^{-1}$ is the composition of bounded operators.
+\end{proof}
+
+\begin{theorem}[Banach--Steinhaus]
+Let $X$, $Y$ be Banach spaces. (We only require $X$ be Banach, $Y$
+could be ``just'' a normed space.) Let
+$\mathcal{F}\subset\mathcal{L}(X,Y)$ be a family of bounded lienar
+operators. Then either
+\begin{enumerate}
+\item $\sup_{\mathcal{F}}\|T\|_{\text{op}}<\infty$ or
+\item there exists a point $x\in X$ such that $\sup_{\mathcal{F}}\|Tx\|=\infty$.
+\end{enumerate}
+Moreover, in the second case, the set of such $x$ is category~1.
+\end{theorem}
+
+\begin{proof}
+Suppose (2) is not true.
+Then for every $x\in X$, $\sup_{\mathcal{F}}\|Tx\|<\infty$. We will show
+$\sup_{\mathcal{F}}\|T\|_{\text{op}}<\infty$. Denote
+\begin{equation}
+C_{n} := \{x\in X\mid\sup_{\mathcal{F}}\|Tx\|\leq n\}.
+\end{equation}
+Then $X=\bigcup_{n\in\NN}C_{n}$ by assumption. Further, every $C_{n}$
+is a closed subset.
+Then by Baire's theorem, there exists an $n\in\NN$ such that
+$\Interior{C_{n}}\neq\emptyset$. We see if $(x_{m})\subset C_{n}$ is a
+sequence of points of $C_{n}$ such that $x_{m}\to x$ and if
+$T\in\mathcal{F}$ is a linear operator, then
+\begin{equation}
+\|Tx\|=\lim_{m}\|Tx_{m}\|\leq n.
+\end{equation}
+This implies $C_{n}$ really is closed. This gives a bound on the
+operator norm precisely as in the Lemma for the open mapping theorem.
+\end{proof}
+
+Next week: Hilbert spaces, Zorn's lemma and Mathematical Logic, and
+the Hahn--Banach theorem.
+

@@ -1,0 +1,210 @@
+%%
+%% fall-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-24T12:20:40-0700
+%% Last update 2026-10-24T12:20:40-0700
+%% 
+
+\lecture[Cohomology Ring of Infinite Grassmann Manifold]{}
+
+\begin{recall}
+We have $G_{n}=G_{n}(\RR^{\infty})$ consist of all $n$-dimensional
+subspaces of $\RR^{\infty}$. We endowed it with a direct limit
+topology.
+
+We also saw $\gamma^{^n}$ the $\RR^{n}$-bundle over $G_{n}$ defined as
+\begin{equation}
+\gamma^{n}=\{(X,v)\in G_{n}\times\RR^{\infty}\mid v\in X\}.
+\end{equation}
+For now, let us assume that $w_{1}(\gamma^{n})$, \dots,
+$w_{n}(\gamma^{n})$ exists.
+\end{recall}
+
+\begin{theorem}\label{thm:math157A:lecture12:cohomology-of-grass}
+The cohomology ring $H^{*}(G_{n};\ZZ_{2})$ is a polynomial ring over
+$\ZZ_{2}$ with generators $w_{1}(\gamma^{n})$, \dots,
+$w_{n}(\gamma^{n})$; i.e.,
+\begin{equation}
+H^{*}(G_{n};\ZZ_{2})\iso\ZZ_{2}[w_{1}(\gamma^{n}),\dots,w_{n}(\gamma^{n})].
+\end{equation}
+\end{theorem}
+
+To prove this, we will show $H^{*}(G_{n};\ZZ_{2})$ contains a subring
+isomorphic to
+$\ZZ_{2}[w_{1}(\gamma^{n}),\dots,w_{n}(\gamma^{n})]$. Then we will
+show there is nothing else in the cohomology ring of $G_{n}$.
+
+\begin{lemma}
+There are no non-zero polynomial relations between $w_{1}(\gamma^{n})$, \dots,
+$w_{n}(\gamma^{n})$. In other words, there does not exist a nonzero
+$p(x_{1},\dots,x_{n})\in\ZZ_{2}[x_{1},\dots,x_{n}]$ such that
+$p(w_{1}(\gamma^{n}),\dots,w_{n}(\gamma^{n}))=0$.
+\end{lemma}
+
+\begin{proof}
+Consider $\xi$ an $\RR^{n}$-bundle over a paracompact space. Then we
+can always find some map $f\colon B(\xi)\to G_{n}$ such that
+the pullback bundle $f^{*}\gamma^{n}\iso\xi$ are isomorphic as
+bundles. If we had some polynomials relationship, then by the axioms:
+\begin{subequations}
+  \begin{align}
+p(w_{1}(\gamma^{n}),\dots,w_{n}(\gamma^{n}))
+&= p(f^{*}w_{1}(\xi),\dots,f^{*}w_{n}(\xi))\\
+&=f^{*}p(w_{1}(\xi),\dots,w_{n}(\xi)).
+  \end{align}
+\end{subequations}
+So it suffices to prove there is no polynomial relationship. Our goal
+is now to construct such an $\RR^{n}$-bundle $\xi$.
+
+Let us try $\xi=\gamma^{1}\oplus\dots\oplus\gamma^{1}$ the Whitney sum
+of $n$ copies of $\gamma^{1}$. This is certainly an $\RR^{n}$-bundle
+over $\RP^{\infty}$ (which is good), and
+\begin{equation}
+w(\gamma^{1}\oplus\dots\oplus\gamma^{1})=(1+a)^{n}.
+\end{equation}
+Now, observe $w_{0}=1$, $w_{1}=na$, $w_{2}=\frac{1}{2}n(n-1)a^{2}$,
+\dots, $w_{n}=a^{n}$. Already, we see there exists a polynomial
+relationship between $w_{1}$ and $w_{2}$ since: for even $n$ we have
+$w_{1}=0$, and for odd $n$ we have $w_{2}=w_{1}^{2}$. So this is not
+quite enough to use the Whitney sum of \emph{the same} $\gamma^{1}$.
+
+The trick is to consider the projection maps
+\begin{equation}
+\pi_{j}\colon\underbrace{\RP^{\infty}\times\cdots\times\RP^{\infty}}_{n~\text{copies}}\to\RP^{\infty}
+\end{equation}
+for $j=1,\dots,n$. Then we define
+\begin{equation}
+\xi = \pi_{1}^{*}\gamma^{1}\oplus\dots\oplus\pi_{n}^{*}\gamma^{1}
+\end{equation}
+as the Whitney sum of the \emph{pullbacks} of $\gamma^{1}$ under the
+projection maps. This again gives us an $\RR^{n}$-bundle over
+$(\RP^{\infty})^{n}$.
+
+Let us determine the Stiefel--Whitney classes. We see
+\begin{equation}
+w(\xi)=\left(\pi_{1}^{*}w(\gamma^{1})\right)(\dots)\left(\pi_{n}^{*}w(\gamma^{1})\right)
+\end{equation}
+where each $w(\gamma^{1})=1+a$. But the pullback morphism induces a
+morphism of the cohomology rings
+\begin{equation}
+\pi_{j}^{*}\colon H^{*}(\RP^{\infty};\ZZ_{2})\to H^{*}((\RP^{\infty})^{n};\ZZ_{2})\iso
+\underbrace{H^{*}(\RP^{\infty};\ZZ_{2})\otimes\dots\otimes H^{*}(\RP^{\infty};\ZZ_{2})}_{n~\text{times tensor product}}
+\end{equation}
+by Kunneth formula (since $\ZZ_{2}$ is torsion-free), which sends
+\begin{equation}
+a\mapsto(\underbrace{1\otimes\dots\otimes1}_{j-1}\otimes a\otimes1\otimes\dots\otimes1)=:a_{j}.
+\end{equation}
+Then when we pullback, we get $\pi_{j}^{*}(w(\gamma^{1}))=1+a_{j}$, so 
+\begin{equation}
+w(\xi)=(1+a_{1})(1+a_{2})(\dots)(1+a_{n}),
+\end{equation}
+and each $a_{j}$ lives in different copies of the cohomology. We see
+that
+\begin{subequations}
+\begin{equation}
+w_{1}=a_{1}+\dots+a_{n},
+\end{equation}
+\begin{equation}
+w_{2}=\sum_{i<j}a_{i}a_{j},
+\end{equation}
+and so on until we get
+\begin{equation}
+w_{n}=a_{1}a_{2}(\cdots)a_{n}.
+\end{equation}
+\end{subequations}
+Observe $w_{j}$ is just the $j^{\text{th}}$ elementary symmetric
+polynomial with variables $a_{1}$, $a_{2}$, \dots, $a_{n}$.
+
+\textsc{Algebraic fact}: \emph{there are no polynomial relations
+between elementary symmetric polynomials}.
+
+This means there are no polynomial relations between the
+$w_{i}(\xi)$. And it concludes the proof of the Lemma.
+\end{proof}
+
+\begin{proof}[{Proof (Theorem~\ref{thm:math157A:lecture12:cohomology-of-grass})}]
+Let us count the dimension $\dim_{\ZZ_{2}}H^{r}(G_{n};\ZZ_{2})$. We
+see that
+$|\{(b_{1},\dots,b_{n})\in\NN_{0}^{n}\mid\sum_{k}kb_{k}=n\}|$ is a
+lower bound on the dimension because it coincides with degree-$r$
+monomials in unknowns $w_{1}(\gamma^{n})$, \dots,
+$w_{n}(\gamma^{n})$. An upper bound is
+\begin{equation}
+\dim_{\ZZ_{2}}H^{r}(G_{n};\ZZ_{2})\leq\#\mbox{($r$-cells in CW complex of $G_{n}$)}.
+\end{equation}
+Then, in Chapter 6 of the textbook~\cite{milnor1974characteristic},
+they prove the number of $r$-cells in the CW structure of $G_{n}$ is
+precisely 
+$|\{(b_{1},\dots,b_{n})\in\NN_{0}^{n}\mid\sum_{k}kb_{k}=n\}|$.
+Hence the theorem.
+\end{proof}
+
+\begin{remark}
+Reflect on the proof of the Lemma.
+Do we \emph{need} the universal property of $\gamma^{n}$?
+Although it \emph{appears} necessary, we do not need it. We have
+\begin{equation}
+f\colon(\RP^{\infty})^{n}\to G_{n}
+\end{equation}
+such that $f^{*}\gamma^{n}\iso\xi=\pi_{1}^{*}\gamma^{1}\oplus\dots\oplus\pi_{n}^{*}\gamma^{1}$.
+If we could explicitly construct such an $f$, then we do not need to
+rely on the universal property.
+
+We can map $(\ell_{1},\dots,\ell_{n})\mapsto J(\ell_{1}\oplus\dots\oplus\ell_{n})$
+where each $\ell_{j}$ is a line in $\RR^{\infty}$, but
+$\ell_{1}\oplus\dots\oplus\ell_{n}$ is a line in
+$(\RR^{\infty})^{n}$. So we use the isomorphism
+\begin{equation}
+J\colon(\RR^{\infty})^{n}\to\RR^{\infty}.
+\end{equation}
+We still need to show $f^{*}\gamma^{n}\iso\xi$.
+
+Let us fix a point $(\ell_{1},\dots,\ell_{n})\in\RP^{\infty}$, the
+fiber of $f^{*}\gamma^{n}$ (is just the fiber of $\gamma^{n}$) is
+$J(\ell_{1}\oplus\dots\oplus\ell_{n})$; and the fiber in $\xi$ is just
+$\ell_{1}\oplus\dots\oplus\ell_{n}$ the direct sum. So $J$ gives the
+isomorphism.
+
+Once we have our $f$, we can look at the pullback of the cohomology
+$f^{*}\colon H^{*}(G_{n};\ZZ_{2})\to
+H^{*}((\RP^{\infty})^{n};\ZZ_{2})$ which is injective. This follows
+from the preceding construction.
+\end{remark}
+
+\begin{theorem}[Uniqueness of Stiefel--Whitney classes]
+The assignment $\xi\mapsto w(\xi)$ satisfying all four Axioms for
+Stiefel--Whitney classes is unique.
+\end{theorem}
+
+\begin{proof}
+Suppose we have two such assignments $w(\xi)$ and $\widetilde{w}(\xi)$ 
+satisfying all four axioms. The last axiom tells us
+\begin{equation}
+w(\gamma^{1}_{1})=1+a=\widetilde{w}(\gamma^{1}_{1}).
+\end{equation}
+So for $\gamma^{1}_{1}$, we have the following commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{\gamma_{1}^{1}\ar[r]\ar[d] & \gamma^{1}\ar[d]\\
+\RP^{1}\ar[r] & \RP^{\infty}}}
+\end{equation}
+which implies for the universal line bundle
+\begin{equation}
+w(\gamma^{1})=\widetilde{w}(\gamma^{1})=1+a.
+\end{equation}
+We can choose $\xi=\pi_{1}^{*}\gamma^{1}\oplus\dots\oplus\pi_{n}^{*}\gamma^{1}$
+and by the preceding remark we have a map
+\begin{equation}
+f\colon(\RP^{\infty})^{n}\to G_{n}
+\end{equation}
+such that $f^{*}\gamma^{n}\iso\xi$ and injectivity on cohomology ring
+by the previous theorem. Then
+\begin{equation}
+w(\xi)=(1+a_{1})(\dots)(1+a_{n})=\widetilde{w}(\xi).
+\end{equation}
+Then if we pullback $f^{*}w(\gamma^{n})=w(\xi)$ and
+$f^{*}\widetilde{w}(\gamma^{n})=\widetilde{w}(\xi)$, hence
+$w(\gamma^{n})=\widetilde{w}(\gamma^{n})$. 
+\end{proof}

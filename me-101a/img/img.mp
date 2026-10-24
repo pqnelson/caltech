@@ -261,4 +261,35 @@ beginfig(17)
   fill particle withcolor blue;
   drawarrow trajectory;
 endfig;
+
+% lecture 12
+beginfig(18)
+  path U,lift,drag,object,L;
+  object = fullcircle xscaled 6u yscaled 2u;
+
+  z0 = (point 0 of object);
+  z1 = (point 0.5length(object) of object);
+  L = (z0 -- z1)
+    shifted (0, -2u);
+
+  drag = (z0 + (-0.5u,0))--(z0 + (2u,0));
+
+  z2 = 0.5[z0,z1];
+  lift = z2 -- (z2 + (0, 3u));
+
+  U = (z1 + (-4u, 0))--(z1 + (-u,0));
+
+  fill object withcolor 0.8white;
+  draw object;
+  drawarrow U;
+  drawarrow lift;
+  drawarrow drag;
+  drawdblarrow L;
+  label.lft(btex $U$ etex, point 0 of U);
+  label.rt(btex drag etex, z0 + (2u, 0));
+  label.rt(btex lift etex, z2 + (0, 3u));
+  label.bot(btex $L$ etex, 0.5[z0 + (0,-2u), z1 + (0,-2u)]);
+endfig;
+
+
 end;

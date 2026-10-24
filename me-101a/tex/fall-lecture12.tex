@@ -1,0 +1,322 @@
+%%
+%% fall-lecture12.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-24T10:03:59-0700
+%% Last update 2026-10-24T10:03:59-0700
+%% 
+
+\lecture{}
+
+\subsection{Vorticity}
+
+\begin{definition}
+The \define{Vorticity} for a fluid flow is the [pseudo]vector field $\vorticity:=\curl{\vec{u}}$.
+\end{definition}
+
+
+\begin{definition}
+A flow is called \define{Irrotational} if its vorticity vanishes $\vorticity=\vec{0}$.
+\end{definition}
+
+\begin{definition}
+A vector field $\vec{u}$ is called \define{Solenoidal} if its
+divergence vanishes $\div{\vec{u}}=0$ everywhere.
+\end{definition}
+
+\begin{recall}
+For a solenoidal vector field $\vec{u}$, there exists a unique vector
+field $\vec{A}$ such that $\vec{u}=\curl{\vec{A}}$ and
+$\div{\vec{A}}=0$ everywhere. (The $\div{\vec{A}}=0$ condition is
+needed for uniqueness of $\vec{A}$, otherwise
+$\vec{A}+\gradient{\varphi}$ also works for any arbitrary scalar field $\varphi$.)
+\end{recall}
+
+\begin{node}
+For any finite continuous vector field $\vec{u}$ such that $\vec{u}$
+vanishes as $\|\vec{x}\|\to\infty$, we can write
+\begin{equation}
+\vec{u}=\gradient{\varphi}+\curl{\vec{a}}
+\end{equation}
+as the sum of the curl-free portion and the divergence-free
+portion. Here $\vec{u}$ being ``continuous'' rules out shock waves.
+\end{node}
+
+\subsection{2-Dimensional Streamfunction}
+
+\begin{definition}
+We say a scalar function $\psi$ is a \define{Streamfunction} (or
+``stream function'') if we can write the velocity vector field as
+$\vec{u}=\gradient{\psi}$. In this case, the vector field
+$\vec{a}=(0,0,\psi)$ satisfies $\curl{\vec{a}}=\vec{u}$.
+
+In particular, this means $\vec{u}=(u,v,0)$ has $u=\partial_{y}\psi$
+and $v=-\partial_{x}\psi$.
+\end{definition}
+
+\begin{node}
+The incompressible 2-dimensional flow has the continuity equation
+\begin{equation}
+\partial_{x}u+\partial_{y}v=0.
+\end{equation}
+This means
+\begin{equation}
+\partial_{x}(\partial_{y}\psi)+\partial_{y}(-\partial_{x}\psi)=0
+\end{equation}
+identically.
+\end{node}
+
+\begin{node}
+If we take the contours where $\psi$ equals a constant, then these
+describe stream lines. Really?
+Well, recall~(\S\ref{defn:stream-line}), stream lines satisfy
+\begin{equation}
+\frac{\D x}{u}=\frac{\D y}{v},
+\end{equation}
+which means
+\begin{equation}
+u\,\D y-v\,\D x = 0.
+\end{equation}
+We can plug in the expressions $u=\partial_{y}\psi$ and $v=-\partial_{x}\psi$
+to obtain
+\begin{equation}
+\partial_{y}\psi\,\D y+\partial_{x}\psi\,\D x=\D\psi=0.
+\end{equation}
+This happens when $\psi$ is constant.
+\end{node}
+
+\begin{node}
+In 2-dimensions, the vorticity can be written as (overloading the
+``$\omega$'' symbol):
+\begin{equation}
+\vorticity=(0,0,\omega).
+\end{equation}
+Then we can express the only nonzero component of vorticity using the
+streamfunction as:
+\begin{subequations}
+  \begin{align}
+\omega &= \partial_{x}v-\partial_{y}u\\
+&=\partial_{x}(-\partial_{x}\psi)-\partial_{y}(\partial_{y}\psi)\\
+&=-\nabla^{2}\psi.
+  \end{align}
+\end{subequations}
+\end{node}
+
+\begin{node}
+Now, let us examine the Navier--Stokes equations neglecting external
+force:
+\begin{equation}
+\partial_{t}u_{i}+u_{j}\partial_{j}u_{i}=\frac{-1}{\rho}\partial_{i}p+\nu\partial_{j}^{2}u_{i}.
+\end{equation}
+Taking the curl of both sides gives us
+\begin{equation}
+\partial_{t}\omega_{i}+u_{j}\partial_{j}\omega_{i}-\omega_{j}\partial_{j}u_{i}=0+\nu\partial_{j}^{2}\omega_{i}.
+\end{equation}
+Usually this is rewritten as
+\begin{equation}
+\partial_{t}\omega_{i}+u_{j}\partial_{j}\omega_{i}=\omega_{j}\partial_{j}u_{i}+\nu\partial_{j}^{2}\omega_{i},
+\end{equation}
+and we interpret the first term on the right-hand side as describing
+``vortex stretching'', and the second term as the ``viscuous diffusion
+of vorticity''.
+\end{node}
+
+\begin{node}
+Specifically, in 2-dimensions, $\vorticity$ has 1 nonzero component
+and $\vec{u}$ has two nonzero components, so
+\begin{equation}
+\omega_{j}\partial_{j}u_{i}=0
+\end{equation}
+identically. So the vortex stretching term vanishes in 2-dimensional fluids.
+\end{node}
+
+\begin{node}
+Then the Navier--Stokes equations in 2-dimensions can be written using
+the streamfunction $\psi$ and nonzero vorticity component $\omega$ as
+the two equations:
+\begin{subequations}
+  \begin{align}
+\partial_{t}\omega+\partial_{y}\psi\partial_{x}\omega-\partial_{x}\psi\partial_{y}\omega=\nu\partial_{j}^{2}\omega\\
+\intertext{and}
+-\nabla^{2}\psi=\omega.
+  \end{align}
+\end{subequations}
+These equations are called the \define{Vorticity--Streamfunction Formulation}
+of the Navier--Stokes equations in 2-dimensions for incompressible fluids.
+\end{node}
+
+\begin{remark}
+In three-dimensions, people do not tend to use the
+vorticity--streamfunction formulation, it becomes as complicated as
+the ``vanilla'' Navier--Stokes equations.
+\end{remark}
+
+\begin{remark}[History]
+Lagrange's \textit{M\'{e}moire sur la th\'{e}orie du mouvement des fluides}
+(1781) introduced Streamfunctions for 2-dimensional incompressible
+fluids. Stokes later~\cite{stokes1842steady} extended streamfunctions
+to three-dimensional incompressible fluids.
+\end{remark}
+
+\subsection{Dynamic Similarity}
+
+\begin{node}
+There are two ways to think of nondimensionalization. So far, all
+equations use dimensionful quantities like density $\rho$ (dimensions
+$\mathsf{M}\cdot\mathsf{L}^{-3}$), and so on. There are two ways to
+get nondimensional quantities.
+\end{node}
+
+\begin{node}[Formal scaling of equations of motion]
+We have variables with length scale, velocity scale,and pressure. We
+use stars to indicate dimensionful quantities like $x^{*}$ (dim:
+$\mathsf{L}$), $u^{*}$ (dim: $\mathsf{L}/\mathsf{T}$), $t^{*}$.
+We can construct nondimensional quantities if we have a length scale
+$L$ and a time scale $T$ (or velocity scale $U$) by
+\begin{subequations}
+  \begin{align}
+x &= \frac{x^{*}}{L}\\
+u &= \frac{u^{*}}{U}\\
+t &= \frac{t^{*}}{U/L},
+  \end{align}
+\end{subequations}
+and so on, where now $u$, $t$, $x$ are dimensionless quantities.
+\end{node}
+
+\begin{node}[Continuity equation]
+The continuity equation for incompressible fluids are
+\begin{equation}
+\frac{\partial u^{*}_{i}}{\partial x^{*}_{i}}=\partial^{*}_{i}u^{*}_{i}=0.
+\end{equation}
+We plug in the $u^{*}_{i}=u_{i}U$ and $x^{*}_{i}=x_{i}L$ to find
+\begin{equation}
+\frac{\partial(u_{i}U)}{\partial(x_{i}L)} = \frac{U}{L}\partial_{i}u_{i}=0.
+\end{equation}
+We can ``pull out'' the constants $U$ and $L$ from the differentiation
+(this is a bit handwavy but we can make it rigorous). Since $U$ and
+$L$ are nonzero quantities, we can divide both sides by $U/L$ to find
+\begin{equation}
+\partial_{i}u_{i}=0
+\end{equation}
+is the continuity equation with dimensionless quantities.
+\end{node}
+
+\begin{node}[Momentum equation]
+The conservation of linear momentum equations can be written down
+using dimensionful quantities as:
+\begin{equation}
+\partial_{t}^{*}u_{i}^{*}+u_{j}^{*}\partial^{*}_{j}u^{*}_{i}=\frac{-1}{\rho}\partial^{*}_{i}p^{*}+\nu(\partial_{j}^{*})^{2}u^{*}_{i}.
+\end{equation}
+The density $\rho$ is not really an ``unknown'' in the incompressible
+fluid, which is why we omit the ``star'' for it. Now, we can rewrite
+this using dimensionless quantities as
+\begin{equation}
+\frac{\partial(u_{i}U)}{\partial(tL/U)}+(u_{j}U)\frac{\partial(u_{i}U)}{\partial(x_{j}L)}=\frac{-1}{\rho}\frac{\partial(p\rho
+U^{2})}{\partial(x_{i}L)} + \nu\frac{\partial^{2}(u_{i}U)}{\partial(x_{j}L)\partial(x_{j}L)}.
+\end{equation}
+Now we can ``pull out the constants'' $L$, $U$ to obtain:
+\begin{equation}
+\frac{U^{2}}{L}(\partial_{t}u_{i}+u_{j}\partial_{j}u_{i})=\frac{U^{2}}{L}[-\partial_{i}p+\frac{\nu}{UL}\partial_{j}^{2}u_{i}].
+\end{equation}
+We can divide both sides by $U^{2}/L$ and we obtain the conservation
+of linear momentum equations
+\begin{equation}
+\partial_{t}u_{i}+u_{j}\partial_{j}u_{i}=-\partial_{i}p+\frac{\nu}{UL}\partial_{j}^{2}u_{i}.
+\end{equation}
+Observe that the only quantity which distinguishes how one
+incompressible fluid flows from another is the nondimensional
+quantity $\nu/UL$. This number is so important, it merits its own
+name: The \define{Reynolds Number} is defined to be
+\begin{equation}
+\Rey := \frac{UL}{\nu}.
+\end{equation}
+Importantly: completely different fluids, at completely different
+scales, can have identical flows if they have identical Reynolds numbers.
+\end{node}
+
+\begin{remark}
+The \emph{process} of nondimensionalization we just worked through is
+not a unique process (e.g., we might have picked a characteristic time
+scale $T$ to our problem instead of a characteristic fluid velocity
+scale $U$). We want to pick the process which produces 
+cleaner equations of motions.
+\end{remark}
+
+\begin{node}[Second approach: Informal Analysis]
+The second approach to nondimensionalization is ``informal analysis''
+or ``scaling analysis''. This is a much more physical argument. We
+look at the Reynolds number as the ratio
+\begin{equation}
+\Rey = \frac{\mbox{(inertial forces)}}{\mbox{(viscuous forces)}}.
+\end{equation}
+The inretial forces per unit volume scales like $\rho U^{2}/L$ because
+mass scales like $\rho L^{3}$ and acceleration is $U^{2}/L$. Putting
+this together,
+\begin{equation}
+\begin{pmatrix}\mbox{inertial forces}\\
+\mbox{per unit volume}
+\end{pmatrix}\sim\frac{(\rho L^{3})(U^{2}/L)}{L^{3}}=\frac{\rho U^{2}}{L}.
+\end{equation}
+The viscuous forces are typically the shear stress, which scales like
+$\mu\partial_{y}u\sim\mu U/L$. Then
+\begin{equation}
+\begin{pmatrix}\mbox{viscuous forces}\\
+\mbox{per unit volume}
+\end{pmatrix}\sim\frac{(\mu U/L)L^{2}}{L^{3}}=\frac{\mu U}{L^{2}}.
+\end{equation}
+Then the Reynolds number looks like
+\begin{equation}
+\Rey\sim\frac{(\rho U^{2}/L)}{(\mu U/L^{2})}=\frac{\rho UL}{\mu}.
+\end{equation}
+\end{node}
+
+\begin{example}[Drag vs lift]
+We have some object of size $L$ moving relative to some fluid at
+velocity $U$:
+\begin{center}
+  \includegraphics{img/img.18}
+\end{center}
+Then the \define{Drag Coefficient}
+\begin{subequations}
+  \begin{align}
+C_{D} = \frac{\mbox{drag forces}}{\mbox{inertial forces}}=\frac{\mbox{drag}}{\frac{1}{2}\rho U^{2}L^{2}}\\
+\intertext{and \define{Lift Coefficient}:}
+C_{L} = \frac{\mbox{lift forces}}{\mbox{inertial forces}}=\frac{\mbox{lift}}{\frac{1}{2}\rho U^{2}L^{2}}
+  \end{align}
+\end{subequations}
+describe how drag (resp., lift) compare to inertial forces.
+\end{example}
+
+\begin{example}
+The \define{Froude Number} is defined as
+\begin{equation}
+\Fr := \sqrt{\frac{\mbox{inertial forces}}{\mbox{external force}}}.
+\end{equation}
+The square root is a historical artifact, not essential to the physics.
+For example, when gravity is the dominant external force,
+\begin{equation}
+\Fr = \frac{U}{\sqrt{gH}}
+\end{equation}
+where $H$ is the characteristic length scale (usually, height).
+\end{example}
+
+\begin{example}
+The \define{Mach Number} is the ratio of the velocity of the fluid to
+the velocity of sound propagating through that fluid
+\begin{equation}
+\Mach = \frac{\mbox{velocity of fluid}}{\mbox{velocity of sound}}=\sqrt{\frac{\mbox{inertial force}}{\mbox{compression force}}}
+\end{equation}
+\end{example}
+
+\begin{node}
+There are also the important \define{Weber Number}
+\begin{equation}
+\We = \frac{\mbox{inertial force}}{\mbox{surface tension}}
+\end{equation}
+and the \define{Euler Number}
+\begin{equation}
+\Eu = \frac{\mbox{Pressure force}}{\mbox{inertial forces}}.
+\end{equation}
+\end{node}
