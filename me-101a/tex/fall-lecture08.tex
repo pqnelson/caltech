@@ -259,11 +259,64 @@ They satisfy
 \frac{\D x}{u}=\frac{\D y}{v}=\frac{\D z}{w}
 \end{equation*}
 where $u=\widehat{x}\cdot\vec{u}$, $v=\widehat{y}\cdot\vec{u}$, $w=\widehat{z}\cdot\vec{u}$.
+
+This should be understood as describing curves $\vec{x}_{S}(s)=(x_{S}(s),y_{S}(s),z_{S}(s))$
+which satisfy 
+\begin{equation*}
+\frac{\D x_{S}}{u}=\frac{\D y_{S}}{v}=\frac{\D z_{S}}{w}
+\end{equation*}
+which says that the streamline is parallel to the velocity vector
+everywhere. They are equivalently such that
+\begin{equation*}
+\D\vec{x}_{S}\times\vec{u}=0,
+\end{equation*}
+or
+\begin{equation*}
+(w\,\D y-v\,\D z)\widehat{\i}+(u\,\D z-w\,\D x)\widehat{\j}+(v\,\D x-u\,\D y)\widehat{k}=0.
+\end{equation*}
+Each component must vanish, which is what is meant when we write
+\begin{equation*}
+\frac{\D x}{u}=\frac{\D y}{v}=\frac{\D z}{w}.
+\end{equation*}
 \end{definition}
+
+\begin{node}
+We can also use
+\begin{equation}
+\frac{\D x}{u}=\frac{\D y}{v}=\frac{\D z}{w}
+\end{equation}
+to take any two guys, like
+\begin{equation}
+\frac{\D x}{u}=\frac{\D y}{v}.
+\end{equation}
+Then we form
+\begin{equation}
+\frac{\D y}{\D x}=\frac{v(x,y)}{u(x,y)}
+\end{equation}
+and solve this differential equation, where $u(x,y)$ and $v(x,y)$ must
+be given as well as initial conditions $y_{0}$, $x_{0}$ must be
+supplied. In this manner, we can determine the streamlines by solving
+these differential equations. 
+\end{node}
 
 \begin{definition}
 \define{Path Lines} are physical trajectories of ``fluid parcels''.
 \end{definition}
+
+\begin{node}
+Path lines $\vec{x}_{P}(t)=(x_{P}(t),y_{P}(t),z_{P}(t))$ may be given
+explicitly (although the components may not be tractably solved by hand) as:
+\begin{subequations}
+  \begin{align}
+x_{P}(t) &= x_{0} + \int^{t}_{t_{0}}u(x_{P}(\tau),y_{P}(\tau),z_{P}(\tau),\tau)\,\D\tau\\
+y_{P}(t) &= y_{0} + \int^{t}_{t_{0}}v(x_{P}(\tau),y_{P}(\tau),z_{P}(\tau),\tau)\,\D\tau\\
+z_{P}(t) &= z_{0} + \int^{t}_{t_{0}}w(x_{P}(\tau),y_{P}(\tau),z_{P}(\tau),\tau)\,\D\tau
+  \end{align}
+\end{subequations}
+where $x_{0}$, $y_{0}$, $z_{0}$ are the initial positions given at
+initial time $t_{0}$. This is what we mean when we say
+$\D\vec{x}_{P}/\D t=\vec{u}$.
+\end{node}
 
 \begin{fact}
 In a steady flow, stream lines coincide with path lines.
@@ -272,7 +325,7 @@ In a steady flow, stream lines coincide with path lines.
 \begin{node}[Bernoulli's principle for incompressible flows]
 Furthermore, for incompressible flows, we have
 \begin{equation}
-\frac{\D\rho}{Dt}=0\quad\mbox{implies}\quad\vec{\nabla}\cdot\vec{u}=0.
+\frac{D\rho}{Dt}=0\quad\mbox{implies}\quad\vec{\nabla}\cdot\vec{u}=0.
 \end{equation}
 If we add this to our running list of assumptions, then we infer
 \begin{equation}
