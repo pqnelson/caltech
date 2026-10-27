@@ -1,0 +1,333 @@
+%%
+%% fall-lecture13.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-27T09:14:41-0700
+%% Last update 2026-10-27T09:14:41-0700
+%% 
+
+\lecture{}
+
+We will finish discussing nondimensionalization, then  pivot and
+discuss Thermodynamics (over the next couple weeks).
+
+\begin{example}[Drag on a falling sphere]
+A sphere of diameter $d$ is falling and reaches some terminal velocity
+$U_{\infty}$. The sphere is in equilibrium\footnote{Otherwise, it
+would be experiencing some net force, and then it would experience
+some nonzero acceleration and it would not reach terminal velocity.},
+so the forces acting on it are the drag force $D$ and Earth's
+gravitational pull $g$.
+
+From the sphere's reference frame, the sphere is not
+moving and the atmosphere is moving past it at velocity
+$U_{\infty}$. The reference length scale is $d$ (the diameter of the
+sphere) and the reference velocity is the terminal velocity
+$U_{\infty}$. The Reynolds number is
+\begin{equation}
+\Rey = \frac{\rho U_{\infty}d}{\mu}=\frac{U_{\infty}d}{\nu}.
+\end{equation}
+The nondimensional drag must look like (c.f, the Drag Coefficient in Eq~\eqref{eq:lec12:me101a:drag-coef}):
+\begin{equation}
+\frac{D}{\rho U_{\infty}^{2}d^{2}}=f(\Rey)
+\end{equation}
+which is a function of the Reynolds number.
+\begin{quote}
+\textsc{Aside} (on body force): we have gravity acting on the sphere
+(since the sphere is falling). We have
+$\vec{\gamma}=-\rho\gradient{V}$ which can be absorbed into the
+pressure since
+\begin{equation}
+-\partial_{i}p+\gamma_{i}=-\partial_{i}[p+V]=-\partial_{i}p_{\text{eff}}
+\end{equation}
+where $p_{\text{eff}}:=p+V$ is the ``effective pressure''.
+\end{quote}
+We can say something more about $f(\Rey)$. For Stokes flow (where $\Rey\ll1$)
+\begin{equation}
+f(\Rey)=\frac{C}{\Rey}
+\end{equation}
+where $C\in\RR$ is some [nonzero] constant which depends on the shape
+of the body experiencing drag. Then the drag looks like
+\begin{equation}
+D=C\mu U_{\infty}d,
+\end{equation}
+which you should have seen before. (For a sphere, $C=6\pi$.)
+
+Now things are in terminal velocity, what can be said of forces? As
+noted earlier, the sphere is in equilibrium, so drag must equate to
+the gravitational forcec
+\begin{equation}
+6\pi\mu U_{\infty}d  = \overbrace{\underbrace{\frac{4}{3}\pi\left(\frac{d}{2}\right)^{3}(\rho_{\text{solid}}-\rho_{\text{fluid}})}_{\text{effective mass}}\cdot{}g}^{\text{buoyancy}},
+\end{equation}
+which implies the terminal velocity must be
+\begin{subequations}
+  \begin{align}
+U_{\infty}
+&= \frac{1}{18}\cdot\frac{1}{2}\frac{d^{2}}{\mu}(\rho_{\text{solid}}-\rho_{\text{fluid}})g\\
+&= \frac{2}{9}\cdot\frac{1}{8}\frac{d^{2}}{\nu}\left(\frac{\rho_{\text{solid}}}{\rho_{\text{fluid}}}-1\right).
+  \end{align}
+\end{subequations}
+\end{example}
+
+\begin{example}[Sand falling in water]
+In this case, $\rho_{\text{solid}}/\rho_{\text{fluid}}\approx2$ and $\nu_{\text{fluid}}\approx0.0100~\mathrm{cm}^{2}/\mathrm{s}$.
+We assumed $\Rey\ll1$, in this case
+\begin{equation}
+\Rey=\frac{U_{\infty}d}{\nu}\ll1\implies d\ll0.006~\mathrm{cm}=6\times10^{-5}~\mathrm{m},
+\end{equation}
+so the diameter of each grain of sand must be extraordinarily
+fine. For sand larger than this, we are not in the Stokes regime.
+[According to the Unified Soil Classification System, sand is
+  classified as having a diameter between $7.4\times10^{-5}~\mathrm{m}$
+and $4.75\times10^{-3}~\mathrm{m}$]
+\end{example}
+
+\begin{example}[Water in air]
+[A.k.a., ``raindrops'']
+In this case,
+\begin{equation}
+\frac{\rho_{\text{solid}}}{\rho_{\text{fluid}}}\approx780,
+\end{equation}
+and
+\begin{equation}
+\nu_{\text{air}}\approx0.15~\mathrm{cm}^{2}/\mathrm{s},
+\end{equation}
+and so
+\begin{equation}
+\Rey\ll1\implies d\ll0.004~\mathrm{cm}=4\times10^{5}~\mathrm{m}.
+\end{equation}
+This is the regime where we can use Stokes flow approximation.
+[Wikipedia claims raindrops have sizes ranging from $1\times10^{-4}~\mathrm{m}$
+to $9\times10^{-3}~\mathrm{m}$ in mean diameter.]
+\end{example}
+
+\begin{node}
+A lot of nondimensional numbers we introduced are related to force
+balance (the Mach number being the most famous exception). Here we
+give one example of a nondimensional number not related to the balance
+of forces.
+
+Consider the convection diffusion equation for a passive scalar
+\begin{equation}
+\partial_{t}^{*}C+u_{i}^{*}\partial_{i}^{*}C=D(\partial_{i}^{*})^{2}C
+\end{equation}
+where $C$ is the passive scalar, the left-hand side describes the
+convection, and the right-hand side describes the diffusion. We also
+stress the use of dimensionful quantities by including the asterisks.
+
+The first step is to stipulate the characteristic length scale $L$ and
+velocity scale $U$, which permits us to write
+\begin{equation}
+u_{i}=\frac{u_{i}^{*}}{U},\quad\mbox{and}\quad x_{i}=\frac{x_{i}^{*}}{L}.
+\end{equation}
+Note that $[D]=\mathsf{L}^{2}\mathsf{T}^{-1}$. Then
+\begin{equation}
+\frac{U}{L}(\partial_{t}C+u_{i}\partial_{i}C)=\frac{U}{L}\left(\frac{D}{UL}\partial_{i}^{2}C\right).
+\end{equation}
+Dividing both sides by $U/L$ (since it's a nonzero quantity) gives us
+\begin{equation}
+\partial_{t}C+u_{i}\partial_{i}C = \frac{D}{UL}\partial_{i}^{2}C.
+\end{equation}
+We introduce the \define{Peclet Number} $\Peclet$ defined as
+\begin{subequations}
+  \begin{align}
+\Peclet & := \frac{UL}{D}\\
+&= \frac{UL}{\nu}\frac{\nu}{D}\\
+&= (\Rey)(\Schmidt)
+  \end{align}
+\end{subequations}
+where
+\begin{equation}
+\Schmidt := \frac{\nu}{D} = \frac{\mbox{diffusion of momentum}}{\mbox{diffusion of scalar}}
+\end{equation}
+is the \define{Schmidt Number}. This gives us an interesting
+relationship between three nondimensional numbers.
+
+
+Note: for the heat diffusion in Air, the Schmidt number is $\Schmidt\sim0.7$.
+For the heat diffusion in Water, $\Schmidt\approx7$.
+\end{node}
+
+\subsection{Entropy Equations}
+
+\begin{node}
+This is just a more useful form of the energy equations.
+\end{node}
+
+\begin{recall}
+The first Law of Thermodynamics 
+\begin{equation}
+\D e = \D Q + \D W
+\end{equation}
+where $e$ is the internal energy, $Q$ is the heat, and $\D W$ is the
+work done \emph{on the system} by the Environment. (This is different
+than how it is normally presented in thermodynamics, where we include
+the work done \emph{by the system} on the Environment, which is why
+the sign is flipped here.)
+\end{recall}
+
+\begin{recall}
+The second Law of Thermodynamics takes the form, for reversible processes,
+\begin{equation}
+\D s = \frac{\D Q}{T}
+\end{equation}
+where $s$ is the specific entropy.
+\end{recall}
+
+\begin{recall}
+The Gibbs relation
+\begin{equation}
+T\,\D s = \D e + p\,\D(1/\rho).
+\end{equation}
+We can think of $p\,\D(1/\rho)$ as describing compression/expansion,
+and $T\,\D s$ as describing thermal/entropy contributions.
+\end{recall}
+
+\begin{goal}
+We want to convert our Energy equation to be in terms of entropy.
+\end{goal}
+
+\begin{node}
+We recall the internal energy equation:
+\begin{align}
+\rho\frac{D e}{D t}
+&=-p\partial_{i}u_{i} + \tau_{ij}\partial_{j}u_{i} - \partial_{i}q_{i}
++ \rho Q\label{eq:me101a:fall:lec13:eq1}\\
+&=\begin{pmatrix}\mbox{Pressure}\\
+\mbox{Work}
+\end{pmatrix} + (\mbox{dissipation}) - \begin{pmatrix}\mbox{Heat}\\
+\mbox{Transfer}
+\end{pmatrix} + \begin{pmatrix}\mbox{Heat}\\
+\mbox{Source}
+\end{pmatrix}\nonumber
+\end{align}
+where $\Phi:=\tau_{ij}\partial_{j}u_{i}$ is defined as the \define{Dissipation}.
+\end{node}
+
+\begin{node}
+Now, we manipulate the continuity equation. Observe, by the chain rule,
+\begin{equation}
+\frac{D(\rho^{-1})}{Dt}=\frac{-1}{\rho^{2}}\frac{D\rho}{Dt}.
+\end{equation}
+Then
+\begin{subequations}
+  \begin{align}
+\rho p\frac{D(1/\rho)}{Dt}
+&=\frac{-p}{\rho}\frac{D\rho}{Dt}\quad\mbox{by chain rule}\\
+&=\rho p(-\rho^{-2})(-\rho\partial_{i}u_{i})\quad\mbox{by continuity equation}\\
+&=p\partial_{i}u_{i}.
+  \end{align}
+\end{subequations}
+Hence
+\begin{equation}\label{eq:me101a:fall:lec13:eq2}
+\boxed{\rho p\frac{D(1/\rho)}{Dt}
+=p\partial_{i}u_{i}.}
+\end{equation}
+\end{node}
+
+\begin{node}
+Now, we add Eq~\eqref{eq:me101a:fall:lec13:eq2} to Eq~\eqref{eq:me101a:fall:lec13:eq1}
+to give us
+\begin{equation}
+\rho\left(\frac{De}{Dt}+p\frac{D(1/\rho)}{Dt}\right)=\Phi-\partial_{i}q_{i}+\rho Q.
+\end{equation}
+We use Gibbs relation to see the left-hand side is just $\rho T\,(D s/D t)$.
+Therefore we obtain the \define{Entropy Equation}:
+\begin{equation}
+\boxed{\rho T\frac{D s}{D t}=\Phi-\partial_{i}q_{i}+\rho Q.}
+\end{equation}
+\end{node}
+
+\begin{assume}
+There is no internal heat source $Q=0$.
+\end{assume}
+
+\begin{assume}
+Newtonian constitutive relation:
+\begin{subequations}
+  \begin{align}
+\Phi &= \tau_{ij}\partial_{j}u_{i}\\
+&= 2\mu(S_{ij}-\frac{1}{3}S_{kk}\delta_{ij})^{2}+\mu_{V}S_{kk}^{2}.
+  \end{align}
+\end{subequations}
+In particular, $\Phi\geq0$.
+\end{assume}
+
+\begin{assume}
+Fourier heat Law $q_{i}=-\kappa\partial_{i}T$.
+\end{assume}
+
+\begin{node}
+We can use the continuity equation to infer
+\begin{equation}
+\partial_{t}(\rho s) = \rho\partial_{t}s + s\partial_{t}\rho=\rho\partial_{t}s-s\partial_{j}(\rho u_{j}).
+\end{equation}
+Then these simplify the Entropy equation, after expanding out the material
+derivative, to become:
+\begin{subequations}
+  \begin{align}
+\partial_{t}(\rho s)
+&=-s\partial_{j}(\rho u_{j})-\rho u_{j}\partial_{j}s + \frac{1}{T}(\Phi+\partial_{j}(\kappa\partial_{j}T))\\
+&=-\partial_{j}(s\rho u_{j}) + \frac{1}{T}\Phi + \frac{1}{T}\partial_{j}(\kappa\partial_{j}T).\label{eq:fall-lec13:me101a:rhs-to-be-studied}
+  \end{align}
+\end{subequations}
+Let us examine how each of these three terms (on the right-hand side)
+behave if we were to integrate them over the entire fluid.
+\end{node}
+
+\begin{assume}
+Either
+\begin{enumerate}
+\item the volume is unbounded and as $|\vec{x}|\to\infty$ we have
+both $u_{i}\to0$ and $T\to0$ sufficiently fast; or
+\item the volume is bounded and $u_{i}=0$ and $n_{i}\partial_{i}T=0$ at the boundary.
+\end{enumerate}
+\end{assume}
+
+\begin{node}
+Then we see
+\begin{subequations}
+  \begin{align}
+-\int_{V}\partial_{j}(s\rho u_{j})\,\D V &= -\oint_{\boundary V}\rho su_{j}n_{j}\,\D A\\
+&=0\quad\mbox{by assumption}.
+  \end{align}
+\end{subequations}
+So the first term in the right-hand side of Eq~\eqref{eq:fall-lec13:me101a:rhs-to-be-studied}
+vanishes.
+\end{node}
+
+\begin{node}
+By the Newtonian assumption, $\frac{1}{T}\Phi>0$. So the second term
+in the right-hand side of Eq~\eqref{eq:fall-lec13:me101a:rhs-to-be-studied}
+is positive.
+\end{node}
+
+\begin{node}
+Integrating the third term in the right-hand side of Eq~\eqref{eq:fall-lec13:me101a:rhs-to-be-studied}:
+\begin{subequations}
+  \begin{align}
+\int_{V}\frac{1}{T}\partial_{j}(\kappa\partial_{j}T)\,\D V
+&=\int_{V}\partial_{j}\left(\frac{\kappa}{T}\partial_{j}T\right)\D V
++\int_{V}\frac{\kappa}{T^{2}}\partial_{j}^{2}T\,\D V\\
+&=-\oint_{\boundary V}\frac{\kappa}{T}(\partial_{j}T)n_{j}\,\D A+\int_{V}\frac{\kappa}{T^{2}}\partial_{j}^{2}T\,\D V\\
+&=0+\int_{V}\frac{\kappa}{T^{2}}\partial_{j}^{2}T\,\D V\quad\mbox{by boundary conditions}.
+  \end{align}
+\end{subequations}
+We see that by assumption, this is a non-negative quantity.
+\end{node}
+
+\begin{node}
+Combining all these results together, we can rewrite Eq~\eqref{eq:fall-lec13:me101a:rhs-to-be-studied}
+in integral form as:
+\begin{equation}
+\partial_{t}\int_{V}\rho s\,\D V =
+\int_{V}\frac{\kappa}{T^{2}}\partial_{j}^{2}T\,\D V+\int_{V}\frac{\Phi}{T}\,\D V.
+\end{equation}
+The right-hand side is the sum of a strictly positive and a
+non-negative quantity, which means the right-hand side is strictly
+positive. Taking a step back, this means that the change in entropy
+over time (the left hand side) is strictly increasing. So, at the very
+least, we recover familiar results (which is a good sanity check).
+\end{node}

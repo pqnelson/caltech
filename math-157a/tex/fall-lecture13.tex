@@ -1,0 +1,214 @@
+%%
+%% fall-lecture13.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-27T10:44:32-0700
+%% Last update 2026-10-27T10:44:32-0700
+%% 
+
+\lecture{}
+
+\begin{recall}
+We determined $H^{*}(G_{n};\ZZ_{2})\iso\ZZ_{2}[w_{1}(\gamma^{n}),\dots,w_{n}(\gamma^{n})]$.
+We proved uniquess of the Stiefel--Whitney classes (which, we stress,
+involved the universal property of $\gamma^{n}$). This raised the
+question: how necessary is the universal property for proving
+uniqueness? We can ``kind of'' bypass this reliance on the ``general''
+universal property of $\gamma^{n}$ by relying on the splitting
+principle plus the universal property of $\gamma^{1}$.
+\end{recall}
+
+\begin{theorem}[Splitting principle]
+Let $\xi\colon E\to X$ be an $\RR^{n}$-bundle, where $X$ is a
+paracompact space. Then there exists a topological space $Y$ and a map
+$p\colon Y\to X$ such that
+\begin{enumerate}
+\item $p^{*}\colon H^{*}(X;\ZZ_{2})\to H^{*}(Y;\ZZ_{2})$ is injective
+\item the pullback bundle $p^{*}\xi$ splits
+  $p^{*}E=L_{1}\oplus\dots\oplus L_{n}$ as the Whitney sum of line
+  bundles $L_{1}$, \dots, $L_{n}$ over $Y$.
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+The Stiefel--Whitney class $w(\xi)$ is uniquely determined by $w(p^{*}\xi)=p^{*}w(\xi)=w(L_{1})(\dots)w(L_{n})$.
+\end{corollary}
+
+\begin{remark}
+This gives the following intuition: it explains why requiring
+$w_{1}(\gamma_{1}^{1})=\widetilde{a}$ is enough for our axioms. Writing
+$w(\gamma_{1}^{1})=1+\widetilde{a}$ where $\widetilde{a}\in H^{1}(\gamma_{1}^{1};\ZZ_{2})$ is
+the generator, then the first thing we can do is pass to the universal
+line bundle to prove $w(\gamma^{1})=1+a$. We know there exists a base
+map $g_{1}\colon Y\to\RP^{\infty}$ such that if we pullback
+$g_{1}^{*}\gamma^{1}\iso L_{1}$, then $g_{1}^{*}w(\gamma^{1})=w(L_{1})$.
+We can do this for each $L_{1}$, \dots, $L_{n}$ to obtain $p$ uniquely.
+This gives us a way to prove the uniqueness for Stiefel--Whitney classes.
+\end{remark}
+
+\begin{example}
+Recall, we constructed a map
+\begin{equation}
+f\colon\RP^{\infty}\times\dots\times\RP^{\infty}\to G_{n}
+\end{equation}
+such that
+\begin{enumerate}
+\item the pullback on the cohomology ring $f^{*}\colon H^{*}(G_{n};\ZZ_{2})\to H^{*}((\RP^{\infty})^{n};\ZZ_{2})$
+is injective, and
+\item $f^{*}\gamma^{n}\iso\xi=\pi_{1}^{*}\gamma^{1}\oplus\dots\oplus\pi_{n}^{*}\gamma^{1}$
+where $\pi_{j}\colon(\RP^{\infty})^{n}\to\RP^{\infty}$ is the
+$j^{\text{th}}$ projection. [Here, confusingly, $\gamma^{n}$ plays the
+  role of $\xi$ in the splitting principle, and more straightforwardly
+  $\pi_{j}^{*}\gamma^{1}$ plays the role of $L_{j}$]
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+Let $\xi$ be a (real) vector bundle $E\to B$.
+The \define{Projectivization} of $\xi$ is the fiber bundle
+$\RR\Projectivization{\xi}$ over $B$ where each fiber is just the
+projectivization of $F_{b}$ in $\xi$.
+
+Equivalently, $\RR\Projectivization{\xi}:=(E\setminus s_{0}(X))/\sim$
+where $s_{0}$ is the zero-section, and $(x,v)\sim(x,\lambda v)$ for
+$\lambda\in\RR\setminus\{0\}$. What is the fiber for such a thing?
+Well, recall, $E$ has fiber $\RR^{n}$, then removing the zero section
+gives $\RR^{n}\setminus\{0\}$, and then quotienting out by the
+equivalence relation gives us $\RP^{n-1}$ as the fiber.
+
+\emph{Note: this is no longer a vector bundle}. But it remains a fiber bundle.
+\end{definition}
+
+
+
+\begin{theorem}[Splitting principle --- reiterate]
+Let $\xi\colon E\to X$ be an $\RR^{n}$-bundle, where $X$ is a
+paracompact space. Then there exists a topological space $Y$ and a map
+$p\colon Y\to X$ such that
+\begin{enumerate}
+\item $p^{*}\colon H^{*}(X;\ZZ_{2})\to H^{*}(Y;\ZZ_{2})$ is injective
+\item the pullback bundle $p^{*}\xi$ splits
+  $p^{*}E=L_{1}\oplus\dots\oplus L_{n}$ as the Whitney sum of line
+  bundles $L_{1}$, \dots, $L_{n}$ over $Y$.
+\end{enumerate}
+\end{theorem}
+
+\begin{goal}
+Find a space $X'$ and a map $p\colon X'\to X$ such that
+\begin{enumerate}
+\item the induced morphism $p^{*}$ [on cohomology groups] is
+  injective; and
+\item $p^{*}E=p^{*}\xi=E'\oplus L$ where $L$ is a line bundle over
+  $X'$ and $E'$ is a rank $(n-1)$-bundle over $X'$.
+\end{enumerate}
+\end{goal}
+
+\begin{proof}[Proof (splitting principle)]
+By induction on $n$.
+Then since $n\in\NN$, we just iterate this procedure finitely many
+times, and induction proves everything works fine.
+
+We take $p\colon\RR\Projectivization{E}\to X$ which gives us
+$p\colon X'\to X$ and satisfies $p^{*}\colon H^{n}(X;\ZZ_{2})\to H^{n}(X';\ZZ_{2})$
+is injective (by Levy--Hirsch theorem). This achieves (1) of our goal.
+
+Now we need to find the line bundle $L$ and the bundle $E'$. Then we
+look at $p^{*}\xi$ which is a bundle over $X'$. A point in $X'$ is an
+equivalence class $[(x,v)]$ and we want to find a subbundle of
+$p^{*}\xi$ which is a line bundle.
+We can look at $\Span(v)$ to get a line in $\RR^{n}$, then pulling it
+back gives a line subbundle $L$ in $p^{*}\xi$. We use the fact that
+$X$ is paracompact, so it has a Euclidean metric for $\xi$. Then we
+can pullback this metric along $p^{*}$ to get a metric for
+$p^{*}\xi$. Then we find the orthogonal complement $L^{\perp}$ such
+that $L^{\perp}\oplus L\iso p^{*}\xi$.
+
+Then we induct on $n$ to get the decomposition.
+\end{proof}
+
+\subsection{Existence of Stiefel--Whitney classes}
+
+\begin{node}
+We need two ingredients from algebraic topology:
+\begin{enumerate}
+\item Thom isomorphism
+\item Steenrod squares
+\end{enumerate}
+\end{node}
+
+\begin{notation}
+Let $\xi\colon E\to B$ be an $\RR^{n}$-bundle. Let $E_{0}:=E\setminus s_{0}(B)$
+be $E$ after removing its zero section. The fiber $F\iso\RR^{n}$,
+$F_{0}\iso F\setminus\{0\}$. We have the inclusion map
+\begin{equation}
+i\colon(F,F_{0})\into(E,E_{0}),
+\end{equation}
+which induces the morphism on cohomology groups
+\begin{equation}
+i^{*}\colon H^{*}(E,E_{0};\ZZ_{2})\to H^{*}(F,F_{0};\ZZ_{2}),
+\end{equation}
+and we have the isomorphisms
+\begin{equation}
+H^{*}(F,F_{0};\ZZ_{2})\iso H^{*}(\RR^{n},\sphere{n};\ZZ_{2})\iso\widetilde{H}^{*}(\sphere{n};\ZZ_{2})
+\end{equation}
+where
+\begin{equation}
+\widetilde{H}^{k}(\sphere{n};\ZZ_{2})\iso\begin{cases}\ZZ_{2} &
+\mbox{if }k=n\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+is the reduced cohomology of the sphere.
+\end{notation}
+
+\begin{theorem}[Thom]
+\begin{enumerate}
+\item There exists a unique $U\in H^{n}(E,E_{0};\ZZ_{2})$ such that
+  $i^{*}U\in H^{n}(F,F_{0};\ZZ_{2})$ is the generator for
+  $H^{n}(F,F_{0};\ZZ_{2})\iso\ZZ_{2}$ for every fiber $F$. We call $U$
+  the \define{Thom Class}.
+\item We have the isomorphism
+  \begin{align}
+     H^{i}(E;\ZZ_{2})&\to H^{i+n}(E,E_{0};\ZZ_{2})\\
+ Y&\mapsto Y\smile U\nonumber
+  \end{align}
+  (obtained by mapping elements $Y$ to the cup product $Y\smile U$
+  with $U$) which is called the \define{Thom Isomorphism}.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+We can write
+\begin{align}
+\varphi\colon & H^{i}(B;\ZZ_{2})\to H^{i+n}(E,E_{0};\ZZ_{2})\\
+& \beta\mapsto p^{*}\beta\smile U\nonumber,
+\end{align}
+since $E$ deformation retracts to $B$ (since the fiber
+$\RR^{n}\homotopic\point{*}$) via $p\colon E\to B$ we expect to be an isomorphism.
+\end{remark}
+
+\begin{node}[Foreshadowing]
+How are Stiefel--Whitney classes defined using Thom isomorphism? We
+have $w_{i}(\xi)\in H^{i}(B;\ZZ_{2})$. Define
+$w_{i}(\xi):=\varphi^{-1}(\Sq_{i}(U))$ where $U\in H^{n}(E,E_{0};\ZZ_{2})$ is the 
+Thom class, and
+\begin{equation}
+\Sq_{i}\colon H^{n}(E,E_{0};\ZZ_{2})\to H^{n+1}(E,E_{0};\ZZ_{2})
+\end{equation}
+is the Steenrod square, so
+\begin{equation}
+\varphi^{-1}\circ\Sq_{i}\colon H^{n}(E,E_{0};\ZZ_{2})\to H^{i}(B;\ZZ_{2}).
+\end{equation}
+Then we just need to prove this satisfies all the axioms.
+\end{node}
+
+\begin{node}[Proof sketch for Thom's isomorphism theorem]
+Step 1: working in a local trivialization chart (or equivalently where
+$E=B\times F$) prove everything works [requires K\"{u}nneth formula]. Step 2: consider the union of 2
+local trivializing charts, and prove everything works [requires
+  Mayer--Vietoris sequence]. Step 3: from
+local to global (since $B$ is not assumed compact, nor even
+paracompact, this requires a lot of work) [requires direct limit of cohomology].
+\end{node}

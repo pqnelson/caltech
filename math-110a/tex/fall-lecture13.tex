@@ -1,0 +1,192 @@
+%%
+%% fall-lecture13.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-10-27T10:14:49-0700
+%% Last update 2026-10-27T10:14:49-0700
+%% 
+
+\lecture[Hilbert spaces]{}
+
+\begin{definition}
+A \define{Pre-Hilbert Space} is a vector space $X$ over $\FF$ (here
+$\FF$ is either the reals or
+complex numbers) equipped with an inner product $(-,-)\colon X\times X\to\FF$,
+which is a form satisfying
+\begin{enumerate}
+\item it is linear in the first slot: $(x_{1}+x_{2},y)=(x_{1},y)+(x_{2},y)$
+and $(\lambda x,y)=\lambda(x,y)$
+\item it is strictly positive: $(x,x)\geq0$ and $(x,x)=0\iff x=0$
+\item conjugate symmetry: $(x,y)=\overline{(y,x)}$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+For any pre-Hilbert space $X$, we define the \define{Induced Norm}
+$\|-\|\colon X\to\RR$ by $\|x\|:=\sqrt{(x,x)}\geq0$.
+
+We will later prove it is, in fact, a norm. But we will stipulate this
+is the case, and that we endow the pre-Hilbert space with the induced
+metric and associated metric topology.
+\end{definition}
+
+\begin{fact}[Cauchy--Schwarz inequality]
+For any pre-Hilbert space, we have
+\begin{equation}
+|(x,y)|\leq\|x\|\cdot\|y\|.
+\end{equation}
+The proof is tedious and not terribly enlightening.
+\end{fact}
+
+\begin{fact}[Parallelogram law]
+For any pre-Hilbert space $X$ and for any $x,y\in X$, we have
+\begin{equation}
+\|x+y\|^{2}+\|x-y\|^{2}=2(\|x\|^{2}+\|y\|^{2}).
+\end{equation}
+This follows by rewriting everything with the inner product.
+\end{fact}
+
+\begin{fact}[Polarization identity]
+\begin{subequations}
+  \begin{enumerate}
+\item  If $X$ is a real normed vector space, then
+\begin{equation}
+2(x,y) = \|x+y\|^{2}-\|x\|^{2}-\|y\|^{2}.
+\end{equation}
+\item If $X$ is a complex normed vector space, then
+  \begin{equation}
+4(x,y) = \|x+y\|^{2}-\|x-y\|^{2}+\I\|x+\I y\|^{2}-\I\|x-\I y\|^{2}.
+  \end{equation}
+\end{enumerate}
+\end{subequations}
+\end{fact}
+
+\begin{theorem}
+\begin{enumerate}
+\item The induced norm on a pre-Hilbert space really is a norm.
+\item Normed vector spaces are pre-Hilbert if and only if it satisfies
+  the parallelogram identity.
+\item The inner product is continuous: if $(x_{n})\to x$ and
+  $(y_{n})\to y$, then $(x_{n},y_{n})\to (x,y)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item Follows from the Cauchy--Schwarz inequality.
+\item Use polarization identity to obtain the candidate for the inner
+  product and show it works fine.
+\item By Cauchy--Schwarz inequality.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}
+For any subset $A$ of a pre-Hilbert space $X$, we define
+$A^{\perp}:=\{x\in X\mid\forall a\in A\ldotp (x,a)=0\}$.
+Then $A^{\perp}$ is a closed subspace of $X$.
+\end{corollary}
+
+\begin{remark}
+It is common to just use the term ``subspace'' for \emph{closed}
+subspaces in the theory of Banach spaces and Hilbert spaces, because
+closed subspaces are the interesting guys here.
+\end{remark}
+
+\begin{definition}
+A \define{Hilbert Space} is a complete pre-Hilbert space. (Remember:
+we endow pre-Hilbert spaces with the additional structure of a normed
+vector space, using the induced norm, and thereby give it a metric and
+the metric topology.)
+\end{definition}
+
+\begin{example}
+The space $\ell^{2}(\NN)$ of square summable (real or complex)
+sequences with norm
+\begin{equation}
+\|x_{n}\|^{2}=\sum_{n}|x_{n}|^{2}.
+\end{equation}
+We claim this norm satisfies the parallelogram identity, so it is a
+pre-Hilbert space. But we know $\ell^{2}(\NN)$ is complete with
+respect to the metric induced by the norm, so it is a Hilbert space.
+\end{example}
+
+\begin{non-example}
+The space $\ell^{1}(\NN)$ of absolute summable (real or complex)
+sequences with norm
+\begin{equation}
+\|x_{n}\|=\sum_{n}|x_{n}|.
+\end{equation}
+Although this is a Banach space, the parallelogram law is \emph{not}
+satisfied. Therefore it is \emph{not} a Hilbert space.
+\end{non-example}
+
+\begin{lemma}[Riesz]
+Let $H$ be a Hilbert space, let $A\subset H$ be a subset.
+If $A$ is convex and closed, then there exists a unique $x\in A$ with
+minimum norm.
+\end{lemma}
+
+\begin{proof}
+\textsc{Step 1: Existence}. Define $d=\inf_{x\in A}\|x\|$. Let
+$(x_{n})$ be a sequence in $A$ such that $\|x_{n}\|\to d$. Then
+$(x_{n})$ is Cauchy. We see,
+\begin{equation}\label{eq:math110a:lec13:eq1}
+\|x_{n}-x_{m}\|^{2}=2(\|x_{n}\|^{2}+\|x_{m}\|^{2})-\|x_{n}+x_{m}\|^{2}
+\end{equation}
+by adding $\|x_{n}+x_{m}\|^{2}$ to both sides of the parallelogram
+identity; and $2(\|x_{m}\|^{2}+\|x_{n}\|^{2})\to4d^{2}$ as $m,n\to\infty$;
+and using convexity [$\forall a,b\in A\ldotp\frac{1}{2}(a+b)\in A$]
+tells us
+\begin{equation}
+4\left\|\frac{x_{n}+x_{m}}{2}\right\|^{2}\geq4d^{2},
+\end{equation}
+since $x_{12}=(x_{1}+x_{2})/2\in A$ and by definition of $d$ we must
+have $x_{12}$ have norm no smaller than $d$. Then we see the
+right-hand side of Eq~\eqref{eq:math110a:lec13:eq1} becomes
+\begin{equation}
+4d^{2}-4\left\|\frac{x_{n}+x_{m}}{2}\right\|^{2}\leq0,
+\end{equation}
+whereas the left-hand side of Eq~\eqref{eq:math110a:lec13:eq1} is non-negative,
+and therefore both must vanish. Hence $x_{n}$ must converge to a point
+$x$ of norm $\|x\|=d$ (and by $A$ being closed, $x\in A$).
+
+\textsc{Claim: Uniqueness}. If we have two candidates $\|x'\|=\|x''\|=d$,
+then
+\begin{subequations}
+  \begin{align}
+\|x'-x''\|^{2} &=
+2(\|x'\|^{2}+\|x''\|^{2})-\|x'+x''\|^{2}\quad\mbox{by Eq~\eqref{eq:math110a:lec13:eq1}}\\
+&=4d^{2}-\|x'+x''\|^{2},
+  \end{align}
+\end{subequations}
+and by convexity $\|x'+x''\|^{2}\geq4d^{2}$, so this forces
+\begin{equation}
+\|x'-x''\|^{2}=0.
+\end{equation}
+Hence $x'=x''$.
+\end{proof}
+
+\begin{theorem}[Riesz projection]
+Let $H$ be a Hilbert space, let $L\subset H$ be a closed subspace, let
+$x\in H$ be a point. Then there exists a unique decomposition $x=x_{1}+y$
+where $x_{1}\in L$ and $y\in L^{\perp}$ (i.e., $y\perp L$).
+Equivalently, $H=L\oplus L^{\perp}$.
+\end{theorem}
+
+\begin{proof}
+Take $x_{1}$ with minimal norm $\|x_{1}-x\|=d$ (apply Riesz Lemma to
+the set $A=x+L$.) This defines $x_{1}$ in a unique way by the
+Lemma. We just need to prove for any $z\in L$ we have $(x-x_{1},z)=0$.
+We have, for any $t\in\CC$,
+\begin{subequations}
+  \begin{align}
+d^{2} &\leq\|x-x_{1}+tz\|^{2}\\
+&\leq (x-x_{1},x-x_{1}) + 2\Re(x-x_{1},tz)+(tz,tz).
+  \end{align}
+\end{subequations}
+Then $2\Re(x-x_{1},tz)=0$ by positivity of $d^{2}$ (and the sum of a
+linear and quadratic term must have the linear term vanish for them to
+be positive). Hence the claim.
+\end{proof}
