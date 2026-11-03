@@ -1,0 +1,224 @@
+%%
+%% fall-lecture16.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-03T10:34:10-0800
+%% Last update 2026-11-03T10:34:10-0800
+%% 
+
+\lecture[Topological Vector Spaces]{}
+
+\begin{node}
+We have been looking at normed vector spaces. We begin looking at
+their generalizations. The most generalized thing is a topological
+vector space. A natural generalization of normed vector spaces are
+``multi-normed (or poly-normed) vector spaces''. (I only managed to
+find Szilasi and Lovas~\cite[p.1077]{szilasi2007some} discuss ``multinormed
+vector spaces'' in this sense.)
+\end{node}
+
+\begin{definition}
+A \define{Multi-Normal Vector Space} $(X,\{p_{\lambda}\}_{\lambda\in\Lambda})$
+where $X$ is a vector space and $p_{\lambda}$ is an
+infinite\footnote{Finite families are not interesting because we can
+combine them together into a single seminorm.} family of
+seminorms. We equip $X$ with the weakest topology making every
+$p_{\lambda}$ continuous.
+
+We can construct a neighborhood base of zero,
+\begin{equation}
+N_{\varepsilon}=\{x\in X\mid\forall\lambda\in\Lambda\ldotp p_{\lambda}(x)<\varepsilon\},
+\end{equation}
+or for $\lambda\in\Lambda$,
+\begin{equation}
+N_{\varepsilon,\lambda}=\{x\in X\mid p_{\lambda}(x)<\varepsilon\}
+\end{equation}
+We can describe this topology in terms of nets: $x_{\alpha}\to x$
+iff for every seminorm $\forall\lambda\in\Lambda\ldotp p_{\lambda}(x_{\alpha}-x)\to0$.
+We see $N_{\varepsilon,\lambda}$ are just generalized [open] balls which are
+convex. Convexity for one seminorm $N_{\varepsilon,\lambda}$ (follows by triangle inequality),
+and for several seminorms it amounts to the intersection of several
+convex sets (which is again convex).
+\end{definition}
+
+\begin{fact}
+If $X$ is a topological vector space such that every point $x\in X$
+has a convex neighborhood base [i.e., a neighborhood base of convex
+  neighborhoods], then there exists a family of seminorms $\{p_{\lambda}\}_{\lambda\in\Lambda}$
+that generate the topology.
+\end{fact}
+
+\begin{remark}
+For this reason, \define{Locally Convex [topological] Vector Space} (LCVS) is used
+instead of ``multinormed vector spaces''.
+\end{remark}
+
+\begin{fact}[{Folland~\cite[Prop~5.16(a)]{folland1999real}}]
+  Let $X$ be a locally convex vector space.
+  Then $X$ is Hausdorff if and only if for every nonzero vector $x\in X$
+  there exists  a seminorm $p_{\lambda}$ such that $p_{\lambda}(x)\neq0$.
+\end{fact}
+
+\begin{fact}[{Folland~\cite[Prop~5.16(b)]{folland1999real}}]
+If $X$ is a Hausdorff LCVS and $\Lambda$ is countable [i.e., the
+  family of seminorms on $X$ is countable], then $X$ is metrizable
+with metric
+\begin{equation}
+\rho(x,y)=\sum^{\infty}_{n=1}2^{-n}\left(\frac{p_{n}(x-y)}{1+p_{n}(x-y)}\right).
+\end{equation}
+\end{fact}
+
+\begin{definition}
+Let $X$ be a locally convex [topological] vector space.
+We say $X$ is a \define{Fr\'{e}chet Space} if $X$ is Hausdorff and
+$\Lambda$ is countable.
+\end{definition}
+
+\begin{example}
+The space of continuous real-valued functions $C(\RR^{d})$ or
+$C(\Omega)$ when $\Omega$ is an open subset of $\RR^{d}$. For each
+compact set $K$ [using the Euclidean topology] in $\Omega$, we define
+a seminorm $p_{K} := \|-\|_{C(K)}$ using the supremum norm on $C(K)$
+[since $C(K)$ is bounded]. Then $C(\Omega)$ is a Fr\'{e}chet Space
+where $\Omega=\bigcup_{n\in\NN}K_{n}$ and $(K_{n})_{n\in\NN}$ allows
+us to approximate any $K$ suitably well. Then convergence
+$f_{n}\xrightarrow{C(\Omega)}f$ if for every $K$ we have
+$f_{n}|_{K}\to F|_{K}$ --- this is called \define{Uniform Convergence
+  on Compact Sets}.
+
+We can generalize this to any locally compact Hausdorff space $X$,
+which Folland does~\cite[pp.167--168]{folland1999real}.
+\end{example}
+
+\begin{example}
+The space $C^{\infty}(\RR)$ is a Fr\'{e}chet Space with norm
+$\{p_{n,K}\}$ indexed by $n\in\NN$ and $K\subset\RR$ compact, where
+$p_{n,K}(f):=\|f^{(n)}\|_{C(K)}$ [writing $f^{(n)}$ for the
+  $n^{\text{th}}$ derivative of $f$].
+This again is a countable family when we use monotone sequence of $K$
+which exaust open sets.
+\end{example}
+
+\begin{xca}
+The space $C^{\infty}(\RR)$ has the Heine--Borel property (compact
+subsets are closed and bounded---``boundedness'' here is with respect
+to every seminorm). However, $C(\RR)$ \emph{does not} have the
+Heine--Breol property.
+\end{xca}
+
+\begin{example}
+The space $\ell^{1/2}$ consisting of sequences $(x_{n})$ such that
+$\sum_{n}|x_{n}|^{1/2}<\infty$ is finite. Then the function
+\begin{equation}
+\rho(x,y)=\sum_{n}|x_{n}-y_{n}|^{1/2}
+\end{equation}
+is a metric on $\ell^{1/2}$.
+
+Note: this is \emph{not} an $\ell^{p}$-space (since the norm would be
+$(\sum_{n}|x_{n}|^{1/2})^{2}$ instead). However, this is a topological
+vector space with metric $\rho$ inducing its topology. But it is
+\emph{not} a locally compact space. (There are no nontrivial convex
+open sets.)
+\end{example}
+
+\subsection{Weak and Weak-* Topologies}
+
+\begin{node}
+Let $X$ be a normed vector space. Let $X'$ be its dual space [so $X'$
+  consists of continuous linear functionals].
+Then $X'$ is a Banach space. Then by Hanh--Banach, we have 
+\begin{equation}
+\|x\|:=\sup_{\substack{f\in X'\\ \|f\|\leq1}}|f(x)|,
+\end{equation}
+taken over the unit ball in $X'$. Compare this to the operator norm
+\begin{equation}
+\|f\|_{\text{op}}=\sup_{\|x\|\leq1}|f(x)|.
+\end{equation}
+\end{node}
+
+\begin{definition}
+Let $X$ be a normed vector space, let $X'$ be its dual space.
+We define the \define{Canonical Embedding} $\pi\colon X\to X''$
+by sending $x\mapsto(f\mapsto f(x))$, or $x\mapsto \pi_{x}$ where
+$\pi_{x}(f)=f(x)$ for any $f\in X'$.
+\end{definition}
+
+\begin{corollary}[of Hanh--Banach]
+We have $\|\pi(x)\|=\|x\|$. Therefore $\pi$ is an isometry.
+\end{corollary}
+
+\begin{definition}
+We say $X$ is \define{Reflexive} if $\pi$ is surjective.
+\end{definition}
+
+\begin{example}
+Riesz representation theorem implies Hilbert spaces are reflexive.
+\end{example}
+
+\begin{node}
+Reflexive Banach spaces are ``kind of like'' Hilbert spaces.
+\end{node}
+
+\begin{example}
+For $1<p<\infty$, $\ell^{p}$-spaces are reflexive.
+\end{example}
+
+
+\begin{example}
+We see $(\ell^{2})'\iso\ell^{2}$ canonically isomorphic by Riesz, so
+$y\in\ell^{2}\mapsto f_{y}(x)=\sum x_{n}y_{n}$ is standard scalar product.
+\end{example}
+
+\begin{example}
+We see $(\ell^{1})'\iso\ell^{\infty}$ when we use same formula as
+previous example.
+\end{example}
+
+\begin{example}
+On the other hand, $\ell^{1}\propersubset(\ell^{\infty})'$ but
+$\ell^{1}\neq(\ell^{\infty})'$ since $\ell^{1}$ is separable but
+$(\ell^{\infty})'$ is not separable.
+\end{example}
+
+\begin{example}
+The space of continuous functions which converge to zero at infinity
+is denoted $C_{0}(-)$. We see $(C_{0}(-))'\iso\ell^{1}$.
+Then $C_{0}(-)''\iso\ell^{\infty}$.
+\end{example}
+
+\begin{definition}
+Let $X$ be a normed vector space.
+We define the \define{Weak Topology} on $X$ (denoted (w)) as the
+topology generated by $X'$ [i.e., such that $X'$ consists of
+  continuous functions].
+
+The weak topology is traditionally denoted $\sigma(X,X')$ where we
+understand $\sigma(X,\mathcal{F})$ refers to the weakest topology on $X$
+[first slot] such that every function appearing as an element in
+$\mathcal{F}\subset\hom(X,Y)$ [the second slot, where $Y$ is some
+  topological space] is continuous.
+
+The weak topology is weaker than the normed topology.
+\end{definition}
+
+\begin{node}
+The space $(X,w)$ with the weak topology is a locally convex space
+with seminorms $\{|f|\}_{f\in X'}$.
+\end{node}
+
+\begin{node}
+In terms of nets, the weak topology can be defined as follows:
+$x_{\alpha}\xrightarrow{w}x$ iff $\forall f\in X'\ldotp f(x_{\alpha})\to f(x)$.
+\end{node}
+
+\begin{node}
+Weak topology is ``just'' the product topology (or the ``pointwise''
+topology). 
+\end{node}
+
+\begin{remark}
+Folland~\cite[pp.168--169]{folland1999real} gives a very expedited
+discussion of the weak topology.
+\end{remark}

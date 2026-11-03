@@ -1,0 +1,347 @@
+%%
+%% fall-lecture14.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-03T07:09:05-0800
+%% Last update 2026-11-03T07:09:05-0800
+%% 
+
+\lecture[Pivot to Thermodynamics]{}
+
+\begin{recall}
+We just derived the Entropy Equation~\eqref{eq:fall:lec13:entropy-equation},
+\begin{equation}
+\rho T\frac{D s}{D t}=\Phi-\partial_{i}q_{i}+\rho Q.
+\end{equation}
+\end{recall}
+
+\begin{node}
+Entropy is usually defined in Thermodynamics using the equation
+\begin{equation}
+T\,\D S = \D Q,
+\end{equation}
+and we know $S=S(p,T)$ is a function of pressure $p$ and temperature $T$.
+Then we can form its ``difference equation''
+\begin{equation}\label{eq:fall:lec14:eq1}
+\D S = \left(\frac{\partial S}{\partial p}\right)_{T}\,\D p +
+\left(\frac{\partial S}{\partial T}\right)_{p}\,\D T
+\end{equation}
+where $(\partial\dots/\partial\dots)_{p}$ means we are taking the
+partial derivative while holding $p$ constant,
+$(\partial\dots/\partial\dots)_{T}$ means we are taking the partial
+derivative while holding $T$ constant. This is common notation in Thermodynamics.
+\end{node}
+
+\begin{definition}
+We can also define the \define{Specific Heat Capacity}
+\begin{equation}
+c_{p} := T \left(\frac{\partial S}{\partial T}\right)_{p}
+\end{equation}
+where the partial differentiation is taken while holding pressure $p$ constant.
+\end{definition}
+
+\begin{node}[Deriving the temperature equation]
+We can show
+\begin{subequations}
+  \begin{align}
+\left(\frac{\partial S}{\partial T}\right)_{p}
+&= - \left(\frac{\partial V}{\partial T}\right)_{p}\quad\mbox{by a Maxwell relation}\\
+&= -\alpha V\quad\mbox{where $\alpha$ is coefficient of Thermal capacity}\\
+&= -\alpha/\rho\quad\mbox{since $1/\rho$ is the specific volume}.
+  \end{align}
+\end{subequations}
+Then plugging this back into Eq~\eqref{eq:fall:lec14:eq1},
+\begin{equation}
+\D S = \frac{c_{P}}{T}\D T-\frac{\alpha}{\rho}\D p.
+\end{equation}
+Then ``using material derivatives (by dividing through by $\D t$)''
+(which I am highly distressed by this cavalier attitude)
+\begin{equation}
+\frac{D S}{D t} = \frac{c_{P}}{T}\frac{D T}{D t}-\frac{\alpha}{\rho}\frac{D p}{Dt}.
+\end{equation}
+Then we plug this back into the initial Entropy equation to obtain:
+\begin{equation}
+\boxed{\rho c_{p}\frac{DT}{Dt}=\alpha T\frac{Dp}{Dt}+\Phi-\partial_{i}q_{i}+\rho Q.}
+\end{equation}
+This is called the \define{Temperature Equation}.
+\end{node}
+
+\begin{node}
+Observe for liquids and gases at low Mach numbers (i..e.,
+compressibility is limited),
+\begin{equation}
+\left\|\alpha T\frac{Dp}{Dt}\right\|\ll\left\|\rho T\frac{DT}{Dt}\right\|,
+\end{equation}
+so we can eliminate $Dp/Dt$ to simplify the temperature equation
+\emph{in this particular situation} as:
+\begin{equation}
+\rho c_{p}\frac{DT}{Dt}=\Phi-\partial_{i}q_{i}+\rho Q.
+\end{equation}
+\end{node}
+
+\begin{assume}[Temporarily]
+\begin{enumerate}
+\item No heat source: $Q=0$
+\item Newtonian constitutive relation: $\Phi=\tau_{ij}\partial_{j}u_{i}$
+\item Fourier heat Law: $q_{i}=\kappa\partial_{i}T$
+\end{enumerate}
+\end{assume}
+
+\begin{node}
+Under these temporary assumptions, we can simplify the temperature
+equation even further:
+\begin{subequations}
+  \begin{align}
+\partial_{t}T+u_{i}\partial_{i}T &= 2\frac{\mu}{\rho c_{p}}S_{ij}S_{ij}+\frac{\kappa}{\rho c_{p}}\partial_{i}^{2}T\\
+&=\underbrace{2\frac{\nu}{c_{p}}S_{ij}S_{ij}}_{\text{dissipation}} + \underbrace{D_{T}\partial_{i}^{2}T}_{\text{diffusivity}},
+  \end{align}
+\end{subequations}
+where $D_{T}$ is the \define{Diffusivity Coefficient of $T$}, the
+first term describes dissipation, the second term describes diffusivity.
+
+\textsc{Observe}: under our assumptions, this (plus the equations of
+motion [i.e., conservation of momentum] and conservation of mass)
+forms a solvable system.
+\end{node}
+
+\begin{recall}
+We introduced~(\S\ref{node:lec13:schmidt-number}) the Schmidt number,
+\begin{equation}
+\Schmidt = \frac{\nu}{D_{T}}  = \frac{\nu c_{p}\rho}{\kappa}=\frac{\mu c_{p}}{\kappa}=:\Prandtl
+\end{equation}
+where $\Prandtl$ is the \define{Prandtl Number}. The Prandtl number is
+\textbf{specifically for temperature diffusivity}, and for all other
+diffusivities we use instead the Schmidt number.
+\end{recall}
+
+\begin{node}[Boussinesq approximation]
+Typically, density is a function of temperature $\rho=\rho(T)$. But there are
+times when gravity is important where we use the \define{Boussinesq Approximation}
+[pronounced like ``Bus-in-esk''], where we treat $\rho$ as constant
+\emph{except} when appearing in the gravity term where we use
+\begin{equation}
+\rho(T)=\rho_{0}[1-\alpha(T-T_{0})],
+\end{equation}
+where $T_{0}$ is the reference temperature, $\rho_{0}$ is the
+approximately constant density. Then the conservation of momentum
+equations become
+\begin{equation}\label{eq:fall:lec14:boussinesq-approx-momentum-eqns}
+\rho_{o}\frac{Du_{i}}{Dt}=-\partial_{i}p+\mu\partial_{j}^{2}u_{i}-\rho_{0}[1-\alpha(T-T_{0})]g\delta_{i,3}
+\end{equation}
+assuming that $-g\widehat{e}_{3}$ is the gravitational force vector.
+
+Why do this? Well, it ``kinda decouples'' the temperature equation
+from the momentum equation, in the sense that temperature $T$ enters
+the momentum equation~\eqref{eq:fall:lec14:boussinesq-approx-momentum-eqns}
+as an \emph{external} body force rather than appearing ``with full
+weight'' on the right-hand side of the equation. Numerically, this
+allows us to evolve the temperature from $T(t_{n})$ to $T(t_{n+1})$
+using the velocity $u_{i}(t_{n})$, then plug this $T(t_{n+1})$ to
+determine the velocity at the next time step $u_{i}(t_{n+1})$.
+\end{node}
+
+\begin{caution}
+The Boussinesq approximation works well if $\rho$ changes very slowly.
+\end{caution}
+
+\begin{remark}
+People cite Boussinesq's book~\cite{boussinesq1897theorie} for the origin of the Boussinesq
+approximation. 
+\end{remark}
+
+\section{Continuing Thermodynamics}
+
+\begin{puzzle}
+How do we convert one set of thermodynamic variables to another?
+\end{puzzle}
+
+\begin{law}[First]
+The First Law of Thermodynamics gives us
+\begin{align}
+\D e &= \D Q + \D W\\
+\begin{pmatrix}
+\mbox{change in}\\
+\mbox{stored/internal}\\
+\mbox{energy}
+\end{pmatrix} &= \begin{pmatrix}\mbox{heat transfer}\\
+\mbox{to the system}
+\end{pmatrix}
++ \begin{pmatrix}\mbox{work done}\\
+\mbox{on the system}
+\end{pmatrix}\nonumber
+\end{align}
+\end{law}
+
+\begin{caution}
+Care should be taken because I am being sloppy about so-called
+\define{Inexact Differentials} which are typically written using
+$\delta Q$ (instead of $\D Q$) and $\delta W$ (instead of $\D W$).
+Inexact differentials are \emph{path dependent}. We should really have
+\begin{equation}
+\D e = \delta Q + \delta W,
+\end{equation}
+but I do not believe it is too serious a consequence here.
+\end{caution}
+
+\begin{node}
+In equilibrium processes (we have a slow change), we have the
+definition of entropy
+\begin{equation}
+T\,\D S = \D Q,
+\end{equation}
+and the work done by the system
+\begin{equation}
+\D W = -p\,\D V,
+\end{equation}
+where $V=1/\rho$ is the specific volume. Then we have the
+\define{Canonical Equation of State}:
+\begin{equation}\label{eq:canonical-eqn-of-state}
+\boxed{\D e = T\,\D S - p\,\D V.}
+\end{equation}
+\end{node}
+
+\begin{node}
+We are saying that internal energy is a function of entropy and
+specific volume $e=e(S,V)$ but it can also be a function of pressure
+and temperature $e=e(p,T)$. We only need two parameters for internal
+energy (or any other quantity of interest). If we tried using three
+parameters (for example, $e=e(S,V,T)$), then we could parametrize one
+of the arguments in terms of the other two $T=T(S,V)$ which reduces
+the internal energy to be a function of 2 parameters again.
+
+The upshot: everything in thermodynamics will be a function of two parameters.
+\end{node}
+
+\begin{node}[Maxwell relation for energy]
+We see that internal energy is a function of entropy and volume $e=e(S,V)$
+and also satisfies the canonical Equation of State Eq~\eqref{eq:canonical-eqn-of-state}.
+This means we can set the difference equation equal to the canonical
+equation of state and match coefficients of the differentials:
+\begin{subequations}
+  \begin{align}
+    \D e &= \left(\frac{\partial e}{\partial S}\right)_{V}\,\D S
+    + \left(\frac{\partial e}{\partial V}\right)_{S}\,\D V\\
+    &= T\,\D S - p\,\D V,
+  \end{align}
+\end{subequations}
+then matching coefficients of $\D S$ and $\D V$ tells us
+\begin{equation}
+T = \left(\frac{\partial e}{\partial S}\right)_{V},\quad\mbox{and}\quad
+-p = \left(\frac{\partial e}{\partial V}\right)_{S}.
+\end{equation}
+Then we can relate $T$ and $p$ by taking the derivative of the $T$
+equation with respect to $V$ while holding $S$ constant:
+\begin{equation}
+\left(\frac{\partial T}{\partial V}\right)_{S}
+=\left(\frac{\partial}{\partial V}\left(\frac{\partial e}{\partial S}\right)_{V}
+\right)_{S}
+\end{equation}
+and similarly differentiating $p$ with respect to $S$ while holding
+$V$ constant:
+\begin{equation}
+-\left(\frac{\partial p}{\partial S}\right)_{V}
+=\left(\frac{\partial}{\partial S}\left(\frac{\partial e}{\partial V}\right)_{S}
+\right)_{V}.
+\end{equation}
+We assert both are equal to $(\partial^{2}e/\partial S\partial V)_{S,V}$,
+giving us
+\begin{equation}
+\boxed{\left(\frac{\partial T}{\partial V}\right)_{S}=-\left(\frac{\partial p}{\partial S}\right)_{V}}
+\end{equation}
+which is called the \define{Maxwell Relation for (internal) Energy}.
+\end{node}
+
+\begin{remark}
+There are other Maxwell relations, by looking at equations of state,
+then manipulating in a similar manner (examine their difference
+equation, set coefficients of differential equal to each other, then
+differentiate and set the derivatives equal to each other).
+\end{remark}
+
+\begin{example}[Enthalpy]
+Recall, we have the enthalpy
+\begin{equation}
+h = e + \frac{p}{\rho}=e+pV,
+\end{equation}
+then
+\begin{subequations}
+  \begin{align}
+\D h &= \D e + p\,\D V + V\,\D p\\
+&= (T\,\D S - p\,\D V) + p\,\D V + V\,\D p.
+  \end{align}
+\end{subequations}
+This gives us the \define{Equation of State for Enthalpy}:
+\begin{equation}
+\boxed{\D h = T\,\D S + V\,\D p.}
+\end{equation}
+That's the first step accomplished.
+
+Now, we can then define enthalpy as a function of entropy $S$ and
+pressure $h=h(S,p)$ which gives us the difference equation
+\begin{equation}
+\D h = \left(\frac{\partial h}{\partial S}\right)_{p}\D S
+ \left(\frac{\partial h}{\partial p}\right)_{S}\D p.
+\end{equation}
+Then comparing coefficients
+\begin{equation}
+T = \left(\frac{\partial h}{\partial S}\right)_{p},\quad\mbox{and}\quad
+V = \left(\frac{\partial h}{\partial p}\right)_{S},
+\end{equation}
+and then after some dreary calculations we obtain the \define{Maxwell Relation for Enthalpy}:
+\begin{equation}
+\boxed{\left(\frac{\partial T}{\partial p}\right)_{S} = \left(\frac{\partial V}{\partial S}\right)_{p}.}
+\end{equation}
+\end{example}
+
+\begin{definition}
+We define the \define{Helmholtz free energy} $f := e - TS$.
+\end{definition}
+
+\begin{example}
+The equation of state for the Helmholtz free energy is
+\begin{equation}
+\D f = - S\,\D T - p\,\D V.
+\end{equation}
+Then we can write the Helmholtz free energy as a function of
+temperature and [specific] volume $f=f(T,V)$. Then we write the
+difference equation for $f$, match the coefficients of the difference
+equation with the equation of state, and so on, we obtain the
+\define{Maxwell Relation for Helmholtz Free Energy}:
+\begin{equation}\label{eq:maxwell-relation-for-helmholtz-free-energy}
+\left(\frac{\partial S}{\partial V}\right)_{T}
+=\left(\frac{\partial p}{\partial T}\right)_{V}.
+\end{equation}
+\end{example}
+
+\begin{definition}
+We define the \define{Gibbs Free Energy} $g := h - TS$.
+\end{definition}
+
+\begin{example}
+Omitting the intermediate steps, the Maxwell relation for the Gibbs
+Free Energy is:
+\begin{equation}\label{eq:maxwell-relation-for-gibbs-free-energy}
+\left(\frac{\partial S}{\partial p}\right)_{T}
+=-\left(\frac{\partial V}{\partial T}\right)_{p}.
+\end{equation}
+\end{example}
+
+\begin{summary}
+We have thus obtained the 4 Maxwell relations (and there are only 4):
+\begin{enumerate}
+\item (Internal) Energy: $\displaystyle{\left(\frac{\partial T}{\partial V}\right)_{S}=-\left(\frac{\partial p}{\partial S}\right)_{V}.}$
+\item Enthalpy: $\displaystyle{\left(\frac{\partial T}{\partial p}\right)_{S} = \left(\frac{\partial V}{\partial S}\right)_{p}.}$
+\item Helmholtz free energy: $\displaystyle{\left(\frac{\partial S}{\partial V}\right)_{T}=\left(\frac{\partial p}{\partial T}\right)_{V}.}$
+\item Gibbs free energy: $\displaystyle{\left(\frac{\partial S}{\partial p}\right)_{T}
+=-\left(\frac{\partial V}{\partial T}\right)_{p}.}$
+\end{enumerate}
+\end{summary}
+
+\begin{remark}
+``Back in the day'', there was a mnemonic called the ``Tizsou Square''
+(Wikipedia calls it the ``Thermodynamic Square'' and attributes it to
+Max Born) which allowed you to derive the Maxwell relations for each
+Thermodynamic quantity.
+\end{remark}

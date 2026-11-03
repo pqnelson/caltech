@@ -1,0 +1,356 @@
+%%
+%% fall-lecture16.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-03T08:43:05-0800
+%% Last update 2026-11-03T08:43:05-0800
+%% 
+
+\lecture{}
+
+\subsection{Recipricocity Relations}
+
+\begin{node}
+We want to have 2 equations we can compare side-by-side.
+\end{node}
+
+\begin{example}
+Enthalpy has a state equation of the form:
+\begin{equation}
+\D h = T\,\D S + V\,\D p.
+\end{equation}
+This implies
+\begin{equation}
+T\,\D S = \D h - V\,\D p,
+\end{equation}
+giving us
+\begin{equation}\label{eq:fall:lec16:ex1:eq1}
+\D S = \frac{\D h}{T}-\frac{V}{T}\,\D p.
+\end{equation}
+This is just the first step.
+
+Now, we also can write enthalpy as a function of temperature and
+pressure $h=h(T,p)$ which gives us the difference equation
+\begin{equation}
+\D h = \left(\frac{\partial h}{\partial p}\right)_{T}\D p
++ \left(\frac{\partial h}{\partial T}\right)_{p}\D T
+\end{equation}
+Then plugging this back into Eq~\eqref{eq:fall:lec16:ex1:eq1},
+\begin{subequations}\label{eq:fall:lec16:ex1:eq3}
+  \begin{align}
+\D S &= \frac{1}{T}\left[\left(\frac{\partial h}{\partial p}\right)_{T}\D p
++ \left(\frac{\partial h}{\partial T}\right)_{p}\D T\right]-\frac{V}{T}\D p\\
+&=\left[\frac{1}{T}\left(\frac{\partial h}{\partial p}\right)_{T}
+ -\frac{V}{T} \right]\D p + \left(\frac{\partial h}{\partial T}\right)_{p}\D T
+  \end{align}
+\end{subequations}
+This is one equation.
+
+Now, we can write entropy as a function of pressure and temperature $S=S(p,T)$
+which gives us the difference equation
+\begin{equation}\label{eq:fall:lec16:ex1:eq4}
+\D S = \left(\frac{\partial S}{\partial p}\right)_{T}\D p
++ \left(\frac{\partial S}{\partial T}\right)_{p}\D T.
+\end{equation}
+This is our second equation. Now setting Eq~\eqref{eq:fall:lec16:ex1:eq3}
+equal to Eq~\eqref{eq:fall:lec16:ex1:eq4} we obtain (matching
+coefficients of the differentials) two equations:
+\begin{subequations}
+\begin{equation}
+\left(\frac{\partial S}{\partial p}\right)_{T} = \frac{1}{T}\left(\frac{\partial h}{\partial p}\right)_{T}
+\end{equation}
+and
+\begin{equation}
+\left(\frac{\partial S}{\partial T}\right)_{p}
+=\frac{1}{T}\left(\frac{\partial h}{\partial T}\right)_{p}-\frac{V}{T}.
+\end{equation}
+\end{subequations}
+We're not done yet! We can rearrange this second equation and the
+Maxwell relation for Gibbs free energy Eq~\eqref{eq:maxwell-relation-for-gibbs-free-energy} to obtain a
+\define{Reciprocity Relation}
+\begin{equation}
+\boxed{\left(\frac{\partial h}{\partial T}\right)_{p}=V-T\left(\frac{\partial S}{\partial T}\right)_{p}.}
+\end{equation}
+\end{example}
+
+\begin{node}
+There are only 2 reciprocity relations. The other uses the canonical
+equation of state
+\begin{equation}
+\D e = T\,\D S - p\,\D V,
+\end{equation}
+and writes entropy as a function of volume and temperature $S=S(V,T)$
+to obtain
+\begin{subequations}
+\begin{equation}
+  \left(\frac{\partial S}{\partial T}\right)_{V}=
+  \frac{1}{T}\left(\frac{\partial e}{\partial T}\right)_{V}
+\end{equation}
+and
+\begin{equation}
+\left(\frac{\partial S}{\partial V}\right)_{T} =
+\frac{1}{T}\left[\left(\frac{\partial e}{\partial V}\right)_{T} + p\right]
+\end{equation}
+\end{subequations}
+Then after a lot of profanity and invoking the Helmholtz free energy
+Maxwell relation Eq~\eqref{eq:maxwell-relation-for-helmholtz-free-energy}, the
+second equation gives us the \define{Second Reciprocity Relation}:
+\begin{equation}
+\boxed{\left(\frac{\partial e}{\partial V}\right)_{T} = T\left(\frac{\partial p}{\partial T}\right)_{V}-p.}
+\end{equation}
+(This is just the other reciprocity relation, ``second'' is used to
+distinguish it from the earlier relation we just so-happend to derive first.)
+\end{node}
+
+\begin{remark}
+There were more than a few intermediate steps involved obtaining these
+reciprocity relations, and they are all valid.
+\end{remark}
+
+\begin{remark}
+I am having trouble finding anyone using the term ``reciprocity relation''
+for either of these two equations. This just means I am not competent
+enough to find references.
+\end{remark}
+
+\subsection{Defined quantities in Thermodynamics}
+
+\begin{definition}
+The \define{Specific heat at constant pressure} is
+\begin{equation*}
+c_{p} := \left(\frac{\partial h}{\partial T}\right)_{p} = T\left(\frac{\partial S}{\partial T}\right)_{p}
+\end{equation*}
+where we use the equation of state to get the equality with $\partial S/\partial T$.
+\end{definition}
+
+\begin{definition}
+The \define{Specific Heat at Constant Volume} is
+\begin{equation*}
+c_{V} := \left(\frac{\partial h}{\partial T}\right)_{V} = T\left(\frac{\partial S}{\partial T}\right)_{V}
+\end{equation*}
+where we use an equation of state to get the equality with $\partial S/\partial T$.
+\end{definition}
+
+\begin{remark}
+We can think of the specific heats as functions $c_{p}=c_{p}(p,T)$ and $c_{V}=c_{V}(V,T)$.
+\end{remark}
+
+\begin{definition}
+The \define{Ratio of Specific Heats} is $\gamma := c_{p}/c_{V}$.
+\end{definition}
+
+\begin{definition}
+The \define{Speed of Sound} (as a thermodynamic quantity) is
+\begin{equation*}
+c := \sqrt{\left(\frac{\partial p}{\partial \rho}\right)_{S}}
+\end{equation*}
+where $\rho=1/V$. We should think of this as describing compressive
+forces (how pressure changes with respect to specific volume).
+\end{definition}
+
+\begin{definition}
+The \define{Coefficient of Thermal Expansion} is
+\begin{equation*}
+\alpha := \frac{1}{V}\left(\frac{\partial V}{\partial T}\right)_{p}.
+\end{equation*}
+Typically $\alpha>0$, but famously $\alpha<0$ for water between
+$0^{\circ}~\mathrm{C}$ to $4^{\circ}~\mathrm{C}$.
+\end{definition}
+
+\begin{definition}
+We define the \define{Isothermal Compressibility}
+\begin{equation}
+\kappa_{T} := \frac{1}{V}\left(\frac{\partial V}{\partial p}\right)_{T}
+\end{equation}
+and \define{Isentropic Compressibility}
+\begin{equation}
+\kappa_{S} := \frac{-1}{V}\left(\frac{\partial V}{\partial p}\right)_{S}.
+\end{equation}
+The convention in Thermodynamics is to reserve kappa $\kappa$ for
+``compressibility'' quantities.
+\end{definition}
+
+\begin{remark}
+Note that
+\begin{subequations}
+  \begin{align}
+\left(\frac{\partial V}{\partial p}\right)_{S}
+&= \frac{1}{\left(\frac{\partial p}{\partial V}\right)_{S}}\\
+&= \frac{1}{\left(\frac{\partial p}{\partial \rho}\right)_{S}\left(\frac{\partial \rho}{\partial V}\right)_{S}}\\
+&= \frac{1}{c^{2}\frac{-1}{V^{2}}},
+  \end{align}
+\end{subequations}
+so
+\begin{equation}
+\kappa_{S} = \frac{V}{c^{2}}
+\end{equation}
+where $c$ is the speed of sound.
+\end{remark}
+
+\begin{proposition}
+Isothermal compressibility is directly proportional to isentropic
+compressibility, with the coefficient of proportionality being
+precisely the ratio of specific heats:
+\begin{equation}
+\kappa_{T} = \gamma\kappa_{S}.
+\end{equation}
+\end{proposition}
+
+(See, e.g., Landau and Lifshitz~\cite[\S16]{landau1969statmech}
+specifically their derivation for Eq~(16.14).)
+
+\begin{proof}
+Observe we want to prove
+\begin{equation}
+\left(\frac{\partial p}{\partial V}\right)_{S} = \frac{c_{p}}{c_{V}}\left(\frac{\partial p}{\partial V}\right)_{T}.
+\end{equation}
+We start by writing entropy as a function of pressure and volume $S=S(p,V)$.
+Then we write the difference equation
+\begin{equation}
+\D S = \left(\frac{\partial S}{\partial p}\right)_{V}\D p
++ \left(\frac{\partial S}{\partial V}\right)_{p}\D V.
+\end{equation}
+Now, looking at
+\begin{subequations}
+  \begin{align}
+\left(\frac{\partial S}{\partial p}\right)_{V} &= \left(\frac{\partial S}{\partial T}\right)_{V}\left(\frac{\partial T}{\partial p}\right)_{V}\\
+&=\frac{c_{V}}{T}\left(\frac{\partial T}{\partial p}\right)_{V}
+  \end{align}
+\end{subequations}
+and
+\begin{subequations}
+  \begin{align}
+\left(\frac{\partial S}{\partial V}\right)_{p}
+&= \left(\frac{\partial S}{\partial T}\right)_{p}\left(\frac{\partial T}{\partial V}\right)_{p}\\
+&= \frac{c_{P}}{T}\left(\frac{\partial T}{\partial V}\right)_{p},
+  \end{align}
+\end{subequations}
+we can plug these into the difference equation to obtain
+\begin{subequations}\label{eq:fall:lec16:difference-spec-heat:step3}
+  \begin{align}
+\D S &=
+\frac{c_{V}}{T}\left(\frac{\partial T}{\partial p}\right)_{V}\D p
++ \frac{c_{P}}{T}\left(\frac{\partial T}{\partial V}\right)_{p}\D V\\
+&=\frac{c_{V}}{T}\frac{1}{\left(\frac{\partial p}{\partial T}\right)_{V}}\D p
++ \frac{c_{P}}{T}\frac{1}{\left(\frac{\partial V}{\partial T}\right)_{p}}\D V.
+  \end{align}
+\end{subequations}
+Now, we just need to calculate $\partial p/\partial T$ and $\partial V/\partial T$.
+
+We can write the specific volume as a function of pressure and
+temperature $V=V(p,T)$. Then we have the difference equation
+\begin{equation}
+\D V = \left(\frac{\partial V}{\partial p}\right)_{T}\D p +  \left(\frac{\partial V}{\partial T}\right)_{p}\D T.
+\end{equation}
+If we divide both sides by $\D T$ and hold $V$ constant, we see
+\begin{equation}
+ \underbrace{\left(\frac{\partial V}{\partial T}\right)_{V}}_{=0}
+= \left(\frac{\partial V}{\partial p}\right)_{T}\left(\frac{\partial p}{\partial T}\right)_{V} +  \left(\frac{\partial V}{\partial T}\right)_{p}.
+\end{equation}
+Then rearranging terms gives us (since the left-hand side vanishes):
+\begin{equation}\label{eq:fall:lec16:difference-spec-heat:step5}
+\left(\frac{\partial p}{\partial T}\right)_{V}
+ = \frac{-\left(\frac{\partial V}{\partial T}\right)_{p}}{\left(\frac{\partial V}{\partial p}\right)_{T}}=\frac{\alpha}{\kappa_{T}}.
+\end{equation}
+Similarly, we find
+\begin{equation}\label{eq:fall:lec16:difference-spec-heat:step6}
+\left(\frac{\partial V}{\partial T}\right)_{p}
+= V\alpha.
+\end{equation}
+Great.
+
+Now, we plug Eq~\eqref{eq:fall:lec16:difference-spec-heat:step5} and Eq~\eqref{eq:fall:lec16:difference-spec-heat:step6}
+back into Eq~\eqref{eq:fall:lec16:difference-spec-heat:step3}
+to get
+\begin{equation}
+\D S = \frac{c_{V}}{T}\frac{\kappa_{T}}{\alpha}\D p + \frac{c_{P}}{T}\frac{1}{V\alpha}\D V.
+\end{equation}
+Performing a similar trick (dividing by $\D V$ while holding $S$
+constant) gives us
+\begin{equation}
+0 = \frac{c_{V}}{T}\frac{\kappa_{T}}{\alpha}\left(\frac{\partial p}{\partial V}\right)_{S} + \frac{c_{P}}{T}\frac{1}{V\alpha}.
+\end{equation}
+Hence the claim after a bit of algebra.
+\end{proof}
+
+\begin{remark}
+Landau and Lifshitz take a different approach, which is worth
+mentioning. They use the Jacobian matrix determinant
+\begin{equation}
+\frac{\partial(u,v)}{\partial(x,y)}=\det\begin{pmatrix}\partial
+u/\partial x & \partial u/\partial y\\
+\partial v/\partial x & \partial v/\partial y
+\end{pmatrix}.
+\end{equation}
+This has the identities
+\begin{subequations}
+\begin{equation}
+\frac{\partial(u,y)}{\partial(x,y)}=\left(\frac{\partial u}{\partial x}\right)_{y},
+\end{equation}
+and
+\begin{equation}
+\frac{\partial(u,v)}{\partial(x,y)}=\frac{[\partial(u,v)/\partial(a,b)]}{[\partial(x,y)/\partial(a,b)]}.
+\end{equation}
+\end{subequations}
+Then
+\begin{subequations}
+  \begin{align}
+\left(\frac{\partial T}{\partial V}\right)_{S}
+&= \frac{\partial(T,S)}{\partial(V,S)}\\
+&= \frac{[\partial(T,S)/\partial(V,T)]}{[\partial(V,S)/\partial(V,T)]}\\
+&= -\frac{\left(\frac{\partial S}{\partial V}\right)_{T}}{\left(\frac{\partial S}{\partial T}\right)_{V}}\\
+&= \frac{-T}{c_{V}}{\left(\frac{\partial S}{\partial V}\right)_{T}},
+  \end{align}
+\end{subequations}
+and by using the Maxwell relation for Helmholtz free energy rewrites the
+right-hand side to give us:
+\begin{equation}
+\left(\frac{\partial T}{\partial V}\right)_{S} = \frac{T}{c_{V}}\left(\frac{\partial p}{\partial T}\right)_{V}.
+\end{equation}
+``Similarly, we find'' (using the Maxwell relation for Gibbs free energy),
+\begin{equation}
+\left(\frac{\partial T}{\partial p}\right)_{S} = \frac{T}{c_{p}}\left(\frac{\partial V}{\partial T}\right)_{p}.
+\end{equation}
+Then using Jacobian matrix identities again,
+\begin{subequations}
+  \begin{align}
+\left(\frac{\partial V}{\partial p}\right)_{S}
+&= \frac{\partial(V,S)}{\partial(p,S)}\\
+&= \frac{[\partial(V,S)/\partial(V,T)]}{[\partial(p,S)/\partial(p,T)]}\frac{\partial(V,T)}{\partial(p,T)}\\
+&=\frac{\left(\frac{\partial S}{\partial T}\right)_{V}}{\left(\frac{\partial S}{\partial T}\right)_{p}}\left(\frac{\partial V}{\partial p}\right)_{T}\\
+&=\frac{c_{V}}{c_{p}}\left(\frac{\partial V}{\partial p}\right)_{T}
+  \end{align}
+\end{subequations}
+then we have the desired result.
+\end{remark}
+
+\begin{proposition}
+The difference in specific heats satisfies
+\begin{equation}
+c_{p}-c_{V} = \frac{VT\alpha^{2}}{\kappa_{T}}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Landau and Lifshitz observes
+\begin{subequations}
+  \begin{align}
+c_{V} &= T\left(\frac{\partial S}{\partial T}\right)_{V}\\
+&= T \frac{\partial(S,V)}{\partial(T,V)}\\
+&= T \frac{[\partial(S,V)/\partial(T,p)]}{[\partial(T,V)/\partial(T,p)]}\\
+&= T \frac{\left(\frac{\partial S}{\partial T}\right)_{p}\left(\frac{\partial V}{\partial p}\right)_{T}-\left(\frac{\partial S}{\partial p}\right)_{T}\left(\frac{\partial V}{\partial T}\right)_{p}}{\left(\frac{\partial V}{\partial p}\right)_{T}}\\
+&= c_{p} - T \frac{\left(\frac{\partial S}{\partial p}\right)_{T}\left(\frac{\partial V}{\partial T}\right)_{p}}{\left(\frac{\partial V}{\partial p}\right)_{T}}
+  \end{align}
+\end{subequations}
+which can be rearranged as
+\begin{equation}
+c_{p}-c_{V} = T \frac{\left(\frac{\partial S}{\partial p}\right)_{T}\left(\frac{\partial V}{\partial T}\right)_{p}}{\left(\frac{\partial V}{\partial p}\right)_{T}}.
+\end{equation}
+Then it is not too hard to manipulate the right-hand side to obtain
+the desired form: the denominator is already equal to $V\kappa_{T}$,
+the numerator is $T(\partial S/\partial p)_{T}V\alpha$ and then the
+reciprocal of the Maxwell relation for internal energy should give the
+desired result.
+\end{proof}

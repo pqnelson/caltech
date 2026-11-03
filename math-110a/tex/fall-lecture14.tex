@@ -1,0 +1,204 @@
+%%
+%% fall-lecture14.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-03T10:03:40-0800
+%% Last update 2026-11-03T10:03:40-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $H$ be a Hilbert space. Let $y\in H$ be a vector.
+Then $f\colon H\to\CC$, $x\mapsto(x,y)$ is a continuous linear map $f\in\mathcal{L}(H,\CC)$.
+We define the \define{Dual Space} of $H$ to be $H' := \mathcal{L}(H,\CC)$.
+\end{definition}
+
+\begin{theorem}[Riesz representation]
+Let $H$ be a Hilbert space. 
+For every element of the dual space $f\in H'$,
+there exists a unique $y\in H$ such that for all $x\in H$ we have $f(x)=(x,y)$.
+\end{theorem}
+
+\begin{proof}
+Write $L=\ker(f)$, which is a closed linear subspace of $H$ (since $f$
+is continuous). We have two cases:
+
+\textsc{Case 1}: $L=H$. Then take $y=0$, so $f(x)=(x,y)$ for all $x\in H$.
+
+\textsc{Case 2}: $L\neq H$. Then take any $y_{0}\in L^{\perp}$ of norm
+$1=\|y_{0}\|$. Recall the Riesz projection Theorem~\ref{thm:riesz-projection}
+which tells us $H=L\oplus L^{\perp}$. We will show that
+\begin{equation}
+y = \overline{f(y_{0})}y_{0}
+\end{equation}
+is the unique vector we seek. Observe $y\in L^{\perp}$.
+
+We will show that for all $x\in H$, we have $f(x)=(x,y)$. We have two
+subcases:
+
+\textsc{Subcase 2.1}: $x\in L$. Then $f(x)=0=(x,y)$ since $x\in L$ but
+$y\in L^{\perp}$.
+
+\textsc{Subcase 2.2}: $x=y_{0}$. Then
+\begin{subequations}
+  \begin{align}
+(x,y) &= f(y_{0})\cdot(y_{0},y_{0})\quad\mbox{by antilinearity in second slot}\\
+&= f(y_{0})\|y_{0}\|^{2}\\
+&= f(y_{0})\cdot1=f(y_{0})\\
+&=f(x)\quad\mbox{by assumption}.
+  \end{align}
+\end{subequations}
+Hence $f(x)=f(y_{0})=(x,y)$.
+
+We claim $L^{\perp}=\CC y_{0}=\Span(y_{0})$. Then for $x\in L^{\perp}$
+we can write it as $x=\lambda y_{0}$, and so:
+\begin{equation}
+f(x)=f(\lambda y_{0})=\lambda f(y_{0})=\lambda,
+\end{equation}
+which handles this case.
+
+Hence $f(x)=(x,y)$ for all $x\in L\oplus L^{\perp}$ by these two
+subcases, hence for all $x\in H$.
+
+We just need to prove the claim $L^{\perp}=\CC y_{0}$: Let $x\in L^{\perp}$.
+We know $\CC y_{0}\subset L^{\perp}$. We just need to prove $\CC y_{0}\supset L^{\perp}$.
+Find nontrivial $\alpha,\beta\in\CC\setminus\{0\}$ such that
+\begin{equation}
+\alpha f(x)+\beta f(y_{0})=0.
+\end{equation}
+We can write
+\begin{equation}
+f(\alpha x + \beta y_{0})=\alpha f(x)+\beta f(y_{0})=0,
+\end{equation}
+so this means $\alpha x + \beta y_{0}\in L$. But both $x\in L^{\perp}$
+and $y_{0}\in L^{\perp}$ implies $\alpha x + \beta y_{0}\in L^{\perp}$.
+But the only vector which belongs to both $L$ and $L^{\perp}$ is the
+zero vector, which means
+\begin{equation}
+\alpha x + \beta y_{0} = 0.
+\end{equation}
+This means any nonzero $x\in L^{\perp}$ is a nonzero scalar multiple of $y_{0}$.
+Hence the inclusion $\CC y_{0}\supset L^{\perp}$ which concludes the claim.
+\end{proof}
+
+\subsection{Orthogonal Systems, Orthonormal Families}
+
+\begin{definition}
+Let $H$ be a Hilbert space. Let $e=\{e_{\alpha}\}_{\alpha\in A}\subset H$
+be a family of vectors [possibly finite or not, possible uncountable or not].
+\begin{itemize}
+\item We say $e$ is an \define{Orthonormal Family} if
+  $(e_{\alpha},e_{\beta})=\delta_{\alpha,\beta}$ for all
+  $\alpha,\beta\in A$;
+\item We say an orthonormal family $e$ is an \define{Orthonormal Basis}
+  (or ``ONB'' for short) if one of the following equivalent conditions holds: 
+\begin{enumerate}
+\item all finite linear combinations $\Lin\{e_{\alpha}\}$ is dense in $H$
+\item if $\forall\alpha\in A\ldotp(e_{\alpha},y)=0$, then $y=0$ [there
+  is no nonzero vector orthogonal to the family]
+\item the family $\{e_{\alpha}\}_{\alpha\in A}$ is maximal [i.e., we
+  cannot add more orthogonal vectors to it]---formally: for any
+  orthonormal family $e'$ such that $e\subset e'$ we have $e=e'$.
+\end{enumerate}
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+Let $H$ be a Hilbert space, let $\{e_{\alpha}\}$ be an orthonormal
+basis. Let $x\in H$ be a vector. Then the \define{Fourier Expansion}
+of $x$ with respect to $\{e_{\alpha}\}$ is the series $\sum_{\alpha\in A}\widehat{x}(\alpha)e_{\alpha}$.
+(The sum is understood in terms of convergence of partial sums
+directed by finite subsets; this is a directed set [net] directed by
+finite subsets.)
+We call $\widehat{x}(\alpha)$ the \define{Fourier Coefficients} for
+$x$ with respect to the basis $\{e_{\alpha}\}$. 
+
+It is true that $x=\sum_{\alpha\in A}\widehat{x}(\alpha)e_{\alpha}$.
+\end{definition}
+
+\begin{node}
+Fourier expansions are studied further in 110C.
+\end{node}
+
+\begin{node}
+The really difficult question concerns the \emph{existence} of an
+orthonormal basis.
+\end{node}
+
+\begin{theorem}
+Every Hilbert space has an orthonormal basis.
+\end{theorem}
+
+\begin{proof}
+Zorn's lemma.
+\end{proof}
+
+\subsection{Aside: Zorn's Lemma}
+
+\begin{definition}
+A \define{Partially Ordered Set} (or ``poset'') is a set $A$ equipped
+with a binary relation $\leq$ such that
+\begin{enumerate}
+\item Transitivity: for all $x,y,z\in A$, if $x\leq y$ and $y\leq z$, then $x\leq z$;
+\item Reflexivity: for all $x\in A$, we have $x\leq x$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Let $(A,\leq)$ be a poset. Let $E\subset A$ be a subset. We say $E$ is
+\define{Linearly Ordered} if for all $a,b\in E$ either $a<b$ or $a=b$
+or $a>b$ --- note $a<b$ abbreviates $a\leq b$ but $a\neq b$, and $a>b$
+abbreviates $b<a$.
+\end{definition}
+
+\begin{definition}
+Let $(A,\leq)$ be a poset. Let $E\subset A$ be a subset.
+An \define{Upper Bound} of $E$ is an element $u\in A$ such that for
+all $e\in E$ we have $e\leq u$. Sometimes people write this as
+$\exists u\in A\ldotp E\leq u$ in a mild abuse of notation.
+\end{definition}
+
+\begin{definition}
+Let $(A,\leq)$ be a poset. Let $b\in A$ be an element. We say that $b$
+is a \define{Maximal Element} (or just ``maximal'') if for all $a\in A$ 
+such that $a\geq b$ we have $a=b$. (Anything not-less-than $b$ must be
+equal to $b$.)
+\end{definition}
+
+\begin{claim}[Zorn's lemma]
+Let $A$ be a \emph{partially ordered set} such that every
+\emph{linearly ordered} subset $E\subset A$ has an \emph{upper bound}.
+Then $A$ has a \emph{maximal element}.
+\end{claim}
+
+\begin{node}
+We do not prove this claim, because it is an \emph{axiom} (despite its
+name ``Zorn's \emph{lemma}'').
+\end{node}
+
+\begin{example}
+Let $H$ be a Hilbert space.
+Let $\mathcal{A}$ be the set of all orthonormal families in $H$, so we
+write $\mathcal{A}=ON(H)$. So $e\in\mathcal{A}$ and $e\subset H$ [so
+  $e$ means two things simultaneously].
+The ordering is by inclusion $e\leq e'$ iff
+$e=\{e_{\alpha}\}_{\alpha\in A}$, $e'=\{e'_{\beta}\}_{\beta\in B}$,
+$e\subset e'$.
+
+Let $E\subset\mathcal{A}$ be a linearly ordered subset. Then there
+exists an upper bound for $E$, namely $\bigcup E$ since
+\begin{equation}
+\forall e\in E\ldotp e\leq\bigcup E.
+\end{equation}
+Therefore by Zorn's lemma, $\mathcal{A}$ has a maximal element. In
+particular, this means every Hilbert space must have an orthonormal basis.
+\end{example}
+
+\begin{note}
+We will use Zorn's Lemma for Hahn--Banach theorem, for Tychanov
+theorem, Krane--Miln theorem [for convex sets]. It is used everywhere,
+so get used to it.
+\end{note}

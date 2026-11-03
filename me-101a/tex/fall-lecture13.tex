@@ -103,7 +103,7 @@ This is the regime where we can use Stokes flow approximation.
 to $9\times10^{-3}~\mathrm{m}$ in mean diameter.]
 \end{example}
 
-\begin{node}
+\begin{node}\label{node:lec13:schmidt-number}
 A lot of nondimensional numbers we introduced are related to force
 balance (the Mach number being the most famous exception). Here we
 give one example of a nondimensional number not related to the balance
@@ -206,6 +206,14 @@ We recall the internal energy equation:
 where $\Phi:=\tau_{ij}\partial_{j}u_{i}$ is defined as the \define{Dissipation}.
 \end{node}
 
+\begin{remark}
+Batchelor~\cite[p.153]{batchelor1973introduction} notes that the
+dissipation of mechanical energy (per unit mass) due to viscosity
+$\Phi$ is equivalent in its effect on the fluid to an irreversible
+addition of heat. This is probably obvious to Engineers, but I thought
+I should stress this fact.
+\end{remark}
+
 \begin{node}
 Now, we manipulate the continuity equation. Observe, by the chain rule,
 \begin{equation}
@@ -235,7 +243,7 @@ to give us
 \end{equation}
 We use Gibbs relation to see the left-hand side is just $\rho T\,(D s/D t)$.
 Therefore we obtain the \define{Entropy Equation}:
-\begin{equation}
+\begin{equation}\label{eq:fall:lec13:entropy-equation}
 \boxed{\rho T\frac{D s}{D t}=\Phi-\partial_{i}q_{i}+\rho Q.}
 \end{equation}
 \end{node}
@@ -331,3 +339,14 @@ positive. Taking a step back, this means that the change in entropy
 over time (the left hand side) is strictly increasing. So, at the very
 least, we recover familiar results (which is a good sanity check).
 \end{node}
+
+\begin{remark}
+The Reader should consult Batchelor~\cite[\S1.6~\&~\S3.4]{batchelor1973introduction}
+for more about the nuances about Thermodynamics. In particular, we
+have glossed over any concerns about the existence of equilibrium
+states. Batchelor cites Pippard's \textit{Elements of Classical Thermodynamics}
+(Cambridge University Press, 1966(?)) as ``the textbook reference''
+on Thermodynamics; it's quite good, and Physicists should read it
+(since ``Thermodynamics'' now is a course studying Ising models and/or a lattice
+of quantum simple harmonic oscillators).
+\end{remark}
