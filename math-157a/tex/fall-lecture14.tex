@@ -1,0 +1,152 @@
+%%
+%% fall-lecture14.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-05T12:59:21-0800
+%% Last update 2026-11-05T12:59:21-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+The proof consists of three steps:
+\begin{enumerate}
+\item Working in a local coordinate chart (or, equivalently, for
+  trivial vector bundles);
+\item Working in two overlapping local coordinate charts;
+\item extending the results from local to global settings.
+\end{enumerate}
+\end{node}
+
+\begin{claim}
+The Thom class $U$ is unique.
+\end{claim}
+
+\begin{claim}[Existence of Thom isomorphism for trivial vector bundles]
+We have
+\begin{align}
+H^{j}(B;\ZZ_{2}) & \to H^{j+n}(E,E_{0};\ZZ_{2})=H^{j}(B;\ZZ_{2})\otimes H^{n}(F,F_{0};\ZZ_{2})\\
+\beta & \mapsto\beta\otimes a=(\beta\otimes1)\smile(1\otimes a)=(p^{*}\beta)\otimes U\nonumber
+\end{align}
+where $p\colon E\to B$ is the projection of $\xi$. This is the isomorphism.
+\end{claim}
+
+\begin{claim}[Step 2]
+We can construct the Thom class over 2 locally trivial charts
+$\xi|_{B'}$ and $\xi|_{B''}$ are trivial, so $E'=p^{-1}(B')$ and $E''=p^{-1}(B'')$.
+\end{claim}
+
+\begin{node}
+We will write
+\begin{subequations}
+\begin{equation}
+B^{\cap} = B'\cap B'',\quad\mbox{and}\quad B^{\cup} = B'\cup B''
+\end{equation}
+and
+\begin{equation}
+E^{\cap} = E'\cap E'',\quad\mbox{and}\quad E^{\cup} = E'\cup E''
+\end{equation}
+and
+\begin{equation}
+E^{\cap}_{0}=E^{\cap}/s_{0}(B^{\cap}),\quad\mbox{and}\quad E^{\cup}_{0}=E^{\cup}/s_{0}(B^{\cup}).
+\end{equation}
+\end{subequations}
+\end{node}
+
+\begin{node}
+Now, we use the Mayer--Vietoris sequence for Cohomology groups:
+\begin{equation}\label{eq:math157a:fall2026:mayer-vietoris}
+\dots\to H^{n-1}(E^{\cap};\ZZ_{2})\to H^{n}(E^{\cup},E^{\cup}_{0};\ZZ_{2})\xrightarrow{(j_{1}^{*},j_{2}^{*})}H^{n}(E',E'_{0};\ZZ_{2})\oplus
+H^{n}(E'',E''_{0};\ZZ_{2})\xrightarrow{i_{1}^{*}+i_{2}^{*}}H^{n}(E^{\cap},E^{\cap}_{0};\ZZ_{2})
+\end{equation}
+where $j_{1}\colon(E',E'_{0})\into(E^{\cup},E^{\cup}_{0})$,
+ $j_{2}\colon(E'',E''_{0})\into(E^{\cup},E^{\cup}_{0})$,
+ $i_{1}\colon(E^{\cap},E^{\cap}_{0})\into(E',E'_{0})$,
+ $i_{2}\colon(E^{\cap},E^{\cap}_{0})\into(E'',E''_{0})$.
+\end{node}
+
+\begin{node}
+We can adapt step 1 to $H^{n}(E',E'_{0};\ZZ_{2})$ and $H^{n}(E'',E''_{0};\ZZ_{2})$
+to get the unique Thom classes $U'\in H^{n}(E',E'_{0};\ZZ_{2})$
+and $U''\in H^{n}(E'',E''_{0};\ZZ_{2})$. Now, we see:
+\begin{enumerate}
+\item $H^{n-1}(E^{\cap},E^{\cap}_{0};\ZZ_{2})=0$. Why? Because
+  $H^{j}(B^{\cap})\iso H^{j+n}(E^{\cap},E^{\cap}_{0};\ZZ_{2})$ by step
+  1 and $H^{j}(B^{\cap})=0$ for $j<n$.
+\item (We need to understand $i_{1}^{*}U' + i_{2}^{*}U''$) We claim
+  that both are equal to the Thom class in $H^{n}(E^{\cap},E^{\cap}_{0};\ZZ_{2})$.
+  This is true because look at the maps $\ell_{1}$ and $\ell_{2}$ satisfying
+\begin{equation}
+(F,F_{0})\xrightarrow{\ell_{1}}(E^{\cap},E^{\cap}_{0})\xrightarrow{i_{1}}(E',E'_{0})
+\end{equation}
+then $(i_{1}\circ\ell_{1})^{*}U'$ is a generator of the fiber, and
+\begin{equation}
+(F,F_{0})\xrightarrow{\ell_{2}}(E^{\cap},E^{\cap}_{0})\xrightarrow{i_{2}}(E'',E''_{0})
+\end{equation}
+then $(i_{2}\circ\ell_{2})^{*}U'$ is a generator of the
+fiber. Therefore they must be the Thom class, so $i_{1}^{*}U'=i_{2}^{*}U''$
+since $\ell_{1}^{*}(i_{1}^{*}U')$ is the pullback of $i_{1}^{*}U'$
+which is a generator of the fiber.
+\end{enumerate}
+Therefore by exactness of the Mayer--Vietoris sequence in
+Eq~\eqref{eq:math157a:fall2026:mayer-vietoris}, there must be a
+\emph{unique} class $U$ in $H^{n}(E^{\cup},E^{\cup}_{0};\ZZ_{2})$. 
+\end{node}
+
+\begin{claim}[Existence of Thom isomorphism in step 2]
+We will skip this part because it boils down to tedious reasoning,
+eventually invoking the Snake Lemma.
+\end{claim}
+
+\subsection*{Step 3: From local to global}
+
+\begin{node}
+Case 1: $B$ is compact (or, more generally, $B$ can be covered by
+finitely many local trivial charts). Then inductively applying step 2
+proves the result.
+\end{node}
+
+\begin{node}
+Case 2; $B$ is Hausdorff. Use direct limit for homology (and direct
+inverse limit for cohomology): $\varinjlim_{C}H_{j}(C;\ZZ_{2})$ and
+$\varprojlim_{C}H^{j}(C;\ZZ_{2})$ [restricting on smaller and smaller
+  compact subsets] where we consider compact subsets
+$C$ of $B$ [where $C\subset C'$ in the first case]. Then the inclusion
+$i\colon C\into D$ of compact subsets induces
+\begin{subequations}
+\begin{equation}
+f_{CD}\colon H_{j}(C;\ZZ_{2})\to H_{j}(D;\ZZ_{2})
+\end{equation}
+and
+\begin{equation}
+r_{DC}\colon H^{j}(D;\ZZ_{2})\to H^{j}(C;\ZZ_{2}).
+\end{equation}
+\end{subequations}
+For all the sordid details, see
+Hatcher~\cite[pp.243-244]{hatcher2002at}.
+\end{node}
+
+\begin{theorem}
+\begin{enumerate}
+\item $H^{j}(B;\ZZ_{2})\xrightarrow{\iso}\varinjlim_{C}H_{j}(C;\ZZ_{2})$
+\item $H^{j}(E,E_{0};\ZZ_{2})\xrightarrow{\iso}\varprojlim_{C}H_{j}(p^{-1}(C),p^{-1}(C_{0});\ZZ_{2})$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Omitted. Ugh.
+\end{proof}
+
+\begin{node}
+We see the Thom class $U_{C}\in H^{n}(p^{-1}(C),p^{-1}(C_{0});\ZZ_{2})$
+and taking the directed limit gives the unique Thom class $U\in H^{n}(E,E_{0};\ZZ_{2}).$
+Then
+\begin{equation}
+\vcenter{\xymatrix{H^{j}(E;\ZZ_{2})\ar[r]\ar[d] & H^{j+n}(E,E_{0};\ZZ_{2})\ar[d]\\
+H^{j}(p^{-1}(C);\ZZ_{2})\ar[r]^{\smile U_{C}} &\quad H^{j+n}(p^{-1}(C),p^{-1}(C_{0});\ZZ_{2})}}
+\end{equation}
+since this is a commutative diagram, the top morphism must be the cup
+product with $U$. Hence the claim, hence the conclusion of the proof.
+\end{node}
