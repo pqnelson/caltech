@@ -1,0 +1,187 @@
+%%
+%% fall-lecture17.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-05T09:50:18-0800
+%% Last update 2026-11-05T09:50:18-0800
+%% 
+
+\lecture[Banach--Alaoglu]{}
+
+We did not give examples of weak-* topologies, so let us do that now.
+
+\begin{example}
+Let $X=H$ be a Hilbert space.
+Then we can identify the dual space $H'\iso H$ by Riesz representation theorem.
+Under this identification, $w=w^{*}$ (the weak and weak-* topologies
+are the same). That is, $x_{a}\xrightarrow{w}x$ converges in the weak
+topology if and only if for all $y\in H$ we have
+$(x_{\alpha},y)\to(x,y)$ [this describes the weak topology, and it
+  coincides with the weak-* topology thanks to Riesz].
+
+Let $\{e_{n}\}$ be an orthonormal system. Then for every $x\in H$, we
+see $(x,e_{n})\to0$. These $(x,e_{n})$ are Fourier coefficients. The
+Riesz projection theorem asserts
+\begin{equation}
+\sum_{n}|(x,e_{n})|^{2}<\infty.
+\end{equation}
+Therefore, we conclude $e_{n}\xrightarrow{w}0$ weakly converges to
+zero. In particular, 0 is in the weak closure of the unit spehere
+[more generally, the closed unit ball is the weak closure of the unit sphere].
+\end{example}
+
+\begin{example}
+Weak convergence does not generally imply normed convergence. There is
+one case where they coincide: $x_{\alpha}\to x$ normed convergence if
+and only if $x_{\alpha}\to x$ weak convergence and $\|x_{\alpha}\|\to\|x\|$.
+\end{example}
+
+\begin{proof}
+\forwardproof\ Obvious.
+
+\backwardproof\ We see [assuming $\RR=\FF$ is the field]
+\begin{equation}
+(x-x_{\alpha},x-x_{\alpha})=\|x\|^{2}+\|x_{\alpha}\|^{2}-2(x,x_{\alpha})
+\end{equation}
+then looking at the convergence of the right-hand side gives us the
+convergence
+\begin{equation}
+(x-x_{\alpha},x-x_{\alpha})\to2\|x\|^{2}-2(x,x)=0.
+\end{equation}
+So $x-x_{\alpha}\to0$ which gives us normed convergence.
+\end{proof}
+
+\begin{remark}
+The same is true for $X=\ell^{p}$ when $1<p<\infty$.
+\end{remark}
+
+\begin{xca}
+For $X=\ell^{1}$, we have $x_{n}\xrightarrow{w}x$ weakly iff $x_{n}\to x$
+in the normed topology. Note that here $x_{n}$ are \emph{sequences}
+(\textbf{\emph{not nets!!!}}).
+\end{xca}
+
+\begin{node}
+The statement [in the previous exercise] is is not true if we consider
+nets, because the weak topology is not the same as the normed topology for
+$\ell^{1}$. Metrizability plays a (surprisingly?) critical role here.
+\end{node}
+
+\begin{recall}[Tychonov's theorem]
+If $X_{\lambda}$ is a compact topological space [rather, a
+  \emph{family} of compact topological spaces indexed by $\lambda\in\Lambda$],
+then $\prod_{\lambda\in\Lambda}X_{\lambda}$ is compact (in the product
+topology, of course).
+\end{recall}
+
+\begin{node}
+This follows from Zorn's Lemma; Tychonov's theorem is one of the most
+important results in point-set topology.
+\end{node}
+
+\begin{theorem}[Banach--Alaoglu]
+Let $X$ be a normed vector space, let $X'$ be its dual space [with its
+  usual operator normed topology]. Consider the closed unit ball
+$B'\subset X'$, $B'=\{f\in X'\mid \|f\|\leq1\}$. Then $B'$ is compact
+in the weak-* topology.
+\end{theorem}
+
+\begin{remark}
+Caltech students must know this theorem cold!!!
+\end{remark}
+
+\begin{proof}
+Identify $X'$ with a subset of $\RR^{X}$ (which is the set of maps
+$X\to\RR$ equipped with pointwise topology), so $f\in X'\mapsto\{f(x)\}_{x\in X}$
+where $X$ now acts like an indexing set. So we're considering only the
+subset of $\hom(X,\RR)$ consisting of linear and continuous maps. We
+can think $f\in X'\mapsto f\colon X\to\RR$ under pointwise
+convergence. Then any net in $X'$, we have $\forall x\in X\ldotp f_{\alpha}(x)\to f(x)$
+[this describes $f_{\alpha}\xrightarrow{w^{*}}f$]. The conclusion:
+$w*$ is the product topology restricted to $X'$.
+
+We have $B'\subset X'\subset\RR^{X}$. We claim
+\begin{equation}
+B'\subset\prod_{x\in X}[-\|x\|,\|x\|]\subset\RR^{X}.
+\end{equation}
+For any $f\in B'$ maps to $\{f(x)\}_{x\in X}$ and
+\begin{equation}
+|f(x)|\leq\|f\|\cdot\|x\|\leq\|x\|
+\end{equation}
+since $\|f\|\leq1$, so $|f(x)|\leq\|x\|$ justifying the
+$B'\subset\prod_{x\in X}[-\|x\|,\|x\|]$ claim.
+Then by Tychonov's theorem, $\prod_{x\in X}[-\|x\|,\|x\|]$ is
+compact. All we need to prove is that $B'$ is closed in the product topology.
+
+Let $\{f_{\alpha}\}$ be a net in $B'$ and $f_{\alpha}\to f$ in the
+product space $\RR^{X}$. We need to prove $f\in B'$. [This will prove
+  $B'$ is closed in the product topology, which is equivalent to $w*$ topology.]
+We need to show (1) $f$ is linear, and (2) $f$ is continuous or $\|f\|\leq1$.
+
+\textsc{Claim 1: Linearity}. For every $x,y\in X$ and every $\alpha$,
+we see $f_{\alpha}(x+y)=f_{\alpha}(x)+f_{\alpha}(y)$. Then
+$f_{\alpha}(x+y)\to f(x+y)$ and $f_{\alpha}(x)+f_{\alpha}(y)\to f(x)+f(y)$ 
+both by pointwise convergence, they must be equal by the uniqueness of
+convergence.
+
+\textsc{Claim 2: Continuity}. Similar argument, $\|f_{\alpha}\|\leq1$
+so $\forall x\in X\ldotp|f_{\alpha}(x)|\leq1$, so $f_{\alpha}(x)\to f(x)$ pointwise,
+then $|f(x)|\leq\|x\|$ giving us $\|f\|\leq1$.
+\end{proof}
+
+\begin{caution}
+Banach--Alaoglu theorem \emph{does not} imply the dual space $X'$ is
+compact in the weak-* topology.
+\end{caution}
+
+The second major theorem is the following:
+
+\begin{theorem}
+Suppose $X$ is a separable normed vector space.
+Then the closed unit ball $B'$ [in the dual space $X'$ with the weak-* topology]
+is metrizable. (But $(X',w*)$ is not necessarily metrizable.)
+\end{theorem}
+
+\begin{proof}
+Since $X$ is separable, we have a dense countable subset $\{x_{n}\}_{n\in\NN}$.
+Each $x_{n}$ introduces a seminorm on $X'$:
+\begin{equation}
+p_{n}(f):=|f(x_{n})|,
+\end{equation}
+for any $f\in X'$. Define the topology on $X'$, $\topology=\topology(\{p_{n}\}_{n\in\NN})$
+generated by the seminorms (so $\topology$ is locally convex
+topology). Clearly $\topology$ is a weaker topology than the weak-*
+topology since $w*$ generated by the seminorms $p_{x}(f)=|f(x)|$ for
+\emph{all} $x\in X$.
+
+We claim $\topology|_{B'}=w*|_{B'}$ these topologies restricted on the
+unit ball coincide. If we stipulate this (and defer its proof for the
+moment), then this means
+\begin{equation}
+\id\colon(B',\topology|_{B'})\to(B',w*|_{B'})
+\end{equation}
+is continuous. [This means $w*|_{B'}$ is weaker than $\topology|_{B'}$
+  since it states the preimage of open subsets $U\in w*|_{B'}$ must
+  have their preimage $\id^{-1}U=U\in\topology|_{B'}$,
+  which means they coincide.]
+We know $\topology|_{B'}$ is metrizable since it is generated by
+countably many seminorms, hence the theorem.
+
+Well, we just need to prove $\topology|_{B'}=w*|_{B'}$ these topologies restricted on the
+unit ball coincide. We need to prove: [For any net $f_{\alpha}$] If $f_{\alpha}\xrightarrow{\topology}f$, then $f_{\alpha}\xrightarrow{w*}f$.
+Then for any $n$, $p_{n}(f_{\alpha}-f)\to0$. Then
+$f_{\alpha}(x_{n})\to f(x_{n})$ for any $n\in\NN$ [by definition of $p_{n}$].
+We want to show $f_{\alpha}\xrightarrow{w*}f$; i.e., $\forall x\in X\ldotp f_{\alpha}(x)\to f(x)$.
+Then by the triangle inequality, we have
+\begin{subequations}
+  \begin{align}
+|f_{\alpha}(x)-f(x)| &\leq |f_{\alpha}(x)-f_{\alpha}(x_{n})|+|f_{\alpha}(x_{n})-f(x_{n})|+|f(x_{n})-f(x)|\\
+&\leq2\|x-x_{n}\|+|f_{\alpha}(x_{n})-f(x_{n})|
+  \end{align}
+\end{subequations}
+since we're on the unit disc. So, first we find $x_{n}$, then we use
+pointwise convergence to make $|f_{\alpha}(x_{n})-f(x_{n})|$
+sufficiently small. Then we're done.
+\end{proof}
