@@ -1,0 +1,323 @@
+%%
+%% fall-lecture17.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-05T07:44:55-0800
+%% Last update 2026-11-05T07:44:55-0800
+%% 
+
+\lecture{}
+
+We will look at a couple more definitions in Thermodynamics, then we
+will start studying ideal gases (and perfect gases).
+
+\subsection{Higher-order derivatives}
+
+\begin{node}
+So far, we have been talking about Thermodynamic quantities which are
+first-order derivatives. But there are quantities which are
+second-order derivatives.
+\end{node}
+
+\begin{definition}
+The \define{(Dimensionless) Fundamental Derivative of Gas Dynamics}
+(or \define{Landau Derivative}) is defined to be
+\begin{equation*}
+\Gamma:=\frac{c^{4}}{2V^{3}}\left(\frac{\partial^{2}V}{\partial p^{2}}\right)_{S},
+\end{equation*}
+which tells us the curvature of isentropes in $p$-$V$ space.
+\end{definition}
+
+\begin{node}
+The curvature of $V$ with respect to $p$ is precisely $\Gamma$. But,
+we can compute the curvature of $p$ with respect to $V$ as:
+\begin{subequations}
+  \begin{align}
+\left(\frac{\partial^{2}p}{\partial V^{2}}\right)_{S}
+&= \frac{\partial}{\partial V}\left(\frac{\partial p}{\partial V}\right)_{S}\\
+&= \frac{\partial}{\partial V}\left[\frac{1}{(\partial V/\partial p)_{S}}\right]\\
+&= -\left[\frac{1}{(\partial V/\partial p)_{S}}\right]^{2}\left(\frac{\partial^{2}V}{\partial p^{2}}\right)_{S}\\
+&= \frac{-c^{4}}{V^{4}}\left(\frac{\partial^{2}V}{\partial p^{2}}\right)_{S}\quad\mbox{by (\S\ref{eq:lec16:fall:partial-V-partial-p})}\\
+&= \frac{V^{3}}{2c^{2}}\left(\frac{\partial^{2}V}{\partial p^{2}}\right)_{S}
+  \end{align}
+\end{subequations}
+So we can describe the curvature of $p$ with respect to $V$ using
+$\Gamma$. For other forms, see Thompson~\cite{thompson1971fundamental}.
+\end{node}
+
+\begin{node}
+Why are these useful? How do they come about? Suppose we have some
+Thermodynamic system and it starts at $(V_{1},p_{1})$:
+\begin{center}
+\includegraphics{img/img.30}
+\end{center}
+Then we move along the isentrope with constant entropy $S=S_{1}$ to
+the point $(V_{2},p_{2})$:
+\begin{center}
+\includegraphics{img/img.31}
+\end{center}
+Then we move to point $(V_{3},p_{2})$ via an isobaric process [holding
+pressure constant] to the isentrope with entropy
+$S_{2}$ by increasing the volume:
+\begin{center}
+\includegraphics{img/img.32}
+\end{center}
+We have
+\begin{equation}
+\Delta V = V_{3}-V_{1},\quad\mbox{and}\quad\Delta p =p_{3}-p_{1}=p_{2}-p_{1}
+\end{equation}
+and
+\begin{equation}
+\Delta S = S_{2}-S_{1}.
+\end{equation}
+Looking at the ratio $(\Delta V)/V$, we can Taylor expand it
+\begin{multline}
+\frac{\Delta V}{V} = \left[\frac{1}{V}\left(\frac{\partial V}{\partial p}\right)_{S}\Delta p
++ \frac{1}{2!}\frac{1}{V}\left(\frac{\partial^{2} V}{\partial p^{2}}\right)_{S}(\Delta p)^{2}
++\bigOh(\Delta p^{3})\right] + \\
++\left[\frac{1}{V}\left(\frac{\partial V}{\partial S}\right)_{p}\Delta S + \bigOh(\Delta S^{2})\right]
+\end{multline}
+where the first line describes the isentropic process, and the second
+line describes the isobaric process. We can plug in some of our
+Thermodynamic definitions to find
+\begin{subequations}
+  \begin{align}
+\frac{\Delta V}{V}
+&= -\kappa_{S}\Delta p + c\Gamma\frac{(\Delta p)^{2}}{2} + \bigOh(\Delta p^{3})+\frac{1}{V}\frac{T\alpha V}{c_{p}}\Delta S + \bigOh(\Delta S^{2})\\
+&=\underbrace{\frac{-\Delta p}{\rho c^{2}} + \Gamma\left(\frac{\Delta p}{\rho c}\right)^{2}}_{\text{isentropic compression}}
+    + \underbrace{G\frac{T\,\Delta S}{c^{2}}}_{\text{external heating}}+ \bigOh(\Delta p^{3}) + \bigOh(\Delta S^{2})
+  \end{align}
+\end{subequations}
+where the first two terms describe isentropic compression, the third
+term describes external heating from non-isentropic compression. Here
+we introduced
+\begin{equation}
+G := V\cdot\left(\frac{\partial p}{\partial\rho}\right)_{V}
+\end{equation}
+which is called the \define{Nondimensional Thermal Expansion Coefficient}.
+For gases usually $0<G<2/3$ and for liquids $G\sim2$.
+\end{node}
+
+\subsection{Ideal gas Thermodynamics}
+
+\begin{assume}
+We will have three assumptions:
+\begin{enumerate}
+\item Interparticle interactions are negligible
+\item We have a dilute gas
+\item The gas is at equilibrium.
+\end{enumerate}
+\end{assume}
+
+\begin{node}
+We can describe the idea gas Law using statistical mechanics. Recall
+the Maxwell distribution, where $\vec{u}$ is the mean velocity:
+\begin{equation}
+f_{0}(\vec{c})=\left(\frac{m}{2\pi\Boltzmann}\right)\exp\left(\frac{-m}{2RT}\|\vec{c}-\vec{u}\|^{2}\right).
+\end{equation}
+We can always change reference frames to make $\vec{u}=0$ (thanks to
+Galilean relativity!).
+\end{node}
+
+\begin{node}
+Temperature is defined as the kinetic energy of these molecules
+\begin{equation*}
+\iiint_{\RR^{3}}\frac{1}{2}m(c_{1}^{2}+c_{2}^{2}+c_{3}^{2})f_{0}(\vec{c})\,\D\vec{c}=3\left(\frac{1}{2}RT\right).
+\end{equation*}
+\end{node}
+
+\begin{node}
+Pressure is just the flux of momentum per unit area:
+\begin{subequations}
+  \begin{align}
+p &=\frac{1}{3}\rho\iiint_{\RR^{3}}(c_{1}^{2}+c_{2}^{2}+c_{3}^{2})f_{0}(\vec{c})\,\D\vec{c}\\
+&=\frac{1}{3}\rho(3RT)\quad\mbox{by previous calculation}\\
+&=\rho RT
+  \end{align}
+\end{subequations}
+where $R$ is the [nondimensionalized] universal gas constant,
+\begin{equation}
+R = \frac{\widetilde{R}}{m}
+\end{equation}
+where $m$ is the molar mass, and $\widetilde{R}\approx8.314~\mathrm{J}\cdot\mathrm{K}^{-1}\cdot\mathrm{mol}^{-1}$.
+\end{node}
+
+\begin{node}
+Observe from the definition of pressure $p=\rho RT$, we can rewrite
+this as
+\begin{equation}
+\boxed{pV=RT.}
+\end{equation}
+This is the familiar ideal gas Law.
+\end{node}
+
+\subsection{Internal energy of ideal gas}
+
+\begin{node}
+We write internal energy as a function of volume and temperature
+$e=e(V,T)$ to get the difference equation
+\begin{equation}
+  \D e = \left(\frac{\partial e}{\partial V}\right)_{T}\D V +
+  \left(\frac{\partial e}{\partial T}\right)_{V}\D T.
+\end{equation}
+We use reciprocity Eq~\eqref{eq:second-reciprocity},
+\begin{subequations}
+\begin{equation}
+\left(\frac{\partial e}{\partial V}\right)_{T} = T\left(\frac{\partial S}{\partial V}\right)_{T}-p,
+\end{equation}
+and a Maxwell relation for Helmholtz free energy Eq~\eqref{eq:maxwell-relation-for-helmholtz-free-energy},
+\begin{equation}
+\left(\frac{\partial S}{\partial V}\right)_{T} = \left(\frac{\partial p}{\partial T}\right)_{V},
+\end{equation}
+and the definition~(\S\ref{def:specific-heat-at-constant-volume}) of specific heat capacity at constant volume
+\begin{equation}
+c_{V} = \left(\frac{\partial e}{\partial T}\right)_{V} = T\left(\frac{\partial S}{\partial V}\right)_{T},
+\end{equation}
+\end{subequations}
+to rewrite the difference equation as:
+\begin{equation}\label{eq:fall:lec17:internal-energy:eq1}
+\D e = \left[T\left(\frac{\partial p}{\partial T}\right)_{V}-p\right]\D p
++ c_{V}\,\D T.
+\end{equation}
+Then using the ideal gas Law $p=(R/V)T$ to find
+\begin{equation}
+\left(\frac{\partial p}{\partial T}\right)_{V}=\frac{R}{V}=\frac{p}{T},
+\end{equation}
+which kills off the bracketed term in Eq~\eqref{eq:fall:lec17:internal-energy:eq1},
+giving us:
+\begin{equation}\label{eq:fall:lec17:internal-energy:eq2}
+\boxed{\D e = c_{V}\,\D T\quad\mbox{for ideal gases}.}
+\end{equation}
+This tells us that internal energy is a function of temperature
+$e=e(T)$ for an ideal gas, and
+\begin{equation}
+\Delta e = e - e_{0} = \int^{T}_{T_{0}}c_{V}(T')\,\D T'\quad\mbox{for ideal gases},
+\end{equation}
+where $e_{0}$ is some reference internal energy (equivalently, $T_{0}$
+is some reference temperature).
+\end{node}
+
+\subsection{Perfect Gases}
+
+\begin{caution}
+There are a variety of different ``perfect gases'' in the literature
+(calorifically perfect gas, thermally perfect gas, etc.). Generically,
+a ``perfect gas'' is an ideal gas plus some additional assumptions or
+constraints.  
+\end{caution}
+
+\begin{node}
+In a perfect gas, we assume $c_{p}$ and $c_{V}$ are constant. In this
+case, we have
+\begin{equation}
+\Delta e = c_{V}\cdot(T-T_{0})=c_{V}\,\Delta T.
+\end{equation}
+\end{node}
+
+\begin{node}
+Perfect gases have no internal state, like Noble gases.
+\end{node}
+
+\begin{node}
+In a non-perfect ideal gas, we can decompose the internal energy as
+something like:
+\begin{equation}
+e = e_{\text{trans}} + e_{\text{rotational}} + e_{\text{vibration}}+e_{\text{electric}}+\dots
+\end{equation}
+which gives rise to a decomposition of specific heat at constant
+volume
+\begin{equation}
+\left(\frac{\partial e}{\partial T}\right)_{V} = c_{V} = c_{V,\text{trans}}
++ c_{V,\text{rotational}} + c_{V,\text{vibration}} + c_{V,\text{electric}}+\dots.
+\end{equation}
+We can sketch what this might look like:
+\begin{center}
+\includegraphics{img/img.33}
+\end{center}
+For monatomic gases, the plot of $c_{V}/R$ may be drawn against
+$T$. There is some threshold temperature $\Theta_{\text{Rot}}$ below
+which rotation does not contribute to internal energy. Similarly,
+there are thresholds $\Theta_{\text{vib}}$ for vibration and
+$\Theta_{\text{dissoc}}$ for dissociation. Real gases are more
+complicated. But this gives us an intuition for ideal non-perfect
+gases. We can use step functions (as drawn), or smooth it out. One
+common smooth variant
+\begin{equation}
+\frac{c_{V}}{R}=\frac{5}{2}+\frac{x^{2}\E^{x}}{(\E^{x}-1)^{2}}\quad\mbox{for $\Theta_{\text{Rot}}<T<\Theta_{\text{dissoc}}$},
+\end{equation}
+where $x=\Theta_{\text{vib}}/T$. [Note to self: Hydrogen is an example
+  of this phenomenon, the graph plotted above.]
+\end{node}
+
+\begin{node}
+Enthalpy for an ideal gas
+\begin{subequations}
+  \begin{align}
+h &= e + \frac{p}{\rho}\quad\mbox{by definition of enthalpy}\\
+&= e + pV\\
+&= e(T) + RT\quad\mbox{by ideal gas Law},
+  \end{align}
+\end{subequations}
+which means that enthalpy is a function of temperature alone $h=h(T)$
+for ideal gases.
+\end{node}
+
+\begin{node}
+The specific heat at constant pressure for ideal gases,
+\begin{subequations}
+  \begin{align}
+c_{P} &= \left(\frac{\partial h}{\partial T}\right)_{p}\quad\mbox{by
+  definition of $c_{p}$}\\
+&= \left(\frac{\partial e}{\partial T}\right)_{p} + R\quad\mbox{for
+  ideal gases}\\
+&= c_{V} + R.
+  \end{align}
+\end{subequations}
+So for ideal gases,
+\begin{equation}
+\boxed{c_{p}-c_{V}=R\quad\mbox{for ideal gases}.}
+\end{equation}
+\end{node}
+
+\begin{node}
+We similarly find the ratio of heat capacities $\gamma=c_{p}/c_{V}$
+gives us
+\begin{subequations}
+  \begin{align}
+    \gamma &= \frac{c_{p}}{c_{V}}\\
+    &= \frac{c_{V}+R}{c_{V}}\quad\mbox{for ideal gases}\\
+    &= 1 + \frac{R}{c_{V}}
+  \end{align}
+\end{subequations}
+which can be rearranged to give us
+\begin{equation}
+\boxed{c_{V} = \frac{R}{\gamma-1}\quad\mbox{for ideal gases}.}
+\end{equation}
+Then we see after some manipulation that
+\begin{equation}
+\boxed{c_{p}=\frac{\gamma R}{\gamma-1}\quad\mbox{for ideal gases}.}
+\end{equation}
+\end{node}
+
+\begin{node}
+The speed of sound
+\begin{subequations}
+  \begin{align}
+c^{2} &= \left(\frac{\partial p}{\partial\rho}\right)_{S}\quad\mbox{by definition}\\
+&= -V^{2}\left(\frac{\partial p}{\partial V}\right)_{S}\quad\mbox{for ideal gases}\\
+&= - V^{2}\gamma\left(\frac{\partial p}{\partial V}\right)\quad\mbox{using $\kappa_{T}=\gamma\kappa_{S}$}\\
+&= -V^{2}\gamma\left(\frac{-RT}{V^{2}}\right)\quad\mbox{using $p=RT/V$}.
+  \end{align}
+\end{subequations}
+Hence
+\begin{equation}
+\boxed{c^{2}=\gamma RT = \gamma\frac{p}{\rho}\quad\mbox{for ideal gases}.}
+\end{equation}
+\end{node}
+
+\begin{remark}
+For ideal gases, we find many definitions which required two
+parameters simplify considerably and now require only one parameter.
+\end{remark}

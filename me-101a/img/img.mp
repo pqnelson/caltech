@@ -291,5 +291,144 @@ beginfig(18)
   label.bot(btex $L$ etex, 0.5[z0 + (0,-2u), z1 + (0,-2u)]);
 endfig;
 
+% lecture 17 (Wednesday 4 November 2026)
+beginfig(30)
+  path frame;
+  path p, V, S[];
+  numeric w,h;
+  w = 6u;
+  h = 6u;
+  p = (0,0) -- (0,h); % pressure axis
+  V = (0,0) -- (w,0); % volume axis
+  frame = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  S1 = (0.5u,h)..(2u,2u)..(w,0.5u);
+  S2 = (2u,h)..(3u,3u)..(w,2u);
+  z0 = point (0.5*length(S1)) of S1;
+  drawarrow p;
+  drawarrow V;
+  draw S1;
+  draw S2;
+  draw z0--(xpart z0,0) dashed evenly;
+  draw z0--(0,ypart z0) dashed evenly;
+  label.lft(btex $p$ etex, (0,h));
+  label.lft(btex $p_{1}$ etex, (0, ypart z0));
+  label.bot(btex $V$ etex, (w,0));
+  label.bot(btex $V_{1}$ etex, (xpart z0, 0));
+  label.rt(btex $S_{1}$ etex, (w,0.5u));
+  label.rt(btex $S_{2}$ etex, (w, 2u));
+  label(btex $\bullet$ etex, z0);
+endfig;
+
+beginfig(31)
+  path frame;
+  path p, V, S[];
+  numeric w,h;
+  w = 6u;
+  h = 6u;
+  p = (0,0) -- (0,h); % pressure axis
+  V = (0,0) -- (w,0); % volume axis
+  frame = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  S1 = (0.5u,h)..(2u,2u)..(w,0.5u);
+  S2 = (2u,h)..(3u,3u)..(w,2u);
+  z0 = point (0.5*length(S1)) of S1;
+  z1 = point (0.25*length(S1)) of S1;
+  drawarrow p;
+  drawarrow V;
+  draw S1 withcolor 0.5white;
+  draw S2 withcolor 0.5white;
+  draw z0--(xpart z0,0) dashed evenly;
+  draw z0--(0,ypart z0) dashed evenly;
+  draw z1--(xpart z1,0) dashed evenly;
+  draw z1--(0,ypart z1) dashed evenly;
+  drawarrow (subpath (0.5*length(S1),0.25*length(S1)) of S1);
+  label.lft(btex $p$ etex, (0,h));
+  label.bot(btex $V$ etex, (w,0));
+  label.lft(btex $p_{1}$ etex, (0, ypart z0));
+  label.bot(btex $V_{1}$ etex, (xpart z0, 0));
+  label.lft(btex $p_{2}$ etex, (0, ypart z1));
+  label.bot(btex $V_{2}$ etex, (xpart z1, 0));
+  label.rt(btex $S_{1}$ etex, (w,0.5u));
+  label.rt(btex $S_{2}$ etex, (w, 2u));
+  label(btex $\bullet$ etex, z0);
+  label(btex $\bullet$ etex, z1);
+endfig;
+
+beginfig(32)
+  path frame;
+  path p, V, S[];
+  numeric w,h;
+  w = 6u;
+  h = 6u;
+  p = (0,0) -- (0,h); % pressure axis
+  V = (0,0) -- (w,0); % volume axis
+  frame = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  S1 = (0.5u,h)..(2u,2u)..(w,0.5u);
+  S2 = (2u,h)..(3u,3u)..(w,2u);
+  z0 = point (0.5*length(S1)) of S1;
+  z1 = point (0.25*length(S1)) of S1;
+  z2 = (z1 -- (z1 + (3u,0))) intersectionpoint S2;
+  drawarrow p;
+  drawarrow V;
+  draw S1 withcolor 0.5white;
+  draw S2 withcolor 0.5white;
+  draw z0--(xpart z0,0) dashed evenly;
+  draw z0--(0,ypart z0) dashed evenly;
+  draw z1--(xpart z1,0) dashed evenly;
+ % draw z1--(0,ypart z1) dashed evenly;
+  draw z2--(xpart z2,0) dashed evenly;
+  draw z2--(0,ypart z2) dashed evenly;
+  drawarrow (subpath (0.5*length(S1),0.25*length(S1)) of S1);
+  drawarrow z1--z2;
+  label.lft(btex $p$ etex, (0,h));
+  label.bot(btex $V$ etex, (w,0));
+  label.lft(btex $p_{1}$ etex, (0, ypart z0));
+  label.bot(btex $V_{1}$ etex, (xpart z0, 0));
+  label.lft(btex $p_{2}$ etex, (0, ypart z1));
+  label.bot(btex $V_{2}$ etex, (xpart z1, 0));
+%  label.lft(btex $p_{3}$ etex, (0, ypart z1));
+  label.lrt(btex $V_{3}$ etex, (xpart z2, 0));
+  label.rt(btex $S_{1}$ etex, (w,0.5u));
+  label.rt(btex $S_{2}$ etex, (w, 2u));
+  label(btex $\bullet$ etex, z0);
+  label(btex $\bullet$ etex, z1);
+  label(btex $\bullet$ etex, z2);
+endfig;
+
+beginfig(33) % plot of c_{V}/R against temperature
+  path p[];
+  numeric w,h,dw;
+  w = 12u;
+  h = 5u;
+  dw = 3u;
+  p0 = (0,0)--(w,0); % temperature axis
+  p1 = (0,0)--(0,h); % c_{V}/R axis
+  
+  p2 = (dw,0)--(dw,h);
+  p3 = (2dw,0)--(2dw,h);
+  p4 = (3dw,0)--(3dw,h);
+
+  p5 = (0,1.5u)--(dw,1.5u); % c_V/R
+  p6 = (dw,2.5u)--(2dw,2.5u);
+  p7 = (2dw,3.5u)--(3dw,3.5u);
+
+  draw p2 dashed evenly;
+  draw p3 dashed evenly;
+  draw p4 dashed evenly;
+  
+  drawarrow p0;
+  drawarrow p1;
+  draw p5;
+  draw p6;
+  draw p7;
+  
+  label.lft(btex $c_{V}/R$ etex, (0,h));
+  label.rt(btex $T$ etex, (w,0));
+  label.bot(btex $\Theta_{\rm rot}$ etex, (dw, 0));
+  label.lrt(btex $\Theta_{\rm vib}$ etex, (2dw, 0));
+  label.lrt(btex $\Theta_{\rm dissoc}$ etex, (3dw, 0));
+  label.top(btex $3/2$ etex, 0.5[point 0 of p5, point length(p5) of p5]);
+  label.top(btex $5/2$ etex, 0.5[point 0 of p6, point length(p6) of p6]);
+  label.top(btex $7/2$ etex, 0.5[point 0 of p7, point length(p7) of p7]);
+endfig;
 
 end;

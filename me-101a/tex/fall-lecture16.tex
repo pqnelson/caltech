@@ -97,7 +97,7 @@ and
 Then after a lot of profanity and invoking the Helmholtz free energy
 Maxwell relation Eq~\eqref{eq:maxwell-relation-for-helmholtz-free-energy}, the
 second equation gives us the \define{Second Reciprocity Relation}:
-\begin{equation}
+\begin{equation}\label{eq:second-reciprocity}
 \boxed{\left(\frac{\partial e}{\partial V}\right)_{T} = T\left(\frac{\partial p}{\partial T}\right)_{V}-p.}
 \end{equation}
 (This is just the other reciprocity relation, ``second'' is used to
@@ -125,7 +125,7 @@ c_{p} := \left(\frac{\partial h}{\partial T}\right)_{p} = T\left(\frac{\partial 
 where we use the equation of state to get the equality with $\partial S/\partial T$.
 \end{definition}
 
-\begin{definition}
+\begin{definition}\label{def:specific-heat-at-constant-volume}
 The \define{Specific Heat at Constant Volume} is
 \begin{equation*}
 c_{V} := \left(\frac{\partial h}{\partial T}\right)_{V} = T\left(\frac{\partial S}{\partial T}\right)_{V}
@@ -172,14 +172,14 @@ The convention in Thermodynamics is to reserve kappa $\kappa$ for
 ``compressibility'' quantities.
 \end{definition}
 
-\begin{remark}
+\begin{remark}\label{eq:lec16:fall:partial-V-partial-p}
 Note that
 \begin{subequations}
   \begin{align}
 \left(\frac{\partial V}{\partial p}\right)_{S}
 &= \frac{1}{\left(\frac{\partial p}{\partial V}\right)_{S}}\\
 &= \frac{1}{\left(\frac{\partial p}{\partial \rho}\right)_{S}\left(\frac{\partial \rho}{\partial V}\right)_{S}}\\
-&= \frac{1}{c^{2}\frac{-1}{V^{2}}},
+&= \frac{1}{c^{2}\frac{-1}{V^{2}}}=\frac{-V^{2}}{c^{2}},
   \end{align}
 \end{subequations}
 so
