@@ -1,0 +1,269 @@
+%%
+%% fall-lecture16.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-08T11:29:38-0800
+%% Last update 2026-11-08T11:29:38-0800
+%% 
+
+\lecture{}
+
+\begin{recall}
+We gave axioms for Steenrod square operation 
+\begin{equation}
+\Sq^{i}\colon H^{k}(X;\ZZ_{2})\to H^{k+i}(X;\ZZ_{2})
+\end{equation}
+is $\ZZ_{2}$-linear and satisfies:
+\begin{enumerate}
+\item naturality: $\Sq^{i}(f^{*}\alpha)=f^{*}\Sq^{i}(\alpha)$ [i.e.,
+  commutes with pullbacks]
+\item Cartan's formula: $\Sq^{i}(\alpha\smile\beta)=\sum_{j}\Sq^{j}(\alpha)\smile\Sq^{i-j}(\beta)$
+\item When $H^{n}(X;\ZZ_{2})$ is the top cohomology group, for any
+  $\alpha\in H^{n}(X;\ZZ_{2})$ we have $\Sq^{n}(\alpha)=\alpha\smile\alpha$.
+  For any $i>n$, for any $\alpha\in H^{n}(X;\ZZ_{2})$, we have $\Sq^{i}(\alpha)=0$.
+\item $\Sq^{0}(\alpha)=\alpha$.
+\end{enumerate}
+These are the relevant properties we will need.
+\end{recall}
+
+\begin{node}
+We define the Stiefel--Whitney classes using the Thom isomorphism and
+Steenrod square operation. For any bundle $\xi\colon E\xrightarrow{\pi}B$
+we have the Thom class $U\in H^{n}(E,E_{0};\ZZ_{2})$ and the Thom
+isomorphism
+\begin{align}
+  \varphi\colon & H^{i}(B;\ZZ_{2})\to H^{i+n}(E,E_{0};\ZZ_{2})\\
+  &\beta\mapsto(\pi^{*}\beta)\smile U\nonumber
+\end{align}
+Then we define the Stiefel--Whitney class on $\xi$ as:
+\begin{equation}
+\boxed{w_{i}(\xi)=\varphi^{-1}(\Sq^{i}(U))=\varphi^{-1}(\Sq^{i}(\varphi(1))).}
+\end{equation}
+\end{node}
+
+\begin{remark}[History]
+An abbreviated history behind this proposed definition for the
+Stiefel--Whitney class may be helpful.
+\begin{enumerate}
+\item In 1935, Stiefel and Whitney independently introduced the
+  Stiefel--Whitney class from the obstruction theory
+  point-of-view. Here $w_{n-k+1}(\xi)$ is the ``obstruction mod~2'' of
+  the existence of a $k$-nowhere dependent sections over the
+  $(n-k+1)$-skeleton of $B$ [where ``obstruction mod~2'' means
+    $w_{n-k+1}\in H^{n-k+1}(B;\ZZ_{2})$].
+\item In 1947, Steenrod introduced $\Sq^{i}$
+\item In 1951, Thom (in his PhD thesis) discovered the formula for
+  embedded submanifolds (for normal bundles). His advisor, Henri
+  Cartan, observed it could be extended to general vector bundles.
+\end{enumerate}
+How did Thom do it/ Let's look at an $m$-manifold $M$ and embed it in
+a Riemannian $(m+r)$-manifold $N$. Let us look at $E$ the rank-$r$
+normal bundle of $M$. Then $\varphi(w_{r}(E))=\Sq^{r}(U)$ where $U\in H^{r}(E,E_{0};\ZZ_{2})$
+is the Thom class of $E$. The $w_{r}(E)$ is from the original
+definition via obstruction theory.
+
+See Milnor and Stasheff~\cite[Ch~12]{milnor1974characteristic} for
+more details about the history.
+\end{remark}
+
+\begin{observation}[Thom?]
+We can realize
+\begin{subequations}
+  \begin{align}
+w_{r}(E) &= e_{2}(E)\quad\mbox{(= Euler class mod 2)}\\
+&= PD_{M}[Z]
+  \end{align}
+\end{subequations}
+where $PD_{M}$ is the Poincar\'{e} duality relating cohomology with
+homology, and $Z\subset M$ is a submanifold (so $[Z]$ is its
+fundamental class). We have a natural zero section
+\begin{equation}
+z\colon M\to E
+\end{equation}
+and we can perturb it ``a little bit'' to obtain a general section
+\begin{equation}
+s\colon M\to E.
+\end{equation}
+We need $s$ to span the tangent space at the intersection with $z$
+[spanning the transversal direction]. We can construct the
+$(m-r)$-manifold
+\begin{equation}
+Z=\{x\in M\mid s(x)=0\}\subset M
+\end{equation}
+which is a submanifold of $M$. Then
+\begin{equation}
+s\colon(M,M\setminus Z)\to(E,E\setminus z(M))
+\end{equation}
+is how we relate $w_{r}$ to Poincar\'{e} duality $PD_{M}[Z]$.
+
+The inclusion
+\begin{equation}
+j\colon H^{r}(E,E\setminus z(M);\ZZ_{2})\to H^{r}(E;\ZZ_{2})
+\end{equation}
+maps $U\mapsto j(U)$. We see the Euler class mod~2 is the pullback
+$e_{2}(E)=s^{*}j(U)\in H^{r}(M;\ZZ_{2})$. The Poincar\'{e}-duality is
+$PD_{M}[Z]=s^{*}j(U)\in H^{r}(M;\ZZ_{2})$, and $w_{r}(E)=PD_{M}[Z]$ is
+the key step.
+
+We see
+\begin{subequations}
+  \begin{align}
+\varphi(w_{r}(E)) &= \pi^{*}(w_{r}(E))\smile U\\
+&= \pi^{*}z^{*}j(U)\smile U\\
+&=(z\circ\pi)^{*}j(U)\smile U\quad\mbox{but $z\circ\pi\homotopic\id$ homotopic}\\
+&=j(U)\smile U\\
+&= U\smile U.
+  \end{align}
+\end{subequations}
+Thom asked, ``What about the $(r-1)$ case?''
+\end{observation}
+
+\subsection{Existence}
+
+\begin{claim}
+$w_{i}(\xi)=\varphi^{-1}(\Sq^{i}(U))=\varphi^{-1}(\Sq^{i}(\varphi(1)))$
+  satisfies all 4 axioms for the Stiefel--Whitney class.
+\end{claim}
+
+\begin{Proof}[Proof (Axiom 1)]
+We see $w_{i}(\xi)\in H^{i}(B;\ZZ_{2})$ since $\Sq^{i}(U)\in H^{n+1}(E,E_{0};\ZZ_{2})$
+and $\varphi^{-1}\Sq^{i}(U)\in H^{i}(B;\ZZ_{2}$.
+
+We see
+\begin{subequations}
+  \begin{align}
+w_{0}(\xi) &= \varphi^{-1}(\Sq^{0}(\varphi(1)))\\
+&= \varphi^{-1}\circ\varphi(1)\\
+&= 1.
+  \end{align}
+\end{subequations}
+For $i>n$, we see
+\begin{subequations}
+  \begin{align}
+w_{i}(\xi) &= \varphi^{-1}(\Sq^{i}(U))\\
+&= \varphi^{-1}(0)\\
+&= 0.
+  \end{align}
+\end{subequations}
+Hence this satisfies Axiom~1.
+\end{Proof}
+
+\begin{Proof}[Proof (Axiom 2)]
+Let $\xi\colon E\xrightarrow{\pi}B$, $f\colon A\to B$ be continuous.
+We will show $w_{i}(f^{*}\xi)=f^{*}w_{i}(\xi)$. We extend $f$ by the
+following commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{\widetilde{E}\ar[r]^{\widetilde{f}}\ar[d]_{\pi}&E\ar[d]^{\pi}\\
+A\ar[r]^{f} & B}}
+\end{equation}
+where $\widetilde{f}(a,x)=x$. So this means $\pi\circ\widetilde{f}=f\circ\pi$.
+Then if we want to prove the claim, what do we need to do?
+
+Well, $f^{*}w_{i}(\xi)=f^{*}\varphi^{-1}_{\xi}(\Sq^{i}(U))$ and
+$w_{i}(f^{*}E)=\varphi^{-1}_{f^{*}\xi}\Sq^{i}(\widetilde{U})$ where
+$\widetilde{U}\in H^{n}(\widetilde{E},\widetilde{E}_{0};\ZZ_{2})$.
+What is the relation between $U$ and $\widetilde{U}$? Well, abusing
+notation and introducing a new map confusingly called
+\begin{equation}
+\widetilde{f}\colon(\widetilde{E},\widetilde{E}_{0})\to(E,E_{0})
+\end{equation}
+then $(\widetilde{f})^{*}U=\widetilde{U}$. Then we plug this into the
+left-hand side of the claim:
+\begin{subequations}
+  \begin{align}
+\varphi^{-1}_{f^{*}\xi}(\Sq^{i}\widetilde{U})
+&=\varphi^{-1}_{f^{*}\xi}(\Sq^{i}((\widetilde{f})^{*}U))\\
+&=\varphi^{-1}_{f^{*}\xi}((\widetilde{f})^{*}\Sq^{i}(U)).
+  \end{align}
+\end{subequations}
+Then by the naturality of the Thom isomorphism,
+\begin{equation}
+f^{*}\varphi^{-1}_{\xi}=\varphi^{-1}_{f^{*}\xi}(\widetilde{f})^{*}\iff\varphi^{-1}_{f^{*}\xi}f^{*}=(\widetilde{f})^{*}\varphi_{\xi}.
+\end{equation}
+Let $\alpha\in H^{i}(B;\ZZ_{2})$, then the right-hand side of the
+claim becomes
+\begin{subequations}
+  \begin{align}
+(\widetilde{f})^{*}\varphi_{\xi}(\alpha)
+&=(\widetilde{f})^{*}(\pi^{*}\alpha\smile U)\\
+&=(\pi\circ\widetilde{f})^{*}(\alpha)\smile(\widetilde{f})^{*}U\\
+&=(f\circ\pi)^{*}(\alpha)\smile(\widetilde{f})^{*}U,
+  \end{align}
+\end{subequations}
+and the left-hand side transforms further into
+\begin{subequations}
+  \begin{align}
+LHS &= \pi^{*}(f^{*}\alpha)\smile(\widetilde{f})^{*}U\\
+&= (f\circ\pi)^{*}\alpha\smile(\widetilde{f})^{*}U,
+  \end{align}
+\end{subequations}
+from which it obviously follows the claim holds.
+\end{Proof}
+
+\begin{Proof}[Proof (Axiom 3)]
+The Whitney sum property $w(\xi\oplus\eta)=w(\xi)w(\eta)$.
+We can define the following notation
+\begin{equation}
+\Sq(-)=\Sq^{0}(-)+\Sq^{1}(-)+\dots+\Sq^{n}(-)
+\end{equation}
+Then
+\begin{equation}
+w(\xi)=\varphi^{-1}\Sq(U),
+\end{equation}
+where $U$ is the Thom class.
+
+Recall, $\Delta^{*}(\xi\times\eta)=\xi\oplus\eta$ when we pullback the
+product bundle along the diagonal map, we form the Whitney sum of bundles.
+
+It suffices to show $w(\xi\times\eta)=w(\xi)w(\eta)$.
+We see that
+\begin{equation}
+LHS = \varphi_{\xi\times\eta}^{-1}\Sq(U_{\xi\times\eta}).
+\end{equation}
+What is the relation between the various Thom classes
+$U_{\xi\times\eta}$, $U_{\xi}$, $U_{\eta}$? Let $U\in H^{m}(E,E_{0};\ZZ_{2})$
+be the Thom class of the rank-$m$ bundle $\xi\colon E\to B$, let
+$U'\in H^{n}(E',E'_{0};\ZZ_{2})$ be the Thom class of the rank-$n$
+bundle $\eta\colon E'\to B$, then
+\begin{equation}
+U_{\xi\times\eta}=U\times U'\in H^{m+n}(E\times E',\underbrace{(E\times
+E_{0}')\cup(E_{0}\times E')}_{=(E\times E')_{0}};\ZZ_{2}).
+\end{equation}
+We see $U\times U'$ is well-defined. We need to prove $U\times U'$ is
+a Thom class.
+
+Let $(x,y)\in B\times B$, then look at the inclusion mapping
+\begin{equation}
+i\colon(F_{(x,y)},F_{(x,y),0})\to(E\times E',(E\times E')_{0}),
+\end{equation}
+so
+\begin{equation}
+i^{*}(U\times U') = i^{*}U_{x}\times i^{*}U_{y}
+\end{equation}
+where $i^{*}U_{x}\in H^{m}(F_{x},(F_{x})_{0};\ZZ_{2})$ and
+$i^{*}U_{y}\in H^{n}(F_{y},(F_{y})_{0};\ZZ_{2})$.
+
+We see that the Thom isomorphism
+\begin{equation}
+\varphi_{\xi\times\eta}(\alpha\times\beta)=\varphi_{\xi}(\alpha)\times\varphi_{\eta}(\beta),
+\end{equation}
+by similar reasoning.
+
+OK, so
+\begin{subequations}
+  \begin{align}
+w(\xi\times\eta)
+&=\varphi_{\xi\times\eta}^{-1}(\Sq(U_{\xi\times\eta}))\\
+&=\varphi_{\xi\times\eta}^{-1}(\Sq(U\times U'))\\
+&=\varphi_{\xi\times\eta}^{-1}(\Sq(U)\Sq(U'))\quad\mbox{by Cartan's formula}\\
+&=\varphi_{\xi}^{-1}(\Sq(U))\varphi_{\eta}^{-1}(\Sq(U'))\\
+&=w(\xi)w(\eta).
+  \end{align}
+\end{subequations}
+Hence this construction satisfies Axiom~3.
+\end{Proof}
+
+Next week we will hopefully start Complex bundles. Next time, we will
+finish proving existence by showing our construction satisfies Axiom~4.

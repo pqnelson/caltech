@@ -1,0 +1,217 @@
+%%
+%% fall-lecture17.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-08T12:27:59-0800
+%% Last update 2026-11-08T12:27:59-0800
+%% 
+
+\lecture{}
+
+[The professor will be gone Dec~2, but there will be a substitute.]
+
+\begin{node}
+Before continuing on to prove Axiom~4, it will be helpful to offer
+another characterization of Thom class for a Euclidean vector
+bundle. Let $\xi$ be a Euclidean $\RR^{n}$-bundle. Let $\mu$ be a
+Euclidean metric on $\xi$.
+\end{node}
+
+\begin{definition}
+Let $\xi\colon E\xrightarrow{\pi}B$ be a Euclidean $\RR^{n}$-bundle.
+\begin{enumerate}
+\item We define the \define{Disk Bundle} $D(\xi)=\{e\in E\mid\mu(e)\leq1\}$
+with fiber isomorphic to $\disk{n}$
+\item We define the \define{Sphere Bundle} $S(\xi)=\{e\in E\mid\mu(e)=1\}$
+with fiber isomorphic to $\sphere{n-1}$.
+\end{enumerate}
+These are both subbundles of $E$.
+\end{definition}
+
+\begin{definition}
+Let $\xi\colon E\xrightarrow{\pi}B$ be a Euclidean $\RR^{n}$-bundle.
+We define the \define{Thom Space} $\Th(\xi):=D(\xi)/S(\xi)$.,
+\end{definition}
+
+\begin{node}
+The conclusion is that 
+\begin{subequations}
+  \begin{align}
+H^{j}(E,E_{0};\ZZ_{2})
+&\iso H^{j}(D(\xi),S(\xi);\ZZ_{2})\\
+&\iso\widetilde{H}^{j}(\Th(\xi);\ZZ_{2}),
+  \end{align}
+\end{subequations}
+so since generically the Thom class lives in $U\in H^{n}(E,E_{0};\ZZ_{2})$,
+then over a Euclidean bundle $U\in\widetilde{H}^{n}(\Th(\xi);\ZZ_{2})$.
+To prove this (we won't), we need a long exact sequence (for cohomology?),
+the excision theorem, prove $E$ deformation retracts to $D(\xi)$, and
+prove $E$ deformation retracts to $S(\xi)$.
+\end{node}
+
+\begin{Proof}[Proof (Axiom~4)]
+We can view $\gamma^{1}_{1}\subset\RP^{1}\times\RR^{2}$. Then we can
+give $\gamma^{1}_{1}$ a Euclidean metric. We know the Thom class
+$\gamma^{1}_{1}$ lives in
+$H^{n}(E(\gamma^{1}_{1}),E_{0}(\gamma^{1}_{1});\ZZ_{2})\iso H^{n}(M,\boundary M;\ZZ_{2})$
+where $M=D(\gamma^{1}_{1})$ and $\boundary M=S(\gamma^{1}_{1})$, and $n=1$.
+
+Now,
+\begin{subequations}
+  \begin{align}
+\varphi w_{1}(\gamma^{1}_{1}) &= \Sq^{1}(U)\\
+&= U\smile U.
+  \end{align}
+\end{subequations}
+It suffices to show $U\smile U\neq0$. We know $U\smile U\in H^{2}(M,\boundary M;\ZZ_{2})$.
+We see $M$ is basically the M\"{o}bius strip. We see $M/\boundary M\iso\RP^{2}$
+(you can see this by collapsing the top and bottom edges of the square
+in the diagram for the M\"{o}bius strip). Then we recall that,
+\begin{equation}
+H^{*}(\RP^{2};\ZZ_{2})\iso\ZZ_{2}[a]/(a^{3}),
+\end{equation}
+which means that $U=a$ and $U\smile U=a\smile a=a^{2}\neq0$. Hence the claim.
+\end{Proof}
+
+% 3.3
+\subsection{Oriented Bundles and Euler class}
+
+% 3.3.1. Orientation of vector bundles.
+
+\begin{node}
+Consider orientation in terms of integral Thom class [which lives in $H^{n}(E,E_{0};\ZZ)$].
+The integral Thom class does not necessarily exist---its existence
+depends on the orientability of $E$.\footnote{This turns out to be a
+horrible way to define the integral Thom class if you want to
+formalize it in a proof assistant. You should instead require the
+integral Thom class to be nonzero for orientable manifolds.}
+\end{node}
+
+\begin{recall}
+Let $V$ be an $n$-dimensional real vector space. An orientation of $V$
+corresponds to an equivalence class of bases, where two ordered bases
+$v_{1}$, \dots, $v_{n}$ and $v'_{1}$, \dots, $v'_{n}$ are said to be
+equivalent if and only if the matrix $(a_{ij})$ defined by
+$v'_{i}=\sum_{j}a_{ij}v_{j}$ has positive determinant.
+
+Note that $\RR^{n}$ has a canonical orientation, corresponding to its
+canonical ordered basis.
+\end{recall}
+
+\begin{node}
+We can also define a notion of orientation for a simple by choosing
+some ordering of its vertices. Let $\Sigma^{n}$ be an $n$-simplex,
+linearly embedded in the $n$-dimensional vector space $V$, with
+ordered vertices $A_{0}$, $A_{1}$, \dots, $A_{n}$. Then taking the
+vector from $A_{0}$ to $A_{1}$ as the first basis vector, the vector
+from $A_{1}$ to $A_{2}$ as the second basis vector, and so on, we can
+obtain a corresponding orientation for the vector space $V$.
+\end{node}
+
+\begin{remark}
+The choice of orientation for $V$ corresponds to a choice of one of
+the two possible generators for the singular homology group $H_{n}(V,V_{0};\ZZ)$.
+In fact, let $\Delta^{n}$ denote the standard $n$-simplex with
+canonically ordered vertices. Choose some orientation preserving
+linear embedding
+\begin{equation}
+\sigma\colon\Delta^{n}\into V,
+\end{equation}
+which maps the barycenter of $\Delta^{n}$ to the zero vector (hence
+maps the entire boundary of $\Delta^{n}$ into $V_{0}$). Then $\sigma$
+is a singular $n$-simplex representing an element in the group of
+relative $n$-cycles $Z_{n}(V,V_{0};\ZZ)$. The homology class of this
+$n$-cycle is now the preferred generator $\mu_{V}$ for the homology
+group $H_{n}(V,V_{0};\ZZ)$.
+
+Similarly, the cohomology group $H^{n}(V,V_{0};\ZZ)$ associated with
+an oriented vector space $V$ has a preferred generator denoted
+$u_{V}$. This is determined by $\langle u_{V},\mu_{V}\rangle=+1$.
+\end{remark}
+
+\begin{definition}
+Let $\xi\colon E\xrightarrow{\pi}B$ be an $\RR^{n}$-bundle. We say
+$\xi$ is \define{Orientable} if there exists a $U\in H^{n}(E,E_{0};\ZZ)$
+such that for every fiber $F$, the inclusion $i\colon(F,F_{0})\into(E,E_{0})$
+has $i^{*}U$ be a generator of $H^{n}(F,F_{0};\ZZ)\iso\widetilde{H}^{n}(\sphere{n};\ZZ)\iso\ZZ$.
+If such a $U$ exists, then we call $U$ an \define{Integral Thom Class}.
+\end{definition}
+
+\begin{remark}
+When viewing $i^{*}U\in H^{n}(F,F_{0};\ZZ)$, it should be understood
+as a ``local orientation''. Then the Thom class $U$ is a continuous
+choice of the orientation on every fiber. [This implies orientable as
+  defined using local charts; orientable via local charts gives us a
+  local Thom class, and we want to patch them together to form a
+  global Thom class which requires Mayer--Vietoris (for finite cover).] 
+\end{remark}
+
+\begin{example}
+The trivial $\RR^{n}$ bundle is always orientable.
+\end{example}
+
+\begin{non-example}
+The tautological bundle $\gamma^{1}_{1}$ is not orientable. If it
+were, then $U\in\widetilde{H}^{1}(\RP^{2};\ZZ)=0$, which means
+$U=0$. Hence there cannot exist an integral Thom class here.
+\end{non-example}
+
+\begin{remark}
+The orientation of the tangent bundle $\T M$ is equivalent to the
+orientation of $M$.
+\end{remark}
+
+\begin{remark}
+If we consider a complex $\CC^{n}$-bundle, then we can view it as a
+real $\RR^{2n}$-bundle, and they are always orientable.
+\end{remark}
+
+% 3.3.2. Euler class
+
+\begin{theorem}[Integral Thom isomorphism]
+Let $\xi\colon E\xrightarrow{\pi}B$ be an oriented $\RR^{n}$-bundle.
+Then there exists a unique isomorphism
+\begin{align}
+\varphi\colon & H^{k}(B;\ZZ)\xrightarrow{\iso}H^{n+k}(E,E_{0};\ZZ)\\
+& \beta\mapsto(\pi^{*}\beta)\smile U\nonumber,
+\end{align}
+where $U\in H^{n}(E,E_{0};\ZZ)$ is the integral Thom class.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Similar to $\ZZ_{2}$ case, but inverse limit (in the last step) does
+not generalize, since $H^{*}(C;\ZZ_{2})\iso\hom(H_{*}(C;\ZZ_{2}),\ZZ_{2})$
+but this is not an isomorphism for $\ZZ$ coefficients. So
+$H^{*}(B;\ZZ)$ is not isomorphic to
+$\varprojlim_{C}H^{*}(C;\ZZ)$. Instead, we use the following Lemma:
+\begin{lemma}
+Let $K$, $K'$ be two free chain complexes, let $f\colon K\to K'$ be a
+chain map. If $f^{*}\colon H^{*}(K';\Lambda)\to H^{*}(K;\Lambda)$ is
+an isomorphism for every field $\Lambda$, then $f^{*}$ is an
+isomorphism for every ring $\Lambda$.\qedhere
+\end{lemma}
+\end{proof}
+
+\begin{definition}
+Let $\xi\colon E\xrightarrow{\pi}B$ be oriented $\RR^{n}$-bundle.
+Let $U\in H^{n}(E,E_{0};\ZZ)$ be its Thom class, let $j^{*}\colon H^{n}(E,E_{0};\ZZ)\to H^{n}(E;\ZZ)$
+be the induced morphism from the inclusion. We define the
+\define{Euler Class} of $\xi$ to be
+\begin{equation}
+e(\xi):=(\pi^{*})j^{*}U\in H^{n}(B;\ZZ),
+\end{equation}
+where $\pi^{*}\colon H^{n}(B;\ZZ)\xrightarrow{\iso}H^{n}(E;\ZZ)$.
+\end{definition}
+
+\begin{remark}
+This is the same as the mod-2 Euler class where $(\pi^{*})^{-1}=z^{*}$
+corresponds to the zero section, $\pi\circ z=\id$ so
+$z\circ\pi\homotopic\id$ homotopic.
+\end{remark}
+
+\begin{remark}
+We can think of $w_{n}(\xi)=e(\xi)\pmod{2}$ the Stiefel--Whitney class
+is the mod-2 reduction of the Euler class.
+\end{remark}

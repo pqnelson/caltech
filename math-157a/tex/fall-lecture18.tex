@@ -1,0 +1,94 @@
+%%
+%% fall-lecture18.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-08T13:01:20-0800
+%% Last update 2026-11-08T13:01:20-0800
+%% 
+
+\lecture{}
+
+Properties of the Euler class.
+
+\begin{node}[Property 1]
+Naturality: $f^{*}e(\xi)=e(f^{*}\xi)$ [this follows by naturality of $U$].
+\end{node}
+
+\begin{corollary}
+If $\xi$ is a trivial $\RR^{n}$-bundle (when $n\geq1$), then
+$e(\xi)=0$ by similar reasoning as the Stiefel--Whitney class being trivial.
+\end{corollary}
+
+\begin{node}[Property 2]
+Reversing the orientation of $\xi$ sends $U\mapsto-U$, and so
+$e(\xi)\mapsto-e(\xi)$. 
+\end{node}
+
+\begin{remark}
+As an immediate consequence to this, the uniqueness of integral Thom
+class is not guaranteed since we can always choose $-U$ or $+U$.
+\end{remark}
+
+\begin{node}[Property 3]
+If $\xi$ has odd rank, then $e(\xi)+e(\xi)=0$.
+\end{node}
+
+\begin{proof}[First proof]
+Let $\xi\xrightarrow{\iso}\xi$ sending $(x,v)\mapsto(x,-v)$ which
+flips the orientation on fibers. This gives us $e(\xi)=-e(\xi)$.
+\end{proof}
+
+\begin{proof}[Second proof]
+Use integral version of Thom isomorphism, this will give us
+$U\smile U=(-1)^{n^{2}}U\smile U=-U\smile U$ since $n$ is odd.
+The result follows immediately from this.
+\end{proof}
+
+\begin{node}[Property 4]
+We see $w_{n}(\xi)=e(\xi)\pmod{2}$.
+\end{node}
+
+\begin{node}[Property 5]
+Assume $\xi$, $\xi'$ are rank-$m$ and rank-$n$ bundles over the same
+base $B$. Then
+\begin{equation}
+e(\xi\oplus\xi')=e(\xi)\smile e(\xi'),
+\end{equation}
+and
+\begin{equation}
+e(\xi\times\xi')=e(\xi)\times e(\xi').
+\end{equation}
+The proof is basically the same as in Property~4, from
+$e(\xi\times\xi')=e(\xi)\times e(\xi')$ we pullback
+$\Delta^{*}(\xi\times\xi')$ to prove the first part of the claim.
+\end{node}
+
+\begin{node}[Property 6]
+If $\xi$ has a nowhere zero section, then $e(\xi)=0$.
+\end{node}
+
+\begin{proof}
+Assume $\xi$ has a Euclidean metric (as an extra assumption). [This
+  covers the paracompact $B$ case.]
+Then there is an $\eta$ such that $\xi=\eta\oplus\eta^{\perp}$. Then
+\begin{subequations}
+  \begin{align}
+e(\xi) &= e(\eta)\smile e(\eta^{\perp})\\
+&= 0\smile e(\eta^{\perp})\\
+&= 0.
+  \end{align}
+\end{subequations}
+Hence the claim.
+\end{proof}
+
+\begin{theorem}[Very important!!!]
+If $M$ is a smooth manifold and $\xi=\T M$ is its tangent bundle,
+then $\langle e(\xi),[M]\rangle=\chi(M)$ is the Euler characteristic
+of $M$.
+\end{theorem}
+
+The left-hand side $\langle e(\xi),[M]\rangle$ describes something
+about the geometry of the bundle, the right-hand side $\chi(M)$
+describes something about the topology of $B$ (its base space).

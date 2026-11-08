@@ -125,6 +125,19 @@
 \newtheorem{xca}[theorem]{Exercise}
 \numberwithin{equation}{section}
 
+% When proofs should be numbered (like theorems, paragraphs, etc.)
+\newenvironment{Proof}[1][\proofname]{%
+  \smallbreak\noindent%
+  \refstepcounter{theorem}%
+  \pushQED{\qed}%
+  \textbf{\thetheorem}.\enspace%
+  \textsc{#1\@addpunct{.}}\enspace%
+  \ignorespaces%
+}{%
+  \popQED%
+  \par%
+  \medskip%
+}
 
 % hyperlink stuff
 \def\arXiv#1{\href{https://arxiv.org/abs/#1}{\texttt{arXiv:#1}}}
