@@ -1,0 +1,377 @@
+%%
+%% fall-lecture18.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-08T08:04:00-0800
+%% Last update 2026-11-08T08:04:00-0800
+%% 
+
+\lecture{}
+
+Today, we will conclude our detour into Thermodynamics, and then start
+discussing ``quasi one dimensional flows'' (which will probably be
+studied for the remainder of the quarter).
+
+First, we finish obtaining quantities for ideal and perfect gases.
+
+\begin{node}[Entropy of ideal gas]
+For a general gas, we can write entropy as a function of two [state]
+variables. Let us write $S=S(T,V)$. Then the difference equation
+\begin{subequations}
+  \begin{align}
+\D S &= \left(\frac{\partial S}{\partial T}\right)_{V}\D T+ \left(\frac{\partial S}{\partial V}\right)_{T}\D V\\
+&= \frac{c_{V}}{T}\D T+ \left(\frac{\partial S}{\partial V}\right)_{T}\D V\quad\mbox{by definition of $c_{V}$}\\
+&= \frac{c_{V}}{T}\D T + \frac{R}{V}\D V
+  \end{align}
+\end{subequations}
+where, in the last line, we use the Maxwell relation for Helmholtz free energy Eq~\eqref{eq:maxwell-relation-for-helmholtz-free-energy}
+\begin{subequations}
+  \begin{align}
+\left(\frac{\partial S}{\partial V}\right)_{T}
+&=\left(\frac{\partial p}{\partial T}\right)_{V}\\
+&=\left(\frac{\partial RT/V}{\partial T}\right)_{V}=\frac{R}{V}.
+  \end{align}
+\end{subequations}
+Then we can integrate both sides of the idfference equation to obtain,
+for ideal gases,
+\begin{equation}
+\boxed{S - S_{0} = \int^{T}_{T_{0}}\frac{c_{V}(T')}{T'}\D T' + R\log(V/V_{0}),}
+\end{equation}
+where $T_{0}$ and $V_{0}$ are reference temperature and volume,
+$S_{0}=S(T_{0},V_{0})$ is the reference entropy, and $\log(-)$ is the
+natural logarithm.
+\end{node}
+
+\begin{node}
+For perfect gases, $c_{V}$ is constant, which allows us to obtain
+\begin{subequations}
+  \begin{align}
+S-S_{0} &= c_{V}\log(T/T_{0})+R\log(V/V_{0})\\
+&= c_{V}\log(T/T_{0})-R\log(\rho_{0}/\rho),
+  \end{align}
+\end{subequations}
+since $\rho=1/V$.
+\end{node}
+
+\begin{node}
+Now, for isentropic processes, 
+\begin{subequations}
+\begin{equation}
+S-S_{0}=0,
+\end{equation}
+which means perfect gases satisfy
+  \begin{align}
+c_{V}\log(T/T_{0})&=R\log(\rho_{0}/\rho),\\
+\intertext{or equivalently,}
+T/T_{0} &= (\rho/\rho_{0})^{\gamma-1},
+  \end{align}
+\end{subequations}
+where $\gamma$ is the ratio of specific heats. We can go \emph{even further}
+for perfect gases, since
+\begin{subequations}
+  \begin{align}
+\frac{p}{p_{0}} &= \frac{RT/V}{RT_{0}/V_{0}}\\
+&= \frac{T}{T_{0}}\frac{V_{0}}{V}\\
+&= \left(\frac{\rho}{\rho_{0}}\right)^{\gamma},\\
+\intertext{hence,}
+\frac{T}{T_{0}} &= \left(\frac{p}{p_{0}}\right)^{(\gamma-1)/\gamma}.
+  \end{align}
+\end{subequations}
+The upshot is that it suffices to know $T$, $T_{0}$, $p$, $p_{0}$ for
+experiments involving isentropic processes on perfect gases.
+\end{node}
+
+\begin{node}
+If $\gamma=1$, then temperature $T$ is constant for isentropic
+processes (of perfect gases). In other words, isentropic processes are
+isothermal for $\gamma=1$.
+\end{node}
+
+\begin{node}[Real gases]
+Everything derived \emph{before} the ideal gas assumption~(\S\ref{assume:fall:lecture17:start-of-ideal-gases}) holds in general.
+For real gases, there is a critical temperature $T_{c}$
+which governs the phase behaviour of the gases.
+\begin{center}
+\includegraphics{img/img.34}
+\end{center}
+When the isotherm occurs at temperature $T\gg T_{c}$, then it
+resembles an ideal gas. When the temperature is below the critical
+threshold $T<T_{c}$ (the red isotherm), then its behaviour varies with
+discontinuities at the points. For example, when $V<V_{1}$ the red
+isotherm is in a liquid phase, when $V_{1}<V<V_{2}$ it is in a liquid
+and gas phase, and when $V_{2}<V$ it is in a gas phase.
+\end{node}
+
+\begin{node}
+The compressibility factor for a real gas is defined to be
+\begin{equation}
+Z := \frac{(pV)_{\text{real}}}{(pV)_{\text{ideal}}}=\frac{pV}{RT}.
+\end{equation}
+This is $Z=1$ for ideal gases, and $Z\neq1$ describes deviatory
+behaviour.
+
+For realistic gases, we can plot compressibility factor $Z$ against $p/p_{c}$:
+\begin{center}
+\includegraphics{img/img.35}
+\end{center}
+The reference $Z=1$ line is plotted for ideal gas behaviour (which
+should hold when $T/T_{c}\gg1$). The farther we deviate from ideal
+behaviour, the more important intermolecular attraction becomes.
+\end{node}
+
+\begin{node}
+There are more realistic models for real gases, like the van der Waals
+equation of state
+\begin{equation}
+p = \frac{RT}{V-b}-\frac{a}{V^{2}},
+\end{equation}
+which recovers the ideal gas Law when $a=b=0$. We try to empirically
+fit the parameters $a$ and $b$ to lab results (intuitively, $b$
+describes something like the ``excluded'' molar volume, and $a$ describes the
+intermolecular force strength). There are many others, but we will not
+worry about them.
+\end{node}
+
+\begin{node}[Recap]
+Now, for incompressible flows, the continuity equation and the
+conservation of linear momentum constituted a closed system of
+equations we could solve. For compressible flows, we had more unknowns
+than equations, which is why we turned to Thermodynamics for things
+like conservation of energy and temperature via ideal gas Laws (to find more
+equations to close the system of equations) which allowed us to
+express things like pressure as a function of temperature $p=p(T)$.
+\end{node}
+
+\begin{node}
+A lot of times in practice, we assume ideal gases to close the system
+of equations.
+\end{node}
+
+\subsection{Quasi One Dimensional Flows}
+
+\begin{node}
+We have already examined incompressible 1-dimensional flows, which
+essentially studied liquids flowing through a cylinder. The fact that
+it was through a cylinder (i.e., with constant cross sectional area)
+simplified calculations considerably. But what if the cross sectional
+area varies along the pipe? That's what \define{Quasi One-Dimensional Flows}
+studies.
+\end{node}
+
+\begin{assume}
+There are two assumptions to quasi 1-dimensional flows:
+\begin{enumerate}
+\item Flow is \emph{mainly} in one direction, which we choose to be
+  the $x$ direction. This means that $u\gg v$ and $u\gg w$.
+\item Change of flow in the $x$-direction is much greater than the
+  change of flow in the $y$-direction (and the $z$-direction).
+\end{enumerate}
+\end{assume}
+
+\begin{example}
+Consider the following nozzle:
+\begin{center}
+\includegraphics{img/img.36}
+\end{center}
+We assume the flow into the nozzle has initial velocity  $u_{1}$,
+initial pressure $p_{1}$, and initial density $\rho_{1}$ (and the
+initial cross sectional area is $A_{1}$). The flow out of the nozzle
+has velocity $u_{2}$, pressure $p_{2}$, density $\rho_{2}$, and the
+cross-sectional area is $A_{2}$.
+
+We draw the control volume in dashed lines; although we \emph{draw}
+the control volume ``slightly away'' from the surface, this is just
+for clarity---in fact, it \emph{includes} the control surface. We
+doodle it:
+\begin{center}
+\includegraphics{img/img.37}
+\end{center}
+We will write down the equations of motion in integral form.
+Recall Eq~\eqref{eq:fall:lec3:mass-conservation} the continuity equation (in integral form):
+\begin{equation}
+\partial_{t}\iiint_{V}\rho\,\D V = \rho_{1}u_{1}A_{1}+\rho_{2}u_{2}A_{2}=0.
+\end{equation}
+The equations of motion [``conservation of linear momentum'' (\S\S\ref{node:fall:lec04:conservation-of-linear-momentum}~\textit{et~seq.})] in the
+$x$-direction:
+\begin{subequations}
+\begin{equation}
+\partial_{t}\iiint_{V}\rho u\,\D V = p_{1}A_{1}-p_{2}A_{2} + \int_{\text{walls}}p\,\D A + \int F_{x}\,\D S
+\end{equation}
+where we will talk about that $\int\dots\D S$ term in a moment (it is
+because the flow is not in a cylinder with constant cross sectional area).
+We saw in one of the first lectures how to use the Reynold's Transport
+Theorem to rewrite the left-hand side as:
+\begin{equation}
+\rho_{1}u_{1}^{2}A_{1}+\rho_{2}u_{2}^{2}A_{2} = p_{1}A_{1}-p_{2}A_{2} + \int_{\text{walls}}p\,\D A + \int F_{x}\,\D S
+\end{equation}
+\end{subequations}
+Then we had the conservation of energy (\S\ref{node:fall:lec04:conservation-of-energy}) equation
+\begin{subequations}
+\begin{equation}
+\partial_{t}\int_{V}\rho(e+\frac{1}{2}u^{2})\D V = p_{1}u_{1}A_{1}-p_{2}u_{2}A_{2}-\int\dot{Q}\,\D S
+\end{equation}
+where we can simplify the left-hand side to
+\begin{equation}
+  -\rho_{1}(e_{1}+\frac{1}{2}u_{1}^{2})u_{1}A_{1}
+  +\rho_{2}(e_{2}+\frac{1}{2}u_{2}^{2})u_{2}A_{2} =
+  \underbrace{p_{1}u_{1}A_{1}-p_{2}u_{2}A_{2}}_{\text{work done by pressure}}-\int\dot{Q}\,\D S.
+\end{equation}
+\end{subequations}
+The $-\int\dot{Q}\,\D S$ describes the heat transfer to surrounding,
+which means $-\dot{Q}$ is energy loss per unit time per unit area.
+\end{example}
+
+\begin{node}
+Now, in our diagram, we consider the cross sectional region of width $\D x$
+as drawn in red:
+\begin{center}
+\includegraphics{img/img.38}
+\end{center}
+We ``zoom in'' on the cross sectional region, which should look like:
+\begin{center}
+\includegraphics{img/img.39}
+\end{center}
+The perimeter $P(x)$ is drawn in dashed red, the width of the cross
+sectional area remains $\D x$. We can approximate the pipe (at this
+scale) as an infinitesimally tall cylinder. Then we have
+\begin{equation}
+\D S = P(x)\,\D x.
+\end{equation}
+In this setting, we make the following approximations:
+\begin{subequations}
+  \begin{align}
+    \int f\,\D V &\mapsto f(x)A\,\D x,
+    \intertext{i.e., $f$ is approximately constant and $A$ is the
+      cross sectional area,}
+    \partial_{t}\int f\,\D V &\mapsto\partial_{t}(fA)\,\D x\\
+    f_{2}-f_{1} &\mapsto \D f\\
+    \int f\,\D A &\mapsto f\frac{\D A}{\D x}\,\D x\\
+    \int f\,\D S &\mapsto fP(x)\,\D x.
+  \end{align}
+\end{subequations}
+These approximations simplify the equations of motion.
+
+The continuity equation becomes
+\begin{equation}
+\partial_{t}(\rho A)+\partial_{x}(\rho uA)=0.
+\end{equation}
+But $A=A(x)$, so we can write this as:
+\begin{equation}
+A\partial_{t}(\rho)+\partial_{x}(\rho uA)=0.
+\end{equation}
+Great.
+
+Now, the conservation of $x$-momentum becomes,
+\begin{equation}
+\partial_{t}(\rho u A) + \partial_{x}(\rho u^{2}A) + \partial_{x}(pA)
+- p\partial_{x}A=PF_{x},
+\end{equation}
+where we move the pressure terms to the left-hand side.
+
+The conservation of energy simplifies to:
+\begin{equation}
+\partial_{t}[\rho(e+\frac{1}{2}u^{2})A] + \partial_{x}[\rho(e+\frac{1}{2}u^{2})Au]
++\partial_{x}(\rho u A) = -\dot{Q}P.
+\end{equation}
+In a way, this is very similar to shrinking the control volume in the
+process to obtain the differential form of the Navier--Stokes
+equations, but here we are less rigorous.
+\end{node}
+
+\begin{node}
+We can go farther, and write the equations of motion for this
+infinitesimal cylinder in a somewhat more pleasant form. The
+continuity equation becomes:
+\begin{equation}
+\partial_{t}\rho + \partial_{x}(\rho u) = -\frac{\rho u}{A}\frac{\D A}{\D x}
+\end{equation}
+which tells us how the mass changes in terms of the area of the
+``infinitesimally long pipe''.
+
+The conservation of momentum,
+\begin{equation}
+\frac{Du}{Dt}=\partial_{t}u+u\partial_{x}u=\frac{-1}{\rho}\partial_{x}p+f
+\end{equation}
+where
+\begin{equation}
+f = \frac{PF_{x}}{\rho A}
+\end{equation}
+is the friction force.
+
+The conservation of energy, using total enthalpy $h_{0}=e+\frac{1}{2}u^{2}+(p/\rho)$,
+\begin{equation}
+\frac{Dh_{0}}{Dt}=\partial_{t}h_{0}+u\partial_{x}h_{0}=\frac{1}{\rho}\partial_{t}p-\frac{\dot{Q}P}{\rho A}.
+\end{equation}
+\end{node}
+
+\begin{node}
+OK, does this make sense? Well, look at the special case when we have
+a cylinder:
+\begin{equation}
+\frac{\D A}{\D x}=0.
+\end{equation}
+If friction vanishes $f=0$ and there is no heat transfer $\dot{Q}=0$,
+then we recover the 1-dimensional Euler equations with $u=u(x,t)$ and $v=w=0$.
+So, that's a good ``evaluation'' check.
+\end{node}
+
+\subsection{Steady Quasi One-Dimensional Flow}
+
+\begin{node}
+The first thing we should do when we obtain the equations of motion
+for a flow: look at the steady flow. Then the continuity equation
+becomes
+\begin{equation}
+\frac{\D}{\D x}(\rho u)=-\frac{\rho u}{A}\frac{\D A}{\D x},
+\end{equation}
+or equivalently
+\begin{equation}
+\frac{\D(\rho u A)}{\D x}=0.
+\end{equation}
+The conservation of $x$-momentum becomes
+\begin{equation}
+u\partial_{x}u+\frac{1}{\rho}\partial_{x}p=f.
+\end{equation}
+The conservation of energy becomes
+\begin{equation}
+\partial_{x}h+u\partial_{x}u=-\dot{q}
+\end{equation}
+where
+\begin{equation}
+h=e+\frac{p}{\rho},\quad\mbox{and}\quad\dot{q}=\frac{\dot{Q}P}{\rho A}.
+\end{equation}
+\end{node}
+
+\begin{node}
+When $f=\dot{q}=0$, we find the equations of motion simplify further to:
+\begin{equation}
+\frac{\D}{\D x}(\rho u A)=0,
+\end{equation}
+\begin{equation}\label{eq:lec18:fall:momentum-conservation-for-steady-quasi-1d-flow}
+u\partial_{x}u + \frac{1}{\rho}\partial_{x}p=0
+\end{equation}
+\begin{equation}\label{eq:lec18:fall:energy-conservation-for-steady-quasi-1d-flow}
+\partial_{x}h+u\partial_{x}u=0.
+\end{equation}
+This uses the fact that
+\begin{equation}
+\frac{\D h_{0}}{\D x}=\frac{\D h}{\D x} +
+\frac{\D(\frac{1}{2}u^{2})}{\D x}=\frac{\D h}{\D x}+u\frac{\D u}{\D x}.
+\end{equation}
+\end{node}
+
+\begin{node}
+Now, returning to our equation for entropy,
+\begin{subequations}
+  \begin{align}
+T\,\D S &= \D h - \frac{1}{\rho}\D p\\
+&= -u\,\D u - \frac{1}{\rho}\D p\quad\mbox{by Eq~\eqref{eq:lec18:fall:energy-conservation-for-steady-quasi-1d-flow}}\\
+&= -u\,\D u - \frac{1}{\rho}(-\rho u\,\D u)\quad\mbox{by Eq~\eqref{eq:lec18:fall:momentum-conservation-for-steady-quasi-1d-flow}}\\
+&= 0.
+  \end{align}
+\end{subequations}
+That is to say, we have an isentropic process in which the flow has a
+constant entropy line.
+\end{node}

@@ -431,4 +431,206 @@ beginfig(33) % plot of c_{V}/R against temperature
   label.top(btex $7/2$ etex, 0.5[point 0 of p7, point length(p7) of p7]);
 endfig;
 
+% lecture 18 Fall 2026
+beginfig(34) % isotherms for real gases
+  path p, V, crit, frame, isotherm[];
+  path tmp[]; % for constructing isotherm2
+  numeric w,h;
+  h = 6u;
+  w = 8u;
+  frame = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  p = (0,0)--(0,h); % pressure axis
+  V = (0,0)--(w,0); % volume axis
+  %isotherm0 = (u,h)...(0.5w,0.75h)...(w,0.5h); % ideal-ish isotherm
+  isotherm0 = ((halfcircle rotated 180) xscaled 10u yscaled 6u shifted (w,h))
+    cutafter frame; % ideal-ish isotherm
+  isotherm1 = (u,h)..(3u,3u)..(4u,2.75u)..(w,2u); % critical isotherm
+  crit = (1.5u,u)..(2u,2u)..(3u,3u)..(3.5u,2u)..(4u,u)..(5u,0.75u)..(7u,0.7u); % critical transition thingy
+  tmp0 = subpath (0, 0.5length(halfcircle)) of halfcircle;
+  tmp1 = (tmp0 xscaled 2w yscaled 6u rotated 180 shifted (w,4u))
+    cutbefore (subpath (0.5length(crit),length(crit)) of crit);
+  z0 = point 0 of tmp1;
+  z1 = z0 + (-3u,6);
+  tmp2 = (z0--z1) cutafter (subpath (0, 0.5length(crit)) of crit);
+  z2 = point (length(tmp2)) of tmp2;
+  z3 = (point 0 of isotherm1) + (-3, 0);
+  tmp3 = z2--z3;
+  draw tmp1 withcolor red;
+  draw tmp2 withcolor red;
+  draw tmp3 withcolor red;
+  label(btex $\bullet$ etex, z0);
+  label(btex $\bullet$ etex, z2);
+  draw (z2--(xpart z2,0)) dashed evenly;
+  label.bot(btex $V_{1}$ etex, (xpart z2, 0));
+  draw (z0--(xpart z0,0)) dashed evenly;
+  label.bot(btex $V_{2}$ etex, (xpart z0, 0));
+  drawarrow p;
+  drawarrow V;
+  draw crit dashed evenly;
+  draw isotherm0;
+  draw isotherm1;
+  label.rt(btex $T\gg T_{c}$ etex, point length(isotherm0) of isotherm0);
+  label.rt(btex $T = T_{c}$ etex, point length(isotherm1) of isotherm1);
+  label.rt(btex $T < T_{c}$ etex, point (length tmp1) of tmp1) withcolor red;
+  label.lft(btex $p$ etex, (0,h));
+  label.bot(btex $V$ etex, (w,0));
+endfig;
+
+beginfig(35) % compressibility factor for realistic gases
+  path axes[], p[];
+  path ideal;
+  numeric w, h;
+  w = 12u;
+  h = 6u;
+
+  axes0 = (0,0)--(w,0); % p/p_{c}
+  axes1 = (0,0)--(0,h); % Z
+
+  ideal = (0,0.5h)--(w,0.5h);
+  z0 = point 0 of ideal;
+  z1 = point (0.5length(ideal)) of ideal;
+  z2 = (1/3)[z0,z1] + (0,-2u);
+  z3 = (2/3)[z0,z1] + (0,-2u);
+  p0 = z0..z2..z3..z1..(z1 + (6u,4u));
+  z4 = (1/3)[z0,z1] + (0,-u);
+  z5 = (2/3)[z0,z1] + (0,-u);
+  p1 = z0..z4..z5..z1..(z1 + (6u,1.5u));
+
+  draw p0;
+  draw p1 dashed evenly scaled 4;
+  
+  drawarrow axes0;
+  drawarrow axes1;
+  draw ideal dashed evenly; % for reference, the ideal gas
+
+  label.lft(btex $Z$ etex, (0,h));
+  label.bot(btex $p/p_{c}$ etex, (w,0));
+  label.rt(btex $T/T_{c}\gg 1$ etex, point (length ideal) of ideal);
+  label.lft(btex $Z=1$ etex, point 0 of ideal);
+  label.rt(btex $T/T_{c}\approx 1.5$ etex, point (length p0) of p0);
+  label.rt(btex $T/T_{c}\approx 10$ etex, point (length p1) of p1); 
+endfig;
+
+beginfig(36) % nozzle for quasi 1d flows
+  path p[];
+  
+  numeric i;
+
+  % top of nozzle
+  p0 = (-2u,u)--(0,u)..(2u, 1.5u)..(3u, 2u)..(6u, 2.5u)..(8u, 2.5u);
+  % bottom of nozzle
+  p1 = (-2u,0)--(0,0)..(2u,-0.5u)..(3u, -u)..(6u,-1.5u)..(8u,-1.5u);
+
+  % flow into the nozzle
+  for i=2 step 4 until u:
+    drawarrow (-3.125u,i)--(-2.125u,i) withcolor blue;
+  endfor;
+
+  % flow out of the nozzle
+  for i=(-1.5u + 2) step 6 until 2.5u:
+    drawarrow (8.125u, i)--(9.125u, i) withcolor blue;
+  endfor;
+  
+  draw p0;
+  draw p1;
+  label.top(btex $A_{1}$ etex, point 0 of p0);
+  label.bot(btex $u_{1},p_{1},\rho_{1}$ etex, point 0 of p1);
+  label.top(btex $A_{2}$ etex, point (length p0) of p0);
+  label.bot(btex $u_{2},p_{2},\rho_{2}$ etex, point (length p1) of p1);
+endfig;
+
+beginfig(37) % control volume for nozzle for quasi 1d flows
+  path p[], tmp[];
+  path cv;
+
+  numeric i;
+
+  % top of nozzle
+  p0 = (-2u,u)--(0,u)..(2u, 1.5u)..(3u, 2u)..(6u, 2.5u)..(8u, 2.5u);
+  % bottom of nozzle
+  p1 = (-2u,0)--(0,0)..(2u,-0.5u)..(3u, -u)..(6u,-1.5u)..(8u,-1.5u);
+
+  % flow into the nozzle
+  for i=2 step 4 until u:
+    drawarrow (-3.125u,i)--(-2.125u,i) withcolor blue;
+  endfor;
+
+  % flow out of the nozzle
+  for i=(-1.5u + 2) step 6 until 2.5u:
+    drawarrow (8.125u, i)--(9.125u, i) withcolor blue;
+  endfor;
+  
+  % control volume
+  tmp2 = (p0 shifted (0,-2));
+  tmp3 = (p1 shifted (0,2));
+  tmp4 = (point (length(tmp2)) of tmp2)--(point(length(tmp3)) of tmp3);
+  tmp5 = (point 0 of tmp3)--(point 0 of tmp2);
+  cv = tmp2--tmp4--(reverse tmp3)--tmp5;
+  draw cv dashed evenly;
+
+  draw p0;
+  draw p1;
+  label.top(btex $A_{1}$ etex, point 0 of p0);
+  label.bot(btex $u_{1},p_{1},\rho_{1}$ etex, point 0 of p1);
+  label.top(btex $A_{2}$ etex, point (length p0) of p0);
+  label.bot(btex $u_{2},p_{2},\rho_{2}$ etex, point (length p1) of p1);
+endfig;
+
+beginfig(38) % cross-sectional area for nozzle for quasi 1d flows
+  path p[], tmp[];
+  path cv;
+
+  numeric i;
+
+  % top of nozzle
+  p0 = (-2u,u)--(0,u)..(2u, 1.5u)..(3u, 2u)..(6u, 2.5u)..(8u, 2.5u);
+  % bottom of nozzle
+  p1 = (-2u,0)--(0,0)..(2u,-0.5u)..(3u, -u)..(6u,-1.5u)..(8u,-1.5u);
+
+  % flow into the nozzle
+  for i=2 step 4 until u:
+    drawarrow (-3.125u,i)--(-2.125u,i) withcolor blue;
+  endfor;
+
+  % flow out of the nozzle
+  for i=(-1.5u + 2) step 6 until 2.5u:
+    drawarrow (8.125u, i)--(9.125u, i) withcolor blue;
+  endfor;
+
+  % cross sectional area of interest
+  p2 = (2.25u,3u)--(2.25u,-2u);
+  p3 = (2.75u,3u)--(2.75u,-2u);
+  
+  % control volume
+  tmp2 = (p0 shifted (0,-2));
+  tmp3 = (p1 shifted (0,2));
+  tmp4 = (point (length(tmp2)) of tmp2)--(point(length(tmp3)) of tmp3);
+  tmp5 = (point 0 of tmp3)--(point 0 of tmp2);
+  cv = tmp2--tmp4--(reverse tmp3)--tmp5;
+  %draw cv dashed evenly;
+
+  draw p0;
+  draw p1;
+  draw p2 withcolor red;
+  draw p3 withcolor red;
+  label(btex $\{$ etex, (0,0)) rotated -90 scaled 0.75 shifted 0.5[(2.25u,3.15u),(2.75u,3.15u)] withcolor red;
+  label.top(btex ${\rm d}x$ etex, (2.5u,3.1u)) withcolor red;
+  label.top(btex $A_{1}$ etex, point 0 of p0);
+  label.bot(btex $u_{1},p_{1},\rho_{1}$ etex, point 0 of p1);
+  label.top(btex $A_{2}$ etex, point (length p0) of p0);
+  label.bot(btex $u_{2},p_{2},\rho_{2}$ etex, point (length p1) of p1);
+endfig;
+
+beginfig(39) % cross sectional area blown up
+  path p[];
+  p0 = fullcircle xscaled 4u yscaled 5u;
+  %p1 = fullcircle xscaled 4u yscaled 6u shifted (0.5u,0);
+  p1 = p0 shifted (0.75u,0);
+  draw fullcircle xscaled 4u yscaled 5u;
+  draw p1;
+  p2 = p1 shifted (3,0);
+  draw p2 dashed evenly withcolor red;
+  label.rt(btex $P(x)$ etex, point 0.25(length(p2)) of p2) withcolor red;
+endfig;
+% 39
 end;
