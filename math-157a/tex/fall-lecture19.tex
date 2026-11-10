@@ -1,0 +1,262 @@
+%%
+%% fall-lecture19.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-10T12:41:57-0800
+%% Last update 2026-11-10T12:41:57-0800
+%% 
+
+\lecture[Complex vector bundles and complex manifolds]{}
+
+\begin{node}
+The idea is that a local trivialization for complex rank-$n$ bundle
+$\xi\colon E\xrightarrow{\pi}B$
+looks like $(U,h)$ where $h\colon U\times\CC^{n}\to\pi^{-1}(U)$ is a
+homeomorphism, where $U\subset B$. The restriction to each fiber gives
+us a linear isomorphism $\CC^{n}\to\pi^{-1}(\{b\})$ for each $b\in B$.
+We also need some condition on transition functions.
+\end{node}
+
+\begin{node}
+Recall, the transition functions
+\begin{equation}
+\varphi_{i,j}\colon U_{i}\cap U_{j}\to\GL_{n}(\CC),
+\end{equation}
+where we can treat $\GL_{n}(\CC)\subset\GL_{2n}(\RR)$ as
+\begin{equation}
+\GL_{n}(\CC)=\{A\in\GL_{2n}(\RR)\mid JA=AJ\}
+\end{equation}
+where $J=\begin{pmatrix}0 & -I_{n}\\ I_{n} & 0\end{pmatrix}$.
+Why? Well, $A\in\GL_{n}(\CC)$ can be written as $A=B+\I C$, then
+\begin{equation}
+(B+\I C)(x+\I y)=(B x - Cy)+\I(Cx+By),
+\end{equation}
+so
+\begin{equation}
+  \begin{pmatrix}B & -C\\
+    C & B
+  \end{pmatrix}\begin{pmatrix}x\\y
+  \end{pmatrix} = \begin{pmatrix}Bx-Cy\\ Cx+By
+  \end{pmatrix}.
+\end{equation}
+\end{node}
+
+\begin{node}
+Observe
+\begin{equation}
+\begin{pmatrix}P & Q\\ R & S
+\end{pmatrix}\begin{pmatrix}0 & -I_{n}\\I_{n} & 0
+\end{pmatrix} = \begin{pmatrix} Q & -P\\ S & -R
+\end{pmatrix}
+\end{equation}
+and
+\begin{equation}
+\begin{pmatrix}0 & -I_{n}\\I_{n} & 0
+\end{pmatrix}
+\begin{pmatrix}P & Q\\ R & S\end{pmatrix}
+  = \begin{pmatrix} -R & -S\\ P & -Q \end{pmatrix}
+\end{equation}
+Setting these two equal to each other requires $Q=-R$ and $P=S$, so
+\begin{equation}
+A = \begin{pmatrix}P & -R\\R & P
+\end{pmatrix}
+\end{equation}
+is the general form for $A\in\GL_{2n}(\RR)$ to be such that
+$AJ=JA$. And that's precisely what we've got!
+\end{node}
+
+\begin{definition}
+Suppose $\xi$ is a real rank-($2n$) bundle. We say a \define{Complex Structure}
+on $\xi$ is a continuous map $J\colon E(\xi)\to E(\xi)$ such that
+$J^{2}=J\circ J=-1$, i.e., $J(J(v))=-v$ for all $v$.
+\end{definition}
+
+\begin{node}
+We can use $J$ to turn each fiber into a complex vector space,
+suffices to define complex scalar multiplication. Then
+\begin{align}
+\CC\times F_{b}\to F_{b}\\
+(x+\I y, v)\mapsto xv+yJ(v)\nonumber
+\end{align}
+and in particular $\I v=J(v)$.
+
+Conversely, given a complex vector bundle, we can always find a
+complex structure and treat it as a real vector bundle of double the rank.
+\end{node}
+
+\begin{example}
+Consider $\CC$ as an $\RR^{2}$-bundle over a point.
+Then $J(x,y)=(-y,x)$ and $\I(x+\I y)=-y+\I x$, so $J^{2}(x,y)=(-x,-y)$.
+Note: there are other complex structures we could use here. In
+particular, the complex structure is not unique.
+\end{example}
+
+\begin{definition}
+Let $M$ be a smooth manifold. An \define{Almost Complex Structure} on
+$M$ is a complex structure on the tangent bundle $\T M$.
+\end{definition}
+
+\begin{definition}
+Let $M$ be a smooth manifold.
+A \define{Complex Structure} on $M$ is an almost complex structure on
+$M$ such that
+\begin{enumerate}
+\item For each point $p\in M$ there exists an open neighborhood $p\in U\subset M$
+  and there exists a diffeomorphism $h\colon U\xrightarrow{\iso} V\subset\CC^{n}$
+  such that $\D h\circ J = J_{0}\circ\D h$ where $J_{0}$ is the
+  standard complex structure on $\CC^{n}$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+This complex structure on $M$ makes it a complex manifold. We have
+charts $h_{\alpha}\colon U_{\alpha}\subset M\to V_{\alpha}\subset\CC^{n}$
+and require transition functions $h_{\beta}\circ h_{\alpha}^{-1}$ to
+be \emph{holomorphic} (which is precisely what the $\D h\circ J=J_{0}\circ\D h$
+condition means.)
+[Well, it should be \emph{biholomorphic} meaning its inverse function
+  is also holomorphic.]
+
+Why holomorphic? Well, $f=h_{\beta}\circ h_{\alpha}^{-1}$, then it is
+equivalent to $\D f$ being complex linear. Suffices to show (where we
+write $\I$ as the standard complex structure on $\CC^{n}$)
+\begin{equation}
+\D f\circ\I=\I\circ\D f.
+\end{equation}
+We see
+\begin{subequations}
+  \begin{align}
+\D f\circ\I &= \D h_{\beta}\circ\D h_{\alpha}^{-1}\circ\I\\
+&= \D h_{\beta}\circ J\circ\D h_{\alpha}^{-1}\\
+&= \I\circ\D h_{\beta}\circ\D h_{\alpha}^{-1}
+  \end{align}
+\end{subequations}
+This establishes one direction.
+
+The other direction
+\begin{equation}
+J=(\D h_{\beta})^{-1}\circ\I\circ\D h_{\beta},
+\end{equation}
+so $J^{2}=-1$. This gives the other direction.
+\end{remark}
+
+\begin{theorem}[Newlander--Nirenberg]
+An almost complex structure on $M$ is a complex structure if and only
+if the Lie Bracket satisfies
+\begin{equation}
+\forall V,W\in\mathcal{X}(M)\ldotp[JV,JW]=J[JV,W]+J[V,JW]+[V,W].
+\end{equation}
+\end{theorem}
+
+\begin{remark}
+The terminology is that the almost complex structure is \define{Integrable}
+if it satisfies the Newlander--Nirenberg theorem.
+\end{remark}
+
+\begin{definition}
+The \define{Nijenhuis tensor} (pronounced like ``nay-un-hayes'')
+\begin{equation}
+N_{j}(V,W) := [JV,JW]-J[JV,W]-J[V,JW]-[V,W].
+\end{equation}
+\end{definition}
+
+\begin{corollary}
+Consider $\dim_{\RR}(M)=2$. We see almost complex structures on $M$
+are complex structures on $M$.
+\end{corollary}
+
+\begin{proof}
+The proof uses the fact that when $\dim_{\RR}(M)=2$ the vectors $V$
+and $J(V)$ are linearly independent (and therefore span the tangent
+space at any point). Then $\{X,JX\}$ spans every tangent space. So
+\begin{subequations}
+  \begin{align}
+N_{j}(X,JX) &= [JX,J^{2}X] - J[JX,JX] - J[X,J^{2}X]-[X,JX]\\
+&=-[JX,X]-0-0-[X,JX]\\
+&=[X,JX]-[X,JX]=0.
+  \end{align}
+\end{subequations}
+Then writing $v=aX+bJX$ and $w=cX+dJX$, we claim $N_{j}(v,w)=0$ by
+linearity. 
+\end{proof}
+
+\begin{xca}
+Check what happens on the sphere $S^{2}$.
+\end{xca}
+
+% 4.2 Construction of Chern Class
+\subsection{Construction of Chern Class}
+
+\begin{notation}
+We fix our notation. We write $w\colon E(w)\to B$ is a complex vector
+bundle. Recall: if $w$ is a $\CC^{n}$-bundle, then $w$ is a
+$\RR^{2n}$-bundle and necessarily orientable. We can define the Euler
+class $e(w)\in H^{2n}(B;\ZZ)$.
+
+We will write $w_{\RR}$ for the associated real $\RR^{2n}$-bundle when
+$w$ is a $\CC^{n}$-bundle.
+\end{notation}
+
+\begin{definition}
+On each fiber, we can equip it with a \define{Hermitian Inner Product}
+$\langle-,-\rangle\colon\CC^{n}\times\CC^{n}\to\CC$ such that
+\begin{enumerate}
+\item $\langle\lambda v,w\rangle=\lambda\langle v,w\rangle$
+\item $\langle v,\lambda w\rangle=\overline{\lambda}\langle v,w\rangle$
+\item $\langle v_{1}+v_{2},w\rangle=\langle v_{1},w\rangle+\langle v_{2},w\rangle$
+\item $\langle v,w_{1}+w_{2}\rangle=\langle v,w_{1}\rangle+\langle v,w_{2}\rangle$
+\item Nondegeneracy: $\langle v,v\rangle\geq0$ and $\langle v,v\rangle=0\iff v=0$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+If we have $\mu\colon E(w)\to\RR$ sending $v\mapsto\langle v,v\rangle$,
+then $\mu$ is called a \define{Hermitian Metric} (compare ths to
+``Euclidean Metric'').
+\end{definition}
+
+\begin{remark}
+If $B$ is paracompact, then the Hermitian metric always exists (we
+find it on a local trivialization covering $B$, and on each local
+trivialization find the Hermitian metric, and then glue them all
+together using a partition of unity).
+\end{remark}
+
+\begin{definition}
+Given $w$, we can construct its \define{Conjugate Bundle} $\overline{w}$
+to be the complex bundle over $B(w)$ such that $J_{\overline{w}}=-J_{w}$.
+\end{definition}
+
+\begin{node}
+This means 
+\begin{subequations}
+\begin{equation}
+(x+\I y)\cdot_{w}v=xv+yJ_{w}(v),
+\end{equation}
+but
+\begin{equation}
+(x+\I y)\cdot_{\overline{w}}v=xv-yJ_{w}(v).
+\end{equation}
+\end{subequations}
+\end{node}
+
+\begin{example}
+Consider $\CC$ over a point. Its conjugate bundle has $\overline{J}(x,y)=(y,-x)$.
+\end{example}
+
+\begin{node}
+How does orientation change?? The [real] basis at a fiber for $w$
+looks like $(u_{1},Ju_{1},u_{2},Ju_{2},\dots,u_{n},Ju_{n})\mapsto(u_{1},-Ju_{1},\dots,u_{n},-Ju_{n})$.
+This amounts to a factor of $(-1)^{n}$ multiplying the Jacobian determinant.
+\end{node}
+
+\begin{fact}
+We have an isomorphism
+\begin{align}
+\overline{w}\xrightarrow{\iso}\hom(w,\CC)\\
+v\mapsto(u\mapsto\langle u,v\rangle)\nonumber
+\end{align}
+assuming $w$ is Hermitian.
+\end{fact}

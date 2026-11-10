@@ -1,0 +1,239 @@
+%%
+%% fall-lecture19.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-10T11:44:10-0800
+%% Last update 2026-11-10T11:44:10-0800
+%% 
+
+\lecture[Carath\'{e}odory]{}
+
+\begin{node}
+We stated ``the'' Carath\'{e}odory theorem last time. It's the main
+procedure we use to construct measures. Let us restate it:
+\end{node}
+
+\begin{theorem}
+Let $\mathcal{R}$ be an algebra, let $\lambda$ be a pre-measure on
+$\mathcal{R}$ [so $\lambda\colon\mathcal{R}\to[0,\infty]$ and
+  $\lambda$ is $\sigma$-additive when sensible: if $E=\bigsqcup E_{j}$ is the
+  countable union of disjoint $E_{j}\in\mathcal{R}$ and if
+  $E\in\mathcal{R}$, then $\lambda(E)\leq\sum_{j}\lambda(E_{j})$].
+Then:
+\begin{enumerate}
+\item $\lambda$ extends to a measure on $\sigma(\mathcal{R})$, and
+\item if $\lambda$ is $\sigma$-finite, then this extension (to a
+  measure) is unique.
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}
+Let $X$ be a set. An \define{Outer Measure} of $X$ is a function
+$\nu\colon\powerset{X}\to[0,\infty]$ defined on the powerset of $X$
+such that
+\begin{enumerate}
+\item $\nu(\emptyset)=0$
+\item \textsc{Monotonicity}: if $A\subset B\subset X$, then $\nu(A)\leq\nu(B)$
+\item \textsc{Subadditivity}: for any countable family $A_{j}$ of
+  subsets of $X$, we have $\nu(\bigsqcup A_{j})\leq\sum_{j}\nu(A_{j})$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}
+\item An outer measure is defined on \emph{all} subsets of $X$, not on
+  a particular algebra of $X$ (nor on a particular $\sigma$-algebra of
+  $X$) but \emph{all} $X$.
+\item Some authors (like Folland) require $X$ be nonempty. This is not
+  necessary, but the $X=\emptyset$ case is really boring because
+  $\powerset{X}=\{\emptyset\}$ so $\nu(A)=0$ for all $A\subset X$ in
+  this situation.
+\item Usually, we obtain outer measures by starting with a family
+  $\mathcal{E}$ of ``elementary sets'' on which outer measures are
+  defined (like rectangles in the plane), then approximate arbitrary
+  sets ``from the outside'' by countable unions of members of
+  $\mathcal{E}$. 
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+Let $\mathcal{R}$ be an algebra of $X$.
+The only outer measure we will ever need is the \define{Covering Outer Measure}
+$\nu=\lambda^{*}$. Then for any set $A\subset X$ we have
+\begin{equation}
+\nu(A)=\inf\{\sum\lambda(E_{j})\mid A\subset\bigcup_{j}E_{j}, E_{j}\in\mathcal{R}\}.
+\end{equation}
+So we consider the covering of $A$ by elements $E_{j}$ from some
+algebra, then compute $\sum\lambda(E_{j})$ and take the infinimum of
+all this value computed over all such coverings.
+
+We claim that $\nu$ really is an outer measure. We need to show it
+satisfies subadditivity. Let $A_{j}$ be an arbitrary family of subsets
+of $X$. Then we simply take $E_{i,j}\in\mathcal{R}$ which cover each
+$A_{j}\subset\bigcup_{i}E_{i,j}$, and the result follows immediately.
+\end{example}
+
+\begin{definition}[Carath\'{e}odory condition]
+We start with an outer measure $\mu$ (the textbook writes it as
+$\mu^{*}$, but if we use that starred notation\dots things will get
+too starry). Then by definition, the set $A\subset X$ is
+\define{$\mu$-Measurable} if
+\begin{equation}
+\forall E\subset X\ldotp\mu(E)=\mu(E\cap A)+\mu(E\cap A^{\complement}).
+\end{equation}
+In other words, $A$ splits $E$ into ``inner'' and ``outer'' parts.
+(Folland requires $\forall E\in\mathcal{R}\ldotp(\dots)$ for this
+condition, but I do not think we need such caution?)
+\end{definition}
+
+\begin{definition}
+We say $\mu$ is \define{Complete} if its $\sigma$-algebra contains all
+subsets of all null sets.
+\end{definition}
+
+\begin{theorem}[Carath\'{e}odory's famous theorem]
+\begin{enumerate}
+\item The collection of $\mu$-measurable sets
+  \begin{equation}
+\mathcal{M}=\{A\subset X\mid A\mbox{ is $\mu$-measurable}\}
+  \end{equation}
+  is a $\sigma$-algebra.
+\item The restriction of $\mu$ to $\mathcal{M}$ is a complete measure.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+This requires 5 steps.
+
+\textsc{Step 1: $\mathcal{M}$ is an algebra.}
+Suffices to show: Let $A,B\in\mathcal{M}$, then $A\cup B\in\mathcal{M}$.
+
+Proof: $\forall E\subset X\ldotp\mu(E\cap A)+\mu(E\cap A^{\complement})=\mu(E)$
+since $A\in\mathcal{A}$. Then
+\begin{equation}\label{eq:math110a:lec19:eq1}
+\mu(E)=\mu((E\cap A)\cap B)+\mu((E\cap A)\cap B^{\complement})
++ \mu((E\cap A^{\complement})\cap B)+\mu((E\cap A^{\complement})\cap B^{\complement})
+\end{equation}
+Observe $E\cap(A\cup B)=(E\cap A\cap B)\cup(E\cap A\cap B^{\complement})\cup(E\cup A^{\complement}\cup B)$
+since $A\cup B=(A\cap B)\cup(A^{\complement}\cap B)\cup(A\cap B^{\complement})$.
+Then by subadditivity
+\begin{equation}\label{eq:math110a:lec19:eq2}
+\mu(E\cap(A\cup B))\leq\mu(E\cap A\cap B)+\mu(E\cap
+A^{\complement}\cap B) + \mu(E\cap A\cap B^{\complement})
+\end{equation}
+Combining Eq~\eqref{eq:math110a:lec19:eq1} and Eq~\eqref{eq:math110a:lec19:eq2}
+we get
+\begin{equation}
+\mu(E)\geq\mu(E\cap A^{\complement}\cap
+B^{\complement})+\mu(E\cap(A\cup B))=\mu(E\cap(A\cup B)^{\complement})+\mu(E\cap(A\cup B))
+\end{equation}
+so $A\cup B$ splits $E$ for arbitrary $E$. This means $A\cup B\in\mathcal{M}$.
+
+\textsc{Step 2: $\mu$ is finitely additive on $\mathcal{M}$.}
+Let $A,B\in\mathcal{M}$. Assume they are disjoint $A\cap B=\emptyset$.
+We will show $\mu(A\cup B)=\mu(A)+\mu(B)$ (which suffices to prove
+finite additivity).
+
+We see
+\begin{subequations}
+  \begin{align}
+\mu(A\cup B)
+&=\mu(A\cap(A\cup B))+\mu(A^{\complement}\cap(A\cup
+B))\quad\mbox{since $A$ splits $A\cup B$}\\
+&=\mu(A)+\mu(B)\quad\mbox{since $A\cap B=\emptyset$}.
+  \end{align}
+\end{subequations}
+Then
+\begin{equation}
+A^{\complement}\cap(A\cup B)=(A^{\complement}\cap
+A)\cup(A^{\complement}\cap B)=\emptyset\cup B=B.
+\end{equation}
+Hence $\mu$ is finite additive on $\mathcal{M}$.
+
+\textsc{Step 3: $\mathcal{M}$ is a $\sigma$-Algebra.}
+Consider disjoint $A_{j}\in\mathcal{M}$ and write $B_{n}=\bigsqcup^{n}_{j=1}A_{j}$
+and $B=\bigsqcup^{\infty}_{j=1}A_{j}$. Let $E\subset X$ be arbitrary.
+We have
+\begin{subequations}
+  \begin{align}
+\mu(E\cap B_{n}) &= \mu(E\cap B_{n}\cap A_{n})+\mu(E\cap B_{n}\cap A_{n}^{\complement})\\
+&=\mu(E\cap A_{n})+\mu(A\cap B_{n-1}),
+  \end{align}
+\end{subequations}
+so we have a telescopic situation. By induction,
+\begin{equation}
+\mu(E\cap B_{2})=\mu(E\cap A_{2})+\mu(E\cap A_{1}),
+\end{equation}
+then
+\begin{equation}
+\mu(E\cap B_{n})=\sum^{n}_{j=1}\mu(E\cap A_{j})
+\end{equation}
+by induction, and therefore
+\begin{subequations}
+  \begin{align}
+\mu(E) &= \mu(E\cap B_{n})+\mu(E\cap B_{n}^{\complement})\\
+&\geq[\sum^{n}_{j=1}\mu(E\cap A_{j})]+\mu(E\cap B^{\complement})
+  \end{align}
+\end{subequations}
+replacing $B_{n}$ by $B$ in the second term and noting
+$B^{\complement}\subset B_{n}^{\complement}$. Then we take the limit
+$n\to\infty$ to give us
+\begin{subequations}
+  \begin{align}
+\mu(E)&\geq[\sum^{\infty}_{j=1}\mu(E\cap A_{j})]+\mu(E\cap B^{\complement})\\
+&\geq\left(\cup^{\infty}_{j=1}(E\cap A_{j})\right)+\mu(E\cap B^{\complement})\quad\mbox{by subadditivity}\\
+&\quad=\mu(E\cap B)+\mu(E\cap B^{\complement})\quad\mbox{by def of $B$}\\
+&\quad\phantom{=\mu(E\cap B)}\quad\geq\mu(E)\quad\mbox{by subadditivity}.
+  \end{align}
+\end{subequations}
+Since we have several inequalities of the form $\mu(E)\geq\dots\geq\mu(E)$,
+they must be equalities. Therefore $\mu$ is defined on all sets and
+$\mu$ is subadditivity. Then we have
+\begin{equation}
+\mu(E\cap B)+\mu(E\cap B^{\complement})=\mu(E),
+\end{equation}
+which implies $B$ is measurable. In particular, $B\in\mathcal{M}$, so
+$\mathcal{M}$ is $\sigma$-algebra.
+
+\textsc{Step 4: $\mu$ restricted to $\mathcal{M}$ is countable additive.}
+Let $E_{j}\in\mathcal{M}$ be a sequence of pairwise disjoint sets, and
+$E=\bigcup_{j}E_{j}$. Then for any $n\in\NN$, we have:
+\begin{subequations}
+  \begin{align}
+\mu|_{\mathcal{M}}(E) &= \mu(E)\\
+&\geq\mu|_{\mathcal{M}}(E)\left(\bigcup^{n}_{j=1}E_{j}\right)\\
+&=\mu\left(\bigcup^{n}_{j=1}E_{j}\right)\\
+&=\sum^{n}_{j=1}\mu(E_{j}).
+  \end{align}
+\end{subequations}
+Taking the limit $n\to\infty$, we have
+\begin{equation}
+\mu(E)\geq\sum^{\infty}_{j=1}\mu(E_{j}).
+\end{equation}
+We also see that
+\begin{equation}
+\mu(E)=\mu|_{\mathcal{M}}(E)\leq\sum^{\infty}_{j=1}\mu|_{\mathcal{M}}(E_{j})=\sum^{\infty}_{j=1}\mu(E_{j}).
+\end{equation}
+This means $\mu(E)=\sum^{\infty}_{j=1}\mu(E_{j})$, hence $\mu$ is
+countably additive.
+
+\textsc{Step 5: $\mu$ restricted to $\mathcal{M}$ is complete.}
+We see $\mu|_{\mathcal{M}}(\emptyset)=0$ and for all $E\in\mathcal{M}$
+we see $\mu|_{\mathcal{M}}(E)\geq0$, so $\mu|_{\mathcal{M}}$ is a
+measure on $\mathcal{M}$ (huzzah).
+
+Now to show it is complete: Let $E$ be a null set $\mu|_{\mathcal{M}}(E)=0$. Let
+$F\subset E$. Then for any $A\subset X$, we have
+\begin{subequations}
+  \begin{align}
+\mu(A) &\geq\mu(A\cap F^{\complement})\\
+&=\mu(A\cap F^{\complement})+\mu(A\cap E)\\
+&\geq\mu(A\cap F^{\complement})+\mu(A\cap F),
+  \end{align}
+\end{subequations}
+so $F\in\mathcal{M}$. Since $F$ was an arbitrary subset of an
+arbitrary null set $E$, this means that $\mu|_{\mathcal{M}}$ is a
+complete measure.
+\end{proof}

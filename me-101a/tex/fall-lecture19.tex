@@ -1,0 +1,400 @@
+%%
+%% fall-lecture19.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-10T09:51:08-0800
+%% Last update 2026-11-10T09:51:08-0800
+%% 
+
+\lecture{}
+
+We will continue determining relevant physical quantities for quasi 1d flows.
+
+\begin{notation}
+The notation for the speed of sound is sometimes $c$, other times it
+is $a$. This is unfortunate, but such is life.
+\end{notation}
+
+\begin{node}[Speed of sound]
+Now, recall the definition for the speed of sound is
+\begin{equation}
+a^{2} = \left(\frac{\partial p}{\partial\rho}\right)_{S}.
+\end{equation}
+If the flow is isentropic [which happens if $f=0$ and $\dot{q}=0$],
+then we have the difference equation 
+\begin{equation}
+\D p = a^{2}\,\D\rho.
+\end{equation}
+Then we can use the conservation of momentum $u\partial_{x}u+(1/\rho)\partial_{x}p=0$
+[hence $-\rho u\,\D u =\D p$] to get
+\begin{equation}
+-\rho u\,\D u = a^{2}\,\D\rho.
+\end{equation}
+This gives us, using the Mach number $\Mach^{2}=u^{2}/a^{2}$,
+\begin{equation}
+\frac{\D\rho}{\rho}=\frac{-u}{a^{2}}\D u =\frac{-u^{2}}{a^{2}}\frac{\D u}{u}=-\Mach^{2}\frac{\D u}{u}.
+\end{equation}
+Then the relative change in density is given by
+\begin{equation}\label{eq:fall:lec19:me101a:eq1}
+\boxed{\frac{\D\rho}{\rho}=-\Mach^{2}\frac{\D u}{u}.}
+\end{equation}
+\end{node}
+
+\begin{node}
+The other equation, by continuity [conservation of mass],
+\begin{equation}
+\D(\rho u A)=0,
+\end{equation}
+which expands to (via the product/Leibniz rule),
+\begin{equation}
+\rho u\,\D A + \rho A\,\D u + Au\,\D\rho=0.
+\end{equation}
+Then dividing through by $\rho u A$ gives us
+\begin{equation}\label{eq:fall:lec19:me101a:eq2}
+\boxed{\frac{\D A}{A} + \frac{\D u}{u} + \frac{\D\rho}{\rho}=0.}
+\end{equation}
+\end{node}
+
+\begin{node}
+Then combining Eq~\eqref{eq:fall:lec19:me101a:eq1}
+and Eq~\eqref{eq:fall:lec19:me101a:eq2}, we obtain:
+\begin{equation}\label{eq:fall:lec19:me101a:eq3}
+  \boxed{\frac{\D u}{u}=\frac{1}{\Mach^{2}-1}\frac{\D A}{A}.}
+\end{equation}
+\end{node}
+
+\begin{proof}
+We see that Eq~\eqref{eq:fall:lec19:me101a:eq2} gives us,
+\begin{equation}
+\frac{\D\rho}{\rho} = -\frac{\D u}{u} -\frac{\D A}{A}.
+\end{equation}
+Then noting this is the left-hand side of Eq~\eqref{eq:fall:lec19:me101a:eq1},
+we find
+\begin{subequations}
+  \begin{align}
+-\Mach^{2}\frac{\D u}{u} &= \frac{\D\rho}{\rho}\quad\mbox{by Eq~\eqref{eq:fall:lec19:me101a:eq1}}\\
+&= -\frac{\D u}{u} -\frac{\D A}{A},
+  \end{align}
+\end{subequations}
+then adding $(\D u)/u$ to both sides yields
+\begin{equation}
+(1-\Mach^{2})\frac{\D u}{u} = -\frac{\D A}{A}.
+\end{equation}
+Dividing through by $1-\Mach^{2}$ gives us the result.
+\end{proof}
+
+
+\subsection{Conditions leading to flow acceleration}
+
+\begin{node}
+We want to find what conditions leads us to $u>0$ and $\D u>0$ (or, if
+the flow is ``moving to the left'', $u<0$ and $\D u<0$). We will
+divide up our attention into various ``regimes'' of the Mach number.
+\end{node}
+
+\begin{case}[$\Mach=0$]\label{case:fall:lec19:me101a:case1}
+Then by Eq~\eqref{eq:fall:lec19:me101a:eq1} we have
+\begin{equation}
+\D\rho=0.
+\end{equation}
+This is the incompressible flow regime. And Eq~\eqref{eq:fall:lec19:me101a:eq3}
+gives us
+\begin{equation}
+\frac{\D u}{u}=-\frac{\D A}{A}>0,
+\end{equation}
+which implies (since $(\D u)/u>0$ and $A>0$):
+\begin{equation}
+\D A < 0.
+\end{equation}
+\end{case}
+
+\begin{case}[$0<\Mach<1$---the Subsonic regime]
+When $0<\Mach<1$, then $1-\Mach^{2}>0$. Then Eq~\eqref{eq:fall:lec19:me101a:eq3}
+gives us
+\begin{equation}
+\D u>0\implies\D\rho<0.
+\end{equation}
+So the density is not constant, and its change $\D\rho$ depends on the
+Mach number.
+\end{case}
+
+\begin{case}[$1<\Mach$---the Supersonic regime]
+When we are in the ``supersonic regime'' $1<\Mach$, then $1-\Mach^{2}<0$
+and Eq~\eqref{eq:fall:lec19:me101a:eq3} gives us
+\begin{equation}
+\D u>0\implies\D A>0.
+\end{equation}
+Eq~\eqref{eq:fall:lec19:me101a:eq1} tells us, since $\D u>0$, we must
+have $\D\rho<0$---we are in a compressible flow.
+\end{case}
+
+\begin{case}[$\Mach=1$---the Sonic regime]
+When $\Mach=1$, Eq~\eqref{eq:fall:lec19:me101a:eq3} becomes ill-defined
+\begin{equation}
+\frac{\D u}{u}=\frac{1}{0}\frac{\D A}{A},
+\end{equation}
+which means if $(\D u)/u$ is finite, then we must have
+\begin{equation}
+\frac{\D A}{A}=0.
+\end{equation}
+This means $\D A=0$. So we have two possibilities:
+\begin{center}% from https://tex.stackexchange.com/a/17102/14751
+(1)\begingroup\setbox0=\hbox{\includegraphics{img/img.40}}\parbox{\wd0}{\box0}\endgroup
+\quad and\quad(2)
+\begingroup\setbox0=\hbox{\includegraphics{img/img.41}}\parbox{\wd0}{\box0}\endgroup
+\end{center}
+But (2) does not make sense in light of Case~\eqref{case:fall:lec19:me101a:case1},
+because the fluid leaves this muzzle in the subsonic regime.
+\end{case}
+
+\begin{note}
+For a non-classic gas dynamics regime, $\Gamma<0$, we could
+potentially have a flow passing through a nozzle which looks like the
+situation we eliminated. But this is a highly theoretical concern
+which we will not encounter in practice.
+\end{note}
+
+\begin{note}
+For the physically realistic sonic regime, $\Gamma>1$ for ideal and
+$0<\Gamma<1$ for non-ideal flows (where  $\Gamma$ is the fundamental
+derivative for gas dynamics).
+\end{note}
+
+\subsection{Material property $\beta$}
+
+\begin{definition}
+We define a new quantity $\beta$ in one of two equivalent ways:
+\begin{enumerate}
+\item $\beta :=\Gamma-1$ (or $\Gamma = 1+\beta$), or
+\item $\displaystyle{\beta:=\frac{\rho}{a}\left(\frac{\partial a}{\partial\rho}\right)_{S}=\rho a\left(\frac{\partial a}{\partial p}\right)_{S}}$
+\end{enumerate}
+Thompson~\cite[p.1849~\S VII]{thompson1971fundamental} calls $2(\Gamma-1)$ the
+\define{Parameter of Nonlinearity} (and I have yet to see anyone else
+give $\beta$ a name).
+\end{definition}
+
+\begin{node}
+These two definitions for $\beta$ are equivalent, since [proving (2)
+  gives us (1)]:
+\begin{subequations}
+  \begin{align}
+\Gamma &= \frac{V^{3}}{2a^{2}}\left(\frac{\partial^{2}p}{\partial V^{2}}\right)_{S}\\
+&= \frac{a^{4}}{2V^{3}}\left(\frac{\partial^{2}V}{\partial p^{2}}\right)_{S}\\
+&= \dots\\
+&= 1 + \frac{\rho}{a}\left(\frac{\partial a}{\partial \rho}\right)_{S}=1+\beta.
+  \end{align}
+\end{subequations}
+We can read these equalities from bottom to top to prove (1) gives us (2).
+\end{node}
+
+\begin{node}
+If we're dealing with an isentropic process $\D S=0$,
+then
+\begin{subequations}
+  \begin{align}
+\frac{\D a}{a} &= \frac{\rho}{a}\frac{\D\rho}{\rho}\frac{\D a}{\D\rho}\\
+&= \frac{\rho}{a}\frac{\D a}{\D\rho}\frac{\D\rho}{\rho}\\
+&=\beta\frac{\D\rho}{\rho}\quad\mbox{along isentrope}.
+  \end{align}
+\end{subequations}
+This tells us the relative change in the speed of sound $a^{-1}\,\D a$
+is directly proportional to the relative change in density $\rho^{-1}\,\D\rho$
+with proportionality constant given by $\beta$.
+
+
+We can write this further as
+\begin{equation}
+\frac{\D a}{a} = \beta\frac{\D p}{\rho a^{2}}.
+\end{equation}
+So, 
+\begin{equation}
+\frac{\D\rho}{\rho}=-\Mach^{2}\frac{\D u}{u}\implies\frac{\D a}{a}=-\beta\Mach^{2}\frac{\D u}{u}.
+\end{equation}
+Since $\Mach=u/a$, we find
+\begin{subequations}
+  \begin{align}
+\frac{\D\Mach}{\Mach} &= \frac{1}{M}\left(\frac{\D u}{a}-\frac{u}{a^{2}}\D a\right)\\
+&= \frac{a}{u}\frac{\D u}{a}-\frac{a}{u}\frac{u}{a^{2}}\D a\\
+&=\frac{\D u}{u}-\frac{\D a}{a},
+  \end{align}
+\end{subequations}
+hence we obtain (combining these steps all together):
+\begin{equation}\label{eq:fall2026:me101a:lec19:change-in-u-related-to-mach-number}
+\boxed{\frac{\D\Mach}{\Mach} = (1+\beta\Mach^{2})\frac{\D u}{u}.}
+\end{equation}
+We also obtain
+\begin{equation}
+\boxed{\frac{\D A}{A}=\frac{\Mach^{2}-1}{1+\beta\Mach^{2}}\frac{\D\Mach}{\Mach}.}
+\end{equation}
+\end{node}
+
+\begin{node}
+From previous relationships, we also obtain,
+\begin{equation}
+\boxed{\frac{\D\rho}{\rho}=\frac{-\Mach^{2}}{1+\beta\Mach^{2}}\frac{\D\Mach}{\Mach}.}
+\end{equation}
+\end{node}
+
+\begin{node}
+We are missing a relation expressing the change in energy in terms of
+the change in the Mach number (we have boxed every other such relationship).
+We see for enthalpy,
+\begin{subequations}
+  \begin{align}
+\D h &=-u\,\D u\\
+&=-u^{2}\frac{\D u}{u}\\
+&=2(h-h_{0})\frac{\D u}{u},\\
+\intertext{(where $h_{0}$ is total enthalpy) hence:}
+\frac{\D u}{u} &= \frac{\D h}{2(h-h_{0})}.
+  \end{align}
+\end{subequations}
+Then we can plug in the relation Eq~\eqref{eq:fall2026:me101a:lec19:change-in-u-related-to-mach-number}
+to find
+\begin{equation}
+\boxed{\frac{\D h}{2(h-h_{0})}=\frac{1}{1+\beta\Mach^{2}}\frac{\D\Mach}{\Mach}.}
+\end{equation}
+We could have used the equation of state
+\begin{equation}
+\D h = T\,\D S + V\,\D p = 0 + V\,\D p
+\end{equation}
+where $\D S=0$ (since we're on an isentrope), which gives us
+\begin{equation}
+\left(\frac{\partial h}{\partial p}\right)_{S}=\frac{1}{\rho},
+\end{equation}
+which gives us
+\begin{equation}\label{eq:fall2026:me101a:enthalpy-differential}
+\boxed{\D h=\frac{1}{\beta}a\,\D a.}
+\end{equation}
+\end{node}
+
+\subsection{Stagnation Quantities}
+
+\begin{node}
+If $\beta$ is constant, then we can integrate these boxed
+relationships. For example, Eq~\eqref{eq:fall2026:me101a:enthalpy-differential}
+gives us
+\begin{equation}
+\int^{h}_{h_{0}}\D h'=\int^{a}_{a_{0}}\frac{a'}{\beta}\,\D a'
+\end{equation}
+where $a_{0}$ is the reference speed of sound and $h_{0}$ is the total
+enthalpy (not a typo). Taking $a_{0}=0$, this integral gives us
+\begin{equation}
+\boxed{h = \frac{1}{2\beta}a^{2}.}
+\end{equation}
+Similarly, the other relationships
+\begin{equation}
+\int^{a}_{a_{0}}\frac{\D a'}{a'}=\int^{\rho}_{\rho_{0}}\beta\frac{\D\rho'}{\rho'}\implies
+\frac{a}{a_{0}}=\left(\frac{\rho}{\rho_{0}}\right)^{\beta},
+\end{equation}
+\begin{equation}
+\int^{\rho}_{\rho_{0}}\frac{\D\rho'}{\rho'}=-\int^{\Mach}_{0}\frac{(\Mach')^{2}}{1+\beta\Mach'}\frac{\D\Mach'}{\Mach'}\implies\frac{\rho}{\rho_{0}}=(1+\beta\Mach^{2})^{1//(2\beta)}.
+\end{equation}
+The values $\rho_{0}$, $a_{0}$, $p_{0}$, \dots, (all subscripted with
+zero) are called the \define{Stagnation Quantities}. They describe the
+situation where all kinetic energy has been transformed into internal
+energy. For any flow, we can move along an isentropic process to a
+state where $u=0$, $\Mach=0$, $\rho=\rho_{0}$, $a=a_{0}$, and it is
+this stagnation point.
+\end{node}
+
+\begin{aside}[Stagnation ondition]
+The stagnation quantities (with subscript 0) $T_{0}$, $u_{0}$,
+$p_{0}$, $\rho_{0}$, etc., are all achieved with a flow decelerated
+isentropically [i.e., no heat loss through $Q$ or friction, and no
+  shock waves].
+We move along isentropes. For compressible fluids, this becomes very
+important and we define stagnation quantities as our ``base line''. We
+achieve this in two ways:
+\begin{enumerate}
+\item Using \define{Pitot tubes} which are designed to slow supersonic
+  fluids down isentropically to measure $p_{0}$, $\rho_{0}$, $T_{0}$
+\item \define{Stagnation Chambers} where we start at the stagnation
+  state (so we can measure $p_{0}$, $\rho_{0}$, $T_{0}$, etc.) then
+  speed up the fluid.
+\end{enumerate}
+\end{aside}
+
+\begin{proposition}
+We have $\displaystyle{\frac{p_{0}}{p}=(1+\beta\Mach^{2})^{(2\beta+1)/(2\beta)}}$.
+\end{proposition}
+
+\begin{proof}
+Since $\D p = a^{2}\,\D\rho$, we find
+\begin{subequations}
+  \begin{align}
+\int^{p}_{p_{0}}\frac{\D p'}{\rho_{0}a_{0}^{2}}
+&=\int^{\rho}_{\rho_{0}}\frac{\rho'a^{2}}{\rho_{0}a_{0}^{2}}\frac{\D\rho'}{\rho'}\\
+&=\int^{\Mach}_{0}\left(\frac{\rho}{\rho_{0}}\right)
+\left(\frac{a}{a_{0}}\right)^{2}
+\frac{-(\Mach')^{2}}{1+\beta(\Mach')^{2}}
+\frac{\D\Mach'}{\Mach'},
+  \end{align}
+\end{subequations}
+which gives us the relationship
+\begin{equation}
+\frac{p-p_{0}}{\rho_{0}a_{0}^{2}} 
+= \frac{1}{2\beta+1}\left[(1+\beta\Mach^{2})^{-(2\beta+1)/(2\beta)}-1\right],
+\end{equation}
+which tells us
+\begin{equation}
+\lim_{\Mach\to0}p=0.
+\end{equation}
+This gives us
+\begin{equation}
+p_{0}=\frac{1}{2\beta+1}\rho_{0}a_{0}^{2},
+\end{equation}
+hence
+\begin{equation}
+\frac{p_{0}}{p}=(1+\beta\Mach^{2})^{(2\beta+1)/(2\beta)},
+\end{equation}
+as desired.
+\end{proof}
+
+\begin{proposition}
+We have $\displaystyle{\frac{h_{0}}{h}=1+\beta\Mach^{2}}$.
+\end{proposition}
+
+\begin{node}
+The upshot to all of this is: we want to relate quantities (like $p$,
+$\rho$, $T$, etc.) to stagnation quantities (resp., $p_{0}$,
+$\rho_{0}$, $T_{0}$, etc.) and the Mach number $\Mach$. These
+relationships allow us to know only two things:
+\begin{enumerate}
+\item the values of the stagnation quantities, and
+\item the current value of the Mach number.
+\end{enumerate}
+From these, we can immediately calculate the current values for the
+physical quantities $p$, $\rho$, $T$, etc.
+\end{node}
+
+\begin{note}
+We did not compute the cross sectional area for stagnation. That's
+because there is no meaningful ``stagnation area $A_{0}$''! But there
+is an $A^{*}$ where $\Mach=1$ is sonic (we call $A^{*}$ the
+\define{Sonic Area}). Then:
+\begin{subequations}
+  \begin{equation}
+\int^{A}_{A^{*}}\frac{\D A'}{A'}=\int^{\Mach}_{1}\frac{(\Mach')^{2}-1}{1+\beta(\Mach')^{2}}\frac{\D\Mach'}{\Mach'},
+  \end{equation}
+  hence
+\begin{equation}
+\left(\frac{A}{A^{*}}\right)^{2}=\frac{1}{\Mach^{2}}\left(\frac{1+\beta\Mach}{1+\beta}\right)^{(1+\beta)/\beta}.
+\end{equation}
+\end{subequations}
+\end{note}
+
+\begin{remark}[References]
+For discussion about stagnation points, see Batchelor~\cite[\S2.7~p.105]{batchelor1973introduction},
+Anderson~\cite[\S7.5]{anderson1984fundamentals}.
+Oddly, Landau and Lifshitz~\cite[\S10~p.20~\textit{et~seq.}]{landau1987fluid} seem to just assume the reader is
+familiar with stagnation points, and does not take advantage of
+stagnation quantities.\footnote{Perhaps in \S114 (around p.458) or somewhere, Landau
+and Lifshitz takes advantage of stagnation quantities?} (I presume it is because aerodynamics takes
+advantage of stagnation points, with dividends.)
+\end{remark}
+
+\begin{remark}[TODO]
+I should work out the physics of a Pitot tube, and a Stagnation Chamber.
+\end{remark}

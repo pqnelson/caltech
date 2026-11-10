@@ -632,5 +632,25 @@ beginfig(39) % cross sectional area blown up
   draw p2 dashed evenly withcolor red;
   label.rt(btex $P(x)$ etex, point 0.25(length(p2)) of p2) withcolor red;
 endfig;
-% 39
+
+% lecture 19 fall 2026
+beginfig(40)
+  path p[];
+  drawarrow (-3.1u,0)--(-2.1u,0);
+  draw (halfcircle scaled 4u) shifted (0,0.5u);
+  draw (halfcircle scaled 4u) rotated 180 shifted (0,-0.5u);
+  p0 = (0,-3u)--(0,3u);
+  draw p0 dashed evenly;
+  label.bot(btex ${\rm M}=1$ etex, point 0 of p0);
+endfig;
+beginfig(41)
+  path p[];
+  drawarrow (-3.1u,0)--(-2.1u,0);
+  draw (halfcircle scaled 4u) shifted (0,-2.5u);
+  draw (halfcircle scaled 4u) rotated 180 shifted (0,2.5u);
+  p0 = (0,-3u)--(0,3u);
+  draw p0 dashed evenly;
+  label.bot(btex ${\rm M}=1$ etex, point 0 of p0);
+endfig;
+% 41
 end;
