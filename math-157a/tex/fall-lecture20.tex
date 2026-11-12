@@ -1,0 +1,87 @@
+%%
+%% fall-lecture20.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-12T13:13:52-0800
+%% Last update 2026-11-12T13:13:52-0800
+%% 
+
+\lecture{}
+
+\begin{definition}
+Let $\omega$ be a complex rank-$n$ bundle (and $\omega_{\RR}$ its
+associated real rank-$2n$ bundle, with Euler class $e_{\RR}\in H^{2n}(B;\ZZ)$).
+The \define{Top Chern Class} is $c_{n}(\omega):=e(\omega_{\RR})\in H^{2n}(B;\ZZ)$.
+\end{definition}
+
+\begin{node}
+We need to introduce the Gysin sequence. First, we note the long exact
+sequence of homology groups
+\begin{equation}
+\dots\gets H_{j-1}(E_{0})\gets H_{j}(E,E_{0})\gets H_{j}(E)\gets H_{j}(E_{0})\gets\dots
+\end{equation}
+so the long exact sequence of cohomology groups
+\begin{equation}
+  \dots\to H^{j}(E,E_{0})\xrightarrow{j}H^{j}(E)\xrightarrow{r}H^{j}(E_{0}\xrightarrow{\delta}H^{j+1}(E,E_{0})\to\dots
+\end{equation}
+where $r$ is the restriction morphism, $\delta$ is the connecting
+morphism. We use the Thomas isomorphism $\varphi\colon H^{j-2n}(B)\to H^{j}(E,E_{0})$
+and $\pi^{*}\colon H^{j}(B)\to H^{j}(E)$ to obtain the commutative
+diagram
+\begin{equation}
+\vcenter{\xymatrix{H^{j}(E,E_{0})\ar[r]^{j} & H^{j}(E)\ar[r]^{r}&H^{j}(E_{0})\\
+H^{j-2n}(B)\ar[u]^{\varphi}\ar@{..>}[r]&H^{j}(B)\ar[u]^{\pi^{*}}\ar@{..>}[ur]_{\pi_{0}^{*}}&\\
+\beta\ar@{|->}[r] & (\pi^{*})^{-1}j(\pi^{*}\beta\smile U) & }}
+\end{equation}
+We see that
+\begin{subequations}
+  \begin{align}
+(\pi^{*})^{-1}j(\pi^{*}\beta\smile U) &= (\pi^{*})^{-1}(\pi^{*}\beta\smile(\pi^{*})^{-1}j\pi^{*}U)\\
+&= \beta\smile e(\omega_{\RR})
+  \end{align}
+\end{subequations}
+This gives us a long exact sequence with terms like
+\begin{equation}
+\dots\to H^{j-2n}(B;\ZZ)\xrightarrow{\smile e(\omega_{\RR})}H^{j}(B)\xrightarrow{\pi_{0}^{*}}H^{j}(E_{0})\xrightarrow{\varphi}H^{j+1+2n}(B)\to\dots
+\end{equation}
+which is precisely the \define{Gysin Sequences}.
+\end{node}
+
+\begin{node}
+We need a bundle $\omega_{0}$ over $E_{0}$ (to define the Chern
+characters), where $\omega_{0}$ is a rank-$(n-1)$ complex bundle over $E_{0}$.
+The basic idea is, just as $\pi\colon E\to B$ sends $(b,v)\mapsto b$,
+we can consider the subspace of each fiber $v^{\perp}$ which is
+($n-1$)-dimensional. This gives us a way to construct $\omega_{0}$.
+\end{node}
+
+\begin{definition}
+We define the \define{Chern Character} on $\omega$ as
+$c_{n}(\omega)=e(\omega_{\RR})$ [as before], and then inductively
+$c_{n-1}(\omega)=(\pi_{0}^{*})^{-1}c_{n-1}(\omega_{0})$, $c_{n-2}(\omega)=(\pi_{0}^{*})^{-1}c_{n-2}(\omega_{0})=(\pi_{0}^{*})^{-1}(\pi_{00}^{*})^{-1}c_{n-2}((\omega_{0})_{0})$,
+\dots, all the way down to $c_{0}(\omega)$.
+\end{definition}
+
+\begin{node}
+There is a more intuitive way to think of this construction, but we
+will discuss it next class.
+\end{node}
+
+
+\begin{definition}
+The \define{Total Chern Class} is $c(\omega)=1+c_{1}(\omega)+\dots+c_{n}(\omega)$.
+\end{definition}
+\begin{proposition}
+\begin{enumerate}
+\item Naturality: for any $f\colon A\to B$ continuous, $c(f^{*}\omega)=f^{*}c(\omega)$
+\item Product: $c(\omega_{1}\oplus\omega_{2})=c(\omega_{1})c(\omega_{2})$
+\item $c_{1}(\gamma^{1}_{1})\in H^{2}(\CP^{1};\ZZ)$ is nonzero where
+  $\gamma^{1}_{1}$ is the tautological line bundle over $\CP^{1}$.
+\end{enumerate}
+\end{proposition}
+
+(We just need to show $c_{k}(\omega)=0$ for all $k>n$ when $\omega$ is
+a rank-$n$ complex bundle, and then we'll have matched all the axioms
+for the Stiefel--Whitney classes.)

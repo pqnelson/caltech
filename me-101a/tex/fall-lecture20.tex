@@ -1,0 +1,422 @@
+%%
+%% fall-lecture20.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-12T09:13:37-0800
+%% Last update 2026-11-12T09:13:37-0800
+%% 
+
+\lecture{}
+
+\begin{recall}
+We are studying ``quasi 1-dimensional flows'' (which is especially
+relevant in aerodynamics).
+We introduced, for many physical quantities $X$ associated
+relationships with the Mach number like $(1/X)\D X\sim(1\Mach)\D\Mach$,
+which we integrated to obtain a ratio between the quantity $X$ and its
+``stagnation quantity'' $X_{0}$ and some function of $X_{0}/X\sim(1+\beta\Mach^{2})^{C}$:
+\begin{equation}
+\left.\begin{array}{r}
+\displaystyle{\frac{\D u}{u} = \frac{1}{1+\beta\Mach^{2}}\frac{\D\Mach}{\Mach}}\\[12pt]
+\displaystyle{\frac{\D a}{a} = \frac{-\beta\Mach^{2}}{1+\beta\Mach^{2}}\frac{\D\Mach}{\Mach}}\\[12pt]
+\displaystyle{\frac{\D\rho}{\rho}=\frac{-\Mach^{2}}{1+\beta\Mach^{2}}\frac{\D\Mach}{\Mach}}\\[12pt]
+\displaystyle{\frac{\D h}{2(h-h_{0})}=\frac{1}{1+\beta\Mach^{2}}\frac{\D\Mach}{\Mach}}\\[12pt]
+\dots
+\end{array}\right\}\xrightarrow{\Gamma=\text{const.}}
+\left\{\begin{array}{l}
+\displaystyle{\frac{\rho_{0}}{\rho}=(1+\beta\Mach^{2})^{1/(2\beta)}}\\[12pt]
+\displaystyle{\frac{a_{0}}{a}=(1+\beta\Mach^{2})^{1/2}}\\[12pt]
+\displaystyle{\frac{h_{0}}{h}=(1+\beta\Mach^{2})}\\[12pt]
+\displaystyle{\frac{p_{0}}{p}=(1+\beta\Mach^{2})^{(2\beta+1)/(2\beta)}}\\[12pt]
+\dots
+\end{array}\right.
+\end{equation}
+This was done when $\Gamma$ is constant (equivalently, $\beta$
+constant). The $\rho_{0}$, $a_{0}$, $p_{0}$, $h_{0}$ are stagnation
+quantities obtained via following isentroopes to the state where the
+flow is not moving. We also have the \define{Sonic Area} $A^{*}$
+satisfying
+\begin{equation}
+\frac{A}{A^{*}}=\frac{1}{\Mach^{2}}\left(\frac{1+\beta\Mach^{2}}{1+\beta}\right)^{(1+\beta)/\beta}.
+\end{equation}
+Recall, we defined
+\begin{equation}
+\beta:=\frac{\rho}{a}\left(\frac{\partial a}{\partial\rho}\right)_{S},
+\end{equation}
+so $\Gamma=1+\beta$.
+\end{recall}
+
+\begin{assume}
+We have a perfect gas (so $c_{V}$ is constant, and $c_{p}$ is constant).
+\end{assume}
+
+\begin{node}[Calculating $\beta$ for perfect gases]
+Recall Eq~\eqref{eq:me101a:fall2026:lec18:pressure-ratio-propto-density-ratio},
+\begin{equation}
+\left(\frac{p}{p_{0}}\right)=\left(\frac{\rho}{\rho_{0}}\right)^{\gamma},
+\end{equation}
+which means
+\begin{subequations}
+  \begin{align}
+a^{2} &= \left(\frac{\partial p}{\partial\rho}\right)_{S}\quad\mbox{by def}\\
+&= \frac{p_{0}}{\rho_{0}^{\gamma}}\gamma\rho^{\gamma-1},
+  \end{align}
+\end{subequations}
+then we can compute
+\begin{subequations}
+  \begin{align}
+\beta&=\frac{\rho}{a}\left(\frac{\partial a}{\partial\rho}\right)_{S}\quad\mbox{by def}\\
+&=\frac{\rho}{2a^{2}}\frac{p_{0}}{\rho_{0}^{\gamma}}\gamma(\gamma-1)\rho^{\gamma-2}\\
+&=\frac{1}{2a^{2}}\frac{p_{0}}{\rho_{0}^{\gamma}}\gamma(\gamma-1)\rho^{\gamma-1},
+  \end{align}
+\end{subequations}
+which gives us (combining these two calculations),
+\begin{equation}
+\boxed{\beta=\frac{\gamma-1}{2}\quad\mbox{for perfect gases}.}
+\end{equation}
+This should make sense since $\Gamma=(\gamma+1)/2$ for perfect gases.
+\end{node}
+
+\begin{node}[Stagnation quantities for perfect gases]
+Using $\beta=(\gamma-1)/2$ for perfect gases, we can rewrite the
+stagnation quantity ratios for perfect gases as:
+\begin{subequations}
+  \begin{align}
+\frac{\rho_{0}}{\rho} &= \left(1+\frac{\gamma-1}{2}\Mach^{2}\right)^{1/(\gamma-1)}\\
+\frac{a_{0}}{a} &= \left(1+\frac{\gamma-1}{2}\Mach^{2}\right)^{1/2}\\
+\frac{h_{0}}{h} &= \left(1+\frac{\gamma-1}{2}\Mach^{2}\right)\\
+\frac{p_{0}}{p} &= \left(1+\frac{\gamma-1}{2}\Mach^{2}\right)^{\gamma/(\gamma-1)}\\
+\intertext{and,}
+\frac{A}{A^{*}} &= \frac{1}{\Mach}\left[\frac{2}{\gamma+1}\left(1+\frac{\gamma-1}{2}\Mach^{2}\right)\right]^{(\gamma+1)/[2(\gamma-1)]}.
+  \end{align}
+\end{subequations}
+\end{node}
+
+\begin{observation}
+Everything has been expressed as a function of the Mach number (and
+the constant\footnote{It's a perfect gas! Of course
+$\gamma=c_{p}/c_{V}$ is constant!} $\gamma$). 
+\end{observation}
+
+\begin{node}
+Suppose we have a known stagnation condition $\rho_{0}$, $p_{0}$,
+$T_{0}$, \dots. As $\Mach\to\infty$ (we speed things up), we see
+\begin{subequations}
+\begin{equation}
+h,\rho,a,p\xrightarrow{\Mach\to\infty} 0,
+\end{equation}
+\begin{equation}
+\frac{A}{A^{*}}\xrightarrow{\Mach\to\infty}\infty,
+\end{equation}
+and
+\begin{equation}
+u\xrightarrow{\Mach\to\infty}\sqrt{\frac{2}{\gamma-1}}a_{0}.
+\end{equation}
+\end{subequations}
+That last result concerning $u$ seems surprising, let us check:
+\begin{subequations}
+  \begin{align}
+\frac{u}{a_{0}} &= \frac{u}{a}\frac{a}{a_{0}}\\
+&=\Mach\frac{a}{a_{0}}\quad\mbox{by def of Mach number}\\
+&=\Mach\left(1+\frac{\gamma-1}{2}\Mach^{2}\right)^{-1/2}\\
+&\xrightarrow{\Mach\to\infty}\sqrt{\frac{2}{\gamma-1}}.
+  \end{align}
+\end{subequations}
+Coincidentally, this is the $a\to0$ limit.
+
+\textsc{Moral}: There is a limit to how
+fast our fluid can move if we speed it up isentropically. (If there
+was no limit, then $u\to\infty$ as $\Mach\to\infty$.)
+\end{node}
+
+\begin{example}
+Air has $T_{0}=15^{\circ}~\mathrm{C}$, $a_{0}=340~\mathrm{m}/\mathrm{s}$,
+and so $u_{\text{max}}=760~\mathrm{m}/\mathrm{s}$.
+\end{example}
+
+\begin{note}
+The perfect gas idealization breaks down at high Mach numbers.
+\end{note}
+
+\begin{remark}[About the Sonic condition $\Mach=1$]
+For a perfect gas, the sonic speed $u^{*}$ relative to stagnation
+speed of sound $a_{0}$ satisfies
+\begin{equation}
+\frac{u^{*}}{a_{0}}=\sqrt{\frac{2}{\gamma+1}},
+\end{equation}
+since
+\begin{subequations}
+  \begin{align}
+\frac{u^{*}}{a_{0}} &= \frac{u^{*}}{a^{*}}\frac{a^{*}}{a_{0}}\\
+&=\Mach\frac{a^{*}}{a_{0}}\\
+&=\frac{a^{*}}{a_{0}}\\
+&=\left(1+\beta\Mach^{2}\right)^{-1/2}=\frac{1}{\sqrt{\Gamma}}.
+  \end{align}
+\end{subequations}
+Similarly, we can find the sonic density
+\begin{subequations}
+  \begin{align}
+\frac{\rho_{0}}{\rho^{*}} &= (1+\beta\Mach^{2})^{1/(2\beta)}\\
+&= (1+\beta)^{1/(2\beta)}\\
+&= \left(1+\frac{\gamma-1}{2}\right)^{1/(\gamma-1)}\\
+&= \left(\frac{2}{1+\gamma}\right)^{-1/(\gamma-1)},
+  \end{align}
+so (inverting this relation, then multiplying both sides by $\rho^{*}$),
+\begin{equation}
+\boxed{\rho^{*}=\rho_{0}\left(1+\frac{\gamma-1}{2}\right)^{1/(\gamma-1)}.}
+\end{equation}
+\end{subequations}
+Now, we can find the mass flow $\dot{m}=A\rho u$ at sonic speed
+condition as
+\begin{subequations}
+  \begin{align}
+\dot{m}^{*} &=A^{*}\rho^{*}u^{*}\\
+&= \left(\frac{2}{\gamma+1}\right)^{(\gamma+1)/2(\gamma-1)}a_{0}\rho_{0}A^{*}.
+  \end{align}
+\end{subequations}
+\end{remark}
+
+\begin{aside}
+We can see, following Anderson~\cite[\S8.5]{anderson1984fundamentals},
+we can answer the question, ``When is a flow compressible?'' We look
+at the ratio,
+\begin{equation}
+\frac{\rho_{0}}{\rho}=\left(1+\frac{\gamma-1}{2}\Mach^{2}\right)^{1/(\gamma-1)}
+\end{equation}
+then look at the values of $\Mach$ such that this ratio is
+``approximately flat'' (i.e., the density does not change more than
+5\% or 10\% or smaller), which means that the flow can be treated as
+incompressible. For larger values of $\Mach$, this ratio can
+compress. We see when $\Mach=0$ that $\rho=\rho_{0}$ so
+$\rho_{0}/\rho=1$.
+Let us find the $\Mach_{\text{crit}}$ such that
+\begin{equation}
+\left(1+\frac{\gamma-1}{2}\Mach^{2}_{\text{crit}}\right)^{1/(\gamma-1)}=\frac{19}{20}.
+\end{equation}
+After some algebra, we find
+\begin{equation}
+\Mach_{\text{crit}}^{2}=\frac{2}{\gamma-1}\left((20/19)^{\gamma-1}-1\right).
+\end{equation}
+For air, $\gamma_{\text{air}}\approx1.4$ which gives $\Mach_{\text{crit}}\approx0.329$
+which corresponds to velocities $u<109.46~\mathrm{m}/\mathrm{s}$.
+To get some sense of things, a Tornado typically has speeds less than
+$50~\mathrm{m}/\mathrm{s}$. (Tornadoes are defined as having speeds
+greater than $17.78~\mathrm{m}/\mathrm{s}$.)
+\end{aside}
+
+\subsection{Normal Shocks}
+
+\begin{note}
+Note to self: (1) ``normal shocks'' seem to be a topic appearing in gas
+dynamics (at least it appears there in my books on gas dynamics, but
+seems absent from my books on hydrodynamics), but it generalizes to
+fluid mechanics more broadly.
+
+(2) ``Normal shock'' as opposed to ``oblique shock'' (or ``non-normal shock'').
+\end{note}
+
+\begin{node}
+We will look at 1-dimensional flow with no area change, so we have a
+``parallel tube'' (i.e., a pipe) and a piston at one end. Assume we
+have a compressible fluid.
+At time $t<0$, the fluid velocity inside the tube is zero $u=0$.
+
+At time $t=0$, the piston starts moving [at constant velocity?].
+\begin{center}
+\includegraphics{img/img.41}
+
+\includegraphics{img/img.42}
+
+\includegraphics{img/img.43}
+
+\includegraphics{img/img.44}
+\end{center}
+At positions $x_{1}$, $x_{2}$, $x_{3}$, we can measure $u$ and observe
+it steadily increases in a sort of step function:
+\begin{center}
+  \includegraphics{img/img.45}
+\end{center}
+This plot also holds for other quantities like $p$, $\rho$, $T$. At
+later times, it smooths out (as wave 1 overtakes wave 2, wave 2
+overtakes wave 3, and so on), giving us a plot looking more like:
+\begin{center}
+  \includegraphics{img/img.46}
+\end{center}
+\end{node}
+
+\begin{node}
+Once a shock forms, it is no longer an isentropic process.
+The width of the shock $\lambda$ is ``small''.
+\end{node}
+
+\begin{node}[Shock fixed frame]
+In this example, we can ``follow the shock''. This is a frame of
+reference. But in this frame, the shock wave has zero velocity.
+\end{node}
+
+\begin{assume}
+\begin{enumerate}
+\item Steady flow (or, we are in the shock fixed frame)
+\item Neglect friction of wall
+\item Neglect heat transfer
+\end{enumerate}
+\end{assume}
+
+\begin{node}
+If we write down the control volume integral form for the equations of
+motion, we get:
+\begin{subequations}
+\begin{equation}\label{eq:fall2026:lec20:eq1}
+\rho_{2}u_{2}=\rho_{1}u_{1}=\dot{m}
+\end{equation}
+\begin{equation}\label{eq:fall2026:lec20:eq2}
+p_{2}-p_{1}=\rho_{1}u_{1}^{2}-\rho_{2}u_{2}^{2}
+\end{equation}
+\begin{equation}\label{eq:fall2026:lec20:eq3}
+h_{2}-h_{1}=\frac{1}{2}(u_{1}^{2}-u_{2}^{2}).
+\end{equation}
+\end{subequations}
+\end{node}
+
+\begin{node}
+The combining Eq~\eqref{eq:fall2026:lec20:eq1} with Eq~\eqref{eq:fall2026:lec20:eq2},
+\begin{subequations}\label{eq:fall2026:lec20:eq4}
+  \begin{align}
+\Delta p &:= p_{2}-p_{1} \\
+&=\rho_{1}u_{1}(u_{1}-u_{2})\\
+&=-\rho_{1}u_{1}\,\Delta u\\
+&=-\dot{m}\,\Delta u.
+  \end{align}
+\end{subequations}
+Then Eq~\eqref{eq:fall2026:lec20:eq1} gives us
+\begin{equation}
+\frac{\rho_{1}}{\rho_{2}}=\frac{u_{2}}{u_{1}},
+\end{equation}
+hence
+\begin{equation}\label{eq:fall2026:lec20:eq5}
+\frac{\Delta u}{u_{1}}=\frac{u_{2}-u_{1}}{u_{1}}=\frac{-\Delta\rho}{\rho_{2}}.
+\end{equation}
+Plugging Eq~\eqref{eq:fall2026:lec20:eq4} into Eq~\eqref{eq:fall2026:lec20:eq5}
+yields
+\begin{equation}\label{eq:fall2026:lec20:eq6}
+\frac{\Delta p}{\Delta\rho}=u_{1}u_{2}.
+\end{equation}
+Recall $V=1/\rho$, which gives us
+\begin{equation}\label{eq:fall2026:lec20:eq7}
+\frac{\Delta p}{\Delta V}=-\dot{m}^{2}
+\end{equation}
+We claim
+\begin{equation}\label{eq:fall2026:lec20:eq8}
+\Delta p\,\Delta V=-(\Delta u)^{2}.
+\end{equation}
+\end{node}
+
+\begin{aside}
+As I transcribe these calculations, I do not quite believe it. We see
+\begin{subequations}
+  \begin{align}
+\Delta\rho &= \rho_{2} - \rho_{1}\\
+&= \frac{1}{V_{2}}-\frac{1}{V_{1}}\\
+&= \frac{V_{1}-V_{2}}{V_{1}V_{2}}\\
+&= \frac{1}{V_{1}}\frac{1}{V_{2}}(-1)(V_{2}-V_{1})\\
+&= -\rho_{1}\rho_{2}\,\Delta V.
+  \end{align}
+\end{subequations}
+Then we would have
+\begin{subequations}
+  \begin{align}
+\frac{\Delta p}{\Delta\rho} &= \frac{1}{-\rho_{1}\rho_{2}}\frac{\Delta p}{\Delta V}\\
+&= u_{1}u_{2}.
+  \end{align}
+\end{subequations}
+Then we see $\dot{m}=\rho_{1}u_{1}=\rho_{2}u_{2}$ gives us
+(multiplying both sides by $-\rho_{1}\rho_{2}$):
+\begin{equation}
+\frac{\Delta p}{\Delta V}=-\rho_{1}\rho_{2}u_{1}u_{2}=-\dot{m}^{2}.
+\end{equation}
+This is precisely Eq~\eqref{eq:fall2026:lec20:eq7}. Multiplying
+through by $\Delta V$ gives us
+\begin{equation}
+\Delta p=-\dot{m}^{2}\,\Delta V.
+\end{equation}
+Then we set this equal to Eq~\eqref{eq:fall2026:lec20:eq4}
+\begin{subequations}
+  \begin{align}
+-\dot{m}^{2}\,\Delta V &= \Delta p\\
+&=-\dot{m}\,\Delta u\quad\mbox{by Eq~\eqref{eq:fall2026:lec20:eq4}}
+  \end{align}
+\end{subequations}
+which gives us (assuming $\dot{m}\neq0$)
+\begin{equation}
+\dot{m}\,\Delta V=\Delta u.
+\end{equation}
+Using this, multiply both sides by $\Delta p$ and using Eq~\eqref{eq:fall2026:lec20:eq4}
+\begin{subequations}
+  \begin{align}
+\dot{m}\,\Delta V\,\Delta p&=\Delta u\,\Delta p\\
+&=-\dot{m}(\Delta u)^{2},
+  \end{align}
+hence dividing through by $\dot{m}$,
+  \begin{equation}
+\boxed{\Delta V\,\Delta p=-(\Delta u)^{2}}.
+  \end{equation}
+\end{subequations}
+That's precisely Eq~\eqref{eq:fall2026:lec20:eq8}.
+\end{aside}
+
+\begin{node}
+Compare these quantities to isentropic equations. For example,
+Eq~\eqref{eq:fall2026:lec20:eq7}
+``corresponds'' analogously to
+\begin{equation}
+\left(\frac{\partial p}{\partial V}\right)_{S} = -\rho^{2}a^{2}.
+\end{equation}
+\end{node}
+
+\begin{node}
+Now, we have not touched our conservation of Energy Eq~\eqref{eq:fall2026:lec20:eq3}:
+\begin{subequations}
+  \begin{align}
+\Delta h &= \frac{1}{2}(u_{1}^{2}-u_{2}^{2})\\
+&= \frac{1}{2}(u_{1}+u_{2})(u_{1}-u_{2})\\
+&= \frac{1}{2}(u_{1}+u_{2})(-\Delta u),
+  \end{align}
+\end{subequations}
+then using Eq~\eqref{eq:fall2026:lec20:eq4} and $\dot{m}=\rho_{1}u_{1}$,
+\begin{subequations}
+  \begin{align}
+\Delta h &= \frac{1}{2}(u_{1}+u_{2})\frac{\Delta p}{\rho_{1}u_{1}}\\
+&=\frac{1}{2}(\Delta p)\frac{u_{1}+u_{2}}{\rho_{1}u_{1}},
+  \end{align}
+\end{subequations}
+hence
+\begin{subequations}
+  \begin{align}
+\frac{1}{2}(\Delta p)\left(\frac{1}{\rho_{1}}+\frac{1}{\rho_{2}}\right)
+&=\frac{1}{2}(\Delta p)(V_{1}+V_{2})\\
+&=\frac{1}{2}(V_{1}+V_{2})(\Delta p)\\
+&=\overline{V}\,\Delta p
+  \end{align}
+\end{subequations}
+using $\overline{V}=(V_{1}+V_{2})/2$ the average volume.
+\end{node}
+
+\begin{node}
+We can similarly compute
+\begin{subequations}
+  \begin{align}
+\Delta e &= e_{2}-e_{1}\\
+&=\Delta h + \left(\frac{p_{1}}{\rho_{1}}-\frac{p_{2}}{\rho_{2}}\right)\\
+&=\dots\\
+&=-\overline{p}\,\Delta V,
+  \end{align}
+\end{subequations}
+where $\overline{p}=(p_{1}+p_{2})/2$ is the average pressure.
+\end{node}
+
+\begin{remark}
+Zucrow and Hoffman~\cite[\S7--3~\textit{et~seq}]{zucrow1976gas}
+is a good review for normal shock waves.
+\end{remark}

@@ -652,5 +652,228 @@ beginfig(41)
   draw p0 dashed evenly;
   label.bot(btex ${\rm M}=1$ etex, point 0 of p0);
 endfig;
-% 41
+
+% lecture 20 fall 2026
+beginfig(41) % piston moving t=0
+  path piston,p[];
+  numeric w,dx,h,i,s,pw,shock;
+  w = 10u;
+  h = 2u;
+  pw = 0.25u;
+  piston = (w-pw,0)--(w,0)--(w,h)--(w-pw,h)--cycle;
+  fill piston withcolor 0.5white;
+  draw piston;
+
+  label.rt(btex $t=0$ etex, (w,0.5h));
+
+  drawarrow (w-pw,0.5h)--(w-pw-u,0.5h);
+  
+  p0 = (0,0)--(w,0); % bottom
+  p1 = (0,h)--(w,h); % top
+  dx=4;
+  s=0.5dx;
+  p2 = (0,0)
+  for i=s step 0.5*dx until h:
+    --(((-1)**((i-s)/(0.5*dx)))*dx,i)
+  endfor
+  --(0,h);
+  %offset=1.25u;
+  shock=u;
+  z0 = point 0 of piston;
+  p3 = (z0 + (-2*shock,-u))--(z0 + (-2*shock,u+h));
+  p4 = p3 shifted (-1.5*shock,0);
+  p5 = p4 shifted (-1*shock,0);
+  p6 = p5 shifted (-0.5shock,0);
+  % for i=1 upto 3:
+  %   p[2+i] = (w-i*1.25u-pw,-u)--(w-i*1.25u-pw,u+h);
+  % endfor;
+  draw p0;
+  draw p1;
+  draw p2;
+  draw p3 dashed evenly;
+  % draw p4 dashed evenly;
+  % draw p5 dashed evenly;
+  % draw p6 dashed evenly;
+  label.bot(btex $x_{1}$ etex, point 0 of p3);
+  % label.bot(btex $x_{2}$ etex, point 0 of p4);
+  % label.bot(btex $x_{3}$ etex, point 0 of p5);
+endfig;
+
+beginfig(42) % piston moving t=1
+  path piston,p[];
+  numeric w,dx,h,i,s,pw,shock;
+  w = 10u;
+  h = 2u;
+  pw = 0.25u;
+  piston = ((w-pw,0)--(w,0)--(w,h)--(w-pw,h)--cycle) shifted (-u,0);
+  
+  fill piston withcolor 0.5white;
+  draw piston;
+
+  label.rt(btex $t=1$ etex, (w,0.5h));
+
+  drawarrow (w-pw,0.5h)--(w-pw-u,0.5h);
+  
+  p0 = (0,0)--(w,0); % bottom
+  p1 = (0,h)--(w,h); % top
+  dx=4;
+  s=0.5dx;
+  p2 = (0,0)
+  for i=s step 0.5*dx until h:
+    --(((-1)**((i-s)/(0.5*dx)))*dx,i)
+  endfor
+  --(0,h);
+  %offset=1.25u;
+  shock=u;
+  z0 = point 0 of piston;
+  p3 = (z0 + (-2*shock,-u))--(z0 + (-2*shock,u+h));
+  p4 = p3 shifted (-1.5*shock,0);
+  p5 = p4 shifted (-1*shock,0);
+  p6 = p5 shifted (-0.5shock,0);
+  % for i=1 upto 3:
+  %   p[2+i] = (w-i*1.25u-pw,-u)--(w-i*1.25u-pw,u+h);
+  % endfor;
+  draw p0;
+  draw p1;
+  draw p2;
+  draw p3 dashed evenly;
+  draw p4 dashed evenly;
+  % draw p5 dashed evenly;
+  % draw p6 dashed evenly;
+  label.bot(btex $x_{1}$ etex, point 0 of p3);
+  label.bot(btex $x_{2}$ etex, point 0 of p4);
+%  label.bot(btex $x_{3}$ etex, point 0 of p5);
+endfig;
+
+beginfig(43) % piston moving t=2
+  path piston,p[];
+  numeric w,dx,h,i,s,pw,shock;
+  w = 10u;
+  h = 2u;
+  pw = 0.25u;
+  piston = ((w-pw,0)--(w,0)--(w,h)--(w-pw,h)--cycle) shifted (-2u,0);
+  
+  fill piston withcolor 0.5white;
+  draw piston;
+
+  label.rt(btex $t=2$ etex, (w,0.5h));
+
+  drawarrow (w-pw,0.5h)--(w-pw-u,0.5h);
+  
+  p0 = (0,0)--(w,0); % bottom
+  p1 = (0,h)--(w,h); % top
+  dx=4;
+  s=0.5dx;
+  p2 = (0,0)
+  for i=s step 0.5*dx until h:
+    --(((-1)**((i-s)/(0.5*dx)))*dx,i)
+  endfor
+  --(0,h);
+  %offset=1.25u;
+  shock=u;
+  z0 = point 0 of piston;
+  p3 = (z0 + (-2*shock,-u))--(z0 + (-2*shock,u+h));
+  p4 = p3 shifted (-1.5*shock,0);
+  p5 = p4 shifted (-1*shock,0);
+  p6 = p5 shifted (-0.5shock,0);
+  % for i=1 upto 3:
+  %   p[2+i] = (w-i*1.25u-pw,-u)--(w-i*1.25u-pw,u+h);
+  % endfor;
+  draw p0;
+  draw p1;
+  draw p2;
+  draw p3 dashed evenly;
+  draw p4 dashed evenly;
+  draw p5 dashed evenly;
+  % draw p6 dashed evenly;
+  label.bot(btex $x_{1}$ etex, point 0 of p3);
+  label.bot(btex $x_{2}$ etex, point 0 of p4);
+  label.bot(btex $x_{3}$ etex, point 0 of p5);
+endfig;
+
+beginfig(44) % piston moving t=3
+  path piston,p[];
+  numeric w,dx,h,i,s,pw,shock;
+  w = 10u;
+  h = 2u;
+  pw = 0.25u;
+  piston = ((w-pw,0)--(w,0)--(w,h)--(w-pw,h)--cycle) shifted (-3u,0);
+  
+  fill piston withcolor 0.5white;
+  draw piston;
+
+  label.rt(btex $t=3$ etex, (w,0.5h));
+
+  drawarrow (w-pw,0.5h)--(w-pw-u,0.5h);
+  
+  p0 = (0,0)--(w,0); % bottom
+  p1 = (0,h)--(w,h); % top
+  dx=4;
+  s=0.5dx;
+  p2 = (0,0)
+  for i=s step 0.5*dx until h:
+    --(((-1)**((i-s)/(0.5*dx)))*dx,i)
+  endfor
+  --(0,h);
+  %offset=1.25u;
+  shock=u;
+  z0 = point 0 of piston;
+  p3 = (z0 + (-2*shock,-u))--(z0 + (-2*shock,u+h));
+  p4 = p3 shifted (-1.5*shock,0);
+  p5 = p4 shifted (-1*shock,0);
+  p6 = p5 shifted (-0.5shock,0);
+  % for i=1 upto 3:
+  %   p[2+i] = (w-i*1.25u-pw,-u)--(w-i*1.25u-pw,u+h);
+  % endfor;
+  draw p0;
+  draw p1;
+  draw p2;
+  draw p3 dashed evenly;
+  draw p4 dashed evenly;
+  draw p5 dashed evenly;
+  draw p6 dashed evenly;
+  label.bot(btex $x_{1}$ etex, point 0 of p3);
+  label.bot(btex $x_{2}$ etex, point 0 of p4);
+  label.bot(btex $x_{3}$ etex, point 0 of p5);
+endfig;
+
+beginfig(45)% plot of pressure
+  path axis, p, speed;
+  numeric w,h;
+  w = 10u;
+  h = 4u;
+  axis = (u,0)--(-w,0);
+  speed = (0,-u)--(0,h);
+  p = (-2u,0)--(-2u,u)--(-3.5u,u)--(-3.5u,1.5u)--(-4.5u,1.5u)--(-4.5u,1.75u)--(-5u,1.75u)--(-5u,1.875u)--(-w,1.875u);
+  drawdblarrow axis;
+  drawdblarrow speed;
+  label.rt(btex $x$ etex, point 0 of axis);
+  label.rt(btex $u$ etex, point (length(speed)) of speed);
+  draw p;
+endfig;
+
+beginfig(46) % shock wave smoothed plot
+  path axis, p[], speed;
+  numeric w,h;
+  w = 10u;
+  h = 4u;
+  axis = (u,0)--(-w,0);
+  speed = (0,-u)--(0,h);
+  p0 = (0,0){left}..(-2.9u,2)..(-3u,3){up}..(-3.25u,3u-3)..(-3.5u,3u){left}..(-w,3u);
+  z0 = (-2.75u,0);
+  z1 = (-3.5u,0);
+  p1 = z0--(z0 + (0,h));
+  p2 = z1--(z1 + (0,h));
+  drawdblarrow axis;
+  drawdblarrow speed;
+  draw p0;
+  draw p1 dashed evenly;
+  draw p2 dashed evenly;
+  label.rt(btex $x$ etex, point 0 of axis);
+  label.rt(btex $u$ etex, point (length(speed)) of speed);
+  label(btex $\}$ etex, (0,0)) rotated 90 shifted (0.5[z0,z1] + (0,h+3));
+  label.top(btex $\lambda$ etex, (0.5[z0,z1] + (0,h+3)));
+endfig;
+
+% 47
 end;
