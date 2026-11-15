@@ -49,13 +49,21 @@ This gives us a long exact sequence with terms like
 which is precisely the \define{Gysin Sequences}.
 \end{node}
 
-\begin{node}
+\begin{construction}\label{node:fall2026:lec20:math157a:construction-omega-0}
 We need a bundle $\omega_{0}$ over $E_{0}$ (to define the Chern
 characters), where $\omega_{0}$ is a rank-$(n-1)$ complex bundle over $E_{0}$.
 The basic idea is, just as $\pi\colon E\to B$ sends $(b,v)\mapsto b$,
 we can consider the subspace of each fiber $v^{\perp}$ which is
 ($n-1$)-dimensional. This gives us a way to construct $\omega_{0}$.
-\end{node}
+
+
+To be clear: a point in $E$ looks like $(b,v)\in B\times F_{b}$, so we
+are lookin at $E_{0}\subset E$ which requires $v\neq0$. Then we are
+constructing a $(n-1)$-bundle $\omega_{0}$ over $E_{0}$ where the
+fiber looks like $\pi_{0}^{-1}(b,v)=v^{\perp}\iso\CC^{n-1}$ or
+equivalently $F_{b}/\CC v$ where $\CC v$ is the 1-dimensional subspace
+spanned by the vector $v\neq0$. This is discussed briefly in the textbook~\cite[\S14.2]{milnor1974characteristic}.
+\end{construction}
 
 \begin{definition}
 We define the \define{Chern Character} on $\omega$ as

@@ -1,0 +1,236 @@
+%%
+%% fall-lecture21.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-15T09:47:32-0800
+%% Last update 2026-11-15T09:47:32-0800
+%% 
+
+\lecture{}
+
+
+\begin{node}
+We have discussed~(\S\ref{node:fall2026:lec20:math157a:construction-omega-0}) our construction of a bundle $\omega_{0}\to E_{0}$
+for a complex rank-$(n-1)$ bundle over $E_{0}$ which uses the
+Hermitian metric on $E$, but this construction can be generalized to
+avoid using the Hermitian metric.
+\end{node}
+
+\begin{node}
+We have also discussed the Gysin sequence, which is also discussed briefly in the textbook~\cite[\S12.1]{milnor1974characteristic}.
+Recall this looked like:
+\begin{equation}
+\dots\to H^{j-2n}(B)\xrightarrow{\smile e(\omega_{\RR})}H^{j}(B)\xrightarrow{\pi_{0}^{*}}H^{j}(E_{0})\xrightarrow{\varphi^{-1}\circ\delta}H^{j-2n+1}(B)\to\dots
+\end{equation}
+where we suppress the coefficients (they're all usually $\ZZ$ or $\ZZ_{2}$),
+and for $0\leq j\leq 2n-2$ we say $\pi_{0}^{*}$ is an isomorphism.
+\end{node}
+
+\begin{puzzle}
+Can we use a similar construction process [similar to the Chern
+classes] to obtain the Stiefel--Whitney classes?
+\end{puzzle}
+
+\begin{node}
+We can make the attempt! Let $\xi$ be an $\RR^{n}$-bundle. We start
+with the top Stiefel--Whitney class
+\begin{equation}
+w_{n}(\xi):=e_{2}(\xi)\in H^{n}(B;\ZZ_{2})
+\end{equation}
+where $e_{2}(\xi)$ is the mod-2 Euler class.
+\end{node}
+
+\begin{node}
+Now, we remove the zero section of $E$ to get $E_{0}(\xi)$, and we
+construct the bundle $\xi_{0}\xrightarrow{\pi_{0}} E_{0}$ over $E_{0}$ analogous to our
+construction~(\S\ref{node:fall2026:lec20:math157a:construction-omega-0})
+for $\omega_{0}$. This $\xi_{0}$ is a real rank-$(n-1)$ bundle.
+\end{node}
+
+\begin{node}
+The analogous Gysin sequence will take $\ZZ_{2}$
+coefficients\footnote{Of course, oriented real vector bundles could
+extend this to cohomology groups with integer coefficients. See~\cite[Ch~17~Thm~7.4]{husemoller1993fibre}.} and
+looks like
+\begin{equation}
+\dots\to H^{j-2n}(B)\xrightarrow{\smile e_{2}(\xi)}H^{j}(B)\xrightarrow{\pi_{0}^{*}}H^{j}(E_{0})\xrightarrow{\varphi^{-1}\circ\delta}H^{j-2n+1}(B)\to\dots
+\end{equation}
+and for $0\leq j\leq n-2$ we see that $\pi_{0}^{*}$ is an isomorphism.
+(Note: for \emph{unoriented} bundles, there is a generalization of the
+Gysin sequence using $\smile w_{n}(\xi)$ instead of $\smile e_{2}(\xi)$.)
+So what about $j=n-1$?
+
+At $j=n-1$, the Gysin sequence looks like:
+\begin{equation}
+0\to H^{n-1}(B;\ZZ_{2})\xrightarrow{\pi_{0}^{*}}H^{n-1}(E_{0};\ZZ_{2})\xrightarrow{\varphi^{-1}\circ\delta}H^{0}(B;\ZZ_{2})\to\dots.
+\end{equation}
+We need to show
+\begin{equation}
+(\varphi^{-1}\circ\delta)(w_{n-1}(\xi_{0}))\stackrel{?}{=}0,
+\end{equation}
+then we have a unique image with $\pi_{0}^{*}$ and then we can use the same
+argument as before. It turns out the Gysin sequence is related to the
+sphere bundle (which is germane to persuing this question).
+\end{node}
+
+\begin{node}
+For complex vector bundles, $S(\omega)=\{v\in E(\omega)\mid\mu(v)=1\}$
+is a bundle. In the real case, we have $E_{0}\to S(\xi)$ we can
+replace $H^{n-1}(E_{0};\ZZ_{2})$ by $H^{n-1}(S(\xi);\ZZ_{2})$. We need
+to use the sphere bundle version of Gysin sequences.
+\end{node}
+
+\begin{recall}
+Our goal is still to prove $\varphi\circ\delta(w_{n-1}(\xi))=0$.
+This is nontrivial.
+\end{recall}
+
+\begin{node}
+Let us take a look at the fiber of $S(\xi)\to B$, which is
+$S(F_{b})\iso\sphere{n-1}$ where $F_{b}=\pi^{-1}\{b\}$ is the fiber
+over $b\in B$ of $\xi$. Then
+\begin{equation}
+\xi_{0}|_{S(F_{b})}\iso\T S(F_{b})\quad\mbox{homeomorphic},
+\end{equation}
+since $v^{\perp}\iso\T_{v}S(F_{b})$ is the tangent plane to the vector
+$v$ in the sphere.
+\end{node}
+
+\begin{node}
+Without loss of generality, $B$ is path-connected.
+\end{node}
+
+\begin{node}
+Now, recall the fiber inclusion
+\begin{equation}
+j_{b}\colon(D(F_{b}),S(F_{b}))\to(D(\xi),S(\xi)),
+\end{equation}
+so
+\begin{equation}
+i_{b}\colon S(F_{b})\to S(F).
+\end{equation}
+We also have the [unique] mod-2 Thom class $U_{b}\in H^{n}(D(F_{b}),S(F_{b});\ZZ_{2})$
+indexed by $b\in B$. Then we have the commutative diagram
+\begin{equation}
+\vcenter{\xymatrix{H^{n-1}(S(F_{b});\ZZ_{2})\ar[r]^-{\delta} & H^{n}(D(F_{b}),S(F_{b});\ZZ_{2})\\
+H^{n-1}(S(\xi);\xi)\ar[u]^{(i_{b})^{*}}\ar[r]^-{\delta} & H^{n}(D(\xi),S(\xi);\ZZ_{2})\ar[u]_{(j_{b})^{*}}}}
+\end{equation}
+Since $S(\xi)$ deformation retracts to $E_{0}$, $w_{n-1}(\xi_{0})\in H^{n-1}(S(\xi);\ZZ_{2})$,
+so
+\begin{subequations}
+  \begin{align}
+(i_{b})^{*}w_{n-1}(\xi_{0}) &= w_{n-1}(\xi_{0}|_{S(F_{b})})\\
+&= w_{n-1}(\T\sphere{n-1}).
+  \end{align}
+\end{subequations}
+Then using Theorem~\ref{thm:fall2026:math157a:very-important:lec18},
+\begin{subequations}
+  \begin{align}
+\langle w_{n-1}(\xi|_{S(F_{b})}),[S(F_{b})]\rangle
+&= \chi(\sphere{n-1})\pmod{2}\\
+&= 0.
+  \end{align}
+\end{subequations}
+The key poit is that this forces
+\begin{equation}
+w_{n-1}(\xi|_{S(F_{b})})=0,
+\end{equation}
+so
+\begin{equation}
+(j_{b})^{*}(\delta(w_{n-1}(\xi_{0})))=0.
+\end{equation}
+Then by injectivity of $(j_{b})^{*}$ we find
+\begin{equation}
+\delta w_{n-1}(\xi_{0})=0,
+\end{equation}
+so
+\begin{equation}
+\varphi^{-1}(\delta w_{n-1}(\xi_{0}))=0.
+\end{equation}
+Hence we have proven our goal, and we can use this procedure to
+construct the Stiefel--Whitney class.
+\end{node}
+
+\subsection{Properties of the Chern Class}
+
+\begin{proposition}
+\begin{enumerate}
+\item Naturality: $c(f^{*}\omega)=f^{*}c(\omega)$
+\item Product: $c(\omega\oplus\eta)=c(\omega)c(\eta)$
+\item $c(\gamma^{1}_{1})\neq0\in H^{2}(\CP^{1};\ZZ)\iso H^{2}(\sphere{2};\ZZ)\iso\ZZ$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof (of (1))]
+We want to do induction on the rank of $\omega$.
+
+The inductive hypothesis: assume for all complex rank-$k$ bundles (for
+any $k\leq n-1$) the claim holds.
+
+Let $\omega\colon E\xrightarrow{\pi}B$ be a complex rank-$n$ bundle
+over $B$. Let $f\colon A\to B$ be continuous. We construct the
+pullback bundle $E'$,
+\begin{equation}
+\vcenter{\xymatrix{
+E'\ar[r]\ar[d]^{\pi'} & E\ar[d]^{\pi}\\
+A\ar[r]^{f} & B}}
+\end{equation}
+Then we construct the $E_{0}$, $E'_{0}$ bundles which are related by
+the bundle map $f_{0}\colon E'_{0}\to E_{0}$
+\begin{equation}
+\vcenter{\xymatrix{
+E'_{0}\ar[d]\ar@/_1pc/[dd]_{\pi'_{0}}\ar[d]\ar[r]^{f_{0}} & E_{0}\ar[d]\ar@/^1pc/[dd]^{\pi_{0}}\\
+E'\ar[r]\ar[d]^{\pi'} & E\ar[d]^{\pi}\\
+A\ar[r]^{f} & B}}
+\end{equation}
+We then construct the bundles $\xi_{0}\to E_{0}$ and $\xi'_{0}\to E'_{0}$
+\begin{equation}
+\vcenter{\xymatrix{
+\xi'_{0}\ar[d] & \xi_{0}\ar[d]\\
+E'_{0}\ar[d]\ar@/_1pc/[dd]_{\pi'_{0}}\ar[d]\ar[r]^{f_{0}} & E_{0}\ar[d]\ar@/^1pc/[dd]^{\pi_{0}}\\
+E'\ar[r]\ar[d]^{\pi'} & E\ar[d]^{\pi}\\
+A\ar[r]^{f} & B}}
+\end{equation}
+Now we use the assumption that $\omega$ is rank-$n$. Then
+$c_{n}(\omega)=e(\omega_{\RR})$, and we have
+\begin{subequations}
+  \begin{align}
+c_{n}(f^{*}\omega) &= e_{n}\bigl((f^{*}\omega)_{\RR}\bigr)\\
+&= f^{*}e_{n}(\omega_{\RR})\\
+&= f^{*}c_{n}(\omega).
+  \end{align}
+\end{subequations}
+We just need to show that for all $0\leq i\leq n-1$ we have
+$c_{i}(f^{*}\omega)=f^{*}c_{i}(\omega)$. Recall
+\begin{subequations}
+  \begin{equation}
+c_{i}(\omega)=(\pi_{0}^{*})^{-1}c_{i}(\omega_{0}),
+  \end{equation}
+  and
+  \begin{align}
+c_{i}(f^{*}\omega) &= \bigl((\pi_{0})^{*}\bigr)^{-1}c_{i}(f_{0}^{*}\omega_{0})\\
+&=\bigl((\pi_{0})^{*}\bigr)^{-1}f_{0}^{*}c_{i}(\omega_{0})\quad\mbox{by inductive hypothesis},
+  \end{align}
+  so
+  \begin{equation}
+f^{*}(\pi_{0}^{*})^{-1}=\bigl((\pi'_{0})^{*}\bigr)^{-1}f_{0}^{*}.
+  \end{equation}
+\end{subequations}
+But by our commutative diagram, specifically relevant part being the
+subdiagram:
+\begin{equation}
+\vcenter{\xymatrix{E'_{0}\ar[d]^{\pi'_{0}}\ar[r]^{f_{0}} & E_{0}\ar[d]^{\pi_{0}}\\
+A\ar[r]^{f} & B}}
+\end{equation}
+we find
+\begin{equation}
+\pi_{0}\circ f_{0}=f\circ\pi'_{0},
+\end{equation}
+so
+\begin{equation}
+(\pi_{0}\circ f_{0})^{*}=(f\circ\pi'_{0})^{*},
+\end{equation}
+which gives us the claim.
+\end{proof}

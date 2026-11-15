@@ -1,0 +1,138 @@
+%%
+%% fall-lecture21.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-14T15:18:13-0800
+%% Last update 2026-11-14T15:18:13-0800
+%% 
+
+\lecture[Measurable functions]{}
+
+\begin{definition}
+Let $(X,\mathcal{A}_{X})$, $(Y,\mathcal{A}_{Y})$ be measurable spaces.
+We say a function $f\colon X\to Y$ is \define{Measurable} (or ``$(\mathcal{A}_{X},\mathcal{A}_{Y})$-Measurable'')
+if $f^{-1}\mathcal{A}_{Y}\subset\mathcal{A}_{X}$---in other words, for
+any measurable set $B\in\mathcal{A}_{Y}$, its preimage
+$f^{-1}B\in\mathcal{A}_{X}$ is $\mathcal{A}_{X}$-measurable.
+
+In particular, if $X$ and $Y$ are topological spaces and $f$ is a
+continuous map, then $f$ is $(\mathcal{B}_{X},\mathcal{B}_{Y})$-measurable.
+\end{definition}
+
+\begin{definition}
+Let $(X,\mathcal{A}_{X},\mu)$ be a measure space, let
+$(Y,\mathcal{A}_{Y})$ be a measurable space. Let $f\colon X\to Y$ be
+an $(\mathcal{A}_{X},\mathcal{A}_{Y})$-Measurable function. Then we
+define the \define{Pushforward Measure} $f_{*}\mu$ on $Y$ as: for any
+$E\in\mathcal{A}_{Y}$ we have $(f_{*}\mu)(E):=\mu(f^{-1}E)$.
+\end{definition}
+
+\begin{node}
+As a special case, $f\colon X\to\RR$ is
+$(\mathcal{A}_{X},\mathcal{B})$-measurable if for all $c\in\RR$ we
+have $\{f\leq c\}\in\mathcal{A}_{X}$. Recall $\{f\leq c\}$ is
+shorthand for $\{x\in X\mid f(x)\leq c\}$. The pushforward $f_{*}\mu$
+is a Borel measure on $\RR$ and it is called the \define{Stieltjes Measure}.
+\end{node}
+
+\begin{remark}
+In probability theory, the notation differs: measurable functions are
+written as $X\colon(\Omega,\mathcal{F},\Pr)\to\RR$ and we call such
+measurable functions $X$ ``random variables'', $\Omega$ is the
+``sample space'', $\mathcal{F}$ is a $\sigma$-algebra (probability
+theorists call 'em ``$\sigma$-fields''), the measure $\Pr$ is called
+the ``probability''. In this case, the pushforward measure $X_{*}\Pr$
+is usually written as $p_{X}$ and called the \define{Distribution} [of
+  the random variable $X$].
+
+The Bernoulli random variable (modeling a coin flip) $X$ is
+$\operatorname{Bernoulli}(p)$ means $\Pr(X=1)=p$ and
+$\Pr(X=0)=1-p$. Then $p_{X}=p\delta_{1}+(1-p)\delta_{0}$ can be
+written using the delta measures $\delta$. Probabilists [in practice] just need the
+distribution, not the $(\Omega,\mathcal{F})$ spaces.
+\end{remark}
+
+\begin{definition}
+Let $(X,\mathcal{A}_{X})$ be a measurable space.
+A function $f\colon X\to\RR$ is \define{Simple} if
+$f=\sum_{j}c_{j}\mathbf{1}_{A_{j}}$ where $X=\bigsqcup_{j}A_{j}$ and
+every $A_{j}\in\mathcal{A}_{X}$.
+\end{definition}
+
+\begin{proposition}
+Simple functions are measurable.
+\end{proposition}
+
+\begin{proposition}
+Composition of measurable functions are measurable.
+\end{proposition}
+
+\begin{proposition}
+Let $(X,\mathcal{A}_{X})$ be a measurable space.
+Let $f,g\colon X\to\RR$ be measurable. Then $f+g$, $fg$, $|f|$ are
+measurable functions.
+\end{proposition}
+
+\begin{proof}[Proof idea]
+Just use the composition of $f\times g\colon X\times X\to\RR\times\RR$
+[sending $(x,y)\mapsto(f(x),g(y))$] with $+\colon\RR\times\RR\to\RR$.
+Both of these functions are measurable, so by the previous Proposition
+$f+g$ is measurable. Similar reasoning holds for $fg$ and $|f|$.
+\end{proof}
+
+\begin{proposition}
+If $(f_{n})$ is a sequence of measurable real-valued functions, then
+$\sup f_{n}$ [considered pointwise $(\sup f_{n})(x)=\sup f_{n}(x)$] is measurable.
+\end{proposition}
+
+\begin{proposition}
+Similarly, $\limsup f_{n}$ and $\liminf f_{n}$ are measurable.
+\end{proposition}
+
+\begin{puzzle}
+Consider the set $A:=\{(f_{n})\mid \exists f\ldotp f_{n}\to f, f\mbox{ measurable}\}$.
+When does it make sense to say ``$A$ is a measurable set''? Is the
+limit function [assigning to $(f_{n})\in A$ the limit $f=\lim_{n}f_{n}$]
+a measurable function?
+\end{puzzle}
+
+\subsection{Convergence of Measurable functions}
+
+\begin{node}
+Suppose $f_{n}\colon X\to\RR$ is a sequence of measurable functions
+and $f_{n}\to f$ converges pointwise. We claim $f\colon X\to\RR$
+(defined by $f:=\lim_{n}f$) is measurable. So pointwise convergence
+preserves measurability.
+\end{node}
+
+\begin{definition}
+We say $f_{n}$ \define{Converges Almost Everywhere} to $f$ if there
+exists a set $A\in\mathcal{A}$, $\mu(A)=0$, such that $f_{n}\to f$
+pointwise on $X\setminus A$.
+This is sometimes denoted $f_{n}\xrightarrow{a.e.}f$.
+[This again requires assuming $f$ is measurable or $\mu$ is complete.]
+\end{definition}
+
+\begin{definition}
+We say $f_{n}$ \define{Converges in Measure} to $f$, denoted
+$f_{n}\xrightarrow{\mu}f$, if for every $\varepsilon.0$ we have $\mu\{|f_{n}-f|>\varepsilon\}\to0$.
+[This again requires assuming $f$ is measurable or $\mu$ is complete.]
+\end{definition}
+
+\begin{theorem}
+Let $(X,\mathcal{A},\mu)$ be a measure space. Assume $\mu(X)<\infty$
+is finite.
+\begin{enumerate}
+\item (Egoroff) Then $f_{n}\to f$ almost everywhere if and only if
+  $f_{n}\to f$ almost uniformly [$\forall\delta>0\ldotp\exists E\in\mathcal{A}\ldotp\mu E<\delta\land f_{n}\to f$ uniformly on $X\setminus E$].
+\item (Lebesgue Lemma) If $f_{n}\to f$ almost everywhere, then
+  $f_{n}\to f$ in measure.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Riesz]
+Let $(X,\mathcal{A},\mu)$ be a measure space. If $f_{n}\to f$ in
+measure, then there exists a subsequence $f_{n_{k}}$ such that $f_{n_{k}}\to f$ almost everywhere.
+\end{theorem}

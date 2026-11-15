@@ -1,0 +1,418 @@
+%%
+%% fall-lecture21.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-14T08:08:47-0800
+%% Last update 2026-11-14T08:08:47-0800
+%% 
+
+\lecture{}
+
+% I'm skipping over a lot of the review
+\begin{recall}
+We have derived the following equations in the Shock fixed frame.
+Our assumptions:
+\begin{enumerate}
+\item Steady flow
+\item Friction is negligible
+\item Heat transfer is negligible.
+\end{enumerate}
+First, the familiar equations of motion in integral form using a
+control volume surrounding the shock wave; the continuity equation,
+\begin{equation}\label{eq:me101a:fall2026:lec21:eq1}
+\rho_{2}u_{2}=\rho_{1}u_{1}=\dot{m}.
+\end{equation}
+The conservation of momentum,
+\begin{equation}\label{eq:me101a:fall2026:lec21:eq2}
+p_{2}-p_{1}=\rho_{1}u_{1}^{2}-\rho_{2}u_{2}^{2}.
+\end{equation}
+The conservation of energy takes the form,
+\begin{equation}\label{eq:me101a:fall2026:lec21:eq3}
+h_{2}-h_{1}=\frac{1}{2}u_{1}^{2}-\frac{1}{2}u_{2}^{2}.
+\end{equation}
+Then we had
+\begin{equation}\label{eq:me101a:fall2026:lec21:eq4}
+\Delta p = -\dot{m}\,\Delta u,
+\end{equation}
+\begin{equation}\label{eq:me101a:fall2026:lec21:eq5}
+\frac{\Delta u}{u_{1}}=\frac{\Delta V}{V_{1}}=\frac{-\Delta\rho}{\rho_{2}}
+\end{equation}
+\begin{equation}\label{eq:me101a:fall2026:lec21:eq6}
+\frac{\Delta p}{\Delta\rho}=u_{1}u_{2}
+\end{equation}
+\begin{equation}\label{eq:me101a:fall2026:lec21:eq7}
+\frac{\Delta p}{\Delta V}=-\dot{m}^{2}
+\end{equation}
+\begin{equation}\label{eq:me101a:fall2026:lec21:eq8}
+\Delta p\,\Delta V=-(\Delta u)^{2}
+\end{equation}
+\begin{equation}\label{eq:me101a:fall2026:lec21:eq9}
+\Delta h = \overline{V}\,\Delta p
+\end{equation}
+where $\overline{V}=(V_{1}+V_{2})/2$,
+\begin{equation}\label{eq:me101a:fall2026:lec21:eq10}
+\Delta e=-\overline{p}\,\Delta V.
+\end{equation}
+\end{recall}
+
+\begin{node}[Entropy through a shock]
+In quasi 1-dimensional flow, we assumed isentropic flow. This is no
+longer valid for Shock waves! The second Law of Thermodyanmics takes
+the form,
+\begin{equation}
+\underbrace{\partial_{t}\int\rho S\,\D V}_{=0}
++ \oint\rho S\vec{u}\cdot\UnitNormalVec{n}\,\D A
++ \underbrace{\oint\frac{q}{T}\D A}_{=0}
+- \int_{V_{C}}\rho\frac{Q}{T}\,\D V\geq0,
+\end{equation}
+or (rearranging terms)
+\begin{equation}
+\oint\rho S\vec{u}\cdot\UnitNormalVec{n}\,\D A\geq\int_{V_{C}}\rho\frac{Q}{T}\,\D V>0
+\end{equation}
+since $Q\neq0$ for dissipation due to the shock (which is why the $>0$
+inequality holds). Hence
+\begin{equation}
+\rho_{2}u_{2}S_{2}-\rho_{1}S_{1}u_{1}>0,
+\end{equation}
+which implies
+\begin{equation}
+S_{2}-S_{1}>0.
+\end{equation}
+So entropy always increases due to shock waves.
+\end{node}
+
+\subsection{Rayleigh Lines}
+
+\begin{node}
+From Eq~\eqref{eq:me101a:fall2026:lec21:eq7}, expanding out the differences:
+\begin{equation}
+\frac{p_{2}-p_{1}}{V_{2}-V_{1}}=-\dot{m}^{2},
+\end{equation}
+then we find
+\begin{equation}
+p_{2}-p_{1}=-\dot{m}^{2}(V_{2}-V_{1})
+\end{equation}
+where $\dot{m}$ is constant. Observe, this describes a line when we
+treat $p_{2}$ and $V_{2}$ as variables. This is precisely the
+\define{Rayleigh Line}.
+\end{node}
+
+\begin{node}
+From Eq~\eqref{eq:me101a:fall2026:lec21:eq9},
+we can write enthalpy as a function of pressure and volume $h=h(p,V)$.
+This gives us a curve in the $p$-$V$ plane known as the
+\define{Hugoniot Condition}.
+\end{node}
+
+\begin{node}
+For a perfect gas, the Hugoniot condition may be determined more
+explicitly, since
+\begin{subequations}
+  \begin{align}
+h &= c_{p}T \\
+&=\left(\frac{\gamma}{\gamma-1}\right)RT\\
+&=\left(\frac{\gamma}{\gamma-1}\right)pV,
+  \end{align}
+\end{subequations}
+then plugging this into Eq~\eqref{eq:me101a:fall2026:lec21:eq9} yields,
+\begin{equation}\label{eq:me101a:fall2026:lec21:hugoniot-for-perfect-gas-eq0}
+  \overline{V}\,\Delta p=\left(\frac{\gamma}{\gamma-1}\right)(p_{2}V_{2}-p_{1}V_{1}).
+\end{equation}
+We claim this can be rearranged to give us,
+\begin{equation}\label{eq:me101a:fall2026:lec21:hugoniot-for-perfect-gas}
+\boxed{\frac{p_{2}}{p_{1}}=\frac{\displaystyle{\frac{\gamma+1}{\gamma-1}-\frac{V_{2}}{V_{1}}}}{\displaystyle{\left(\frac{\gamma+1}{\gamma-1}\right)\left(\frac{V_{2}}{V_{1}}\right)-1}}.}
+\end{equation}
+\end{node}
+
+\begin{proof}[Calculation ({Eq~\eqref{eq:me101a:fall2026:lec21:hugoniot-for-perfect-gas}})]
+We begin by expanding out $\Delta p =p_{2}-p_{1}$ and
+$\overline{V}=(V_{1}+V_{2})/2$ in Eq~\eqref{eq:me101a:fall2026:lec21:hugoniot-for-perfect-gas-eq0},
+\begin{subequations}
+\begin{equation}
+\frac{V_{1}+V_{2}}{2}(p_{2}-p_{1})=\left(\frac{\gamma}{\gamma-1}\right)(p_{2}V_{2}-p_{1}V_{1}).
+\end{equation}
+Then we divide both sides by $p_{1}$,
+\begin{equation}
+  \frac{V_{1}+V_{2}}{2}\left(\frac{p_{2}}{p_{1}}-1\right)
+  =\left(\frac{\gamma}{\gamma-1}\right)\left(\frac{p_{2}}{p_{1}}V_{2}-V_{1}\right).
+\end{equation}
+Then we divide both sides by $V_{1}$,
+\begin{equation}
+\frac{1}{2}\left(1+\frac{V_{2}}{V_{1}}\right)\left(\frac{p_{2}}{p_{1}}-1\right)=\left(\frac{\gamma}{\gamma-1}\right)\left(\frac{p_{2}}{p_{1}}\frac{V_{2}}{V_{1}}-1\right).
+\end{equation}
+Now, we want to move $p_{2}/p_{1}$ to one side of the equation:
+\begin{equation}
+  \frac{1}{2}\left(1+\frac{V_{2}}{V_{1}}\right)\left(\frac{p_{2}}{p_{1}}\right)
+- \left(\frac{\gamma}{\gamma-1}\right)\frac{p_{2}}{p_{1}}\frac{V_{2}}{V_{1}}
+  =-\left(\frac{\gamma}{\gamma-1}\right)
++ \frac{1}{2}\left(1+\frac{V_{2}}{V_{1}}\right)
+\end{equation}
+We collect terms and multiply both sides by 2
+\begin{equation}
+  \left[\left(1+\frac{V_{2}}{V_{1}}\right)
+- 2\left(\frac{\gamma}{\gamma-1}\right)\frac{V_{2}}{V_{1}}\right]\frac{p_{2}}{p_{1}}
+  =-2\left(\frac{\gamma}{\gamma-1}\right)
++ \left(1+\frac{V_{2}}{V_{1}}\right)
+\end{equation}
+Then using the fact that 
+\begin{equation*}
+1-\frac{2\gamma}{\gamma-1}=\frac{\gamma-1-2\gamma}{\gamma-1}=\frac{-1-\gamma}{-1+\gamma}=-\frac{\gamma+1}{\gamma-1},
+\end{equation*}
+we see that we obtain
+\begin{equation}
+  \left[1
+- \left(\frac{\gamma+1}{\gamma-1}\right)\frac{V_{2}}{V_{1}}\right]\frac{p_{2}}{p_{1}}
+  =-\left(\frac{\gamma+1}{\gamma-1}\right)
++ \left(\frac{V_{2}}{V_{1}}\right)
+\end{equation}
+\end{subequations}
+Multiply both sides by $-1$ and isolating $p_{2}/p_{1}$ gives us the result.
+\end{proof}
+
+\begin{remark}
+Conversely, we can express the Hugoniot condition for a perfect gas as:
+\begin{equation}
+\frac{V_{2}}{V_{1}}=\frac{\displaystyle{\frac{\gamma+1}{\gamma-1}+\frac{p_{2}}{p_{1}}}}{\displaystyle{1+\frac{\gamma+1}{\gamma-1}\frac{p_{2}}{p_{1}}}}.
+\end{equation}
+This is just by simple algebra. Let $x=V_{2}/V_{1}$, $y=p_{2}/p_{1}$,
+and $c=(\gamma+1)/(\gamma-1)$,
+then the relations are just
+\begin{subequations}
+  \begin{align}
+    y &= \frac{c-x}{cx-1}
+    \intertext{and}
+    x &= \frac{c+y}{1+cy}.
+  \end{align}
+\end{subequations}
+\end{remark}
+
+\begin{remark}
+Also remember that the classical equipartition Theorem relates
+$\gamma$ to the number of thermally accessible degrees of freedom $f$
+of a molecule by
+\begin{subequations}
+\begin{equation}
+\gamma=1+\frac{2}{f},
+\end{equation}
+so
+\begin{equation}
+\frac{\gamma+1}{\gamma-1}=1+f.
+\end{equation}
+\end{subequations}
+Monatomic gases has $f=3$, diatomic gases have $f=5$.
+\end{remark}
+
+\begin{node}
+We can consider an example plot in the $p$-$V$ plane with two
+isentropes describing the fluid before the shock wave $S=S_{1}$ and after the
+shock wave $S=S_{2}$. Suppose $\gamma=3/2$ for simplicity. % So c=5
+Then we draw the two isentropes and plot the Hugoniot condition
+(dashed in red):
+\begin{center}
+\includegraphics{img/img.47}
+\end{center}
+The Hugoniot condition gives us the point on the $S_{2}$ isentrope,
+and using the initial state and the intersection state we can draw a
+straight line (drawn in red):
+\begin{center}
+\includegraphics{img/img.48}
+\end{center}
+This red line is the Rayleigh line. Observe that the Rayleigh line is
+tangent to the $S_{2}$ isentrope.\footnote{\dots which required
+plotting convex functions $p\sim 1/V$ and I hope you appreciate the
+hard work it took to draw them!}
+\end{node}
+
+\begin{node}
+Note that the shaded trapezoidal region in the figure:
+\begin{center}
+\includegraphics{img/img.49}
+\end{center}
+Its area is
+\begin{equation}
+A = \frac{p_{1}+p_{2}}{2}(V_{1}-V_{2})=-\overline{p}\,\Delta V=\Delta e
+\end{equation}
+which is just the change in internal energy. Similarly, if we consider
+instead the trapezoid:
+\begin{center}
+\includegraphics{img/img.50}
+\end{center}
+Its area is
+\begin{equation}
+A = \frac{V_{1}+V_{2}}{2}(p_{2}-p_{1})=\overline{V}\,\Delta p=\Delta h.
+\end{equation}
+These just give us some geometric interpretation of our results.
+\end{node}
+
+\begin{node}
+The Hugoniot condition for a perfect gas, Eq~\eqref{eq:me101a:fall2026:lec21:hugoniot-for-perfect-gas},
+recall is:
+\begin{equation*}\tag{\ref{eq:me101a:fall2026:lec21:hugoniot-for-perfect-gas}}
+\frac{p_{2}}{p_{1}}=\frac{\displaystyle{\frac{\gamma+1}{\gamma-1}-\frac{V_{2}}{V_{1}}}}{\displaystyle{\left(\frac{\gamma+1}{\gamma-1}\right)\left(\frac{V_{2}}{V_{1}}\right)-1}}.
+\end{equation*}
+This is a curve of the form
+\begin{equation}
+y = \frac{c-x}{cx-1}
+\end{equation}
+where $x=V_{2}/V_{1}$, $y=p_{2}/p_{1}$, and $c=(\gamma+1)/(\gamma-1)$.
+We can then plot such a curve:
+\begin{center}
+  \includegraphics{img/img.51}
+\end{center}
+There is an asymptote located at $V_{2}/V_{1}=(\gamma-1)/(\gamma+1)$
+[i.e., $x=1/c$] and this describes the minimum volume possible
+(reachable through a normal shock). Similarly, we see in the
+$(p_{2}/p_{1})\to\infty$ limit,
+\begin{subequations}
+  \begin{align}
+\frac{\rho_{2}}{\rho_{1}} &\to\frac{\gamma+1}{\gamma-1}\\
+\frac{u_{2}}{u_{1}} &\to\left(\frac{u_{2}}{u_{1}}\right)_{\text{min}}=\frac{\gamma-1}{\gamma+1},\\
+\frac{V_{2}}{V_{1}} &\to\left(\frac{V_{2}}{V_{1}}\right)_{\text{min}}=\frac{\gamma-1}{\gamma+1}.
+  \end{align}
+\end{subequations}
+These describe the (upper bound on the) largest possible change due to
+a normal shock. 
+\end{node}
+
+\subsection{Upstream Mach number}
+
+\begin{node}
+In the shock fixed frame, we are essentially centered on the shockwave
+[drawn in thick red] and the fluid is moving at us:
+\begin{center}
+\includegraphics{img/img.52}
+\end{center}
+In these coordinates, the fluid ``upstream'' (to the left) has yet to
+be ``shocked''.
+In the lab frame, the shock wave is moving and the fluid upstream is stationary:
+\begin{center}
+\includegraphics{img/img.53}
+\end{center}
+The upstream Mach number is
+\begin{equation}
+\Mach_{1} = \frac{u_{1}}{a_{1}}.
+\end{equation}
+\end{node}
+
+\begin{claim}
+We have
+\begin{equation}\label{eq:me101a:lec21:fall2026:claim1}
+\frac{p_{2}}{p_{1}}=1+\gamma\Mach_{1}^{2}\left(1-\frac{\rho_{1}}{\rho_{2}}\right).
+\end{equation}
+\end{claim}
+
+\begin{proof}
+From the conservation of momentum,
+\begin{equation}
+\Delta p = \rho_{1}u_{1}(u_{1}-u_{2}),
+\end{equation}
+we obtain
+\begin{subequations}
+  \begin{align}
+\frac{p_{2}}{p_{1}}-1 &= \frac{\rho_{1}u_{1}^{2}}{p_{1}}\left(1-\frac{u_{2}}{u_{1}}\right)\quad\mbox{by dividing through by $p_{1}$}\\
+  &=\frac{\gamma u_{1}^{2}}{a_{1}^{2}}\left(1-\frac{u_{2}}{u_{1}}\right)\quad\mbox{by Eq~\eqref{eq:me101a:lec17:fall2026:speed-of-sound}}\\
+  \end{align}
+so
+\begin{equation}
+\frac{p_{2}}{p_{1}} = 1 + \frac{\gamma u_{1}^{2}}{a_{1}^{2}}\left(1-\frac{u_{2}}{u_{1}}\right).
+\end{equation}
+Then by mass conservation
+\begin{equation}
+\frac{p_{2}}{p_{1}} = 1 + \frac{\gamma u_{1}^{2}}{a_{1}^{2}}\left(1-\frac{\rho_{1}}{\rho_{2}}\right),
+\end{equation}
+\end{subequations}
+which proves the claim.
+\end{proof}
+
+\begin{claim}
+We have
+\begin{equation}\label{eq:me101a:lec21:fall2026:claim2}
+\frac{T_{2}}{T_{1}} = 1 + \frac{\gamma-1}{2}\Mach_{1}^{2}\left(1-\left(\frac{\rho_{1}}{\rho_{2}}\right)^{2}\right).
+\end{equation}
+\end{claim}
+
+\begin{proof}
+Using $h=c_{p}T$ and the conservation of enthalpy,
+\begin{subequations}
+\begin{equation}
+c_{p}T_{1} + \frac{1}{2}u_{1}^{2}
+= c_{p}T_{2} + \frac{1}{2}u_{2}^{2}
+\end{equation}
+so
+\begin{equation}
+c_{p}T_{2}
+= c_{p}T_{1} + \frac{1}{2}u_{1}^{2} - \frac{1}{2}u_{2}^{2}
+\end{equation}
+then dividing both sides by $c_{p}T_{1}$ gives us
+\begin{align}
+\frac{T_{2}}{T_{1}} &= 1 + \frac{u_{1}^{2}}{2c_{p}T_{1}}\left(1-\frac{u_{2}^{2}}{u_{1}^{2}}\right)\\
+&= 1 + \frac{\gamma-1}{2}\Mach_{1}^{2}\left(1-\frac{u_{2}^{2}}{u_{1}^{2}}\right)
+\end{align}
+since
+\begin{equation}
+\frac{u_{1}^{2}}{2c_{p}T_{1}} = \frac{u_{1}^{2}}{2}\left(\frac{\gamma}{\gamma-1}\right)RT_{1}=\frac{\gamma-1}{2}\Mach_{1}^{2}.
+\end{equation}
+\end{subequations}
+Then using the conservation of mass proves the claim.
+\end{proof}
+
+\begin{node}
+Now, we use the ideal gas Law
+\begin{equation}
+\frac{p}{\rho}=RT
+\end{equation}
+to consider
+\begin{equation}
+\frac{p_{2}/\rho_{2}}{p_{1}/\rho_{1}}=\frac{RT_{2}}{RT_{1}}=\frac{T_{2}}{T_{1}}.
+\end{equation}
+Then we have
+\begin{subequations}
+  \begin{align}
+1 + \frac{\gamma-1}{2}\Mach_{1}^{2}\left(1-\left(\frac{\rho_{1}}{\rho_{2}}\right)^{2}\right)
+&=\frac{T_{2}}{T_{1}}
+\quad\mbox{by Eq~\eqref{eq:me101a:lec21:fall2026:claim2}}\\
+&=\left(\frac{p_{2}}{p_{1}}\right)\left(\frac{\rho_{1}}{\rho_{2}}\right)\\
+&=\left[1+\gamma\Mach_{1}^{2}\left(1-\frac{\rho_{1}}{\rho_{2}}\right)\right]\left(\frac{\rho_{1}}{\rho_{2}}\right)
+  \end{align}
+\end{subequations}
+by Eq~\eqref{eq:me101a:lec21:fall2026:claim1}. Setting $x=\rho_{1}/\rho_{2}$,
+we see this is precisely the quadratic equation
+\begin{equation}
+1 + \frac{\gamma-1}{2}\Mach_{1}^{2}(1-x^{2})=(1+\gamma\Mach_{1}^{2}(1-x))x.
+\end{equation}
+And we know how to solve quadratic equations!
+
+There is the trivial solution $x=1$ which reduces to $1=1$.
+
+Then we have the nontrivial solution
+\begin{equation}
+\frac{\rho_{1}}{\rho_{2}}=\frac{2+(\gamma-1)\Mach_{1}^{2}}{(\gamma+1)\Mach_{1}^{2}}.
+\end{equation}
+\end{node}
+
+\begin{node}
+We also see that
+\begin{equation}
+\frac{u_{2}}{u_{1}}=\frac{\rho_{1}}{\rho_{2}}=\frac{2+(\gamma-1)\Mach_{1}^{2}}{(\gamma+1)\Mach_{1}^{2}}.
+\end{equation}
+From
+\begin{equation}
+\frac{\Delta u}{u_{1}}=-\frac{\Delta\rho}{\rho_{2}}=\frac{\rho_{1}}{\rho_{2}}-1,
+\end{equation}
+we see that
+\begin{subequations}
+  \begin{align}
+\frac{\Delta u}{a_{1}} &= \frac{u_{1}}{a_{1}}\frac{\Delta u}{u_{1}}\\
+&=\Mach_{1}\frac{\Delta u}{u_{1}}\\
+&=\frac{-2}{\gamma+1}\frac{\Mach_{1}^{2}-1}{\Mach_{1}}.
+  \end{align}
+\end{subequations}
+\end{node}
+
+\begin{node}
+So this is the name of the game: we want to express quantities in
+terms of the upstream Mach number $\Mach_{1}$, and that will give us a
+great deal of information.
+\end{node}

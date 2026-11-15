@@ -862,6 +862,7 @@ beginfig(46) % shock wave smoothed plot
   p0 = (0,0){left}..(-2.9u,2)..(-3u,3){up}..(-3.25u,3u-3)..(-3.5u,3u){left}..(-w,3u);
   z0 = (-2.75u,0);
   z1 = (-3.5u,0);
+  
   p1 = z0--(z0 + (0,h));
   p2 = z1--(z1 + (0,h));
   drawdblarrow axis;
@@ -875,5 +876,423 @@ beginfig(46) % shock wave smoothed plot
   label.top(btex $\lambda$ etex, (0.5[z0,z1] + (0,h+3)));
 endfig;
 
-% 47
+% lecture 21 fall 2026
+beginfig(47) % Hugoniot condition (using circles instead of convex functions)
+  path p[], axes[];
+  path isentrope, frm, hugoniot, rayleigh;
+  numeric w,h,i,dy,dx,x[];
+  w = 8u;
+  h = 8u;
+
+  isentrope = quartercircle rotated 180; % generic form of an isentrope
+  axes0 = (0,0)--(1.1w,0);
+  axes1 = (0,0)--(0,1.1h);
+  frm = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  p0 = isentrope scaled 1.8w shifted (w,h);
+  z0 = point (0.9length(p0)) of p0;
+  dy = ypart z0;
+  dx = dy;
+  p1 = ((p0 shifted ((dy)*(1,1))) cutbefore ((w,h)--(0,h)))
+    cutafter ((w,0)--(w,h));
+  for i=dy step dy until h:
+    draw (0,i)--(w,i) withcolor 0.75white;
+  endfor;
+  for i=dx step dx until w:
+    draw (i,0)--(i,h) withcolor 0.75white;
+  endfor;
+  hugoniot =
+    (((11/7)*x0,0.5dy)--z0--((7/11)*x0,2*dy)--((1/2)*x0,3*dy)--((3/7)*x0,4*dy)
+    --((5/13)*x0,5*dy)--((11/31)*x0,6*dy)--((x0)/3,7*dy)
+      --((13/41)*x0,8*dy)--((7/23)*x0,9*dy))
+    cutbefore ((w,0)--(w,h));
+  drawarrow axes0;
+  drawarrow axes1;
+  draw p0;
+  draw p1;
+  draw hugoniot dashed evenly withcolor red;
+  z1 = p1 intersectionpoint hugoniot;
+  label.bot(btex $V$ etex, point length(axes0) of axes0);
+  label.lft(btex $p$ etex, point length(axes1) of axes1);
+  label.rt(btex $S_{1}$ etex, point length(p0) of p0);
+  label.rt(btex $S_{2}$ etex, point length(p1) of p1);
+  label(btex $\bullet$ etex, z0);
+  label(btex $\bullet$ etex, z1);
+endfig;
+
+beginfig(47) % Hugoniot condition
+  path p[], axes[];
+  path isentrope, frm, hugoniot, rayleigh;
+  numeric w,h,i,dy,dx,x[];
+  w = 8u;
+  h = 8u;
+
+  isentrope = quartercircle rotated 180; % generic form of an isentrope
+  axes0 = (0,0)--(1.1w,0);
+  axes1 = (0,0)--(0,1.1h);
+  frm = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  dx = u;
+  dy = dx;
+  p0 = (0.5dx,h)
+    for i = dx step 0.5dx until w:
+    --(i,(0.5h/i)*u)
+  endfor;
+%  p0 = isentrope scaled 1.8w shifted (w,h);
+  z0 = point (0.8length(p0)) of p0;
+%  dy = ypart z0;
+%  dx = dy;  
+  p1 = ((p0 shifted ((1.125dy)*(1,1))) cutbefore ((w,h)--(0,h)))
+    cutafter ((w,0)--(w,h));
+  for i=dy step dy until h:
+    draw (0,i)--(w,i) withcolor 0.75white;
+  endfor;
+  for i=dx step dx until w:
+    draw (i,0)--(i,h) withcolor 0.75white;
+  endfor;
+  hugoniot =
+    (((7/3)*x0,0.25dy)--
+    ((11/7)*x0,0.5dy)--z0--((7/11)*x0,2*dy)--((1/2)*x0,3*dy)--((3/7)*x0,4*dy)
+    --((5/13)*x0,5*dy)--((11/31)*x0,6*dy)--((x0)/3,7*dy)
+      --((13/41)*x0,8*dy)--((7/23)*x0,9*dy))
+    cutbefore ((w,0)--(w,h));
+  drawarrow axes0;
+  drawarrow axes1;
+  draw p0;
+  draw p1;
+  draw hugoniot dashed evenly withcolor red;
+  z1 = p1 intersectionpoint hugoniot;
+  %z1 = point (0.5length(p1)) of p1;
+  label.bot(btex $V$ etex, point length(axes0) of axes0);
+  label.lft(btex $p$ etex, point length(axes1) of axes1);
+  label.rt(btex $S_{1}$ etex, point length(p0) of p0);
+  label.rt(btex $S_{2}$ etex, point length(p1) of p1);
+  label(btex $\bullet$ etex, z0);
+  label(btex $\bullet$ etex, z1);
+endfig;
+
+beginfig(48) % Rayleigh line for circle isentropes
+  path p[], axes[];
+  path isentrope, frm, hugoniot, rayleigh;
+  numeric w,h,i,dy,dx,x[];
+  w = 8u;
+  h = 8u;
+
+  isentrope = quartercircle rotated 180; % generic form of an isentrope
+  axes0 = (0,0)--(1.1w,0);
+  axes1 = (0,0)--(0,1.1h);
+  frm = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  p0 = isentrope scaled 1.8w shifted (w,h);
+  z0 = point (0.9length(p0)) of p0;
+  dy = ypart z0;
+  dx = dy;
+  p1 = ((p0 shifted ((dy)*(1,1))) cutbefore ((w,h)--(0,h)))
+    cutafter ((w,0)--(w,h));
+  for i=dy step dy until h:
+    draw (0,i)--(w,i) withcolor 0.75white;
+  endfor;
+  for i=dx step dx until w:
+    draw (i,0)--(i,h) withcolor 0.75white;
+  endfor;
+  hugoniot =
+    (((11/7)*x0,0.5dy)--z0--((7/11)*x0,2*dy)--((1/2)*x0,3*dy)--((3/7)*x0,4*dy)
+    --((5/13)*x0,5*dy)--((11/31)*x0,6*dy)--((x0)/3,7*dy)
+      --((13/41)*x0,8*dy)--((7/23)*x0,9*dy))
+    cutbefore ((w,0)--(w,h));
+  drawarrow axes0;
+  drawarrow axes1;
+  draw p0;
+  draw p1;
+  %draw hugoniot dashed evenly withcolor red;
+  z1 = p1 intersectionpoint hugoniot;
+  p2 = z0--z1;
+  p3 = ((z0 - (direction -dy of p2))--(z1 + (direction 3dy of p2)))
+    cutbefore ((0,0)--(w,0));
+  draw p3 withcolor red;
+  label.bot(btex $V$ etex, point length(axes0) of axes0);
+  label.lft(btex $p$ etex, point length(axes1) of axes1);
+  label.rt(btex $S_{1}$ etex, point length(p0) of p0);
+  label.rt(btex $S_{2}$ etex, point length(p1) of p1);
+  label(btex $\bullet$ etex, z0);
+  label(btex $\bullet$ etex, z1);
+endfig;
+
+beginfig(48) % Hugoniot condition
+  path p[], axes[];
+  path isentrope, frm, hugoniot, rayleigh;
+  numeric w,h,i,dy,dx,x[];
+  w = 8u;
+  h = 8u;
+
+  isentrope = quartercircle rotated 180; % generic form of an isentrope
+  axes0 = (0,0)--(1.1w,0);
+  axes1 = (0,0)--(0,1.1h);
+  frm = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  dx = u;
+  dy = dx;
+  p0 = (0.5dx,h)
+    for i = dx step 0.5dx until w:
+    --(i,(0.5h/i)*u)
+  endfor;
+%  p0 = isentrope scaled 1.8w shifted (w,h);
+  z0 = point (0.8length(p0)) of p0;
+%  dy = ypart z0;
+%  dx = dy;  
+  p1 = ((p0 shifted ((1.125dy)*(1,1))) cutbefore ((w,h)--(0,h)))
+    cutafter ((w,0)--(w,h));
+  for i=dy step dy until h:
+    draw (0,i)--(w,i) withcolor 0.75white;
+  endfor;
+  for i=dx step dx until w:
+    draw (i,0)--(i,h) withcolor 0.75white;
+  endfor;
+  hugoniot =
+    (((7/3)*x0,0.25dy)--
+    ((11/7)*x0,0.5dy)--z0--((7/11)*x0,2*dy)--((1/2)*x0,3*dy)--((3/7)*x0,4*dy)
+    --((5/13)*x0,5*dy)--((11/31)*x0,6*dy)--((x0)/3,7*dy)
+      --((13/41)*x0,8*dy)--((7/23)*x0,9*dy))
+    cutbefore ((w,0)--(w,h));
+  drawarrow axes0;
+  drawarrow axes1;
+  draw p0;
+  draw p1;
+  % draw hugoniot dashed evenly withcolor red;
+  z1 = p1 intersectionpoint hugoniot;
+  %z1 = point (0.5length(p1)) of p1;
+  p2 = z0--z1;
+  p3 = ((z0 - (direction -dy of p2))--(z1 + 3*(direction 3dy of p2)))
+    cutbefore ((0,0)--(w,0));
+  draw p3 withcolor red;
+  label.bot(btex $V$ etex, point length(axes0) of axes0);
+  label.lft(btex $p$ etex, point length(axes1) of axes1);
+  label.rt(btex $S_{1}$ etex, point length(p0) of p0);
+  label.rt(btex $S_{2}$ etex, point length(p1) of p1);
+  label(btex $\bullet$ etex, z0);
+  label(btex $\bullet$ etex, z1);
+endfig;
+
+beginfig(49) % Hugoniot condition, delta e trapezoid
+  path p[], axes[];
+  path isentrope, frm, hugoniot, rayleigh;
+  numeric w,h,i,dy,dx,x[];
+  w = 8u;
+  h = 8u;
+
+  isentrope = quartercircle rotated 180; % generic form of an isentrope
+  axes0 = (0,0)--(1.1w,0);
+  axes1 = (0,0)--(0,1.1h);
+  frm = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  dx = u;
+  dy = dx;
+  p0 = (0.5dx,h)
+    for i = dx step 0.5dx until w:
+    --(i,(0.5h/i)*u)
+  endfor;
+%  p0 = isentrope scaled 1.8w shifted (w,h);
+  z0 = point (0.8length(p0)) of p0;
+%  dy = ypart z0;
+%  dx = dy;  
+  p1 = ((p0 shifted ((1.125dy)*(1,1))) cutbefore ((w,h)--(0,h)))
+    cutafter ((w,0)--(w,h));
+  for i=dy step dy until h:
+    draw (0,i)--(w,i) withcolor 0.75white;
+  endfor;
+  for i=dx step dx until w:
+    draw (i,0)--(i,h) withcolor 0.75white;
+  endfor;
+  hugoniot =
+    (((7/3)*x0,0.25dy)--
+    ((11/7)*x0,0.5dy)--z0--((7/11)*x0,2*dy)--((1/2)*x0,3*dy)--((3/7)*x0,4*dy)
+    --((5/13)*x0,5*dy)--((11/31)*x0,6*dy)--((x0)/3,7*dy)
+      --((13/41)*x0,8*dy)--((7/23)*x0,9*dy))
+    cutbefore ((w,0)--(w,h));
+  % draw hugoniot dashed evenly withcolor red;
+  z1 = p1 intersectionpoint hugoniot;
+  %z1 = point (0.5length(p1)) of p1;
+  p2 = z0--z1;
+  p3 = ((z0 - (direction -dy of p2))--(z1 + 3*(direction 3dy of p2)))
+    cutbefore ((0,0)--(w,0));
+
+  p4 = z0--(x0,0)--(x1,0)--z1--cycle;
+  fill z0--(x0,0)--(x1,0)--z1--cycle withcolor 0.667white;
+
+  % draw y gridlines in region slightly darker
+  for i = 4 upto 7:
+    draw ((i*dx,0)--(i*dx,i*dy)) cutafter p3 withcolor 0.25white;
+  endfor;
+  % draw x gridlines in region slightly darker
+  for i = 1 upto 3:
+    draw ((x1,i*dy)--(x1 + 4dx,i*dy)) cutafter p3 withcolor 0.25white;
+  endfor;
+
+  drawarrow axes0;
+  drawarrow axes1;
+  draw p0;
+  draw p1;
+  draw (z0--(x0,0)) dashed evenly;
+  draw (z1--(x1,0)) dashed evenly;
+  draw (z0--(0,y0)) dashed evenly;
+  draw (z1--(0,y1)) dashed evenly;
+  draw p3 withcolor red;
+  label.bot(btex $V$ etex, point length(axes0) of axes0);
+  label.lft(btex $p$ etex, point length(axes1) of axes1);
+  label.rt(btex $S_{1}$ etex, point length(p0) of p0);
+  label.rt(btex $S_{2}$ etex, point length(p1) of p1);
+  label(btex $\bullet$ etex, z0);
+  label(btex $\bullet$ etex, z1);
+  label.bot(btex $V_{1}$ etex, (x0,0));
+  label.bot(btex $V_{2}$ etex, (x1,0));
+  label.lft(btex $p_{1}$ etex, (0,y0));
+  label.lft(btex $p_{2}$ etex, (0,y1));
+endfig;
+
+beginfig(50) % Hugoniot condition, delta h trapezoid
+  path p[], axes[];
+  path isentrope, frm, hugoniot, rayleigh;
+  numeric w,h,i,dy,dx,x[];
+  w = 8u;
+  h = 8u;
+
+  isentrope = quartercircle rotated 180; % generic form of an isentrope
+  axes0 = (0,0)--(1.1w,0);
+  axes1 = (0,0)--(0,1.1h);
+  frm = (0,0)--(w,0)--(w,h)--(0,h)--cycle;
+  dx = u;
+  dy = dx;
+  p0 = (0.5dx,h)
+    for i = dx step 0.5dx until w:
+    --(i,(0.5h/i)*u)
+  endfor;
+%  p0 = isentrope scaled 1.8w shifted (w,h);
+  z0 = point (0.8length(p0)) of p0;
+%  dy = ypart z0;
+%  dx = dy;  
+  p1 = ((p0 shifted ((1.125dy)*(1,1))) cutbefore ((w,h)--(0,h)))
+    cutafter ((w,0)--(w,h));
+  for i=dy step dy until h:
+    draw (0,i)--(w,i) withcolor 0.75white;
+  endfor;
+  for i=dx step dx until w:
+    draw (i,0)--(i,h) withcolor 0.75white;
+  endfor;
+  hugoniot =
+    (((7/3)*x0,0.25dy)--
+    ((11/7)*x0,0.5dy)--z0--((7/11)*x0,2*dy)--((1/2)*x0,3*dy)--((3/7)*x0,4*dy)
+    --((5/13)*x0,5*dy)--((11/31)*x0,6*dy)--((x0)/3,7*dy)
+      --((13/41)*x0,8*dy)--((7/23)*x0,9*dy))
+    cutbefore ((w,0)--(w,h));
+  % draw hugoniot dashed evenly withcolor red;
+  z1 = p1 intersectionpoint hugoniot;
+  %z1 = point (0.5length(p1)) of p1;
+  p2 = z0--z1;
+  p3 = ((z0 - (direction -dy of p2))--(z1 + 3*(direction 3dy of p2)))
+    cutbefore ((0,0)--(w,0));
+
+  p4 = z0--(0,y0)--(0,y1)--z1--cycle;
+  fill p4 withcolor 0.667white;
+
+  % draw y gridlines in region slightly darker
+  for i = 1 upto 6:
+    draw (((i*dx,0)--(i*dx,4dy)) cutafter ((0,y1)--z1--z0))
+      cutbefore (z0--(0,y0))
+      withcolor 0.25white;
+  endfor;
+  % draw x gridlines in region slightly darker
+  for i = 1 upto 3:
+    draw ((0,i*dy)--(x0,i*dy))
+      cutafter p3
+      withcolor 0.25white;
+  endfor;
+
+  drawarrow axes0;
+  drawarrow axes1;
+  draw p0;
+  draw p1;
+  draw (z0--(x0,0)) dashed evenly;
+  draw (z1--(x1,0)) dashed evenly;
+  draw (z0--(0,y0)) dashed evenly;
+  draw (z1--(0,y1)) dashed evenly;
+  draw p3 withcolor red;
+  label.bot(btex $V$ etex, point length(axes0) of axes0);
+  label.lft(btex $p$ etex, point length(axes1) of axes1);
+  label.rt(btex $S_{1}$ etex, point length(p0) of p0);
+  label.rt(btex $S_{2}$ etex, point length(p1) of p1);
+  label(btex $\bullet$ etex, z0);
+  label(btex $\bullet$ etex, z1);
+  label.bot(btex $V_{1}$ etex, (x0,0));
+  label.bot(btex $V_{2}$ etex, (x1,0));
+  label.lft(btex $p_{1}$ etex, (0,y0));
+  label.lft(btex $p_{2}$ etex, (0,y1));
+endfig;
+
+beginfig(51) % Hugoniot plot
+  path axes[];
+  path hugoniot, asy;
+  numeric dx,dy,w,h,i,c;
+  dx = u;
+  dy = u;
+  c = 5; % = (\gamma+1)/(\gamma-1)
+  w = (c+1)*dx;
+  h = 8*dy;
+  axes0 = (0,0)--(w,0);
+  axes1 = (0,0)--(0,h);
+  for i = 1 upto c:
+    draw (i*dx,0)--(i*dx,h) withcolor 0.75white;
+  endfor;
+  for i = 1 upto 7:
+    draw (0,i*dy)--(w,i*dy) withcolor 0.75white;
+  endfor;
+  
+  hugoniot = ((c*dx,0)
+  for i = (c*dx-0.25dx) step -0.25dx until dx/5:
+    --(i, ((c*dx-i)/(c*i-dx))*u)
+  endfor) cutafter ((0,h)--(w,h));
+
+  asy = (0.2dx,0)--(0.2dx,h);
+  draw hugoniot;
+  
+  drawarrow axes0;
+  drawarrow axes1;
+  draw asy dashed evenly;
+  label(btex $\bullet$ etex, (c*dx,0));
+  label.rt(btex $V_{2}/V_{1}$ etex, (w,0));
+  label.lft(btex $p_{2}/p_{1}$ etex, (0,h));
+  label.bot(btex $\displaystyle\left({{V_{2}}\over {V_{1}}}\right)_{\rm max}$ etex, (0.5dx+c*dx,0));
+  label.bot(btex $\displaystyle\left({{V_{2}}\over {V_{1}}}\right)_{\rm min}$ etex, (0.5dx+(dx/c),0));
+endfig;
+
+beginfig(52) % shock fixed frame
+  path p[];
+  numeric w,h;
+  w = 8u;
+  h = 2u;
+  p0 = (0,0)--(w,0);
+  p1 = (0,h)--(w,h);
+  p2 = (0.5w,0)--(0.5w,h);
+  draw p2 withpen pencircle scaled 2 withcolor red;
+%  drawarrow (0.5w,0.5h)--(0.5w-2u,0.5h) withcolor red;
+  drawarrow (0,0.5h)--(2u,0.5h);
+  draw p0;
+  draw p1;
+  label.lft(btex upstream etex, (0,0.5h));
+  label(btex (in shock fixed frame) etex, (0.5w,h+2u));
+endfig;
+
+beginfig(53) % lab frame
+  path p[];
+  numeric w,h;
+  w = 8u;
+  h = 2u;
+  p0 = (0,0)--(w,0);
+  p1 = (0,h)--(w,h);
+  p2 = (0.5w,0)--(0.5w,h);
+  draw p2 withpen pencircle scaled 2 withcolor red;
+  drawarrow (0.5w,0.5h)--(0.5w-2u,0.5h) withcolor red;
+  draw p0;
+  draw p1;
+%  label.lft(btex ${\rm M}_{1}$ etex, (0.5w-2u,0.5h)) withcolor red;
+  label.lft(btex upstream $u=0$ etex, (0,0.5h));
+  label.lft(btex ${\rm M}_{1}$, $\rho_{1}$, $p_{1}$, $T_{1}$ etex, (-u,0.5h-u));
+  label(btex (in lab frame) etex, (0.5w,h+2u));
+endfig;
+
+% 53
 end;
