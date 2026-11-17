@@ -130,6 +130,29 @@ refer to the ``kinetic diameter'' $d$ of a molecule, which is the size
 of a sphere which leads to a scattering between molecules.
 \end{definition}
 
+\begin{aside}
+\begin{enumerate}
+\item 
+The kinetic diameter $d$ is determined by calculating the mean free path
+$\lambda$ using the identity
+$d^{2}=(\pi\lambda n)^{-1}$ where $n$ is the number density of particles.
+It seems (to me) to be an open problem to determine $d$ by other means
+(e.g., from first principles, or from intermolecular potentials $V(r)$
+as the $d>0$ such that $\lim_{r\to d^{-}}V(r)=\infty$ and for all
+$r>d$ we have $V(r)$ finite, or from van~der~Waals-like equation of state).
+\item The kinetic diameter is typically larger than the so-called
+``atomic diameter'' (determined using, e.g., covalent radius,
+Van~der~Waals radius, etc.) for individual atoms, but for diatomic
+gases the Van~der~Waals volume $V_{w}=\frac{4}{3}\pi r_{w}^{3}+\pi r_{w}^{2}d_{w}$ describes a sphere with radius
+$r_{\text{eff}}=[(3/4)V_{w}/\pi]^{1/3}$ which is typically larger than
+$d/2$ [e.g.,
+$\mathrm{N}_{2}$ has $r_{\text{eff}}\approx202~\mathrm{pm}$ but
+$d/2\approx182~\mathrm{pm}$; Hydrogen $\mathrm{H}_{2}$ has $r_{\text{eff}}\approx225~\mathrm{pm}$
+but $d/2\approx144.5~\mathrm{pm}$; Oxygen $\mathrm{O}_{2}$ has
+$r_{\text{eff}}\approx206~\mathrm{pm}$ but $d/2\approx173~\mathrm{pm}$].
+\end{enumerate}
+\end{aside}
+
 \begin{definition}
 A \define{Dilute Gas} is defined as a substance where $\delta\gg d$
 the mean molecular spacing is much greater than the molecular size.
@@ -249,6 +272,25 @@ Show that the mean free path for an ideal gas is then
 \lambda = \frac{RT}{\sqrt{2}\pi d^{2}N_{A}p}.
 \end{equation}
 \end{xca}
+
+\begin{aside}
+\begin{enumerate}
+\item The mean free path can be determined using intermolecular potentials
+(like a Lennard--Jones potential) using various parameter (e.g., the
+Lennard--Jones parameter $\sigma$) as the kinetic diameter $d$. 
+\item It seems to me to be an open problem to offer a general algorithm that
+takes an intermolecular potential $V(r)$ and produce the kinetic
+diameter $d[V(r)]$ using the intermolecular potential (and presumably
+some physical principles). Ideally, when two different intermolecular
+potentials $V_{1}(r)$ and $V_{2}(r)$ ``agree roughly'' in some region
+$V_{1}(r)\approx V_{2}(r)$, then the computed kinetic diameters should
+agree $d[V_{1}(r)]\approx d[V_{2}(r)]$.
+\item I am told [but do not have direct access to verify] that
+Vincenti and Kruger's \textit{Introduction to physical gas dynamics}
+(Krieger Publishing Company, 1965, p.414) offers a calculation of the
+mean free path $\lambda$ using the viscosity $\mu$ and the ideal gas Law.
+\end{enumerate}
+\end{aside}
 
 \begin{definition}
 The \define{Knudsen Number} $\Kn$ is defined to be the dimensionless
