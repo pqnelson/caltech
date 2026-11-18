@@ -1294,5 +1294,42 @@ beginfig(53) % lab frame
   label(btex (in lab frame) etex, (0.5w,h+2u));
 endfig;
 
-% 53
+% lecture 22
+beginfig(54) % plot of ratio of stagnation quantities
+  path p[];
+  numeric i, dx, dy, w, h;
+  dy = 1.25u;
+  dx = 1.5u;
+  w = 5dx;
+  h = 4dy;
+  p0 = (0,0)--(0,h + 3); % y-axis
+  p1 = (0,0)--(w + 3,0); % x-axis
+  % y = (27 * (x**4))/(((2 + x*x)**2)*(-1 + 4*x*x))
+  % % Arithmetic overflow :(
+  % def f(expr n) = (27 * (n**4))/(((2 + n*n)**2)*(-1 + 4*n*n)) enddef;
+  % p3 = (0,h)
+  %   for i = 0.25 step 0.25 until (w/dx):
+  %   --(i*dx, f(1+i)*h)
+  % endfor;
+  p2 = (0,h)--(0.5dx, 0.945934h)--(dx,0.8h)--
+    (1.5dx,0.645661h)--
+    (2dx,0.516411h)--(2.5dx,0.415686h)--
+    (3dx,0.338624h)--(3.5dx,0.279553h)--
+    (4dx,0.23382h)--(5dx,0.169459h);
+  for i = 1 upto 4:
+    draw (0,i*dy)--(w,i*dy) withcolor 0.75white;
+  endfor;
+  for i = 1 upto 5:
+    draw (i*dx,0)--(i*dx,h) withcolor 0.75white;
+  endfor;
+  drawarrow p0;
+  drawarrow p1;
+  draw (0,h)--(w,h) dashed evenly;
+  draw p2;
+  label.bot(btex ${\rm M}_{1}$ etex, (w,0));
+  label.lft(btex $1$ etex, (0,h));
+  label.top(btex ${p_{0,2}\over p_{0,1}}$ etex, (0, h+3));
+  label.bot(btex $1$ etex, (0,0));
+endfig;
+% 55
 end;

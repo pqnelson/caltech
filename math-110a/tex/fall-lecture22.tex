@@ -1,0 +1,182 @@
+%%
+%% fall-lecture22.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-17T11:51:23-0800
+%% Last update 2026-11-17T11:51:23-0800
+%% 
+
+\lecture[Integrable functions]{}
+
+\begin{node}
+Let $(X,\mathcal{A},\mu)$ be a measure space. We will define
+integrable functions on $X$ in three steps.
+\end{node}
+
+\begin{definition}
+Let $(X,\mathcal{A},\mu)$ be a measure space.
+\begin{enumerate}
+\item 
+A \define{Simple Function} is a function $f\colon X\to\RR$ such that
+$f=\sum_{j} c_{j}\mathbf{1}_{A_{j}}$ where $A_{j}\in\mathcal{A}$ are
+disjoint [or, the pairwise intersection $A_{i}\cap A_{j}$ is a nullset
+  when $i\neq j$] [and the $A_{j}$ cover $X$], and
+$c_{j}\in[0,\infty]$ is a non-negative extended real number.
+\item When $f=\sum_{j}c_{j}\mathbf{1}_{A_{j}}$ is a simple function,
+  we define the \define{Integral} of $f$ to be the extended real
+  number $\int f\,\D\mu=\sum_{j}c_{j}\mu(A_{j})$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Let $(X,\mathcal{A},\mu)$ be a measure space.
+Let $f\colon X\to\RR$ be a measurable function~(\S\ref{defn:lec21:measurable-function}).
+We define the \define{Integral} of $f$ to be the extended real number
+$\int f\,\D\mu:=\sup_{s}\{\int s\,\D\mu\mid 0\leq s\leq f,s\mbox{ is simple}\}$.
+\end{definition}
+
+\begin{definition}
+Let $f\colon X\to\RR$ be a measurable function.
+\begin{enumerate}
+\item We say $f$ is
+\define{Integrable} if $\int|f|\,\D\mu<\infty$ is finite.
+\item We define the \define{Integral} of $f$ to be $\int f\,\D\mu=\int f^{+}\,\D\mu-\int f^{-}\,\D\mu$
+  where $f^{+}(x)=\max(0,f(x))$ and $f^{-}(x)=\max(0,-f(x))$ and $f=f^{+}-f^{-}$.
+  [This just extends the notion of the integrable of a non-negative
+    measurable function by linearity.]
+\end{enumerate}
+\end{definition}
+
+\begin{node}
+In probability, we write $\int X\,\D\Pr=\mathbb{E}[X]$ --- it's the
+expected value of the random variable.
+\end{node}
+
+\begin{notation}
+When writing the integral $\int f\,\D\mu$, we will suppress the
+$\D\mu$ measure when it is clear from context.
+\end{notation}
+
+\begin{proposition}
+Let $f\geq0$ be measurable. Then $\int f=0$ if and only if $f=0$
+almost everywhere.
+\end{proposition}
+
+\begin{proof}
+\backwardproof\ Assume $f=0$ almost everywhere. Let $0\leq s\leq f$ be
+a simple function approximating $f$. Then $s=0$ almost everywhere, so
+$\int s=0$. Then $\int f=\sup\{\int s\mid 0\leq s\leq f, s\mbox{ simple}\}=\sup\{0\}=0$.
+
+\forwardproof\ Assume $\int f=0$. Write $E_{n}=\{f>1/n\}$. Suppose for
+contradiction that $f$ is nonzero on a set of positive measure. Then
+there exists an $n$ such that $\mu(E_{n})>0$. So $f>\frac{1}{n}\mathbf{1}_{E_{n}}$,
+and $\frac{1}{n}\mathbf{1}_{E_{n}}$ is a positive simple
+function. Therefore
+\begin{equation}
+\int>\frac{1}{n}\mu(E_{n})\neq0,
+\end{equation}
+which is a contradiction. Therefore $f$ is zero almost everywhere.
+\end{proof}
+
+\begin{definition}
+We say two measurable functions $f$ and $g$ are \define{Equivalent}
+written $f\sim g$ if $f=g$ almost everywhere (i.e., $\int|f-g|=0$).
+\end{definition}
+
+\begin{definition}
+We may define the \define{Lebesgue Space} $L^{1}(\mu)=L^{1}(X,\mathcal{A},\mu)$
+is the equivalence classes of integrable functions.
+
+We also have the \define{$L^{1}$ Norm} $\|f\|_{L^{1}}:=\int|f|$ which
+is a function $\|-\|_{L^{1}}\colon L^{1}(\mu)\to[0,\infty)$. (We have
+  to prove it satisfies the properties of the norm.)
+\end{definition}
+
+\begin{theorem}
+\begin{enumerate}
+\item $L^{1}(\mu)$ is a normed vector space (with respect to the $L^{1}$-norm)
+\item The map $f\mapsto\int f\,\D\mu$ is a continuous linear
+  functional of norm 1.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+\begin{enumerate}
+\item Also, $L^{1}$ is complete---so $L^{1}$ is a Banach space.
+\item And also, simple functions are dense in $L^{1}$.
+\end{enumerate}
+\end{remark}
+
+\begin{claim}[Approximation by simple functions]
+Let $f\geq0$ be measurable and monotone. Then there exists an
+increasing monotone sequence of simple functions $0\leq s_{1}\leq s_{2}\leq\dots\uparrow f$
+pointwise.
+\end{claim}
+
+\begin{proof}
+For any $n\in\NN$, we will construct an $\varepsilon$-approximation of
+$f$ where $\varepsilon=2^{-n}$. Define
+\begin{equation}
+E_{k}=\{\frac{k}{2^{n}}\leq f<\frac{k+1}{2^{n}}\}
+\end{equation}
+dyadic intervals of width $\varepsilon$, set
+$s_{n}:=\sum\frac{k}{2^{n}}\mathbf{1}_{E_{k}}$.
+This gives us a monotone increasing sequence $(s_{n})$ which converges
+to $f$.
+\end{proof}
+
+\subsection{Convergence theorems}
+
+\begin{monotone-convergence-theorem}[Levy]
+If we have a sequence of functions $0\leq f_{n}$ which pointwise
+increases towards $f$, then $\int f_{n}\nearrow\int f$ converges monotone.
+\end{monotone-convergence-theorem}
+
+\begin{proof}
+Let us set
+\begin{equation}
+a := \lim_{n\to\infty}\int f_{n}.
+\end{equation}
+Then $a\leq\int f$ since each $f_{n}\leq f$ (so $\int f_{n}\leq\int f$
+for each $n$). We want to show $\lim\int f_{n}\geq\int f$ [so then we
+obtain equality].
+We will fix some $0\leq s\leq f$ simple function, and fix some $0<c<1$.
+[``Fix'' meaning that we will eventually take the limit $s\to f$
+  (resp., $c\to 1$).]
+Let
+\begin{equation}
+E_{n}:=\{x\mid f_{n}(x)\geq cs(x)\}.
+\end{equation}
+The main observation is that the sets $E_{n}$ are monotone increasing towards
+$X$. So $\lim_{n\to\infty}E_{n}=\bigcup_{n}E_{n}$. Now, we have
+\begin{equation}
+\int_{X}f\geq\int_{E_{n}}f_{n}\geq c\int_{E_{n}}s,
+\end{equation}
+and
+\begin{equation}
+c\int_{E_{n}}s\xrightarrow{n\to\infty}c\int_{X}s\quad\mbox{converges}.
+\end{equation}
+We use the fact that measures are continuous on monotone sequences (if
+$E_{n}\uparrow E_{\infty}$, then $\mu(E_{n})\xrightarrow{n\to\infty}\mu(E_{\infty})$
+[``continuity from below'']).
+We apply this continuity theorem to the function $E\mapsto\int_{E}s$
+[this is a very important operation, we'll discuss with the
+  Radon--Nikodyn theorem]. Then
+\begin{equation}
+a=\lim_{n\to\infty}\int_{X}f_{n}\geq c\int_{X}s,
+\end{equation}
+then take $c\to1$ limit, and then take the supremum over $s$. Then we
+obtain
+$a\geq c\int_{X}s$. Hence equality.
+\end{proof}
+
+\begin{corollary}
+Suppose all $f_{n}\geq0$. Then $\sum(\int f_{n})=\int(\sum f_{n})$.
+\end{corollary}
+
+\begin{corollary}
+If $\sum\int|f_{n}|<\infty$ is finite, then $\sum f_{n}$ absolutely
+converges almost everywhere.
+\end{corollary}

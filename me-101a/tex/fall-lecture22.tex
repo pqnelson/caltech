@@ -1,0 +1,335 @@
+%%
+%% fall-lecture22.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-17T08:39:58-0800
+%% Last update 2026-11-17T08:39:58-0800
+%% 
+
+\lecture{}
+
+[Micah Nishimoto was the last-minute guest lecturer, due to an emergency.]
+
+% Guest lecturer: Mika?
+
+\begin{recall}
+We are studying normal shocks in 1-dimensional flow. The shock moves
+upstream. There are two fundamental ``regions'' here:
+\begin{enumerate}
+\item the flow before the shock, and
+\item the flow after the shock.
+\end{enumerate}
+\end{recall}
+
+\begin{assume}
+The fluid is a perfect gas (so $c_{p}$ and $c_{V}$ are both constant).
+\end{assume}
+
+\begin{node}[Review]
+We derived
+\begin{equation}\label{eq:fall2026:me101a:lec22:eq-A}
+\frac{p_{2}}{p_{1}}=1+\gamma\Mach_{1}^{2}\left(1-\frac{\rho_{1}}{\rho_{2}}\right)
+\end{equation}
+and
+\begin{equation}\label{eq:fall2026:me101a:lec22:eq-B}
+\frac{T_{2}}{T_{1}}=1+\frac{\gamma-1}{2}\Mach_{1}^{2}\left[1-\left(\frac{\rho_{1}}{\rho_{2}}\right)^{2}\right].
+\end{equation}
+Then using the ideal gas Law $p/\rho = RT$ we found
+\begin{equation}
+\frac{T_{2}}{T_{1}}=\frac{p_{2}}{p_{1}}\frac{\rho_{1}}{\rho_{2}}.
+\end{equation}
+Plugging in Eq~\eqref{eq:fall2026:me101a:lec22:eq-A} to the right-hand
+side, and Eq~\eqref{eq:fall2026:me101a:lec22:eq-B} to the left-hand
+side, gives us
+\begin{equation}
+1+\frac{\gamma-1}{2}\Mach_{1}^{2}\left[1-\left(\frac{\rho_{1}}{\rho_{2}}\right)^{2}\right]=\left[1+\gamma\Mach_{1}^{2}\left(1-\frac{\rho_{1}}{\rho_{2}}\right)\right]\frac{\rho_{1}}{\rho_{2}}.
+\end{equation}
+This is a quadratic equation in $x=\rho_{1}/\rho_{2}$ and it has two
+solutions. The physically interesting solution is
+\begin{equation}\label{eq:fall2026:me101a:lec22:eq-1}
+\frac{\rho_{1}}{\rho_{2}}=\frac{2+(\gamma-1)\Mach_{1}^{2}}{(\gamma+1)\Mach_{1}^{2}}.
+\end{equation}
+Then we began rewriting ratios of upstream quantities over downstream
+quantities in terms of Mach number and $\gamma$. We saw,
+\begin{equation}
+\frac{u_{1}}{u_{2}}=\frac{\rho_{2}}{\rho_{1}}=\frac{(\gamma+1)\Mach_{1}^{2}}{2+(\gamma-1)\Mach_{1}^{2}}.
+\end{equation}
+Then
+\begin{subequations}\label{eq:fall2026:me101a:lec22:delta-u-over-u}
+  \begin{align}
+\frac{\Delta u}{u_{1}} &= \frac{u_{2}-u_{1}}{u_{1}}\\
+&=\frac{-\Delta\rho}{\rho_{2}}\\
+&=\frac{\rho_{1}}{\rho_{2}}-1,
+  \end{align}
+\end{subequations}
+or
+\begin{subequations}\label{eq:fall2026:me101a:lec22:delta-u-over-a}
+  \begin{align}
+\frac{\Delta u}{a_{1}} &= \frac{\Delta u}{u_{1}}\frac{u_{1}}{a_{1}}\\
+&=\frac{-2}{\gamma+1}\frac{\Mach_{1}^{2}-1}{\Mach_{1}}.
+  \end{align}
+\end{subequations}
+\end{node}
+
+\begin{node}
+Similarly, returning to Eq~\eqref{eq:fall2026:me101a:lec22:eq-A},
+\begin{subequations}
+  \begin{align}
+\frac{p_{2}}{p_{1}} &= 1+\gamma\Mach_{1}^{2}\left(1-\frac{\rho_{1}}{\rho_{2}}\right)\\
+&=1-\gamma\Mach_{1}^{2}\left(\frac{u}{u_{1}}\right)\\
+&=1-\gamma\Mach_{1}\frac{u_{1}}{a_{1}}\left(\frac{u}{u_{1}}\right)\\
+&=1-\gamma\Mach_{1}\left(\frac{u}{a_{1}}\right)\\
+&=1-\gamma\Mach_{1}\left(\frac{-2}{\gamma+1}\frac{\Mach_{1}^{2}-1}{\Mach_{1}}\right)\\
+&=\frac{2\gamma\Mach_{1}^{2}-(\gamma-1)}{\gamma+1}.
+  \end{align}
+\end{subequations}
+\end{node}
+
+\begin{node}
+We can transform Eq~\eqref{eq:fall2026:me101a:lec22:eq-B} into
+\begin{equation}\label{eq:fall2026:me101a:lec22:eq-2}
+\frac{T_{2}}{T_{1}}=\left[\gamma\Mach_{1}^{2}-\left(\frac{\gamma-1}{2}\right)\right]\frac{\displaystyle{\left[\left(\frac{\gamma-1}{2}\right)\Mach_{1}^{2}+1\right]}}{\displaystyle{\left[\left(\frac{\gamma+1}{2}\right)^{2}\Mach_{1}^{2}\right]}}.
+\end{equation}
+\end{node}
+
+\begin{proof}[Calculation]
+We see
+\begin{subequations}
+  \begin{align}
+\frac{T_{2}}{T_{1}} &= 1+\frac{\gamma-1}{2}\Mach_{1}^{2}\left[1-\left(\frac{\rho_{1}}{\rho_{2}}\right)^{2}\right]\\
+&=1+\frac{\gamma-1}{2}\Mach_{1}^{2}\left[1+\frac{\rho_{1}}{\rho_{2}}\right]\left[1-\frac{\rho_{1}}{\rho_{2}}\right]\\
+&=1+\frac{\gamma-1}{2}\Mach_{1}^{2}\left[1+\frac{\rho_{1}}{\rho_{2}}\right]\left[\frac{-\Delta u}{u_{1}}\right]\\
+&=1+\frac{\gamma-1}{2}\Mach_{1}\frac{u_{1}}{a_{1}}\left[1+\frac{\rho_{1}}{\rho_{2}}\right]\left[\frac{-\Delta u}{u_{1}}\right]\\
+&=1+\frac{\gamma-1}{2}\Mach_{1}\left[1+\frac{\rho_{1}}{\rho_{2}}\right]\left[\frac{-\Delta u}{a_{1}}\right]\\
+&=1+\frac{\gamma-1}{2}\Mach_{1}\left[1+\frac{\rho_{1}}{\rho_{2}}\right]\left[\frac{-2}{\gamma+1}\frac{\Mach_{1}^{^2}-1}{\Mach_{1}}\right]
+\quad\mbox{by Eq~\eqref{eq:fall2026:me101a:lec22:delta-u-over-a}}\\
+&=1+\frac{\gamma-1}{2}\Mach_{1}\left[1+\frac{2+(\gamma-1)\Mach_{1}^{2}}{(\gamma+1)\Mach_{1}^{2}}\right]\left[\frac{-2}{\gamma+1}\frac{\Mach_{1}^{^2}-1}{\Mach_{1}}\right]
+\quad\mbox{by Eq~\eqref{eq:fall2026:me101a:lec22:eq-1}}\nonumber\\
+&=1+\frac{\gamma-1}{2}\Mach_{1}\left[\frac{(\gamma+1)\Mach_{1}^{2}+2+(\gamma-1)\Mach_{1}^{2}}{(\gamma+1)\Mach_{1}^{2}}\right]\left[\frac{-2}{\gamma+1}\frac{\Mach_{1}^{^2}-1}{\Mach_{1}}\right]\\
+&=1+\frac{\gamma-1}{2}\Mach_{1}\left[\frac{2+2\gamma\Mach_{1}^{2}}{(\gamma+1)\Mach_{1}^{2}}\right]\left[\frac{-2}{\gamma+1}\frac{\Mach_{1}^{^2}-1}{\Mach_{1}}\right]\\
+&=1-2(\gamma-1)\left[\frac{1+\gamma\Mach_{1}^{2}}{(\gamma+1)\Mach_{1}^{2}}\right]\left[\frac{1}{\gamma+1}(\Mach_{1}^{^2}-1)\right]\\
+&=1+2(\gamma-1)\frac{(1+\gamma\Mach_{1}^{2})(1-\Mach_{1}^{2})}{(\gamma+1)^{2}\Mach_{1}^{2}}\\
+&=1+\left(\frac{\gamma-1}{2}\right)\frac{(1+\gamma\Mach_{1}^{2})(1-\Mach_{1}^{2})}{(\frac{\gamma+1}{2})^{2}\Mach_{1}^{2}}
+  \end{align}
+\end{subequations}
+Now, we see that
+\begin{subequations}
+  \begin{align}
+\left(\frac{\gamma-1}{2}\right)(1 + \gamma\Mach_{1}^{2})(1 - \Mach_{1}^{2}) &= \left(\frac{\gamma-1}{2}\right)(1 + (\gamma-1)\Mach_{1}^{2} - \gamma\Mach_{1}^{4})\\
+&=\frac{1}{2}(\gamma+\gamma(\gamma-1)\Mach_{1}^{2}-\gamma^{2}\Mach_{1}^{4}-1-(\gamma-1)\Mach_{1}^{2} + \gamma\Mach_{1}^{4})\\
+&=\frac{1}{2}((\gamma-1)+(\gamma-1)^{2}\Mach_{1}^{2}-\gamma(\gamma-1)\Mach_{1}^{4}),
+  \end{align}
+\end{subequations}
+so
+\begin{equation}
+1+\left(\frac{\gamma-1}{2}\right)\frac{(1+\gamma\Mach_{1}^{2})(1-\Mach_{1}^{2})}{(\frac{\gamma+1}{2})^{2}\Mach_{1}^{2}}
+= \frac{(\frac{\gamma+1}{2})^{2}\Mach_{1}^{2}+\frac{1}{2}((\gamma-1)+(\gamma-1)^{2}\Mach_{1}^{2}-\gamma(\gamma-1)\Mach_{1}^{4})}{(\frac{\gamma+1}{2})^{2}\Mach_{1}^{2}}.
+\end{equation}
+After a bit of algebra, we find the desired result.
+\end{proof}
+
+\begin{node}
+The upstream Mach number is (for perfect gases)
+\begin{equation}
+\Mach_{2} = \Mach_{1}\left(\frac{\rho_{1}}{\rho_{2}}\right)\left(\frac{T_{1}}{T_{2}}\right)^{1/2}
+\end{equation}
+\end{node}
+
+\begin{proof}[Calculation]
+We see that
+\begin{subequations}
+  \begin{align}
+\Mach_{2} &= \frac{u_{2}}{a_{2}}\\
+&= \frac{u_{2}}{a_{1}}\frac{a_{1}}{a_{2}}\\
+&= \frac{\rho_{1}u_{1}}{\rho_{2}a_{1}}\frac{a_{1}}{a_{2}}\\
+&=\Mach_{1}\left(\frac{\rho_{1}}{\rho_{2}}\right)\left(\frac{T_{1}}{T_{2}}\right)^{1/2}
+  \end{align}
+\end{subequations}
+where we are using $a=\sqrt{\gamma RT}$ for perfect gases.
+\end{proof}
+
+\begin{node}
+Consequently, by combining the previous results, we find:
+\begin{equation}
+\Mach_{2}=\left(\frac{1+\left(\frac{\gamma-1}{2}\right)\Mach_{1}^{2}}{\gamma\Mach_{1}^{2}-\left(\frac{\gamma-1}{2}\right)}\right)^{1/2}.
+\end{equation}
+\end{node}
+
+\subsection{Entropy}
+
+\begin{recall}
+We discussed how for an ideal gas the Entropy difference is,
+\begin{equation}\label{eq:fall2026:me101a:lec22:entropy-difference}
+\D S = \frac{c_{V}}{T}\D T + \frac{R}{V}\D V.
+\end{equation}
+\end{recall}
+
+\begin{puzzle}
+How does entropy change across the shock?
+\end{puzzle}
+
+\begin{node}
+We simply integrate Eq~\eqref{eq:fall2026:me101a:lec22:entropy-difference}:
+\begin{subequations}\label{eq:fall2026:me101a:lec22:entropy-calculation}
+  \begin{align}
+S_{2} - S_{1}
+&= c_{V}\ln(T_{2}/T_{1})+R\ln(\rho_{1}/\rho_{2})\\
+&= c_{V}\ln\left[\frac{T_{2}}{T_{1}}\left(\frac{\rho_{1}}{\rho_{2}}\right)^{\gamma-1}\right]\\
+&= c_{V}\ln\left[\frac{2\gamma\Mach_{1}^{2}-\gamma+1}{\gamma+1}\left(\frac{2+\Mach_{1}^{2}(\gamma-1)}{\Mach_{1}^{2}(\gamma+1)}\right)^{\gamma}\right]
+  \end{align}
+\end{subequations}
+by using Eq~\eqref{eq:fall2026:me101a:lec22:eq-1} and Eq~\eqref{eq:fall2026:me101a:lec22:eq-2}.
+\end{node}
+
+\begin{node}
+Now, to proceed with our analysis, we consider three cases.
+
+\textsc{Case 1}: $\Mach_{1}=1$. Then the logarithm in Eq~\eqref{eq:fall2026:me101a:lec22:entropy-calculation}
+becomes:
+\begin{equation}
+\ln\left[\frac{2\gamma\Mach_{1}^{2}-\gamma+1}{\gamma+1}\left(\frac{2+\Mach_{1}^{2}(\gamma-1)}{\Mach_{1}^{2}(\gamma+1)}\right)^{\gamma}\right]=\ln[1]=0,
+\end{equation}
+so $S_{2}=S_{1}$.
+
+\textsc{Case 2}: $\Mach_{1}<1$. Then the logarithm in Eq~\eqref{eq:fall2026:me101a:lec22:entropy-calculation}
+is negative, which means $S_{1}>S_{2}$. But this contradicts the
+second Law of Thermodynamics, which is physically impossible.
+
+\textsc{Case 3}: $\Mach_{1}>1$. Then the logarithm in Eq~\eqref{eq:fall2026:me101a:lec22:entropy-calculation}
+is positive. This means the downstream entropy is greater than the
+upstream entropy $S_{2}>S_{1}$, which matches physical intuition. This
+means $\Mach_{1}>1$ which implies $\Mach_{2}<1$. It also tells us
+\begin{equation}
+\frac{\rho_{2}}{\rho_{1}}>1\quad\mbox{and}\quad\frac{T_{2}}{T_{1}}>1\quad\mbox{and}\quad\frac{p_{2}}{p_{1}}>1.
+\end{equation}
+These describe normal shocks with a perfect gas.
+\end{node}
+
+\subsection{Stagnation quantities}
+
+\begin{node}
+Stagnation pressure changes across the shock. We write the ratio of
+the upstream stagnation pressure to the upstream pressure as
+\begin{equation}
+\frac{p_{0,1}}{p_{1}}=\left(1-\frac{\gamma-1}{2}\Mach_{1}^{2}\right)^{\gamma/(\gamma-1)},
+\end{equation}
+then the ratio for the downstream quantities
+\begin{equation}
+\frac{p_{0,2}}{p_{2}}=\left(1-\frac{\gamma-1}{2}\Mach_{2}^{2}\right)^{\gamma/(\gamma-1)}.
+\end{equation}
+Then
+\begin{equation}
+\frac{p_{0,2}}{p_{0,1}}=\left(\frac{2\gamma\Mach_{1}^{2}-(\gamma-1)}{\gamma+1}\right)^{-1/(\gamma-1)}\left(\frac{\frac{\gamma+1}{2}\Mach_{1}^{2}}{1+\frac{\gamma-1}{2}\Mach_{1}^{2}}\right)^{\gamma/(\gamma-1)}.
+\end{equation}
+It takes a bit of work, but when $\Mach_{1}=1$ we can find that $p_{0,2}/p_{0,1}=1$.
+When $\gamma=2$, this looks like $27\Mach_{1}^{4}/(4\Mach_{1}^{6}+\bigOh(\Mach^{4}))$
+so it is decreasing (which is true for $\gamma>1$ --- at $\gamma=1$,
+there's divide-by-zero problems, and for $\gamma<1$ there are singularities).
+The generic plot looks like:
+\begin{center}
+\includegraphics{img/img.54}
+\end{center}
+where the ratio asymptotically approaches zero as $\Mach_{1}\to\infty$
+[up to some positive coefficient] like $\Mach_{1}^{-2-\varepsilon}$
+where $\varepsilon=1/(\gamma-1)>0$.
+\end{node}
+
+\begin{node}
+Mathematically, we can express the change in entropy across the shock as
+\begin{equation}
+\Delta S = S_{2}-S_{1}=-R\ln(p_{0,2}/p_{0,1}).
+\end{equation}
+\end{node}
+
+\subsection{Prandtl Relationship}
+
+\begin{node}
+The ``goal'' is to relate the upstream velocity, downstream velocity,
+and the critical speed of sound.
+\end{node}
+
+\begin{aside}
+Some textbooks call this the ``Prandtl condition''.
+Zucrow and Hoffman~\cite[\S7--4(d)]{zucrow1976gas} calls it the ``Prandtl equation'',
+Anderson~\cite[\S8.6]{anderson1984fundamentals} calls it the ``Prandtl relation''.
+\end{aside}
+
+\begin{node}
+We will start by looking at the enthalpy across the shock. Recall,
+\begin{equation}\label{eq:fall2026:me101a:lec22:enthalpy-eq-a-sq}
+h = c_{p}T = \frac{\gamma RT}{\gamma-1}=\frac{a^{2}}{\gamma-1},
+\end{equation}
+using the perfect gas assumption.
+\end{node}
+
+\begin{node}
+The conservation of energy can take the form relating the stagnation
+enthalpy upstream equal to the stagnation enthalpy downstream
+\begin{equation}
+h_{0,1}=h_{0,2}.
+\end{equation}
+These are equal to the stagnation enthalpy $h_{0}$ which, by Eq~\eqref{eq:fall2026:me101a:lec22:enthalpy-eq-a-sq},
+is given by:
+\begin{equation}
+h_{0}=\frac{a_{0}^{2}}{\gamma-1}.
+\end{equation}
+The sonic condition at the stagnation enthalpy (where $T_{0,1}=T_{0,2}$(?))
+gives us
+\begin{equation}
+h^{*}=\frac{(a^{*})^{2}}{\gamma-1}.
+\end{equation}
+Then $h_{0}/h^{*}=(\gamma+1)/2$ by arithmetic. Then
+\begin{equation}
+h_{0}=\frac{(a^{*})^{2}}{\gamma-1}\left(\frac{a_{0}}{a^{*}}\right)^{2}=\frac{(a^{*})^{2}}{\gamma-1}\frac{\gamma+1}{2}.
+\end{equation}
+\end{node}
+
+\begin{node}
+We see
+\begin{equation}
+\frac{a_{1}^{2}}{\gamma-1}+\frac{1}{2}u_{1}^{2}=\frac{a_{2}^{2}}{\gamma-1}+\frac{1}{2}u_{2}^{2},
+\end{equation}
+which gives us an expression for
+\begin{subequations}\label{eq:fall2026:lec22:me101a:eq-star}
+  \begin{align}
+a_{1}^{2} &= \frac{\gamma+1}{2}(a^{*})^{2}-\frac{\gamma-1}{2}u_{1}^{2},\\
+\intertext{and}
+a_{2}^{2} &= \frac{\gamma+1}{2}(a^{*})^{2}-\frac{\gamma-1}{2}u_{2}^{2}.
+  \end{align}
+\end{subequations}
+\end{node}
+
+\begin{node}
+Now, by conservation of linear momentum,
+\begin{equation*}
+p_{2}-p_{1}=\rho_{1}u_{1}^{2}-\rho_{2}u_{2}^{2},
+\end{equation*}
+we obtain
+\begin{equation}
+u_{2}-u_{1}=\frac{p_{2}}{\rho_{2}u_{2}}-\frac{p_{1}}{\rho_{1}u_{1}}.
+\end{equation}
+\end{node}
+
+\begin{node}
+Using the conservation of mass,
+\begin{equation*}
+\rho_{1}u_{1}=\rho_{2}u_{2},
+\end{equation*}
+we express Eq~\eqref{eq:fall2026:lec22:me101a:eq-star} as
+\begin{equation}
+\frac{a_{2}^{2}}{\gamma u_{2}}-\frac{a_{1}^{2}}{\gamma u_{1}}=u_{1}-u_{2}.
+\end{equation}
+Hence we obtain the \define{Prandtl Relationship}:
+\begin{equation}
+\boxed{u_{1}u_{2}=(a^{*})^{2}.}
+\end{equation}
+\end{node}
+
+\begin{aside}
+I am told that in Tian Ma and Shouhong Wang's \textit{Geometric Theory of Incompressible Flows with Applications to Fluid Dynamics}
+(AMS, 2005, pp.10 \textit{et~seq}) shows that this relationship also
+holds for incompressible flows. I do not have this book, so I cannot
+verify this claim, but it is intriguing.
+\end{aside}
