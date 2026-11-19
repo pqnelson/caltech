@@ -1,0 +1,212 @@
+%%
+%% fall-lecture23.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-19T08:40:09-0800
+%% Last update 2026-11-19T08:40:09-0800
+%% 
+
+\lecture[Some inequalities]{}
+
+We will finish last lecture's topics (especially important is Fatou's
+lemma), then start the next topic ``inequalities''.
+
+\begin{lemma}[Fatou]
+Let $f_{n}\colon X\to[0,\infty]$ be a sequence of non-negative
+measurable functions on $(X,\mathcal{A},\mu)$. Then
+\begin{equation}
+\int(\liminf f_{n})\leq\liminf\int f_{n}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+We see that we can construct the increasing sequence of measurable functions
+\begin{equation}
+g_{n} := \inf_{k\geq n}f_{k}
+\end{equation}
+Then
+\begin{subequations}
+  \begin{align}
+\int\liminf_{n}f_{n} &= \int\lim_{n\to\infty}\inf_{k\geq n}f_{k}\\
+&=\int\lim_{n}g_{n}\quad\mbox{by def of $g_{n}$}\\
+&=\lim_{n}\int g_{n}\quad\mbox{by monotone convergence theorem}.
+  \end{align}
+\end{subequations}
+We also see
+\begin{subequations}
+  \begin{align}
+    \lim_{n}\int g_{n} &= \liminf_{n}\int g_{n}\\
+    &= \liminf_{n}\int(\inf_{k\geq n}f_{k})\\
+    &\leq \liminf_{n}\int f_{n},
+  \end{align}
+\end{subequations}
+since $g_{n}\leq f_{n}$ by definition of infinimum.
+\end{proof}
+
+\begin{example}
+To remember this, take $f_{n}=\mathbf{1}_{[n,\infty)]}$ be the
+indicator function on $[n,\infty)$ for each $n\in\NN$. Then
+  $\int\liminf f_{n}=0$ and $\liminf\int f_{n}=\infty$ and $0\leq\infty$.
+\end{example}
+
+\begin{theorem}[Lebesgue Dominated Convergence]
+Let $f_{n}\xrightarrow{a.e.}f$ be a sequence of measurable functions.
+Let $g\in L^{1}(\mu)$. If $|f_{n}|\leq g$ for all $n$, then
+$f_{n}\xrightarrow{L^{1}}f$ in norm.
+\end{theorem}
+
+\begin{proof}
+Well, $\int g<\infty$ is finite, so
+\begin{equation}
+\int 2g=\int\lim_{n}(2g-|f_{n}-f|)
+\end{equation}
+since
+\begin{equation}
+\lim_{n}(2g-|f_{n}-f|)\stackrel{a.e.}{=}2g,
+\end{equation}
+since $f_{n}\xrightarrow{a.e.}f$ by hypothesis.
+But now,
+\begin{equation}
+2g-|f_{n}-f|\geq0,
+\end{equation}
+since
+\begin{equation}
+|f_{n}-f|\leq|f_{n}|\leq g\leq 2g\quad\mbox{a.e.,}
+\end{equation}
+by domination.
+
+Now, we can apply Fatou's Lemma. [The factor of 2 in $2g$ is because
+we have $f_{n}$ and $f$]
+Then we see
+\begin{subequations}
+  \begin{align}
+\int\lim_{n}(2g-|f_{n}-f|) &= \int\liminf_{n}(2g-|f_{n}-f|)\\
+&\leq\liminf\int(2g-|f_{n}-f|)\quad\mbox{by Fatou},
+  \end{align}
+  but
+  \begin{align}
+\int2g &= \int\lim_{n}(2g-|f_{n}-f|) \\
+&\leq \liminf_{n}\int(2g-|f_{n}-f|)\\
+&\leq(\int2g)-\limsup_{n}\int|f_{n}-f|,
+  \end{align}
+\end{subequations}
+which means that
+\begin{equation}
+\limsup_{n}\int|f_{n}-f|\leq0,
+\end{equation}
+so $\limsup\|f_{n}-f\|_{L^{1}}\leq0$. But since the norm is non-negative,
+$\limsup\|f_{n}-f\|_{L^{1}}=0$ which implies
+\begin{equation}
+\lim_{n\to\infty}\|f_{n}-f\|_{L^{1}}=0.
+\end{equation}
+Hence the theorem.
+\end{proof}
+
+\begin{fact}[Chebyshev's inequality]
+Let $f\in L^{1}(\mu)$. Then for any $\varepsilon>0$ we have
+\begin{equation}
+\mu\{|f|>\varepsilon\}\leq\frac{\|f\|_{L^{1}}}{\varepsilon}.
+\end{equation}
+\end{fact}
+
+\begin{proposition}
+If $f_{n}\xrightarrow{L^{1}}f$ converges in $L^{1}$-norm,
+then $f_{n}\xrightarrow{\mu}f$ converges in measure.
+\end{proposition}
+
+\begin{proof}
+Let $E_{\varepsilon}=\{|f|>\varepsilon\}$. Then
+\begin{subequations}
+  \begin{align}
+\|f\|_{L^{1}} &= \int_{X}|f|\,\D\mu\\
+&\geq\int_{E_{\varepsilon}}|f|\,\D\mu\\
+&\geq\int_{E_{\varepsilon}}\varepsilon\,\D\mu=\varepsilon\mu(E_{\varepsilon}),
+  \end{align}
+\end{subequations}
+which is precisely the claim after dividing through by $\varepsilon$.
+\end{proof}
+
+\subsection{Inequalities}
+
+\begin{node}
+Estimates and inequalities lie at the heart of the applications of
+$L^{p}$ spaces in analysis. The most basic of these are H\"{o}lder and
+Minkowski inequalities. We will start with a warm-up: Jensen's inequality.
+First, we need to review/define the notion of convex functions.
+\end{node}
+
+\begin{definition}
+A function $\varphi\colon(a,b)\to\RR$ is \define{Convex} if for all
+$\lambda\in(0,1)$ we have $\varphi(\lambda x_{1}+(1-\lambda)x_{2})\leq\lambda\varphi(x_{1})+(1-\lambda)\varphi(x_{2})$
+for any $a<x_{1}<x_{2}<b$.
+\end{definition}
+
+\begin{node}
+Equivalently, $\varphi\colon(a,b)\to\RR$ is convex if the region
+$E=\{(x,y)\mid y\geq\varphi(x)\}$ is a convex region, meaning any two
+points of $E$ can be connected by a straight line entirely contained
+in $E$. If we define
+\begin{equation}
+\operatorname{slope}_{x_{1},x_{2}}(\varphi):=\frac{\varphi(x_{2})-\varphi(x_{1})}{x_{2}-x_{1}}
+\end{equation}
+for the slope of the line segment connecting $(x_{1},\varphi(x_{1}))$
+to $(x_{2},\varphi(x_{2}))$, then for any $a<x_{1}<x_{2}<x_{3}<b$ we have
+\begin{equation}
+\operatorname{slope}_{x_{1},x_{2}}(\varphi)\leq
+\operatorname{slope}_{x_{1},x_{3}}(\varphi)\leq
+\operatorname{slope}_{x_{2},x_{3}}(\varphi).
+\end{equation}
+\end{node}
+
+\begin{fact}
+Convex functions are continuous (and therefore Borel measurable).
+\end{fact}
+
+\begin{fact}
+Twice differentiable functions $f\in C^{2}(a,b)$ are convex if their
+second derivatives are non-negative $f''\geq0$ on its domain.
+\end{fact}
+
+\begin{theorem}[Jensen's inequality]
+Let $\mu$ be a probability measure on set $\Omega$ [so $\mu(\Omega)=1$]
+and $f\colon\Omega\to(a,b)$ be integrable $f\in L^{1}(\mu)$.
+Let $\varphi\colon(a,b)\to\RR$ be convex.
+Then $\varphi(\int f\,\D\mu)\leq\int_{\Omega}(\varphi\circ f)\,\D\mu$.
+\end{theorem}
+
+[Fact: $\varphi$ is continuous, so $\varphi\circ f$ is measurable.]
+
+\begin{proof}
+Denote $t=\int f\,\D\mu$ for the expected value of $f$, and clearly $a<t<b$.
+Also denote,
+\begin{equation}
+\beta:=\sup_{s\in(a,b)}\frac{\varphi(t)-\varphi(s)}{s-t}.
+\end{equation}
+We have the inequality for any $t<u<b$,
+\begin{subequations}
+\begin{equation}
+\beta\leq\frac{\varphi(u)-\varphi(t)}{u-t},
+\end{equation}
+and for any $a<s<t$,
+\begin{equation}
+\frac{\varphi(t)-\varphi(s)}{s-t}\leq\beta.
+\end{equation}
+\end{subequations}
+Combining these statements, we see for any $s\in(a,b)$,
+\begin{equation}
+\varphi(s)\geq\varphi(t)-\beta(t-s).
+\end{equation}
+Now, we set $s=f(x)$, and then integrate against $\D\mu(x)$ in this inequality
+\begin{subequations}
+  \begin{align}
+\int\varphi(f(x))\,\D\mu &\geq \int(\varphi(t)-\beta(t-f(x)))\,\D\mu\\
+&=(\int\varphi(t))-\beta(t-\int f)\\
+&=(\int\varphi(t))-\beta(t-t)\\
+&=\int\varphi(t)\\
+&=\varphi(t)\mu(\Omega)=\varphi(t)\cdot1=\varphi(t).
+  \end{align}
+\end{subequations}
+Hence the claim.
+\end{proof}

@@ -1,0 +1,96 @@
+%%
+%% fall-lecture22.tex
+%% 
+%% Made by Alex Nelson <pqnelson@gmail.com>
+%% Login   <alex@lisp>
+%% 
+%% Started on  2026-11-19T10:59:03-0800
+%% Last update 2026-11-19T10:59:03-0800
+%% 
+
+\lecture{}
+
+\begin{node}
+We were in the middle of proving Property 3: $c_{1}(\gamma_{1}^{1})\in H^{2}(\CP^{1};\ZZ)\iso\ZZ$
+s the generator of $\ZZ$. So $c_{1}(\gamma_{1}^{1})=\pm e((\gamma_{1}^{1})_{\RR})$.
+First, we need to review the infinite complex projective space $\CP^{\infty}$.
+\end{node}
+
+\begin{definition}
+A \define{Complex $n$-Frame} in $\CC^{n+k}$ is a $n$-tuple of linearly
+independent [over $\CC$] vectors living in $\CC^{n+k}$.
+\end{definition}
+
+\begin{definition}
+The \define{Complex Stiefel Manifold} is the set $V_{n}(\CC^{n+k})$ of
+all complex $n$-frames, which is a subset of $(\CC^{n+k})^{n}$ and we
+equip it with the subspace topology.
+\end{definition}
+
+\begin{definition}
+The \define{Complex Grassmannian Manifold} $G_{n}(\CC^{n+k})$ is the
+set of all complex linear $n$-subspaces $\CC^{n+k}$. It has a topology
+given by the quotient topology using the quotient map
+\begin{align}
+q\colon & V_{n}(\CC^{n+k})\to G_{n}(\CC^{n+k})\\
+ & (z_{1},\dots,z_{n})\mapsto \Span_{\CC}(z_{1},\dots,z_{n})\nonumber.
+\end{align}
+\end{definition}
+
+\begin{remark}
+Observe $G_{n}(\CC^{n+k})$ is a complex manifold and has [complex]
+dimension $nk$. All we really need to check is that it has a complex structure.
+\end{remark}
+
+\begin{remark}
+When $n=1$, $G_{1}(\CC^{1+k})\iso\CP^{k}$ homeomorphic (diffeomorphic, even!)
+where $\CP^{k}$ is the set of all complex lines in $\CC^{k+1}$. Note
+$G_{1}(\CC^{2})\iso\CP^{1}\iso\sphere{2}$ when $n=k=1$.
+\end{remark}
+
+\begin{definition}
+Denote $C^{\infty}=\{(z_{1},z_{2},\dots)\mid\mbox{only finitely many entries are nonzero}\}$
+(possibly equipped with the directed limit topology).
+Then we can take the directed limit
+\begin{equation}
+G_{n}(\CC^{\infty}):=\varinjlim_{k\to\infty}G_{n}(\CC^{n+k})
+\end{equation}
+which is called the \define{Infinite Complex Grassmann Manifold}
+equipped with the directed limit topology.
+\end{definition}
+
+\begin{definition}
+The \define{Universal Complex Bundle} over $G_{n}(\CC^{\infty})$
+is $\gamma^{n}:=\{(X,v)\in G_{n}(\CC^{\infty})\times\CC^{\infty}\mid v\in X\}$.
+\end{definition}
+
+\begin{theorem}
+The cohomology ring $H^{*}(G_{n}(\CC^{\infty});\ZZ)\iso\ZZ[c_{1}(\gamma^{n}),\dots,c_{n}(\gamma^{n})]$
+where $\gamma^{n}$ is the universal complex bundle over $G_{n}(\CC^{\infty})$.
+\end{theorem}
+
+\begin{remark}
+The analogous real version uses $w_{i}(\gamma^{n})$ instead of $c_{i}(\gamma^{n})$.
+\end{remark}
+
+(Proof for $n=1$ case I will not transcribe, and the $n>1$ case
+omitted because it is tedious and not very enlightening.)
+
+\begin{fact}
+The cohomology ring for the infinite-dimensional Grassmann manifold is
+$H^{*}(G_{n}(\CC^{\infty});\ZZ)\iso\ZZ[c_{1}(\gamma^{n}),\dots,c_{n}(\gamma^{n})]$.
+\end{fact}
+
+\begin{lemma}
+Let $m,n\in\NN$.
+There exists a unique polynomial $P_{m,n}(c_{1},\dots,c_{m},c'_{1},\dots,c'_{n})$
+in $m+n$ unknowns with integer coefficients such that for 
+every $\CC^{m}$-bundle $\omega$ and $\CC^{n}$-bundle $\phi$ both over
+the same paracompact space $B$, we have
+\begin{equation}
+c(\omega\oplus\phi)=P_{m,n}(c_{1}(\omega),\dots,c_{m}(\omega),c_{1}(\phi),\dots,c_{n}(\phi)).
+\end{equation}
+This polynomial $P_{m,n}$ is called the \define{Universal Polynomial}.
+\end{lemma}
+
+We will prove $P_{m,n}=(1+c_{1}(\omega)+\dots+c_{m}(\omega))(1+c_{1}(\phi)+\dots+c_{n}(\phi))$.
