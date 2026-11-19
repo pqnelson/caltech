@@ -11,9 +11,86 @@ beginfig(0)
   draw fullcircle scaled (4 * (xpart z1)) dashed evenly;
 endfig;
 
+beginfig(1) % Bird, Molecular gas dynamics, fig. 1.6 on p.19
+  path p[];
+  path axes[];
+  numeric i,h,w;
+  color greyish;
+  w = 12u;
+  h = 10u;
+  axes[0] = (2u,0)--(2u-w,0); % x-axis (flipped)
+%  axes[0] = (-10u,0)--(2u,0); % x-axis
+  axes[1] = (2u,0)--(2u,h); % y-axis
+  for i=1 upto 9:
+    draw axes0 shifted (0,i*u) withcolor 0.75white;
+  endfor;
+  for i=-11 upto 0:
+    draw axes1 shifted (i*u,0) withcolor 0.75white;
+  endfor;
+  %\delta/d = 7 is the line being drawn [red, vertical]
+  % x = log_{10}(7)
+  p0 = (0.845u,0)--(0.845u,h); % \delta/d
+  %L/\delta = 100 is the line drawn
+  % y - x = 2 or y = 2 + x
+  p1 = ((2u,2u)--(2u-w,2u + (w/3))) cutafter ((2u-w,0)--(2u-w,h));
+  % Kn = \lambda/L = 0.1 is the line being drawn [dashed]
+  % \lambda = c * \delta^{-3} where c=1/(sqrt(2)*pi*d*d)
+  % log(c) - 3x + y = -1
+  % y = 3x - (1 + log(c))
+  % or 1 + log(c) + y = 3x
+  %
+  % the intersection point of p0 and p1 would be
+  % (log(7), 2 + log(7))
+  % Then (1 + log(c) + y)/3 = x = log(7) = (1 + log(c) + 2 + log(7))/3
+  % or (2/3)log(7) - 1 = log(c) ~ -0.436601
+  % So 1 + log(c) = (2/3)log(7) ~ 0.5634
+  % y = 3x - 0.5634
+  z0 = p1 intersectionpoint p0;
+  p2 = ((z0 + (3u,-3u))--(z0 + (-w,w))) cutafter ((2u-w,0)--(2u-w,h)--(2u,h))
+    cutbefore ((2u-w,0)--(2u,0)--(2u,h));
+  
+  p3 = z0--(point length(p2) of p2)--(point length(p0) of p0)--cycle;
+  fill p3 withcolor 0.75white;
+  for i=3 upto 9:
+    draw axes0 shifted (0,i*u) cutbefore p0 cutafter p2 withcolor 0.5white;
+  endfor;
+  for i=-8 upto -2:
+    draw axes1 shifted (i*u,0) cutbefore p2 withcolor 0.5white;
+  endfor;
+  
+  draw p0 withcolor red;
+  draw p1 dashed evenly;
+  draw p2;
+  drawarrow axes0;
+  drawarrow axes1;
+  label.rt(btex $L/d$ etex, (2u,h));
+  label.bot(btex $\delta/d$ etex, (2u-w,0));
+  greyish = 0.33333white;
+  draw axes1 shifted (-2u,0) withcolor greyish;
+  label.bot(btex $10$ etex, (0,0));
+  draw axes1 shifted (-6u,0) withcolor greyish;
+  label.bot(btex $10^{2}$ etex, (-4u,0));
+  draw axes1 shifted (-10u,0) withcolor greyish;
+  label.bot(btex $10^{4}$ etex, (-8u,0));
+  draw axes0 shifted (0,u) withcolor greyish;
+  label.rt(btex $10^{2}$ etex, (2u,u));
+  draw axes0 shifted (0,3u) withcolor greyish;
+  label.rt(btex $10^{4}$ etex, (2u,3u));
+  draw axes0 shifted (0,5u) withcolor greyish;
+  label.rt(btex $10^{6}$ etex, (2u, 5u));
+  draw axes0 shifted (0,7u) withcolor greyish;
+  label.rt(btex $10^{8}$ etex, (2u, 7u));
+  draw axes0 shifted (0,9u) withcolor greyish;
+  label.rt(btex $10^{10}$ etex, (2u, 9u));
+
+  label.top(btex $\delta/d\approx7$ etex, point length(p0) of p0);
+  label.lft(btex $L/\delta\approx1$ etex, point length(p1) of p1);
+  label.top(btex $\Lambda/L\approx1$ etex, point length(p2) of p2);
+endfig;
+
 % lecture 4
 beginfig(2)
-  numeric w,i,dx;
+  numeric w,i,h,dx;
   path p[];
   w = 4u;
   dx = h/3;

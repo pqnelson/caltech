@@ -301,6 +301,17 @@ really does reproduce $u(y,t)\to Uy/h$ the steady-state
 solution. Isn't that awesome?! (Yes, yes it is.)
 \end{remark}
 
+\begin{xca}\label{xca:fall2026:lec9:flipped-couette-flow-finite-depth}
+Consider the startup problem for the Couette flow in a finite-depth
+channel of width $h$
+\begin{equation}
+\partial_{t}u=\nu\partial_{y}^{2}u
+\end{equation}
+with initial conditions $u(y,0)=0$ for $0<y<h$, and boundary
+conditions $u(0,t)=U$ and $u(h,t)=0$ for $t>0$. Find its solution. How
+does it compare to the boundary conditions ``flipped'' $u(h,t)=U$ and $u(0,t)=0$?
+\end{xca}
+
 \begin{xca}
 Consider the steady-state Couette flow in a finite-depth channel of
 width $h$ with a nonzero pressure gradient:
@@ -344,18 +355,25 @@ Consider the infinite-depth unsteady Couette flow:
 \begin{equation}
 \partial_{t}u=\nu\partial_{y}^{2}u
 \end{equation}
-with initial condition $u(y,0)=0$ for $0<y<\infty$, and boundary
-conditions $u(0,t)=0$ and $\lim_{y\to\infty}u(y,t)=U$. Show that the
+with initial condition $u(y,0)=0$ for $0<y<\infty$.
+\begin{enumerate}
+\item Show when the boundary conditions are $u(0,t)=0$ and $\lim_{y\to\infty}u(y,t)=U$ that the
+general solution looks like
+\begin{equation}
+u(y,t) = U\erf\left(\frac{y}{\sqrt{4\pi t}}\right).
+\end{equation}
+\item Show when the boundary conditions are $u(0,t)=U$ and $\lim_{y\to\infty}u(y,t)=0$ that the
 general solution looks like
 \begin{equation}
 u(y,t) = U\erfc\left(\frac{y}{\sqrt{4\pi t}}\right).
 \end{equation}
+\end{enumerate}
 \end{xca}
 
 \begin{puzzle}
 The $h\to\infty$ limit to the solution Eq~\eqref{eq:fall2026:me101a:lec09:soln-to-startup-problem-couette-flow} of the startup problem for
 Couette flow does not ``obviously'' reduce to the solution for the
-infinite-depth Couette flow $U\erfc(y/\sqrt{4\pi t})$ (unlike the
+infinite-depth Couette flow $U\erf(y/\sqrt{4\pi t})$ (unlike the
 steady-state limit of the startup problem, or the pressure gradient
 vanishing $\partial_{x}p\to0$ limit for either the steady or unsteady
 solutions of the Couette flows). What's going on here?
@@ -381,6 +399,15 @@ where $\varepsilon^{2}\ll0$, and
 \end{equation}
 \end{subequations}
 There's some relationship here I have yet to satisfactorily work out.
+\end{puzzle}
+
+\begin{puzzle}
+Does the solution $u(y,t)$ to the finite-depth Couette flow (\S\ref{xca:fall2026:lec9:flipped-couette-flow-finite-depth})
+compare to the infinite-depth Couette flow with initial conditions
+$u_{\text{inf}}(y,0)=0$ and boundary conditions
+$u_{\text{inf}}(0,t)=U$ and $\lim_{y\to\infty}u_{\text{inf}}(y,t)=0$?
+Can we recover $u_{\text{inf}}$ as an asymptotic approximation to $u$
+as $h\to\infty$?
 \end{puzzle}
 \end{framed}
 
