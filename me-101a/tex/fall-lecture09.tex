@@ -212,6 +212,178 @@ flows. We could spend the rest of our lives studying it, and still
 have more to discover.
 \end{remark}
 
+\begin{framed}
+\noindent{\large\bfseries\sffamily Aside: Solutions of Couette Flows}
+
+\begin{node}
+These are some calculations of explicit solutions to the Couette flow
+in various circumstances. They are not part of the lecture notes, but
+make most thematic sense placing them here.
+\end{node}
+
+\begin{proposition}[Startup problem]
+The Couette problem with unsteady incompressible flow and no pressure
+gradient has the momentum equations
+\begin{equation}
+\partial_{t}u = \nu\partial_{y}^{2}u
+\end{equation}
+where the continuity equation $\partial_{i}u_{i}=0$ implies $u=u(y,t)$.
+The initial condition is that the fluid is initially at rest at time
+$t=0$, i.e., $u(y,0)=0$ for all $0<y<h$. The boundary conditions are
+$u(0,t)=0$ and $u(h,t)=U$ for $t>0$ where $U$ is a constant. Then
+\begin{equation}\label{eq:fall2026:me101a:lec09:soln-to-startup-problem-couette-flow}
+u(y,t) =
+U\frac{y}{h}-\frac{2U}{\pi}\sum^{\infty}_{n=1}\frac{1}{n}\E^{-n^{2}\pi^{2}\nu t/h^{2}}(-1)^{n}\sin(n\pi y/h).
+\end{equation}
+\end{proposition}
+\begin{proof}
+We write $u(y,t)=U(y/h) + w(y,t)$ the sum of the steady state solution $Uy/h$
+and the inhomogeneous solution $w(y,t)$ which satisfies the partial
+differential equation with initial conditions $w(y,0)=-Uy/h$ [so that
+$u(y,0)=0$] and boundary conditions  $w(0,t)=0$, $w(h,t)=0$.
+Then we can perform a separation of variables, writing
+\begin{equation}
+w(y,t) = Y(y)T(t),
+\end{equation}
+then rearranging terms
+\begin{equation}
+\frac{T'(t)}{\nu T(t)}=\frac{Y''(y)}{Y(y)}=-\alpha^{2}
+\end{equation}
+where $\alpha$ is some constant to be determined. Why is it a
+constant? Well, taking the time derivative of both sides kills the
+$Y''/Y$ term, which means $T'/(\nu T)$ must be constant. Similarly
+taking the $y$ derivative of both sides kills the $T'/\nu T$ term
+which means $Y''/Y$ is constant. Why is it negative? Well $\nu>0$ so
+$T'=+\alpha^{2}\nu T$ has an unphysical solution which explodes as $t$
+increases. Hence $-\alpha^{2}\leq0$ must be the constant.
+
+Then we see that $Y(y)=A\sin(\alpha y)+B\cos(\alpha y)$. Since $Y(0)=0$,
+we must have $Y(y)=A\sin(\alpha y)$. Since $Y(h)=0$ we must have
+$A\sin(\alpha h)=0$ so either $A=0$ (which is the trivial solution) or
+$\alpha h=n\pi$ for some $n\in\NN$. Then
+\begin{equation}
+\alpha = \frac{n\pi}{h}.
+\end{equation}
+Then we return to the $T$ differential equation, which now takes the
+form
+\begin{equation}
+T' = -\nu\frac{n^{2}\pi^{2}}{h^{2}}T.
+\end{equation}
+This has the general solution
+\begin{equation}
+T(t)=T_{0}\exp\left(-\nu\frac{n^{2}\pi^{2}}{h^{2}}t\right).
+\end{equation}
+Combining everything together, this means that the general solution
+looks like
+\begin{equation}
+w(y,t)=Y(y)T(t)=\sum^{\infty}_{n=1}C_{n}\exp\left(-\nu\frac{n^{2}\pi^{2}}{h^{2}}t\right)A\sin(n\pi y/h)
+\end{equation}
+where we determine the coefficients $AC_{n}$ by the initial condition
+$w(y,0)=-Uy/h$. This is done by recognizing we have a sinuisoidal
+Fourier series, which means we have the coefficients satisfying
+\begin{subequations}
+  \begin{align}
+AC_{n} &= \frac{2}{h}\int^{h}_{0}\left(-\frac{Uy}{h}\right)\sin(n\pi y/h)\,\D y\\
+&=\frac{2 U}{n\pi}(-1)^{n}.
+  \end{align}
+\end{subequations}
+Plugging this back into the expression for $w(y,t)$ gives us
+\begin{equation}
+w(y,t) = \frac{2U}{\pi}\sum^{\infty}_{n=1}\frac{(-1)^{n}}{n}\exp\left(-\nu\frac{n^{2}\pi^{2}}{h^{2}}t\right)\sin(n\pi y/h).
+\end{equation}
+Then plugging this into $u(y,t) = (Uy/h)+w(y,t)$, we obtain the
+desired solution.
+\end{proof}
+
+\begin{remark}
+Observe, the $t\to\infty$ limit of the solution of the startup problem
+really does reproduce $u(y,t)\to Uy/h$ the steady-state
+solution. Isn't that awesome?! (Yes, yes it is.)
+\end{remark}
+
+\begin{xca}
+Consider the steady-state Couette flow in a finite-depth channel of
+width $h$ with a nonzero pressure gradient:
+\begin{equation}
+\partial_{x}p = \mu\partial_{y}^{2}u.
+\end{equation}
+Suppose it has the boundary conditions $u(0)=0$ and $u(h)=U$. Prove
+the solution is
+\begin{equation}
+u(y) = \frac{-\partial_{x}p}{2\mu}y(h-y)+U\frac{y}{h}.
+\end{equation}
+\end{xca}
+
+\begin{xca}
+Consider the Couette flow in a finite-depth channel of width $h$.
+Show that the startup problem with a nonzero pressure gradient contribution
+\begin{equation}
+\partial_{t}u = \nu\partial_{y}^{2}u-\frac{1}{\rho}\partial_{x}p.
+\end{equation}
+The initial condition is that the fluid is initially at rest at time
+$t=0$, i.e., $u(y,0)=0$ for all $0<y<h$. The boundary conditions are
+$u(0,t)=0$ and $u(h,t)=U$ for $t>0$ where $U$ is a constant. Prove the
+general solution is
+\begin{equation}
+u(y,t) = U\frac{y}{h}+2\sum^{\infty}_{n=1}\frac{C_{n}}{\nu\pi^{3}n^{3}}%\left((-1+(-1)^{n})(-1+\E^{\nu\pi^{2}n^{2}t/h^{2}})h^{2}\rho^{-1}\partial_{x}p+(-1)^{n}\nu\pi^{2}Un^{2}\right)
+\sin(\pi ny/h)\E^{-\nu\pi^{2}n^{2}t/h^{2}}
+\end{equation}
+where
+\begin{equation}
+C_{n}=(-1+(-1)^{n})(-1+\E^{\nu\pi^{2}n^{2}t/h^{2}})h^{2}\rho^{-1}\partial_{x}p+(-1)^{n}\nu\pi^{2}Un^{2}
+\end{equation}
+\end{xca}
+
+\begin{remark}
+Observe, the $(\partial_{x}p)\to0$ limit to the previous two exercises
+recovers the corresponding steady-state and unsteady-state solutions.
+\end{remark}
+
+\begin{xca}
+Consider the infinite-depth unsteady Couette flow:
+\begin{equation}
+\partial_{t}u=\nu\partial_{y}^{2}u
+\end{equation}
+with initial condition $u(y,0)=0$ for $0<y<\infty$, and boundary
+conditions $u(0,t)=0$ and $\lim_{y\to\infty}u(y,t)=U$. Show that the
+general solution looks like
+\begin{equation}
+u(y,t) = U\erfc\left(\frac{y}{\sqrt{4\pi t}}\right).
+\end{equation}
+\end{xca}
+
+\begin{puzzle}
+The $h\to\infty$ limit to the solution Eq~\eqref{eq:fall2026:me101a:lec09:soln-to-startup-problem-couette-flow} of the startup problem for
+Couette flow does not ``obviously'' reduce to the solution for the
+infinite-depth Couette flow $U\erfc(y/\sqrt{4\pi t})$ (unlike the
+steady-state limit of the startup problem, or the pressure gradient
+vanishing $\partial_{x}p\to0$ limit for either the steady or unsteady
+solutions of the Couette flows). What's going on here?
+
+There \emph{is} a highly non-obvious asymptotic relationship, using
+the arctangent integral and $2\arctanh(x)=\ln[(1+x)/(1-x)]$ for $-1<x<1$.
+This is because
+\begin{equation}
+\erf(\varepsilon)=\frac{2}{\sqrt{\pi}}\int_{\varepsilon}^{\infty}\E^{-t^{2}}\,\D t
+=1-\frac{2}{\sqrt{\pi}}\int_{0}^{\varepsilon}\E^{-t^{2}}\,\D t
+\end{equation}
+where $\varepsilon^{2}\ll0$, and
+\begin{subequations}
+  \begin{align}
+    \int_{0}^{\varepsilon}\E^{-t^{2}}\D t
+    &\approx\int^{\varepsilon}_{0}\frac{1}{1-t^{2}}\D t\\
+    &=\arctanh(\varepsilon)-\arctanh(0)\\
+    &=\arctanh(\varepsilon).
+  \end{align}
+  and
+\begin{equation}
+\sum^{\infty}_{n=1}\sin(n\pi y/h)=\frac{\I}{2}\log\left(\frac{1-\E^{\I\pi y/h}}{1-\E^{-\I\pi y/h}}\right).
+\end{equation}
+\end{subequations}
+There's some relationship here I have yet to satisfactorily work out.
+\end{puzzle}
+\end{framed}
+
 \subsection{Constitutive relationship}
 
 \begin{puzzle}
